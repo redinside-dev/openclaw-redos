@@ -155,3 +155,17 @@ dashboard/*.jsonl
 # dashboard/*.js - Dashboard code
 # agents/*.js - Agent code
 # gateway/*.js - Gateway code (no secrets)
+
+# OpenClaw runtime data
+data/
+*.jsonl
+
+# Node modules
+node_modules/
+
+# Environment
+.env
+
+# Logs
+logs/
+*.log
