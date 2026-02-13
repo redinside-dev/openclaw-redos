@@ -1,6 +1,6 @@
 {
   "name": "openclaw-enhanced",
-  "version": "3.5.0",
+  "version": "3.6.0",
   "type": "module",
   "description": "Multi-agent AI orchestration system with intelligent routing, self-healing resilience, and Telegram integration",
   "scripts": {

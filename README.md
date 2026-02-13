@@ -4,7 +4,7 @@ Multi-agent AI orchestration system with intelligent routing, self-healing resil
 
 | | |
 |---|---|
-| **Version** | 3.5.0 |
+| **Version** | 3.6.0 |
 | **Runtime** | Node.js 22+ (ESM) |
 | **Host** | Mac Mini (macOS, ARM64) |
 | **Models** | Ollama (local) + Anthropic (cloud fallback) |
