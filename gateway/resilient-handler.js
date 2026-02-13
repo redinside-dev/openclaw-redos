@@ -144,13 +144,15 @@ export class ResilientHandler {
   }
 
   /**
-   * Call model (Ollama or Anthropic)
+   * Call model (Ollama, Anthropic, or Perplexity)
    */
   async callOpenClaw(agentId, message, model) {
     if (model.provider === 'ollama') {
       return await this.callOllama(model.model, message);
     } else if (model.provider === 'anthropic') {
       return await this.callAnthropic(model.model, message);
+    } else if (model.provider === 'perplexity') {
+      return await this.callPerplexity(model.model, message);
     } else {
       throw new Error(`Unsupported provider: ${model.provider}`);
     }
@@ -229,6 +231,49 @@ export class ResilientHandler {
       }
 
       return data.content[0].text;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * Call Perplexity API (internet-enabled)
+   */
+  async callPerplexity(modelName, message) {
+    const apiKey = process.env.PERPLEXITY_API_KEY;
+
+    if (!apiKey) {
+      throw new Error('PERPLEXITY_API_KEY not set - cannot use internet-enabled models');
+    }
+
+    try {
+      const response = await fetch('https://api.perplexity.ai/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({
+          model: modelName,
+          messages: [{ role: 'user', content: message }],
+          max_tokens: 4096,
+          temperature: 0.7
+        }),
+        timeout: 60000 // 1 minute timeout
+      });
+
+      if (!response.ok) {
+        const error = await response.text();
+        throw new Error(`Perplexity error: ${error}`);
+      }
+
+      const data = await response.json();
+
+      if (!data.choices || !data.choices[0] || !data.choices[0].message || !data.choices[0].message.content) {
+        throw new Error('Invalid response from Perplexity');
+      }
+
+      return data.choices[0].message.content;
     } catch (error) {
       throw error;
     }
