@@ -1,16 +1,14 @@
 {
   "name": "openclaw-enhanced",
-  "version": "2.0.0",
+  "version": "3.5.0",
   "type": "module",
-  "description": "Enhanced OpenClaw with smart routing, CEO agents, Kanban, and autonomous learning",
+  "description": "Multi-agent AI orchestration system with intelligent routing, self-healing resilience, and Telegram integration",
   "scripts": {
     "start": "node gateway/server.js",
     "telegram": "node telegram/telegram-bridge.js",
-    "demo": "node demo-advanced-features.js",
     "cost-monitor": "node cost-monitor/monitor.js",
     "backup": "bash backup/gdrive-backup.sh",
-    "restore": "bash backup/gdrive-restore.sh",
-    "test": "npm run demo"
+    "restore": "bash backup/gdrive-restore.sh"
   },
   "keywords": [
     "ai",

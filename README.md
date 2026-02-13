@@ -1,495 +1,300 @@
-# 🚀 OpenClaw Enhanced - Production AI Company
+# OpenClaw RedOS
 
-**Version:** 2.0.0
-**Status:** ✅ Fully Operational
-**Cost Savings:** 60-95% vs. using Claude for everything
+Multi-agent AI orchestration system with intelligent routing, self-healing resilience, and Telegram integration.
 
----
-
-## 🎯 What You Have
-
-A **complete, production-ready AI company** with autonomous agents, smart cost routing, task management, and self-learning capabilities.
-
-### Day 1 Features (✅ Complete)
-- ✅ **Smart Cost Routing** - Automatically selects optimal model based on task
-- ✅ **Real-Time Cost Tracking** - Monitor spending as it happens
-- ✅ **REST API Gateway** - Production-ready HTTP endpoints
-- ✅ **Real-Time Dashboard** - Beautiful web UI with live updates
-- ✅ **Google Drive Backups** - Automatic cloud backups
-
-### Day 2 Features (✅ Complete)
-- ✅ **CEO Sub-Agent System** - Spawn secretary agents that monitor and push work
-- ✅ **Kanban Board** - Full project management with cards, columns, comments
-- ✅ **Autonomous Learning** - Agents learn from experience and self-improve
+| | |
+|---|---|
+| **Version** | 3.5.0 |
+| **Runtime** | Node.js 22+ (ESM) |
+| **Models** | Ollama (local) + Anthropic (cloud fallback) |
+| **Interface** | Telegram bots, REST API, WebSocket dashboard |
 
 ---
 
-## 🏃 Quick Start (3 Commands)
+## Architecture
+
+```
+Telegram (7 bots)
+       |
+       v
++--------------------------+
+|    Telegram Bridge       |  telegram/telegram-bridge.js
++-----------+--------------+
+            |
+            v
++--------------------------+
+|   Resilient Gateway      |  gateway/server.js  (port 19000)
+|   + WebSocket + CORS     |  gateway/resilient-handler.js
++-----------+--------------+
+            |
+     +------+------+
+     |             |
+     v             v
++----------+  +----------+
+| HATAKE   |  | Ed/RED   |  agents/hatake-parser.js
+| Parser   |  | Orchestr.|  agents/ed-red-orchestrator.js
++----+-----+  +----------+
+     |
+     v
++------------------+
+| Smart Router v2  |  smart-router/analyzer.js
+| Task Analysis    |  smart-router/selector-v2.js
+| Model Selection  |
++--------+---------+
+         |
+    +----+----+----+----+
+    |    |    |    |    |
+    v    v    v    v    v
+  llama qwen  glm  ...  claude
+  3.1   2.5  4.7       (fallback)
+  :8b  coder flash
+```
+
+### Agents
+
+| Agent | Bot | Role |
+|-------|-----|------|
+| `main` | @RedinsideBot | General-purpose assistant |
+| `allrounder` | @ZenRedBot | Balanced multi-task agent |
+| `eng` | @ENGRED_BOT | Code generation & engineering |
+| `research` | @RESEARCHRED_BOT | Information gathering |
+| `finance` | @FINANCERED_BOT | Financial analysis |
+| `ops` | @OPSRED_BOT | Quality assurance & validation |
+| `infosec` | @INFOSECRED_BOT | Security & compliance |
+
+### Model Selection
+
+| Condition | Model | Latency | Cost |
+|-----------|-------|---------|------|
+| Complexity <= 5 | `llama3.1:8b` | 2-3s | $0 |
+| Complexity >= 6 | `glm-4.7-flash` | 5-6min | $0 |
+| Code tasks | `qwen2.5-coder:7b` | 3-4min | $0 |
+| Urgent + budget | `claude-sonnet-4.5` | 1-2s | ~$0.003 |
+
+---
+
+## Quick Start
+
+### Prerequisites
+
+- **Node.js** 22+
+- **Ollama** running at `http://localhost:11434`
+- Ollama models pulled: `llama3.1:8b`, `qwen2.5-coder:7b`, `glm-4.7-flash`
+
+### Setup
 
 ```bash
-# 1. Navigate to directory
-cd ~/.openclaw
+# 1. Clone
+git clone https://github.com/redinside-dev/openclaw-redos.git
+cd openclaw-redos
 
-# 2. Start the gateway
+# 2. Install dependencies
+npm install
+
+# 3. Configure secrets
+cp .env.example .env
+# Edit .env with your Telegram bot tokens, API keys, etc.
+
+# 4. Start gateway
 npm start
 
-# 3. Open dashboard
-open http://localhost:19000/
+# 5. Start Telegram bridge (separate terminal)
+npm run telegram
 ```
 
-**That's it!** Your AI company is running! 🎉
+Dashboard: [http://localhost:19000](http://localhost:19000)
 
 ---
 
-## 📊 System Architecture
+## API Reference
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│              Enhanced Gateway (Port 19000)                   │
-│  REST API • WebSocket • Real-time Dashboard • Cost Monitor  │
-└────────────┬──────────────┬────────────────┬───────────────┘
-             │              │                │
-    ┌────────▼────────┐    │                │
-    │  Smart Router   │    │                │
-    │  ─────────────  │    │                │
-    │  • Analyzer     │    │                │
-    │  • Selector     │    │                │
-    │  • Cost Track   │    │                │
-    └────────┬────────┘    │                │
-             │              │                │
-    ┌────────▼────────┐    │                │
-    │ Model Selection │    │                │
-    │  ─────────────  │    │                │
-    │  ≤5: llama-8b   │    │                │
-    │  ≥6: glm-flash  │    │                │
-    │  code: qwen     │    │                │
-    │  urgent: claude │    │                │
-    └─────────────────┘    │                │
-                           │                │
-              ┌────────────▼─────┐  ┌───────▼────────┐
-              │   CEO Agents     │  │  Kanban Board  │
-              │  ──────────────  │  │  ────────────  │
-              │  • Tasks         │  │  • Cards       │
-              │  • Secretaries   │  │  • Columns     │
-              │  • Monitoring    │  │  • Comments    │
-              └──────────────────┘  └────────────────┘
-                           │
-                  ┌────────▼─────────┐
-                  │ Autonomous Learn │
-                  │  ──────────────  │
-                  │  • Experiences   │
-                  │  • Reflection    │
-                  │  • Evaluation    │
-                  │  • Knowledge     │
-                  └──────────────────┘
-```
-
----
-
-## 🎮 Usage Examples
-
-### Basic Chat (Smart Routing)
+### Chat
 
 ```bash
-# Simple question - Uses llama3.1:8b (fast, 2-3s)
 curl -X POST http://localhost:19000/api/chat \
   -H 'Content-Type: application/json' \
   -d '{"agentId":"main","message":"What is 2+2?"}'
-
-# Response:
-# {
-#   "content": "The answer is 4.",
-#   "model": {"provider": "ollama", "model": "llama3.1:8b"},
-#   "latency": 2415,
-#   "cost": 0
-# }
 ```
+
+### Core
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/api/chat` | Send message to agent |
+| `GET` | `/health` | Health check |
+| `GET` | `/api/status` | System status |
+| `GET` | `/api/cost` | Cost summary |
+| `GET` | `/api/cost/by-model` | Cost breakdown by model |
+| `GET` | `/api/cost/by-agent` | Cost breakdown by agent |
 
 ### Kanban Board
 
-```bash
-# Create a card
-curl -X POST http://localhost:19000/api/kanban/cards \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "title": "Implement user authentication",
-    "description": "Add JWT-based auth to API",
-    "config": {
-      "priority": "high",
-      "assignee": "eng",
-      "tags": ["security", "backend"]
-    }
-  }'
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/api/kanban/board` | Full board |
+| `GET` | `/api/kanban/stats` | Board statistics |
+| `POST` | `/api/kanban/cards` | Create card |
+| `GET` | `/api/kanban/cards/:id` | Get card |
+| `POST` | `/api/kanban/cards/:id/move` | Move card |
+| `PATCH` | `/api/kanban/cards/:id` | Update card |
+| `POST` | `/api/kanban/cards/:id/comments` | Add comment |
+| `GET` | `/api/kanban/search?q=` | Search cards |
 
-# Move card to "In Progress"
-curl -X POST http://localhost:19000/api/kanban/cards/CARD_ID/move \
-  -H 'Content-Type: application/json' \
-  -d '{"column":"inProgress"}'
+### CEO Agent
 
-# Get full board
-curl http://localhost:19000/api/kanban/board
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/api/ceo/dashboard` | CEO dashboard |
+| `POST` | `/api/ceo/tasks` | Create task |
+| `GET` | `/api/ceo/tasks` | List tasks |
+| `POST` | `/api/ceo/tasks/:id/assign` | Assign task |
+| `POST` | `/api/ceo/secretaries` | Spawn secretary sub-agent |
+| `GET` | `/api/ceo/secretaries` | List active secretaries |
 
-# Get statistics
-curl http://localhost:19000/api/kanban/stats
+### Learning
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/api/learning/experience` | Record experience |
+| `GET` | `/api/learning/:agent/summary` | Agent learning summary |
+| `GET` | `/api/learning/summaries` | All summaries |
+| `POST` | `/api/learning/:agent/cycle` | Trigger learning cycle |
+| `GET` | `/api/learning/knowledge/:topic` | Query knowledge base |
+
+---
+
+## Project Structure
+
+```
+openclaw-redos/
+|
+|-- gateway/
+|   |-- server.js                # Express + WebSocket server
+|   |-- resilient-handler.js     # Request handler with retry/fallback
+|   +-- track-router.js          # HATAKE-integrated routing
+|
+|-- agents/
+|   |-- hatake-parser.js         # Intent detection & prompt engineering
+|   |-- ed-red-orchestrator.js   # Multi-agent task orchestration
+|   +-- ceo-agent.js             # CEO + secretary sub-agents
+|
+|-- smart-router/
+|   |-- analyzer.js              # Task complexity analysis
+|   |-- selector.js              # Model selection engine
+|   +-- selector-v2.js           # V2 with cost optimization
+|
+|-- telegram/
+|   +-- telegram-bridge.js       # 7-bot Telegram integration
+|
+|-- resilience/
+|   |-- error-handler.js         # Error recovery strategies
+|   |-- devops-agent.js          # System health monitoring
+|   +-- ticket-system.js         # Internal issue tracking
+|
+|-- cost-monitor/
+|   +-- monitor.js               # Real-time cost tracking
+|
+|-- kanban/
+|   +-- board.js                 # Kanban board logic
+|
+|-- learning/
+|   +-- autonomous-learner.js    # Self-improving learning system
+|
+|-- scheduler/
+|   +-- task-scheduler.js        # Background task processing
+|
+|-- dashboard/
+|   +-- mission-control.js       # Mission Control web UI
+|
+|-- backup/
+|   |-- gdrive-backup.sh         # Google Drive backup
+|   +-- gdrive-restore.sh        # Google Drive restore
+|
+|-- workspace*/                  # Per-agent workspace directories
+|-- .env.example                 # Configuration template
++-- package.json
 ```
 
-### CEO Agent (Spawn Secretary)
+---
 
-```bash
-# Create a task
-curl -X POST http://localhost:19000/api/ceo/tasks \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "title": "Deploy v2.0 to production",
-    "description": "Complete deployment checklist",
-    "config": {"priority": "urgent"}
-  }'
+## Scripts
 
-# Spawn secretary to monitor the task
-curl -X POST http://localhost:19000/api/ceo/secretaries \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "task": {
-      "title": "Deploy v2.0",
-      "description": "Monitor deployment progress",
-      "assignee": "eng"
-    },
-    "config": {
-      "role": "monitor",
-      "maxRounds": 10,
-      "checkInterval": 60000
-    }
-  }'
+| Command | Description |
+|---------|-------------|
+| `npm start` | Start gateway on port 19000 |
+| `npm run telegram` | Start Telegram bridge (7 bots) |
+| `npm run backup` | Backup to Google Drive |
+| `npm run restore` | Restore from Google Drive |
 
-# Get CEO dashboard
-curl http://localhost:19000/api/ceo/dashboard
-```
+---
+
+## Configuration
+
+All secrets are stored in `.env` (never committed). See `.env.example` for the full list:
+
+- **Telegram bot tokens** (7 bots)
+- **API keys** (ZAI, Perplexity, GitHub)
+- **Gateway auth token**
+- **Budget limits**
+
+Runtime configuration lives in `openclaw.json` (also gitignored). See `.env.example` for all required environment variables.
+
+---
+
+## Key Systems
+
+### HATAKE Parser
+Analyzes incoming messages for intent, complexity, and type. Engineers optimized prompts for each specialist agent and selects the best model.
+
+### Ed/RED Orchestrator
+Front controller that creates execution plans, delegates to specialist agents, handles retries, and assembles final responses.
+
+### Resilience Layer
+- **Error Handler** - Recovery strategies with exponential backoff
+- **DevOps Agent** - Continuous health monitoring
+- **Ticket System** - Internal issue tracking and resolution
 
 ### Autonomous Learning
+```
+Experience --> Reflect --> Evaluate --> Learn --> Adapt
+```
+Triggers automatically after every 5 interactions. Agents self-improve by analyzing patterns and updating their knowledge base.
+
+---
+
+## Troubleshooting
 
 ```bash
-# Record an experience (happens automatically via chat)
-curl -X POST http://localhost:19000/api/learning/experience \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "agentId": "eng",
-    "task": "Fix authentication bug",
-    "result": "Successfully fixed JWT validation",
-    "metadata": {
-      "success": true,
-      "latency": 1200,
-      "complexity": 6,
-      "type": "code"
-    }
-  }'
+# Check if gateway is running
+curl http://localhost:19000/health
 
-# Get learning summary
-curl http://localhost:19000/api/learning/eng/summary
-
-# Run learning cycle manually
-curl -X POST http://localhost:19000/api/learning/eng/cycle
-```
-
----
-
-## 🔥 Run the Demo
-
-See all features in action:
-
-```bash
-npm run demo
-```
-
-This will:
-1. Create Kanban cards and move them
-2. Spawn a CEO secretary agent
-3. Record experiences and trigger learning
-4. Display ASCII art boards
-5. Show statistics
-
----
-
-## 📡 API Endpoints
-
-### Core Endpoints
-```
-POST   /api/chat                    - Send message to agent
-GET    /api/cost                    - Get cost data
-GET    /api/cost/by-model           - Costs by model
-GET    /api/cost/by-agent           - Costs by agent
-GET    /health                      - Health check
-GET    /api/status                  - System status
-```
-
-### Kanban Endpoints
-```
-GET    /api/kanban/board            - Get full board
-GET    /api/kanban/stats            - Board statistics
-POST   /api/kanban/cards            - Create card
-GET    /api/kanban/cards/:id        - Get card
-POST   /api/kanban/cards/:id/move   - Move card
-PATCH  /api/kanban/cards/:id        - Update card
-POST   /api/kanban/cards/:id/comments - Add comment
-GET    /api/kanban/search?q=        - Search cards
-GET    /api/kanban/blocked          - Blocked cards
-GET    /api/kanban/overdue          - Overdue cards
-```
-
-### CEO Agent Endpoints
-```
-GET    /api/ceo/dashboard           - CEO dashboard
-POST   /api/ceo/tasks               - Create task
-GET    /api/ceo/tasks               - Get all tasks
-POST   /api/ceo/tasks/:id/assign    - Assign task
-POST   /api/ceo/secretaries         - Spawn secretary
-GET    /api/ceo/secretaries         - Active secretaries
-```
-
-### Learning Endpoints
-```
-POST   /api/learning/experience            - Record experience
-GET    /api/learning/:agent/summary        - Learning summary
-GET    /api/learning/summaries             - All summaries
-POST   /api/learning/:agent/cycle          - Run learning cycle
-GET    /api/learning/knowledge/:topic      - Query knowledge
-```
-
----
-
-## 💰 Cost Savings
-
-### Real Example (Today's Usage)
-
-```bash
-curl http://localhost:19000/api/cost
-```
-
-```json
-{
-  "today": {
-    "total": 0.0000,
-    "requests": 3,
-    "byModel": {
-      "ollama/llama3.1:8b": {
-        "cost": 0,
-        "requests": 2,
-        "tokens": 30
-      },
-      "ollama/glm-4.7-flash:latest": {
-        "cost": 0,
-        "requests": 1,
-        "tokens": 292
-      }
-    }
-  },
-  "remaining": 5.00,
-  "percentage": 0
-}
-```
-
-**Savings:**
-- 100 requests/day with Claude: **$9/month**
-- 100 requests/day with smart routing: **$0.45/month**
-- **Savings: 95%** 🎉
-
----
-
-## 🎯 Model Selection Logic
-
-```javascript
-// Complexity ≤5: Fast local model
-llama3.1:8b (2-3 seconds)
-
-// Complexity ≥6: Powerful local model
-glm-4.7-flash:latest (5-6 minutes)
-
-// Type = code: Specialized model
-qwen2.5-coder:7b (3-4 minutes)
-
-// Priority = urgent + budget: Best model
-claude-sonnet-4.5 (1-2 seconds, costs $)
-```
-
----
-
-## 🧠 Autonomous Learning Cycle
-
-```
-Experience → Reflect → Evaluate → Learn → Adapt
-    ↓           ↓          ↓         ↓       ↓
-  Record     Analyze    AI Score  Generate Update
-  action     patterns   (0-100)   tactics  KB
-```
-
-**Automatic:** Triggers after every 5 experiences
-**Manual:** `POST /api/learning/:agent/cycle`
-
----
-
-## 📂 File Structure
-
-```
-~/.openclaw/
-├── package.json                 # Node.js config
-├── README.md                    # This file
-├── DAY2_FEATURES.md            # Advanced features guide
-├── demo-advanced-features.js   # Demo script
-│
-├── gateway/
-│   ├── server.js               # API server
-│   └── enhanced-handler.js     # Request handler
-│
-├── smart-router/
-│   ├── analyzer.js             # Task analysis
-│   └── selector.js             # Model selection
-│
-├── cost-monitor/
-│   └── monitor.js              # Cost tracking
-│
-├── agents/
-│   └── ceo-agent.js            # CEO + secretaries
-│
-├── kanban/
-│   ├── board.js                # Kanban logic
-│   └── board-state.json        # Persistent state
-│
-├── learning/
-│   ├── autonomous-learner.js   # Learning system
-│   └── learning-state.json     # Persistent state
-│
-├── dashboard/
-│   └── index.html              # Web UI
-│
-└── backup/
-    ├── gdrive-backup.sh        # Backup script
-    └── gdrive-restore.sh       # Restore script
-```
-
----
-
-## 🔧 Available Scripts
-
-```bash
-npm start          # Start gateway
-npm run demo       # Run advanced features demo
-npm run backup     # Backup to Google Drive
-npm run restore    # Restore from Google Drive
-npm test           # Alias for demo
-```
-
----
-
-## 📈 Performance Metrics
-
-| Feature | Response Time | Cost |
-|---------|--------------|------|
-| Simple chat (llama-8b) | 2-3s | $0 |
-| Complex task (glm-flash) | 5-6min | $0 |
-| Code task (qwen-coder) | 3-4min | $0 |
-| Urgent (claude) | 1-2s | $0.003 |
-| Kanban operations | <1ms | $0 |
-| Learning reflection | 5-15s | $0 |
-
----
-
-## 🎓 Learning from Experience
-
-The system automatically learns and improves:
-
-1. **Records every interaction** with success/failure
-2. **Reflects after 5 experiences** to find patterns
-3. **AI oracle evaluates** performance (0-100 score)
-4. **Generates adaptations** for weaknesses
-5. **Updates knowledge base** with learnings
-
-**View learning:**
-```bash
-curl http://localhost:19000/api/learning/eng/summary
-```
-
----
-
-## 🚨 Troubleshooting
-
-### Gateway won't start
-```bash
-# Check port
+# Check port conflicts
 lsof -i :19000
 
-# Kill if needed
-pkill -f "node gateway/server.js"
+# Restart gateway
+pkill -f "node gateway/server.js" && npm start
 
-# Restart
-npm start
-```
+# Check Ollama
+curl http://localhost:11434/api/tags
 
-### Ollama not responding
-```bash
-# Check Ollama is running
-ps aux | grep ollama
-
-# Test directly
-echo "Hi" | ollama run llama3.1:8b
-```
-
-### Check logs
-```bash
+# View logs
 tail -f /tmp/openclaw-gateway.log
 ```
 
 ---
 
-## 🎯 What's Next (Day 3+)
+## Documentation
 
-- [ ] Prometheus + Grafana monitoring
-- [ ] Team chat / Slack integration
-- [ ] Context caching (80% hit rate)
-- [ ] Web UI for Kanban board
-- [ ] Analytics dashboard
-- [ ] Discord/Telegram notifications
-- [ ] Vector database for semantic search
-- [ ] Multi-agent orchestration
-
----
-
-## 📚 Documentation
-
-- `README_ENHANCED.md` - Day 1 features guide
-- `DAY2_FEATURES.md` - Advanced features guide
-- `MASTER_PLAN.md` - Full roadmap (16 weeks)
-- `QUICK_START.sh` - Automated setup
+| File | Description |
+|------|-------------|
+| `ARCHITECTURE_ANALYSIS.md` | Detailed architecture analysis & evolution plan |
+| `RESILIENT_SYSTEM.md` | Resilience layer documentation |
+| `HATAKE_PROMPT_ENGINEERING.md` | HATAKE prompt engineering details |
+| `TELEGRAM_DEMO_GUIDE.md` | Telegram demo walkthrough |
+| `SETUP_GUIDE.md` | Full setup instructions |
 
 ---
 
-## 🎉 Success!
+## License
 
-Your AI company is **fully operational** with:
-
-✅ **5 agents** (main, eng, zen, ceo, oracle)
-✅ **3 local models** (llama-8b, qwen-coder, glm-flash)
-✅ **Smart routing** (automatic model selection)
-✅ **Cost tracking** (real-time monitoring)
-✅ **CEO agents** (secretary sub-agents)
-✅ **Kanban board** (project management)
-✅ **Autonomous learning** (self-improvement)
-✅ **REST API** (production-ready)
-✅ **Dashboard** (beautiful web UI)
-✅ **Backups** (Google Drive)
-
-**Total cost today:** $0.00
-**Requests handled:** 3+
-**Uptime:** 99%+
-
----
-
-## 🚀 Start Using It!
-
-```bash
-npm start
-open http://localhost:19000/
-```
-
-**Built with ❤️ using Node.js, Express, Ollama, and Claude**
-
-**Version:** 2.0.0
-**Status:** Production Ready ✅
+Private project. All rights reserved.
