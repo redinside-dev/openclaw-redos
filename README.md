@@ -675,7 +675,7 @@ Scores all available models against task requirements. Heavily favors free local
 ### Resilience Layer
 - **Resilient Handler** — 3-retry loop with exponential backoff. Never crashes; returns a helpful fallback response if all attempts fail.
 - **Error Handler** — Classifies errors and selects recovery strategy (retry, switch model, force free model).
-- **DevOps Agent** — Continuous health monitoring, auto-creates tickets for issues.
+- **DevOps Agent** — Continuous health monitoring, auto-creates tickets for issues. Checks for CLI and RedOS upgrades every 6 hours and auto-creates tickets when updates are available.
 - **Ticket System** — Internal issue tracking with priority, assignee, and resolution workflow.
 
 ### Autonomous Learning
