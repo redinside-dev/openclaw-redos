@@ -10,6 +10,8 @@ import fetch from 'node-fetch';
 import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { autonomousIssueTracker } from '../resilience/autonomous-issue-tracker.js';
+import { userPreferences } from '../user/preferences.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -175,6 +177,9 @@ class TelegramBridge {
           // Send typing indicator
           await bot.sendChatAction(chatId, 'typing');
 
+          // Check for user model override
+          const modelOverride = userPreferences.getModelOverride(userId.toString());
+
           // Call enhanced gateway with resilient handling
           const startTime = Date.now();
           const response = await this.callGateway(config.agentId, message, {
@@ -182,7 +187,8 @@ class TelegramBridge {
             userName: userName,
             chatId: chatId.toString(),
             platform: 'telegram',
-            botId: accountId
+            botId: accountId,
+            modelOverride: modelOverride // Pass user's model preference
           });
 
           const latency = Date.now() - startTime;
@@ -206,10 +212,25 @@ class TelegramBridge {
           console.error(`❌ Attempt ${attempt} failed:`, error.message);
 
           if (attempt >= maxAttempts) {
-            // Final failure
-            console.error('❌ All attempts failed');
+            // Final failure - AUTONOMOUS ISSUE LOGGING - NEVER REFUSES!
+            console.error('❌ All attempts failed - logging issue');
+
+            const issue = await autonomousIssueTracker.logIssue({
+              title: `Telegram Bot Error: ${error.message.substring(0, 100)}`,
+              description: `Error responding to Telegram user\n\nBot: ${config.name} (@${accountId})\nUser: ${userName} (${userId})\nMessage: "${message.substring(0, 200)}${message.length > 200 ? '...' : ''}"\n\nError: ${error.message}\n\nStack: ${error.stack}`,
+              severity: 'CRITICAL',
+              clientImpacted: true,
+              revenueImpact: true,
+              reporter: 'TELEGRAM_BRIDGE',
+              tags: ['telegram-error', 'client-facing', 'bot-failure']
+            });
+
             await bot.sendMessage(chatId,
-              `⚠️ I'm experiencing technical difficulties. The system is working to resolve this automatically. Please try again in a moment.`,
+              `⚠️ I've encountered an issue and our team has been automatically notified.\n\n` +
+              `📋 Issue ID: ${issue.id}\n` +
+              `✅ Assigned to: ${issue.assigned_to.join(', ')}\n` +
+              `⏰ SLA: ${issue.auto_actions.length > 0 ? 'Auto-healing in progress' : 'Resolving within 1 hour'}\n\n` +
+              `Your request is being reviewed. Thank you for your patience!`,
               { reply_to_message_id: msg.message_id }
             );
           } else {
@@ -267,6 +288,13 @@ ${config.emoji} **${config.name} - Help**
 /kanban - Kanban board status
 /learn - Learning summary
 /models - Available models
+
+**Model Control:**
+/model - Show current model
+/use-ollama - Use fast local AI
+/use-perplexity - Use internet-enabled AI
+/use-anthropic - Use powerful Claude
+/auto - Reset to smart routing
 
 **Tips:**
 • Simple questions use fast models (2-3s)
@@ -414,6 +442,127 @@ Every 5 experiences trigger automatic reflection and learning.
       } catch (error) {
         await bot.sendMessage(chatId, `❌ Error: ${error.message}`);
       }
+    });
+
+    // /model command - Show/Set current model
+    bot.onText(/\/model\s*(.*)/, async (msg, match) => {
+      const chatId = msg.chat.id;
+      const userId = msg.from.id;
+      const modelArg = match[1].trim();
+
+      if (!modelArg) {
+        // Show current model
+        const override = userPreferences.getModelOverride(userId.toString());
+
+        if (override) {
+          await bot.sendMessage(chatId,
+            `🎯 **Current Model: ${override.provider}/${override.model}** (manual)\n\n` +
+            `You've set a manual model override.\n\n` +
+            `To reset to auto-routing: /auto\n` +
+            `To change model: /model <provider>/<model>`,
+            { parse_mode: 'Markdown' }
+          );
+        } else {
+          await bot.sendMessage(chatId,
+            `🎯 **Current Mode: Auto-Routing** ✨\n\n` +
+            `Smart routing automatically selects the best model for your query.\n\n` +
+            `**Override with:**\n` +
+            `/use-ollama - Use fast local Ollama\n` +
+            `/use-perplexity - Use internet-enabled Perplexity\n` +
+            `/use-anthropic - Use powerful Claude\n` +
+            `/model ollama/llama3.1:8b - Set specific model`,
+            { parse_mode: 'Markdown' }
+          );
+        }
+      } else {
+        // Set model override
+        const parts = modelArg.split('/');
+        if (parts.length !== 2) {
+          await bot.sendMessage(chatId,
+            `❌ Invalid format. Use: /model <provider>/<model>\n\n` +
+            `Examples:\n` +
+            `/model ollama/llama3.1:8b\n` +
+            `/model perplexity/llama-3.1-sonar-small-128k-online\n` +
+            `/model anthropic/claude-sonnet-4.5`
+          );
+          return;
+        }
+
+        await userPreferences.setModelOverride(userId.toString(), parts[0], parts[1]);
+
+        await bot.sendMessage(chatId,
+          `✅ **Model Override Set!**\n\n` +
+          `Provider: ${parts[0]}\n` +
+          `Model: ${parts[1]}\n\n` +
+          `All your messages will now use this model until you reset with /auto`,
+          { parse_mode: 'Markdown' }
+        );
+      }
+    });
+
+    // /use-ollama command
+    bot.onText(/\/use-ollama/, async (msg) => {
+      const chatId = msg.chat.id;
+      const userId = msg.from.id;
+
+      await userPreferences.setModelOverride(userId.toString(), 'ollama', 'llama3.1:8b');
+
+      await bot.sendMessage(chatId,
+        `⚡ **Switched to Ollama (llama3.1:8b)**\n\n` +
+        `Fast, free, local AI - perfect for quick questions!\n\n` +
+        `Reset to auto-routing: /auto`,
+        { parse_mode: 'Markdown' }
+      );
+    });
+
+    // /use-perplexity command
+    bot.onText(/\/use-perplexity/, async (msg) => {
+      const chatId = msg.chat.id;
+      const userId = msg.from.id;
+
+      await userPreferences.setModelOverride(userId.toString(), 'perplexity', 'llama-3.1-sonar-small-128k-online');
+
+      await bot.sendMessage(chatId,
+        `🌐 **Switched to Perplexity (Internet-Enabled)**\n\n` +
+        `Perfect for real-time info, news, and current events!\n\n` +
+        `Reset to auto-routing: /auto`,
+        { parse_mode: 'Markdown' }
+      );
+    });
+
+    // /use-anthropic command
+    bot.onText(/\/use-anthropic/, async (msg) => {
+      const chatId = msg.chat.id;
+      const userId = msg.from.id;
+
+      await userPreferences.setModelOverride(userId.toString(), 'anthropic', 'claude-sonnet-4.5');
+
+      await bot.sendMessage(chatId,
+        `🚀 **Switched to Claude Sonnet 4.5**\n\n` +
+        `Most powerful model - best for complex tasks!\n\n` +
+        `Note: This uses paid API (costs apply)\n` +
+        `Reset to auto-routing: /auto`,
+        { parse_mode: 'Markdown' }
+      );
+    });
+
+    // /auto command - Reset to auto-routing
+    bot.onText(/\/auto/, async (msg) => {
+      const chatId = msg.chat.id;
+      const userId = msg.from.id;
+
+      await userPreferences.clearModelOverride(userId.toString());
+
+      await bot.sendMessage(chatId,
+        `✨ **Auto-Routing Enabled**\n\n` +
+        `Smart routing will automatically select the best model for each query:\n` +
+        `• Simple questions → Fast Ollama\n` +
+        `• Code tasks → Specialized coder model\n` +
+        `• Real-time queries → Internet-enabled Perplexity\n` +
+        `• Complex tasks → Powerful models\n\n` +
+        `You can override anytime with /model commands!`,
+        { parse_mode: 'Markdown' }
+      );
     });
 
     // /models command

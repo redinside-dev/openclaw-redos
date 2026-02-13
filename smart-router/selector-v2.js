@@ -11,6 +11,7 @@
 import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { internetDetector } from '../agents/internet-detector.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PERFORMANCE_LOG = path.join(__dirname, '../logs/performance.jsonl');
@@ -66,6 +67,17 @@ export class SmartRouterV2 {
         capabilities: ['chat', 'simple-tasks'],
         maxTokens: 50000,
         reliability: 0.99
+      },
+
+      // Internet-Enabled - Perplexity (CRITICAL for real-time queries!)
+      'perplexity/llama-3.1-sonar-small-128k-online': {
+        cost: 0.0002,
+        speed: 'fast',        // 2-3s
+        quality: 'excellent',
+        capabilities: ['real-time', 'news', 'search', 'current-events', 'web'],
+        maxTokens: 100000,
+        reliability: 0.98,
+        internet: true        // ⭐ HAS INTERNET ACCESS
       }
     };
 
@@ -78,6 +90,14 @@ export class SmartRouterV2 {
   async selectModel(message, context = {}) {
     // Analyze requirements
     const requirements = this.analyzeRequirements(message, context);
+
+    // ⭐ CRITICAL: Check if internet is needed
+    const internetCheck = internetDetector.needsInternet(message);
+    if (internetCheck.needed) {
+      requirements.needsInternet = true;
+      requirements.internetReason = internetCheck.reason;
+      console.log(`🌐 Internet required: ${internetCheck.reason}`);
+    }
 
     // Get candidate models
     const candidates = this.getCandidates(requirements);
@@ -153,6 +173,11 @@ export class SmartRouterV2 {
     for (const [modelId, config] of Object.entries(this.models)) {
       const [provider, model] = modelId.split('/');
 
+      // ⭐ CRITICAL: If internet is needed, ONLY use internet-capable models
+      if (requirements.needsInternet && !config.internet) {
+        continue; // Skip non-internet models
+      }
+
       // Check capability match
       let capabilityMatch = false;
       if (requirements.taskType === 'code' && config.capabilities.includes('code')) {
@@ -165,6 +190,11 @@ export class SmartRouterV2 {
         capabilityMatch = true;
       }
 
+      // If internet needed, accept any internet-capable model regardless of task type
+      if (requirements.needsInternet && config.internet) {
+        capabilityMatch = true;
+      }
+
       if (capabilityMatch) {
         candidates.push({
           provider,
@@ -172,6 +202,12 @@ export class SmartRouterV2 {
           config
         });
       }
+    }
+
+    // If internet needed but no internet-capable candidates, log warning
+    if (requirements.needsInternet && candidates.length === 0) {
+      console.log('⚠️  Internet needed but no internet-capable models available!');
+      console.log('   Add PERPLEXITY_API_KEY to .env to enable internet queries');
     }
 
     return candidates;

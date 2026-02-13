@@ -13,6 +13,10 @@ import { costMonitor } from '../cost-monitor/monitor.js';
 import { ceoAgent } from '../agents/ceo-agent.js';
 import { kanbanBoard } from '../kanban/board.js';
 import { autonomousLearner } from '../learning/autonomous-learner.js';
+import { autonomousIssueTracker } from '../resilience/autonomous-issue-tracker.js';
+import { statusMonitor } from '../resilience/status-monitor.js';
+import { vectorMemory } from '../memory/vector-memory.js';
+import { promptCache } from '../cache/prompt-cache.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
@@ -50,18 +54,100 @@ app.post('/api/chat', async (req, res) => {
   }
 
   try {
+    // STEP 1: STATUS CHECK - Intercept if system not operational
+    const clientId = req.headers['x-user-id'] || 'anonymous';
+    const statusCheck = await statusMonitor.interceptClientRequest(message, clientId);
+
+    if (!statusCheck.proceed) {
+      // System not operational - return status message IMMEDIATELY
+      return res.json({
+        content: statusCheck.response,
+        model: {
+          provider: 'status-monitor',
+          model: 'system-status',
+          reason: 'system not operational'
+        },
+        latency: 0,
+        cost: 0,
+        status: statusCheck.status,
+        intercepted: true
+      });
+    }
+
+    // STEP 2: Check prompt cache for duplicate/similar questions
+    const cacheCheck = await promptCache.check(message, agentId);
+
+    if (cacheCheck.hit) {
+      // Return cached response instantly (no generation needed!)
+      return res.json({
+        content: cacheCheck.cached.response,
+        model: cacheCheck.cached.model,
+        latency: 0, // Instant from cache
+        cost: 0,    // Free from cache
+        cached: true,
+        cacheType: cacheCheck.type,
+        similarity: cacheCheck.similarity,
+        hitCount: cacheCheck.hitCount
+      });
+    }
+
+    // STEP 3: Retrieve relevant context from vector memory
+    const context = await vectorMemory.retrieveContext(message);
+
+    // STEP 4: Check for user model override
+    const modelOverride = req.body.context?.modelOverride;
+    const forceModel = modelOverride
+      ? `${modelOverride.provider}/${modelOverride.model}`
+      : undefined;
+
+    // STEP 5: Process request with context
     const result = await handler.route(agentId, message, {
-      userId: req.headers['x-user-id'] || 'anonymous',
+      userId: clientId,
       source: 'api',
+      vectorContext: context,
+      forceModel: forceModel, // Apply user's model override if set
       ...req.body.context
+    });
+
+    // STEP 5: Store in prompt cache
+    await promptCache.store(message, result.content, {
+      agentId,
+      model: result.model,
+      cost: result.cost,
+      latency: result.latency
+    });
+
+    // STEP 6: Store conversation in vector memory
+    await vectorMemory.storeConversation({
+      agentId,
+      userId: clientId,
+      message,
+      response: result.content,
+      model: result.model?.provider + '/' + result.model?.model,
+      cost: result.cost,
+      latency: result.latency,
+      success: true
     });
 
     res.json(result);
   } catch (error) {
     console.error('API Error:', error);
+
+    // AUTONOMOUS ISSUE LOGGING - NEVER REFUSES!
+    const issue = await autonomousIssueTracker.logIssue({
+      title: `API Error: ${error.message.substring(0, 100)}`,
+      description: `Error handling request from ${agentId}\n\nMessage: "${message.substring(0, 200)}${message.length > 200 ? '...' : ''}"\n\nError: ${error.message}\n\nStack: ${error.stack}`,
+      severity: 'HIGH',
+      clientImpacted: true,
+      reporter: 'GATEWAY_API',
+      tags: ['api-error', 'gateway']
+    });
+
     res.status(500).json({
       error: error.message,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
+      issueId: issue.id,
+      message: `Error logged automatically (${issue.id}). Team notified and investigating.`
     });
   }
 });
@@ -94,19 +180,39 @@ app.get('/health', (req, res) => {
 });
 
 // Status endpoint
-app.get('/api/status', (req, res) => {
+app.get('/api/status', async (req, res) => {
+  const systemStatus = await statusMonitor.getStatus();
   res.json({
-    status: 'running',
+    status: systemStatus.status,
+    operational: systemStatus.operational,
+    message: systemStatus.message,
     agents: ['main', 'allrounder', 'eng', 'research', 'finance', 'ops', 'infosec'],
     models: {
-      available: ['ollama/llama3.1:8b', 'ollama/qwen2.5-coder:7b', 'ollama/glm-4.7-flash:latest'],
+      available: ['ollama/llama3.1:8b', 'ollama/qwen2.5-coder:7b', 'ollama/glm-4.7-flash:latest', 'perplexity/llama-3.1-sonar-small-128k-online'],
       preferred: 'ollama/llama3.1:8b'
     },
     cost: costMonitor.getState(),
     uptime: Math.floor(process.uptime()),
     version: '3.6.0',
-    features: ['smart-routing', 'cost-tracking', 'ceo-agents', 'kanban', 'autonomous-learning']
+    features: ['smart-routing', 'cost-tracking', 'ceo-agents', 'kanban', 'autonomous-learning', 'status-monitor', 'autonomous-issue-tracker', 'internet-detection']
   });
+});
+
+// System status endpoint (detailed)
+app.get('/api/system/status', async (req, res) => {
+  res.json(await statusMonitor.getStatus());
+});
+
+// Maintenance mode endpoints
+app.post('/api/system/maintenance/enter', async (req, res) => {
+  const { message, duration } = req.body;
+  await statusMonitor.enterMaintenanceMode(message, duration || '30 minutes');
+  res.json({ success: true, status: 'MAINTENANCE' });
+});
+
+app.post('/api/system/maintenance/exit', async (req, res) => {
+  await statusMonitor.exitMaintenanceMode();
+  res.json({ success: true, status: 'OPERATIONAL' });
 });
 
 // ============================================================
@@ -270,6 +376,68 @@ app.get('/api/kanban/blocked', (req, res) => {
 // Get overdue cards
 app.get('/api/kanban/overdue', (req, res) => {
   res.json(kanbanBoard.getOverdueCards());
+});
+
+// ============================================================
+// PROMPT CACHE ENDPOINTS
+// ============================================================
+
+// Get cache stats
+app.get('/api/cache/stats', (req, res) => {
+  res.json(promptCache.getStats());
+});
+
+// Get popular queries
+app.get('/api/cache/popular', (req, res) => {
+  const limit = parseInt(req.query.limit) || 5;
+  res.json(promptCache.getPopular(limit));
+});
+
+// Clear cache
+app.post('/api/cache/clear', (req, res) => {
+  promptCache.clear();
+  res.json({ success: true, message: 'Cache cleared' });
+});
+
+// Clear expired entries
+app.post('/api/cache/clear-expired', (req, res) => {
+  const removed = promptCache.clearExpired();
+  res.json({ success: true, removed: removed });
+});
+
+// ============================================================
+// VECTOR MEMORY ENDPOINTS
+// ============================================================
+
+// Get memory stats
+app.get('/api/memory/stats', (req, res) => {
+  res.json(vectorMemory.getStats());
+});
+
+// Retrieve context for query
+app.post('/api/memory/context', async (req, res) => {
+  const { query, limit } = req.body;
+  if (!query) {
+    return res.status(400).json({ error: 'Missing query' });
+  }
+  const context = await vectorMemory.retrieveContext(query, limit || 5);
+  res.json(context);
+});
+
+// Check if issue solved
+app.post('/api/memory/check-issue', async (req, res) => {
+  const { description } = req.body;
+  if (!description) {
+    return res.status(400).json({ error: 'Missing description' });
+  }
+  const result = await vectorMemory.isIssueSolved(description);
+  res.json(result);
+});
+
+// Get agent knowledge
+app.get('/api/memory/agent/:agentId', async (req, res) => {
+  const knowledge = await vectorMemory.getAgentKnowledge(req.params.agentId);
+  res.json(knowledge);
 });
 
 // ============================================================
