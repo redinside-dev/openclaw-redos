@@ -97,14 +97,14 @@ app.get('/health', (req, res) => {
 app.get('/api/status', (req, res) => {
   res.json({
     status: 'running',
-    agents: ['main', 'eng', 'zen', 'ceo', 'oracle'],
+    agents: ['main', 'allrounder', 'eng', 'research', 'finance', 'ops', 'infosec'],
     models: {
       available: ['ollama/llama3.1:8b', 'ollama/qwen2.5-coder:7b', 'ollama/glm-4.7-flash:latest'],
       preferred: 'ollama/llama3.1:8b'
     },
     cost: costMonitor.getState(),
     uptime: Math.floor(process.uptime()),
-    version: '2.0.0',
+    version: '3.6.0',
     features: ['smart-routing', 'cost-tracking', 'ceo-agents', 'kanban', 'autonomous-learning']
   });
 });
