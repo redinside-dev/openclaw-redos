@@ -8,7 +8,11 @@
     "telegram": "node telegram/telegram-bridge.js",
     "cost-monitor": "node cost-monitor/monitor.js",
     "backup": "bash backup/gdrive-backup.sh",
-    "restore": "bash backup/gdrive-restore.sh"
+    "restore": "bash backup/gdrive-restore.sh",
+    "upgrade": "bash upgrade.sh",
+    "upgrade:check": "bash upgrade.sh check",
+    "upgrade:cli": "bash upgrade.sh cli",
+    "upgrade:all": "bash upgrade.sh all"
   },
   "keywords": [
     "ai",

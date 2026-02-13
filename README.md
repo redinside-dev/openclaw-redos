@@ -563,6 +563,7 @@ openclaw-redos/
 ├── canvas/index.html              # Canvas UI
 ├── completions/                   # Shell completions (bash, zsh, fish, ps1)
 │
+├── upgrade.sh                     # Safe upgrade manager (CLI + RedOS)
 ├── start-resilient.sh             # Start gateway + telegram bridge
 ├── QUICK_START.sh                 # First-time setup script
 ├── .env.example                   # Environment variable template
@@ -582,6 +583,49 @@ openclaw-redos/
 | `npm run restore` | Restore from Google Drive |
 | `bash start-resilient.sh` | Start gateway + bridge together (background) |
 | `bash QUICK_START.sh` | First-time setup (deps, Ollama check, backups) |
+| `npm run upgrade:check` | Check for updates (CLI + RedOS) |
+| `npm run upgrade:cli` | Upgrade official OpenClaw CLI only |
+| `npm run upgrade` | Upgrade RedOS code (git pull + restart) |
+| `npm run upgrade:all` | Upgrade everything safely |
+
+---
+
+## Upgrading
+
+Two independent systems to keep up-to-date:
+
+### 1. Official OpenClaw CLI (safe, no impact on RedOS)
+
+```bash
+npm run upgrade:cli
+# or directly: npm update -g openclaw
+```
+
+Only updates `/opt/homebrew/lib/node_modules/openclaw/`. Your RedOS code, configs, secrets, and running services are **not touched**.
+
+### 2. RedOS Code (git pull + auto-restart)
+
+```bash
+npm run upgrade
+```
+
+This will: backup → stop services → `git pull` → `npm install` → restart → verify health. Auto-rolls back if gateway fails to start.
+
+### 3. Check for Updates (no changes)
+
+```bash
+npm run upgrade:check
+```
+
+Shows current versions, available updates, and system health.
+
+### 4. Upgrade Everything
+
+```bash
+npm run upgrade:all
+```
+
+Runs backup → CLI upgrade → RedOS upgrade in sequence.
 
 ---
 
