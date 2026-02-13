@@ -1,0 +1,60 @@
+{
+  "lastAlert": {
+    "103d1e7b-f629-4875-8ea2-6e3b8c52fe2f": {
+      "sig": "MISS: **POC Check-in: Ollama Smart Routing (Research)** (`103d1e7b-f629-4875-8ea2-6e3b8c52fe2f`)\n- nextRun was: 2026-02-10 08:28:30\n- lastRun: 2026-02-10 07:58:44 (status=error)",
+      "ts": 1770731166185
+    },
+    "173f38b8-9f45-4236-b468-d6b8826c0ff0": {
+      "sig": "FAIL: **Market Leads (Alpha Vantage, 4x/day)** (`173f38b8-9f45-4236-b468-d6b8826c0ff0`)\n- lastRun: 2026-02-09 15:01:37 (status=error)",
+      "ts": 1770731166185
+    },
+    "199a722c-5a9f-4df0-a7d6-71f8039ee187": {
+      "sig": "MISS: **Trading Window Brief (8am-4pm ET)** (`199a722c-5a9f-4df0-a7d6-71f8039ee187`)\n- nextRun was: 2026-02-10 08:30:00\n- lastRun: 2026-02-09 15:30:00 (status=ok)",
+      "ts": 1770731166185
+    },
+    "2db6929c-c97e-445b-a907-b2a8a6895337": {
+      "sig": "FAIL: **Gmail Unread Summary** (`2db6929c-c97e-445b-a907-b2a8a6895337`)\n- lastRun: 2026-02-09 12:32:24 (status=error)",
+      "ts": 1770658837087
+    },
+    "2ef34ad2-e703-415d-8ad9-08a5acdfa1ca": {
+      "sig": "MISS: **GitHub Repo Updates (2 repos, 4x/day)** (`2ef34ad2-e703-415d-8ad9-08a5acdfa1ca`)\n- nextRun was: 2026-02-09 12:00:00\n- lastRun: 2026-02-09 10:01:28 (status=ok)",
+      "ts": 1770656930953
+    },
+    "45337086-6c37-4c11-97bc-92d824e3c71f": {
+      "sig": "FAIL: **Daily AI + OpenClaw Trends Brief (Telegram DM)** (`45337086-6c37-4c11-97bc-92d824e3c71f`)\n- lastRun: 2026-02-09 20:30:00 (status=error)",
+      "ts": 1770731166185
+    },
+    "58248a42-7459-4341-9065-be5acc73f61e": {
+      "sig": "FAIL: **QQQ Profit/Stop Watch (intraday)** (`58248a42-7459-4341-9065-be5acc73f61e`)\n- lastRun: 2026-02-09 14:48:00 (status=error)",
+      "ts": 1770666649089
+    },
+    "7d1f3378-1f52-48ee-a2d9-9c4aaf8f5c88": {
+      "sig": "FAIL: **Gmail Unread Summary (Telegram)** (`7d1f3378-1f52-48ee-a2d9-9c4aaf8f5c88`)\n- lastRun: 2026-02-10 08:38:12 (status=error)",
+      "ts": 1770731404143
+    },
+    "9eb88a89-e9cf-4a22-9bc0-17de230218e4": {
+      "sig": "FAIL: **Gmail Unread Summary (Telegram)** (`9eb88a89-e9cf-4a22-9bc0-17de230218e4`)\n- lastRun: 2026-02-09 20:45:43 (status=error)",
+      "ts": 1770690907755
+    },
+    "c8481b2a-45c9-47bf-9161-8e72fa387098": {
+      "sig": "FAIL: **System Health Watch (OpenClaw)** (`c8481b2a-45c9-47bf-9161-8e72fa387098`)\n- lastRun: 2026-02-10 08:42:07 (status=error)",
+      "ts": 1770731404143
+    },
+    "cbffd7e1-8647-441e-af8c-33362e455f89": {
+      "sig": "MISS: **Cron Watchdog (alert on missed/failing jobs)** (`cbffd7e1-8647-441e-af8c-33362e455f89`)\n- nextRun was: 2026-02-10 08:30:00\n- lastRun: 2026-02-09 21:40:00 (status=ok)",
+      "ts": 1770731166185
+    },
+    "d0390e79-2afe-4b26-a2c5-b2780ac152ef": {
+      "sig": "FAIL: **Gmail Unread Summary (Telegram)** (`d0390e79-2afe-4b26-a2c5-b2780ac152ef`)\n- lastRun: 2026-02-09 21:30:52 (status=error)",
+      "ts": 1770690907755
+    },
+    "d60deb95-55d3-4aad-92ff-2c06a2105f61": {
+      "sig": "FAIL: **Gmail Unread Summary (Telegram)** (`d60deb95-55d3-4aad-92ff-2c06a2105f61`)\n- lastRun: 2026-02-09 21:15:40 (status=error)",
+      "ts": 1770690907755
+    },
+    "f6d1caba-ecbb-4546-bbba-24aa5fe7ef1c": {
+      "sig": "FAIL: **Gmail Unread Summary (Telegram)** (`f6d1caba-ecbb-4546-bbba-24aa5fe7ef1c`)\n- lastRun: 2026-02-09 20:15:51 (status=error)",
+      "ts": 1770690907755
+    }
+  }
+}

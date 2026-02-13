@@ -1,0 +1,116 @@
+{
+  "nextPageToken": "",
+  "threads": [
+    {
+      "id": "19c3fb0ce6503cfc",
+      "date": "2026-02-08 18:57",
+      "from": "anorag.saxena@gmail.com",
+      "subject": "Holdings Report v1 (Stocks-only) — Growth 6–12m, 10% DD",
+      "labels": [
+        "UNREAD",
+        "SENT",
+        "INBOX"
+      ],
+      "messageCount": 1
+    },
+    {
+      "id": "19c3ef39464d28d0",
+      "date": "2026-02-08 15:31",
+      "from": "Google <no-reply@accounts.google.com>",
+      "subject": "Security alert",
+      "labels": [
+        "UNREAD",
+        "IMPORTANT",
+        "CATEGORY_UPDATES",
+        "INBOX"
+      ],
+      "messageCount": 1
+    },
+    {
+      "id": "19c308767a87e904",
+      "date": "2026-02-05 20:18",
+      "from": "Google <no-reply@accounts.google.com>",
+      "subject": "Security alert",
+      "labels": [
+        "UNREAD",
+        "IMPORTANT",
+        "CATEGORY_UPDATES",
+        "INBOX"
+      ],
+      "messageCount": 2
+    },
+    {
+      "id": "19c306bb587dd6e8",
+      "date": "2026-02-05 19:48",
+      "from": "Brave Search API <search-api@brave.com>",
+      "subject": "Brave Search API new user created",
+      "labels": [
+        "UNREAD",
+        "IMPORTANT",
+        "CATEGORY_UPDATES",
+        "INBOX"
+      ],
+      "messageCount": 1
+    },
+    {
+      "id": "19c1f691b12e4ce5",
+      "date": "2026-02-02 12:31",
+      "from": "Google <no-reply@accounts.google.com>",
+      "subject": "Security alert",
+      "labels": [
+        "UNREAD",
+        "CATEGORY_UPDATES",
+        "INBOX"
+      ],
+      "messageCount": 1
+    },
+    {
+      "id": "18f33ec1dcb5006b",
+      "date": "2024-05-01 07:31",
+      "from": "Google <no-reply@accounts.google.com>",
+      "subject": "Learn more about our updated Terms of Service",
+      "labels": [
+        "UNREAD",
+        "CATEGORY_UPDATES",
+        "INBOX"
+      ],
+      "messageCount": 1
+    },
+    {
+      "id": "189e32ee4ab62030",
+      "date": "2023-08-11 02:00",
+      "from": "Google Accounts Team <no-reply@accounts.google.com>",
+      "subject": "Updating our Google Account inactivity policy",
+      "labels": [
+        "UNREAD",
+        "CATEGORY_UPDATES",
+        "INBOX"
+      ],
+      "messageCount": 1
+    },
+    {
+      "id": "17e8add9efc7c1d6",
+      "date": "2022-01-24 01:54",
+      "from": "anurag saxena <anurag.saxyena@gmail.com>",
+      "subject": "test",
+      "labels": [
+        "UNREAD",
+        "CATEGORY_PERSONAL",
+        "INBOX"
+      ],
+      "messageCount": 1
+    },
+    {
+      "id": "17e8ad7d997ba242",
+      "date": "2022-01-24 01:48",
+      "from": "Google Community Team <googlecommunityteam-noreply@google.com>",
+      "subject": "Anurag, finish setting up your new Google Account",
+      "labels": [
+        "UNREAD",
+        "CATEGORY_UPDATES",
+        "INBOX"
+      ],
+      "messageCount": 1
+    }
+  ]
+}

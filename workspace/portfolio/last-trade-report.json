@@ -1,0 +1,65 @@
+{
+  "generated_at": "2026-02-08T18:13:17.688512",
+  "summary": {
+    "total_realized_pnl": 145.2,
+    "total_fees": 4.8,
+    "num_trades": 3,
+    "num_wins": 3,
+    "num_losses": 0,
+    "win_rate": 100.0,
+    "avg_win": 48.4,
+    "avg_loss": 0,
+    "largest_win": 78.2,
+    "largest_loss": 0
+  },
+  "by_symbol": {
+    "AAPL-USD": {
+      "trades": 1,
+      "total_pnl": 78.2,
+      "win_rate": 100.0,
+      "avg_pnl": 78.2
+    },
+    "MSFT-USD": {
+      "trades": 1,
+      "total_pnl": 28.5,
+      "win_rate": 100.0,
+      "avg_pnl": 28.5
+    },
+    "TSLA-USD": {
+      "trades": 1,
+      "total_pnl": 38.5,
+      "win_rate": 100.0,
+      "avg_pnl": 38.5
+    }
+  },
+  "open_positions": [
+    {
+      "symbol": "AAPL",
+      "currency": "USD",
+      "quantity": 7.0,
+      "avg_price": 181.43,
+      "total_cost": 1270.0,
+      "total_fees": 2.0,
+      "holding_since": "2026-01-02T10:15:00"
+    },
+    {
+      "symbol": "MSFT",
+      "currency": "USD",
+      "quantity": 3.0,
+      "avg_price": 410.0,
+      "total_cost": 1230.0,
+      "total_fees": 1.0,
+      "holding_since": "2026-01-12T09:35:00"
+    },
+    {
+      "symbol": "TSLA",
+      "currency": "USD",
+      "quantity": 2.0,
+      "avg_price": 210.0,
+      "total_cost": 420.0,
+      "total_fees": 1.0,
+      "holding_since": "2026-01-22T14:05:00"
+    }
+  ],
+  "total_raw_trades": 7
+}

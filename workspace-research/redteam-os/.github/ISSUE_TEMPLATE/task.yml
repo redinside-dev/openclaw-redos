@@ -1,0 +1,47 @@
+name: Task
+description: A unit of work
+labels: ["type:task"]
+body:
+  - type: input
+    id: summary
+    attributes:
+      label: Summary
+      description: What are we doing?
+    validations:
+      required: true
+  - type: textarea
+    id: dod
+    attributes:
+      label: Definition of Done
+      description: Clear acceptance criteria
+    validations:
+      required: true
+  - type: textarea
+    id: artifacts
+    attributes:
+      label: Artifacts / Links
+      description: File paths, PRs, reports
+    validations:
+      required: false
+  - type: dropdown
+    id: team
+    attributes:
+      label: Team
+      options:
+        - eng
+        - ops
+        - research
+        - finance
+    validations:
+      required: true
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      options:
+        - P0
+        - P1
+        - P2
+        - P3
+    validations:
+      required: true
