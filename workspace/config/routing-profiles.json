@@ -1,0 +1,40 @@
+{
+  "_meta": {
+    "description": "Routing profiles control how the smart router balances quality, speed, and cost. Change 'active' to switch profiles. Weights must sum to 1.0.",
+    "switchCommand": "@RedinsideBot routing mode cost_saver"
+  },
+
+  "active": "balanced",
+
+  "profiles": {
+    "performance": {
+      "description": "Best possible results. Ignore cost. Use for critical deliverables.",
+      "weights": { "quality": 0.70, "speed": 0.20, "cost": 0.10 },
+      "preferTier": 5,
+      "allowPayg": true,
+      "icon": "🚀"
+    },
+    "balanced": {
+      "description": "Smart trade-off between quality, speed, and cost. DEFAULT profile.",
+      "weights": { "quality": 0.40, "speed": 0.30, "cost": 0.30 },
+      "preferTier": null,
+      "allowPayg": true,
+      "icon": "⚖️"
+    },
+    "cost_saver": {
+      "description": "Minimize variable spend. Use cheapest model that can do the job. Auto-activated at 90% budget.",
+      "weights": { "quality": 0.20, "speed": 0.30, "cost": 0.50 },
+      "preferTier": 1,
+      "allowPayg": false,
+      "icon": "💰"
+    },
+    "local_only": {
+      "description": "Ollama only. For offline use, emergencies, or privacy-sensitive tasks.",
+      "weights": { "quality": 0.30, "speed": 0.50, "cost": 0.20 },
+      "preferTier": 1,
+      "allowPayg": false,
+      "requireProvider": "ollama",
+      "icon": "📴"
+    }
+  }
+}

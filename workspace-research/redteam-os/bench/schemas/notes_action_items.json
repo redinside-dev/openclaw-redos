@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "properties": {
+    "meeting_title": {"type": "string"},
+    "date": {"type": "string"},
+    "action_items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "task": {"type": "string"},
+          "owner": {"type": "string"},
+          "due": {"type": "string"},
+          "dependencies": {"type": "array", "items": {"type": "string"}}
+        },
+        "required": ["task","owner","due","dependencies"]
+      }
+    }
+  },
+  "required": ["meeting_title","date","action_items"]
+}

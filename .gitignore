@@ -1,0 +1,157 @@
+# ==========================================
+# SENSITIVE CONFIGURATION FILES
+# ==========================================
+.env
+.env.*
+!.env.example
+
+# OpenClaw config with secrets
+openclaw.json
+openclaw.json.bak*
+openclaw.json.backup*
+
+# ==========================================
+# CREDENTIALS & SECRETS
+# ==========================================
+credentials/
+secrets/
+*.key
+*.pem
+*.p12
+*.pfx
+
+# ==========================================
+# LOGS & TEMPORARY FILES
+# ==========================================
+logs/
+*.log
+*.jsonl
+*.jsonl.*
+/tmp/
+/temp/
+
+# Error tracking
+errors.jsonl
+health.jsonl
+tickets.jsonl
+performance.jsonl
+
+# Gateway logs
+/tmp/openclaw-gateway.log
+
+# ==========================================
+# SESSION & RUNTIME DATA
+# ==========================================
+**/sessions/
+**/archive-*/
+
+# ==========================================
+# BACKUP FILES
+# ==========================================
+workspace/backups/
+*.bak
+*.bak.*
+**/.bak-*/
+*.backup
+*.backup-*
+*.old
+*.old-*
+*~
+
+# ==========================================
+# NODE MODULES & DEPENDENCIES
+# ==========================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# ==========================================
+# SANDBOX & RUNTIME
+# ==========================================
+sandboxes/
+.sandbox/
+runtime/
+state/
+browser/
+media/
+
+# Agent state files
+agents-state.json
+cost-state.json
+learning-state.json
+
+# Runtime state data
+cost-monitor/state.json
+devices/paired.json
+identity/device-auth.json
+
+# Agent auth/model runtime configs
+**/agent/auth-profiles.json
+**/agent/models.json
+
+# ==========================================
+# IDE & EDITOR
+# ==========================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+.DS_Store
+Thumbs.db
+
+# ==========================================
+# TEST ARTIFACTS
+# ==========================================
+coverage/
+.nyc_output/
+test-results/
+*.test.log
+
+# ==========================================
+# BUILD ARTIFACTS
+# ==========================================
+dist/
+build/
+out/
+*.min.js
+*.map
+
+# ==========================================
+# CACHE
+# ==========================================
+.cache/
+.parcel-cache/
+.npm/
+
+# ==========================================
+# OS FILES
+# ==========================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ==========================================
+# MISSION CONTROL DATA
+# ==========================================
+# Keep the dashboard HTML/JS but not runtime data
+dashboard/data/
+dashboard/*.jsonl
+
+# ==========================================
+# SAFE TO COMMIT (These are OK)
+# ==========================================
+# .env.example - Template file
+# README.md - Documentation
+# package.json - Dependencies (no secrets)
+# dashboard/*.html - Dashboard UI
+# dashboard/*.js - Dashboard code
+# agents/*.js - Agent code
+# gateway/*.js - Gateway code (no secrets)

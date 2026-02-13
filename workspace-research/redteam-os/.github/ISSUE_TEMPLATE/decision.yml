@@ -1,0 +1,23 @@
+name: Decision
+description: A decision that needs an explicit call
+labels: ["type:decision"]
+body:
+  - type: input
+    id: question
+    attributes:
+      label: Decision question
+    validations:
+      required: true
+  - type: textarea
+    id: options
+    attributes:
+      label: Options
+      description: Bullet list of options
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+    validations:
+      required: false

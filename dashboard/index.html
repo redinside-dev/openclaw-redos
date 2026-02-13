@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenClaw Cost Monitor</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+      color: #fff;
+      padding: 20px;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+      background: linear-gradient(90deg, #00ff88, #00ccff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      color: #888;
+      margin-bottom: 30px;
+      font-size: 14px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .stat-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      padding: 24px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(0, 255, 136, 0.3);
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .stat-value {
+      font-size: 36px;
+      font-weight: bold;
+      line-height: 1.2;
+    }
+
+    .stat-value.green { color: #00ff88; }
+    .stat-value.yellow { color: #ffcc00; }
+    .stat-value.red { color: #ff4444; }
+
+    .stat-sublabel {
+      font-size: 12px;
+      color: #666;
+      margin-top: 4px;
+    }
+
+    .budget-section {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      padding: 24px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 30px;
+    }
+
+    .budget-bar {
+      height: 40px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 20px;
+      overflow: hidden;
+      margin: 15px 0;
+      position: relative;
+    }
+
+    .budget-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #00ff88, #ffcc00, #ff4444);
+      transition: width 0.5s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 16px;
+      position: relative;
+    }
+
+    .budget-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      color: #888;
+    }
+
+    table {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    th, td {
+      padding: 16px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    th {
+      background: rgba(0, 0, 0, 0.3);
+      font-weight: 600;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #888;
+    }
+
+    tr:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .section-title {
+      font-size: 24px;
+      margin: 40px 0 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .update-time {
+      color: #666;
+      font-size: 13px;
+      text-align: right;
+      margin-top: 20px;
+    }
+
+    .pulse {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #00ff88;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>💰 OpenClaw Cost Monitor</h1>
+    <p class="subtitle">
+      <span class="pulse"></span>
+      Real-time cost tracking & optimization
+    </p>
+
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat-label">Today's Spend</div>
+        <div class="stat-value" id="total-cost">$0.00</div>
+        <div class="stat-sublabel" id="cost-trend">—</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label">Budget Remaining</div>
+        <div class="stat-value green" id="remaining">$5.00</div>
+        <div class="stat-sublabel">of $5.00 daily budget</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label">Requests Today</div>
+        <div class="stat-value" id="requests">0</div>
+        <div class="stat-sublabel" id="requests-rate">—</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label">Avg Cost/Request</div>
+        <div class="stat-value" id="avg-cost">$0.00</div>
+        <div class="stat-sublabel" id="savings">— savings</div>
+      </div>
+    </div>
+
+    <div class="budget-section">
+      <h3 style="margin-bottom: 10px;">Budget Usage</h3>
+      <div class="budget-label">
+        <span>$<span id="budget-spent">0.00</span> spent</span>
+        <span>$<span id="budget-left">5.00</span> left</span>
+      </div>
+      <div class="budget-bar">
+        <div class="budget-fill" id="budget-fill">0%</div>
+      </div>
+    </div>
+
+    <h2 class="section-title">📊 Cost by Model</h2>
+    <table id="model-table">
+      <thead>
+        <tr>
+          <th>Model</th>
+          <th>Requests</th>
+          <th>Tokens</th>
+          <th>Cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td colspan="4" class="empty-state">No data yet. Send some messages!</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 class="section-title">🤖 Cost by Agent</h2>
+    <table id="agent-table">
+      <thead>
+        <tr>
+          <th>Agent</th>
+          <th>Requests</th>
+          <th>Cost</th>
+          <th>Share</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td colspan="4" class="empty-state">No data yet. Send some messages!</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="update-time">
+      Last updated: <span id="update-time">—</span>
+    </div>
+  </div>
+
+  <script>
+    const API_URL = 'http://localhost:19000';
+    let previousTotal = 0;
+
+    async function fetchCost() {
+      try {
+        const res = await fetch(`${API_URL}/api/cost`);
+        const data = await res.json();
+
+        // Update main stats
+        document.getElementById('total-cost').textContent = `$${data.today.total.toFixed(4)}`;
+        document.getElementById('remaining').textContent = `$${data.remaining.toFixed(2)}`;
+        document.getElementById('requests').textContent = data.today.requests.toLocaleString();
+
+        // Cost trend
+        if (data.today.total > previousTotal) {
+          document.getElementById('cost-trend').textContent = `↑ +$${(data.today.total - previousTotal).toFixed(4)}`;
+        }
+        previousTotal = data.today.total;
+
+        // Average cost
+        const avgCost = data.today.requests > 0 ? data.today.total / data.today.requests : 0;
+        document.getElementById('avg-cost').textContent = `$${avgCost.toFixed(4)}`;
+
+        // Savings estimate (vs Claude for everything)
+        const estimatedClaudeCost = data.today.requests * 0.003;
+        const savings = estimatedClaudeCost - data.today.total;
+        if (savings > 0) {
+          document.getElementById('savings').textContent = `$${savings.toFixed(2)} saved`;
+        }
+
+        // Requests rate
+        const now = new Date();
+        const hour = now.getHours();
+        if (hour > 0) {
+          const ratePerHour = data.today.requests / hour;
+          document.getElementById('requests-rate').textContent = `~${ratePerHour.toFixed(1)}/hour`;
+        }
+
+        // Budget bar
+        const percentage = Math.min((data.today.total / data.budget.daily) * 100, 100);
+        const budgetFill = document.getElementById('budget-fill');
+        budgetFill.style.width = `${percentage}%`;
+        budgetFill.textContent = `${percentage.toFixed(1)}%`;
+
+        document.getElementById('budget-spent').textContent = data.today.total.toFixed(2);
+        document.getElementById('budget-left').textContent = data.remaining.toFixed(2);
+
+        // Color code total cost
+        const totalCostEl = document.getElementById('total-cost');
+        totalCostEl.className = 'stat-value';
+        if (percentage > 90) totalCostEl.classList.add('red');
+        else if (percentage > 70) totalCostEl.classList.add('yellow');
+        else totalCostEl.classList.add('green');
+
+        // Model table
+        const modelTable = document.getElementById('model-table').querySelector('tbody');
+        modelTable.innerHTML = '';
+
+        const models = Object.entries(data.today.byModel);
+        if (models.length === 0) {
+          modelTable.innerHTML = '<tr><td colspan="4" class="empty-state">No data yet</td></tr>';
+        } else {
+          for (const [model, stats] of models) {
+            const row = modelTable.insertRow();
+            row.innerHTML = `
+              <td>${model}</td>
+              <td>${stats.requests.toLocaleString()}</td>
+              <td>${(stats.tokens || 0).toLocaleString()}</td>
+              <td>$${stats.cost.toFixed(4)}</td>
+            `;
+          }
+        }
+
+        // Agent table
+        const agentTable = document.getElementById('agent-table').querySelector('tbody');
+        agentTable.innerHTML = '';
+
+        const agents = Object.entries(data.today.byAgent);
+        if (agents.length === 0) {
+          agentTable.innerHTML = '<tr><td colspan="4" class="empty-state">No data yet</td></tr>';
+        } else {
+          for (const [agent, stats] of agents) {
+            const share = data.today.total > 0 ? (stats.cost / data.today.total) * 100 : 0;
+            const row = agentTable.insertRow();
+            row.innerHTML = `
+              <td>${agent}</td>
+              <td>${stats.requests.toLocaleString()}</td>
+              <td>$${stats.cost.toFixed(4)}</td>
+              <td>${share.toFixed(1)}%</td>
+            `;
+          }
+        }
+
+        // Update time
+        document.getElementById('update-time').textContent = new Date().toLocaleTimeString();
+
+      } catch (err) {
+        console.error('Failed to fetch cost data:', err);
+        document.getElementById('update-time').textContent = 'Error - Check if server is running';
+      }
+    }
+
+    // Initial fetch
+    fetchCost();
+
+    // Update every 5 seconds
+    setInterval(fetchCost, 5000);
+  </script>
+</body>
+</html>

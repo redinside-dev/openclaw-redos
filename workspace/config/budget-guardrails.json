@@ -1,0 +1,61 @@
+{
+  "_template": "AgentOS Budget Guardrails v3.0",
+  "_instructions": "Edit limits below. Subscriptions never pause. Only pay-as-you-go models are affected by budget limits.",
+
+  "variable_spend": {
+    "daily_limit_usd": 2.00,
+    "weekly_limit_usd": 10.00,
+    "monthly_limit_usd": 30.00
+  },
+
+  "fixed_monthly": {
+    "total_usd": 460.00,
+    "breakdown": {
+      "chatgpt_pro_1": 200.00,
+      "chatgpt_pro_2": 200.00,
+      "chatgpt_plus": 20.00,
+      "claude_code_pro": 20.00,
+      "perplexity_pro": 20.00,
+      "ollama_local": 0.00
+    }
+  },
+
+  "thresholds": {
+    "warn_at_pct": 70,
+    "auto_cost_saver_at_pct": 90,
+    "pause_payg_at_pct": 100
+  },
+
+  "actions": {
+    "at_70_pct": {
+      "action": "log_warning",
+      "notify": "audit_log_only"
+    },
+    "at_90_pct": {
+      "action": "switch_routing_profile",
+      "target_profile": "cost_saver",
+      "notify": "red_agent"
+    },
+    "at_100_pct": {
+      "action": "pause_payg_models",
+      "notify": "telegram_owner",
+      "message": "⚠️ Daily variable budget hit. Pay-as-you-go models paused. Subscriptions still running."
+    }
+  },
+
+  "exempt_models": [
+    "openai-codex/*",
+    "claude-code/*",
+    "perplexity/*",
+    "ollama/*"
+  ],
+
+  "payg_models": [
+    "zai/glm-4.7",
+    "zai/glm-4.7-flashx",
+    "moonshot/kimi-k2.5"
+  ],
+
+  "auto_resume_next_day": true,
+  "auto_resume_time_utc": "05:00"
+}

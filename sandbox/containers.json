@@ -1,0 +1,36 @@
+{
+  "entries": [
+    {
+      "containerName": "openclaw-sbx-agent-eng-4cc2d9bf",
+      "sessionKey": "agent:eng",
+      "createdAtMs": 1770769264363,
+      "lastUsedAtMs": 1770948987521,
+      "image": "openclaw-sandbox:bookworm-slim",
+      "configHash": "e7d67042e1005d6e5a2a191a986e0f5428d3c1f0"
+    },
+    {
+      "containerName": "openclaw-sbx-agent-allrounder-bd208c80",
+      "sessionKey": "agent:allrounder",
+      "createdAtMs": 1770768089991,
+      "lastUsedAtMs": 1770966875461,
+      "image": "openclaw-sandbox:bookworm-slim",
+      "configHash": "41bbe6681cb3a53e8fdc9750b1993d7502e328d5"
+    },
+    {
+      "containerName": "openclaw-sbx-agent-infosec-5bea02a9",
+      "sessionKey": "agent:infosec",
+      "createdAtMs": 1770959329655,
+      "lastUsedAtMs": 1770967013391,
+      "image": "openclaw-sandbox:bookworm-slim",
+      "configHash": "b3d824afc9cdaa6134775e52fd8be92f61fbce14"
+    },
+    {
+      "containerName": "openclaw-sbx-agent-main-0d71ad7a",
+      "sessionKey": "agent:main",
+      "createdAtMs": 1770727406968,
+      "lastUsedAtMs": 1770968482042,
+      "image": "openclaw-sandbox:bookworm-slim",
+      "configHash": "c19b264349b255929685ae08d6e3265154462dca"
+    }
+  ]
+}

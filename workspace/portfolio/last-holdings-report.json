@@ -1,0 +1,174 @@
+{
+  "accounts": [
+    {
+      "account": "RRSP (HQ7P7XC43CAD)",
+      "book_value_cad": 92014.69,
+      "market_value_by_currency": {
+        "CAD": 19905.083490999998,
+        "USD": 61653.72483092001
+      },
+      "positions": 24,
+      "unrealized_by_currency": {
+        "CAD": 2487.4534909999998,
+        "USD": 9541.794830919998
+      }
+    },
+    {
+      "account": "TFSA (HQ61R08K6CAD)",
+      "book_value_cad": 63876.58,
+      "market_value_by_currency": {
+        "CAD": 9692.776265,
+        "USD": 47750.619733130006
+      },
+      "positions": 50,
+      "unrealized_by_currency": {
+        "CAD": 708.016265,
+        "USD": 8894.924997396727
+      }
+    },
+    {
+      "account": "\ud83d\udcda Education (HQ8VLYCQ2CAD)",
+      "book_value_cad": 4298.84,
+      "market_value_by_currency": {
+        "CAD": 1655.6,
+        "USD": 2289.2751479999997
+      },
+      "positions": 4,
+      "unrealized_by_currency": {
+        "CAD": 187.2,
+        "USD": 274.275148
+      }
+    }
+  ],
+  "concentration": {
+    "CAD": {
+      "top10_pct": 48.41,
+      "top1_pct": 26.84,
+      "top5_pct": 48.41
+    },
+    "USD": {
+      "top10_pct": 51.89,
+      "top1_pct": 9.55,
+      "top5_pct": 38.82
+    }
+  },
+  "generated_at": "2026-02-08T19:15:06",
+  "inputs": {
+    "excluded_rows_crypto": 6,
+    "included_rows": 78,
+    "total_rows": 85
+  },
+  "top_holdings": [
+    {
+      "account": "RRSP (HQ7P7XC43CAD)",
+      "currency": "USD",
+      "market_price": 1052.72,
+      "market_value": 10667.99808,
+      "name": "Blackrock Inc.",
+      "quantity": 10.1484,
+      "symbol": "BLK",
+      "unrealized": 484.34808
+    },
+    {
+      "account": "RRSP (HQ7P7XC43CAD)",
+      "currency": "USD",
+      "market_price": 181.9,
+      "market_value": 9982.241622,
+      "name": "NVIDIA Corp",
+      "quantity": 55.0107,
+      "symbol": "NVDA",
+      "unrealized": 3207.991622
+    },
+    {
+      "account": "TFSA (HQ61R08K6CAD)",
+      "currency": "USD",
+      "market_price": 181.9,
+      "market_value": 9330.473594,
+      "name": "NVIDIA Corp",
+      "quantity": 51.4189,
+      "symbol": "NVDA",
+      "unrealized": 3799.5024812528336
+    },
+    {
+      "account": "RRSP (HQ7P7XC43CAD)",
+      "currency": "CAD",
+      "market_price": 166.14,
+      "market_value": 8388.638055,
+      "name": "Vanguard S&P 500 Index ETF",
+      "quantity": 50.5005,
+      "symbol": "VFV",
+      "unrealized": 626.988055
+    },
+    {
+      "account": "RRSP (HQ7P7XC43CAD)",
+      "currency": "USD",
+      "market_price": 685.29,
+      "market_value": 6920.269502,
+      "name": "SSGA SPDR S&P 500 ETF",
+      "quantity": 10.1141,
+      "symbol": "SPY",
+      "unrealized": 788.389502
+    },
+    {
+      "account": "RRSP (HQ7P7XC43CAD)",
+      "currency": "CAD",
+      "market_price": 64.76,
+      "market_value": 6741.284375,
+      "name": "Vanguard Investments Canada Inc. - FTSE Canadian High Dividend Yield Index ETF",
+      "quantity": 104.1125,
+      "symbol": "VDY",
+      "unrealized": 1564.074375
+    },
+    {
+      "account": "RRSP (HQ7P7XC43CAD)",
+      "currency": "USD",
+      "market_price": 322.82,
+      "market_value": 6454.37446946,
+      "name": "Alphabet Inc (Class A)",
+      "quantity": 20.0546,
+      "symbol": "GOOGL",
+      "unrealized": 2616.24446946
+    },
+    {
+      "account": "TFSA (HQ61R08K6CAD)",
+      "currency": "USD",
+      "market_price": 654.07,
+      "market_value": 5232.30428,
+      "name": "Meta Platforms Inc.",
+      "quantity": 8.0164,
+      "symbol": "META",
+      "unrealized": 682.76428
+    },
+    {
+      "account": "RRSP (HQ7P7XC43CAD)",
+      "currency": "USD",
+      "market_price": 342.13,
+      "market_value": 5161.051156,
+      "name": "iShares Trust - iShares Semiconductor ETF",
+      "quantity": 15.1036,
+      "symbol": "SOXX",
+      "unrealized": 1857.451156
+    },
+    {
+      "account": "TFSA (HQ61R08K6CAD)",
+      "currency": "USD",
+      "market_price": 279.05,
+      "market_value": 4204.37805552,
+      "name": "Apple Inc",
+      "quantity": 15.0679,
+      "symbol": "AAPL",
+      "unrealized": 1050.861157944381
+    }
+  ],
+  "totals": {
+    "book_value_cad": 160190.11,
+    "market_value_by_currency": {
+      "CAD": 31253.46,
+      "USD": 111693.62
+    },
+    "unrealized_by_currency": {
+      "CAD": 3382.67,
+      "USD": 18710.99
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "type": "object",
+  "properties": {
+    "tone": {"type": "string"},
+    "shortened_text": {"type": "string"},
+    "key_points": {"type": "array", "items": {"type": "string"}}
+  },
+  "required": ["tone","shortened_text","key_points"]
+}

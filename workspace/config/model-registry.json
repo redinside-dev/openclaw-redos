@@ -1,0 +1,254 @@
+{
+  "_meta": {
+    "name": "AgentOS Model Registry",
+    "version": "3.0",
+    "description": "All available models, capabilities, pricing. CUSTOMERS: edit this file to configure your AI company.",
+    "updated": "2026-02-11"
+  },
+
+  "models": [
+    {
+      "id": "claude-code/sonnet-4.5",
+      "displayName": "Claude Code (Big Brain)",
+      "provider": "anthropic",
+      "type": "cli",
+      "tier": 5,
+      "quality": 10,
+      "speed": 6,
+      "contextWindow": 200000,
+      "capabilities": ["code", "refactor", "multi_file", "test", "debug", "architecture", "agentic", "reasoning"],
+      "billing": {
+        "type": "subscription",
+        "monthlyCost": 20.00,
+        "perCallCost": 0
+      },
+      "invocation": {
+        "method": "cli",
+        "command": "claude -p",
+        "workingDir": "workspace/projects/{project_id}/src/",
+        "timeout": 600
+      },
+      "maxConcurrent": 1,
+      "status": "available",
+      "bestFor": "Complex multi-file coding, refactoring, full-stack apps, debugging hard problems",
+      "doNotUseFor": "Simple formatting, non-code tasks, quick lookups"
+    },
+    {
+      "id": "openai-codex/gpt-5.2",
+      "displayName": "Codex GPT-5.2 (Heavy Reasoning)",
+      "provider": "openai-codex",
+      "type": "api",
+      "tier": 4,
+      "quality": 10,
+      "speed": 6,
+      "contextWindow": 400000,
+      "capabilities": ["general", "code_review", "architecture", "reasoning", "planning", "synthesis", "delegation"],
+      "billing": {
+        "type": "subscription",
+        "sessions": [
+          { "label": "Pro #1 → RED (CEO)", "monthlyCost": 200.00, "rateLimit": "unlimited" },
+          { "label": "Pro #2 → ZEN (CSO)", "monthlyCost": 200.00, "rateLimit": "unlimited" },
+          { "label": "Plus → Shared Pool", "monthlyCost": 20.00, "rateLimit": "limited" }
+        ],
+        "perCallCost": 0
+      },
+      "maxConcurrent": 3,
+      "status": "available",
+      "bestFor": "Architecture planning, strategy, complex reasoning, code review, multi-step synthesis",
+      "doNotUseFor": "Simple tasks a Tier 1/2 model can handle"
+    },
+    {
+      "id": "perplexity/sonar",
+      "displayName": "Perplexity Sonar (Quick Search)",
+      "provider": "perplexity",
+      "type": "api",
+      "tier": 3,
+      "quality": 6,
+      "speed": 9,
+      "contextWindow": 127000,
+      "capabilities": ["web_search", "realtime", "citations"],
+      "billing": {
+        "type": "subscription",
+        "monthlyCost": 0,
+        "perCallCost": 0,
+        "note": "Included in Perplexity Pro ($20/mo shared)"
+      },
+      "maxConcurrent": 10,
+      "status": "available",
+      "bestFor": "Quick fact lookups, current prices, simple web queries",
+      "doNotUseFor": "Deep research (use sonar-pro), analysis (use sonar-reasoning)"
+    },
+    {
+      "id": "perplexity/sonar-pro",
+      "displayName": "Perplexity Sonar Pro (Deep Search)",
+      "provider": "perplexity",
+      "type": "api",
+      "tier": 3,
+      "quality": 8,
+      "speed": 6,
+      "contextWindow": 200000,
+      "capabilities": ["web_search", "deep_research", "realtime", "citations", "multi_source"],
+      "billing": {
+        "type": "subscription",
+        "monthlyCost": 0,
+        "perCallCost": 0,
+        "note": "Included in Perplexity Pro. ~100 queries/day"
+      },
+      "maxConcurrent": 5,
+      "status": "available",
+      "bestFor": "Competitor analysis, market research, multi-source reports, trend analysis",
+      "doNotUseFor": "Simple lookups (use sonar)"
+    },
+    {
+      "id": "perplexity/sonar-reasoning",
+      "displayName": "Perplexity Sonar Reasoning (Analysis + Search)",
+      "provider": "perplexity",
+      "type": "api",
+      "tier": 3,
+      "quality": 9,
+      "speed": 4,
+      "contextWindow": 127000,
+      "capabilities": ["web_search", "reasoning", "realtime", "citations", "chain_of_thought", "analysis"],
+      "billing": {
+        "type": "subscription",
+        "monthlyCost": 0,
+        "perCallCost": 0,
+        "note": "Included in Perplexity Pro. ~50 queries/day (limited)"
+      },
+      "maxConcurrent": 3,
+      "status": "available",
+      "bestFor": "Financial analysis with live data, strategy decisions needing current context",
+      "doNotUseFor": "Simple lookups, tasks without reasoning component"
+    },
+    {
+      "id": "moonshot/kimi-k2.5",
+      "displayName": "Moonshot Kimi K2.5 (Long Context)",
+      "provider": "moonshot",
+      "type": "api",
+      "tier": 2,
+      "quality": 8,
+      "speed": 6,
+      "contextWindow": 262144,
+      "capabilities": ["general", "code", "long_context", "analysis", "synthesis"],
+      "billing": {
+        "type": "payg",
+        "per1kInput": 0.0015,
+        "per1kOutput": 0.0025
+      },
+      "maxConcurrent": 5,
+      "status": "available",
+      "bestFor": "Long document analysis, multi-source synthesis, context >131K tokens",
+      "doNotUseFor": "Short tasks where a subscription model would work"
+    },
+    {
+      "id": "zai/glm-4.7",
+      "displayName": "Z.AI GLM-4.7 (Budget Cloud)",
+      "provider": "zai",
+      "type": "api",
+      "tier": 2,
+      "quality": 6,
+      "speed": 7,
+      "contextWindow": 131072,
+      "capabilities": ["general", "code", "analysis", "validation", "format"],
+      "billing": {
+        "type": "payg",
+        "per1kInput": 0.0008,
+        "per1kOutput": 0.0012
+      },
+      "maxConcurrent": 10,
+      "status": "available",
+      "bestFor": "OPS validation, standard tasks, Ollama fallback, report formatting",
+      "doNotUseFor": "Tasks requiring cutting-edge reasoning or real-time data"
+    },
+    {
+      "id": "zai/glm-4.7-flashx",
+      "displayName": "Z.AI GLM Flash (Ultra-Cheap Fallback)",
+      "provider": "zai",
+      "type": "api",
+      "tier": 2,
+      "quality": 5,
+      "speed": 9,
+      "contextWindow": 32768,
+      "capabilities": ["general", "classify", "format", "summarize", "parse"],
+      "billing": {
+        "type": "payg",
+        "per1kInput": 0.0004,
+        "per1kOutput": 0.0006
+      },
+      "maxConcurrent": 20,
+      "status": "available",
+      "bestFor": "Emergency Ollama fallback, classification, simple formatting",
+      "doNotUseFor": "Anything complex, coding, research"
+    },
+    {
+      "id": "ollama/qwen2.5-coder:7b",
+      "displayName": "Qwen 2.5 Coder 7B (Local Free)",
+      "provider": "ollama",
+      "type": "local",
+      "tier": 1,
+      "quality": 4,
+      "speed": 8,
+      "contextWindow": 32768,
+      "capabilities": ["parse", "format", "json", "classify", "code_simple"],
+      "billing": {
+        "type": "free"
+      },
+      "maxConcurrent": 1,
+      "constraints": ["no_tools", "single_instance", "local_only"],
+      "status": "available",
+      "bestFor": "HATAKE prompt parsing, JSON extraction, simple formatting",
+      "doNotUseFor": "Anything requiring tools, web access, or complex reasoning"
+    },
+    {
+      "id": "ollama/llama3.1:8b",
+      "displayName": "Llama 3.1 8B (Local Free)",
+      "provider": "ollama",
+      "type": "local",
+      "tier": 1,
+      "quality": 4,
+      "speed": 7,
+      "contextWindow": 131072,
+      "capabilities": ["general", "summarize", "parse", "format"],
+      "billing": {
+        "type": "free"
+      },
+      "maxConcurrent": 1,
+      "constraints": ["no_tools", "single_instance", "local_only"],
+      "status": "available",
+      "bestFor": "General Tier 1 tasks, summaries, HATAKE fallback",
+      "doNotUseFor": "Anything requiring tools, web access, or complex reasoning"
+    }
+  ],
+
+  "providerConfig": {
+    "_instructions": "Add your API keys here. Subscription providers don't need keys (handled by CLI tools).",
+    "anthropic": {
+      "method": "cli",
+      "command": "claude",
+      "note": "Uses Claude Code CLI. Must be installed and authenticated."
+    },
+    "openai-codex": {
+      "method": "openclaw-native",
+      "note": "Configured in openclaw.json agent model sections."
+    },
+    "perplexity": {
+      "apiKey": "YOUR_PERPLEXITY_API_KEY_HERE",
+      "baseUrl": "https://api.perplexity.ai",
+      "note": "Pro plan ($20/mo) includes sonar, sonar-pro, sonar-reasoning."
+    },
+    "moonshot": {
+      "apiKey": "YOUR_MOONSHOT_API_KEY_HERE",
+      "baseUrl": "https://api.moonshot.cn/v1",
+      "note": "Pay-as-you-go. Only used for long-context tasks."
+    },
+    "zai": {
+      "apiKey": "YOUR_ZAI_API_KEY_HERE",
+      "baseUrl": "https://open.bigmodel.cn/api/paas/v4",
+      "note": "Pay-as-you-go. Primary use: OPS agent + Ollama fallback."
+    },
+    "ollama": {
+      "baseUrl": "http://127.0.0.1:11434",
+      "note": "Local. Free. Must have Ollama running with models pulled."
+    }
+  }
+}
