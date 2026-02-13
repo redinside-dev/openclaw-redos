@@ -11,6 +11,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { exec } from 'child_process';
 import { promisify } from 'util';
+import { ticketSystem } from './ticket-system.js';
 
 const execAsync = promisify(exec);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -24,6 +25,9 @@ class DevOpsAgent {
     this.healthHistory = [];
     this.autoFixEnabled = true;
     this.checkInterval = 30000; // Check every 30s
+    this.upgradeCheckInterval = 6 * 60 * 60 * 1000; // Check upgrades every 6 hours
+    this.lastUpgradeCheck = 0;
+    this.upgradeState = { cli: null, redos: null, lastChecked: null };
     this.isRunning = false;
   }
 
@@ -37,7 +41,8 @@ class DevOpsAgent {
     console.log('  ✅ Model availability');
     console.log('  ✅ Cost tracking');
     console.log('  ✅ Error rates');
-    console.log('  ✅ Response times\n');
+    console.log('  ✅ Response times');
+    console.log('  ✅ Upgrade monitoring (every 6h)\n');
 
     this.isRunning = true;
     this.monitorLoop();
@@ -78,6 +83,15 @@ class DevOpsAgent {
 
     // Check response times
     results.checks.responseTimes = await this.checkResponseTimes();
+
+    // Check upgrades (every 6 hours)
+    const now = Date.now();
+    if (now - this.lastUpgradeCheck >= this.upgradeCheckInterval) {
+      results.checks.upgrades = await this.checkUpgrades();
+      this.lastUpgradeCheck = now;
+    } else {
+      results.checks.upgrades = this.upgradeState;
+    }
 
     // Auto-fix if needed
     if (this.autoFixEnabled) {
@@ -338,6 +352,98 @@ class DevOpsAgent {
     console.log(`  Ollama:       ${statusEmoji[results.checks.ollama.status]} ${results.checks.ollama.status}`);
     console.log(`  Error Rate:   ${statusEmoji[results.checks.errorRate.status]} ${results.checks.errorRate.errorsPerMinute}/min`);
     console.log(`  Response:     ${statusEmoji[results.checks.responseTimes.status]} ${results.checks.responseTimes.latency}ms`);
+    if (results.checks.upgrades?.cli?.updateAvailable || results.checks.upgrades?.redos?.updateAvailable) {
+      console.log(`  Upgrades:     ⬆️  Updates available! Run: npm run upgrade:check`);
+    }
+  }
+
+  /**
+   * Check for available upgrades (CLI + RedOS)
+   */
+  async checkUpgrades() {
+    console.log('\n🔄 DevOps: Checking for upgrades...');
+    const result = { lastChecked: new Date().toISOString(), cli: {}, redos: {} };
+
+    try {
+      // Check CLI version
+      const { stdout: cliCurrent } = await execAsync('export PATH="/opt/homebrew/bin:$PATH" && openclaw --version 2>/dev/null || echo "not-installed"');
+      result.cli.current = cliCurrent.trim();
+
+      const { stdout: cliLatest } = await execAsync('export PATH="/opt/homebrew/bin:$PATH" && npm view openclaw version 2>/dev/null || echo "unknown"');
+      result.cli.latest = cliLatest.trim();
+      result.cli.updateAvailable = result.cli.current !== result.cli.latest && result.cli.latest !== 'unknown';
+
+      if (result.cli.updateAvailable) {
+        console.log(`  ⬆️  CLI update: ${result.cli.current} → ${result.cli.latest}`);
+        await this.createUpgradeTicket('cli', result.cli.current, result.cli.latest);
+      } else {
+        console.log(`  ✅ CLI up to date: ${result.cli.current}`);
+      }
+    } catch (error) {
+      result.cli = { status: 'check-failed', error: error.message };
+    }
+
+    try {
+      // Check RedOS git status
+      const redosDir = path.join(__dirname, '..');
+      await execAsync(`cd ${redosDir} && git fetch origin main --quiet 2>/dev/null`);
+      const { stdout: local } = await execAsync(`cd ${redosDir} && git rev-parse HEAD`);
+      const { stdout: remote } = await execAsync(`cd ${redosDir} && git rev-parse origin/main`);
+
+      if (local.trim() === remote.trim()) {
+        result.redos.updateAvailable = false;
+        result.redos.status = 'up-to-date';
+        console.log('  ✅ RedOS up to date');
+      } else {
+        const { stdout: behind } = await execAsync(`cd ${redosDir} && git rev-list HEAD..origin/main --count`);
+        result.redos.updateAvailable = true;
+        result.redos.commitsBehind = parseInt(behind.trim());
+        result.redos.status = `${result.redos.commitsBehind} commits behind`;
+        console.log(`  ⬆️  RedOS: ${result.redos.commitsBehind} commits behind origin/main`);
+        await this.createUpgradeTicket('redos', 'current', `${result.redos.commitsBehind} commits ahead`);
+      }
+
+      // Get current version from package.json
+      const pkgPath = path.join(redosDir, 'package.json');
+      const pkg = JSON.parse(await fs.readFile(pkgPath, 'utf8'));
+      result.redos.version = pkg.version;
+    } catch (error) {
+      result.redos = { status: 'check-failed', error: error.message };
+    }
+
+    this.upgradeState = result;
+    return result;
+  }
+
+  /**
+   * Create upgrade ticket (avoids duplicates)
+   */
+  async createUpgradeTicket(type, currentVersion, newVersion) {
+    const label = type === 'cli' ? 'Official OpenClaw CLI' : 'RedOS';
+
+    // Check if there's already an open upgrade ticket for this type
+    const existingTickets = ticketSystem.getOpenTickets();
+    const duplicate = existingTickets.find(t =>
+      t.tags && t.tags.includes(`upgrade-${type}`) && t.status === 'open'
+    );
+    if (duplicate) return;
+
+    const upgradeError = new Error(`Upgrade available: ${label} ${currentVersion} → ${newVersion}`);
+    upgradeError.type = 'UPGRADE_AVAILABLE';
+
+    await ticketSystem.createTicket(upgradeError, {
+      agentId: 'devops',
+      platform: 'system',
+      tags: [`upgrade-${type}`, 'maintenance'],
+      priority: type === 'cli' ? 'low' : 'medium',
+      notes: [
+        `Run: npm run upgrade:${type === 'cli' ? 'cli' : 'all'}`,
+        `Current: ${currentVersion}`,
+        `Available: ${newVersion}`
+      ]
+    });
+
+    console.log(`  🎫 Ticket created: ${label} upgrade available`);
   }
 
   /**
@@ -345,7 +451,7 @@ class DevOpsAgent {
    */
   getSummary() {
     if (this.healthHistory.length === 0) {
-      return { status: 'no-data' };
+      return { status: 'no-data', upgrades: this.upgradeState };
     }
 
     const latest = this.healthHistory[this.healthHistory.length - 1];
@@ -355,6 +461,7 @@ class DevOpsAgent {
       status: 'monitoring',
       uptime: uptime,
       checks: latest.checks,
+      upgrades: this.upgradeState,
       history: this.healthHistory.length
     };
   }
