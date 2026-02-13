@@ -287,11 +287,11 @@ tail -f /tmp/openclaw-gateway.log
 
 | File | Description |
 |------|-------------|
-| `ARCHITECTURE_ANALYSIS.md` | Detailed architecture analysis & evolution plan |
-| `RESILIENT_SYSTEM.md` | Resilience layer documentation |
-| `HATAKE_PROMPT_ENGINEERING.md` | HATAKE prompt engineering details |
-| `TELEGRAM_DEMO_GUIDE.md` | Telegram demo walkthrough |
-| `SETUP_GUIDE.md` | Full setup instructions |
+| [ARCHITECTURE_ANALYSIS.md](./ARCHITECTURE_ANALYSIS.md) | Detailed architecture analysis & evolution plan |
+| [RESILIENT_SYSTEM.md](./RESILIENT_SYSTEM.md) | Resilience layer documentation |
+| [HATAKE_PROMPT_ENGINEERING.md](./HATAKE_PROMPT_ENGINEERING.md) | HATAKE prompt engineering details |
+| [TELEGRAM_DEMO_GUIDE.md](./TELEGRAM_DEMO_GUIDE.md) | Telegram demo walkthrough |
+| [SETUP_GUIDE.md](./SETUP_GUIDE.md) | Full setup instructions |
 
 ---
 
