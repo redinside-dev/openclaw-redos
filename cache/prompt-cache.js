@@ -74,7 +74,30 @@ export class PromptCache {
       const similarity = this.cosineSimilarity(embedding, entry.embedding);
 
       if (similarity >= this.similarityThreshold) {
-        console.log(`\n⚡ CACHE HIT (similarity: ${(similarity * 100).toFixed(1)}%)`);
+        // ADDITIONAL CHECK: Verify key words match to prevent false positives
+        const currentWords = new Set(normalized.split(/\s+/).filter(w => w.length > 3));
+        const cachedWords = new Set(entry.normalized.split(/\s+/).filter(w => w.length > 3));
+
+        // Calculate word overlap
+        const commonWords = [...currentWords].filter(w => cachedWords.has(w));
+        const wordOverlap = commonWords.length / Math.max(currentWords.size, cachedWords.size);
+
+        // Check length similarity - queries should be similar length
+        const lengthRatio = Math.min(normalized.length, entry.normalized.length) /
+                           Math.max(normalized.length, entry.normalized.length);
+
+        // STRICT CHECKS to prevent matching unrelated queries:
+        // 1. At least 50% word overlap (was 30%)
+        // 2. At least 2 common words (prevents single-word matches)
+        // 3. Length similarity > 60% (prevents matching short vs long queries)
+        if (wordOverlap < 0.5 || commonWords.length < 2 || lengthRatio < 0.6) {
+          console.log(`\n❌ Cache similarity match rejected (${(similarity * 100).toFixed(1)}% similar but ${(wordOverlap * 100).toFixed(0)}% word overlap, ${commonWords.length} common words, ${(lengthRatio * 100).toFixed(0)}% length match)`);
+          console.log(`   Original: "${entry.message.substring(0, 40)}..."`);
+          console.log(`   Current:  "${message.substring(0, 40)}..."`);
+          continue; // Skip this entry
+        }
+
+        console.log(`\n⚡ CACHE HIT (similarity: ${(similarity * 100).toFixed(1)}%, word overlap: ${(wordOverlap * 100).toFixed(0)}%)`);
         console.log(`   Original: "${entry.message.substring(0, 40)}..."`);
         console.log(`   Current:  "${message.substring(0, 40)}..."`);
         console.log(`   Age: ${this.getAge(entry)}s`);
