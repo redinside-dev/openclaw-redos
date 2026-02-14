@@ -13,6 +13,8 @@
  */
 
 import { resilientHandler } from '../gateway/resilient-handler.js';
+import { teamWorkspace } from '../collaboration/team-workspace.js';
+import { vectorMemory } from '../memory/vector-memory.js';
 
 export class EdRedOrchestrator {
   constructor() {
@@ -400,13 +402,31 @@ export class EdRedOrchestrator {
    * Execute a single step
    */
   async executeStep(step, plan, brief, results, context) {
+    const agentId = step.agent;
+
+    // 🏢 STEP 1: Agent starts task in workspace (like moving Jira card)
+    const taskId = await teamWorkspace.startTask(agentId, step.description, {
+      step_id: step.step_id,
+      action: step.action,
+      brief_id: brief.brief_id
+    });
+
+    // 🔍 STEP 2: Agent checks workspace for relevant messages/knowledge
+    const messages = await teamWorkspace.getMessagesFor(agentId, {
+      since: context.sessionStart || new Date(Date.now() - 3600000) // Last hour
+    });
+
+    const knowledge = await teamWorkspace.searchKnowledge(brief.original_message, agentId);
+
     // Build context for agent
     const agentContext = {
       step_id: step.step_id,
       action: step.action,
       brief: brief,
       previous_results: this.getPreviousResults(step, results),
-      original_message: brief.original_message
+      original_message: brief.original_message,
+      workspace_messages: messages,        // Messages from other agents
+      team_knowledge: knowledge            // Relevant past solutions
     };
 
     // 🎯 USE HATAKE'S OPTIMIZED PROMPT if available
@@ -442,13 +462,61 @@ export class EdRedOrchestrator {
       prompt,
       {
         ...context,
+        ...agentContext,
         step_id: step.step_id,
         forceModel: selectedModel,
         timeout: step.timeout
       }
     );
 
+    // 📤 STEP 3: Agent shares result in workspace (like posting PR or update)
+    let artifactId = null;
+    if (result.content && step.action.includes('generate') || step.action.includes('create')) {
+      // Share code/artifact for review
+      artifactId = await teamWorkspace.shareArtifact(
+        agentId,
+        step.action.includes('code') ? 'code' : 'document',
+        result.content,
+        {
+          tags: [step.action, 'generated'],
+          reviewBy: this.getNextAgent(step, plan),  // Who should review this
+          relatedTask: taskId
+        }
+      );
+    }
+
+    // 🤝 STEP 4: Complete task and handoff to next agent if needed
+    const nextAgent = this.getNextAgent(step, plan);
+    await teamWorkspace.completeTask(taskId, agentId, result, {
+      handoffTo: nextAgent,
+      artifacts: artifactId ? [artifactId] : []
+    });
+
+    // 💾 STEP 5: Store agent's work in team knowledge base
+    await vectorMemory.storeConversation({
+      agentId: agentId,
+      userId: 'team-execution',
+      message: `${step.action}: ${brief.original_message}`,
+      response: result.content,
+      metadata: {
+        type: 'agent-execution',
+        step_id: step.step_id,
+        action: step.action,
+        taskId: taskId,
+        artifactId: artifactId
+      }
+    });
+
     return result;
+  }
+
+  /**
+   * Get next agent in plan for handoff
+   */
+  getNextAgent(currentStep, plan) {
+    const currentIdx = plan.steps.findIndex(s => s.step_id === currentStep.step_id);
+    const nextStep = plan.steps[currentIdx + 1];
+    return nextStep ? nextStep.agent : null;
   }
 
   /**
@@ -459,6 +527,33 @@ export class EdRedOrchestrator {
 
     // Add context from brief
     prompt += `Original Request: ${context.brief.original_message}\n\n`;
+
+    // 🏢 Add context from team workspace (like checking Slack before starting work)
+    if (context.workspace_messages && context.workspace_messages.length > 0) {
+      prompt += `📬 Messages from team:\n`;
+      context.workspace_messages.forEach(msg => {
+        prompt += `- ${this.agents[msg.from].name}: ${msg.message}\n`;
+      });
+      prompt += `\n`;
+    }
+
+    // 💡 Add relevant team knowledge (like checking Confluence for past solutions)
+    if (context.team_knowledge && context.team_knowledge.length > 0) {
+      prompt += `💡 Relevant past solutions from team knowledge base:\n`;
+      context.team_knowledge.slice(0, 2).forEach((k, idx) => {
+        prompt += `${idx + 1}. ${k.message}: ${k.response.substring(0, 100)}...\n`;
+      });
+      prompt += `\n`;
+    }
+
+    // 🤝 Add previous agent results (like reading PR from previous developer)
+    if (context.previous_results && Object.keys(context.previous_results).length > 0) {
+      prompt += `🤝 Work from previous team members:\n`;
+      Object.entries(context.previous_results).forEach(([stepId, result]) => {
+        prompt += `- Step ${stepId}: ${result.content.substring(0, 150)}...\n`;
+      });
+      prompt += `\n`;
+    }
 
     // Add step-specific instructions
     if (step.action === 'generate_code') {

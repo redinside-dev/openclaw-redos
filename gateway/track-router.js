@@ -8,6 +8,7 @@
 import { hatakeParser } from '../agents/hatake-parser.js';
 import { resilientHandler } from './resilient-handler.js';
 import { edRedOrchestrator } from '../agents/ed-red-orchestrator.js';
+import { agentOrchestrator } from '../orchestration/agent-orchestrator.js';
 
 export class TrackRouter {
   constructor() {
@@ -32,10 +33,33 @@ export class TrackRouter {
     console.log(`Message: ${message.substring(0, 100)}${message.length > 100 ? '...' : ''}`);
     console.log(`${'='.repeat(60)}`);
 
-    // Step 1: HATAKE parses message
+    // Step 1: Check if request requires specialized agent delegation
+    const intent = await agentOrchestrator.analyzeIntent(message);
+
+    if (intent.requiresDelegation) {
+      // Delegate to specialized agent(s)
+      const delegation = await agentOrchestrator.delegate(message, intent, context);
+
+      // Return acknowledgment immediately (agent will work in background)
+      return {
+        content: delegation.acknowledgment,
+        delegated: true,
+        delegationId: delegation.delegationId,
+        primaryAgent: delegation.primaryAgent,
+        model: {
+          provider: 'orchestrator',
+          model: 'agent-delegation'
+        },
+        latency: 0,
+        cost: 0,
+        tokens: { input: 0, output: 0 }
+      };
+    }
+
+    // Step 2: HATAKE parses message
     const brief = await hatakeParser.parse(message, context);
 
-    // Step 2: Route based on track
+    // Step 3: Route based on track
     let result;
 
     if (brief.track === 'fast') {
