@@ -557,8 +557,28 @@ export class EdRedOrchestrator {
 
     // Add step-specific instructions
     if (step.action === 'generate_code') {
-      prompt += `Task: Generate code based on the requirements above.\n`;
-      prompt += `Include error handling, documentation, and follow best practices.\n`;
+      prompt += `Task: Generate COMPLETE, PRODUCTION-READY code based on the requirements above.\n\n`;
+      prompt += `Requirements:\n`;
+      prompt += `1. Create a full working application (not just snippets)\n`;
+      prompt += `2. Choose the MOST APPROPRIATE language/framework for the request\n`;
+      prompt += `   - Web app → HTML/CSS/JavaScript or React/Vue/etc\n`;
+      prompt += `   - Backend API → Python/Node.js/Go/Rust/etc\n`;
+      prompt += `   - CLI tool → Python/Go/Rust/etc\n`;
+      prompt += `   - Mobile → React Native/Flutter/Swift/Kotlin\n`;
+      prompt += `   - Data analysis → Python/R/Julia\n`;
+      prompt += `3. Include all necessary files and dependencies\n`;
+      prompt += `4. Add error handling and edge cases\n`;
+      prompt += `5. Follow best practices for the chosen language\n`;
+      prompt += `6. Add clear comments and documentation\n`;
+      prompt += `7. Make it ready to run immediately\n\n`;
+      prompt += `Output Format:\n`;
+      prompt += `Provide the complete code with clear file separators:\n`;
+      prompt += `=== filename.ext ===\n`;
+      prompt += `[full code here]\n`;
+      prompt += `=== another_file.ext ===\n`;
+      prompt += `[full code here]\n\n`;
+      prompt += `Also include setup instructions if needed (how to install dependencies, run, etc.)\n\n`;
+      prompt += `Generate the code now:\n`;
     } else if (step.action === 'validate_code') {
       const previousCode = context.previous_results['1']?.content || '';
       prompt += `Task: Validate the following code:\n\n${previousCode}\n\n`;

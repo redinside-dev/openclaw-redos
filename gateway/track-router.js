@@ -33,33 +33,28 @@ export class TrackRouter {
     console.log(`Message: ${message.substring(0, 100)}${message.length > 100 ? '...' : ''}`);
     console.log(`${'='.repeat(60)}`);
 
-    // Step 1: Check if request requires specialized agent delegation
+    // Step 1: Parse message with HATAKE
+    const brief = await hatakeParser.parse(message, context);
+
+    // Step 2: Check if request requires specialized agent delegation
     const intent = await agentOrchestrator.analyzeIntent(message);
 
     if (intent.requiresDelegation) {
-      // Delegate to specialized agent(s)
-      const delegation = await agentOrchestrator.delegate(message, intent, context);
+      console.log(`🎯 DELEGATION to ${intent.primaryAgent} - will use ORCHESTRATED TRACK`);
 
-      // Return acknowledgment immediately (agent will work in background)
-      return {
-        content: delegation.acknowledgment,
-        delegated: true,
-        delegationId: delegation.delegationId,
-        primaryAgent: delegation.primaryAgent,
-        model: {
-          provider: 'orchestrator',
-          model: 'agent-delegation'
-        },
-        latency: 0,
-        cost: 0,
-        tokens: { input: 0, output: 0 }
-      };
+      // Force orchestrated track for delegated requests
+      brief.track = 'orchestrated';
+      brief.suggested_agents = [intent.primaryAgent];
+      if (intent.supportingAgents && intent.supportingAgents.length > 0) {
+        brief.suggested_agents.push(...intent.supportingAgents);
+      }
+
+      // Update intent in brief
+      brief.intent.type = this.mapAgentToIntentType(intent.primaryAgent);
+      brief.original_message = message;
     }
 
-    // Step 2: HATAKE parses message
-    const brief = await hatakeParser.parse(message, context);
-
-    // Step 3: Route based on track
+    // Step 3: Route based on track (delegation forces orchestrated track)
     let result;
 
     if (brief.track === 'fast') {
@@ -151,6 +146,21 @@ export class TrackRouter {
       console.log(`⚠️  Falling back to fast track...`);
       return await this.executeFastTrack(agentId, message, brief, context);
     }
+  }
+
+  /**
+   * Map agent ID to intent type for orchestrator
+   */
+  mapAgentToIntentType(agentId) {
+    const mapping = {
+      'engineering': 'code_generation',
+      'research': 'research',
+      'devops': 'validation',
+      'finance': 'analysis',
+      'infosec': 'security_check'
+    };
+
+    return mapping[agentId.toLowerCase()] || 'general_query';
   }
 
   /**
