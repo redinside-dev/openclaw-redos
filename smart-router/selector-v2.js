@@ -148,7 +148,7 @@ export class SmartRouterV2 {
 
     // Determine type
     let taskType = 'general';
-    if (hasCode || /code|program|function|debug|implement/.test(lowerMessage)) {
+    if (hasCode || /code|program|function|debug|implement|create|build|make|develop|write|generate|design/.test(lowerMessage)) {
       taskType = 'code';
     } else if (isComplex || /explain|analyze|compare|evaluate/.test(lowerMessage)) {
       taskType = 'complex';
@@ -183,16 +183,24 @@ export class SmartRouterV2 {
     for (const [modelId, config] of Object.entries(this.models)) {
       const [provider, model] = modelId.split('/');
 
-      // ⭐ CRITICAL: If internet is needed, ONLY use internet-capable models
+      // ⭐ PRIORITY: Coding tasks override internet requirement
+      // If it's a coding task, use coding models even if internet mentioned
+      if (requirements.taskType === 'code') {
+        // For coding tasks, prefer code-capable models
+        if (config.capabilities.includes('code')) {
+          candidates.push({ provider, model, config });
+        }
+        continue; // Skip internet check for coding tasks
+      }
+
+      // ⭐ CRITICAL: If internet is needed (and NOT coding), ONLY use internet-capable models
       if (requirements.needsInternet && !config.internet) {
         continue; // Skip non-internet models
       }
 
       // Check capability match
       let capabilityMatch = false;
-      if (requirements.taskType === 'code' && config.capabilities.includes('code')) {
-        capabilityMatch = true;
-      } else if (requirements.taskType === 'complex' && config.capabilities.includes('complex')) {
+      if (requirements.taskType === 'complex' && config.capabilities.includes('complex')) {
         capabilityMatch = true;
       } else if (requirements.taskType === 'simple' && config.capabilities.includes('chat')) {
         capabilityMatch = true;
