@@ -70,13 +70,23 @@ export class SmartRouterV2 {
       },
 
       // Internet-Enabled - Perplexity (CRITICAL for real-time queries!)
-      'perplexity/llama-3.1-sonar-small-128k-online': {
+      'perplexity/sonar': {
         cost: 0.0002,
         speed: 'fast',        // 2-3s
         quality: 'excellent',
         capabilities: ['real-time', 'news', 'search', 'current-events', 'web'],
         maxTokens: 100000,
         reliability: 0.98,
+        internet: true        // ⭐ HAS INTERNET ACCESS
+      },
+
+      'perplexity/sonar-pro': {
+        cost: 0.0005,
+        speed: 'medium',      // 3-5s
+        quality: 'exceptional',
+        capabilities: ['real-time', 'news', 'search', 'current-events', 'web', 'complex-analysis'],
+        maxTokens: 100000,
+        reliability: 0.99,
         internet: true        // ⭐ HAS INTERNET ACCESS
       }
     };
