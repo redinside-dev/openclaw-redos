@@ -177,6 +177,21 @@ class TelegramBridge {
           // Send typing indicator
           await bot.sendChatAction(chatId, 'typing');
 
+          // Check if this is a complex request that will take time
+          const isComplexRequest = /\b(create|build|develop|generate|write|implement|make|design|code)\b/i.test(message);
+
+          // Send immediate acknowledgment for complex requests
+          let ackMessage = null;
+          if (isComplexRequest) {
+            ackMessage = await bot.sendMessage(chatId,
+              '⏳ Processing your request...\n_This may take a few moments_',
+              {
+                reply_to_message_id: msg.message_id,
+                parse_mode: 'Markdown'
+              }
+            );
+          }
+
           // Check for user model override
           const modelOverride = userPreferences.getModelOverride(userId.toString());
 
@@ -196,6 +211,15 @@ class TelegramBridge {
           console.log(`✅ Response received in ${latency}ms`);
           console.log(`🎯 Model: ${response.model?.provider}/${response.model?.model}`);
           console.log(`💰 Cost: $${response.cost?.toFixed(6) || '0.000000'}`);
+
+          // Delete acknowledgment message if it was sent
+          if (ackMessage) {
+            try {
+              await bot.deleteMessage(chatId, ackMessage.message_id);
+            } catch (err) {
+              // Ignore deletion errors
+            }
+          }
 
           // Send response with automatic Markdown fallback
           await this.sendSafeMessage(bot, chatId, response.content, {
