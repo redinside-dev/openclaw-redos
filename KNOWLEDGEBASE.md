@@ -1,5 +1,48 @@
 # OpenClaw RedOS — Master Knowledgebase
 
+---
+
+## ⚠️ START HERE — READ THIS FIRST
+
+**This is the single source of truth for the entire OpenClaw RedOS project.**
+
+Whether you are Claude, GPT, Gemini, a human developer, or any collaborator — **before doing anything on this project, read this file in full.** It contains the complete context: architecture, configuration, authentication, all fixes applied, all decisions made, and everything that still needs to be done.
+
+### Exact Paths
+
+| What | Path |
+|---|---|
+| **This file (Knowledgebase)** | `/Users/redinside/.openclaw/KNOWLEDGEBASE.md` |
+| **GitHub repository** | `https://github.com/redinside-dev/openclaw-redos.git` |
+| **KNOWLEDGEBASE in GitHub** | `https://github.com/redinside-dev/openclaw-redos/blob/main/KNOWLEDGEBASE.md` |
+| **State directory** | `/Users/redinside/.openclaw/` |
+| **Live config** | `/Users/redinside/.openclaw/openclaw.json` |
+| **launchd service** | `~/Library/LaunchAgents/ai.openclaw.gateway.plist` |
+| **Gateway logs** | `/Users/redinside/.openclaw/logs/gateway.log` |
+| **OpenClaw CLI** | `/opt/homebrew/lib/node_modules/openclaw/` |
+
+### For LLMs / AI Assistants starting a new session
+
+1. Read this file: `/Users/redinside/.openclaw/KNOWLEDGEBASE.md`
+2. Run `openclaw status` to check the current state of the gateway
+3. Check `git log --oneline -5` to see recent commits
+4. Look at `git status` to see any uncommitted work
+5. Then proceed — you now have full context
+
+### For Human Developers / Collaborators
+
+Clone the repo:
+```bash
+git clone https://github.com/redinside-dev/openclaw-redos.git ~/.openclaw
+```
+Then read this file. The `openclaw.json` (live secrets) and `identity/` (device keys) are not in git — you will need to be provided those separately for a live environment.
+
+### Mandate: Keep This File Updated
+
+> **After every significant change — whether you are an AI assistant or a human — update this KNOWLEDGEBASE.md and commit it.** No change should be made to this project without a corresponding entry here. This ensures zero context loss between sessions.
+
+---
+
 > **Single source of truth** for architecture, configuration, fixes, and operational procedures.
 > Updated: 2026-02-15 | Version: OpenClaw 2026.2.14 + RedOS 3.6.0
 
