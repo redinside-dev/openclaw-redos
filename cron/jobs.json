@@ -805,7 +805,7 @@
       "name": "OPS System Health Monitor",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771196035173,
+      "updatedAtMs": 1771196915060,
       "schedule": {
         "kind": "every",
         "everyMs": 900000,
@@ -815,10 +815,10 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "You are OPS, the system health monitor. Check system health now.\n\nSTEPS:\n1. Read /Users/redinside/.openclaw/logs/gateway.err.log (last 20 lines) — look for new errors since last check.\n2. Read /Users/redinside/.openclaw/logs/errors.jsonl (last 5 entries) — check for recurring failures.\n3. Read /Users/redinside/.openclaw/logs/health.jsonl (last 3 entries) — check health status.\n\nIF you find new errors or failures:\na. Follow the Self-Healing Protocol:\n   - Log a ticket in /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md\n   - Diagnose the root cause (read LEARNINGS.md for known issues)\n   - If it's a known issue with a known fix, apply the fix\n   - If it's a new issue, search the web for solutions\n   - If you need help, delegate: code issues to ENG, security to INFOSEC\n   - After fixing, update LEARNINGS.md with what you learned\nb. If the error is critical (system down, all agents affected): Send Telegram alert to user 1012034994\n\nIF everything is healthy: Do nothing. Be silent. No output needed.\n\nIMPORTANT: Only create tickets and alerts for NEW issues, not ones already tracked.",
+        "message": "You are OPS, the system health monitor. Check system health now.\n\nSTEPS:\n1. Read /Users/redinside/.openclaw/logs/gateway.err.log (last 20 lines) — look for new errors since last check.\n2. Read /Users/redinside/.openclaw/logs/errors.jsonl (last 5 entries) — check for recurring failures.\n3. Read /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md — check what's already tracked.\n\nIF you find new errors NOT already in TICKET-TRACKER.md:\na. Add a ticket to TICKET-TRACKER.md following the format there.\nb. Add a learning to /Users/redinside/.openclaw/workspace/ops/LEARNINGS.md if applicable.\nc. If critical (system down): Send Telegram alert to user 1012034994.\n\nIF everything is healthy: Do nothing. Be silent.\n\nRULES:\n- Do NOT run shell commands. Only use read and write tools.\n- Only create tickets for NEW issues not already tracked.\n- Keep it brief.",
         "model": "zai/glm-4.7",
         "thinking": "low",
-        "timeoutSeconds": 120
+        "timeoutSeconds": 300
       },
       "delivery": {
         "mode": "none"
@@ -827,9 +827,8 @@
         "lastStatus": null,
         "lastRunAtMs": null,
         "lastDurationMs": null,
-        "lastError": null,
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1771196795024
+        "nextRunAtMs": 1771197695024
       }
     },
     {
