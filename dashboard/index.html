@@ -3,380 +3,745 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OpenClaw Cost Monitor</title>
+  <title>RedOS Mission Control</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0b0f1a;
+      --bg2: #111827;
+      --bg3: #1f2937;
+      --bg4: #374151;
+      --border: #1f2937;
+      --text: #f3f4f6;
+      --text2: #9ca3af;
+      --text3: #6b7280;
+      --blue: #3b82f6;
+      --green: #10b981;
+      --yellow: #f59e0b;
+      --red: #ef4444;
+      --purple: #8b5cf6;
+      --cyan: #06b6d4;
+      --pink: #ec4899;
+    }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
-      color: #fff;
-      padding: 20px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
       min-height: 100vh;
+      overflow-x: hidden;
     }
 
-    .container {
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    h1 {
-      font-size: 36px;
-      margin-bottom: 10px;
-      background: linear-gradient(90deg, #00ff88, #00ccff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .subtitle {
-      color: #888;
-      margin-bottom: 30px;
-      font-size: 14px;
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      margin-bottom: 30px;
-    }
-
-    .stat-card {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
-      padding: 24px;
-      border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      transition: transform 0.2s, border-color 0.2s;
-    }
-
-    .stat-card:hover {
-      transform: translateY(-2px);
-      border-color: rgba(0, 255, 136, 0.3);
-    }
-
-    .stat-label {
-      font-size: 13px;
-      color: #888;
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .stat-value {
-      font-size: 36px;
-      font-weight: bold;
-      line-height: 1.2;
-    }
-
-    .stat-value.green { color: #00ff88; }
-    .stat-value.yellow { color: #ffcc00; }
-    .stat-value.red { color: #ff4444; }
-
-    .stat-sublabel {
-      font-size: 12px;
-      color: #666;
-      margin-top: 4px;
-    }
-
-    .budget-section {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
-      padding: 24px;
-      border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      margin-bottom: 30px;
-    }
-
-    .budget-bar {
-      height: 40px;
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 20px;
-      overflow: hidden;
-      margin: 15px 0;
-      position: relative;
-    }
-
-    .budget-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #00ff88, #ffcc00, #ff4444);
-      transition: width 0.5s ease;
+    /* Header */
+    .header {
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      height: 56px;
       display: flex;
       align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      font-size: 16px;
-      position: relative;
-    }
-
-    .budget-label {
-      display: flex;
       justify-content: space-between;
-      font-size: 14px;
-      color: #888;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
 
-    table {
-      width: 100%;
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
-      border-radius: 12px;
-      overflow: hidden;
-      margin-bottom: 30px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    th, td {
-      padding: 16px;
-      text-align: left;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    th {
-      background: rgba(0, 0, 0, 0.3);
-      font-weight: 600;
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: #888;
-    }
-
-    tr:hover {
-      background: rgba(255, 255, 255, 0.02);
-    }
-
-    tr:last-child td {
-      border-bottom: none;
-    }
-
-    .section-title {
-      font-size: 24px;
-      margin: 40px 0 20px;
+    .logo {
       display: flex;
       align-items: center;
       gap: 10px;
+      font-weight: 700;
+      font-size: 18px;
     }
 
-    .update-time {
-      color: #666;
-      font-size: 13px;
-      text-align: right;
-      margin-top: 20px;
-    }
-
-    .pulse {
-      display: inline-block;
-      width: 8px;
-      height: 8px;
+    .logo-dot {
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
-      background: #00ff88;
+      background: var(--green);
       animation: pulse 2s infinite;
     }
 
+    .logo-dot.error { background: var(--red); }
+    .logo-dot.warn { background: var(--yellow); }
+
     @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(16,185,129,0.4); }
+      50% { opacity: 0.8; box-shadow: 0 0 0 6px rgba(16,185,129,0); }
     }
 
-    .empty-state {
-      text-align: center;
-      padding: 40px;
-      color: #666;
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text2);
     }
+
+    .header-right .refresh-btn {
+      background: var(--bg3);
+      border: 1px solid var(--bg4);
+      color: var(--text2);
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      transition: all 0.15s;
+    }
+    .header-right .refresh-btn:hover { background: var(--bg4); color: var(--text); }
+
+    /* Nav Tabs */
+    .nav {
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 0;
+      padding: 0 24px;
+      overflow-x: auto;
+    }
+
+    .nav-tab {
+      padding: 12px 20px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text3);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+      transition: all 0.15s;
+      background: none;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+    }
+    .nav-tab:hover { color: var(--text2); }
+    .nav-tab.active { color: var(--blue); border-bottom-color: var(--blue); }
+
+    /* Layout */
+    .page { display: none; padding: 24px; max-width: 1400px; margin: 0 auto; }
+    .page.active { display: block; }
+
+    /* Cards */
+    .grid { display: grid; gap: 16px; }
+    .grid-4 { grid-template-columns: repeat(4, 1fr); }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+
+    @media (max-width: 1024px) {
+      .grid-4 { grid-template-columns: repeat(2, 1fr); }
+      .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .card-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text2);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .stat-value {
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    .stat-sub {
+      font-size: 12px;
+      color: var(--text3);
+      margin-top: 4px;
+    }
+
+    /* Section */
+    .section { margin-top: 24px; }
+    .section-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Table */
+    .tbl {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .tbl th {
+      text-align: left;
+      padding: 10px 12px;
+      font-weight: 600;
+      color: var(--text3);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--border);
+    }
+    .tbl td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text2);
+    }
+    .tbl tr:last-child td { border-bottom: none; }
+    .tbl tr:hover td { background: rgba(255,255,255,0.02); }
+
+    /* Pills */
+    .pill {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .pill-green { background: rgba(16,185,129,0.15); color: var(--green); }
+    .pill-yellow { background: rgba(245,158,11,0.15); color: var(--yellow); }
+    .pill-red { background: rgba(239,68,68,0.15); color: var(--red); }
+    .pill-blue { background: rgba(59,130,246,0.15); color: var(--blue); }
+    .pill-purple { background: rgba(139,92,246,0.15); color: var(--purple); }
+    .pill-gray { background: rgba(107,114,128,0.15); color: var(--text3); }
+
+    /* Agent Cards */
+    .agent-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .agent-card .agent-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .agent-card .agent-name {
+      font-weight: 700;
+      font-size: 16px;
+    }
+    .agent-card .agent-role {
+      font-size: 12px;
+      color: var(--text3);
+    }
+    .agent-card .agent-meta {
+      display: flex;
+      gap: 16px;
+      font-size: 12px;
+      color: var(--text3);
+    }
+    .agent-card .agent-meta span { display: flex; align-items: center; gap: 4px; }
+
+    /* Activity Feed */
+    .feed-item {
+      padding: 12px 16px;
+      border-left: 3px solid var(--bg4);
+      margin-bottom: 8px;
+      background: var(--bg3);
+      border-radius: 0 8px 8px 0;
+      font-size: 13px;
+    }
+    .feed-item.ok { border-left-color: var(--green); }
+    .feed-item.error { border-left-color: var(--red); }
+    .feed-item.warn { border-left-color: var(--yellow); }
+    .feed-item.info { border-left-color: var(--blue); }
+    .feed-item .feed-time {
+      font-size: 11px;
+      color: var(--text3);
+      margin-bottom: 4px;
+    }
+    .feed-item .feed-text { color: var(--text2); }
+
+    /* Learning Cards */
+    .learning-card {
+      background: var(--bg3);
+      border-radius: 8px;
+      padding: 14px;
+      margin-bottom: 10px;
+    }
+    .learning-card .lc-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .learning-card .lc-title { font-weight: 600; font-size: 14px; }
+    .learning-card .lc-body { font-size: 13px; color: var(--text2); line-height: 1.5; }
+
+    /* Empty */
+    .empty {
+      text-align: center;
+      padding: 48px 24px;
+      color: var(--text3);
+    }
+    .empty-icon { font-size: 40px; margin-bottom: 12px; opacity: 0.5; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--bg4); border-radius: 3px; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>💰 OpenClaw Cost Monitor</h1>
-    <p class="subtitle">
-      <span class="pulse"></span>
-      Real-time cost tracking & optimization
-    </p>
 
-    <div class="stats">
-      <div class="stat-card">
-        <div class="stat-label">Today's Spend</div>
-        <div class="stat-value" id="total-cost">$0.00</div>
-        <div class="stat-sublabel" id="cost-trend">—</div>
+<div class="header">
+  <div class="logo">
+    <div class="logo-dot" id="statusDot"></div>
+    <span>RedOS Mission Control</span>
+  </div>
+  <div class="header-right">
+    <span id="lastUpdate">--</span>
+    <button class="refresh-btn" onclick="loadAll()">Refresh</button>
+    <span id="clock">--:--:--</span>
+  </div>
+</div>
+
+<div class="nav">
+  <button class="nav-tab active" data-page="overview">Overview</button>
+  <button class="nav-tab" data-page="agents">Agents</button>
+  <button class="nav-tab" data-page="cron">Cron Jobs</button>
+  <button class="nav-tab" data-page="tickets">Tickets & SLA</button>
+  <button class="nav-tab" data-page="learnings">Learnings</button>
+  <button class="nav-tab" data-page="errors">Errors & Logs</button>
+  <button class="nav-tab" data-page="skills">Skills</button>
+</div>
+
+<!-- ===== OVERVIEW ===== -->
+<div class="page active" id="page-overview">
+  <div class="grid grid-4" id="overview-stats"></div>
+
+  <div class="section">
+    <div class="grid grid-2">
+      <div>
+        <div class="section-title">Cron Job Activity</div>
+        <div class="card" id="overview-cron-feed" style="max-height:400px;overflow-y:auto;"></div>
       </div>
-
-      <div class="stat-card">
-        <div class="stat-label">Budget Remaining</div>
-        <div class="stat-value green" id="remaining">$5.00</div>
-        <div class="stat-sublabel">of $5.00 daily budget</div>
+      <div>
+        <div class="section-title">Recent Errors</div>
+        <div class="card" id="overview-errors-feed" style="max-height:400px;overflow-y:auto;"></div>
       </div>
-
-      <div class="stat-card">
-        <div class="stat-label">Requests Today</div>
-        <div class="stat-value" id="requests">0</div>
-        <div class="stat-sublabel" id="requests-rate">—</div>
-      </div>
-
-      <div class="stat-card">
-        <div class="stat-label">Avg Cost/Request</div>
-        <div class="stat-value" id="avg-cost">$0.00</div>
-        <div class="stat-sublabel" id="savings">— savings</div>
-      </div>
-    </div>
-
-    <div class="budget-section">
-      <h3 style="margin-bottom: 10px;">Budget Usage</h3>
-      <div class="budget-label">
-        <span>$<span id="budget-spent">0.00</span> spent</span>
-        <span>$<span id="budget-left">5.00</span> left</span>
-      </div>
-      <div class="budget-bar">
-        <div class="budget-fill" id="budget-fill">0%</div>
-      </div>
-    </div>
-
-    <h2 class="section-title">📊 Cost by Model</h2>
-    <table id="model-table">
-      <thead>
-        <tr>
-          <th>Model</th>
-          <th>Requests</th>
-          <th>Tokens</th>
-          <th>Cost</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td colspan="4" class="empty-state">No data yet. Send some messages!</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h2 class="section-title">🤖 Cost by Agent</h2>
-    <table id="agent-table">
-      <thead>
-        <tr>
-          <th>Agent</th>
-          <th>Requests</th>
-          <th>Cost</th>
-          <th>Share</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td colspan="4" class="empty-state">No data yet. Send some messages!</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div class="update-time">
-      Last updated: <span id="update-time">—</span>
     </div>
   </div>
 
-  <script>
-    const API_URL = 'http://localhost:19000';
-    let previousTotal = 0;
+  <div class="section">
+    <div class="section-title">Agent Roster</div>
+    <div class="grid grid-4" id="overview-agents"></div>
+  </div>
+</div>
 
-    async function fetchCost() {
-      try {
-        const res = await fetch(`${API_URL}/api/cost`);
-        const data = await res.json();
+<!-- ===== AGENTS ===== -->
+<div class="page" id="page-agents">
+  <div class="section-title">All Agents</div>
+  <div class="grid grid-3" id="agents-grid"></div>
+</div>
 
-        // Update main stats
-        document.getElementById('total-cost').textContent = `$${data.today.total.toFixed(4)}`;
-        document.getElementById('remaining').textContent = `$${data.remaining.toFixed(2)}`;
-        document.getElementById('requests').textContent = data.today.requests.toLocaleString();
+<!-- ===== CRON JOBS ===== -->
+<div class="page" id="page-cron">
+  <div class="section-title">Cron Jobs</div>
+  <div class="card">
+    <table class="tbl" id="cron-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Agent</th>
+          <th>Schedule</th>
+          <th>Enabled</th>
+          <th>Last Status</th>
+          <th>Last Run</th>
+          <th>Duration</th>
+          <th>Errors</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
 
-        // Cost trend
-        if (data.today.total > previousTotal) {
-          document.getElementById('cost-trend').textContent = `↑ +$${(data.today.total - previousTotal).toFixed(4)}`;
-        }
-        previousTotal = data.today.total;
+<!-- ===== TICKETS ===== -->
+<div class="page" id="page-tickets">
+  <div class="grid grid-4" id="ticket-stats"></div>
+  <div class="section">
+    <div class="section-title">Active Tickets</div>
+    <div class="card">
+      <table class="tbl" id="tickets-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Priority</th>
+            <th>Status</th>
+            <th>Assignee</th>
+            <th>Summary</th>
+            <th>SLA Deadline</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title">SLA Policy</div>
+    <div class="card">
+      <table class="tbl">
+        <thead><tr><th>Priority</th><th>Response</th><th>Resolution</th><th>Escalation</th></tr></thead>
+        <tbody>
+          <tr><td><span class="pill pill-red">P0 Critical</span></td><td>5 min</td><td>30 min</td><td>Telegram alert immediately</td></tr>
+          <tr><td><span class="pill pill-yellow">P1 High</span></td><td>15 min</td><td>2 hours</td><td>Telegram if breached</td></tr>
+          <tr><td><span class="pill pill-blue">P2 Medium</span></td><td>1 hour</td><td>8 hours</td><td>Daily standup report</td></tr>
+          <tr><td><span class="pill pill-gray">P3 Low</span></td><td>4 hours</td><td>48 hours</td><td>Weekly summary</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
 
-        // Average cost
-        const avgCost = data.today.requests > 0 ? data.today.total / data.today.requests : 0;
-        document.getElementById('avg-cost').textContent = `$${avgCost.toFixed(4)}`;
+<!-- ===== LEARNINGS ===== -->
+<div class="page" id="page-learnings">
+  <div class="section-title">Institutional Knowledge</div>
+  <div id="learnings-list"></div>
+</div>
 
-        // Savings estimate (vs Claude for everything)
-        const estimatedClaudeCost = data.today.requests * 0.003;
-        const savings = estimatedClaudeCost - data.today.total;
-        if (savings > 0) {
-          document.getElementById('savings').textContent = `$${savings.toFixed(2)} saved`;
-        }
+<!-- ===== ERRORS ===== -->
+<div class="page" id="page-errors">
+  <div class="section-title">Recent Gateway Errors</div>
+  <div class="card" id="gateway-errors" style="max-height:600px;overflow-y:auto;font-family:monospace;font-size:12px;line-height:1.6;white-space:pre-wrap;color:var(--text3);"></div>
+</div>
 
-        // Requests rate
-        const now = new Date();
-        const hour = now.getHours();
-        if (hour > 0) {
-          const ratePerHour = data.today.requests / hour;
-          document.getElementById('requests-rate').textContent = `~${ratePerHour.toFixed(1)}/hour`;
-        }
+<!-- ===== SKILLS ===== -->
+<div class="page" id="page-skills">
+  <div class="section-title">Registered Skills</div>
+  <div class="card">
+    <table class="tbl" id="skills-table">
+      <thead><tr><th>Skill</th><th>Status</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
 
-        // Budget bar
-        const percentage = Math.min((data.today.total / data.budget.daily) * 100, 100);
-        const budgetFill = document.getElementById('budget-fill');
-        budgetFill.style.width = `${percentage}%`;
-        budgetFill.textContent = `${percentage.toFixed(1)}%`;
+<script>
+const API = 'http://localhost:19000';
+let DATA = {};
 
-        document.getElementById('budget-spent').textContent = data.today.total.toFixed(2);
-        document.getElementById('budget-left').textContent = data.remaining.toFixed(2);
+// --- Nav ---
+document.querySelectorAll('.nav-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('page-' + tab.dataset.page).classList.add('active');
+  });
+});
 
-        // Color code total cost
-        const totalCostEl = document.getElementById('total-cost');
-        totalCostEl.className = 'stat-value';
-        if (percentage > 90) totalCostEl.classList.add('red');
-        else if (percentage > 70) totalCostEl.classList.add('yellow');
-        else totalCostEl.classList.add('green');
+// --- Clock ---
+setInterval(() => {
+  document.getElementById('clock').textContent = new Date().toLocaleTimeString();
+}, 1000);
 
-        // Model table
-        const modelTable = document.getElementById('model-table').querySelector('tbody');
-        modelTable.innerHTML = '';
+// --- Helpers ---
+function pillFor(status) {
+  const s = (status || '').toLowerCase();
+  if (s === 'ok' || s === 'resolved' || s === 'closed') return 'pill-green';
+  if (s === 'error' || s === 'p0' || s === 'open') return 'pill-red';
+  if (s === 'in_progress' || s === 'p1') return 'pill-yellow';
+  if (s === 'blocked') return 'pill-purple';
+  return 'pill-gray';
+}
 
-        const models = Object.entries(data.today.byModel);
-        if (models.length === 0) {
-          modelTable.innerHTML = '<tr><td colspan="4" class="empty-state">No data yet</td></tr>';
-        } else {
-          for (const [model, stats] of models) {
-            const row = modelTable.insertRow();
-            row.innerHTML = `
-              <td>${model}</td>
-              <td>${stats.requests.toLocaleString()}</td>
-              <td>${(stats.tokens || 0).toLocaleString()}</td>
-              <td>$${stats.cost.toFixed(4)}</td>
-            `;
-          }
-        }
+function priorityPill(p) {
+  const s = (p || '').toUpperCase();
+  if (s === 'P0') return '<span class="pill pill-red">P0</span>';
+  if (s === 'P1') return '<span class="pill pill-yellow">P1</span>';
+  if (s === 'P2') return '<span class="pill pill-blue">P2</span>';
+  return '<span class="pill pill-gray">' + s + '</span>';
+}
 
-        // Agent table
-        const agentTable = document.getElementById('agent-table').querySelector('tbody');
-        agentTable.innerHTML = '';
+function timeAgo(ms) {
+  if (!ms) return '--';
+  const diff = Date.now() - ms;
+  if (diff < 60000) return Math.floor(diff/1000) + 's ago';
+  if (diff < 3600000) return Math.floor(diff/60000) + 'm ago';
+  if (diff < 86400000) return Math.floor(diff/3600000) + 'h ago';
+  return Math.floor(diff/86400000) + 'd ago';
+}
 
-        const agents = Object.entries(data.today.byAgent);
-        if (agents.length === 0) {
-          agentTable.innerHTML = '<tr><td colspan="4" class="empty-state">No data yet</td></tr>';
-        } else {
-          for (const [agent, stats] of agents) {
-            const share = data.today.total > 0 ? (stats.cost / data.today.total) * 100 : 0;
-            const row = agentTable.insertRow();
-            row.innerHTML = `
-              <td>${agent}</td>
-              <td>${stats.requests.toLocaleString()}</td>
-              <td>$${stats.cost.toFixed(4)}</td>
-              <td>${share.toFixed(1)}%</td>
-            `;
-          }
-        }
+function scheduleLabel(s) {
+  if (!s) return '--';
+  if (s.kind === 'cron') return 'cron: ' + s.expr;
+  if (s.kind === 'every') return 'every ' + Math.round(s.everyMs / 60000) + 'min';
+  return s.kind || '--';
+}
 
-        // Update time
-        document.getElementById('update-time').textContent = new Date().toLocaleTimeString();
+const AGENT_ROLES = {
+  main: 'CEO / Orchestrator',
+  allrounder: 'CSO / Web Research',
+  eng: 'Engineering',
+  research: 'Deep Research',
+  finance: 'Finance & Budget',
+  ops: 'Scrum Master / DevOps',
+  infosec: 'Security',
+  hatake: 'Intent Parser',
+};
 
-      } catch (err) {
-        console.error('Failed to fetch cost data:', err);
-        document.getElementById('update-time').textContent = 'Error - Check if server is running';
-      }
+const AGENT_EMOJI = {
+  main: '👑', allrounder: '🌐', eng: '💻', research: '🔬',
+  finance: '💰', ops: '⚙️', infosec: '🔒', hatake: '🥷',
+};
+
+// --- Renderers ---
+
+function renderOverview() {
+  const s = DATA.summary || {};
+  const el = document.getElementById('overview-stats');
+  el.innerHTML = `
+    <div class="card">
+      <div class="card-title">Agents</div>
+      <div class="stat-value">${s.agentCount || 0}</div>
+      <div class="stat-sub">${s.skillCount || 0} skills active</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Cron Jobs</div>
+      <div class="stat-value" style="color:var(--green)">${s.cronSucceeded || 0}<span style="font-size:16px;color:var(--text3)">/${s.cronEnabled || 0}</span></div>
+      <div class="stat-sub">${s.cronFailed || 0} failed</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Open Tickets</div>
+      <div class="stat-value" style="color:${s.openTickets > 0 ? 'var(--red)' : 'var(--green)'}">${s.openTickets || 0}</div>
+      <div class="stat-sub">${s.resolvedTickets || 0} resolved</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Learnings</div>
+      <div class="stat-value" style="color:var(--purple)">${s.learningCount || 0}</div>
+      <div class="stat-sub">${DATA.vectorMemoryEntries || 0} vector memories</div>
+    </div>
+  `;
+
+  // Cron feed
+  const cronFeed = document.getElementById('overview-cron-feed');
+  const enabledJobs = (DATA.cronJobs || []).filter(j => j.enabled);
+  if (enabledJobs.length === 0) {
+    cronFeed.innerHTML = '<div class="empty"><div class="empty-icon">⏰</div>No enabled cron jobs</div>';
+  } else {
+    cronFeed.innerHTML = enabledJobs.map(j => {
+      const cls = j.lastStatus === 'ok' ? 'ok' : j.lastStatus === 'error' ? 'error' : 'info';
+      return `<div class="feed-item ${cls}">
+        <div class="feed-time">${j.lastRunAtMs ? timeAgo(j.lastRunAtMs) : 'Not yet run'} &middot; ${j.agentId}</div>
+        <div class="feed-text"><strong>${j.name}</strong> &mdash; ${j.lastStatus ? '<span class="pill '+pillFor(j.lastStatus)+'">' + j.lastStatus + '</span>' : '<span class="pill pill-gray">pending</span>'}${j.lastDurationMs ? ' (' + (j.lastDurationMs/1000).toFixed(1) + 's)' : ''}</div>
+      </div>`;
+    }).join('');
+  }
+
+  // Errors feed
+  const errFeed = document.getElementById('overview-errors-feed');
+  const errors = DATA._errors || [];
+  if (errors.length === 0) {
+    errFeed.innerHTML = '<div class="empty"><div class="empty-icon">✅</div>No recent errors</div>';
+  } else {
+    errFeed.innerHTML = errors.slice(-10).reverse().map(e => {
+      return `<div class="feed-item error">
+        <div class="feed-time">${e.timestamp || '--'} &middot; ${e.agentId || '--'}</div>
+        <div class="feed-text">${(e.error || e.message || JSON.stringify(e)).substring(0, 200)}</div>
+      </div>`;
+    }).join('');
+  }
+
+  // Agents mini
+  const agentsEl = document.getElementById('overview-agents');
+  agentsEl.innerHTML = (DATA.agents || []).map(a => `
+    <div class="agent-card">
+      <div class="agent-top">
+        <div>
+          <span style="font-size:20px">${AGENT_EMOJI[a.id] || '🤖'}</span>
+          <span class="agent-name">${a.name}</span>
+        </div>
+        <span class="pill pill-green">online</span>
+      </div>
+      <div class="agent-role">${AGENT_ROLES[a.id] || a.id}</div>
+      <div class="agent-meta">
+        <span>Model: ${(a.model || '').split('/').pop()}</span>
+        <span>Memory: ${a.memoryDb ? (a.memoryDb.size / 1048576).toFixed(1) + 'MB' : '--'}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderAgents() {
+  const el = document.getElementById('agents-grid');
+  el.innerHTML = (DATA.agents || []).map(a => `
+    <div class="agent-card">
+      <div class="agent-top">
+        <div>
+          <span style="font-size:24px">${AGENT_EMOJI[a.id] || '🤖'}</span>
+          <span class="agent-name">${a.name}</span>
+        </div>
+        <span class="pill pill-green">online</span>
+      </div>
+      <div class="agent-role">${AGENT_ROLES[a.id] || a.id}</div>
+      <div class="agent-meta">
+        <span>Primary: ${a.model || '--'}</span>
+      </div>
+      <div class="agent-meta">
+        <span>Fallbacks: ${(a.fallbacks || []).join(' → ') || 'none'}</span>
+      </div>
+      <div class="agent-meta">
+        <span>Memory DB: ${a.memoryDb ? (a.memoryDb.size / 1048576).toFixed(1) + 'MB' : 'none'}</span>
+        <span>Workspace: ${a.workspace || 'default'}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderCron() {
+  const tbody = document.querySelector('#cron-table tbody');
+  const jobs = DATA.cronJobs || [];
+  if (jobs.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="8" class="empty">No cron jobs</td></tr>';
+    return;
+  }
+  tbody.innerHTML = jobs.map(j => `
+    <tr>
+      <td style="color:var(--text);font-weight:500">${j.name || j.id}</td>
+      <td>${AGENT_EMOJI[j.agentId] || ''} ${j.agentId}</td>
+      <td><code style="font-size:11px;color:var(--cyan)">${scheduleLabel(j.schedule)}</code></td>
+      <td>${j.enabled ? '<span class="pill pill-green">ON</span>' : '<span class="pill pill-gray">OFF</span>'}</td>
+      <td>${j.lastStatus ? '<span class="pill '+pillFor(j.lastStatus)+'">' + j.lastStatus + '</span>' : '<span class="pill pill-gray">--</span>'}</td>
+      <td>${j.lastRunAtMs ? timeAgo(j.lastRunAtMs) : '--'}</td>
+      <td>${j.lastDurationMs ? (j.lastDurationMs/1000).toFixed(1) + 's' : '--'}</td>
+      <td>${j.consecutiveErrors > 0 ? '<span style="color:var(--red)">' + j.consecutiveErrors + '</span>' : '0'}</td>
+    </tr>
+  `).join('');
+}
+
+function renderTickets() {
+  const tickets = DATA.tickets || [];
+  const open = tickets.filter(t => t.status === 'OPEN' || t.status === 'IN_PROGRESS');
+  const resolved = tickets.filter(t => t.status === 'RESOLVED' || t.status === 'CLOSED');
+  const blocked = tickets.filter(t => t.status === 'BLOCKED');
+
+  document.getElementById('ticket-stats').innerHTML = `
+    <div class="card"><div class="card-title">Total</div><div class="stat-value">${tickets.length}</div></div>
+    <div class="card"><div class="card-title">Open</div><div class="stat-value" style="color:var(--red)">${open.length}</div></div>
+    <div class="card"><div class="card-title">Blocked</div><div class="stat-value" style="color:var(--yellow)">${blocked.length}</div></div>
+    <div class="card"><div class="card-title">Resolved</div><div class="stat-value" style="color:var(--green)">${resolved.length}</div></div>
+  `;
+
+  const tbody = document.querySelector('#tickets-table tbody');
+  if (tickets.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="6"><div class="empty"><div class="empty-icon">✅</div>No tickets — system is healthy</div></td></tr>';
+    return;
+  }
+  tbody.innerHTML = tickets.map(t => `
+    <tr>
+      <td style="font-weight:600;color:var(--text)">${t.id}</td>
+      <td>${priorityPill(t.priority)}</td>
+      <td><span class="pill ${pillFor(t.status)}">${t.status}</span></td>
+      <td>${t.assignee || '--'}</td>
+      <td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${t.summary || '--'}</td>
+      <td style="font-size:12px">${t.slaDeadline || '--'}</td>
+    </tr>
+  `).join('');
+}
+
+function renderLearnings() {
+  const el = document.getElementById('learnings-list');
+  const learnings = DATA.learnings || [];
+  if (learnings.length === 0) {
+    el.innerHTML = '<div class="empty"><div class="empty-icon">📚</div>No learnings yet. Learnings are added when agents resolve issues.</div>';
+    return;
+  }
+  el.innerHTML = learnings.map(l => `
+    <div class="learning-card">
+      <div class="lc-header">
+        <div class="lc-title">${l.summary || l.id}</div>
+        <div><span class="pill pill-purple">${l.category || '--'}</span> <span class="pill pill-blue">${l.agent || '--'}</span></div>
+      </div>
+      <div class="lc-body">
+        <div><strong>Details:</strong> ${l.details || '--'}</div>
+        <div style="margin-top:4px"><strong>Prevention:</strong> ${l.prevention || '--'}</div>
+        <div style="margin-top:4px;font-size:11px;color:var(--text3)">Source: ${l.sourceTicket || '--'} &middot; Applied to: ${l.appliedTo || '--'} &middot; ${l.date || '--'}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderErrors() {
+  const el = document.getElementById('gateway-errors');
+  const lines = DATA._gatewayErrors || [];
+  if (lines.length === 0) {
+    el.innerHTML = 'No recent gateway errors.';
+    return;
+  }
+  el.textContent = lines.join('\n');
+}
+
+function renderSkills() {
+  const tbody = document.querySelector('#skills-table tbody');
+  const skills = DATA.skills || [];
+  if (skills.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="2" class="empty">No skills registered</td></tr>';
+    return;
+  }
+  tbody.innerHTML = skills.map(s => `
+    <tr>
+      <td style="font-weight:500;color:var(--text)">${s.name}</td>
+      <td>${s.enabled ? '<span class="pill pill-green">enabled</span>' : '<span class="pill pill-gray">disabled</span>'}</td>
+    </tr>
+  `).join('');
+}
+
+// --- Data Loading ---
+
+async function loadAll() {
+  try {
+    const [dashboard, errors, gwErrors] = await Promise.all([
+      fetch(API + '/api/dashboard').then(r => r.json()),
+      fetch(API + '/api/errors').then(r => r.json()).catch(() => []),
+      fetch(API + '/api/gateway-errors').then(r => r.json()).catch(() => []),
+    ]);
+
+    DATA = { ...dashboard, _errors: errors, _gatewayErrors: gwErrors };
+
+    // Status dot
+    const dot = document.getElementById('statusDot');
+    const s = DATA.summary || {};
+    if (s.cronFailed > 0 || s.openTickets > 0) {
+      dot.className = 'logo-dot warn';
+    } else {
+      dot.className = 'logo-dot';
     }
 
-    // Initial fetch
-    fetchCost();
+    renderOverview();
+    renderAgents();
+    renderCron();
+    renderTickets();
+    renderLearnings();
+    renderErrors();
+    renderSkills();
 
-    // Update every 5 seconds
-    setInterval(fetchCost, 5000);
-  </script>
+    document.getElementById('lastUpdate').textContent = 'Updated ' + new Date().toLocaleTimeString();
+  } catch (err) {
+    console.error('Failed to load dashboard data:', err);
+    document.getElementById('statusDot').className = 'logo-dot error';
+    document.getElementById('lastUpdate').textContent = 'Error — is server.js running?';
+  }
+}
+
+// Initial load + auto-refresh
+loadAll();
+setInterval(loadAll, 15000);
+</script>
 </body>
 </html>
