@@ -786,7 +786,7 @@
         "message": "You are OPS, the Scrum Master. Run SLA enforcement check.\n\nSTEPS:\n1. Read /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md\n2. For each OPEN or IN_PROGRESS ticket:\n   a. Calculate time since creation vs SLA deadline\n   b. If approaching deadline (within 50% of remaining time): ping the assignee via sessions_send reminding them of the SLA\n   c. If past deadline: escalate to RED (CEO) via sessions_send(agentId=\"main\", message=\"SLA BREACH: TICKET-{ref} is past deadline. Priority: {P}. Assignee: {agent}. Summary: {summary}\")\n   d. If P0 past 30 min: Send Telegram alert to user 1012034994\n3. If no open tickets, do nothing (no output needed).\n\nOnly take action if there are actual open tickets with SLA concerns. Be silent if everything is fine.",
         "model": "zai/glm-4.7",
         "thinking": "low",
-        "timeoutSeconds": 120
+        "timeoutSeconds": 300
       },
       "delivery": {
         "mode": "none"
@@ -796,7 +796,8 @@
         "lastRunAtMs": 1771195895049,
         "lastStatus": "ok",
         "lastDurationMs": 20123,
-        "consecutiveErrors": 0
+        "consecutiveErrors": 0,
+        "runningAtMs": 1771197695048
       }
     },
     {
@@ -828,7 +829,8 @@
         "lastRunAtMs": null,
         "lastDurationMs": null,
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1771197695024
+        "nextRunAtMs": 1771197695024,
+        "runningAtMs": 1771197695048
       }
     },
     {
@@ -850,7 +852,7 @@
         "message": "You are RED (CEO). Run the self-improvement reflection cycle.\n\nSTEPS:\n1. Read /Users/redinside/.openclaw/workspace/ops/LEARNINGS.md — review recent learnings.\n2. Read /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md — review resolved tickets from last 24h.\n3. Read /Users/redinside/.openclaw/logs/errors.jsonl (last 20 entries) — look for patterns.\n4. Read /Users/redinside/.openclaw/logs/performance.jsonl (last 10 entries) — check routing quality.\n\nANALYZE:\n- Are there recurring errors? → Propose a permanent fix (update config, skill, or SOUL.md)\n- Are there model routing issues? → Suggest fallback chain adjustments\n- Are there patterns in user corrections? → Propose behavior updates\n- Are there skills that should be improved? → Draft updates\n\nACTIONS:\n- If you identify an improvement, apply it:\n  a. Update the relevant file (SKILL.md, config, etc.)\n  b. Append a new entry to /Users/redinside/.openclaw/workspace/ops/LEARNINGS.md\n  c. Notify OPS via sessions_send(agentId=\"ops\", message=\"Self-improvement applied: {description}\")\n- If you identify a systemic issue, create a ticket in TICKET-TRACKER.md and assign it to the right agent.\n- Use web_search to research best practices for any issues you find.\n\nOUTPUT: Brief summary of what was reviewed and any actions taken. If nothing needs improvement, say so briefly.",
         "model": "zai/glm-4.7",
         "thinking": "low",
-        "timeoutSeconds": 180
+        "timeoutSeconds": 300
       },
       "delivery": {
         "mode": "none"
@@ -878,13 +880,14 @@
         "message": "You are OPS. Check for open tickets and attempt to diagnose and fix them.\n\nSTEPS:\n1. Read /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md\n2. For each OPEN ticket (not yet IN_PROGRESS):\n   a. Set status to IN_PROGRESS\n   b. Read the error details\n   c. Check /Users/redinside/.openclaw/workspace/ops/LEARNINGS.md — has this been seen before?\n   d. Check /Users/redinside/.openclaw/logs/errors.jsonl for related errors\n   e. If it's a config issue: attempt to fix it (read/write openclaw.json or relevant config)\n   f. If it's a code issue: delegate to ENG via sessions_send(agentId=\"eng\", message=\"Fix needed: {details}\")\n   g. If it's a model issue: check model-registry.json, try switching fallback\n   h. If it's unfamiliar: use web_search to research the error\n   i. After fixing: verify the fix, update ticket to RESOLVED, append to LEARNINGS.md\n   j. If you can't fix it: escalate to RED via sessions_send(agentId=\"main\")\n\n3. If no open tickets: do nothing silently.\n\nIMPORTANT: Actually attempt fixes. Don't just log that you looked at it. Use exec, file operations, sessions_send, and web_search as needed.",
         "model": "zai/glm-4.7",
         "thinking": "low",
-        "timeoutSeconds": 180
+        "timeoutSeconds": 300
       },
       "delivery": {
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771197695024
+        "nextRunAtMs": 1771197695024,
+        "runningAtMs": 1771197695048
       }
     },
     {
@@ -906,7 +909,7 @@
         "message": "You are RESEARCH. Run proactive knowledge update.\n\nSTEPS:\n1. Read /Users/redinside/.openclaw/workspace/ops/LEARNINGS.md — check what issues have been found recently.\n2. Read /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md — check for any tickets that need research.\n3. For any open tickets assigned to you or tagged as needing research:\n   a. Use web_search to find solutions, best practices, or documentation\n   b. Summarize findings and post them as a comment on the ticket\n   c. If you find a solution, notify the assignee via sessions_send\n\n4. Proactive scan: Use web_search to check for:\n   - OpenClaw updates or new features\n   - Issues with models we use (openai-codex, zai/glm, perplexity)\n   - Security advisories for our tools\n\n5. If you find anything relevant:\n   a. Append to /Users/redinside/.openclaw/workspace/ops/LEARNINGS.md\n   b. Notify OPS via sessions_send(agentId=\"ops\", message=\"Research update: {summary}\")\n   c. If it's urgent (security issue, breaking change), also notify RED\n\n6. If nothing notable found: do nothing silently.",
         "model": "zai/glm-4.7",
         "thinking": "low",
-        "timeoutSeconds": 180
+        "timeoutSeconds": 300
       },
       "delivery": {
         "mode": "none"
@@ -934,7 +937,7 @@
         "message": "You are RED (CEO). Compile and send the daily summary to Anurag.\n\nSTEPS:\n1. Read /Users/redinside/.openclaw/workspace/ops/STANDUP-LOG.md — get today's standup.\n2. Read /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md — get ticket summary.\n3. Read /Users/redinside/.openclaw/workspace/ops/LEARNINGS.md — get today's learnings.\n4. Read /Users/redinside/.openclaw/logs/gateway.err.log (last 20 lines) — system health.\n\nCOMPILE a Telegram message to Anurag (user ID: 1012034994) with:\n\n📊 **RedOS Daily Summary — {date}**\n\n**System Health:** {healthy/degraded/issues}\n**Tickets:** {opened today} opened, {resolved today} resolved, {open} still open\n**SLA Breaches:** {count or \"None\"}\n\n**Key Events:**\n- {bullet points of important things that happened}\n\n**Learnings Applied:**\n- {bullet points of self-improvements made}\n\n**Agent Activity:**\n- {which agents were active, what they did}\n\n**Tomorrow's Focus:**\n- {what needs attention}\n\nKeep under 3000 chars. Send via Telegram DM.",
         "model": "zai/glm-4.7",
         "thinking": "low",
-        "timeoutSeconds": 180
+        "timeoutSeconds": 300
       },
       "delivery": {
         "mode": "announce",

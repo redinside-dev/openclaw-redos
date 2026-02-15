@@ -32,6 +32,23 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 
 ## Active Tickets
 
+### TICKET-20260215-002
+- **Status:** IN_PROGRESS
+- **Priority:** P1
+- **Created:** 2026-02-15T23:21:00Z
+- **SLA Deadline:** 2026-02-16T01:21:00Z (2 hours)
+- **Reporter:** OPS (cron)
+- **Assignee:** OPS
+- **Summary:** LLM timeout errors affecting cron jobs and agent operations
+- **Details:** Multiple timeout errors at 23:08:35Z (6:08 PM ET):
+  - Embedded agent run timeout (120s exceeded)
+  - Cron lane task timeout: "FailoverError: LLM request timed out."
+  - Session timeout for health monitor cron job itself
+- **Root Cause:** Likely provider/auth + routing issues (not pure latency). gateway.err.log shows repeated FailoverError: "authentication token has been invalidated" + rate limit events. Cron lane hit 120s embedded-run timeout and also attempted to use unknown model zai/glm-4.7-flashx, causing immediate failures.
+- **Resolution:** Pending
+- **Learnings:** TBD
+- **Resolved At:** TBD
+
 ### TICKET-20260215-001
 - **Status:** OPEN
 - **Priority:** P2
