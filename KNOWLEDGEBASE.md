@@ -1109,5 +1109,41 @@ All committed JS files scanned — **no hardcoded credentials found**.
 
 ---
 
+---
+
+## §19 — Architecture Clarification (2026-02-15)
+
+### The One-System Principle
+
+The correct architecture is: **OpenClaw is the entire runtime. RedOS is the customization layer inside it.**
+
+There is no second server, no parallel Express process, no custom Telegram bridge running alongside OpenClaw. Everything runs inside the OpenClaw gateway (port 18789, launchd).
+
+### How RedOS Customizes OpenClaw
+
+**Three mechanisms — all OpenClaw-native:**
+
+1. **Skills** (`workspace/skills/`) — Declarative `SKILL.md` files that tell agents how to think. hatake-parser, smart-router, cost-tracker, retry-cascade, reflect-learn, and 15 others are all skills.
+
+2. **MCP Servers** (`workspace/config/mcporter.json`) — External tool integrations injected into agent context. Exa (web search), Reddit, GitHub.
+
+3. **Agent configuration** (`openclaw.json`) — 8 agents with identities (RED/ZEN/ENG etc.), model assignments, Telegram bot bindings, fallback chains.
+
+### Legacy Code
+
+`gateway/`, `agents/*.js`, `smart-router/`, and `resilience/` contain code from the pre-OpenClaw era when a custom Express server ran on port 19000. They are **not actively invoked** — the logic they implemented now lives in OpenClaw's native runtime + the RedOS skills. They are retained for reference only.
+
+**Do not add new features to the legacy JS files.** New features go into skills or agent configuration.
+
+### README Rewritten
+
+The README was completely rewritten on 2026-02-15 to reflect this architecture. It now correctly shows:
+- OpenClaw as the base runtime
+- RedOS as the skills/MCP/config customization layer
+- The correct request flow through OpenClaw → skills → models
+- Legacy directories clearly labeled as pre-OpenClaw era
+
+---
+
 *Last updated: 2026-02-15 by Claude Code (claude-sonnet-4-5-20250929)*
 *OpenClaw version: 2026.2.14 | RedOS version: 3.7.0*

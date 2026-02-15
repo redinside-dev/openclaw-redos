@@ -1,720 +1,320 @@
-# OpenClaw RedOS
+# RedOS
 
-Multi-agent AI orchestration system with intelligent routing, self-healing resilience, and Telegram integration.
+**RedOS** is a customization layer on top of the [OpenClaw](https://openclaw.ai) AI assistant platform.
+
+OpenClaw provides the entire base runtime — gateway, agent runtime, channel integrations (Telegram, WhatsApp, Gmail), skill system, MCP support, memory, browser control, and WebSocket API. RedOS adds the business logic, agent identities, routing intelligence, and domain-specific skills that make this system work for this use case.
+
+> **RedOS does not run its own server.** There is no custom Express gateway, no custom Telegram bridge, no second process. Everything runs inside the OpenClaw runtime.
 
 | | |
 |---|---|
-| **Version** | 3.7.0 |
-| **Runtime** | OpenClaw CLI 2026.2.14 + Node.js 22+ |
+| **Base platform** | OpenClaw CLI 2026.2.14 |
 | **Host** | Mac Mini (macOS, ARM64) |
-| **Models** | Ollama (local) + openai-codex/gpt-5.2 (cloud) + moonshot/kimi-k2.5 (fallback) |
-| **Interface** | Telegram (8 bots), WebSocket, Mission Control UI |
+| **Gateway** | `ws://127.0.0.1:18789` — launchd `ai.openclaw.gateway` |
+| **Models** | Ollama (local, free) · openai-codex/gpt-5.2 · moonshot/kimi-k2.5 · zai/glm-4.7 |
+| **Channels** | Telegram (8 bots) · WhatsApp · Gmail |
+| **Skills** | 20 custom skills in `workspace/skills/` |
+| **MCP servers** | Exa search · Reddit · GitHub |
 
 ---
 
-## Flow Diagrams
-
-### 1. Main Request Flow
-
-Every message — whether from Telegram or the REST API — follows this path:
+## Architecture
 
 ```
-                        ┌──────────────┐
-                        │   Telegram   │  8 bots (DM / Group)
-                        │   Bridge     │  telegram/telegram-bridge.js
-                        └──────┬───────┘
-                               │ HTTP POST /api/chat
-                               v
-┌──────────────────────────────────────────────────────────────┐
-│              OpenClaw Gateway  (port 18789)                   │
-│              OpenClaw CLI 2026.2.14 / launchd                │
-│                                                              │
-│  WebSocket gateway + agent runtime + channel providers       │
-│  Canvas UI: http://127.0.0.1:18789/__openclaw__/canvas/      │
-└──────────────────────┬───────────────────────────────────────┘
-                       │
-                       v
-              ┌────────────────┐
-              │  Track Router  │  gateway/track-router.js
-              └────────┬───────┘
-                       │
-                       v
-              ┌────────────────┐
-              │ HATAKE Parser  │  agents/hatake-parser.js
-              │                │
-              │ 1. Detect intent (regex patterns)
-              │ 2. Extract entities
-              │ 3. Score complexity (1-10)
-              │ 4. Choose track: fast | orchestrated
-              │ 5. Suggest agents
-              │ 6. Build structured brief
-              └────────┬───────┘
-                       │
-            ┌──────────┴──────────┐
-            │                     │
-      brief.track              brief.track
-      == "fast"                == "orchestrated"
-            │                     │
-            v                     v
-  ┌──────────────────┐  ┌──────────────────────┐
-  │ Resilient Handler│  │  Ed/RED Orchestrator  │
-  │ (Fast Track)     │  │  (Orchestrated Track) │
-  │                  │  │                       │
-  │ resilient-       │  │ ed-red-               │
-  │ handler.js       │  │ orchestrator.js       │
-  └────────┬─────────┘  └──────────┬────────────┘
-           │                       │
-           v                       v
-  ┌──────────────────┐  ┌──────────────────────┐
-  │ Smart Router V2  │  │ Multi-Agent Plan      │
-  │                  │  │                       │
-  │ 1. Analyze task  │  │ 1. Create plan        │
-  │ 2. Score models  │  │ 2. Delegate to ENG,   │
-  │ 3. Check budget  │  │    RESEARCH, OPS,     │
-  │ 4. Select best   │  │    FINANCE agents     │
-  │                  │  │ 3. Execute steps      │
-  │ selector-v2.js   │  │ 4. Validate (OPS)     │
-  └────────┬─────────┘  │ 5. Assemble response  │
-           │             └──────────┬────────────┘
-           │                        │
-           v                        │ (each step calls
-  ┌──────────────────┐              │  Resilient Handler)
-  │ Model Provider   │◄─────────────┘
-  │                  │
-  │ Ollama (local)   │  http://localhost:11434/api/generate
-  │ Anthropic (cloud)│  https://api.anthropic.com/v1/messages
-  └──────────────────┘
+┌──────────────────────────────────────────────────────────────────┐
+│                        USER CHANNELS                             │
+│                                                                  │
+│  Telegram (8 bots)   WhatsApp   Gmail   CLI   WebSocket client   │
+└───────────────────────────┬──────────────────────────────────────┘
+                            │  (OpenClaw manages all channel I/O)
+                            ▼
+┌──────────────────────────────────────────────────────────────────┐
+│              OPENCLAW GATEWAY  (port 18789)                      │
+│              OpenClaw CLI 2026.2.14 — launchd managed            │
+│                                                                  │
+│  WebSocket + agent runtime + plugin system + skill executor      │
+│  Memory (SQLite) · Browser control · Cron · Heartbeat            │
+└───────────────────────────┬──────────────────────────────────────┘
+                            │
+            ┌───────────────┼───────────────┐
+            ▼               ▼               ▼
+     ┌─────────────┐ ┌─────────────┐ ┌───────────────┐
+     │   SKILLS    │ │  MCP TOOLS  │ │  AGENT CONFIG  │
+     │             │ │             │ │  (RedOS layer) │
+     │ hatake-     │ │ exa (web    │ │                │
+     │  parser     │ │  search)    │ │  8 agents:     │
+     │ smart-      │ │ reddit      │ │  main (RED)    │
+     │  router     │ │ github      │ │  allrounder    │
+     │ cost-tracker│ │             │ │  hatake        │
+     │ retry-      │ └─────────────┘ │  eng           │
+     │  cascade    │                 │  research      │
+     │ reflect-    │                 │  finance       │
+     │  learn      │                 │  ops           │
+     │ + 15 more   │                 │  infosec       │
+     └─────────────┘                 └───────────────┘
+                            │
+                            ▼
+┌──────────────────────────────────────────────────────────────────┐
+│                         MODEL TIER                               │
+│                                                                  │
+│  Tier 1 — Free local (Ollama):                                   │
+│    llama3.1:8b · qwen2.5-coder:7b · glm-4.7-flash · gpt-oss:20b │
+│                                                                  │
+│  Tier 2–4 — Subscription (zero marginal cost):                  │
+│    openai-codex/gpt-5.2 · moonshot/kimi-k2.5 · perplexity/sonar │
+│                                                                  │
+│  Tier 5 — PAYG (only when essential):                            │
+│    zai/glm-4.7 · zai/glm-4.7-flash                              │
+└──────────────────────────────────────────────────────────────────┘
 ```
 
-### 2. Fast Track (Simple Queries)
+---
+
+## How RedOS Extends OpenClaw
+
+RedOS customizes OpenClaw through three mechanisms — all native to OpenClaw:
+
+### 1. Skills (`workspace/skills/`)
+
+Skills are declarative instructions that tell agents **how to think and act**. Each skill is a `SKILL.md` file — no custom server or code needed. OpenClaw's runtime reads skills and applies them during agent execution.
+
+| Skill | Purpose |
+|-------|---------|
+| `hatake-parser` | Parse raw commands into structured JSON briefs (intent, type, complexity, departments) |
+| `smart-router` | Select optimal model per task (quality/speed/cost scoring against model registry) |
+| `cost-tracker` | Track API costs, enforce budget limits, log every model call |
+| `retry-cascade` | Retry failed calls with model fallback chain |
+| `reflect-learn` | After each session, reflect on what worked, adapt future routing |
+| `eng-coding` | Engineering agent: code generation, debugging, architecture |
+| `holdings-analyzer` | Finance agent: portfolio analysis, P&L, position sizing |
+| `task-runner` | Run background tasks, schedule work, manage queues |
+| `status-reporter` | Report system health, active agents, cost summary |
+| `exa-mcp` | Web search via Exa MCP integration |
+| `mission-control-telegram` | Telegram admin commands for agents |
+| `proactive-agent-1-2-4` | Proactive 1-2-4 escalation framework |
+| `ai-humanizer` | Make agent responses more natural |
+| `summarize` | Summarize long documents or threads |
+| `x-mirror` | Mirror content to X/Twitter |
+| `agent-autonomy-kit` | Framework for autonomous multi-step task execution |
+| `model-usage` | Track per-model usage and performance stats |
+| `anurag-briefs` | Brief generation for business communications |
+| `clawdhub` | ClawDhub integration |
+
+### 2. MCP Servers (`workspace/config/mcporter.json`)
+
+External tools injected directly into agent context — no custom integration code:
+
+| MCP | Provides |
+|-----|---------|
+| **Exa** (`mcp.exa.ai`) | Web search, company research, people search, deep research, code context |
+| **Reddit** (local script) | Reddit post/comment browsing |
+| **GitHub** (`api.githubcopilot.com/mcp/`) | Repo management, PR reviews, issue tracking |
+
+### 3. Agent Configuration (`openclaw.json`)
+
+Agents are defined in `openclaw.json` — this is where RedOS personality, model assignments, and Telegram bindings live:
+
+| Agent | Identity | Telegram Bot | Primary Model | Role |
+|-------|---------|-------------|--------------|------|
+| `main` | RED (CEO) | @RedinsideBot | openai-codex/gpt-5.2 | General-purpose, delegation, decision-making |
+| `allrounder` | ZEN (CSO) | @ZenRedBot | openai-codex/gpt-5.2 | Fast research, finance, drafts |
+| `hatake` | HATAKE (Parser) | _(local-only)_ | ollama/qwen2.5-coder:7b | Intent parsing, brief creation |
+| `eng` | ENG | @ENGRED_BOT | ollama/qwen2.5-coder:7b | Code generation, debugging, architecture |
+| `research` | RESEARCH | @RESEARCHRED_BOT | openai-codex/gpt-5.2 | Information gathering, web analysis |
+| `finance` | FINANCE | @FINANCERED_BOT | openai-codex/gpt-5.2 | Financial analysis, portfolio tracking |
+| `ops` | OPS | @OPSRED_BOT | openai-codex/gpt-5.2 | QA, validation, health checks |
+| `infosec` | INFOSEC | @INFOSECRED_BOT | openai-codex/gpt-5.2 | Security, compliance, threat analysis |
+
+---
+
+## Request Flow
+
+Every message — from Telegram, WhatsApp, CLI, or cron — follows this path:
 
 ```
-User: "What is 2+2?"
-  │
-  v
-HATAKE: intent=simple_question, complexity=1, track=fast
-  │
-  v
-Resilient Handler
-  │
-  v
-Smart Router V2: taskType=simple, needsSpeed=true
-  │ Score: llama3.1:8b = 134.5 (free + fast + chat capable)
-  │ Score: claude-sonnet = -37.1 (expensive, not urgent)
-  v
-ollama/llama3.1:8b  -->  Response in 2-3s, cost $0
-  │
-  v
-Cost Monitor: record request, update state.json
-  │
-  v
-Response to user
-```
-
-### 3. Orchestrated Track (Complex Tasks)
-
-```
-User: "Build a REST API with authentication and database"
-  │
-  v
-HATAKE: intent=complex_development, complexity=8, track=orchestrated
-  │     suggested_agents=[ENG, OPS]
-  v
-Ed/RED Orchestrator
-  │
-  ├─ Step 1: ENG agent  -->  "Design the API architecture"
-  │  (qwen2.5-coder:7b, 3-4 min)
-  │
-  ├─ Step 2: ENG agent  -->  "Implement auth + DB code"
-  │  (qwen2.5-coder:7b, 3-4 min)
-  │
-  ├─ Step 3: OPS agent  -->  "Validate and review"
-  │  (llama3.1:8b, 2-3s)
-  │
-  v
-Assemble final response from all steps
-  │
-  v
-Response to user (total: 7-10 min, cost $0)
-```
-
-### 4. Resilience & Retry Flow
-
-```
-Request
-  │
-  v
-Attempt 1  ──failed──>  Error Handler
-  │                      │
-  │                      v
-  │                    Recovery strategy:
-  │                    - retry (same model)
-  │                    - fast-model (fallback to llama3.1:8b)
-  │                    - alternative-model (random local)
-  │                    - force-ollama (budget issue)
-  │                      │
-  │                      v
-Attempt 2  ──failed──>  Wait 4s, try again
-  │                      │
-  │                      v
-Attempt 3  ──failed──>  Return fallback response
-  │                      (never crashes, always responds)
-  v
-Success  -->  Track cost  -->  Return to user
-```
-
-### 5. Telegram Bot Routing
-
-```
-Telegram User
-  │
-  ├─ DM to @RedinsideBot      -->  agentId: main
-  ├─ DM to @ZenRedBot         -->  agentId: allrounder
-  ├─ DM to @ENGRED_BOT        -->  agentId: eng
-  ├─ DM to @RESEARCHRED_BOT   -->  agentId: research
-  ├─ DM to @FINANCERED_BOT    -->  agentId: finance
-  ├─ DM to @OPSRED_BOT        -->  agentId: ops
-  └─ DM to @INFOSECRED_BOT    -->  agentId: infosec
+User sends message to any channel
         │
-        v
-  Telegram Bridge  -->  OpenClaw Gateway ws://127.0.0.1:18789
-        │                { agentId, message }
-        v
-  Gateway processes (same flow as above)
+        ▼
+OpenClaw Gateway receives (port 18789)
         │
-        v
-  Bridge sends response back to Telegram chat
-```
-
-### 6. Model Selection Logic (Smart Router V2)
-
-```
-                    ┌─────────────────────────┐
-                    │   Analyze Requirements   │
-                    │                         │
-                    │ - taskType: simple |     │
-                    │   code | complex |       │
-                    │   general                │
-                    │ - urgent: true/false     │
-                    │ - needsSpeed / Quality   │
-                    │ - hasCode: true/false    │
-                    └────────────┬────────────┘
-                                 │
-                    ┌────────────v────────────┐
-                    │   Score Each Model      │
-                    │                         │
-                    │ +100  free (local)       │
-                    │ +50   fast + urgent      │
-                    │ +40   code + code-model  │
-                    │ +35   complex + reasoning │
-                    │ +30   high quality       │
-                    │ -50   paid + not urgent  │
-                    │ -100  expensive + casual │
-                    │ +100  urgent + instant   │
-                    └────────────┬────────────┘
-                                 │
-                    ┌────────────v────────────┐
-                    │   Available Models      │
-                    │                         │
-                    │ llama3.1:8b       $0    │
-                    │   fast, chat, simple    │
-                    │                         │
-                    │ qwen2.5-coder:7b  $0    │
-                    │   slow, code, technical │
-                    │                         │
-                    │ glm-4.7-flash     $0    │
-                    │   v.slow, complex,      │
-                    │   analysis, reasoning   │
-                    │                         │
-                    │ claude-sonnet-4.5 $0.003│
-                    │   instant, all tasks    │
-                    │                         │
-                    │ claude-haiku-4.5  $0.0005│
-                    │   instant, chat, simple │
-                    └────────────┬────────────┘
-                                 │
-                    ┌────────────v────────────┐
-                    │   Budget Gate           │
-                    │                         │
-                    │ if cost > 0 AND         │
-                    │   remaining < cost:     │
-                    │   force llama3.1:8b     │
-                    └─────────────────────────┘
+        ▼
+Channel binding → Agent selected (e.g. Telegram @ENGRED_BOT → agent: eng)
+        │
+        ▼
+hatake-parser SKILL activates
+  → Classifies: type, complexity, departments_needed, needs_web, needs_code
+  → Outputs structured JSON brief
+        │
+        ▼
+smart-router SKILL activates
+  → Reads brief + routing-profiles.json + model-registry.json + today's cost
+  → Selects model: cheapest tier that meets capability requirements
+  → Applies budget gate: if spend > 90% of limit → force ollama (local_only profile)
+        │
+        ├── needs_web=true → Exa MCP / Reddit MCP activated
+        ├── needs_code=true + complexity=complex → qwen2.5-coder:7b or Claude Code
+        └── complexity=epic → orchestrate across multiple agents
+        │
+        ▼
+Model call (Ollama / OpenAI Codex / Moonshot / ZAI)
+        │
+        ▼
+retry-cascade SKILL: if failure → fallback chain → next model
+cost-tracker SKILL: log tokens, cost, latency
+reflect-learn SKILL: after session → adapt routing decisions
+        │
+        ▼
+Response back to originating channel
 ```
 
 ---
 
-## Use Cases
+## Model Selection Logic
 
-### UC1: Simple Chat via Telegram
+Controlled by `workspace/skills/smart-router/SKILL.md` + `workspace/config/routing-profiles.json` + `workspace/config/model-registry.json`.
 
-**Actor:** User via @RedinsideBot
-**Flow:** User sends "What's the weather like?" → Bridge → Gateway → HATAKE (simple_question, fast track) → llama3.1:8b → Response in 2-3s
+**Active profile:** `balanced` (quality 40% / speed 30% / cost 30%)
 
-```bash
-# Equivalent API call:
-curl -X POST http://localhost:18789/api/chat \
-  -H 'Content-Type: application/json' \
-  -d '{"agentId":"main","message":"What is the weather like?"}'
-```
+| Scenario | Selected Model |
+|---------|--------------|
+| Simple question, no code, no web | ollama/llama3.1:8b (free, fast) |
+| Code task, moderate complexity | ollama/qwen2.5-coder:7b (free, capable) |
+| Research task needing web search | perplexity/sonar via Exa MCP |
+| Complex reasoning, no code | openai-codex/gpt-5.2 (subscription) |
+| Agentic multi-file code task | openai-codex/gpt-5.2 or claude-code/sonnet-4.5 |
+| Long context (>131k tokens) | moonshot/kimi-k2.5 |
+| Budget >90% exhausted | ollama/llama3.1:8b (forced) |
 
-### UC2: Code Generation
-
-**Actor:** User via @ENGRED_BOT or API
-**Flow:** User sends "Write a Python binary search" → HATAKE (code_generation, fast track) → qwen2.5-coder:7b → Response in 3-4 min
-
-```bash
-curl -X POST http://localhost:18789/api/chat \
-  -H 'Content-Type: application/json' \
-  -d '{"agentId":"eng","message":"Write a Python binary search tree with AVL balancing"}'
-```
-
-### UC3: Complex Multi-Agent Task
-
-**Actor:** User via API
-**Flow:** User sends "Build a REST API with auth and database" → HATAKE (complex_development, orchestrated track) → Ed/RED creates plan → ENG designs → ENG implements → OPS validates → assembled response
-
-```bash
-curl -X POST http://localhost:18789/api/chat \
-  -H 'Content-Type: application/json' \
-  -d '{"agentId":"eng","message":"Build a REST API with JWT authentication and PostgreSQL database"}'
-```
-
-### UC4: Project Management via Kanban
-
-**Actor:** Project manager via API
-**Flow:** Create cards, assign to agents, track progress, add comments
-
-```bash
-# Create a card
-curl -X POST http://localhost:18789/api/kanban/cards \
-  -H 'Content-Type: application/json' \
-  -d '{"title":"Implement auth","description":"Add JWT auth to API","config":{"priority":"high","assignee":"eng"}}'
-
-# Move to In Progress
-curl -X POST http://localhost:18789/api/kanban/cards/CARD_ID/move \
-  -H 'Content-Type: application/json' \
-  -d '{"column":"inProgress"}'
-
-# View board
-curl http://localhost:18789/api/kanban/board
-```
-
-### UC5: CEO Delegation
-
-**Actor:** CEO agent via API
-**Flow:** Create task → Assign to agent → Spawn secretary to monitor progress
-
-```bash
-# Create task
-curl -X POST http://localhost:18789/api/ceo/tasks \
-  -H 'Content-Type: application/json' \
-  -d '{"title":"Deploy v2.0","description":"Complete deployment checklist","config":{"priority":"urgent"}}'
-
-# Spawn secretary to monitor
-curl -X POST http://localhost:18789/api/ceo/secretaries \
-  -H 'Content-Type: application/json' \
-  -d '{"task":{"title":"Monitor deploy","description":"Track deployment","assignee":"eng"},"config":{"role":"monitor","maxRounds":10}}'
-```
-
-### UC6: Cost Monitoring
-
-**Actor:** Admin via API or Dashboard
-**Flow:** Check spending, view per-model/per-agent breakdown, monitor budget
-
-```bash
-# Total cost summary
-curl http://localhost:18789/api/cost
-
-# By model
-curl http://localhost:18789/api/cost/by-model
-
-# By agent
-curl http://localhost:18789/api/cost/by-agent
-```
-
-### UC7: System Health & Resilience
-
-**Actor:** DevOps / Admin
-**Flow:** Check health, view error stats, inspect tickets
-
-```bash
-# Health check
-curl http://localhost:18789/health
-
-# Error statistics
-curl http://localhost:18789/api/resilience/errors
-
-# DevOps health summary
-curl http://localhost:18789/api/resilience/health
-
-# Handler performance stats
-curl http://localhost:18789/api/resilience/stats
-
-# Open tickets (auto-created by error handler)
-curl http://localhost:18789/api/tickets/open
-```
-
-### UC8: Background Task Scheduling
-
-**Actor:** System or Admin
-**Flow:** Schedule a task for background processing
-
-```bash
-# Schedule a task
-curl -X POST http://localhost:18789/api/scheduler/schedule \
-  -H 'Content-Type: application/json' \
-  -d '{"description":"Nightly report","message":"Generate daily summary","agentId":"main","priority":"normal"}'
-
-# Check queue
-curl http://localhost:18789/api/scheduler/queue
-```
+Switch routing profile via Telegram: `@RedinsideBot routing mode cost_saver`
 
 ---
 
-## Agents
+## Routing Profiles
 
-| Agent | Telegram Bot | Role | Default Model |
-|-------|-------------|------|---------------|
-| `main` | @RedinsideBot | General-purpose assistant (RED/CEO) | openai-codex/gpt-5.2 |
-| `allrounder` | @ZenRedBot | Balanced multi-task (ZEN/CSO) | openai-codex/gpt-5.2 |
-| `hatake` | _(local-only)_ | Intent parser, complexity scoring, brief creation | ollama/qwen2.5-coder:7b |
-| `eng` | @ENGRED_BOT | Code generation, debugging, architecture | ollama/qwen2.5-coder:7b |
-| `research` | @RESEARCHRED_BOT | Information gathering, web search, analysis | openai-codex/gpt-5.2 |
-| `finance` | @FINANCERED_BOT | Financial analysis, portfolio tracking | openai-codex/gpt-5.2 |
-| `ops` | @OPSRED_BOT | QA, validation, security checks | openai-codex/gpt-5.2 |
-| `infosec` | @INFOSECRED_BOT | Security, compliance, threat analysis | openai-codex/gpt-5.2 |
-
----
-
-## API Reference
-
-### Core
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/api/chat` | Send message to agent (body: `{agentId, message}`) |
-| `GET` | `/health` | Health check + uptime + cost state |
-| `GET` | `/api/status` | System status, available models, features |
-| `GET` | `/api/cost` | Cost summary (today's total, by model, remaining budget) |
-| `GET` | `/api/cost/by-model` | Cost breakdown by model |
-| `GET` | `/api/cost/by-agent` | Cost breakdown by agent |
-
-### Kanban Board
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/api/kanban/board` | Full board with all columns |
-| `GET` | `/api/kanban/stats` | Board statistics |
-| `POST` | `/api/kanban/cards` | Create card (body: `{title, description, config}`) |
-| `GET` | `/api/kanban/cards/:id` | Get single card |
-| `POST` | `/api/kanban/cards/:id/move` | Move card (body: `{column}`) |
-| `PATCH` | `/api/kanban/cards/:id` | Update card fields |
-| `POST` | `/api/kanban/cards/:id/comments` | Add comment (body: `{author, text}`) |
-| `GET` | `/api/kanban/search?q=` | Search cards by text |
-| `GET` | `/api/kanban/blocked` | List blocked cards |
-| `GET` | `/api/kanban/overdue` | List overdue cards |
-
-### CEO Agent
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/api/ceo/dashboard` | CEO dashboard overview |
-| `POST` | `/api/ceo/tasks` | Create task (body: `{title, description, config}`) |
-| `GET` | `/api/ceo/tasks` | List all tasks |
-| `POST` | `/api/ceo/tasks/:id/assign` | Assign task (body: `{agentId}`) |
-| `POST` | `/api/ceo/secretaries` | Spawn secretary (body: `{task, config}`) |
-| `GET` | `/api/ceo/secretaries` | List active secretaries |
-
-### Autonomous Learning
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/api/learning/experience` | Record experience (body: `{agentId, task, result, metadata}`) |
-| `GET` | `/api/learning/:agent/summary` | Agent learning summary |
-| `GET` | `/api/learning/summaries` | All agent summaries |
-| `POST` | `/api/learning/:agent/cycle` | Trigger learning cycle |
-| `GET` | `/api/learning/knowledge/:topic` | Query knowledge base |
-
-### Resilience & Monitoring
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/api/resilience/errors` | Error handler statistics |
-| `GET` | `/api/resilience/health` | DevOps agent health summary |
-| `GET` | `/api/resilience/stats` | Handler performance stats |
-
-### Ticket System
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/api/tickets` | All tickets + stats |
-| `GET` | `/api/tickets/open` | Open tickets |
-| `GET` | `/api/tickets/assignee/:assignee` | Tickets by assignee |
-| `GET` | `/api/tickets/priority/:priority` | Tickets by priority |
-| `GET` | `/api/tickets/stats` | Ticket statistics |
-| `PATCH` | `/api/tickets/:id` | Update ticket |
-| `POST` | `/api/tickets/:id/close` | Close ticket (body: `{resolution}`) |
-
-### Task Scheduler
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/api/scheduler/schedule` | Schedule task (body: `{description, message, agentId, priority}`) |
-| `GET` | `/api/scheduler/status` | Scheduler status |
-| `GET` | `/api/scheduler/queue` | View queue, processing, completed, failed |
-
-### WebSocket
-
-| Path | Description |
-|------|-------------|
-| `ws://127.0.0.1:18789` | OpenClaw Gateway WebSocket (agent comms, real-time feed) |
+| Profile | Quality | Speed | Cost | Use When |
+|---------|---------|-------|------|---------|
+| `balanced` _(default)_ | 40% | 30% | 30% | Day-to-day use |
+| `performance` | 70% | 20% | 10% | Critical deliverables |
+| `cost_saver` | 20% | 30% | 50% | Budget tight |
+| `local_only` | 30% | 50% | 20% | Offline / privacy |
 
 ---
 
 ## Project Structure
 
 ```
-openclaw-redos/
+~/.openclaw/   ← this repo (RedOS customization layer)
 │
-├── gateway/
-│   ├── server.js                  # Express + WebSocket server (port 18789)
-│   ├── track-router.js            # Routes to fast or orchestrated track
-│   ├── resilient-handler.js       # Fast track: retry, fallback, model calls
-│   └── enhanced-handler.js        # Legacy handler (v1, uses CLI)
-│
-├── agents/
-│   ├── hatake-parser.js           # Intent detection, complexity scoring, brief creation
-│   ├── ed-red-orchestrator.js     # Multi-agent plan/delegate/validate/assemble
-│   ├── ceo-agent.js               # CEO tasks + secretary sub-agents
-│   └── hatake/sessions/           # HATAKE session state
-│
-├── smart-router/
-│   ├── analyzer.js                # Task complexity analysis (v1)
-│   ├── selector.js                # Model selection (v1)
-│   └── selector-v2.js             # Model scoring, budget gate, perf tracking
-│
-├── telegram/
-│   ├── telegram-bridge.js         # 8-bot Telegram integration
-│   └── update-offset-*.json       # Per-bot polling offsets
-│
-├── resilience/
-│   ├── error-handler.js           # Recovery strategies (retry, fallback, force-ollama)
-│   ├── devops-agent.js            # Continuous health monitoring
-│   └── ticket-system.js           # Auto-created issue tracking
-│
-├── cost-monitor/
-│   ├── monitor.js                 # Real-time cost tracking
-│   └── state.json                 # Persisted cost state
-│
-├── kanban/
-│   ├── board.js                   # Kanban board logic (columns, cards, comments)
-│   └── board-state.json           # Persisted board state
-│
-├── learning/
-│   ├── autonomous-learner.js      # Experience → Reflect → Evaluate → Learn → Adapt
-│   └── learning-state.json        # Persisted learning state
-│
-├── scheduler/
-│   └── task-scheduler.js          # Background task queue processing
-│
-├── dashboard/
-│   ├── index.html                 # Cost dashboard UI
-│   ├── mission-control.html       # Mission Control UI (full system view)
-│   └── mission-control.js         # Mission Control logic + WebSocket client
-│
-├── backup/
-│   ├── gdrive-backup.sh           # Google Drive backup script
-│   └── gdrive-restore.sh          # Google Drive restore script
-│
-├── cron/
-│   ├── jobs.json                  # Scheduled cron job definitions
-│   └── runs/                      # Cron execution logs (.jsonl)
-│
-├── memory/
-│   ├── main.sqlite                # Main agent conversation memory
-│   └── allrounder.sqlite          # Allrounder agent conversation memory
-│
-├── workspace/                     # Shared workspace (docs, skills, config)
+├── workspace/
+│   ├── skills/               ← RedOS custom skills (20 skills, all SKILL.md)
+│   │   ├── hatake-parser/    ← Intent classification + brief generation
+│   │   ├── smart-router/     ← Model selection algorithm
+│   │   ├── cost-tracker/     ← Cost monitoring + budget enforcement
+│   │   ├── retry-cascade/    ← Failure recovery + fallback chains
+│   │   ├── reflect-learn/    ← Post-session reflection + adaptation
+│   │   ├── eng-coding/       ← Engineering agent behavior
+│   │   ├── holdings-analyzer/← Finance agent behavior
+│   │   ├── task-runner/      ← Background task execution
+│   │   ├── exa-mcp/          ← Web search via Exa
+│   │   └── ...15 more skills
+│   │
 │   ├── config/
-│   │   ├── budget-guardrails.json # Budget limits and guardrails
-│   │   ├── model-registry.json    # Full model registry
-│   │   ├── routing-profiles.json  # Routing configuration
-│   │   └── mcporter.json          # MCP server configs (exa, reddit, github)
-│   ├── skills/                    # 20 agent skills (hatake-parser, smart-router, etc.)
-│   ├── ORG_STRUCTURE.md           # RED/ZEN org roles & change control policy
-│   ├── ARCHITECTURE.md            # Full system architecture reference
-│   ├── start_all.sh               # Start all AgentOS services
-│   └── stop_all.sh                # Stop all services
+│   │   ├── mcporter.json       ← MCP server connections (Exa, Reddit, GitHub)
+│   │   ├── model-registry.json ← All available models, capabilities, costs
+│   │   ├── routing-profiles.json ← Routing profiles (balanced, cost_saver, etc.)
+│   │   └── budget-guardrails.json ← Daily/monthly spend limits
+│   │
+│   ├── ORG_STRUCTURE.md      ← RED/ZEN org roles & change control policy
+│   └── ARCHITECTURE.md       ← Full system architecture reference
 │
-├── workspace-main/                # Main agent workspace
-├── workspace-allrounder/          # Allrounder agent workspace
-├── workspace-eng/                 # Engineering agent workspace
-├── workspace-research/            # Research agent workspace
-├── workspace-finance/             # Finance agent workspace
-├── workspace-ops/                 # Ops agent workspace
-├── workspace-infosec/             # Infosec agent workspace
+├── workspace-main/           ← RED agent workspace (docs, context, tasks)
+├── workspace-allrounder/     ← ZEN agent workspace
+├── workspace-eng/            ← Engineering agent workspace
+├── workspace-research/       ← Research agent workspace
+├── workspace-finance/        ← Finance agent workspace
+├── workspace-ops/            ← Ops agent workspace
+├── workspace-infosec/        ← InfoSec agent workspace
 │
-├── subagents/runs.json            # Sub-agent execution log
-├── credentials/                   # Telegram auth (allowFrom, pairing)
-├── devices/                       # Device pairing state
-├── identity/                      # Device identity + auth
-├── sandbox/containers.json        # Sandbox container registry
-├── sandboxes/                     # Per-agent sandbox directories
-├── canvas/index.html              # Canvas UI
-├── completions/                   # Shell completions (bash, zsh, fish, ps1)
+├── agents/                   ← Legacy JS agent modules (pre-OpenClaw era)
+│   ├── hatake-parser.js      ← Now replaced by workspace/skills/hatake-parser/
+│   ├── ed-red-orchestrator.js← Now replaced by OpenClaw's native orchestration
+│   └── ...                   ← Kept for reference; not actively invoked
 │
-├── upgrade.sh                     # Safe upgrade manager (CLI + RedOS)
-├── start-resilient.sh             # Start gateway + telegram bridge
-├── QUICK_START.sh                 # First-time setup script
-├── .env.example                   # Environment variable template
-├── openclaw.json                  # Runtime config (gitignored)
-└── package.json                   # Node.js dependencies & scripts
+├── gateway/                  ← Legacy custom Express server (pre-OpenClaw era)
+│   └── server.js             ← Was port 19000; replaced by OpenClaw gateway 18789
+│
+├── smart-router/             ← Legacy model selector (pre-OpenClaw era)
+│   └── selector-v2.js        ← Now replaced by workspace/skills/smart-router/
+│
+├── resilience/               ← Legacy error handling (pre-OpenClaw era)
+│   └── ...                   ← Now handled by retry-cascade skill + OpenClaw native
+│
+├── openclaw.json             ← Agent config, model assignments, channel bindings (gitignored)
+├── .env.example              ← Environment variable template
+├── ai.openclaw.gateway.plist.example ← LaunchAgent template
+├── KNOWLEDGEBASE.md          ← Full project context for LLMs/collaborators
+└── upgrade.sh                ← Safe upgrade manager
 ```
 
----
-
-## Scripts
-
-| Command | Description |
-|---------|-------------|
-| `openclaw gateway start` | Start OpenClaw gateway (launchd managed, port 18789) |
-| `npm run telegram` | Start Telegram bridge (8 bots) |
-| `npm run backup` | Backup to Google Drive |
-| `npm run restore` | Restore from Google Drive |
-| `bash start-resilient.sh` | Start gateway + bridge together (background) |
-| `bash QUICK_START.sh` | First-time setup (deps, Ollama check, backups) |
-| `npm run upgrade:check` | Check for updates (CLI + RedOS) |
-| `npm run upgrade:cli` | Upgrade official OpenClaw CLI only |
-| `npm run upgrade` | Upgrade RedOS code (git pull + restart) |
-| `npm run upgrade:all` | Upgrade everything safely |
+**Note on legacy directories:** `gateway/`, `agents/`, `smart-router/`, and `resilience/` contain code from the pre-OpenClaw architecture (custom Express server on port 19000). They are kept for reference but are **not actively run**. Their logic has been replaced by OpenClaw's native runtime + RedOS skills.
 
 ---
 
-## Upgrading
+## Operations
 
-Two independent systems to keep up-to-date:
+### Check gateway status
+```bash
+openclaw status          # Should show: reachable Xms · auth token
+openclaw tui             # Full TUI dashboard
+```
 
-### 1. Official OpenClaw CLI (safe, no impact on RedOS)
+### Restart gateway
+```bash
+launchctl stop ai.openclaw.gateway
+launchctl start ai.openclaw.gateway
+sleep 3 && openclaw status
+```
 
+### View logs
+```bash
+tail -f ~/.openclaw/logs/gateway.log
+tail -f ~/.openclaw/logs/gateway.err.log
+```
+
+### Upgrade OpenClaw CLI
 ```bash
 npm install -g openclaw@latest
-# then restart launchd service:
 launchctl stop ai.openclaw.gateway && launchctl start ai.openclaw.gateway
-```
-
-Only updates `/opt/homebrew/lib/node_modules/openclaw/`. Your RedOS code, configs, secrets, and running services are **not touched**.
-
-### 2. RedOS Code (git pull + auto-restart)
-
-```bash
-npm run upgrade
-```
-
-This will: backup → stop services → `git pull` → `npm install` → restart → verify health. Auto-rolls back if gateway fails to start.
-
-### 3. Check for Updates (no changes)
-
-```bash
-npm run upgrade:check
-```
-
-Shows current versions, available updates, and system health.
-
-### 4. Upgrade Everything
-
-```bash
-npm run upgrade:all
-```
-
-Runs backup → CLI upgrade → RedOS upgrade in sequence.
-
----
-
-## Configuration
-
-All secrets are stored in `.env` (never committed). See `.env.example` for the full list:
-
-- **Telegram bot tokens** (8 bots)
-- **API keys** (ZAI, Perplexity, GitHub PAT)
-- **Gateway auth token**
-- **Ollama host URL**
-- **Budget limits**
-
-Runtime configuration lives in `openclaw.json` (also gitignored). It defines:
-- Gateway settings (port, auth)
-- Ollama model configuration
-- Agent definitions (8 agents with system prompts)
-- Third-party service configs
-- Budget and feature flags
-
-Workspace-level config in `workspace/config/`:
-- `budget-guardrails.json` — spending limits
-- `model-registry.json` — full model catalog
-- `routing-profiles.json` — routing rules
-- `mcporter.json` — MCP server connections (Exa, Reddit, GitHub)
-
----
-
-## Key Systems
-
-### HATAKE Parser
-Converts raw user messages into structured briefs. Uses regex pattern matching to detect intent across 4 categories (simple, code, research, complex). Scores complexity 1-10, selects track (fast vs orchestrated), and suggests which specialist agents to involve.
-
-### Track Router
-Entry point for all `/api/chat` requests. Receives HATAKE's brief and dispatches to either:
-- **Fast Track** → Resilient Handler → Smart Router V2 → single model call
-- **Orchestrated Track** → Ed/RED Orchestrator → multi-step plan with multiple agents
-
-Falls back to fast track if orchestration fails.
-
-### Ed/RED Orchestrator
-Front controller for complex tasks. Creates execution plans, delegates steps to specialist agents (ENG, RESEARCH, OPS, FINANCE), validates results through an OPS gate, and assembles the final response. Each step internally uses the Resilient Handler.
-
-### Smart Router V2
-Scores all available models against task requirements. Heavily favors free local models (+100 score) and penalizes paid models when not urgent (-50 to -100). Includes a budget gate that forces `llama3.1:8b` when budget is exhausted.
-
-### Resilience Layer
-- **Resilient Handler** — 3-retry loop with exponential backoff. Never crashes; returns a helpful fallback response if all attempts fail.
-- **Error Handler** — Classifies errors and selects recovery strategy (retry, switch model, force free model).
-- **DevOps Agent** — Continuous health monitoring, auto-creates tickets for issues. Checks for CLI and RedOS upgrades every 6 hours and auto-creates tickets when updates are available.
-- **Ticket System** — Internal issue tracking with priority, assignee, and resolution workflow.
-
-### Autonomous Learning
-```
-Experience --> Reflect --> Evaluate --> Learn --> Adapt
-```
-Records every interaction. After every 5 experiences, triggers a learning cycle: reflects on patterns, evaluates performance (0-100 score), generates adaptations, and updates the knowledge base. State persisted in `learning/learning-state.json`.
-
-### Cost Monitor
-Tracks every request: agent, model, tokens, cost, latency. Persists state to `cost-monitor/state.json`. Provides budget remaining calculation. Broadcasts metrics to Mission Control via WebSocket every 5 seconds.
-
----
-
-## Troubleshooting
-
-```bash
-# Check OpenClaw gateway status
 openclaw status
-
-# Check port conflicts
-lsof -i :18789
-
-# Restart gateway (launchd managed)
-launchctl stop ai.openclaw.gateway && launchctl start ai.openclaw.gateway
-
-# Check Ollama is running
-curl http://localhost:11434/api/tags
-
-# View gateway logs
-tail -f ~/.openclaw/logs/gateway.log
-
-# View gateway errors
-tail -f ~/.openclaw/logs/gateway.err.log
-
-# View TUI
-openclaw tui
 ```
+
+### Change routing mode (via Telegram)
+```
+@RedinsideBot routing mode cost_saver
+@RedinsideBot routing mode balanced
+@RedinsideBot routing mode performance
+```
+
+---
+
+## Configuration Files
+
+| File | Purpose | In git? |
+|------|---------|---------|
+| `openclaw.json` | Agent definitions, model assignments, Telegram tokens, gateway config | No (secrets) |
+| `~/Library/LaunchAgents/ai.openclaw.gateway.plist` | macOS service definition with env vars | No (secrets) |
+| `ai.openclaw.gateway.plist.example` | Template (no secrets) | Yes |
+| `.env.example` | Environment variable template | Yes |
+| `workspace/config/model-registry.json` | Available models, capabilities, costs | Yes |
+| `workspace/config/routing-profiles.json` | Routing profiles and weights | Yes |
+| `workspace/config/mcporter.json` | MCP server connections | Yes |
+| `workspace/config/budget-guardrails.json` | Spend limits | Yes |
+
+### Three-Token Rule
+`OPENCLAW_GATEWAY_TOKEN` must be **identical** in all three places:
+1. Shell: `export OPENCLAW_GATEWAY_TOKEN=...` in `~/.zshrc`
+2. Plist: `OPENCLAW_GATEWAY_TOKEN` in `~/Library/LaunchAgents/ai.openclaw.gateway.plist`
+3. Config: `gateway.auth.token` in `~/.openclaw/openclaw.json`
 
 ---
 
@@ -722,13 +322,9 @@ openclaw tui
 
 | File | Description |
 |------|-------------|
-| [ARCHITECTURE_ANALYSIS.md](./ARCHITECTURE_ANALYSIS.md) | Detailed architecture analysis & evolution plan |
-| [RESILIENT_SYSTEM.md](./RESILIENT_SYSTEM.md) | Resilience layer documentation |
-| [HATAKE_PROMPT_ENGINEERING.md](./HATAKE_PROMPT_ENGINEERING.md) | HATAKE prompt engineering details |
-| [TELEGRAM_DEMO_GUIDE.md](./TELEGRAM_DEMO_GUIDE.md) | Telegram demo walkthrough |
-| [SETUP_GUIDE.md](./SETUP_GUIDE.md) | Full setup instructions |
-| [workspace/ARCHITECTURE.md](./workspace/ARCHITECTURE.md) | Full AgentOS architecture reference |
-| [workspace/ORG_STRUCTURE.md](./workspace/ORG_STRUCTURE.md) | RED/ZEN org roles & change control policy |
+| [KNOWLEDGEBASE.md](./KNOWLEDGEBASE.md) | **Start here** — Full project context, auth flow, known fixes, standard practices |
+| [workspace/ARCHITECTURE.md](./workspace/ARCHITECTURE.md) | OpenClaw system architecture reference |
+| [workspace/ORG_STRUCTURE.md](./workspace/ORG_STRUCTURE.md) | RED/ZEN org roles, change control, agent responsibilities |
 
 ---
 
