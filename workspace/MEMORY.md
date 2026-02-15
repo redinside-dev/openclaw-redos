@@ -127,10 +127,26 @@ Curated long-term memory for this OpenClaw workspace.
 | OPS SLA Enforcement | ok (20.1s) | Ran successfully |
 | Others | pending | Waiting for next cron cycle (~18:06 ET) |
 
+### Self-Healing Verified (2026-02-15 18:21–18:30 ET)
+
+**OPS agent autonomously:**
+1. Ran Health Monitor cron job, read gateway.err.log + errors.jsonl
+2. Created TICKET-20260215-001 (P2: health monitoring stopped for 17h)
+3. Created TICKET-20260215-002 (P1: LLM timeout errors from bad model + low timeout)
+4. Wrote memory log at `workspace-ops/memory/2026-02-15.md`
+
+**We then resolved both tickets:**
+- Removed `zai/glm-4.7-flashx` from all agents
+- Upgraded OPS primary to `zai/glm-4.7`
+- Increased all cron timeouts to 300s
+- Added LEARNING-003, 004, 005 to LEARNINGS.md
+
+**This is the first real end-to-end self-healing cycle:** detect → ticket → diagnose → fix → learn.
+
 ### Remaining
 
 - Phase 4: CEO dynamic hiring/firing (not started)
-- Verify cron jobs fire cleanly with zai/glm-4.7 model
+- Monitor cron jobs over next few days to confirm stability
 - Cost-tracker + smart-router still not writing to log files (lower priority)
 
-*Last updated: 2026-02-15 17:58 ET by Windsurf Cascade — Model fix applied. Dashboard live on port 19000. Waiting for next cron cycle.*
+*Last updated: 2026-02-15 18:30 ET by Windsurf Cascade — Self-healing verified. 2 tickets resolved. Dashboard live on port 19000.*
