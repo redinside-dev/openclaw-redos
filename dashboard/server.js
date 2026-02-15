@@ -328,7 +328,36 @@ const server = http.createServer((req, res) => {
 
   // CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  if (req.method === 'OPTIONS') { res.writeHead(204); res.end(); return; }
+
+  // POST: Model override
+  if (req.method === 'POST' && url.pathname === '/api/model-override') {
+    let body = '';
+    req.on('data', c => body += c);
+    req.on('end', () => {
+      try {
+        const { agentId, model } = JSON.parse(body);
+        if (!agentId || !model) throw new Error('agentId and model required');
+        const configPath = path.join(OPENCLAW_DIR, 'openclaw.json');
+        const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+        const agent = (config.agents?.list || []).find(a => a.id === agentId);
+        if (!agent) throw new Error('Agent not found: ' + agentId);
+        if (!agent.model) agent.model = {};
+        const oldModel = agent.model.primary || config.agents?.defaults?.model?.primary || 'unknown';
+        agent.model.primary = model;
+        fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: true, agentId, oldModel, newModel: model }));
+      } catch (e) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: false, error: e.message }));
+      }
+    });
+    return;
+  }
 
   // API routes
   if (url.pathname === '/api/dashboard') {

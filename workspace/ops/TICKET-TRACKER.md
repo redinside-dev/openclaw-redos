@@ -32,7 +32,22 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 
 ## Active Tickets
 
-_No active tickets._
+### TICKET-20260215-003
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-15T23:51:00Z
+- **SLA Deadline:** 2026-02-16T07:51:00Z (8 hours)
+- **Reporter:** OPS (cron)
+- **Assignee:** TBD
+- **Summary:** Authentication token and session key errors after LLM timeout resolution
+- **Details:** New errors detected at 23:30-23:35Z (6:30-6:35 PM ET), after TICKET-20260215-002 was resolved:
+  - 23:34:35Z: "FailoverError: Your authentication token has been invalidated. Please try signing in again." (main lane, research and finance sessions)
+  - 23:30:20Z: "Error: Malformed agent session key; refusing workspace resolution." (nested and session:agent:eng lanes)
+  - 23:35:03Z: LLM timeout again for OPS cron job (300s exceeded) despite earlier resolution
+- **Root Cause:** TBD - investigate if authentication reset is causing cascading session issues, and why timeout recurred after model/timeout fix
+- **Resolution:** TBD
+- **Learnings:** TBD
+- **Resolved At:** TBD
 
 ## Resolved Tickets (Last 7 Days)
 

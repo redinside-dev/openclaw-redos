@@ -1,210 +1,326 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RedOS Mission Control</title>
-  <style>
-    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-    :root{--bg:#0b0f1a;--bg2:#111827;--bg3:#1f2937;--bg4:#374151;--border:#1f2937;--text:#f3f4f6;--text2:#9ca3af;--text3:#6b7280;--blue:#3b82f6;--green:#10b981;--yellow:#f59e0b;--red:#ef4444;--purple:#8b5cf6;--cyan:#06b6d4;--pink:#ec4899}
-    body{font-family:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
-    .header{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 24px;height:52px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
-    .logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:17px}
-    .logo-dot{width:10px;height:10px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
-    .logo-dot.error{background:var(--red)}.logo-dot.warn{background:var(--yellow)}
-    @keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(16,185,129,0.4)}50%{opacity:0.8;box-shadow:0 0 0 6px rgba(16,185,129,0)}}
-    .header-right{display:flex;align-items:center;gap:14px;font-size:12px;color:var(--text2)}
-    .refresh-btn{background:var(--bg3);border:1px solid var(--bg4);color:var(--text2);padding:5px 10px;border-radius:6px;cursor:pointer;font-size:11px;transition:all .15s}
-    .refresh-btn:hover{background:var(--bg4);color:var(--text)}
-    .nav{background:var(--bg2);border-bottom:1px solid var(--border);display:flex;gap:0;padding:0 24px;overflow-x:auto}
-    .nav-tab{padding:10px 16px;font-size:12px;font-weight:500;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .15s;background:none;border-top:none;border-left:none;border-right:none}
-    .nav-tab:hover{color:var(--text2)}.nav-tab.active{color:var(--blue);border-bottom-color:var(--blue)}
-    .page{display:none;padding:20px;max-width:1400px;margin:0 auto}.page.active{display:block}
-    .grid{display:grid;gap:14px}.grid-4{grid-template-columns:repeat(4,1fr)}.grid-3{grid-template-columns:repeat(3,1fr)}.grid-2{grid-template-columns:repeat(2,1fr)}
-    @media(max-width:1024px){.grid-4{grid-template-columns:repeat(2,1fr)}.grid-3{grid-template-columns:repeat(2,1fr)}}
-    @media(max-width:640px){.grid-4,.grid-3,.grid-2{grid-template-columns:1fr}}
-    .card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px}
-    .card-title{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;display:flex;align-items:center;gap:6px}
-    .stat-value{font-size:28px;font-weight:700;line-height:1.1}.stat-sub{font-size:11px;color:var(--text3);margin-top:3px}
-    .section{margin-top:20px}.section-title{font-size:15px;font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:8px}
-    .tbl{width:100%;border-collapse:collapse;font-size:12px}
-    .tbl th{text-align:left;padding:8px 10px;font-weight:600;color:var(--text3);font-size:10px;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border)}
-    .tbl td{padding:8px 10px;border-bottom:1px solid var(--border);color:var(--text2)}
-    .tbl tr:last-child td{border-bottom:none}.tbl tr:hover td{background:rgba(255,255,255,0.02)}
-    .pill{display:inline-block;padding:2px 8px;border-radius:100px;font-size:10px;font-weight:600}
-    .pill-green{background:rgba(16,185,129,0.15);color:var(--green)}.pill-yellow{background:rgba(245,158,11,0.15);color:var(--yellow)}
-    .pill-red{background:rgba(239,68,68,0.15);color:var(--red)}.pill-blue{background:rgba(59,130,246,0.15);color:var(--blue)}
-    .pill-purple{background:rgba(139,92,246,0.15);color:var(--purple)}.pill-gray{background:rgba(107,114,128,0.15);color:var(--text3)}
-    .pill-cyan{background:rgba(6,182,212,0.15);color:var(--cyan)}
-    .agent-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:8px}
-    .agent-card .agent-top{display:flex;justify-content:space-between;align-items:center}
-    .agent-card .agent-name{font-weight:700;font-size:15px}
-    .agent-card .agent-role{font-size:11px;color:var(--text3)}
-    .agent-card .agent-meta{display:flex;gap:12px;font-size:11px;color:var(--text3)}.agent-card .agent-meta span{display:flex;align-items:center;gap:3px}
-    .feed-item{padding:10px 14px;border-left:3px solid var(--bg4);margin-bottom:6px;background:var(--bg3);border-radius:0 6px 6px 0;font-size:12px}
-    .feed-item.ok{border-left-color:var(--green)}.feed-item.error{border-left-color:var(--red)}.feed-item.warn{border-left-color:var(--yellow)}.feed-item.info{border-left-color:var(--blue)}
-    .feed-item .feed-time{font-size:10px;color:var(--text3);margin-bottom:3px}.feed-item .feed-text{color:var(--text2)}
-    .learning-card{background:var(--bg3);border-radius:8px;padding:12px;margin-bottom:8px}
-    .learning-card .lc-header{display:flex;justify-content:space-between;margin-bottom:5px;flex-wrap:wrap;gap:4px}
-    .learning-card .lc-title{font-weight:600;font-size:13px}.learning-card .lc-body{font-size:12px;color:var(--text2);line-height:1.5}
-    .empty{text-align:center;padding:40px 20px;color:var(--text3)}.empty-icon{font-size:36px;margin-bottom:10px;opacity:.5}
-    .md-block{background:var(--bg3);border-radius:8px;padding:16px;font-size:12px;line-height:1.7;color:var(--text2);white-space:pre-wrap;max-height:600px;overflow-y:auto;font-family:'SF Mono',Monaco,Consolas,monospace}
-    .cost-bar{height:8px;background:var(--bg4);border-radius:4px;overflow:hidden;margin-top:6px}
-    .cost-bar-fill{height:100%;border-radius:4px;transition:width .5s}
-    ::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:3px}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RedOS Mission Control</title>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0e17;--bg2:#0f1523;--bg3:#161d2e;--bg4:#1e2840;--bg5:#283352;--border:#1c2438;--text:#e8ecf4;--text2:#8b95a8;--text3:#5a6478;--blue:#4f8ff7;--green:#22c55e;--yellow:#eab308;--red:#ef4444;--purple:#a78bfa;--cyan:#22d3ee;--pink:#f472b6;--orange:#f97316}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column}
+/* Header */
+.hdr{background:linear-gradient(180deg,var(--bg2),var(--bg));border-bottom:1px solid var(--border);padding:0 20px;height:48px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200}
+.hdr-left{display:flex;align-items:center;gap:10px}
+.hdr-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green)}
+.hdr-dot.err{background:var(--red);box-shadow:0 0 8px var(--red)}.hdr-dot.warn{background:var(--yellow);box-shadow:0 0 8px var(--yellow)}
+.hdr-title{font-weight:700;font-size:14px;letter-spacing:.3px}
+.hdr-right{display:flex;align-items:center;gap:12px;font-size:11px;color:var(--text2)}
+.hdr-btn{background:var(--bg4);border:1px solid var(--bg5);color:var(--text2);padding:4px 10px;border-radius:5px;cursor:pointer;font-size:10px;transition:.15s}
+.hdr-btn:hover{background:var(--bg5);color:var(--text)}
+/* Tabs */
+.tabs{background:var(--bg2);border-bottom:1px solid var(--border);display:flex;padding:0 12px;overflow-x:auto;position:sticky;top:48px;z-index:199}
+.tabs::-webkit-scrollbar{height:0}
+.tab{padding:9px 14px;font-size:11px;font-weight:500;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:.15s;background:none;border-top:none;border-left:none;border-right:none;position:relative}
+.tab:hover{color:var(--text2)}.tab.on{color:var(--blue);border-bottom-color:var(--blue)}
+.tab .badge{position:absolute;top:4px;right:2px;background:var(--red);color:#fff;font-size:8px;font-weight:700;padding:1px 4px;border-radius:8px;min-width:14px;text-align:center}
+/* Main */
+.main{flex:1;overflow-y:auto}
+.pg{display:none;padding:16px 20px;max-width:1440px;margin:0 auto;width:100%}.pg.on{display:block}
+/* Grid */
+.g{display:grid;gap:12px}.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:repeat(2,1fr)}
+@media(max-width:1100px){.g4{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:1fr 1fr}}
+@media(max-width:700px){.g4,.g3,.g2{grid-template-columns:1fr}}
+/* Card */
+.c{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px;transition:border-color .2s}
+.c:hover{border-color:var(--bg5)}
+.c-t{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
+.c-v{font-size:26px;font-weight:800;line-height:1}.c-s{font-size:10px;color:var(--text3);margin-top:4px}
+/* Section */
+.sec{margin-top:16px}.sec-t{font-size:13px;font-weight:700;margin-bottom:10px;color:var(--text)}
+/* Table */
+.t{width:100%;border-collapse:collapse;font-size:11px}
+.t th{text-align:left;padding:7px 8px;font-weight:600;color:var(--text3);font-size:9px;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--bg2)}
+.t td{padding:7px 8px;border-bottom:1px solid rgba(28,36,56,.5);color:var(--text2);vertical-align:top}
+.t tr:hover td{background:rgba(255,255,255,.015)}
+/* Pills */
+.p{display:inline-block;padding:2px 7px;border-radius:100px;font-size:9px;font-weight:700;letter-spacing:.3px}
+.p-g{background:rgba(34,197,94,.12);color:var(--green)}.p-y{background:rgba(234,179,8,.12);color:var(--yellow)}
+.p-r{background:rgba(239,68,68,.12);color:var(--red)}.p-b{background:rgba(79,143,247,.12);color:var(--blue)}
+.p-v{background:rgba(167,139,250,.12);color:var(--purple)}.p-x{background:rgba(90,100,120,.15);color:var(--text3)}
+.p-c{background:rgba(34,211,238,.12);color:var(--cyan)}.p-o{background:rgba(249,115,22,.12);color:var(--orange)}
+/* Feed */
+.fi{padding:8px 12px;border-left:3px solid var(--bg5);margin-bottom:5px;background:var(--bg3);border-radius:0 6px 6px 0;font-size:11px}
+.fi.ok{border-left-color:var(--green)}.fi.er{border-left-color:var(--red)}.fi.wr{border-left-color:var(--yellow)}.fi.in{border-left-color:var(--blue)}
+.fi-t{font-size:9px;color:var(--text3);margin-bottom:2px}.fi-b{color:var(--text2)}
+/* Agent card */
+.ac{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:6px}
+.ac-top{display:flex;justify-content:space-between;align-items:center}
+.ac-n{font-weight:700;font-size:14px}.ac-r{font-size:10px;color:var(--text3)}
+.ac-m{display:flex;gap:10px;font-size:10px;color:var(--text3);flex-wrap:wrap}.ac-m span{display:flex;align-items:center;gap:3px}
+/* Learning */
+.lc{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:8px}
+.lc-h{display:flex;justify-content:space-between;margin-bottom:4px;flex-wrap:wrap;gap:4px}
+.lc-ti{font-weight:600;font-size:12px}.lc-bd{font-size:11px;color:var(--text2);line-height:1.5}
+/* Mono block */
+.mono{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;font-size:11px;line-height:1.6;color:var(--text2);white-space:pre-wrap;max-height:500px;overflow-y:auto;font-family:'SF Mono',Monaco,Consolas,monospace}
+/* Bar */
+.bar{height:6px;background:var(--bg4);border-radius:3px;overflow:hidden;margin-top:5px}.bar-f{height:100%;border-radius:3px;transition:width .4s}
+/* Modal */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:300;align-items:center;justify-content:center}
+.modal-bg.on{display:flex}
+.modal{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px;width:420px;max-width:90vw}
+.modal h3{font-size:15px;margin-bottom:14px}
+.modal label{font-size:11px;color:var(--text2);display:block;margin-bottom:4px}
+.modal select,.modal input{width:100%;padding:8px 10px;background:var(--bg3);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:12px;margin-bottom:12px;outline:none}
+.modal select:focus,.modal input:focus{border-color:var(--blue)}
+.modal-btns{display:flex;gap:8px;justify-content:flex-end;margin-top:6px}
+.modal-btns button{padding:7px 16px;border-radius:6px;border:none;font-size:12px;font-weight:600;cursor:pointer}
+.btn-cancel{background:var(--bg4);color:var(--text2)}.btn-cancel:hover{background:var(--bg5)}
+.btn-apply{background:var(--blue);color:#fff}.btn-apply:hover{opacity:.9}
+/* Toast */
+.toast{position:fixed;bottom:20px;right:20px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 16px;font-size:12px;color:var(--text);z-index:400;transform:translateY(80px);opacity:0;transition:.3s}
+.toast.show{transform:translateY(0);opacity:1}
+.toast.ok{border-left:3px solid var(--green)}.toast.fail{border-left:3px solid var(--red)}
+/* Iframe */
+.iframe-wrap{position:relative;flex:1;min-height:0}
+.iframe-wrap iframe{width:100%;height:100%;border:none;background:var(--bg)}
+.pg-iframe{display:none;height:calc(100vh - 96px)}.pg-iframe.on{display:flex;flex-direction:column}
+/* Scrollbar */
+::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--bg5);border-radius:3px}
+/* Select override */
+.model-sel{padding:3px 6px;background:var(--bg4);border:1px solid var(--bg5);border-radius:4px;color:var(--cyan);font-size:10px;cursor:pointer;outline:none;max-width:180px}
+.model-sel:hover{border-color:var(--blue)}
+</style>
 </head>
 <body>
-<div class="header">
-  <div class="logo"><div class="logo-dot" id="statusDot"></div><span>RedOS Mission Control</span></div>
-  <div class="header-right">
-    <span id="lastUpdate">--</span>
-    <button class="refresh-btn" onclick="loadAll()">Refresh</button>
-    <span id="clock">--:--:--</span>
+
+<div class="hdr">
+  <div class="hdr-left"><div class="hdr-dot" id="dot"></div><span class="hdr-title">RedOS Mission Control</span></div>
+  <div class="hdr-right">
+    <span id="upd">--</span>
+    <button class="hdr-btn" onclick="loadAll()">&#x21bb; Refresh</button>
+    <span id="clk" style="font-family:monospace">--:--:--</span>
   </div>
 </div>
-<div class="nav">
-  <button class="nav-tab active" data-page="overview">Overview</button>
-  <button class="nav-tab" data-page="agents">Agents</button>
-  <button class="nav-tab" data-page="cron">Cron Jobs</button>
-  <button class="nav-tab" data-page="tickets">Tickets & SLA</button>
-  <button class="nav-tab" data-page="learnings">Learnings</button>
-  <button class="nav-tab" data-page="skills">Skills</button>
-  <button class="nav-tab" data-page="cost">Cost Estimator</button>
-  <button class="nav-tab" data-page="routing">Smart Routing</button>
-  <button class="nav-tab" data-page="prompt">Prompt Engineering</button>
-  <button class="nav-tab" data-page="caching">Caching</button>
-  <button class="nav-tab" data-page="errors">Errors & Logs</button>
+
+<div class="tabs" id="tabBar">
+  <button class="tab on" data-p="overview">Overview</button>
+  <button class="tab" data-p="agents">Agents</button>
+  <button class="tab" data-p="cron">Cron Jobs</button>
+  <button class="tab" data-p="tickets">Tickets &amp; SLA</button>
+  <button class="tab" data-p="learnings">Learnings</button>
+  <button class="tab" data-p="skills">Skills</button>
+  <button class="tab" data-p="cost">Cost Estimator</button>
+  <button class="tab" data-p="routing">Smart Routing</button>
+  <button class="tab" data-p="prompt">Prompt Eng</button>
+  <button class="tab" data-p="caching">Caching</button>
+  <button class="tab" data-p="errors">Errors &amp; Logs</button>
+  <button class="tab" data-p="openclaw">OpenClaw</button>
 </div>
 
+<div class="main">
+
 <!-- OVERVIEW -->
-<div class="page active" id="page-overview">
-  <div class="grid grid-4" id="ov-stats"></div>
-  <div class="section"><div class="grid grid-2">
-    <div><div class="section-title">Cron Activity</div><div class="card" id="ov-cron" style="max-height:360px;overflow-y:auto"></div></div>
-    <div><div class="section-title">Recent Errors</div><div class="card" id="ov-errors" style="max-height:360px;overflow-y:auto"></div></div>
+<div class="pg on" id="pg-overview">
+  <div class="g g4" id="ov-s"></div>
+  <div class="sec"><div class="g g2">
+    <div><div class="sec-t">Enabled Cron Activity</div><div class="c" id="ov-cr" style="max-height:320px;overflow-y:auto"></div></div>
+    <div><div class="sec-t">Recent Errors</div><div class="c" id="ov-er" style="max-height:320px;overflow-y:auto"></div></div>
   </div></div>
-  <div class="section"><div class="section-title">Agent Roster</div><div class="grid grid-4" id="ov-agents"></div></div>
+  <div class="sec"><div class="sec-t">Agent Roster</div><div class="g g4" id="ov-ag"></div></div>
 </div>
 
 <!-- AGENTS -->
-<div class="page" id="page-agents"><div class="section-title">All Agents</div><div class="grid grid-3" id="agents-grid"></div></div>
+<div class="pg" id="pg-agents">
+  <div class="sec-t" style="margin-bottom:6px">All Agents <span style="font-weight:400;font-size:11px;color:var(--text3)">— click model to change</span></div>
+  <div class="g g3" id="ag-grid"></div>
+</div>
 
 <!-- CRON -->
-<div class="page" id="page-cron"><div class="section-title">Cron Jobs</div><div class="card"><table class="tbl" id="cron-tbl"><thead><tr><th>Name</th><th>Agent</th><th>Schedule</th><th>Enabled</th><th>Status</th><th>Last Run</th><th>Duration</th><th>Errors</th></tr></thead><tbody></tbody></table></div></div>
+<div class="pg" id="pg-cron">
+  <div class="sec-t">All Cron Jobs</div>
+  <div class="c" style="overflow-x:auto"><table class="t" id="cr-t"><thead><tr><th>Name</th><th>Agent</th><th>Schedule</th><th>Enabled</th><th>Status</th><th>Last Run</th><th>Duration</th><th>Errors</th></tr></thead><tbody></tbody></table></div>
+</div>
 
 <!-- TICKETS -->
-<div class="page" id="page-tickets">
-  <div class="grid grid-4" id="tk-stats"></div>
-  <div class="section"><div class="section-title">All Tickets</div><div class="card"><table class="tbl" id="tk-tbl"><thead><tr><th>ID</th><th>Priority</th><th>Status</th><th>Assignee</th><th>Summary</th><th>SLA Deadline</th><th>Root Cause</th></tr></thead><tbody></tbody></table></div></div>
-  <div class="section"><div class="section-title">SLA Policy</div><div class="card"><table class="tbl"><thead><tr><th>Priority</th><th>Response</th><th>Resolution</th><th>Escalation</th></tr></thead><tbody>
-    <tr><td><span class="pill pill-red">P0 Critical</span></td><td>5 min</td><td>30 min</td><td>Telegram immediately</td></tr>
-    <tr><td><span class="pill pill-yellow">P1 High</span></td><td>15 min</td><td>2 hours</td><td>Telegram if breached</td></tr>
-    <tr><td><span class="pill pill-blue">P2 Medium</span></td><td>1 hour</td><td>8 hours</td><td>Daily standup</td></tr>
-    <tr><td><span class="pill pill-gray">P3 Low</span></td><td>4 hours</td><td>48 hours</td><td>Weekly summary</td></tr>
+<div class="pg" id="pg-tickets">
+  <div class="g g4" id="tk-s"></div>
+  <div class="sec"><div class="sec-t">Issue Tracker</div><div class="c" style="overflow-x:auto"><table class="t" id="tk-t"><thead><tr><th>ID</th><th>Pri</th><th>Status</th><th>Assignee</th><th>Summary</th><th>SLA Deadline</th><th>Root Cause</th><th>Resolution</th></tr></thead><tbody></tbody></table></div></div>
+  <div class="sec"><div class="sec-t">SLA Policy</div><div class="c"><table class="t"><thead><tr><th>Priority</th><th>Response</th><th>Resolution</th><th>Escalation</th></tr></thead><tbody>
+    <tr><td><span class="p p-r">P0 CRITICAL</span></td><td>5 min</td><td>30 min</td><td>Telegram alert immediately</td></tr>
+    <tr><td><span class="p p-y">P1 HIGH</span></td><td>15 min</td><td>2 hours</td><td>Telegram if breached</td></tr>
+    <tr><td><span class="p p-b">P2 MEDIUM</span></td><td>1 hour</td><td>8 hours</td><td>Daily standup report</td></tr>
+    <tr><td><span class="p p-x">P3 LOW</span></td><td>4 hours</td><td>48 hours</td><td>Weekly summary</td></tr>
   </tbody></table></div></div>
 </div>
 
 <!-- LEARNINGS -->
-<div class="page" id="page-learnings"><div class="section-title">Institutional Knowledge</div><div id="learn-list"></div></div>
+<div class="pg" id="pg-learnings"><div class="sec-t">Institutional Knowledge Base</div><div id="ln-list"></div></div>
 
 <!-- SKILLS -->
-<div class="page" id="page-skills"><div class="section-title">Registered Skills</div><div class="card"><table class="tbl" id="skills-tbl"><thead><tr><th>Skill</th><th>Title</th><th>Status</th><th>Purpose</th></tr></thead><tbody></tbody></table></div></div>
+<div class="pg" id="pg-skills"><div class="sec-t">Registered Skills</div><div class="c" style="overflow-x:auto"><table class="t" id="sk-t"><thead><tr><th>#</th><th>Skill ID</th><th>Title</th><th>Status</th><th>Purpose</th></tr></thead><tbody></tbody></table></div></div>
 
-<!-- COST ESTIMATOR -->
-<div class="page" id="page-cost">
-  <div class="grid grid-4" id="cost-stats"></div>
-  <div class="section"><div class="section-title">Model Cost Breakdown</div><div class="card"><table class="tbl" id="cost-models-tbl"><thead><tr><th>Model</th><th>Type</th><th>Monthly</th><th>Input/1K</th><th>Output/1K</th><th>Today Requests</th><th>Today Cost</th></tr></thead><tbody></tbody></table></div></div>
-  <div class="section"><div class="section-title">Usage by Agent (Today)</div><div class="card"><table class="tbl" id="cost-agents-tbl"><thead><tr><th>Agent</th><th>Requests</th><th>Cost</th><th>Share</th></tr></thead><tbody></tbody></table></div></div>
+<!-- COST -->
+<div class="pg" id="pg-cost">
+  <div class="g g4" id="co-s"></div>
+  <div class="sec"><div class="sec-t">Model Cost Breakdown</div><div class="c" style="overflow-x:auto"><table class="t" id="co-m"><thead><tr><th>Model</th><th>Billing</th><th>Monthly</th><th>Input/1K tok</th><th>Output/1K tok</th><th>Today Reqs</th><th>Today Cost</th></tr></thead><tbody></tbody></table></div></div>
+  <div class="sec"><div class="sec-t">Usage by Agent (Today)</div><div class="c" style="overflow-x:auto"><table class="t" id="co-a"><thead><tr><th>Agent</th><th>Requests</th><th>Cost</th><th>Share</th></tr></thead><tbody></tbody></table></div></div>
 </div>
 
-<!-- SMART ROUTING -->
-<div class="page" id="page-routing">
-  <div class="section-title">Smart Routing — Agent Model Assignments</div>
-  <div class="card"><table class="tbl" id="route-tbl"><thead><tr><th>Agent</th><th>Name</th><th>Primary Model</th><th>Fallback Chain</th></tr></thead><tbody></tbody></table></div>
-  <div class="section"><div class="section-title">Routing Algorithm (from smart-router skill)</div><div class="card"><div class="md-block" id="route-algo"></div></div></div>
+<!-- ROUTING -->
+<div class="pg" id="pg-routing">
+  <div class="sec-t">Smart Routing &mdash; Agent Model Assignments</div>
+  <div class="c" style="overflow-x:auto;margin-bottom:14px"><table class="t" id="rt-t"><thead><tr><th>Agent</th><th>Name</th><th>Primary Model</th><th>Fallback Chain</th></tr></thead><tbody></tbody></table></div>
+  <div class="sec-t">Routing Algorithm</div>
+  <div class="c"><div class="mono" id="rt-algo"></div></div>
 </div>
 
-<!-- PROMPT ENGINEERING -->
-<div class="page" id="page-prompt">
-  <div class="section-title">Prompt Engineering Pipeline</div>
-  <div class="card" style="margin-bottom:16px"><div class="card-title">Pipeline Flow</div>
-    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:13px;font-weight:600">
-      <span class="pill pill-blue" style="font-size:13px;padding:6px 14px">User Input</span><span style="color:var(--text3)">→</span>
-      <span class="pill pill-purple" style="font-size:13px;padding:6px 14px">Prompt Engineering</span><span style="color:var(--text3)">→</span>
-      <span class="pill pill-cyan" style="font-size:13px;padding:6px 14px">HATAKE Parser</span><span style="color:var(--text3)">→</span>
-      <span class="pill pill-yellow" style="font-size:13px;padding:6px 14px">Smart Router</span><span style="color:var(--text3)">→</span>
-      <span class="pill pill-green" style="font-size:13px;padding:6px 14px">Agent</span>
+<!-- PROMPT ENG -->
+<div class="pg" id="pg-prompt">
+  <div class="sec-t">Prompt Engineering Pipeline</div>
+  <div class="c" style="margin-bottom:14px">
+    <div class="c-t">Processing Flow</div>
+    <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;font-size:12px;font-weight:700">
+      <span class="p p-b" style="font-size:12px;padding:5px 12px">User Input</span><span style="color:var(--text3)">&rarr;</span>
+      <span class="p p-v" style="font-size:12px;padding:5px 12px">Prompt Engineering</span><span style="color:var(--text3)">&rarr;</span>
+      <span class="p p-c" style="font-size:12px;padding:5px 12px">HATAKE Parser</span><span style="color:var(--text3)">&rarr;</span>
+      <span class="p p-y" style="font-size:12px;padding:5px 12px">Smart Router</span><span style="color:var(--text3)">&rarr;</span>
+      <span class="p p-g" style="font-size:12px;padding:5px 12px">Agent Execution</span>
     </div>
   </div>
-  <div class="section"><div class="section-title">Prompt Engineering Skill</div><div class="card"><div class="md-block" id="prompt-eng-content"></div></div></div>
-  <div class="section"><div class="section-title">HATAKE Parser Skill</div><div class="card"><div class="md-block" id="hatake-content"></div></div></div>
+  <div class="sec-t">Prompt Engineering Skill</div>
+  <div class="c" style="margin-bottom:14px"><div class="mono" id="pe-c"></div></div>
+  <div class="sec-t">HATAKE Parser Skill</div>
+  <div class="c"><div class="mono" id="ha-c"></div></div>
 </div>
 
 <!-- CACHING -->
-<div class="page" id="page-caching">
-  <div class="section-title">Caching & Context Management</div>
-  <div class="grid grid-2" id="cache-cards"></div>
-  <div class="section"><div class="section-title">Model Cache Configuration</div><div class="card"><table class="tbl" id="cache-tbl"><thead><tr><th>Model</th><th>Cache Read Cost</th><th>Cache Write Cost</th><th>Temperature</th><th>Max Tokens</th></tr></thead><tbody></tbody></table></div></div>
+<div class="pg" id="pg-caching">
+  <div class="sec-t">Caching &amp; Context Management</div>
+  <div class="g g2" id="ca-cards"></div>
+  <div class="sec"><div class="sec-t">Model Cache Configuration</div><div class="c" style="overflow-x:auto"><table class="t" id="ca-t"><thead><tr><th>Model</th><th>Cache Read</th><th>Cache Write</th><th>Temperature</th><th>Max Tokens</th></tr></thead><tbody></tbody></table></div></div>
 </div>
 
 <!-- ERRORS -->
-<div class="page" id="page-errors">
-  <div class="section-title">Gateway Errors (gateway.err.log)</div>
-  <div class="card" id="gw-errors" style="max-height:300px;overflow-y:auto;font-family:monospace;font-size:11px;line-height:1.5;white-space:pre-wrap;color:var(--text3)"></div>
-  <div class="section"><div class="section-title">Live Gateway Log (last 50 entries)</div><div class="card"><table class="tbl" id="log-tbl"><thead><tr><th>Time</th><th>Level</th><th>Message</th></tr></thead><tbody></tbody></table></div></div>
+<div class="pg" id="pg-errors">
+  <div class="sec-t">Gateway Error Log <span style="font-weight:400;font-size:10px;color:var(--text3)">(gateway.err.log — last 30 lines)</span></div>
+  <div class="c" id="gw-e" style="max-height:260px;overflow-y:auto;font-family:'SF Mono',Monaco,Consolas,monospace;font-size:10px;line-height:1.5;white-space:pre-wrap;color:var(--text3)"></div>
+  <div class="sec"><div class="sec-t">Live Gateway Log <span style="font-weight:400;font-size:10px;color:var(--text3)">(last 50 entries)</span></div><div class="c" style="overflow-x:auto;max-height:400px;overflow-y:auto"><table class="t" id="lg-t"><thead><tr><th style="width:90px">Time</th><th style="width:50px">Level</th><th>Message</th></tr></thead><tbody></tbody></table></div></div>
 </div>
 
+<!-- OPENCLAW -->
+<div class="pg-iframe" id="pg-openclaw">
+  <div style="padding:8px 20px;font-size:11px;color:var(--text3);background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px">
+    <span style="color:var(--text);font-weight:600">OpenClaw Dashboard</span>
+    <span>|</span>
+    <a href="http://127.0.0.1:18789/chat?session=agent%3Amain%3Amain" target="_blank" style="color:var(--blue);text-decoration:none;font-size:10px">Open in new tab &nearr;</a>
+    <span>|</span>
+    <span>Session: agent:main:main</span>
+  </div>
+  <div class="iframe-wrap">
+    <iframe id="oc-frame" src="about:blank" allow="clipboard-read; clipboard-write"></iframe>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<!-- Model Override Modal -->
+<div class="modal-bg" id="mdl-bg">
+  <div class="modal">
+    <h3>Override Agent Model</h3>
+    <label>Agent</label>
+    <select id="mdl-agent"></select>
+    <label>New Primary Model</label>
+    <select id="mdl-model">
+      <option value="openai-codex/gpt-5.2">openai-codex/gpt-5.2</option>
+      <option value="claude-code/sonnet-4.5">claude-code/sonnet-4.5</option>
+      <option value="zai/glm-4.7">zai/glm-4.7</option>
+      <option value="perplexity/sonar">perplexity/sonar</option>
+      <option value="perplexity/sonar-pro">perplexity/sonar-pro</option>
+      <option value="perplexity/sonar-reasoning">perplexity/sonar-reasoning</option>
+      <option value="ollama/llama3.1:8b">ollama/llama3.1:8b</option>
+      <option value="ollama/qwen2.5-coder:7b">ollama/qwen2.5-coder:7b</option>
+      <option value="moonshot/kimi-k2.5">moonshot/kimi-k2.5</option>
+    </select>
+    <div style="font-size:10px;color:var(--text3);margin-bottom:8px">Current model: <strong id="mdl-cur" style="color:var(--cyan)">--</strong></div>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+      <button class="btn-apply" onclick="applyModel()">Apply Override</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
 <script>
-const API='http://localhost:19000';
-let D={};
+// ---- State ----
+let D={}, LOADED=false;
+const MODELS_ALL=['openai-codex/gpt-5.2','claude-code/sonnet-4.5','zai/glm-4.7','perplexity/sonar','perplexity/sonar-pro','perplexity/sonar-reasoning','ollama/llama3.1:8b','ollama/qwen2.5-coder:7b','moonshot/kimi-k2.5'];
+const ROLES={main:'CEO / Orchestrator',allrounder:'CSO / Web Research',eng:'Engineering Lead',research:'Deep Research',finance:'Finance & Budget',ops:'Scrum Master / DevOps',infosec:'Security Officer',hatake:'Intent Parser'};
+const EMO={main:'\u{1F451}',allrounder:'\u{1F310}',eng:'\u{1F4BB}',research:'\u{1F52C}',finance:'\u{1F4B0}',ops:'\u{2699}\uFE0F',infosec:'\u{1F512}',hatake:'\u{1F977}'};
 
-// Nav
-document.querySelectorAll('.nav-tab').forEach(t=>{
-  t.addEventListener('click',()=>{
-    document.querySelectorAll('.nav-tab').forEach(x=>x.classList.remove('active'));
-    document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
-    t.classList.add('active');
-    document.getElementById('page-'+t.dataset.page).classList.add('active');
-  });
+// ---- Nav ----
+document.querySelectorAll('.tab').forEach(t=>{
+  t.onclick=()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
+    document.querySelectorAll('.pg,.pg-iframe').forEach(x=>x.classList.remove('on'));
+    t.classList.add('on');
+    const pg=t.dataset.p;
+    const el=document.getElementById('pg-'+pg);
+    if(el){el.classList.add('on')}
+    // Lazy-load OpenClaw iframe
+    if(pg==='openclaw'){
+      const f=document.getElementById('oc-frame');
+      if(f.src==='about:blank')f.src='http://127.0.0.1:18789/chat?session=agent%3Amain%3Amain';
+    }
+  };
 });
-setInterval(()=>{document.getElementById('clock').textContent=new Date().toLocaleTimeString()},1000);
+setInterval(()=>{document.getElementById('clk').textContent=new Date().toLocaleTimeString()},1000);
 
-// Helpers
-function pillFor(s){s=(s||'').toLowerCase();if(s==='ok'||s==='resolved'||s==='closed')return'pill-green';if(s==='error'||s==='p0'||s==='open')return'pill-red';if(s==='in_progress'||s==='p1')return'pill-yellow';if(s==='blocked')return'pill-purple';return'pill-gray'}
-function priPill(p){const s=(p||'').toUpperCase();if(s==='P0')return'<span class="pill pill-red">P0</span>';if(s==='P1')return'<span class="pill pill-yellow">P1</span>';if(s==='P2')return'<span class="pill pill-blue">P2</span>';return'<span class="pill pill-gray">'+s+'</span>'}
-function timeAgo(ms){if(!ms)return'--';const d=Date.now()-ms;if(d<60000)return Math.floor(d/1000)+'s ago';if(d<3600000)return Math.floor(d/60000)+'m ago';if(d<86400000)return Math.floor(d/3600000)+'h ago';return Math.floor(d/86400000)+'d ago'}
-function schedLbl(s){if(!s)return'--';if(s.kind==='cron')return s.expr;if(s.kind==='every')return'every '+Math.round(s.everyMs/60000)+'m';return s.kind||'--'}
-const ROLES={main:'CEO / Orchestrator',allrounder:'CSO / Web Research',eng:'Engineering',research:'Deep Research',finance:'Finance & Budget',ops:'Scrum Master / DevOps',infosec:'Security',hatake:'Intent Parser'};
-const EMO={main:'👑',allrounder:'🌐',eng:'💻',research:'🔬',finance:'💰',ops:'⚙️',infosec:'🔒',hatake:'🥷'};
-function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML}
+// ---- Helpers ----
+function h(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML}
+function pill(s){s=(s||'').toLowerCase();if(s==='ok'||s==='resolved'||s==='closed')return'p-g';if(s==='error'||s==='open')return'p-r';if(s==='in_progress'||s==='p1')return'p-y';if(s==='blocked')return'p-v';return'p-x'}
+function pri(p){const s=(p||'').toUpperCase();return s==='P0'?'<span class="p p-r">P0</span>':s==='P1'?'<span class="p p-y">P1</span>':s==='P2'?'<span class="p p-b">P2</span>':'<span class="p p-x">'+h(s)+'</span>'}
+function ago(ms){if(!ms)return'--';const d=Date.now()-ms;if(d<0)return'just now';if(d<60000)return Math.floor(d/1000)+'s ago';if(d<3600000)return Math.floor(d/60000)+'m ago';if(d<86400000)return Math.floor(d/3600000)+'h ago';return Math.floor(d/86400000)+'d ago'}
+function sched(s){if(!s)return'--';if(s.kind==='cron')return s.expr;if(s.kind==='every')return'every '+Math.round(s.everyMs/60000)+'m';return s.kind||'--'}
+function toast(msg,ok){const t=document.getElementById('toast');t.textContent=msg;t.className='toast show '+(ok?'ok':'fail');setTimeout(()=>t.className='toast',3000)}
 
-// Renderers
+// ---- Renderers ----
 function renderOverview(){
   const s=D.summary||{};
-  document.getElementById('ov-stats').innerHTML=`
-    <div class="card"><div class="card-title">Agents</div><div class="stat-value">${s.agentCount||0}</div><div class="stat-sub">${s.skillCount||0} skills active</div></div>
-    <div class="card"><div class="card-title">Cron Jobs</div><div class="stat-value" style="color:var(--green)">${s.cronSucceeded||0}<span style="font-size:14px;color:var(--text3)">/${s.cronEnabled||0}</span></div><div class="stat-sub">${s.cronFailed||0} failed</div></div>
-    <div class="card"><div class="card-title">Tickets</div><div class="stat-value" style="color:${s.openTickets>0?'var(--red)':'var(--green)'}">${s.openTickets||0} open</div><div class="stat-sub">${s.resolvedTickets||0} resolved</div></div>
-    <div class="card"><div class="card-title">Learnings</div><div class="stat-value" style="color:var(--purple)">${s.learningCount||0}</div><div class="stat-sub">${D.vectorMemoryEntries||0} vector memories</div></div>`;
+  document.getElementById('ov-s').innerHTML=[
+    `<div class="c"><div class="c-t">Agents Online</div><div class="c-v">${s.agentCount||0}</div><div class="c-s">${s.skillCount||0} skills active</div></div>`,
+    `<div class="c"><div class="c-t">Cron Jobs</div><div class="c-v" style="color:var(--green)">${s.cronSucceeded||0}<span style="font-size:13px;color:var(--text3)"> / ${s.cronEnabled||0}</span></div><div class="c-s">${s.cronFailed||0} failed</div></div>`,
+    `<div class="c"><div class="c-t">Tickets</div><div class="c-v" style="color:${s.openTickets>0?'var(--red)':'var(--green)'}">${s.openTickets||0} <span style="font-size:12px;color:var(--text3)">open</span></div><div class="c-s">${s.resolvedTickets||0} resolved</div></div>`,
+    `<div class="c"><div class="c-t">Learnings</div><div class="c-v" style="color:var(--purple)">${s.learningCount||0}</div><div class="c-s">${D.vectorMemoryEntries||0} vector memories</div></div>`,
+  ].join('');
   const en=(D.cronJobs||[]).filter(j=>j.enabled);
-  document.getElementById('ov-cron').innerHTML=en.length?en.map(j=>{
-    const c=j.lastStatus==='ok'?'ok':j.lastStatus==='error'?'error':'info';
-    return`<div class="feed-item ${c}"><div class="feed-time">${j.lastRunAtMs?timeAgo(j.lastRunAtMs):'Not yet run'} · ${j.agentId}</div><div class="feed-text"><strong>${esc(j.name)}</strong> — ${j.lastStatus?'<span class="pill '+pillFor(j.lastStatus)+'">'+j.lastStatus+'</span>':'<span class="pill pill-gray">pending</span>'}${j.lastDurationMs?' ('+(j.lastDurationMs/1000).toFixed(1)+'s)':''}</div></div>`}).join(''):'<div class="empty"><div class="empty-icon">⏰</div>No enabled cron jobs</div>';
+  document.getElementById('ov-cr').innerHTML=en.length?en.map(j=>{
+    const cls=j.lastStatus==='ok'?'ok':j.lastStatus==='error'?'er':'in';
+    return`<div class="fi ${cls}"><div class="fi-t">${j.lastRunAtMs?ago(j.lastRunAtMs):'Not yet run'} &middot; ${h(j.agentId)}</div><div class="fi-b"><strong>${h(j.name)}</strong> &mdash; ${j.lastStatus?'<span class="p '+pill(j.lastStatus)+'">'+j.lastStatus+'</span>':'<span class="p p-x">pending</span>'}${j.lastDurationMs?' ('+(j.lastDurationMs/1000).toFixed(1)+'s)':''}</div></div>`}).join(''):'<div style="padding:30px;text-align:center;color:var(--text3)">No enabled cron jobs</div>';
   const errs=D._errors||[];
-  document.getElementById('ov-errors').innerHTML=errs.length?errs.slice(-8).reverse().map(e=>`<div class="feed-item error"><div class="feed-time">${e.timestamp||'--'}</div><div class="feed-text">${esc((e.error||e.message||JSON.stringify(e)).substring(0,200))}</div></div>`).join(''):'<div class="empty"><div class="empty-icon">✅</div>No recent errors</div>';
-  document.getElementById('ov-agents').innerHTML=(D.agents||[]).map(a=>`<div class="agent-card"><div class="agent-top"><div><span style="font-size:18px">${EMO[a.id]||'🤖'}</span> <span class="agent-name">${esc(a.name)}</span></div><span class="pill pill-green">online</span></div><div class="agent-role">${ROLES[a.id]||a.id}</div><div class="agent-meta"><span>Model: ${(a.model||'').split('/').pop()}</span><span>Mem: ${a.memoryDb?(a.memoryDb.size/1048576).toFixed(1)+'MB':'--'}</span></div></div>`).join('');
+  document.getElementById('ov-er').innerHTML=errs.length?errs.slice(-8).reverse().map(e=>`<div class="fi er"><div class="fi-t">${h(e.timestamp||'--')}</div><div class="fi-b">${h((e.error||e.message||JSON.stringify(e)).substring(0,200))}</div></div>`).join(''):'<div style="padding:30px;text-align:center;color:var(--text3);font-size:12px">\u2705 No recent errors</div>';
+  document.getElementById('ov-ag').innerHTML=(D.agents||[]).map(a=>`<div class="ac"><div class="ac-top"><div>${EMO[a.id]||'\u{1F916}'} <span class="ac-n">${h(a.name)}</span></div><span class="p p-g">online</span></div><div class="ac-r">${ROLES[a.id]||a.id}</div><div class="ac-m"><span>Model: <strong style="color:var(--cyan)">${(a.model||'').split('/').pop()}</strong></span><span>Mem: ${a.memoryDb?(a.memoryDb.size/1048576).toFixed(1)+'MB':'--'}</span></div></div>`).join('');
 }
 
 function renderAgents(){
-  document.getElementById('agents-grid').innerHTML=(D.agents||[]).map(a=>`<div class="agent-card"><div class="agent-top"><div><span style="font-size:22px">${EMO[a.id]||'🤖'}</span> <span class="agent-name">${esc(a.name)}</span></div><span class="pill pill-green">online</span></div><div class="agent-role">${ROLES[a.id]||a.id}</div><div class="agent-meta"><span>Primary: ${esc(a.model||'--')}</span></div><div class="agent-meta"><span>Fallbacks: ${(a.fallbacks||[]).map(esc).join(' → ')||'none'}</span></div><div class="agent-meta"><span>Memory: ${a.memoryDb?(a.memoryDb.size/1048576).toFixed(1)+'MB':'none'}</span><span>Workspace: ${esc(a.workspace||'default')}</span></div></div>`).join('');
+  document.getElementById('ag-grid').innerHTML=(D.agents||[]).map(a=>{
+    const opts=MODELS_ALL.map(m=>`<option value="${m}"${m===a.model?' selected':''}>${m}</option>`).join('');
+    return`<div class="ac" style="gap:8px">
+      <div class="ac-top"><div>${EMO[a.id]||'\u{1F916}'} <span class="ac-n">${h(a.name)}</span></div><span class="p p-g">online</span></div>
+      <div class="ac-r">${ROLES[a.id]||a.id}</div>
+      <div class="ac-m"><span>Primary:</span> <select class="model-sel" onchange="quickModel('${a.id}',this.value,'${h(a.model)}')">${opts}</select></div>
+      <div class="ac-m"><span>Fallbacks: ${(a.fallbacks||[]).map(f=>'<span class="p p-x">'+h(f)+'</span>').join(' \u2192 ')||'none'}</span></div>
+      <div class="ac-m"><span>Memory: ${a.memoryDb?(a.memoryDb.size/1048576).toFixed(1)+' MB':'none'}</span><span>Workspace: ${h(a.workspace||'default')}</span></div>
+    </div>`}).join('');
 }
 
 function renderCron(){
-  const tb=document.querySelector('#cron-tbl tbody');
+  const tb=document.querySelector('#cr-t tbody');
   const jobs=D.cronJobs||[];
-  if(!jobs.length){tb.innerHTML='<tr><td colspan="8"><div class="empty">No cron jobs</div></td></tr>';return}
-  tb.innerHTML=jobs.map(j=>`<tr style="${j.enabled?'':'opacity:0.4'}"><td style="color:var(--text);font-weight:500">${esc(j.name||j.id)}</td><td>${EMO[j.agentId]||''} ${esc(j.agentId)}</td><td><code style="font-size:10px;color:var(--cyan)">${esc(schedLbl(j.schedule))}</code></td><td>${j.enabled?'<span class="pill pill-green">ON</span>':'<span class="pill pill-gray">OFF</span>'}</td><td>${j.lastStatus?'<span class="pill '+pillFor(j.lastStatus)+'">'+j.lastStatus+'</span>':'<span class="pill pill-gray">--</span>'}</td><td>${j.lastRunAtMs?timeAgo(j.lastRunAtMs):'--'}</td><td>${j.lastDurationMs?(j.lastDurationMs/1000).toFixed(1)+'s':'--'}</td><td>${j.consecutiveErrors>0?'<span style="color:var(--red)">'+j.consecutiveErrors+'</span>':'0'}</td></tr>`).join('');
+  if(!jobs.length){tb.innerHTML='<tr><td colspan="8" style="text-align:center;padding:30px;color:var(--text3)">No cron jobs configured</td></tr>';return}
+  tb.innerHTML=jobs.map(j=>`<tr style="${j.enabled?'':'opacity:.35'}"><td style="color:var(--text);font-weight:500">${h(j.name||j.id)}</td><td>${EMO[j.agentId]||''} ${h(j.agentId)}</td><td><code style="font-size:9px;color:var(--cyan)">${h(sched(j.schedule))}</code></td><td>${j.enabled?'<span class="p p-g">ON</span>':'<span class="p p-x">OFF</span>'}</td><td>${j.lastStatus?'<span class="p '+pill(j.lastStatus)+'">'+j.lastStatus+'</span>':'<span class="p p-x">--</span>'}</td><td>${j.lastRunAtMs?ago(j.lastRunAtMs):'--'}</td><td>${j.lastDurationMs?(j.lastDurationMs/1000).toFixed(1)+'s':'--'}</td><td>${j.consecutiveErrors>0?'<span style="color:var(--red);font-weight:700">'+j.consecutiveErrors+'</span>':'0'}</td></tr>`).join('');
 }
 
 function renderTickets(){
@@ -212,117 +328,148 @@ function renderTickets(){
   const open=tickets.filter(t=>t.status==='OPEN'||t.status==='IN_PROGRESS');
   const resolved=tickets.filter(t=>t.status==='RESOLVED'||t.status==='CLOSED');
   const blocked=tickets.filter(t=>t.status==='BLOCKED');
-  document.getElementById('tk-stats').innerHTML=`
-    <div class="card"><div class="card-title">Total</div><div class="stat-value">${tickets.length}</div></div>
-    <div class="card"><div class="card-title">Open</div><div class="stat-value" style="color:var(--red)">${open.length}</div></div>
-    <div class="card"><div class="card-title">Blocked</div><div class="stat-value" style="color:var(--yellow)">${blocked.length}</div></div>
-    <div class="card"><div class="card-title">Resolved</div><div class="stat-value" style="color:var(--green)">${resolved.length}</div></div>`;
-  const tb=document.querySelector('#tk-tbl tbody');
-  if(!tickets.length){tb.innerHTML='<tr><td colspan="7"><div class="empty"><div class="empty-icon">✅</div>No tickets</div></td></tr>';return}
-  tb.innerHTML=tickets.map(t=>`<tr><td style="font-weight:600;color:var(--text)">${esc(t.id)}</td><td>${priPill(t.priority)}</td><td><span class="pill ${pillFor(t.status)}">${esc(t.status)}</span></td><td>${esc(t.assignee||'--')}</td><td style="max-width:250px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${esc(t.summary||'')}">${esc(t.summary||'--')}</td><td style="font-size:11px">${esc(t.slaDeadline||'--')}</td><td style="font-size:11px;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${esc(t.rootCause||'')}">${esc(t.rootCause||'--')}</td></tr>`).join('');
+  document.getElementById('tk-s').innerHTML=[
+    `<div class="c"><div class="c-t">Total Tickets</div><div class="c-v">${tickets.length}</div></div>`,
+    `<div class="c"><div class="c-t">Open</div><div class="c-v" style="color:${open.length?'var(--red)':'var(--green)'}">${open.length}</div></div>`,
+    `<div class="c"><div class="c-t">Blocked</div><div class="c-v" style="color:var(--yellow)">${blocked.length}</div></div>`,
+    `<div class="c"><div class="c-t">Resolved</div><div class="c-v" style="color:var(--green)">${resolved.length}</div></div>`,
+  ].join('');
+  const tb=document.querySelector('#tk-t tbody');
+  if(!tickets.length){tb.innerHTML='<tr><td colspan="8" style="text-align:center;padding:30px;color:var(--text3)">\u2705 No tickets — all clear</td></tr>';return}
+  tb.innerHTML=tickets.map(t=>`<tr><td style="font-weight:600;color:var(--text);white-space:nowrap">${h(t.id)}</td><td>${pri(t.priority)}</td><td><span class="p ${pill(t.status)}">${h(t.status)}</span></td><td>${h(t.assignee||'--')}</td><td style="max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${h(t.summary||'')}">${h(t.summary||'--')}</td><td style="font-size:10px;white-space:nowrap">${h(t.slaDeadline||'--')}</td><td style="font-size:10px;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${h(t.rootCause||'')}">${h(t.rootCause||'--')}</td><td style="font-size:10px;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${h(t.resolution||'')}">${h(t.resolution||'--')}</td></tr>`).join('');
 }
 
 function renderLearnings(){
-  const el=document.getElementById('learn-list');
+  const el=document.getElementById('ln-list');
   const ls=D.learnings||[];
-  if(!ls.length){el.innerHTML='<div class="empty"><div class="empty-icon">📚</div>No learnings yet</div>';return}
-  el.innerHTML=ls.map(l=>`<div class="learning-card"><div class="lc-header"><div class="lc-title">${esc(l.id)} — ${esc(l.summary||'')}</div><div><span class="pill pill-purple">${esc(l.category||'--')}</span> <span class="pill pill-blue">${esc(l.agent||'--')}</span></div></div><div class="lc-body"><div><strong>Details:</strong> ${esc(l.details||'--')}</div><div style="margin-top:3px"><strong>Prevention:</strong> ${esc(l.prevention||'--')}</div><div style="margin-top:3px;font-size:10px;color:var(--text3)">Source: ${esc(l.sourceTicket||'--')} · Applied to: ${esc(l.appliedTo||'--')} · ${esc(l.date||'--')}</div></div></div>`).join('');
+  if(!ls.length){el.innerHTML='<div style="padding:40px;text-align:center;color:var(--text3)">\u{1F4DA} No learnings yet</div>';return}
+  el.innerHTML=ls.map(l=>`<div class="lc"><div class="lc-h"><div class="lc-ti">${h(l.id)} &mdash; ${h(l.summary||'')}</div><div><span class="p p-v">${h(l.category||'--')}</span> <span class="p p-b">${h(l.agent||'--')}</span></div></div><div class="lc-bd"><div><strong>Details:</strong> ${h(l.details||'--')}</div><div style="margin-top:3px"><strong>Prevention:</strong> ${h(l.prevention||'--')}</div><div style="margin-top:3px;font-size:9px;color:var(--text3)">Source: ${h(l.sourceTicket||'--')} &middot; Applied to: ${h(l.appliedTo||'--')} &middot; ${h(l.date||'--')}</div></div></div>`).join('');
 }
 
 function renderSkills(){
-  const tb=document.querySelector('#skills-tbl tbody');
+  const tb=document.querySelector('#sk-t tbody');
   const sk=D._skillDetails||[];
-  if(!sk.length){tb.innerHTML='<tr><td colspan="4"><div class="empty">No skills</div></td></tr>';return}
-  tb.innerHTML=sk.map(s=>`<tr><td style="font-weight:500;color:var(--text)">${esc(s.name)}</td><td>${esc(s.title)}</td><td>${s.enabled?'<span class="pill pill-green">enabled</span>':'<span class="pill pill-gray">disabled</span>'}</td><td style="font-size:11px;color:var(--text3);max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${esc(s.purpose)}">${esc(s.purpose||'--')}</td></tr>`).join('');
+  if(!sk.length){tb.innerHTML='<tr><td colspan="5" style="text-align:center;padding:30px;color:var(--text3)">No skills found</td></tr>';return}
+  tb.innerHTML=sk.map((s,i)=>`<tr><td style="color:var(--text3)">${i+1}</td><td style="font-weight:600;color:var(--text)">${h(s.name)}</td><td>${h(s.title)}</td><td>${s.enabled?'<span class="p p-g">enabled</span>':'<span class="p p-x">disabled</span>'}</td><td style="font-size:10px;color:var(--text3);max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${h(s.purpose)}">${h(s.purpose||'--')}</td></tr>`).join('');
 }
 
 function renderCost(){
   const c=D._costDetails||{};
-  const st=c.state||{};
-  const today=st.today||{};
+  const st=c.state||{};const today=st.today||{};
   const pct=c.dailyBudget>0?((c.todayPayg||0)/c.dailyBudget*100):0;
-  const pctColor=pct>90?'var(--red)':pct>70?'var(--yellow)':'var(--green)';
-  document.getElementById('cost-stats').innerHTML=`
-    <div class="card"><div class="card-title">Monthly Subscriptions</div><div class="stat-value" style="color:var(--blue)">$${(c.subscriptionMonthly||0).toFixed(0)}</div><div class="stat-sub">Fixed cost/month</div></div>
-    <div class="card"><div class="card-title">Today PAYG</div><div class="stat-value" style="color:${pctColor}">$${(c.todayPayg||0).toFixed(4)}</div><div class="stat-sub">${(c.todayRequests||0)} requests · ${pct.toFixed(1)}% of $${(c.dailyBudget||5).toFixed(2)} budget</div><div class="cost-bar"><div class="cost-bar-fill" style="width:${Math.min(pct,100)}%;background:${pctColor}"></div></div></div>
-    <div class="card"><div class="card-title">Estimated Savings</div><div class="stat-value" style="color:var(--green)">$${(c.estimatedSavings||0).toFixed(4)}</div><div class="stat-sub">vs all-PAYG routing</div></div>
-    <div class="card"><div class="card-title">Total Requests</div><div class="stat-value">${c.todayRequests||0}</div><div class="stat-sub">Today</div></div>`;
-  const mc=c.modelCosts||{};
-  const byModel=today.byModel||{};
-  const tb1=document.querySelector('#cost-models-tbl tbody');
-  tb1.innerHTML=Object.entries(mc).map(([m,info])=>{
-    const usage=byModel[m]||{};
-    const typePill=info.type==='subscription'?'pill-blue':info.type==='free'?'pill-green':'pill-yellow';
-    return`<tr><td style="font-weight:500;color:var(--text)">${esc(m)}</td><td><span class="pill ${typePill}">${info.type}</span></td><td>${info.monthlyCost>0?'$'+info.monthlyCost+'/mo':'--'}</td><td>${info.inputPer1k>0?'$'+info.inputPer1k:'free'}</td><td>${info.outputPer1k>0?'$'+info.outputPer1k:'free'}</td><td>${usage.requests||0}</td><td>${usage.cost?'$'+usage.cost.toFixed(4):'$0'}</td></tr>`}).join('');
-  const byAgent=today.byAgent||{};
-  const tb2=document.querySelector('#cost-agents-tbl tbody');
-  const agentEntries=Object.entries(byAgent);
-  if(!agentEntries.length){tb2.innerHTML='<tr><td colspan="4"><div class="empty">No usage today</div></td></tr>';return}
-  const totalCost=agentEntries.reduce((s,[,v])=>s+v.cost,0);
-  tb2.innerHTML=agentEntries.map(([a,v])=>`<tr><td style="font-weight:500;color:var(--text)">${EMO[a]||'🤖'} ${esc(a)}</td><td>${v.requests}</td><td>$${v.cost.toFixed(4)}</td><td>${totalCost>0?(v.cost/totalCost*100).toFixed(1)+'%':'--'}</td></tr>`).join('');
+  const pctC=pct>90?'var(--red)':pct>70?'var(--yellow)':'var(--green)';
+  document.getElementById('co-s').innerHTML=[
+    `<div class="c"><div class="c-t">Monthly Subscriptions</div><div class="c-v" style="color:var(--blue)">$${(c.subscriptionMonthly||0).toFixed(0)}</div><div class="c-s">Fixed cost / month</div></div>`,
+    `<div class="c"><div class="c-t">Today PAYG Spend</div><div class="c-v" style="color:${pctC}">$${(c.todayPayg||0).toFixed(4)}</div><div class="c-s">${c.todayRequests||0} requests &middot; ${pct.toFixed(1)}% of $${(c.dailyBudget||5).toFixed(2)} budget</div><div class="bar"><div class="bar-f" style="width:${Math.min(pct,100)}%;background:${pctC}"></div></div></div>`,
+    `<div class="c"><div class="c-t">Estimated Savings</div><div class="c-v" style="color:var(--green)">$${(c.estimatedSavings||0).toFixed(4)}</div><div class="c-s">vs all-PAYG routing</div></div>`,
+    `<div class="c"><div class="c-t">Total Requests Today</div><div class="c-v">${c.todayRequests||0}</div><div class="c-s">Across all models</div></div>`,
+  ].join('');
+  const mc=c.modelCosts||{};const byM=today.byModel||{};
+  document.querySelector('#co-m tbody').innerHTML=Object.entries(mc).map(([m,info])=>{
+    const u=byM[m]||{};const tp=info.type==='subscription'?'p-b':info.type==='free'?'p-g':'p-y';
+    return`<tr><td style="font-weight:500;color:var(--text)">${h(m)}</td><td><span class="p ${tp}">${info.type}</span></td><td>${info.monthlyCost>0?'$'+info.monthlyCost+'/mo':'--'}</td><td>${info.inputPer1k>0?'$'+info.inputPer1k:'free'}</td><td>${info.outputPer1k>0?'$'+info.outputPer1k:'free'}</td><td>${u.requests||0}</td><td>${u.cost?'$'+u.cost.toFixed(4):'$0.0000'}</td></tr>`}).join('');
+  const byA=today.byAgent||{};const ae=Object.entries(byA);const tb2=document.querySelector('#co-a tbody');
+  if(!ae.length){tb2.innerHTML='<tr><td colspan="4" style="text-align:center;padding:20px;color:var(--text3)">No usage recorded today</td></tr>';return}
+  const tot=ae.reduce((s,[,v])=>s+v.cost,0);
+  tb2.innerHTML=ae.map(([a,v])=>`<tr><td style="font-weight:500;color:var(--text)">${EMO[a]||'\u{1F916}'} ${h(a)}</td><td>${v.requests}</td><td>$${v.cost.toFixed(4)}</td><td>${tot>0?(v.cost/tot*100).toFixed(1)+'%':'--'}</td></tr>`).join('');
 }
 
 function renderRouting(){
   const r=D._routing||{};
-  const tb=document.querySelector('#route-tbl tbody');
-  tb.innerHTML=(r.routing||[]).map(a=>`<tr><td>${EMO[a.id]||'🤖'} ${esc(a.id)}</td><td style="font-weight:500;color:var(--text)">${esc(a.name)}</td><td><span class="pill pill-blue">${esc(a.primary)}</span></td><td>${(a.fallbacks||[]).map(f=>'<span class="pill pill-gray" style="margin:1px">'+esc(f)+'</span>').join(' → ')||'none'}</td></tr>`).join('');
-  document.getElementById('route-algo').textContent=r.skillContent||'Smart router skill not found.';
+  document.querySelector('#rt-t tbody').innerHTML=(r.routing||[]).map(a=>`<tr><td>${EMO[a.id]||'\u{1F916}'} ${h(a.id)}</td><td style="font-weight:600;color:var(--text)">${h(a.name)}</td><td><span class="p p-b">${h(a.primary)}</span></td><td>${(a.fallbacks||[]).map(f=>'<span class="p p-x" style="margin:1px">'+h(f)+'</span>').join(' \u2192 ')||'<span style="color:var(--text3)">none</span>'}</td></tr>`).join('');
+  document.getElementById('rt-algo').textContent=r.skillContent||'Smart router skill not found.';
 }
 
 function renderPrompt(){
   const p=D._prompt||{};
-  document.getElementById('prompt-eng-content').textContent=p.promptEng||'Prompt engineering skill not found. Create workspace/skills/prompt-engineering/SKILL.md';
-  document.getElementById('hatake-content').textContent=p.hatake||'HATAKE parser skill not found.';
+  document.getElementById('pe-c').textContent=p.promptEng||'Prompt engineering skill not found.';
+  document.getElementById('ha-c').textContent=p.hatake||'HATAKE parser skill not found.';
 }
 
 function renderCaching(){
   const c=D._caching||{};
-  document.getElementById('cache-cards').innerHTML=`
-    <div class="card"><div class="card-title">Context Pruning</div><div class="stat-value" style="font-size:20px;color:var(--cyan)">${esc((c.contextPruning||{}).mode||'none')}</div><div class="stat-sub">TTL: ${esc((c.contextPruning||{}).ttl||'--')}</div><div style="margin-top:10px;font-size:12px;color:var(--text2)">Context pruning removes old conversation turns from the agent's context window using a cache-TTL strategy. Messages older than the TTL are evicted, keeping the context focused and within token limits.</div></div>
-    <div class="card"><div class="card-title">Compaction</div><div class="stat-value" style="font-size:20px;color:var(--cyan)">${esc((c.compaction||{}).mode||'none')}</div><div class="stat-sub">Strategy for reducing context size</div><div style="margin-top:10px;font-size:12px;color:var(--text2)">Safeguard compaction summarizes older conversation turns when the context approaches the model's token limit, preserving key information while freeing space for new messages.</div></div>`;
-  const tb=document.querySelector('#cache-tbl tbody');
-  const models=c.models||[];
-  if(!models.length){tb.innerHTML='<tr><td colspan="5"><div class="empty">No model cache config</div></td></tr>';return}
-  tb.innerHTML=models.map(m=>`<tr><td style="font-weight:500;color:var(--text)">${esc(m.id)}</td><td>${m.cacheRead!=null?'$'+m.cacheRead:'--'}</td><td>${m.cacheWrite!=null?'$'+m.cacheWrite:'--'}</td><td>${m.params.temperature!=null?m.params.temperature:'--'}</td><td>${m.params.maxTokens||'--'}</td></tr>`).join('');
+  document.getElementById('ca-cards').innerHTML=[
+    `<div class="c"><div class="c-t">Context Pruning</div><div class="c-v" style="font-size:18px;color:var(--cyan)">${h((c.contextPruning||{}).mode||'none')}</div><div class="c-s">TTL: ${h((c.contextPruning||{}).ttl||'--')}</div><div style="margin-top:8px;font-size:11px;color:var(--text2);line-height:1.5">Removes old conversation turns using a cache-TTL strategy. Messages older than the TTL are evicted, keeping context focused and within token limits.</div></div>`,
+    `<div class="c"><div class="c-t">Compaction</div><div class="c-v" style="font-size:18px;color:var(--cyan)">${h((c.compaction||{}).mode||'none')}</div><div class="c-s">Summarization strategy</div><div style="margin-top:8px;font-size:11px;color:var(--text2);line-height:1.5">Safeguard compaction summarizes older turns when context approaches the model's token limit, preserving key information while freeing space.</div></div>`,
+  ].join('');
+  const tb=document.querySelector('#ca-t tbody');const ms=c.models||[];
+  if(!ms.length){tb.innerHTML='<tr><td colspan="5" style="text-align:center;padding:20px;color:var(--text3)">No model cache config</td></tr>';return}
+  tb.innerHTML=ms.map(m=>`<tr><td style="font-weight:500;color:var(--text)">${h(m.id)}</td><td>${m.cacheRead!=null?'$'+m.cacheRead:'--'}</td><td>${m.cacheWrite!=null?'$'+m.cacheWrite:'--'}</td><td>${m.params.temperature!=null?m.params.temperature:'--'}</td><td>${m.params.maxTokens||'--'}</td></tr>`).join('');
 }
 
 function renderErrors(){
   const lines=D._gatewayErrors||[];
-  document.getElementById('gw-errors').textContent=lines.length?lines.join('\n'):'No recent gateway errors.';
-  const logs=D._gatewayLogs||[];
-  const tb=document.querySelector('#log-tbl tbody');
-  if(!logs.length){tb.innerHTML='<tr><td colspan="3"><div class="empty">No log entries</div></td></tr>';return}
+  document.getElementById('gw-e').textContent=lines.length?lines.join('\n'):'No recent gateway errors.';
+  const logs=D._gatewayLogs||[];const tb=document.querySelector('#lg-t tbody');
+  if(!logs.length){tb.innerHTML='<tr><td colspan="3" style="text-align:center;padding:20px;color:var(--text3)">No log entries available</td></tr>';return}
   tb.innerHTML=logs.slice().reverse().map(l=>{
-    const lvl=l.level||'INFO';
-    const cls=lvl==='ERROR'?'color:var(--red)':lvl==='WARN'?'color:var(--yellow)':'color:var(--text3)';
-    const msg=typeof l.msg==='string'?l.msg.substring(0,150):JSON.stringify(l.msg).substring(0,150);
-    return`<tr><td style="font-size:10px;white-space:nowrap;color:var(--text3)">${l.time?new Date(l.time).toLocaleTimeString():'--'}</td><td style="${cls};font-weight:600;font-size:10px">${lvl}</td><td style="font-size:11px;max-width:600px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${esc(msg)}">${esc(msg)}</td></tr>`}).join('');
+    const lv=l.level||'INFO';const cls=lv==='ERROR'?'color:var(--red)':lv==='WARN'?'color:var(--yellow)':'color:var(--text3)';
+    const msg=typeof l.msg==='string'?l.msg.substring(0,180):JSON.stringify(l.msg).substring(0,180);
+    return`<tr><td style="font-size:9px;white-space:nowrap;color:var(--text3);font-family:monospace">${l.time?new Date(l.time).toLocaleTimeString():'--'}</td><td style="${cls};font-weight:700;font-size:9px">${lv}</td><td style="font-size:10px;max-width:600px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${h(msg)}">${h(msg)}</td></tr>`}).join('');
 }
 
-// Data Loading
+// ---- Model Override ----
+function openModal(agentId){
+  const sel=document.getElementById('mdl-agent');
+  sel.innerHTML=(D.agents||[]).map(a=>`<option value="${a.id}">${EMO[a.id]||''} ${a.name} (${a.id})</option>`).join('');
+  if(agentId)sel.value=agentId;
+  updateModalCur();
+  sel.onchange=updateModalCur;
+  document.getElementById('mdl-bg').classList.add('on');
+}
+function closeModal(){document.getElementById('mdl-bg').classList.remove('on')}
+function updateModalCur(){
+  const id=document.getElementById('mdl-agent').value;
+  const a=(D.agents||[]).find(x=>x.id===id);
+  document.getElementById('mdl-cur').textContent=a?a.model:'--';
+}
+async function applyModel(){
+  const agentId=document.getElementById('mdl-agent').value;
+  const model=document.getElementById('mdl-model').value;
+  try{
+    const r=await fetch('/api/model-override',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({agentId,model})});
+    const d=await r.json();
+    if(d.ok){toast(`Model changed: ${d.agentId} \u2192 ${d.newModel}`,true);closeModal();loadAll()}
+    else{toast('Error: '+d.error,false)}
+  }catch(e){toast('Request failed: '+e.message,false)}
+}
+function quickModel(agentId,newModel,oldModel){
+  if(newModel===oldModel)return;
+  fetch('/api/model-override',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({agentId,model:newModel})})
+    .then(r=>r.json()).then(d=>{
+      if(d.ok){toast(`${agentId}: ${d.oldModel} \u2192 ${d.newModel}`,true);loadAll()}
+      else{toast('Error: '+d.error,false);loadAll()}
+    }).catch(e=>{toast('Failed: '+e.message,false)});
+}
+
+// ---- Data Loading ----
 async function loadAll(){
   try{
     const [dashboard,errors,gwErrors,costDetails,routing,caching,prompt,skillDetails,gwLogs]=await Promise.all([
-      fetch(API+'/api/dashboard').then(r=>r.json()),
-      fetch(API+'/api/errors').then(r=>r.json()).catch(()=>[]),
-      fetch(API+'/api/gateway-errors').then(r=>r.json()).catch(()=>[]),
-      fetch(API+'/api/cost-details').then(r=>r.json()).catch(()=>{}),
-      fetch(API+'/api/routing').then(r=>r.json()).catch(()=>{}),
-      fetch(API+'/api/caching').then(r=>r.json()).catch(()=>{}),
-      fetch(API+'/api/prompt-engineering').then(r=>r.json()).catch(()=>{}),
-      fetch(API+'/api/skill-details').then(r=>r.json()).catch(()=>[]),
-      fetch(API+'/api/gateway-logs').then(r=>r.json()).catch(()=>[]),
+      fetch('/api/dashboard').then(r=>r.json()),
+      fetch('/api/errors').then(r=>r.json()).catch(()=>[]),
+      fetch('/api/gateway-errors').then(r=>r.json()).catch(()=>[]),
+      fetch('/api/cost-details').then(r=>r.json()).catch(()=>({})),
+      fetch('/api/routing').then(r=>r.json()).catch(()=>({})),
+      fetch('/api/caching').then(r=>r.json()).catch(()=>({})),
+      fetch('/api/prompt-engineering').then(r=>r.json()).catch(()=>({})),
+      fetch('/api/skill-details').then(r=>r.json()).catch(()=>[]),
+      fetch('/api/gateway-logs').then(r=>r.json()).catch(()=>[]),
     ]);
     D={...dashboard,_errors:errors,_gatewayErrors:gwErrors,_costDetails:costDetails,_routing:routing,_caching:caching,_prompt:prompt,_skillDetails:skillDetails,_gatewayLogs:gwLogs};
+    LOADED=true;
     const s=D.summary||{};
-    const dot=document.getElementById('statusDot');
-    dot.className=s.cronFailed>0||s.openTickets>0?'logo-dot warn':'logo-dot';
+    const dot=document.getElementById('dot');
+    dot.className='hdr-dot'+(s.cronFailed>0||s.openTickets>0?' warn':'');
+    // Update tab badges
+    const tkBadge=document.querySelector('[data-p="tickets"] .badge');
+    if(s.openTickets>0){if(!tkBadge){const b=document.createElement('span');b.className='badge';b.textContent=s.openTickets;document.querySelector('[data-p="tickets"]').appendChild(b)}else{tkBadge.textContent=s.openTickets}}else if(tkBadge){tkBadge.remove()}
     renderOverview();renderAgents();renderCron();renderTickets();renderLearnings();renderSkills();renderCost();renderRouting();renderPrompt();renderCaching();renderErrors();
-    document.getElementById('lastUpdate').textContent='Updated '+new Date().toLocaleTimeString();
+    document.getElementById('upd').textContent='Updated '+new Date().toLocaleTimeString();
   }catch(err){
     console.error('Load failed:',err);
-    document.getElementById('statusDot').className='logo-dot error';
-    document.getElementById('lastUpdate').textContent='Error — is server.js running?';
+    document.getElementById('dot').className='hdr-dot err';
+    document.getElementById('upd').textContent='Error \u2014 '+err.message;
   }
 }
 loadAll();
