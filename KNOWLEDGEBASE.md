@@ -1145,5 +1145,142 @@ The README was completely rewritten on 2026-02-15 to reflect this architecture. 
 
 ---
 
-*Last updated: 2026-02-15 by Claude Code (claude-sonnet-4-5-20250929)*
+## §20 — Windsurf Session: Full Audit & Enhancement Roadmap (2026-02-15)
+
+**Session by:** Windsurf Cascade (following Claude Code handoff)
+**Date:** 2026-02-15 16:54 ET
+
+### What Claude Code Completed (Verified)
+
+| # | Item | Status | Notes |
+|---|---|---|---|
+| 1 | Gateway token mismatch fixed (FIX-001) | DONE | `openclaw status` reachable ~40ms |
+| 2 | KNOWLEDGEBASE.md created (§1–§19) | DONE | Full project context documented |
+| 3 | Pre-commit cleanup (§18) | DONE | Stubs removed, runtime files untracked |
+| 4 | README rewritten for OpenClaw-native architecture | DONE | Port 19000→18789, agent count 7→8 |
+| 5 | Architecture clarified (§19) | DONE | RedOS = Skills + MCP + Config on OpenClaw |
+| 6 | Model tier fixed: ZAI/GLM as primary PAYG fallback | DONE | `model-registry.json` updated |
+| 7 | Kimi marked `status: unavailable` (no subscription) | DONE | `model-registry.json` updated |
+| 8 | Mission Control port fixed: 19000→18789 | DONE | `dashboard/mission-control.js` updated |
+| 9 | All committed & pushed to GitHub | DONE | Commit `8a5095d` on `main` |
+
+### What Claude Code Did NOT Complete (Gaps Found by Windsurf)
+
+| # | Gap | Impact |
+|---|---|---|
+| 1 | §20 (next steps section) never written — `MEMORY.md` references it | Any LLM starting here has no roadmap |
+| 2 | Skills NOT registered in `openclaw.json` — `"skills": { "entries": {} }` is empty | All 20 skills are dead specs, not active |
+| 3 | `workspace-allrounder/MEMORY.md` still lists `moonshot/kimi-k2.5` in fallback chain | Stale info, contradicts model tier fix |
+| 4 | No work on self-healing, self-improvement, agent-to-agent scrum | Core vision not started |
+| 5 | No work on CEO hiring/firing capabilities | Core vision not started |
+| 6 | No Mission Control data flow verification | UI fixed but untested with live gateway |
+| 7 | Agent fallback chains in `openclaw.json` not verified against ZAI-first policy | May still reference kimi-k2.5 |
+
+### Skills Inventory (20 skills in `workspace/skills/`)
+
+| Skill | Purpose | Registered in openclaw.json? |
+|---|---|---|
+| `hatake-parser` | Intent detection, complexity scoring, JSON brief output | YES |
+| `smart-router` | Model scoring, budget gate, fallback chain selection | YES |
+| `retry-cascade` | 4-level auto-retry: same model → fallback → escalate → RED rewrite → human | YES |
+| `reflect-learn` | Self-improvement: scan corrections → propose agent updates → apply with approval | YES |
+| `cost-tracker` | Per-call cost logging, budget checks, daily reports, waste detection | YES |
+| `proactive-agent-1-2-4` | Memory architecture, self-healing, alignment, reverse prompting, heartbeat | YES |
+| `agent-autonomy-kit` | Task queue, proactive heartbeat, continuous operation | YES |
+| `task-runner` | Project lifecycle: create → plan → dispatch → track → verify → deliver | YES |
+| `status-reporter` | Operational status reports from workspace trackers + cron | YES |
+| `mission-control-telegram` | Telegram commands: /status, /agents, /budget, /routing, /pause, /resume | YES |
+| `ai-humanizer` | 24-pattern AI text detection + rewriting to sound human | YES |
+| `anurag-briefs` | Telegram-friendly topic briefs, X/Twitter link summaries | YES |
+| `eng-coding` | Claude Code CLI primary, Cursor Agent fallback for coding tasks | YES |
+| `model-usage` | CodexBar per-model usage/cost summaries | YES |
+| `exa-mcp` | Exa web search MCP integration | YES |
+| `holdings-analyzer` | Portfolio/holdings analysis | YES |
+| `clawdhub` | ClawdHub integration | YES |
+| `summarize` | Text summarization | YES |
+| `x-mirror` | X/Twitter reading via Jina mirror | YES |
+| `_quarantine` | Quarantined/disabled skills | N/A |
+
+### Enhancement Roadmap
+
+#### Phase 1 — Wire What's Already Built (HIGH priority)
+
+| Task | Description | Status |
+|---|---|---|
+| 1.1 Register all skills in `openclaw.json` | 19 skills registered in `skills.entries` (excluding `_quarantine`) | DONE |
+| 1.2 Verify agent fallback chains | All 8 agents fixed: `kimi-k2.5` removed, `zai/glm-4.7` is now first fallback | DONE |
+| 1.3 Fix stale MEMORY.md files | Both updated: kimi removed from allrounder, session state current | DONE |
+
+#### Phase 2 — Self-Healing Loop (MEDIUM priority)
+
+| Task | Description | Status |
+|---|---|---|
+| 2.1 Wire retry-cascade skill | Register + connect to agent execution pipeline | NOT STARTED |
+| 2.2 DevOps agent ticket→diagnose loop | DevOps reads tickets, attempts known fixes automatically | NOT STARTED |
+| 2.3 Daily health report to CEO | DevOps → RED summary via Telegram each morning | NOT STARTED |
+
+#### Phase 3 — Agent-to-Agent Scrum (MEDIUM priority)
+
+| Task | Description | Status |
+|---|---|---|
+| 3.1 Morning standup cron | RED calls each agent "status/blockers?" — responses aggregated | NOT STARTED |
+| 3.2 Async messaging via team workspace | Agents post completion/request messages to shared workspace | NOT STARTED |
+| 3.3 CEO delegation flow | RED decomposes complex tasks → assigns to specialists → assembles results | NOT STARTED |
+
+#### Phase 4 — CEO Hiring/Firing (MEDIUM priority)
+
+| Task | Description | Status |
+|---|---|---|
+| 4.1 Dynamic agent creation | CEO writes new agent entry to `openclaw.json`, signals gateway reload | NOT STARTED |
+| 4.2 Sub-agent spawning | CEO uses OpenClaw session system for temporary focused agents | NOT STARTED |
+| 4.3 Agent decommission | CEO marks agent `status: inactive`, notifies via Telegram | NOT STARTED |
+
+#### Phase 5 — Mission Control Visibility (MEDIUM priority)
+
+| Task | Description | Status |
+|---|---|---|
+| 5.1 Verify Mission Control data flow | Confirm OpenClaw gateway sends events the UI expects | NOT STARTED |
+| 5.2 Agent comms feed | Team workspace messages stream to Mission Control in real-time | NOT STARTED |
+| 5.3 Issue tracker panel | Tickets from ticket-system.js displayed with status/priority/assignee | NOT STARTED |
+| 5.4 Cost panel | Live cost events from cost-events.jsonl | NOT STARTED |
+| 5.5 Model override UI | Dropdown to override routing profile or force a specific model | NOT STARTED |
+
+### Model Tier (Corrected — Canonical)
+
+```
+Tier 1 — Free local (Ollama):
+  llama3.1:8b · qwen2.5-coder:7b · gpt-oss:20b
+
+Tier 2 — PAYG (primary cloud fallback):
+  zai/glm-4.7 (PRIMARY) · zai/glm-4.7-flashx (ultra-cheap)
+  moonshot/kimi-k2.5 → INACTIVE (no subscription)
+
+Tier 3 — Subscription (web search):
+  perplexity/sonar · sonar-pro · sonar-reasoning
+
+Tier 4–5 — Subscription (primary agents):
+  openai-codex/gpt-5.2 · claude-code/sonnet-4.5
+```
+
+**Fallback chain for all agents:** `openai-codex/gpt-5.2` → `zai/glm-4.7` → `ollama/llama3.1:8b`
+**HATAKE (local only):** `ollama/qwen2.5-coder:7b` → `ollama/llama3.1:8b` → `zai/glm-4.7-flashx`
+
+---
+
+### Windsurf Session Progress Log
+
+| Time (ET) | Action | Result |
+|---|---|---|
+| 16:54 | Full audit of Claude Code work vs gaps | 7 gaps identified |
+| 17:05 | §20 written to KNOWLEDGEBASE.md | Full roadmap with 5 phases |
+| 17:08 | Fixed `workspace-allrounder/MEMORY.md` | kimi-k2.5 → zai/glm-4.7 |
+| 17:08 | Updated `workspace/MEMORY.md` | Session state current, §20 ref fixed |
+| 17:12 | Registered 19 skills in `openclaw.json` | `skills.entries` populated |
+| 17:12 | Fixed all 8 agent fallback chains | kimi-k2.5 removed, ZAI first |
+| 17:15 | Updated §20 with completion status | Phase 1 fully DONE |
+
+---
+
+*Last updated: 2026-02-15 17:15 ET by Windsurf Cascade*
 *OpenClaw version: 2026.2.14 | RedOS version: 3.7.0*
+*Phase 1 COMPLETE. Phases 2–5 pending — see Enhancement Roadmap above.*
