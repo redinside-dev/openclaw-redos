@@ -17,7 +17,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "Daily Portfolio Review – Pre-Market (automated)\n\nYou are operating as an automated portfolio review agent.\n\nInputs:\n- Reference portfolio is in: /Users/redinside/.openclaw/workspace/portfolio/HOLDINGS.md\n- If HOLDINGS.md is empty or unclear, send ONE Telegram message asking Anurag to update it (no other output).\n\nTasks to execute (mandatory):\n1) Review current holdings and lead on next actions.\n2) Identify which holdings are disfavored under current market conditions.\n3) State what the model portfolio would rotate into.\n4) Suggest new stocks/assets that would replace weaker positions.\n\nOutput requirements:\nA) Telegram delivery (Option 2):\n- Send a SHORT summary to Telegram DM (user id 1012034994) using the message tool.\n- If content is too long, split into 2–3 Telegram messages labeled:\n  \"Portfolio Review (1/3)\", \"(2/3)\", ...\n- Hard limit: keep each Telegram message under ~3500 characters.\n\nB) Full report delivery (email):\n- Write the FULL detailed report to a markdown file under:\n  /Users/redinside/.openclaw/workspace/portfolio/reports/\n  Filename: portfolio-review-YYYY-MM-DD.md\n- Send the full report by email to: anorag.saxena@gmail.com\n  using the gog CLI via exec tool:\n  gog gmail send --account anorag.saxena@gmail.com --to anorag.saxena@gmail.com --subject \"Daily Portfolio Review (Full) - YYYY-MM-DD\" --body-file <path>\n\nReport structure for the FULL markdown report (strict):\n1) Market Regime Snapshot (risk-on/off/neutral + key macro drivers)\n2) Holdings Review (each holding labeled Favored/Neutral/Disfavored + short rationale)\n3) Model Portfolio Actions (increase/reduce/exit/hold)\n4) New Ideas / Replacements\n5) Risks & Invalidation Points\n\nRules:\n- All actions are framed as a hypothetical professional model portfolio.\n- Be decisive, institutional PM tone. No guarantees.\n- End both Telegram summary and full markdown report with disclosure footer:\n  Provider: <provider_name>\n  Model: <exact_model_identifier>\n",
+        "message": "Daily Portfolio Review \u2013 Pre-Market (automated)\n\nYou are operating as an automated portfolio review agent.\n\nInputs:\n- Reference portfolio is in: /Users/redinside/.openclaw/workspace/portfolio/HOLDINGS.md\n- If HOLDINGS.md is empty or unclear, send ONE Telegram message asking Anurag to update it (no other output).\n\nTasks to execute (mandatory):\n1) Review current holdings and lead on next actions.\n2) Identify which holdings are disfavored under current market conditions.\n3) State what the model portfolio would rotate into.\n4) Suggest new stocks/assets that would replace weaker positions.\n\nOutput requirements:\nA) Telegram delivery (Option 2):\n- Send a SHORT summary to Telegram DM (user id 1012034994) using the message tool.\n- If content is too long, split into 2\u20133 Telegram messages labeled:\n  \"Portfolio Review (1/3)\", \"(2/3)\", ...\n- Hard limit: keep each Telegram message under ~3500 characters.\n\nB) Full report delivery (email):\n- Write the FULL detailed report to a markdown file under:\n  /Users/redinside/.openclaw/workspace/portfolio/reports/\n  Filename: portfolio-review-YYYY-MM-DD.md\n- Send the full report by email to: anorag.saxena@gmail.com\n  using the gog CLI via exec tool:\n  gog gmail send --account anorag.saxena@gmail.com --to anorag.saxena@gmail.com --subject \"Daily Portfolio Review (Full) - YYYY-MM-DD\" --body-file <path>\n\nReport structure for the FULL markdown report (strict):\n1) Market Regime Snapshot (risk-on/off/neutral + key macro drivers)\n2) Holdings Review (each holding labeled Favored/Neutral/Disfavored + short rationale)\n3) Model Portfolio Actions (increase/reduce/exit/hold)\n4) New Ideas / Replacements\n5) Risks & Invalidation Points\n\nRules:\n- All actions are framed as a hypothetical professional model portfolio.\n- Be decisive, institutional PM tone. No guarantees.\n- End both Telegram summary and full markdown report with disclosure footer:\n  Provider: <provider_name>\n  Model: <exact_model_identifier>\n",
         "thinking": "low",
         "timeoutSeconds": 600
       },
@@ -48,7 +48,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 300,
-        "message": "Trading Window Brief (Mon–Fri, 8am–4pm ET)\n\nInputs:\n- Holdings: /Users/redinside/.openclaw/workspace/portfolio/HOLDINGS.md\n- Latest full report: /Users/redinside/.openclaw/workspace/portfolio/reports/portfolio-review-2026-02-06.md (use as baseline until replaced)\n\nTask:\nCreate a short, non-overwhelming brief for Anurag to support decision-making during market hours.\n\nOutput:\nSend a SINGLE Telegram DM to user id 1012034994, under 2500 characters.\n\nStructure (strict):\n1) Today’s focus (1 sentence)\n2) Do this now (max 3 bullets)\n3) Watchlist / levels (max 5 bullets; symbol + what changes your mind)\n4) New ideas (max 2 ideas; 1 line each)\n\nRules:\n- Plain English. No jargon.\n- No more than 10 total bullets.\n- If there is no strong action today: say \"No action\" and focus on watchlist.\n- End with: Provider: <provider> | Model: <model>"
+        "message": "Trading Window Brief (Mon\u2013Fri, 8am\u20134pm ET)\n\nInputs:\n- Holdings: /Users/redinside/.openclaw/workspace/portfolio/HOLDINGS.md\n- Latest full report: /Users/redinside/.openclaw/workspace/portfolio/reports/portfolio-review-2026-02-06.md (use as baseline until replaced)\n\nTask:\nCreate a short, non-overwhelming brief for Anurag to support decision-making during market hours.\n\nOutput:\nSend a SINGLE Telegram DM to user id 1012034994, under 2500 characters.\n\nStructure (strict):\n1) Today\u2019s focus (1 sentence)\n2) Do this now (max 3 bullets)\n3) Watchlist / levels (max 5 bullets; symbol + what changes your mind)\n4) New ideas (max 2 ideas; 1 line each)\n\nRules:\n- Plain English. No jargon.\n- No more than 10 total bullets.\n- If there is no strong action today: say \"No action\" and focus on watchlist.\n- End with: Provider: <provider> | Model: <model>"
       },
       "delivery": {
         "mode": "none"
@@ -78,7 +78,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 300,
-        "message": "Trading Window Brief (Mon–Fri)\n\nThis is the 4:00pm ET close-time brief.\n\nInputs:\n- Holdings: /Users/redinside/.openclaw/workspace/portfolio/HOLDINGS.md\n- Latest full report: /Users/redinside/.openclaw/workspace/portfolio/reports/portfolio-review-2026-02-06.md (use as baseline until replaced)\n\nTask:\nCreate a short, non-overwhelming brief for Anurag.\n\nOutput:\nSend a SINGLE Telegram DM to user id 1012034994, under 2500 characters.\n\nStructure (strict):\n1) Today’s focus (1 sentence)\n2) Do this now (max 3 bullets)\n3) Watchlist / levels (max 5 bullets; symbol + what changes your mind)\n4) New ideas (max 2 ideas; 1 line each)\n\nRules:\n- Plain English. No jargon.\n- No more than 10 total bullets.\n- If there is no strong action today: say \"No action\" and focus on watchlist.\n- End with: Provider: <provider> | Model: <model>"
+        "message": "Trading Window Brief (Mon\u2013Fri)\n\nThis is the 4:00pm ET close-time brief.\n\nInputs:\n- Holdings: /Users/redinside/.openclaw/workspace/portfolio/HOLDINGS.md\n- Latest full report: /Users/redinside/.openclaw/workspace/portfolio/reports/portfolio-review-2026-02-06.md (use as baseline until replaced)\n\nTask:\nCreate a short, non-overwhelming brief for Anurag.\n\nOutput:\nSend a SINGLE Telegram DM to user id 1012034994, under 2500 characters.\n\nStructure (strict):\n1) Today\u2019s focus (1 sentence)\n2) Do this now (max 3 bullets)\n3) Watchlist / levels (max 5 bullets; symbol + what changes your mind)\n4) New ideas (max 2 ideas; 1 line each)\n\nRules:\n- Plain English. No jargon.\n- No more than 10 total bullets.\n- If there is no strong action today: say \"No action\" and focus on watchlist.\n- End with: Provider: <provider> | Model: <model>"
       },
       "delivery": {
         "mode": "none"
@@ -136,7 +136,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 180,
-        "message": "Gmail Unread Summary (automated) — Telegram only\n\nAccount: anorag.saxena@gmail.com\n\nGoal:\n- Send Anurag a short summary of NEW unread inbox threads since last check.\n- Do NOT send emails. Do NOT mark anything as read. Do NOT archive/delete.\n\nState:\n- Read/write JSON state at /Users/redinside/.openclaw/workspace/tmp/gmail-unread-digest.json\n  Shape: { \"seenThreadIds\": [\"...\"] }\n\nSteps:\n1) Load state file (if missing, treat as empty).\n2) Fetch unread inbox threads (max 15) using exec:\n   gog gmail search \"in:inbox is:unread\" --account anorag.saxena@gmail.com --json --max 15\n3) Determine which threads are NEW (id not in seenThreadIds).\n4) If there are no new threads: do nothing.\n5) If there are new threads: send ONE Telegram DM to user id 1012034994 with:\n   - Title: \"Unread Gmail (since last check)\"\n   - For each new thread (max 8): date, from, subject\n   - If more than 8: add \"(+N more)\"\n   Keep under 2500 chars.\n6) Update state file by adding all currently-seen thread ids (from the fetched list) to seenThreadIds (dedupe).\n\nOutput rules:\n- Plain English. No jargon.\n- End message with: Provider: <provider> | Model: <model>"
+        "message": "Gmail Unread Summary (automated) \u2014 Telegram only\n\nAccount: anorag.saxena@gmail.com\n\nGoal:\n- Send Anurag a short summary of NEW unread inbox threads since last check.\n- Do NOT send emails. Do NOT mark anything as read. Do NOT archive/delete.\n\nState:\n- Read/write JSON state at /Users/redinside/.openclaw/workspace/tmp/gmail-unread-digest.json\n  Shape: { \"seenThreadIds\": [\"...\"] }\n\nSteps:\n1) Load state file (if missing, treat as empty).\n2) Fetch unread inbox threads (max 15) using exec:\n   gog gmail search \"in:inbox is:unread\" --account anorag.saxena@gmail.com --json --max 15\n3) Determine which threads are NEW (id not in seenThreadIds).\n4) If there are no new threads: do nothing.\n5) If there are new threads: send ONE Telegram DM to user id 1012034994 with:\n   - Title: \"Unread Gmail (since last check)\"\n   - For each new thread (max 8): date, from, subject\n   - If more than 8: add \"(+N more)\"\n   Keep under 2500 chars.\n6) Update state file by adding all currently-seen thread ids (from the fetched list) to seenThreadIds (dedupe).\n\nOutput rules:\n- Plain English. No jargon.\n- End message with: Provider: <provider> | Model: <model>"
       },
       "delivery": {
         "mode": "none"
@@ -166,7 +166,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 240,
-        "message": "GitHub repo monitoring → Telegram updates\n\nRepos to monitor:\n- anuragg-saxenaa/stock-crypto-portfolio-tracker\n- anuragg-saxenaa/spring-boot-product-api\n\nGoal:\nSend a brief update to Anurag on Telegram (user id 1012034994) 4x/day on weekdays so it feels \"alive\".\n\nState:\n- Read/write /Users/redinside/.openclaw/workspace/tmp/github-repo-monitor.json\n  Shape: {\"lastRunIso\":\"...\"}\n  If missing, treat lastRunIso as now-24h.\n\nData fetch (via exec):\n- Use gh api (GitHub CLI already authenticated) to fetch:\n  1) Recent PRs updated since lastRunIso\n     GET /repos/{owner}/{repo}/pulls?state=all&sort=updated&direction=desc&per_page=10\n  2) Recent issues updated since lastRunIso\n     GET /repos/{owner}/{repo}/issues?state=all&sort=updated&direction=desc&per_page=10\n  3) Recent Actions workflow runs\n     GET /repos/{owner}/{repo}/actions/runs?per_page=5\n\nFiltering:\n- Include items whose updated_at (or created_at if needed) is > lastRunIso.\n- Cap output to max 8 bullets total across both repos.\n\nTelegram message format (strict):\nTitle: \"GitHub Updates\"\nThen bullets like:\n- repo: PR/Issue/CI — short title — status (open/merged/closed, success/fail)\nIf nothing new: send a single line: \"No notable GitHub updates since last check.\"\nKeep under 2000 chars.\nEnd with: Provider: <provider> | Model: <model>\n\nFinally:\n- Update state file lastRunIso=now (ISO)."
+        "message": "GitHub repo monitoring \u2192 Telegram updates\n\nRepos to monitor:\n- anuragg-saxenaa/stock-crypto-portfolio-tracker\n- anuragg-saxenaa/spring-boot-product-api\n\nGoal:\nSend a brief update to Anurag on Telegram (user id 1012034994) 4x/day on weekdays so it feels \"alive\".\n\nState:\n- Read/write /Users/redinside/.openclaw/workspace/tmp/github-repo-monitor.json\n  Shape: {\"lastRunIso\":\"...\"}\n  If missing, treat lastRunIso as now-24h.\n\nData fetch (via exec):\n- Use gh api (GitHub CLI already authenticated) to fetch:\n  1) Recent PRs updated since lastRunIso\n     GET /repos/{owner}/{repo}/pulls?state=all&sort=updated&direction=desc&per_page=10\n  2) Recent issues updated since lastRunIso\n     GET /repos/{owner}/{repo}/issues?state=all&sort=updated&direction=desc&per_page=10\n  3) Recent Actions workflow runs\n     GET /repos/{owner}/{repo}/actions/runs?per_page=5\n\nFiltering:\n- Include items whose updated_at (or created_at if needed) is > lastRunIso.\n- Cap output to max 8 bullets total across both repos.\n\nTelegram message format (strict):\nTitle: \"GitHub Updates\"\nThen bullets like:\n- repo: PR/Issue/CI \u2014 short title \u2014 status (open/merged/closed, success/fail)\nIf nothing new: send a single line: \"No notable GitHub updates since last check.\"\nKeep under 2000 chars.\nEnd with: Provider: <provider> | Model: <model>\n\nFinally:\n- Update state file lastRunIso=now (ISO)."
       },
       "delivery": {
         "mode": "none"
@@ -195,7 +195,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 240,
-        "message": "Market Leads (Alpha Vantage) — short Telegram note\n\nGoal:\n- Provide 3–5 actionable intraday leads using Alpha Vantage market data (no execution).\n- Plain English, non-overwhelming.\n\nInputs:\n- Holdings file: /Users/redinside/.openclaw/workspace/portfolio/HOLDINGS.md\n\nProcess:\n1) Build a candidate list of US-listed tickers from HOLDINGS.md (ignore obvious non-US tickers like *.B, *.TO, and crypto symbols).\n2) Take top 10 candidates by max weight across TFSA+RRSP (approx_weight_pct).\n3) For each candidate, call alphavantage.TOOL_CALL tool_name=GLOBAL_QUOTE with {symbol}.\n4) Rank by absolute changePercent.\n\nOutput:\nSend ONE Telegram DM to user id 1012034994 under 2000 chars:\n- Header: \"Market Leads\"\n- \"Today’s bias\" (1 sentence)\n- \"Top movers to watch\" (3 bullets: symbol + change% + 1-line note)\n- \"Risk / do-not-do\" (1 bullet)\n- If data is stale or missing: say so and do not fabricate.\nEnd with Provider/Model footer.\n\nRules:\n- Not financial advice; no guarantees.\n- No more than 6 bullets total."
+        "message": "Market Leads (Alpha Vantage) \u2014 short Telegram note\n\nGoal:\n- Provide 3\u20135 actionable intraday leads using Alpha Vantage market data (no execution).\n- Plain English, non-overwhelming.\n\nInputs:\n- Holdings file: /Users/redinside/.openclaw/workspace/portfolio/HOLDINGS.md\n\nProcess:\n1) Build a candidate list of US-listed tickers from HOLDINGS.md (ignore obvious non-US tickers like *.B, *.TO, and crypto symbols).\n2) Take top 10 candidates by max weight across TFSA+RRSP (approx_weight_pct).\n3) For each candidate, call alphavantage.TOOL_CALL tool_name=GLOBAL_QUOTE with {symbol}.\n4) Rank by absolute changePercent.\n\nOutput:\nSend ONE Telegram DM to user id 1012034994 under 2000 chars:\n- Header: \"Market Leads\"\n- \"Today\u2019s bias\" (1 sentence)\n- \"Top movers to watch\" (3 bullets: symbol + change% + 1-line note)\n- \"Risk / do-not-do\" (1 bullet)\n- If data is stale or missing: say so and do not fabricate.\nEnd with Provider/Model footer.\n\nRules:\n- Not financial advice; no guarantees.\n- No more than 6 bullets total."
       },
       "delivery": {
         "mode": "none"
@@ -225,7 +225,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 150,
-        "message": "System Health Watch (automated) — only alert on problems\n\nGoal:\n- Keep OpenClaw reliable and reduce \"silent failures\".\n- Check core services + key automations.\n- If everything looks healthy: do nothing (no Telegram).\n\nChecks:\n1) Gateway health:\n- Use exec: openclaw status\n- If status output contains errors, unhealthy flags, or can't connect: alert.\n\n2) Browser control health (isolated browser):\n- Call browser(status) with profile=\"openclaw\".\n- If enabled=false OR running=false OR cdpReady=false: alert.\n\n3) Cron integrity + freshness (key jobs):\n- Read /Users/redinside/.openclaw/cron/jobs.json\n- Ensure these job ids exist and are enabled:\n  - 69c261e4-53e0-495a-9d9b-4c22413e8f26 (Daily Portfolio Review)\n  - 199a722c-5a9f-4df0-a7d6-71f8039ee187 (Trading Window Brief)\n  - 7d1f3378-1f52-48ee-a2d9-9c4aaf8f5c88 (Gmail Unread Summary)\n  - 2ef34ad2-e703-415d-8ad9-08a5acdfa1ca (GitHub Repo Updates)\n  - 58248a42-7459-4341-9065-be5acc73f61e (QQQ Watch)\n- Also check for \"stale\" signals:\n  - If any of the jobs have state.nextRunAtMs that is > 10 minutes in the past (missed run), alert.\n  - If a job has no nextRunAtMs, alert.\n\nAlerting:\n- If any check fails, send ONE Telegram DM to user id 1012034994:\n  Title: \"OpenClaw Health Alert\"\n  Then bullets with failing components and the suggested fix.\n  Keep under 1500 chars.\n  End with: Provider: <provider> | Model: <model>\n\nRules:\n- Do not attempt restarts automatically.\n- Do not change config.\n- Do not spam: send at most one alert per run."
+        "message": "System Health Watch (automated) \u2014 only alert on problems\n\nGoal:\n- Keep OpenClaw reliable and reduce \"silent failures\".\n- Check core services + key automations.\n- If everything looks healthy: do nothing (no Telegram).\n\nChecks:\n1) Gateway health:\n- Use exec: openclaw status\n- If status output contains errors, unhealthy flags, or can't connect: alert.\n\n2) Browser control health (isolated browser):\n- Call browser(status) with profile=\"openclaw\".\n- If enabled=false OR running=false OR cdpReady=false: alert.\n\n3) Cron integrity + freshness (key jobs):\n- Read /Users/redinside/.openclaw/cron/jobs.json\n- Ensure these job ids exist and are enabled:\n  - 69c261e4-53e0-495a-9d9b-4c22413e8f26 (Daily Portfolio Review)\n  - 199a722c-5a9f-4df0-a7d6-71f8039ee187 (Trading Window Brief)\n  - 7d1f3378-1f52-48ee-a2d9-9c4aaf8f5c88 (Gmail Unread Summary)\n  - 2ef34ad2-e703-415d-8ad9-08a5acdfa1ca (GitHub Repo Updates)\n  - 58248a42-7459-4341-9065-be5acc73f61e (QQQ Watch)\n- Also check for \"stale\" signals:\n  - If any of the jobs have state.nextRunAtMs that is > 10 minutes in the past (missed run), alert.\n  - If a job has no nextRunAtMs, alert.\n\nAlerting:\n- If any check fails, send ONE Telegram DM to user id 1012034994:\n  Title: \"OpenClaw Health Alert\"\n  Then bullets with failing components and the suggested fix.\n  Keep under 1500 chars.\n  End with: Provider: <provider> | Model: <model>\n\nRules:\n- Do not attempt restarts automatically.\n- Do not change config.\n- Do not spam: send at most one alert per run."
       },
       "delivery": {
         "mode": "none"
@@ -255,7 +255,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 60,
-        "message": "Status update (automation work in progress)\n\nDone so far (safe, non-breaking):\n- Added cron: System Health Watch (OpenClaw) (alerts only, no auto restarts)\n- Updated POLICY.md to require progress pings + immediate failure reporting\n\nIn progress (next):\n- Add stale-run detection (alert if key crons stop running / nextRun missed)\n- Write a browser-control recovery playbook (so YouTube/Chrome timeouts have a clear fix path)\n\nETA:\n- Next improvement: ~10–15 min\n- Full set above: ~20–30 min total (from start)\n\nIf you want me to stop these 10-min updates at any time, reply: STOP UPDATES.\n\nProvider: <provider> | Model: <model>"
+        "message": "Status update (automation work in progress)\n\nDone so far (safe, non-breaking):\n- Added cron: System Health Watch (OpenClaw) (alerts only, no auto restarts)\n- Updated POLICY.md to require progress pings + immediate failure reporting\n\nIn progress (next):\n- Add stale-run detection (alert if key crons stop running / nextRun missed)\n- Write a browser-control recovery playbook (so YouTube/Chrome timeouts have a clear fix path)\n\nETA:\n- Next improvement: ~10\u201315 min\n- Full set above: ~20\u201330 min total (from start)\n\nIf you want me to stop these 10-min updates at any time, reply: STOP UPDATES.\n\nProvider: <provider> | Model: <model>"
       },
       "delivery": {
         "mode": "none"
@@ -283,7 +283,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "Daily Market Brief (Reminder): Create a concise end-of-day market brief for Anurag. Constraints: stocks-only (ignore crypto). Output format:\n1) Headline (1 line)\n2) Bullet highlights (5-10 bullets): major indices/sector leadership, rates/dollar/oil if relevant, key news themes, notable earnings/events, risk flags.\n3) Watchlist: 3-7 tickers/themes worth monitoring (conservative, high-signal).\n4) \"What to do / next\" (1-3 bullets).\nIf a longer report would help, say \"Reply 'full report'\" and send a **human-readable attachment** (PDF preferred; HTML fallback if PDF generation isn’t available).\nTone: technical, up-to-date, human.",
+        "message": "Daily Market Brief (Reminder): Create a concise end-of-day market brief for Anurag. Constraints: stocks-only (ignore crypto). Output format:\n1) Headline (1 line)\n2) Bullet highlights (5-10 bullets): major indices/sector leadership, rates/dollar/oil if relevant, key news themes, notable earnings/events, risk flags.\n3) Watchlist: 3-7 tickers/themes worth monitoring (conservative, high-signal).\n4) \"What to do / next\" (1-3 bullets).\nIf a longer report would help, say \"Reply 'full report'\" and send a **human-readable attachment** (PDF preferred; HTML fallback if PDF generation isn\u2019t available).\nTone: technical, up-to-date, human.",
         "timeoutSeconds": 180
       },
       "delivery": {
@@ -552,7 +552,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "Gmail Unread Summary task for anorag.saxena@gmail.com\n\nState file: /Users/redinside/.openclaw/workspace/tmp/gmail-unread-digest.json\n\n1. Load state file (create with empty seenThreadIds if missing)\n2. Run: gog gmail search \"in:inbox is:unread\" --account anorag.saxena@gmail.com --json --max 15\n3. Parse JSON output to get threads with id, date, from, subject\n4. Determine new threads (id not in seenThreadIds)\n5. If new threads exist:\n   - Build message: \"📧 Unread Gmail (since last check)\\n\\n\"\n   - For each new thread (max 8): add \"• {date} | {from}\\n  {subject}\\n\\n\"\n   - If >8 new: add \"(+{N} more)\\n\"\n   - Add footer: \"Provider: {provider} | Model: {model}\"\n   - Send Telegram DM to user 1012034994\n6. Update state file: merge all fetched thread ids into seenThreadIds (dedupe)\n7. If no new threads: do nothing (no message)"
+        "message": "Gmail Unread Summary task for anorag.saxena@gmail.com\n\nState file: /Users/redinside/.openclaw/workspace/tmp/gmail-unread-digest.json\n\n1. Load state file (create with empty seenThreadIds if missing)\n2. Run: gog gmail search \"in:inbox is:unread\" --account anorag.saxena@gmail.com --json --max 15\n3. Parse JSON output to get threads with id, date, from, subject\n4. Determine new threads (id not in seenThreadIds)\n5. If new threads exist:\n   - Build message: \"\ud83d\udce7 Unread Gmail (since last check)\\n\\n\"\n   - For each new thread (max 8): add \"\u2022 {date} | {from}\\n  {subject}\\n\\n\"\n   - If >8 new: add \"(+{N} more)\\n\"\n   - Add footer: \"Provider: {provider} | Model: {model}\"\n   - Send Telegram DM to user 1012034994\n6. Update state file: merge all fetched thread ids into seenThreadIds (dedupe)\n7. If no new threads: do nothing (no message)"
       },
       "delivery": {
         "mode": "announce",
@@ -612,7 +612,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "Gmail Unread Summary (automated) — Telegram only\n\nAccount: anorag.saxena@gmail.com\n\nGoal:\n- Send Anurag a short summary of NEW unread inbox threads since last check.\n- Do NOT send emails. Do NOT mark anything as read. Do NOT archive/delete.\n\nState:\n- Read/write JSON state at /Users/redinside/.openclaw/workspace/tmp/gmail-unread-digest.json\n  Shape: { \"seenThreadIds\": [\"...\"] }\n\nSteps:\n1) Load state file (if missing, treat as empty).\n2) Fetch unread inbox threads (max 15) using exec:\n   gog gmail search \"in:inbox is:unread\" --account anorag.saxena@gmail.com --json --max 15\n3) Determine which threads are NEW (id not in seenThreadIds).\n4) If there are no new threads: do nothing.\n5) If there are new threads: send ONE Telegram DM to user id 1012034994 with:\n   - Title: \"Unread Gmail (since last check)\"\n   - For each new thread (max 8): date, from, subject\n   - If more than 8: add \"(+N more)\"\n   Keep under 2500 chars.\n6) Update state file by adding all currently-seen thread ids (from the fetched list) to seenThreadIds (dedupe).\n\nOutput rules:\n- Plain English. No jargon.\n- End message with: Provider: <provider> | Model: <model>",
+        "message": "Gmail Unread Summary (automated) \u2014 Telegram only\n\nAccount: anorag.saxena@gmail.com\n\nGoal:\n- Send Anurag a short summary of NEW unread inbox threads since last check.\n- Do NOT send emails. Do NOT mark anything as read. Do NOT archive/delete.\n\nState:\n- Read/write JSON state at /Users/redinside/.openclaw/workspace/tmp/gmail-unread-digest.json\n  Shape: { \"seenThreadIds\": [\"...\"] }\n\nSteps:\n1) Load state file (if missing, treat as empty).\n2) Fetch unread inbox threads (max 15) using exec:\n   gog gmail search \"in:inbox is:unread\" --account anorag.saxena@gmail.com --json --max 15\n3) Determine which threads are NEW (id not in seenThreadIds).\n4) If there are no new threads: do nothing.\n5) If there are new threads: send ONE Telegram DM to user id 1012034994 with:\n   - Title: \"Unread Gmail (since last check)\"\n   - For each new thread (max 8): date, from, subject\n   - If more than 8: add \"(+N more)\"\n   Keep under 2500 chars.\n6) Update state file by adding all currently-seen thread ids (from the fetched list) to seenThreadIds (dedupe).\n\nOutput rules:\n- Plain English. No jargon.\n- End message with: Provider: <provider> | Model: <model>",
         "model": "moonshot/kimi-k2.5",
         "thinking": "low",
         "timeoutSeconds": 120
@@ -640,7 +640,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "Run Gmail unread digest check:\n\n1. Read state from /Users/redinside/.openclaw/workspace/tmp/gmail-unread-digest.json (if missing, treat as {\"seenThreadIds\": []})\n2. Fetch unread inbox threads: gog gmail search \"in:inbox is:unread\" --account anorag.saxena@gmail.com --json --max 15\n3. Compare thread IDs with seenThreadIds to find NEW threads only\n4. If no new threads: do nothing (just exit)\n5. If new threads exist: Send ONE Telegram DM to user 1012034994 with summary:\n   - Title: \"📧 Unread Gmail (since last check)\"\n   - List up to 8 new threads with: date, from, subject\n   - If more than 8: add \"(+N more)\"\n   - End with: Provider: <provider> | Model: <model>\n6. Update state file by adding all current thread IDs to seenThreadIds (dedupe)\n\nRules: Do NOT mark emails as read. Do NOT archive/delete. Keep message under 2500 chars.",
+        "message": "Run Gmail unread digest check:\n\n1. Read state from /Users/redinside/.openclaw/workspace/tmp/gmail-unread-digest.json (if missing, treat as {\"seenThreadIds\": []})\n2. Fetch unread inbox threads: gog gmail search \"in:inbox is:unread\" --account anorag.saxena@gmail.com --json --max 15\n3. Compare thread IDs with seenThreadIds to find NEW threads only\n4. If no new threads: do nothing (just exit)\n5. If new threads exist: Send ONE Telegram DM to user 1012034994 with summary:\n   - Title: \"\ud83d\udce7 Unread Gmail (since last check)\"\n   - List up to 8 new threads with: date, from, subject\n   - If more than 8: add \"(+N more)\"\n   - End with: Provider: <provider> | Model: <model>\n6. Update state file by adding all current thread IDs to seenThreadIds (dedupe)\n\nRules: Do NOT mark emails as read. Do NOT archive/delete. Keep message under 2500 chars.",
         "model": "openai-codex/gpt-5.2",
         "thinking": "low",
         "timeoutSeconds": 60
@@ -672,7 +672,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "Gmail Unread Summary (automated) — Telegram only\n\nAccount: anorag.saxena@gmail.com\n\nGoal:\n- Send Anurag a short summary of NEW unread inbox threads since last check.\n- Do NOT send emails. Do NOT mark anything as read. Do NOT archive/delete.\n\nState:\n- Read/write JSON state at /Users/redinside/.openclaw/workspace/tmp/gmail-unread-digest.json\n  Shape: { \"seenThreadIds\": [\"...\"] }\n\nSteps:\n1) Load state file (if missing, treat as empty).\n2) Fetch unread inbox threads (max 15) using exec:\n   gog gmail search \"in:inbox is:unread\" --account anorag.saxena@gmail.com --json --max 15\n3) Determine which threads are NEW (id not in seenThreadIds).\n4) If there are no new threads: do nothing.\n5) If there are new threads: send ONE Telegram DM to user id 1012034994 with:\n   - Title: \"Unread Gmail (since last check)\"\n   - For each new thread (max 8): date, from, subject\n   - If more than 8: add \"(+N more)\"\n   Keep under 2500 chars.\n6) Update state file by adding all currently-seen thread ids (from the fetched list) to seenThreadIds (dedupe).\n\nOutput rules:\n- Plain English. No jargon.\n- End message with: Provider: <provider> | Model: <model>",
+        "message": "Gmail Unread Summary (automated) \u2014 Telegram only\n\nAccount: anorag.saxena@gmail.com\n\nGoal:\n- Send Anurag a short summary of NEW unread inbox threads since last check.\n- Do NOT send emails. Do NOT mark anything as read. Do NOT archive/delete.\n\nState:\n- Read/write JSON state at /Users/redinside/.openclaw/workspace/tmp/gmail-unread-digest.json\n  Shape: { \"seenThreadIds\": [\"...\"] }\n\nSteps:\n1) Load state file (if missing, treat as empty).\n2) Fetch unread inbox threads (max 15) using exec:\n   gog gmail search \"in:inbox is:unread\" --account anorag.saxena@gmail.com --json --max 15\n3) Determine which threads are NEW (id not in seenThreadIds).\n4) If there are no new threads: do nothing.\n5) If there are new threads: send ONE Telegram DM to user id 1012034994 with:\n   - Title: \"Unread Gmail (since last check)\"\n   - For each new thread (max 8): date, from, subject\n   - If more than 8: add \"(+N more)\"\n   Keep under 2500 chars.\n6) Update state file by adding all currently-seen thread ids (from the fetched list) to seenThreadIds (dedupe).\n\nOutput rules:\n- Plain English. No jargon.\n- End message with: Provider: <provider> | Model: <model>",
         "thinking": "low"
       },
       "delivery": {
@@ -696,7 +696,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "Gmail Unread Summary task (automated) — Telegram only\n\nAccount: anorag.saxena@gmail.com\n\nGoal:\n- Send Anurag a short summary of NEW unread inbox threads since last check.\n- Do NOT send emails. Do NOT mark anything as read. Do NOT archive/delete.\n\nState:\n- Read/write JSON state at /Users/redinside/.openclaw/workspace/tmp/gmail-unread-digest.json\n  Shape: { \"seenThreadIds\": [\"...\"] }\n\nSteps:\n1) Load state file (if missing, treat as empty).\n2) Fetch unread inbox threads (max 15) using exec:\n   gog gmail search \"in:inbox is:unread\" --account anorag.saxena@gmail.com --json --max 15\n3) Determine which threads are NEW (id not in seenThreadIds).\n4) If there are no new threads: do nothing.\n5) If there are new threads: send ONE Telegram DM to user id 1012034994 with:\n   - Title: \"Unread Gmail (since last check)\"\n   - For each new thread (max 8): date, from, subject\n   - If more than 8: add \"(+N more)\"\n   Keep under 2500 chars.\n6) Update state file by adding all currently-seen thread ids (from the fetched list) to seenThreadIds (dedupe).\n\nOutput rules:\n- Plain English. No jargon.\n- End message with: Provider: <provider> | Model: <model>",
+        "message": "Gmail Unread Summary task (automated) \u2014 Telegram only\n\nAccount: anorag.saxena@gmail.com\n\nGoal:\n- Send Anurag a short summary of NEW unread inbox threads since last check.\n- Do NOT send emails. Do NOT mark anything as read. Do NOT archive/delete.\n\nState:\n- Read/write JSON state at /Users/redinside/.openclaw/workspace/tmp/gmail-unread-digest.json\n  Shape: { \"seenThreadIds\": [\"...\"] }\n\nSteps:\n1) Load state file (if missing, treat as empty).\n2) Fetch unread inbox threads (max 15) using exec:\n   gog gmail search \"in:inbox is:unread\" --account anorag.saxena@gmail.com --json --max 15\n3) Determine which threads are NEW (id not in seenThreadIds).\n4) If there are no new threads: do nothing.\n5) If there are new threads: send ONE Telegram DM to user id 1012034994 with:\n   - Title: \"Unread Gmail (since last check)\"\n   - For each new thread (max 8): date, from, subject\n   - If more than 8: add \"(+N more)\"\n   Keep under 2500 chars.\n6) Update state file by adding all currently-seen thread ids (from the fetched list) to seenThreadIds (dedupe).\n\nOutput rules:\n- Plain English. No jargon.\n- End message with: Provider: <provider> | Model: <model>",
         "model": "moonshot/kimi-k2.5"
       },
       "delivery": {
@@ -738,6 +738,190 @@
         "consecutiveErrors": 5,
         "lastError": "Error: cron: job execution timed out"
       }
+    },
+    {
+      "id": "0e518762-ba06-462b-aae1-78d201befbd0",
+      "agentId": "ops",
+      "name": "OPS Scrum Master \u2014 Morning Standup",
+      "enabled": true,
+      "createdAtMs": 1771194095024,
+      "updatedAtMs": 1771194095024,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 9 * * 1-5",
+        "tz": "America/Toronto"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "You are OPS, the Scrum Master. Run the daily standup now.\n\nSTEPS:\n1. Read /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md to get open ticket count and SLA status.\n2. Read /Users/redinside/.openclaw/workspace/ops/LEARNINGS.md to check recent learnings.\n3. Read /Users/redinside/.openclaw/logs/gateway.err.log (last 30 lines) for recent errors.\n4. Read /Users/redinside/.openclaw/logs/health.jsonl (last 5 entries) for system health.\n5. Use sessions_send to ask EACH agent for their status:\n   - sessions_send(agentId=\"main\", message=\"Standup check-in: What did you work on recently? Any blockers? What's next?\")\n   - sessions_send(agentId=\"eng\", message=\"Standup check-in: What did you work on recently? Any blockers? What's next?\")\n   - sessions_send(agentId=\"research\", message=\"Standup check-in: What did you work on recently? Any blockers? What's next?\")\n   - sessions_send(agentId=\"finance\", message=\"Standup check-in: What did you work on recently? Any blockers? What's next?\")\n   - sessions_send(agentId=\"infosec\", message=\"Standup check-in: What did you work on recently? Any blockers? What's next?\")\n6. Compile all responses into a standup summary.\n7. Append the standup summary to /Users/redinside/.openclaw/workspace/ops/STANDUP-LOG.md using the format defined there.\n8. Send a Telegram summary to Anurag (user ID: 1012034994) with:\n   - Open ticket count by priority\n   - Any SLA breaches\n   - Key blockers from agents\n   - System health status (healthy/degraded/down)\n   Keep under 2000 chars.\n\nIMPORTANT: Actually use sessions_send to talk to other agents. Do NOT simulate their responses.",
+        "model": "zai/glm-4.7",
+        "thinking": "low",
+        "timeoutSeconds": 300
+      },
+      "delivery": {
+        "mode": "none"
+      },
+      "state": {}
+    },
+    {
+      "id": "b6e593c0-f9d2-4eb3-8dbf-449c37b65127",
+      "agentId": "ops",
+      "name": "OPS SLA Enforcement Check",
+      "enabled": true,
+      "createdAtMs": 1771194095024,
+      "updatedAtMs": 1771194095024,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 1800000,
+        "anchorMs": 1771194095024
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "You are OPS, the Scrum Master. Run SLA enforcement check.\n\nSTEPS:\n1. Read /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md\n2. For each OPEN or IN_PROGRESS ticket:\n   a. Calculate time since creation vs SLA deadline\n   b. If approaching deadline (within 50% of remaining time): ping the assignee via sessions_send reminding them of the SLA\n   c. If past deadline: escalate to RED (CEO) via sessions_send(agentId=\"main\", message=\"SLA BREACH: TICKET-{ref} is past deadline. Priority: {P}. Assignee: {agent}. Summary: {summary}\")\n   d. If P0 past 30 min: Send Telegram alert to user 1012034994\n3. If no open tickets, do nothing (no output needed).\n\nOnly take action if there are actual open tickets with SLA concerns. Be silent if everything is fine.",
+        "model": "zai/glm-4.7",
+        "thinking": "low",
+        "timeoutSeconds": 120
+      },
+      "delivery": {
+        "mode": "none"
+      },
+      "state": {}
+    },
+    {
+      "id": "76777b7a-c553-4669-9673-2bcdb5640481",
+      "agentId": "ops",
+      "name": "OPS System Health Monitor",
+      "enabled": true,
+      "createdAtMs": 1771194095024,
+      "updatedAtMs": 1771194095024,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 900000,
+        "anchorMs": 1771194095024
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "You are OPS, the system health monitor. Check system health now.\n\nSTEPS:\n1. Read /Users/redinside/.openclaw/logs/gateway.err.log (last 20 lines) \u2014 look for new errors since last check.\n2. Read /Users/redinside/.openclaw/logs/errors.jsonl (last 5 entries) \u2014 check for recurring failures.\n3. Read /Users/redinside/.openclaw/logs/health.jsonl (last 3 entries) \u2014 check health status.\n\nIF you find new errors or failures:\na. Follow the Self-Healing Protocol:\n   - Log a ticket in /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md\n   - Diagnose the root cause (read LEARNINGS.md for known issues)\n   - If it's a known issue with a known fix, apply the fix\n   - If it's a new issue, search the web for solutions\n   - If you need help, delegate: code issues to ENG, security to INFOSEC\n   - After fixing, update LEARNINGS.md with what you learned\nb. If the error is critical (system down, all agents affected): Send Telegram alert to user 1012034994\n\nIF everything is healthy: Do nothing. Be silent. No output needed.\n\nIMPORTANT: Only create tickets and alerts for NEW issues, not ones already tracked.",
+        "model": "zai/glm-4.7",
+        "thinking": "low",
+        "timeoutSeconds": 120
+      },
+      "delivery": {
+        "mode": "none"
+      },
+      "state": {}
+    },
+    {
+      "id": "bde6d3d8-c404-4a75-8875-66d7a27f0697",
+      "agentId": "main",
+      "name": "RED Self-Improvement Reflection",
+      "enabled": true,
+      "createdAtMs": 1771194095024,
+      "updatedAtMs": 1771194095024,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 21600000,
+        "anchorMs": 1771194095024
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "You are RED (CEO). Run the self-improvement reflection cycle.\n\nSTEPS:\n1. Read /Users/redinside/.openclaw/workspace/ops/LEARNINGS.md \u2014 review recent learnings.\n2. Read /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md \u2014 review resolved tickets from last 24h.\n3. Read /Users/redinside/.openclaw/logs/errors.jsonl (last 20 entries) \u2014 look for patterns.\n4. Read /Users/redinside/.openclaw/logs/performance.jsonl (last 10 entries) \u2014 check routing quality.\n\nANALYZE:\n- Are there recurring errors? \u2192 Propose a permanent fix (update config, skill, or SOUL.md)\n- Are there model routing issues? \u2192 Suggest fallback chain adjustments\n- Are there patterns in user corrections? \u2192 Propose behavior updates\n- Are there skills that should be improved? \u2192 Draft updates\n\nACTIONS:\n- If you identify an improvement, apply it:\n  a. Update the relevant file (SKILL.md, config, etc.)\n  b. Append a new entry to /Users/redinside/.openclaw/workspace/ops/LEARNINGS.md\n  c. Notify OPS via sessions_send(agentId=\"ops\", message=\"Self-improvement applied: {description}\")\n- If you identify a systemic issue, create a ticket in TICKET-TRACKER.md and assign it to the right agent.\n- Use web_search to research best practices for any issues you find.\n\nOUTPUT: Brief summary of what was reviewed and any actions taken. If nothing needs improvement, say so briefly.",
+        "model": "zai/glm-4.7",
+        "thinking": "low",
+        "timeoutSeconds": 180
+      },
+      "delivery": {
+        "mode": "none"
+      },
+      "state": {}
+    },
+    {
+      "id": "72729a38-d841-4eb4-a645-0a74289ab90a",
+      "agentId": "ops",
+      "name": "OPS Ticket Auto-Diagnose & Fix",
+      "enabled": true,
+      "createdAtMs": 1771194095024,
+      "updatedAtMs": 1771194095024,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 3600000,
+        "anchorMs": 1771194095024
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "You are OPS. Check for open tickets and attempt to diagnose and fix them.\n\nSTEPS:\n1. Read /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md\n2. For each OPEN ticket (not yet IN_PROGRESS):\n   a. Set status to IN_PROGRESS\n   b. Read the error details\n   c. Check /Users/redinside/.openclaw/workspace/ops/LEARNINGS.md \u2014 has this been seen before?\n   d. Check /Users/redinside/.openclaw/logs/errors.jsonl for related errors\n   e. If it's a config issue: attempt to fix it (read/write openclaw.json or relevant config)\n   f. If it's a code issue: delegate to ENG via sessions_send(agentId=\"eng\", message=\"Fix needed: {details}\")\n   g. If it's a model issue: check model-registry.json, try switching fallback\n   h. If it's unfamiliar: use web_search to research the error\n   i. After fixing: verify the fix, update ticket to RESOLVED, append to LEARNINGS.md\n   j. If you can't fix it: escalate to RED via sessions_send(agentId=\"main\")\n\n3. If no open tickets: do nothing silently.\n\nIMPORTANT: Actually attempt fixes. Don't just log that you looked at it. Use exec, file operations, sessions_send, and web_search as needed.",
+        "model": "zai/glm-4.7",
+        "thinking": "low",
+        "timeoutSeconds": 180
+      },
+      "delivery": {
+        "mode": "none"
+      },
+      "state": {}
+    },
+    {
+      "id": "1d58e865-f463-4e2e-aa4f-daec90bdc5de",
+      "agentId": "research",
+      "name": "RESEARCH Proactive Knowledge Update",
+      "enabled": true,
+      "createdAtMs": 1771194095024,
+      "updatedAtMs": 1771194095024,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 14400000,
+        "anchorMs": 1771194095024
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "You are RESEARCH. Run proactive knowledge update.\n\nSTEPS:\n1. Read /Users/redinside/.openclaw/workspace/ops/LEARNINGS.md \u2014 check what issues have been found recently.\n2. Read /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md \u2014 check for any tickets that need research.\n3. For any open tickets assigned to you or tagged as needing research:\n   a. Use web_search to find solutions, best practices, or documentation\n   b. Summarize findings and post them as a comment on the ticket\n   c. If you find a solution, notify the assignee via sessions_send\n\n4. Proactive scan: Use web_search to check for:\n   - OpenClaw updates or new features\n   - Issues with models we use (openai-codex, zai/glm, perplexity)\n   - Security advisories for our tools\n\n5. If you find anything relevant:\n   a. Append to /Users/redinside/.openclaw/workspace/ops/LEARNINGS.md\n   b. Notify OPS via sessions_send(agentId=\"ops\", message=\"Research update: {summary}\")\n   c. If it's urgent (security issue, breaking change), also notify RED\n\n6. If nothing notable found: do nothing silently.",
+        "model": "zai/glm-4.7",
+        "thinking": "low",
+        "timeoutSeconds": 180
+      },
+      "delivery": {
+        "mode": "none"
+      },
+      "state": {}
+    },
+    {
+      "id": "a5bdd899-6a7c-4dbf-bae8-b35378650ad6",
+      "agentId": "main",
+      "name": "RED CEO Daily Summary to Anurag",
+      "enabled": true,
+      "createdAtMs": 1771194095024,
+      "updatedAtMs": 1771194095024,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 18 * * 1-5",
+        "tz": "America/Toronto"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "You are RED (CEO). Compile and send the daily summary to Anurag.\n\nSTEPS:\n1. Read /Users/redinside/.openclaw/workspace/ops/STANDUP-LOG.md \u2014 get today's standup.\n2. Read /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md \u2014 get ticket summary.\n3. Read /Users/redinside/.openclaw/workspace/ops/LEARNINGS.md \u2014 get today's learnings.\n4. Read /Users/redinside/.openclaw/logs/gateway.err.log (last 20 lines) \u2014 system health.\n\nCOMPILE a Telegram message to Anurag (user ID: 1012034994) with:\n\n\ud83d\udcca **RedOS Daily Summary \u2014 {date}**\n\n**System Health:** {healthy/degraded/issues}\n**Tickets:** {opened today} opened, {resolved today} resolved, {open} still open\n**SLA Breaches:** {count or \"None\"}\n\n**Key Events:**\n- {bullet points of important things that happened}\n\n**Learnings Applied:**\n- {bullet points of self-improvements made}\n\n**Agent Activity:**\n- {which agents were active, what they did}\n\n**Tomorrow's Focus:**\n- {what needs attention}\n\nKeep under 3000 chars. Send via Telegram DM.",
+        "model": "zai/glm-4.7",
+        "thinking": "low",
+        "timeoutSeconds": 180
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "telegram",
+        "to": "1012034994"
+      },
+      "state": {}
     }
   ]
 }
