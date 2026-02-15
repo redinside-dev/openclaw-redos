@@ -3,7 +3,7 @@
     "name": "AgentOS Model Registry",
     "version": "3.0",
     "description": "All available models, capabilities, pricing. CUSTOMERS: edit this file to configure your AI company.",
-    "updated": "2026-02-11"
+    "updated": "2026-02-15"
   },
 
   "models": [
@@ -121,28 +121,8 @@
       "doNotUseFor": "Simple lookups, tasks without reasoning component"
     },
     {
-      "id": "moonshot/kimi-k2.5",
-      "displayName": "Moonshot Kimi K2.5 (Long Context)",
-      "provider": "moonshot",
-      "type": "api",
-      "tier": 2,
-      "quality": 8,
-      "speed": 6,
-      "contextWindow": 262144,
-      "capabilities": ["general", "code", "long_context", "analysis", "synthesis"],
-      "billing": {
-        "type": "payg",
-        "per1kInput": 0.0015,
-        "per1kOutput": 0.0025
-      },
-      "maxConcurrent": 5,
-      "status": "available",
-      "bestFor": "Long document analysis, multi-source synthesis, context >131K tokens",
-      "doNotUseFor": "Short tasks where a subscription model would work"
-    },
-    {
       "id": "zai/glm-4.7",
-      "displayName": "Z.AI GLM-4.7 (Budget Cloud)",
+      "displayName": "Z.AI GLM-4.7 (Primary PAYG Fallback)",
       "provider": "zai",
       "type": "api",
       "tier": 2,
@@ -157,7 +137,7 @@
       },
       "maxConcurrent": 10,
       "status": "available",
-      "bestFor": "OPS validation, standard tasks, Ollama fallback, report formatting",
+      "bestFor": "OPS validation, standard tasks, primary Ollama fallback, report formatting",
       "doNotUseFor": "Tasks requiring cutting-edge reasoning or real-time data"
     },
     {
@@ -179,6 +159,27 @@
       "status": "available",
       "bestFor": "Emergency Ollama fallback, classification, simple formatting",
       "doNotUseFor": "Anything complex, coding, research"
+    },
+    {
+      "id": "moonshot/kimi-k2.5",
+      "displayName": "Moonshot Kimi K2.5 (Long Context — no subscription)",
+      "provider": "moonshot",
+      "type": "api",
+      "tier": 2,
+      "quality": 8,
+      "speed": 6,
+      "contextWindow": 262144,
+      "capabilities": ["general", "code", "long_context", "analysis", "synthesis"],
+      "billing": {
+        "type": "payg",
+        "per1kInput": 0.0015,
+        "per1kOutput": 0.0025
+      },
+      "maxConcurrent": 5,
+      "status": "unavailable",
+      "_note": "No active subscription. Use zai/glm-4.7 as fallback instead.",
+      "bestFor": "Long document analysis, context >131K tokens (when subscription is active)",
+      "doNotUseFor": "All tasks until Kimi subscription is activated"
     },
     {
       "id": "ollama/qwen2.5-coder:7b",

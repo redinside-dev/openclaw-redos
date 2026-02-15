@@ -65,7 +65,7 @@ class MissionControl {
 
     connectWebSocket() {
         try {
-            this.ws = new WebSocket('ws://localhost:19000/ws');
+            this.ws = new WebSocket('ws://127.0.0.1:18789');
 
             this.ws.onopen = () => {
                 console.log('✅ WebSocket connected');
@@ -200,7 +200,7 @@ class MissionControl {
 
     async fetchAPI(endpoint) {
         try {
-            const response = await fetch(`http://localhost:19000${endpoint}`);
+            const response = await fetch(`http://127.0.0.1:18789${endpoint}`);
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
             return await response.json();
         } catch (error) {

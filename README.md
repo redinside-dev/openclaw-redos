@@ -58,13 +58,17 @@ OpenClaw provides the entire base runtime — gateway, agent runtime, channel in
 │                         MODEL TIER                               │
 │                                                                  │
 │  Tier 1 — Free local (Ollama):                                   │
-│    llama3.1:8b · qwen2.5-coder:7b · glm-4.7-flash · gpt-oss:20b │
+│    llama3.1:8b · qwen2.5-coder:7b · gpt-oss:20b                 │
 │                                                                  │
-│  Tier 2–4 — Subscription (zero marginal cost):                  │
-│    openai-codex/gpt-5.2 · moonshot/kimi-k2.5 · perplexity/sonar │
+│  Tier 2 — PAYG (primary cloud fallback):                         │
+│    zai/glm-4.7 · zai/glm-4.7-flashx                             │
+│    moonshot/kimi-k2.5 (inactive — no subscription yet)           │
 │                                                                  │
-│  Tier 5 — PAYG (only when essential):                            │
-│    zai/glm-4.7 · zai/glm-4.7-flash                              │
+│  Tier 3 — Subscription (zero marginal cost):                     │
+│    perplexity/sonar · sonar-pro · sonar-reasoning                │
+│                                                                  │
+│  Tier 4–5 — Subscription (primary agents):                       │
+│    openai-codex/gpt-5.2 · claude-code/sonnet-4.5                 │
 └──────────────────────────────────────────────────────────────────┘
 ```
 
@@ -182,7 +186,9 @@ Controlled by `workspace/skills/smart-router/SKILL.md` + `workspace/config/routi
 | Research task needing web search | perplexity/sonar via Exa MCP |
 | Complex reasoning, no code | openai-codex/gpt-5.2 (subscription) |
 | Agentic multi-file code task | openai-codex/gpt-5.2 or claude-code/sonnet-4.5 |
-| Long context (>131k tokens) | moonshot/kimi-k2.5 |
+| Ollama fails, subscription unavailable | zai/glm-4.7 (primary PAYG fallback) |
+| Very cheap fallback needed | zai/glm-4.7-flashx |
+| Long context (>131K tokens, future) | moonshot/kimi-k2.5 _(inactive — no subscription)_ |
 | Budget >90% exhausted | ollama/llama3.1:8b (forced) |
 
 Switch routing profile via Telegram: `@RedinsideBot routing mode cost_saver`
