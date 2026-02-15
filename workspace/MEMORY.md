@@ -112,10 +112,25 @@ Curated long-term memory for this OpenClaw workspace.
 
 **Verified:** API returns real data — 8 agents, 20 skills, 7 enabled cron jobs (1 already succeeded: OPS Health Monitor), 3 learnings, 129 vector memories.
 
+### Model Fix (2026-02-15 17:55 ET)
+
+- Removed invalid `zai/glm-4.7-flashx` from all agents (defaults overrides, hatake, ops)
+- Upgraded OPS primary from `ollama/llama3.1:8b` → `zai/glm-4.7` (local model too slow for cron, caused 120s timeout)
+- Gateway restarted, Health Monitor error state reset
+- SLA Enforcement ran OK (20.1s) before fix; Health Monitor timed out (120s) due to slow local model + bad fallback
+
+### Cron Status After Fix
+
+| Job | Status | Notes |
+|---|---|---|
+| OPS Health Monitor | error→reset | Timed out on ollama, now using zai/glm-4.7 |
+| OPS SLA Enforcement | ok (20.1s) | Ran successfully |
+| Others | pending | Waiting for next cron cycle (~18:06 ET) |
+
 ### Remaining
 
 - Phase 4: CEO dynamic hiring/firing (not started)
-- Monitor cron jobs over next few days to confirm full cycle
+- Verify cron jobs fire cleanly with zai/glm-4.7 model
 - Cost-tracker + smart-router still not writing to log files (lower priority)
 
-*Last updated: 2026-02-15 17:50 ET by Windsurf Cascade — All phases implemented. Dashboard live on port 19000.*
+*Last updated: 2026-02-15 17:58 ET by Windsurf Cascade — Model fix applied. Dashboard live on port 19000. Waiting for next cron cycle.*
