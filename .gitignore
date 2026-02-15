@@ -91,6 +91,53 @@ identity/device-auth.json
 # Agent auth/model runtime configs
 **/agent/auth-profiles.json
 **/agent/models.json
+**/agent/auth.json
+**/agent/*.bak.*
+
+# ==========================================
+# RUNTIME STATE — NEVER COMMIT
+# ==========================================
+
+# Exec approvals socket (contains socket token)
+exec-approvals.json
+exec-approvals.sock
+
+# OpenClaw native runtime state (not your code)
+openclaw/
+
+# Agent workspace hidden state
+workspace-*/.openclaw/
+workspace/.openclaw/
+
+# Runtime task queue
+workspace/tasks/
+
+# Audit logs (runtime, auto-generated)
+**/audit_log/
+**/security/audit_log/
+
+# Telegram poll offsets (runtime counters)
+telegram/update-offset-*.json
+
+# CLI auto-generated completions (not custom code)
+completions/
+
+# Update check state
+update-check.json
+
+# Root-level stub files (WIP, not agent code)
+autonomous-worker-v2.js
+
+# SQLite databases (memory stores)
+memory/*.sqlite
+
+# ==========================================
+# LAUNCHD PLIST (contains env vars / secrets)
+# ==========================================
+# NOTE: Keep plist out of git — it has OPENCLAW_GATEWAY_TOKEN
+# Use the .plist.example template instead
+*.plist
+!*.plist.example
 
 # ==========================================
 # IDE & EDITOR

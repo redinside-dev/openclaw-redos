@@ -153,6 +153,8 @@ export class ResilientHandler {
       return await this.callAnthropic(model.model, message);
     } else if (model.provider === 'perplexity') {
       return await this.callPerplexity(model.model, message);
+    } else if (model.provider === 'zai') {
+      return await this.callZhipu(model.model, message);
     } else {
       throw new Error(`Unsupported provider: ${model.provider}`);
     }
@@ -271,6 +273,46 @@ export class ResilientHandler {
 
       if (!data.choices || !data.choices[0] || !data.choices[0].message || !data.choices[0].message.content) {
         throw new Error('Invalid response from Perplexity');
+      }
+
+      return data.choices[0].message.content;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async callZhipu(modelName, message) {
+    const apiKey = process.env.ZAI_API_KEY;
+
+    if (!apiKey) {
+      throw new Error('ZAI_API_KEY not set - cannot use Zhipu AI / GLM-4');
+    }
+
+    try {
+      const response = await fetch('https://open.bigmodel.cn/api/paas/v4/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({
+          model: modelName,
+          messages: [{ role: 'user', content: message }],
+          max_tokens: 4096,
+          temperature: 0.7
+        }),
+        timeout: 60000 // 1 minute timeout
+      });
+
+      if (!response.ok) {
+        const error = await response.text();
+        throw new Error(`Zhipu AI error: ${error}`);
+      }
+
+      const data = await response.json();
+
+      if (!data.choices || !data.choices[0] || !data.choices[0].message || !data.choices[0].message.content) {
+        throw new Error('Invalid response from Zhipu AI');
       }
 
       return data.choices[0].message.content;

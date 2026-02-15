@@ -4,6 +4,7 @@ import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { WebSocketServer } from 'ws';
+import { exec } from 'child_process';
 import { resilientHandler } from './resilient-handler.js';
 import { trackRouter } from './track-router.js';
 import { errorHandler } from '../resilience/error-handler.js';
@@ -18,6 +19,9 @@ import { autonomousIssueTracker } from '../resilience/autonomous-issue-tracker.j
 import { statusMonitor } from '../resilience/status-monitor.js';
 import { vectorMemory } from '../memory/vector-memory.js';
 import { promptCache } from '../cache/prompt-cache.js';
+import { makerChecker } from '../security/maker-checker.js';
+import { mcpAutoDiscovery } from '../mcp/auto-discovery.js';
+import { ultimateRouter } from '../agents/ultimate-router.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
@@ -57,7 +61,18 @@ app.post('/api/chat', async (req, res) => {
   try {
     // STEP 1: STATUS CHECK - Intercept if system not operational
     const clientId = req.headers['x-user-id'] || 'anonymous';
-    const statusCheck = await statusMonitor.interceptClientRequest(message, clientId);
+
+    // Check if this is a worker/internal request
+    const workerOptions = {
+      isWorker: req.headers['x-worker-request'] === 'true' ||
+                req.headers['x-source'] === 'autonomous-worker' ||
+                clientId.includes('worker') ||
+                clientId.includes('agent'),
+      purpose: req.headers['x-purpose'] || undefined,
+      source: req.headers['x-source'] || undefined
+    };
+
+    const statusCheck = await statusMonitor.interceptClientRequest(message, clientId, workerOptions);
 
     if (!statusCheck.proceed) {
       // System not operational - return status message IMMEDIATELY
@@ -101,14 +116,42 @@ app.post('/api/chat', async (req, res) => {
       ? `${modelOverride.provider}/${modelOverride.model}`
       : undefined;
 
-    // STEP 5: Process request with context
-    const result = await handler.route(agentId, message, {
+    // STEP 5: Process request with context - STRICT 60 SECOND TIMEOUT
+    const SLA_TIMEOUT = 60000; // 1 minute maximum
+
+    const timeoutPromise = new Promise((_, reject) => {
+      setTimeout(() => {
+        reject(new Error('SLA_VIOLATION: Request exceeded 60 second limit'));
+      }, SLA_TIMEOUT);
+    });
+
+    const requestPromise = handler.route(agentId, message, {
       userId: clientId,
       source: 'api',
       vectorContext: context,
       forceModel: forceModel, // Apply user's model override if set
       ...req.body.context
     });
+
+    let result;
+    try {
+      result = await Promise.race([requestPromise, timeoutPromise]);
+    } catch (error) {
+      if (error.message.includes('SLA_VIOLATION')) {
+        console.log(`🚨 SLA VIOLATION - killing stuck Ollama processes`);
+
+        // Kill stuck Ollama runners
+        exec('pkill -9 -f "ollama runner"', () => {});
+
+        return res.status(504).json({
+          error: 'Request timeout - exceeded 60 second SLA',
+          message: 'Your request took too long. The system automatically switched to faster processing. Please try again.',
+          slaViolation: true,
+          timeout: 60000
+        });
+      }
+      throw error;
+    }
 
     // STEP 5: Store in prompt cache
     await promptCache.store(message, result.content, {
@@ -195,7 +238,7 @@ app.get('/api/status', async (req, res) => {
     cost: costMonitor.getState(),
     uptime: Math.floor(process.uptime()),
     version: '3.6.0',
-    features: ['smart-routing', 'cost-tracking', 'ceo-agents', 'kanban', 'autonomous-learning', 'status-monitor', 'autonomous-issue-tracker', 'internet-detection']
+    features: ['smart-routing', 'cost-tracking', 'ceo-agents', 'kanban', 'autonomous-learning', 'status-monitor', 'autonomous-issue-tracker', 'internet-detection', 'maker-checker-security', 'mcp-auto-discovery', 'ultimate-router']
   });
 });
 
@@ -600,6 +643,135 @@ app.post('/api/tickets/:ticketId/close', async (req, res) => {
     res.json(ticket);
   } catch (error) {
     res.status(404).json({ error: error.message });
+  }
+});
+
+// ============================================================
+// SECURITY - MAKER-CHECKER ENDPOINTS
+// ============================================================
+
+// Request admin window (DevOps MAKER step 1)
+app.post('/api/security/admin-window/request', async (req, res) => {
+  const { requestedBy, purpose, duration } = req.body;
+  if (!requestedBy || !purpose) {
+    return res.status(400).json({ error: 'Missing required fields', required: { requestedBy: 'string', purpose: 'string' } });
+  }
+  try {
+    const window = await makerChecker.requestAdminWindow(requestedBy, purpose, duration || 15);
+    res.json(window);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Approve/deny admin window (InfoSec CHECKER step 2)
+app.post('/api/security/admin-window/:windowId/approve', async (req, res) => {
+  const { infosecApprover, decision, reason } = req.body;
+  if (!infosecApprover || !decision) {
+    return res.status(400).json({ error: 'Missing required fields', required: { infosecApprover: 'string', decision: 'APPROVED|DENIED' } });
+  }
+  try {
+    const window = await makerChecker.approveAdminWindow(req.params.windowId, infosecApprover, decision, reason);
+    res.json(window);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+// Execute action with admin window (DevOps MAKER step 3)
+app.post('/api/security/action/execute', async (req, res) => {
+  const { action, executor, windowId } = req.body;
+  if (!action || !executor) {
+    return res.status(400).json({ error: 'Missing required fields', required: { action: 'object', executor: 'string' } });
+  }
+  try {
+    const result = await makerChecker.executeAction(action, executor, windowId);
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Approve/deny specific action (InfoSec real-time approval)
+app.post('/api/security/action/:approvalId/approve', async (req, res) => {
+  const { infosecApprover, decision, reason } = req.body;
+  if (!infosecApprover || !decision) {
+    return res.status(400).json({ error: 'Missing required fields', required: { infosecApprover: 'string', decision: 'APPROVED|DENIED' } });
+  }
+  try {
+    const result = await makerChecker.approveAction(req.params.approvalId, infosecApprover, decision, reason);
+    res.json(result);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+// Get pending admin windows
+app.get('/api/security/admin-windows', (req, res) => {
+  res.json({
+    windows: makerChecker.activeWindows,
+    pending: makerChecker.activeWindows.filter(w => w.status === 'PENDING_INFOSEC_APPROVAL'),
+    active: makerChecker.activeWindows.filter(w => w.status === 'ACTIVE')
+  });
+});
+
+// Get pending actions awaiting InfoSec approval
+app.get('/api/security/pending-actions', (req, res) => {
+  res.json(makerChecker.pendingActions);
+});
+
+// ============================================================
+// MCP AUTO-DISCOVERY ENDPOINTS
+// ============================================================
+
+// Trigger MCP discovery
+app.post('/api/mcp/discover', async (req, res) => {
+  const { category } = req.body;
+  try {
+    const discoveries = await mcpAutoDiscovery.discoverMCPs(category || null);
+    res.json({ discoveries, count: discoveries.length });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Get approved MCPs
+app.get('/api/mcp/approved', (req, res) => {
+  res.json(mcpAutoDiscovery.approvedMCPs);
+});
+
+// Get pending MCPs awaiting approval
+app.get('/api/mcp/pending', (req, res) => {
+  res.json(mcpAutoDiscovery.pendingMCPs);
+});
+
+// Approve an MCP
+app.post('/api/mcp/:mcpName/approve', async (req, res) => {
+  const { approvedBy } = req.body;
+  try {
+    const approved = await mcpAutoDiscovery.approveMCP(req.params.mcpName, approvedBy || 'DEVOPS');
+    res.json(approved);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+// ============================================================
+// ULTIMATE ROUTER ENDPOINT
+// ============================================================
+
+// Get routing decision for a message
+app.post('/api/router/decision', async (req, res) => {
+  const { message, context } = req.body;
+  if (!message) {
+    return res.status(400).json({ error: 'Missing message' });
+  }
+  try {
+    const decision = await ultimateRouter.route(message, context || {});
+    const explanation = ultimateRouter.explainDecision(message, decision);
+    res.json({ decision, explanation, stats: ultimateRouter.getStats() });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 });
 
