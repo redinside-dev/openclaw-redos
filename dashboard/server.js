@@ -106,10 +106,12 @@ function getTickets() {
 
 function getLearnings() {
   const content = readFileSafe(path.join(OPENCLAW_DIR, 'workspace', 'ops', 'LEARNINGS.md'));
+  // Strip code fences (template blocks) before parsing
+  const stripped = content.replace(/```[\s\S]*?```/g, '');
   const learnings = [];
-  const regex = /### (LEARNING-\S+)\n([\s\S]*?)(?=\n### LEARNING-|\n## |$)/g;
+  const regex = /### (LEARNING-\d{8}-\d{3})\n([\s\S]*?)(?=\n### LEARNING-|\n## |$)/g;
   let match;
-  while ((match = regex.exec(content)) !== null) {
+  while ((match = regex.exec(stripped)) !== null) {
     const id = match[1];
     const body = match[2];
     const get = (key) => {
@@ -167,6 +169,118 @@ function getVectorMemoryCount() {
     const content = fs.readFileSync(path.join(OPENCLAW_DIR, 'data', 'memory', 'vector-memory.jsonl'), 'utf-8');
     return content.trim().split('\n').filter(Boolean).length;
   } catch { return 0; }
+}
+
+function getSkillDetails() {
+  const skillsDir = path.join(OPENCLAW_DIR, 'workspace', 'skills');
+  const config = readJsonSafe(path.join(OPENCLAW_DIR, 'openclaw.json'));
+  const entries = config?.skills?.entries || {};
+  const skills = [];
+  try {
+    const dirs = fs.readdirSync(skillsDir, { withFileTypes: true });
+    for (const d of dirs) {
+      if (!d.isDirectory() || d.name.startsWith('_')) continue;
+      const skillMd = readFileSafe(path.join(skillsDir, d.name, 'SKILL.md'));
+      const firstLine = skillMd.split('\n').find(l => l.startsWith('#'))?.replace(/^#+\s*/, '') || d.name;
+      const purpose = skillMd.match(/## Purpose\n([\s\S]*?)(?=\n##|$)/)?.[1]?.trim() || '';
+      skills.push({
+        name: d.name,
+        title: firstLine,
+        enabled: entries[d.name]?.enabled ?? false,
+        purpose: purpose.substring(0, 200),
+        hasSkillMd: skillMd.length > 0,
+      });
+    }
+  } catch {}
+  return skills;
+}
+
+function getCostDetails() {
+  const state = getCostState();
+  const config = readJsonSafe(path.join(OPENCLAW_DIR, 'openclaw.json'));
+  // Model cost rates
+  const modelCosts = {
+    'openai-codex/gpt-5.2': { type: 'subscription', monthlyCost: 200, inputPer1k: 0, outputPer1k: 0 },
+    'claude-code/sonnet-4.5': { type: 'subscription', monthlyCost: 100, inputPer1k: 0, outputPer1k: 0 },
+    'perplexity/sonar': { type: 'subscription', monthlyCost: 20, inputPer1k: 0, outputPer1k: 0 },
+    'perplexity/sonar-pro': { type: 'subscription', monthlyCost: 20, inputPer1k: 0, outputPer1k: 0 },
+    'perplexity/sonar-reasoning': { type: 'subscription', monthlyCost: 20, inputPer1k: 0, outputPer1k: 0 },
+    'ollama/qwen2.5-coder:7b': { type: 'free', monthlyCost: 0, inputPer1k: 0, outputPer1k: 0 },
+    'ollama/llama3.1:8b': { type: 'free', monthlyCost: 0, inputPer1k: 0, outputPer1k: 0 },
+    'zai/glm-4.7': { type: 'payg', monthlyCost: 0, inputPer1k: 0.0008, outputPer1k: 0.0012 },
+    'moonshot/kimi-k2.5': { type: 'payg', monthlyCost: 0, inputPer1k: 0.0015, outputPer1k: 0.0025 },
+  };
+  const subscriptionTotal = Object.values(modelCosts).reduce((s, m) => s + m.monthlyCost, 0);
+  const todayPayg = state?.today?.total || 0;
+  const todayRequests = state?.today?.requests || 0;
+  // Savings: if all requests went through payg at avg $0.003/req
+  const estimatedWithoutOptimization = todayRequests * 0.003;
+  const savings = Math.max(0, estimatedWithoutOptimization - todayPayg);
+  return {
+    state,
+    modelCosts,
+    subscriptionMonthly: subscriptionTotal,
+    todayPayg,
+    todayRequests,
+    estimatedSavings: savings,
+    dailyBudget: 5.00,
+  };
+}
+
+function getRoutingConfig() {
+  const skillMd = readFileSafe(path.join(OPENCLAW_DIR, 'workspace', 'skills', 'smart-router', 'SKILL.md'));
+  const config = readJsonSafe(path.join(OPENCLAW_DIR, 'openclaw.json'));
+  const agents = config?.agents?.list || [];
+  const defaults = config?.agents?.defaults || {};
+  const routing = agents.map(a => ({
+    id: a.id,
+    name: a.identity?.name || a.id,
+    primary: a.model?.primary || defaults.model?.primary || 'unknown',
+    fallbacks: a.model?.fallbacks || defaults.model?.fallbacks || [],
+  }));
+  return { routing, skillContent: skillMd };
+}
+
+function getCachingConfig() {
+  const config = readJsonSafe(path.join(OPENCLAW_DIR, 'openclaw.json'));
+  const defaults = config?.agents?.defaults || {};
+  return {
+    contextPruning: defaults.contextPruning || {},
+    compaction: defaults.compaction || {},
+    models: Object.entries(defaults.models || {}).map(([id, cfg]) => ({
+      id,
+      cacheRead: cfg.cost?.cacheRead ?? null,
+      cacheWrite: cfg.cost?.cacheWrite ?? null,
+      params: cfg.params || {},
+    })),
+  };
+}
+
+function getPromptEngineering() {
+  const hatakeMd = readFileSafe(path.join(OPENCLAW_DIR, 'workspace', 'skills', 'hatake-parser', 'SKILL.md'));
+  const promptEngMd = readFileSafe(path.join(OPENCLAW_DIR, 'workspace', 'skills', 'prompt-engineering', 'SKILL.md'));
+  return { hatake: hatakeMd, promptEng: promptEngMd };
+}
+
+function getGatewayLogTail(n = 50) {
+  try {
+    const logDir = '/tmp/openclaw';
+    const today = new Date().toISOString().split('T')[0];
+    const logFile = path.join(logDir, `openclaw-${today}.log`);
+    const content = fs.readFileSync(logFile, 'utf-8');
+    const lines = content.split('\n').filter(Boolean).slice(-n);
+    return lines.map(l => {
+      try {
+        const j = JSON.parse(l);
+        return {
+          time: j.time || j._meta?.date,
+          level: j._meta?.logLevelName || 'INFO',
+          msg: j['1'] || j['0'] || '',
+          subsystem: typeof j['0'] === 'string' && j['0'].includes('subsystem') ? j['0'] : '',
+        };
+      } catch { return { time: '', level: 'RAW', msg: l.substring(0, 200) }; }
+    });
+  } catch { return []; }
 }
 
 function getSystemSummary() {
@@ -245,6 +359,36 @@ const server = http.createServer((req, res) => {
   if (url.pathname === '/api/tickets-log') {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify(getRecentTicketsLog()));
+    return;
+  }
+  if (url.pathname === '/api/cost-details') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify(getCostDetails()));
+    return;
+  }
+  if (url.pathname === '/api/routing') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify(getRoutingConfig()));
+    return;
+  }
+  if (url.pathname === '/api/caching') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify(getCachingConfig()));
+    return;
+  }
+  if (url.pathname === '/api/prompt-engineering') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify(getPromptEngineering()));
+    return;
+  }
+  if (url.pathname === '/api/skill-details') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify(getSkillDetails()));
+    return;
+  }
+  if (url.pathname === '/api/gateway-logs') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify(getGatewayLogTail(50)));
     return;
   }
 
