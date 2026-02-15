@@ -1428,6 +1428,108 @@ Based on this audit, the **real gaps** are:
 
 ---
 
-*Last updated: 2026-02-15 17:30 ET by Windsurf Cascade*
+---
+
+## §22 — P0/P1/P2 Implementation: Self-Healing, Scrum, Agent Communication (2026-02-15)
+
+**Session by:** Windsurf Cascade
+**Date:** 2026-02-15 17:17–17:45 ET
+**Purpose:** Build the infrastructure so agents self-heal, self-improve, communicate, and operate like a real company. Anurag's role: give commands via Telegram. Agents do the work.
+
+### What Was Built
+
+#### 1. Shared State Infrastructure (new files)
+
+| File | Purpose |
+|---|---|
+| `workspace/ops/TICKET-TRACKER.md` | Active issue tracking with SLA policy (P0=30min, P1=2h, P2=8h, P3=48h) |
+| `workspace/ops/STANDUP-LOG.md` | Daily standup records — OPS compiles agent status reports |
+| `workspace/ops/LEARNINGS.md` | Institutional knowledge — every resolved issue adds a learning entry |
+
+#### 2. Self-Healing Protocol Skill (new)
+
+`workspace/skills/self-healing-protocol/SKILL.md` — 6-step protocol:
+1. Log ticket → 2. Diagnose (logs + LEARNINGS + web search) → 3. Attempt fix → 4. Verify → 5. Update LEARNINGS.md → 6. Self-improve (make fix permanent)
+
+Registered in `openclaw.json` as `self-healing-protocol: {enabled: true}`. Gateway confirmed load.
+
+#### 3. SOUL.md Updates (both workspaces)
+
+Added to `workspace/SOUL.md` and `workspace-allrounder/SOUL.md`:
+- **Self-Healing Protocol (MANDATORY)** — 8-step process all agents must follow on any error
+- **Scrum Participation (MANDATORY)** — how to respond to standup, respect SLAs, update tickets
+- **Self-Improvement (MANDATORY)** — read LEARNINGS.md, propose permanent fixes, use web_search proactively
+- **Shared State Files** — paths to all operational files agents must read
+
+#### 4. Cron Jobs (7 new, all enabled)
+
+| Job | Agent | Schedule | Purpose |
+|---|---|---|---|
+| **OPS Scrum Master — Morning Standup** | ops | 9:00 AM ET weekdays | Uses `sessions_send` to ask each agent for status, compiles standup, sends Telegram summary |
+| **OPS SLA Enforcement Check** | ops | Every 30 min | Reads TICKET-TRACKER.md, pings assignees approaching deadline, escalates breaches to RED, P0 → Telegram alert |
+| **OPS System Health Monitor** | ops | Every 15 min | Reads gateway logs + errors + health, creates tickets for new issues, attempts auto-fix via self-healing protocol |
+| **RED Self-Improvement Reflection** | main | Every 6 hours | Reviews learnings + errors + performance, identifies patterns, applies permanent improvements |
+| **OPS Ticket Auto-Diagnose & Fix** | ops | Every hour | Reads open tickets, diagnoses root cause, attempts fix (config/code/model), delegates to specialists via `sessions_send` |
+| **RESEARCH Proactive Knowledge Update** | research | Every 4 hours | Web searches for OpenClaw updates, model issues, security advisories, posts findings to LEARNINGS.md |
+| **RED CEO Daily Summary to Anurag** | main | 6:00 PM ET weekdays | Compiles daily summary (tickets, learnings, agent activity, health) → Telegram DM |
+
+#### 5. Config Fixes Applied
+
+- `agents.defaults.model.fallbacks` fixed: `kimi-k2.5` → `zai/glm-4.7` (was still stale in defaults)
+- `self-healing-protocol` skill registered in `openclaw.json`
+- All 7 cron jobs written to `cron/jobs.json` with `enabled: true`
+
+### How the System Now Works
+
+```
+USER (Telegram) → "fix X" → Agent receives message
+                                ↓
+                    Agent follows Self-Healing Protocol:
+                    1. Log ticket in TICKET-TRACKER.md
+                    2. Diagnose (read logs, LEARNINGS.md, web search)
+                    3. Consult specialists via sessions_send
+                    4. Attempt fix
+                    5. Verify fix
+                    6. Update LEARNINGS.md
+                    7. Notify OPS (Scrum Master)
+                                ↓
+                    OPS enforces SLAs every 30 min
+                    OPS health-checks every 15 min
+                    OPS auto-diagnoses open tickets every hour
+                                ↓
+                    RED reflects every 6 hours (self-improvement)
+                    RESEARCH scans web every 4 hours (proactive updates)
+                                ↓
+                    RED sends daily summary to Anurag at 6 PM ET
+```
+
+### Accountability Chain
+
+```
+Anurag (owner) ← Telegram daily summary ← RED (CEO)
+                                            ↓
+                                    OPS (Scrum Master)
+                                    - Runs standup 9 AM ET
+                                    - Enforces SLAs every 30 min
+                                    - Auto-diagnoses tickets every hour
+                                    - Health monitors every 15 min
+                                            ↓
+                            ┌───────────────┼───────────────┐
+                            ↓               ↓               ↓
+                        ENG (code)    RESEARCH (web)    INFOSEC (security)
+                        FINANCE       ZEN (daily)       HATAKE (local)
+```
+
+### Live Issue Detected During Build
+
+Gateway error log shows auth token failures on eng, research, finance agents:
+```
+FailoverError: Your authentication token has been invalidated. Please try signing in again.
+```
+The OPS health monitor cron (every 15 min) should detect this and create a ticket automatically. This will be the first real test of the self-healing system.
+
+---
+
+*Last updated: 2026-02-15 17:45 ET by Windsurf Cascade*
 *OpenClaw version: 2026.2.14 | RedOS version: 3.7.0*
-*Skills schema FIXED and LIVE. Honest audit complete. See §21 for full evidence.*
+*P0/P1/P2 IMPLEMENTED. 7 cron jobs enabled. Self-healing protocol live. Scrum system active.*

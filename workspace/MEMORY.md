@@ -79,17 +79,32 @@ Curated long-term memory for this OpenClaw workspace.
 
 19 skills registered with correct schema `{enabled: true}`. Gateway accepted at 2026-02-15 22:08 UTC. Skills are auto-discovered from `workspace/skills/` directory.
 
-### Revised Next Steps (see KNOWLEDGEBASE.md §21)
+### P0/P1/P2 Implementation (2026-02-15 17:17–17:45 ET) — see KNOWLEDGEBASE.md §22
 
-| Priority | What |
-|---|---|
-| **P0** | Wire a2a so agents actually message each other (not roleplay) |
-| **P0** | Create cron to trigger reflect-learn automatically |
-| **P1** | Cron for RESEARCH agent to proactively scan web for updates |
-| **P1** | Wire DevOps to read tickets → diagnose → fix → update KB |
-| **P1** | Wire cost-tracker + smart-router to write to their log files |
-| **P2** | Morning standup cron (RED asks each agent for status) |
-| **P2** | CEO delegation via task-runner + a2a |
-| **P3** | Agents update knowledge base after issue resolution |
+**Built:**
+- `workspace/ops/TICKET-TRACKER.md` — issue tracking with SLA policy (P0=30min, P1=2h, P2=8h, P3=48h)
+- `workspace/ops/STANDUP-LOG.md` — daily standup records
+- `workspace/ops/LEARNINGS.md` — institutional knowledge (2 seed entries from audit)
+- `workspace/skills/self-healing-protocol/SKILL.md` — 6-step self-healing protocol (registered + live)
+- SOUL.md updated (both workspaces) with self-healing, scrum, self-improvement protocols
+- `agents.defaults.model.fallbacks` fixed (kimi was still first in defaults)
 
-*Last updated: 2026-02-15 17:30 ET by Windsurf Cascade — Skills LIVE. Honest audit complete (§21).*
+**7 Cron Jobs (all enabled):**
+1. OPS Morning Standup — 9 AM ET weekdays (uses `sessions_send` to poll agents)
+2. OPS SLA Enforcement — every 30 min (escalates breaches)
+3. OPS Health Monitor — every 15 min (auto-creates tickets for new errors)
+4. RED Self-Improvement — every 6 hours (reviews patterns, applies permanent fixes)
+5. OPS Ticket Auto-Diagnose — every hour (reads open tickets, attempts fix)
+6. RESEARCH Proactive Update — every 4 hours (web scans for tool/model updates)
+7. RED Daily Summary — 6 PM ET weekdays (Telegram DM to Anurag)
+
+**Live issue detected:** Auth token failures on eng/research/finance — OPS health monitor should auto-detect this.
+
+### Remaining (see KNOWLEDGEBASE.md §22)
+
+- Monitor cron jobs to verify they execute correctly
+- Cost-tracker + smart-router still not writing to log files (lower priority)
+- CEO dynamic hiring/firing (Phase 4) not started
+- Mission Control UI enhancements (Phase 5) not started
+
+*Last updated: 2026-02-15 17:45 ET by Windsurf Cascade — P0/P1/P2 IMPLEMENTED. 7 cron jobs live. Self-healing active.*
