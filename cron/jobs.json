@@ -773,7 +773,7 @@
       "name": "OPS SLA Enforcement Check",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771198095366,
+      "updatedAtMs": 1771199502110,
       "schedule": {
         "kind": "every",
         "everyMs": 1800000,
@@ -792,10 +792,10 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771199495024,
-        "lastRunAtMs": 1771198039152,
+        "nextRunAtMs": 1771201295024,
+        "lastRunAtMs": 1771199495049,
         "lastStatus": "ok",
-        "lastDurationMs": 56214,
+        "lastDurationMs": 7061,
         "consecutiveErrors": 0
       }
     },
@@ -805,7 +805,7 @@
       "name": "OPS System Health Monitor",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771198203785,
+      "updatedAtMs": 1771199553763,
       "schedule": {
         "kind": "every",
         "everyMs": 900000,
@@ -825,10 +825,10 @@
       },
       "state": {
         "lastStatus": "ok",
-        "lastRunAtMs": 1771198095367,
-        "lastDurationMs": 108418,
+        "lastRunAtMs": 1771199502110,
+        "lastDurationMs": 51653,
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1771199495024
+        "nextRunAtMs": 1771200395024
       }
     },
     {

@@ -69,3 +69,13 @@ repeating mistakes and to build institutional knowledge.
 - **Details:** `zai/glm-4.7-flashx` was in OPS and HATAKE fallback chains but doesn't exist in the model registry. This caused immediate "Unknown model" errors when the primary model failed over. The correct model is `zai/glm-4.7`.
 - **Prevention:** Before adding any model to openclaw.json, verify it exists by checking the models.providers section or running `openclaw models list`. Never guess model IDs.
 - **Applied To:** openclaw.json — removed all instances of zai/glm-4.7-flashx
+
+### LEARNING-20260215-006
+- **Date:** 2026-02-15T23:51:00Z
+- **Source Ticket:** TICKET-20260215-003
+- **Agent:** OPS
+- **Category:** infra
+- **Summary:** Authentication token invalidation can cascade into session key errors
+- **Details:** After a series of LLM timeout fixes, new errors appeared at 23:30-23:35Z: "Your authentication token has been invalidated" followed by "Malformed agent session key; refusing workspace resolution." This suggests authentication reset corrupted session state, causing cascading failures in nested and session:agent:* lanes.
+- **Prevention:** When resolving authentication-related issues, restart gateway to clear stale session state. Monitor session:agent:* and nested lanes for malformed key errors after config changes.
+- **Applied To:** TICKET-20260215-003 opened for investigation
