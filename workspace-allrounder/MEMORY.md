@@ -12,7 +12,7 @@
 
 ## System / routing baseline (ZEN)
 - Primary model: openai-codex/gpt-5.2
-- Fallbacks: zai/glm-4.7 → moonshot/kimi-k2.5
+- Fallbacks: zai/glm-4.7 → zai/glm-4.7-flashx (Kimi INACTIVE — no subscription)
 - Codex OAuth account: io.anuragsaxena@gmail.com
 - Perplexity web search tool model id: sonar
 
