@@ -773,7 +773,192 @@ The client sent `redinside-local-token-2024` (from shell). The gateway expected 
 
 ---
 
-## 14. What Still Needs To Be Done
+## 14. Version Control & Backup Strategy
+
+### Git Repository
+
+**Remote:** `https://github.com/redinside-dev/openclaw-redos.git`
+**Branch:** `main`
+**Working dir:** `~/.openclaw/`
+
+#### What IS committed (your custom code only)
+
+```
+agents/*.js                   Your orchestration, workers, parsers
+gateway/server.js             Your custom Express/WS server
+gateway/resilient-handler.js  Your retry/fallback handler
+gateway/fast-only-router.js   Your routing
+gateway/timeout-handler.js    Your timeout logic
+smart-router/selector-v2.js   Your model scoring
+resilience/*.js               Your error handling + monitoring
+telegram/telegram-bridge.js   Your Telegram bridge
+mcp/auto-discovery.js         Your MCP discovery
+security/maker-checker.js     Your security patterns
+scripts/*.js                  Your utility scripts
+workspace/*.md, workspace/config/*.json  Shared config
+README.md, KNOWLEDGEBASE.md   Documentation
+.env.example                  Secret template (no real values)
+ai.openclaw.gateway.plist.example  Plist template (no real values)
+package.json                  Dependencies list (no secrets)
+```
+
+#### What is NEVER committed (.gitignore protects)
+
+```
+.env                           All secret env vars
+openclaw.json                  Live config (has bot tokens, API keys)
+*.plist                        launchd plist (has OPENCLAW_GATEWAY_TOKEN)
+identity/device.json           Ed25519 private key
+identity/device-auth.json      Device token
+devices/paired.json            Server-side device tokens
+credentials/                   Telegram pairing state
+exec-approvals.json            Socket token
+openclaw/                      CLI runtime state
+workspace-*/.openclaw/         Agent workspace state
+telegram/update-offset-*.json  Runtime poll counters
+completions/                   CLI auto-generated (not yours)
+memory/*.sqlite                SQLite conversation memory
+logs/                          Gateway logs
+cache/                         Model/vector cache
+*.bak, *.bak.*                 Backups
+```
+
+#### The Golden Rule: OpenClaw CLI ≠ Your Code
+
+```
+/opt/homebrew/lib/node_modules/openclaw/   ← NEVER in git
+  └── dist/                                    upgraded with: npm update -g openclaw
+      ├── gateway-cli-*.js                     DO NOT EDIT these files
+      └── ...
+
+~/.openclaw/                               ← YOUR git repo
+  ├── agents/*.js                              your custom code
+  └── gateway/server.js                        your custom code
+```
+
+#### Upgrade Workflow (CLI version bump)
+
+```bash
+# 1. Upgrade CLI
+npm update -g openclaw
+
+# 2. Get new version
+openclaw --version
+
+# 3. Update plist
+nano ~/Library/LaunchAgents/ai.openclaw.gateway.plist
+# Edit: OPENCLAW_SERVICE_VERSION → new version
+
+# 4. Restart gateway
+launchctl unload ~/Library/LaunchAgents/ai.openclaw.gateway.plist
+launchctl load ~/Library/LaunchAgents/ai.openclaw.gateway.plist
+
+# 5. Verify
+openclaw status
+
+# 6. Commit the version note to KNOWLEDGEBASE.md
+git add KNOWLEDGEBASE.md && git commit -m "docs: update OpenClaw CLI version to X.X.X"
+git push origin main
+```
+
+#### Standard Commit Workflow (for enhancements)
+
+```bash
+# Before starting work
+git status             # see current state
+git pull origin main   # get latest
+
+# After making changes
+git status             # confirm only your code is modified
+git add <specific files>     # NEVER git add . (could catch secrets)
+git commit -m "feat: description of what you built"
+git push origin main
+
+# KNOWLEDGEBASE.md must be updated with every significant change
+```
+
+### Google Drive Backup
+
+**Status:** ⚠️ NOT YET ACTIVE
+
+**Problem:** Google Drive is mounted in "Stream files" mode (`dr-x` read-only filesystem). The backup script (`backup/gdrive-backup.sh`) needs write access via `cp` to the GDrive path.
+
+**Fix (one-time setup):**
+1. Open Google Drive Desktop app
+2. Preferences → Google Drive → select **"Mirror files"** (not Stream)
+3. Wait for initial sync (~5 min)
+4. Then run: `bash ~/.openclaw/backup/gdrive-backup.sh`
+
+**What gets backed up (when active):**
+- `openclaw.json` (secrets included — only in Drive, not Git)
+- `agents/` directory
+- `workspace*/` directories
+- `smart-router/`, `cost-monitor/`, `gateway/`
+- Keeps last 30 days of backups (auto-purges older)
+
+**Backup location (once enabled):**
+```
+~/Library/CloudStorage/GoogleDrive-redinside.dev@gmail.com/
+  MyDrive/OpenClaw/backups/
+    openclaw-backup-YYYYMMDD-HHMMSS.tar.gz
+```
+
+**Primary backup = GitHub** (always up to date, always works)
+**Secondary backup = Google Drive** (includes secrets/live config, needs Mirror mode)
+
+### Security Token Inventory
+
+| Token/Secret | Where Stored | Backed Up In |
+|---|---|---|
+| Telegram bot tokens (8) | `openclaw.json` | Google Drive backup |
+| ZAI API key | `openclaw.json` + plist | Google Drive backup |
+| Perplexity API key | `openclaw.json` | Google Drive backup |
+| Gateway token | `openclaw.json` + plist + `~/.zshrc` | Google Drive backup |
+| WhatsApp number | `openclaw.json` | Google Drive backup |
+| Device Ed25519 key | `identity/device.json` | Google Drive backup |
+| Device auth token | `identity/device-auth.json` | Google Drive backup |
+| Exec approval token | `exec-approvals.json` | Google Drive backup |
+
+**Template documents** (no real values, safe in GitHub):
+- `.env.example` — documents all env var names
+- `ai.openclaw.gateway.plist.example` — documents plist structure
+
+---
+
+## 15. Standard Practices (Must Follow)
+
+### Every Session Rule
+
+> **After every significant change — code, config, fix, or architectural decision — update KNOWLEDGEBASE.md and commit it.**
+
+This ensures:
+1. Any LLM (Claude, GPT, Gemini, etc.) starting a new session has full context
+2. You can share KNOWLEDGEBASE.md with any collaborator and they're instantly oriented
+3. No knowledge is lost between sessions
+
+### What to document in KNOWLEDGEBASE.md
+
+- Any new file created → add to §9 (File Structure)
+- Any new agent → add to §5 (Agent Roster)
+- Any auth/token change → update §8 (Authentication)
+- Any bug fixed → add to §13 (Known Issues & Fixes)
+- Any pending task → add to §14 (What Needs To Be Done)
+- Version bump → update §1 (System Overview) and §14 (Upgrade Workflow)
+
+### Commit Message Format
+
+```
+feat:     New feature or new file
+fix:      Bug fix
+docs:     Documentation only (KNOWLEDGEBASE.md, README.md)
+chore:    Config/maintenance (plist, gitignore, package.json)
+refactor: Code restructuring (no behavior change)
+security: Security-related change
+```
+
+---
+
+## 16. What Still Needs To Be Done
 
 ### Pending / In Progress
 
@@ -797,7 +982,7 @@ The client sent `redinside-local-token-2024` (from shell). The gateway expected 
 
 ---
 
-## 15. Quick Reference Cheatsheet
+## 17. Quick Reference Cheatsheet
 
 ```bash
 ## GATEWAY
