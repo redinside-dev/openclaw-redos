@@ -60,12 +60,40 @@ export class StatusMonitor {
 
   /**
    * INTERCEPT: Check status before processing ANY client request
+   *
+   * SMART DEGRADATION:
+   * - Block USER requests during degradation (return status message)
+   * - ALLOW WORKER requests during degradation (workers need to fix issues)
+   * - This prevents deadlock where workers can't fix what caused degradation
    */
-  async interceptClientRequest(message, clientId) {
+  async interceptClientRequest(message, clientId, options = {}) {
     const status = await this.getStatus();
 
-    // If not operational, return status message IMMEDIATELY
+    // Check if this is a worker/internal request
+    const isWorkerRequest = options.isWorker ||
+                           options.purpose === 'FIX_ISSUE' ||
+                           options.source === 'AUTONOMOUS_WORKER' ||
+                           clientId?.includes('worker') ||
+                           clientId?.includes('agent');
+
+    // If not operational, check if we should intercept
     if (!status.operational || status.client_message) {
+
+      // ALLOW workers to proceed even during degradation
+      if (isWorkerRequest) {
+        console.log(`\n🔓 ALLOWING: Worker request during ${status.status}`);
+        console.log(`   Worker: ${clientId}`);
+        console.log(`   Purpose: ${options.purpose || 'autonomous work'}`);
+        console.log(`   ✅ Workers can fix issues even during degradation`);
+
+        return {
+          intercepted: false,
+          proceed: true,
+          allowedDuringDegradation: true
+        };
+      }
+
+      // BLOCK user requests during degradation
       console.log(`\n🛑 INTERCEPTED: System ${status.status}`);
       console.log(`   Client: ${clientId}`);
       console.log(`   Message: "${message.substring(0, 50)}..."`);

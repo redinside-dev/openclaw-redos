@@ -711,6 +711,11 @@ export class EdRedOrchestrator {
       .filter(s => s.result)
       .reduce((sum, s) => sum + (s.result.latency || 0), 0);
 
+    // Ensure content is never empty
+    if (!content || content.trim().length === 0) {
+      content = 'Task completed but no output generated. Please check logs for details.';
+    }
+
     return {
       content: content,
       model: {

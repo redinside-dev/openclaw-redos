@@ -19,35 +19,59 @@ const PERFORMANCE_LOG = path.join(__dirname, '../logs/performance.jsonl');
 export class SmartRouterV2 {
   constructor() {
     this.models = {
-      // Fast & Free - Local
+      // CLOUD - FASTEST (1-2 seconds) - PRIMARY MODEL
+      'zai/glm-4.7': {
+        cost: 0.0001,         // Very cheap
+        speed: 'instant',     // 1-2s response
+        quality: 'excellent',
+        capabilities: ['all', 'chat', 'code', 'complex', 'analysis', 'reasoning'],
+        maxTokens: 128000,
+        reliability: 0.99,
+        apiKey: 'ZAI_API_KEY'
+      },
+
+      // CLOUD - Internet Access (2-3 seconds)
+      'perplexity/sonar-pro': {
+        cost: 0.0005,
+        speed: 'instant',     // 2-3s
+        quality: 'exceptional',
+        capabilities: ['all', 'real-time', 'news', 'search', 'current-events', 'web'],
+        maxTokens: 100000,
+        reliability: 0.99,
+        internet: true,
+        apiKey: 'PERPLEXITY_API_KEY'
+      },
+
+      // LOCAL FALLBACK - Only if cloud APIs fail (8-30 seconds)
       'ollama/llama3.1:8b': {
         cost: 0,
-        speed: 'fast',        // 2-3s
+        speed: 'medium',      // 8-30s (slower than cloud)
         quality: 'good',
-        capabilities: ['chat', 'simple-tasks'],
-        maxTokens: 2000,
-        reliability: 0.95
-      },
-
-      // Specialized - Local
-      'ollama/qwen2.5-coder:7b': {
-        cost: 0,
-        speed: 'slow',        // 3-4min
-        quality: 'excellent',
-        capabilities: ['code', 'technical'],
-        maxTokens: 4000,
-        reliability: 0.90
-      },
-
-      // Powerful - Local
-      'ollama/glm-4.7-flash:latest': {
-        cost: 0,
-        speed: 'very-slow',   // 5-6min
-        quality: 'excellent',
-        capabilities: ['complex', 'analysis', 'reasoning'],
+        capabilities: ['all', 'chat', 'simple-tasks', 'code', 'complex', 'analysis'],
         maxTokens: 8000,
-        reliability: 0.85
+        reliability: 0.95,
+        fallbackOnly: true    // Only use if cloud fails
       },
+
+      // DISABLED - TOO SLOW (can take hours)
+      // 'ollama/qwen2.5-coder:7b': {
+      //   cost: 0,
+      //   speed: 'slow',
+      //   quality: 'excellent',
+      //   capabilities: ['code', 'technical'],
+      //   maxTokens: 4000,
+      //   reliability: 0.90
+      // },
+
+      // DISABLED - TOO SLOW (can take hours)
+      // 'ollama/glm-4.7-flash:latest': {
+      //   cost: 0,
+      //   speed: 'medium',
+      //   quality: 'excellent',
+      //   capabilities: ['all', 'complex', 'analysis', 'reasoning', 'chat', 'code'],
+      //   maxTokens: 8000,
+      //   reliability: 0.95
+      // },
 
       // Cloud - Fast & Expensive
       'anthropic/claude-sonnet-4.5': {
@@ -183,6 +207,11 @@ export class SmartRouterV2 {
     for (const [modelId, config] of Object.entries(this.models)) {
       const [provider, model] = modelId.split('/');
 
+      // ⭐ SKIP ANTHROPIC - Use free local models only (GLM, Qwen, Llama)
+      if (provider === 'anthropic') {
+        continue; // Skip all Anthropic models
+      }
+
       // ⭐ PRIORITY: Coding tasks override internet requirement
       // If it's a coding task, use coding models even if internet mentioned
       if (requirements.taskType === 'code') {
@@ -241,36 +270,34 @@ export class SmartRouterV2 {
 
       const config = candidate.config;
 
-      // Speed scoring
-      if (requirements.needsSpeed) {
-        if (config.speed === 'instant') {
-          score += 50;
-          reason = 'urgent task needs fast response';
-        } else if (config.speed === 'fast') {
-          score += 30;
-          reason = 'fast local model';
-        }
-      } else if (requirements.canBeSlow) {
-        // Don't penalize slow models for background tasks
-        score += 20;
-        reason = 'background task can use powerful model';
+      // SPEED IS CRITICAL - 1 minute SLA requirement
+      // ALWAYS prefer instant models (cloud APIs: 1-3s) over slow models
+      if (config.speed === 'instant') {
+        score += 200; // HUGE bonus for instant (cloud APIs)
+        reason = 'instant response meets 1min SLA';
+      } else if (config.speed === 'fast') {
+        score += 50; // OK for fast
+        reason = 'fast enough for SLA';
+      } else if (config.speed === 'medium') {
+        score -= 50; // Penalize medium speed
+        reason = 'slower than ideal';
+      } else {
+        score -= 200; // HUGE penalty for slow models
+        reason = 'too slow for SLA';
       }
 
-      // Cost scoring (HEAVILY prefer free unless urgent)
+      // Fallback models only used as last resort
+      if (config.fallbackOnly) {
+        score -= 500; // Massive penalty - only use if nothing else works
+        reason = 'fallback only - use cloud APIs first';
+      }
+
+      // Cost scoring (cheap cloud APIs preferred over free slow local)
       if (config.cost === 0) {
-        score += 100; // Massive bonus for free models
-        reason = reason ? `${reason}, free` : 'free local model';
+        score += 30; // Small bonus for free
       } else if (config.cost < 0.001) {
-        score += 10; // Small bonus for cheap
-        // Only use paid if explicitly urgent
-        if (!requirements.urgent) {
-          score -= 50; // Penalty for paid models when not urgent
-        }
-      } else {
-        // Expensive models
-        if (!requirements.urgent) {
-          score -= 100; // Big penalty if not urgent
-        }
+        score += 50; // Prefer cheap cloud APIs (fast + cheap)
+        reason = reason ? `${reason}, cheap cloud API` : 'cheap and fast';
       }
 
       // Quality scoring

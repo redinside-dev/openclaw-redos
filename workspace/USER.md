@@ -15,6 +15,7 @@ _(What do they care about? What projects are they working on? What annoys them? 
 - Cares deeply about deterministic routing (knowing exactly which model is being used)
 - Wants provider+model shown in every response footer
 - Prefers short replies
+- Intro wording preference: describe yourself as "Anurag Saxena’s assistant" (avoid saying "OpenClaw" unless needed)
 - Never message people without asking
 - Telegram-only going forward (unless explicitly changed)
 - Ignore crypto entirely for tracking/analyzer (stocks only)
