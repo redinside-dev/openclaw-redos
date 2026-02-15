@@ -1064,5 +1064,50 @@ sleep 3 && openclaw status
 
 ---
 
+## §18 — Pre-commit Cleanup (2026-02-15)
+
+### What Was Cleaned
+
+**Deleted — Pure stub with no implementation:**
+- `resilience/status-bot.js` — 2-line file: `// - Knowledge base updated\n// TODO: Implement`. Removed entirely.
+
+**Untracked from git — Runtime/generated files that were accidentally committed:**
+- `completions/openclaw.bash`, `completions/openclaw.fish`, `completions/openclaw.ps1`, `completions/openclaw.zsh` — Auto-generated shell completions, not custom code.
+- `telegram/update-offset-default.json` — Runtime counter (Telegram polling offset). Changes every minute.
+- `update-check.json` — Auto-generated update check state. Not custom code.
+- `workspace-infosec/security/audit_log/heartbeat_20260213T091520Z.txt` — Runtime heartbeat log.
+- `workspace-infosec/security/audit_log/heartbeat_audit_2026-02-13T091858Z.md` — Runtime audit log.
+- `workspace-infosec/security/audit_log/heartbeat_audit_2026-02-13_03-41-22.md` — Runtime audit log.
+
+All of the above are now covered by `.gitignore` patterns (`completions/`, `telegram/update-offset-*.json`, `update-check.json`, `**/audit_log/`).
+
+**README.md — Major update:**
+- Fixed agent count: **7 → 8** (added hatake as an agent row)
+- Fixed port: **19000 → 18789** everywhere (30+ occurrences)
+- Updated gateway description: Custom Express → OpenClaw CLI 2026.2.14 / launchd
+- Updated agent models: reflect actual cloud (gpt-5.2) and local (qwen2.5-coder) assignment
+- Fixed scripts section: `npm start` → `openclaw gateway start`
+- Fixed troubleshooting: `curl health` → `openclaw status`, corrected log paths
+- Fixed upgrade section: correct CLI upgrade command
+- Version bump: 3.6.0 → 3.7.0
+
+### Security Audit Result
+
+All committed JS files scanned — **no hardcoded credentials found**.
+- `agents/allrounder/agent/models.json` contains ZAI API key but is protected by `**/agent/models.json` in `.gitignore`.
+- `exec-approvals.json` has socket token — protected by `exec-approvals.json` in `.gitignore`.
+- `identity/device-auth.json` and `devices/paired.json` — protected by `.gitignore`.
+
+### Legacy Code Decision
+
+`gateway/enhanced-handler.js` and `smart-router/selector.js` are legacy v1 components used only by `agents/ceo-agent.js`. They remain in place because:
+1. They are still referenced by active code (`ceo-agent.js`)
+2. Removal without testing could break CEO task delegation
+3. They contain no secrets or security issues
+
+**Action:** Leave as-is. Mark for future removal when `ceo-agent.js` is migrated to use v2 routing.
+
+---
+
 *Last updated: 2026-02-15 by Claude Code (claude-sonnet-4-5-20250929)*
-*OpenClaw version: 2026.2.14 | RedOS version: 3.6.0*
+*OpenClaw version: 2026.2.14 | RedOS version: 3.7.0*

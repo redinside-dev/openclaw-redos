@@ -4,11 +4,11 @@ Multi-agent AI orchestration system with intelligent routing, self-healing resil
 
 | | |
 |---|---|
-| **Version** | 3.6.0 |
-| **Runtime** | Node.js 22+ (ESM) |
+| **Version** | 3.7.0 |
+| **Runtime** | OpenClaw CLI 2026.2.14 + Node.js 22+ |
 | **Host** | Mac Mini (macOS, ARM64) |
-| **Models** | Ollama (local) + Anthropic (cloud fallback) |
-| **Interface** | Telegram (7 bots), REST API, WebSocket, Mission Control UI |
+| **Models** | Ollama (local) + openai-codex/gpt-5.2 (cloud) + moonshot/kimi-k2.5 (fallback) |
+| **Interface** | Telegram (8 bots), WebSocket, Mission Control UI |
 
 ---
 
@@ -20,17 +20,17 @@ Every message — whether from Telegram or the REST API — follows this path:
 
 ```
                         ┌──────────────┐
-                        │   Telegram   │  7 bots (DM / Group)
+                        │   Telegram   │  8 bots (DM / Group)
                         │   Bridge     │  telegram/telegram-bridge.js
                         └──────┬───────┘
                                │ HTTP POST /api/chat
                                v
 ┌──────────────────────────────────────────────────────────────┐
-│                  GATEWAY  (port 19000)                        │
-│                  gateway/server.js                            │
+│              OpenClaw Gateway  (port 18789)                   │
+│              OpenClaw CLI 2026.2.14 / launchd                │
 │                                                              │
-│  Express + CORS + WebSocket (/ws for Mission Control)        │
-│  Static files: dashboard/ (index.html, mission-control.html) │
+│  WebSocket gateway + agent runtime + channel providers       │
+│  Canvas UI: http://127.0.0.1:18789/__openclaw__/canvas/      │
 └──────────────────────┬───────────────────────────────────────┘
                        │
                        v
@@ -177,7 +177,7 @@ Telegram User
   └─ DM to @INFOSECRED_BOT    -->  agentId: infosec
         │
         v
-  Telegram Bridge  -->  POST http://localhost:19000/api/chat
+  Telegram Bridge  -->  OpenClaw Gateway ws://127.0.0.1:18789
         │                { agentId, message }
         v
   Gateway processes (same flow as above)
@@ -253,7 +253,7 @@ Telegram User
 
 ```bash
 # Equivalent API call:
-curl -X POST http://localhost:19000/api/chat \
+curl -X POST http://localhost:18789/api/chat \
   -H 'Content-Type: application/json' \
   -d '{"agentId":"main","message":"What is the weather like?"}'
 ```
@@ -264,7 +264,7 @@ curl -X POST http://localhost:19000/api/chat \
 **Flow:** User sends "Write a Python binary search" → HATAKE (code_generation, fast track) → qwen2.5-coder:7b → Response in 3-4 min
 
 ```bash
-curl -X POST http://localhost:19000/api/chat \
+curl -X POST http://localhost:18789/api/chat \
   -H 'Content-Type: application/json' \
   -d '{"agentId":"eng","message":"Write a Python binary search tree with AVL balancing"}'
 ```
@@ -275,7 +275,7 @@ curl -X POST http://localhost:19000/api/chat \
 **Flow:** User sends "Build a REST API with auth and database" → HATAKE (complex_development, orchestrated track) → Ed/RED creates plan → ENG designs → ENG implements → OPS validates → assembled response
 
 ```bash
-curl -X POST http://localhost:19000/api/chat \
+curl -X POST http://localhost:18789/api/chat \
   -H 'Content-Type: application/json' \
   -d '{"agentId":"eng","message":"Build a REST API with JWT authentication and PostgreSQL database"}'
 ```
@@ -287,17 +287,17 @@ curl -X POST http://localhost:19000/api/chat \
 
 ```bash
 # Create a card
-curl -X POST http://localhost:19000/api/kanban/cards \
+curl -X POST http://localhost:18789/api/kanban/cards \
   -H 'Content-Type: application/json' \
   -d '{"title":"Implement auth","description":"Add JWT auth to API","config":{"priority":"high","assignee":"eng"}}'
 
 # Move to In Progress
-curl -X POST http://localhost:19000/api/kanban/cards/CARD_ID/move \
+curl -X POST http://localhost:18789/api/kanban/cards/CARD_ID/move \
   -H 'Content-Type: application/json' \
   -d '{"column":"inProgress"}'
 
 # View board
-curl http://localhost:19000/api/kanban/board
+curl http://localhost:18789/api/kanban/board
 ```
 
 ### UC5: CEO Delegation
@@ -307,12 +307,12 @@ curl http://localhost:19000/api/kanban/board
 
 ```bash
 # Create task
-curl -X POST http://localhost:19000/api/ceo/tasks \
+curl -X POST http://localhost:18789/api/ceo/tasks \
   -H 'Content-Type: application/json' \
   -d '{"title":"Deploy v2.0","description":"Complete deployment checklist","config":{"priority":"urgent"}}'
 
 # Spawn secretary to monitor
-curl -X POST http://localhost:19000/api/ceo/secretaries \
+curl -X POST http://localhost:18789/api/ceo/secretaries \
   -H 'Content-Type: application/json' \
   -d '{"task":{"title":"Monitor deploy","description":"Track deployment","assignee":"eng"},"config":{"role":"monitor","maxRounds":10}}'
 ```
@@ -324,13 +324,13 @@ curl -X POST http://localhost:19000/api/ceo/secretaries \
 
 ```bash
 # Total cost summary
-curl http://localhost:19000/api/cost
+curl http://localhost:18789/api/cost
 
 # By model
-curl http://localhost:19000/api/cost/by-model
+curl http://localhost:18789/api/cost/by-model
 
 # By agent
-curl http://localhost:19000/api/cost/by-agent
+curl http://localhost:18789/api/cost/by-agent
 ```
 
 ### UC7: System Health & Resilience
@@ -340,19 +340,19 @@ curl http://localhost:19000/api/cost/by-agent
 
 ```bash
 # Health check
-curl http://localhost:19000/health
+curl http://localhost:18789/health
 
 # Error statistics
-curl http://localhost:19000/api/resilience/errors
+curl http://localhost:18789/api/resilience/errors
 
 # DevOps health summary
-curl http://localhost:19000/api/resilience/health
+curl http://localhost:18789/api/resilience/health
 
 # Handler performance stats
-curl http://localhost:19000/api/resilience/stats
+curl http://localhost:18789/api/resilience/stats
 
 # Open tickets (auto-created by error handler)
-curl http://localhost:19000/api/tickets/open
+curl http://localhost:18789/api/tickets/open
 ```
 
 ### UC8: Background Task Scheduling
@@ -362,12 +362,12 @@ curl http://localhost:19000/api/tickets/open
 
 ```bash
 # Schedule a task
-curl -X POST http://localhost:19000/api/scheduler/schedule \
+curl -X POST http://localhost:18789/api/scheduler/schedule \
   -H 'Content-Type: application/json' \
   -d '{"description":"Nightly report","message":"Generate daily summary","agentId":"main","priority":"normal"}'
 
 # Check queue
-curl http://localhost:19000/api/scheduler/queue
+curl http://localhost:18789/api/scheduler/queue
 ```
 
 ---
@@ -376,13 +376,14 @@ curl http://localhost:19000/api/scheduler/queue
 
 | Agent | Telegram Bot | Role | Default Model |
 |-------|-------------|------|---------------|
-| `main` | @RedinsideBot | General-purpose assistant, CEO coordinator | llama3.1:8b |
-| `allrounder` | @ZenRedBot | Balanced multi-task, research & drafts | llama3.1:8b |
-| `eng` | @ENGRED_BOT | Code generation, debugging, architecture | qwen2.5-coder:7b |
-| `research` | @RESEARCHRED_BOT | Information gathering, analysis | llama3.1:8b |
-| `finance` | @FINANCERED_BOT | Financial analysis, portfolio tracking | llama3.1:8b |
-| `ops` | @OPSRED_BOT | QA, validation, security checks | llama3.1:8b |
-| `infosec` | @INFOSECRED_BOT | Security & compliance | llama3.1:8b |
+| `main` | @RedinsideBot | General-purpose assistant (RED/CEO) | openai-codex/gpt-5.2 |
+| `allrounder` | @ZenRedBot | Balanced multi-task (ZEN/CSO) | openai-codex/gpt-5.2 |
+| `hatake` | _(local-only)_ | Intent parser, complexity scoring, brief creation | ollama/qwen2.5-coder:7b |
+| `eng` | @ENGRED_BOT | Code generation, debugging, architecture | ollama/qwen2.5-coder:7b |
+| `research` | @RESEARCHRED_BOT | Information gathering, web search, analysis | openai-codex/gpt-5.2 |
+| `finance` | @FINANCERED_BOT | Financial analysis, portfolio tracking | openai-codex/gpt-5.2 |
+| `ops` | @OPSRED_BOT | QA, validation, security checks | openai-codex/gpt-5.2 |
+| `infosec` | @INFOSECRED_BOT | Security, compliance, threat analysis | openai-codex/gpt-5.2 |
 
 ---
 
@@ -467,7 +468,7 @@ curl http://localhost:19000/api/scheduler/queue
 
 | Path | Description |
 |------|-------------|
-| `ws://localhost:19000/ws` | Mission Control real-time feed (metrics every 5s) |
+| `ws://127.0.0.1:18789` | OpenClaw Gateway WebSocket (agent comms, real-time feed) |
 
 ---
 
@@ -477,7 +478,7 @@ curl http://localhost:19000/api/scheduler/queue
 openclaw-redos/
 │
 ├── gateway/
-│   ├── server.js                  # Express + WebSocket server (port 19000)
+│   ├── server.js                  # Express + WebSocket server (port 18789)
 │   ├── track-router.js            # Routes to fast or orchestrated track
 │   ├── resilient-handler.js       # Fast track: retry, fallback, model calls
 │   └── enhanced-handler.js        # Legacy handler (v1, uses CLI)
@@ -494,7 +495,7 @@ openclaw-redos/
 │   └── selector-v2.js             # Model scoring, budget gate, perf tracking
 │
 ├── telegram/
-│   ├── telegram-bridge.js         # 7-bot Telegram integration
+│   ├── telegram-bridge.js         # 8-bot Telegram integration
 │   └── update-offset-*.json       # Per-bot polling offsets
 │
 ├── resilience/
@@ -577,8 +578,8 @@ openclaw-redos/
 
 | Command | Description |
 |---------|-------------|
-| `npm start` | Start gateway on port 19000 |
-| `npm run telegram` | Start Telegram bridge (7 bots) |
+| `openclaw gateway start` | Start OpenClaw gateway (launchd managed, port 18789) |
+| `npm run telegram` | Start Telegram bridge (8 bots) |
 | `npm run backup` | Backup to Google Drive |
 | `npm run restore` | Restore from Google Drive |
 | `bash start-resilient.sh` | Start gateway + bridge together (background) |
@@ -597,8 +598,9 @@ Two independent systems to keep up-to-date:
 ### 1. Official OpenClaw CLI (safe, no impact on RedOS)
 
 ```bash
-npm run upgrade:cli
-# or directly: npm update -g openclaw
+npm install -g openclaw@latest
+# then restart launchd service:
+launchctl stop ai.openclaw.gateway && launchctl start ai.openclaw.gateway
 ```
 
 Only updates `/opt/homebrew/lib/node_modules/openclaw/`. Your RedOS code, configs, secrets, and running services are **not touched**.
@@ -633,7 +635,7 @@ Runs backup → CLI upgrade → RedOS upgrade in sequence.
 
 All secrets are stored in `.env` (never committed). See `.env.example` for the full list:
 
-- **Telegram bot tokens** (7 bots)
+- **Telegram bot tokens** (8 bots)
 - **API keys** (ZAI, Perplexity, GitHub PAT)
 - **Gateway auth token**
 - **Ollama host URL**
@@ -642,7 +644,7 @@ All secrets are stored in `.env` (never committed). See `.env.example` for the f
 Runtime configuration lives in `openclaw.json` (also gitignored). It defines:
 - Gateway settings (port, auth)
 - Ollama model configuration
-- Agent definitions (7 agents with system prompts)
+- Agent definitions (8 agents with system prompts)
 - Third-party service configs
 - Budget and feature flags
 
@@ -692,32 +694,26 @@ Tracks every request: agent, model, tokens, cost, latency. Persists state to `co
 ## Troubleshooting
 
 ```bash
-# Health check
-curl http://localhost:19000/health
+# Check OpenClaw gateway status
+openclaw status
 
 # Check port conflicts
-lsof -i :19000
+lsof -i :18789
 
-# Restart gateway
-pkill -f "node gateway/server.js" && npm start
+# Restart gateway (launchd managed)
+launchctl stop ai.openclaw.gateway && launchctl start ai.openclaw.gateway
 
 # Check Ollama is running
 curl http://localhost:11434/api/tags
 
 # View gateway logs
-tail -f /tmp/openclaw-gateway.log
+tail -f ~/.openclaw/logs/gateway.log
 
-# View telegram bridge logs
-tail -f /tmp/telegram-bridge.log
+# View gateway errors
+tail -f ~/.openclaw/logs/gateway.err.log
 
-# View error logs
-tail -f ~/.openclaw/logs/errors.jsonl
-
-# Check system status via API
-curl http://localhost:19000/api/status
-
-# Check resilience health
-curl http://localhost:19000/api/resilience/health
+# View TUI
+openclaw tui
 ```
 
 ---
