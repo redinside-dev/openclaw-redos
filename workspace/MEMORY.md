@@ -58,24 +58,38 @@ Curated long-term memory for this OpenClaw workspace.
 - Mission Control UI fixed: WebSocket was pointing to dead port 19000 → now 18789
 - All committed and pushed to `github.com/redinside-dev/openclaw-redos`
 
-### Windsurf Cascade Session (2026-02-15 16:54–17:15 ET) — Phase 1 COMPLETE
+### Windsurf Cascade Session (2026-02-15 16:54–17:30 ET)
 
-- Full audit completed: verified what Claude Code did vs 7 gaps found
+**Phase 1 — COMPLETE (with fix):**
 - §20 written to KNOWLEDGEBASE.md with full enhancement roadmap (5 phases)
 - Fixed stale `workspace-allrounder/MEMORY.md` (kimi-k2.5 → zai/glm-4.7)
-- **19 skills registered in `openclaw.json`** — `skills.entries` now populated
-- **All 8 agent fallback chains fixed** — `kimi-k2.5` removed, `zai/glm-4.7` is first fallback
-- Backup created: `openclaw.json.bak.windsurf`
+- All 8 agent fallback chains fixed — `kimi-k2.5` removed, `zai/glm-4.7` first
+- 19 skills registered in `openclaw.json` — **initially wrong schema** (`path`/`description` rejected by gateway), **fixed to `{enabled: true}` only**
+- Gateway confirmed: `[reload] config change applied` — 19 skills LIVE
 
-### Skills: NOW REGISTERED (was the #1 blocker)
+**Honest Evidence Audit (§21) — key findings:**
+- Self-healing: PARTIAL — detects + retries, but no auto-diagnose or auto-fix
+- Self-improvement: NOT WORKING — reflect-learn never ran, empty state
+- Agent-to-agent comms: NOT WORKING — a2a enabled but agents never used it
+- Vector memory: WORKING — 129 entries with embeddings, 27MB SQLite
+- Knowledge base sharing: NOT WORKING — only updated by external LLMs, not agents
+- Cost/routing logs: EMPTY — skills registered but not writing data yet
 
-19 skills registered in `openclaw.json` `skills.entries`. Only `_quarantine` excluded.
+### Skills: LIVE IN GATEWAY (schema fixed)
 
-### Next steps: Phases 2–5 (see KNOWLEDGEBASE.md §20)
+19 skills registered with correct schema `{enabled: true}`. Gateway accepted at 2026-02-15 22:08 UTC. Skills are auto-discovered from `workspace/skills/` directory.
 
-- **Phase 2:** Self-healing loop (retry-cascade wiring, DevOps auto-diagnose, daily health report)
-- **Phase 3:** Agent-to-agent scrum (morning standup cron, async messaging, CEO delegation)
-- **Phase 4:** CEO hiring/firing (dynamic agent creation/decommission)
-- **Phase 5:** Mission Control visibility (data flow, issue tracker, cost panel, model override UI)
+### Revised Next Steps (see KNOWLEDGEBASE.md §21)
 
-*Last updated: 2026-02-15 17:15 ET by Windsurf Cascade — Phase 1 COMPLETE. Skills registered. Fallbacks fixed.*
+| Priority | What |
+|---|---|
+| **P0** | Wire a2a so agents actually message each other (not roleplay) |
+| **P0** | Create cron to trigger reflect-learn automatically |
+| **P1** | Cron for RESEARCH agent to proactively scan web for updates |
+| **P1** | Wire DevOps to read tickets → diagnose → fix → update KB |
+| **P1** | Wire cost-tracker + smart-router to write to their log files |
+| **P2** | Morning standup cron (RED asks each agent for status) |
+| **P2** | CEO delegation via task-runner + a2a |
+| **P3** | Agents update knowledge base after issue resolution |
+
+*Last updated: 2026-02-15 17:30 ET by Windsurf Cascade — Skills LIVE. Honest audit complete (§21).*

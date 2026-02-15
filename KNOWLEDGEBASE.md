@@ -1281,6 +1281,153 @@ Tier 4–5 — Subscription (primary agents):
 
 ---
 
-*Last updated: 2026-02-15 17:15 ET by Windsurf Cascade*
+## §21 — Honest Evidence Audit: Self-Healing, Self-Improvement, Agent Communication (2026-02-15)
+
+**Session by:** Windsurf Cascade
+**Date:** 2026-02-15 17:05–17:30 ET
+**Purpose:** Anurag asked for **real evidence** that self-healing, self-improvement, and agent-to-agent communication are working. This is the honest, evidence-based answer.
+
+### CRITICAL FIX APPLIED DURING AUDIT
+
+The skills registration from earlier (§20 Phase 1.1) used the **wrong schema**. OpenClaw only accepts `{enabled: true}` in `skills.entries` — not `path` or `description`. The gateway rejected the config:
+
+```
+[reload] config reload skipped (invalid config): skills.entries.hatake-parser: Unrecognized keys: "path", "description"
+```
+
+**Fix applied:** Rewrote all 19 skill entries to `{enabled: true}` only. Gateway confirmed:
+
+```
+[reload] config change applied (dynamic reads: skills.entries.hatake-parser, skills.entries.smart-router, ...)
+```
+
+**19 skills are now LIVE in the OpenClaw gateway** (confirmed at 2026-02-15 22:08 UTC).
+
+---
+
+### Evidence Audit Results
+
+#### 1. Self-Healing — PARTIALLY WORKING
+
+| Component | Evidence | Verdict |
+|---|---|---|
+| **Health monitoring loop** | `logs/health.jsonl` — **3,557 entries**. Active health checks running continuously. | WORKING |
+| **Auto-ticketing on errors** | `logs/tickets.jsonl` — **70 tickets** auto-created from errors. | WORKING |
+| **Error logging** | `logs/errors.jsonl` — **71 errors** logged with full stack traces, agent context, attempt count. | WORKING |
+| **Retry on failure** | Error logs show `attempt: 3` — the resilient handler retries up to 3 times. | WORKING (legacy JS) |
+| **Auto-diagnose from tickets** | No evidence of tickets being read back and acted on automatically. | NOT IMPLEMENTED |
+| **Auto-fix after diagnosis** | No evidence of automated fix application. | NOT IMPLEMENTED |
+| **Daily health report to CEO** | No cron job for health summary → RED via Telegram. | NOT IMPLEMENTED |
+
+**Honest verdict:** The system **detects** problems (health checks, error logging, auto-ticketing) and **retries** (3 attempts). But it does NOT **diagnose root causes** or **auto-fix** issues. When all retries fail, it just logs the error. No agent reads the tickets to attempt a fix.
+
+#### 2. Self-Improvement / Reflect-Learn — NOT WORKING
+
+| Component | Evidence | Verdict |
+|---|---|---|
+| **reflect-learn skill** | SKILL.md exists (261 lines, well-designed). Now registered in gateway. | SPEC EXISTS |
+| **~/.reflect/ state directory** | Does NOT exist. Never created. | NEVER RAN |
+| **Learning state** | `learning/learning-state.json` has `"learnings": []` — empty array. | NO LEARNINGS CAPTURED |
+| **Auto-execution mechanism** | No cron job, no heartbeat trigger, no automatic invocation. | NOT WIRED |
+| **Agent definition updates** | No evidence of any agent definition being updated from corrections. | NEVER HAPPENED |
+
+**Honest verdict:** The reflect-learn skill is a **well-designed spec** but has **never executed**. There is no mechanism to trigger it automatically. The learning state is empty. No self-improvement has occurred.
+
+#### 3. Agents Accessing Web/Internet to Update Skills — NOT HAPPENING
+
+| Component | Evidence | Verdict |
+|---|---|---|
+| **Perplexity web search** | Agents CAN use Perplexity for web search (confirmed in vector memory — news queries worked). | TOOL AVAILABLE |
+| **Exa MCP** | Configured in `mcporter.json`. Available as fallback web search. | TOOL AVAILABLE |
+| **Autonomous web research** | No evidence of agents proactively searching the web to update their own skills. | NOT IMPLEMENTED |
+| **Skill auto-update** | Skills are static SKILL.md files. No mechanism to modify them from web research. | NOT IMPLEMENTED |
+
+**Honest verdict:** Agents **can** search the web when asked by a user. They do NOT **proactively** search the web to update their skills or knowledge. Skills are static files.
+
+#### 4. Agent-to-Agent Communication — PARTIALLY WORKING
+
+| Component | Evidence | Verdict |
+|---|---|---|
+| **OpenClaw a2a config** | `tools.agentToAgent.enabled: true` in `openclaw.json`. | ENABLED |
+| **Team workspace code** | `collaboration/team-workspace.js` exists (10KB) with message posting, reply, broadcast, threading. | CODE EXISTS |
+| **Actual a2a messages** | No evidence of agents sending messages to each other in logs or state files. | NO EVIDENCE |
+| **User tried it** | Learning state shows user asked agents to "discuss Java architecture with each other" — agent faked it by roleplaying 3 personas instead of actually messaging other agents. | FAILED |
+| **Scrum/standup** | No cron job for morning standup. No automated coordination. | NOT IMPLEMENTED |
+
+**Honest verdict:** The a2a tool is **enabled** in config and the team workspace code **exists**, but agents have **never actually communicated with each other**. When asked to discuss, the agent simulated a conversation instead of using a2a messaging.
+
+#### 5. Vector Memory / Local Memory — WORKING
+
+| Component | Evidence | Verdict |
+|---|---|---|
+| **Vector memory** | `data/memory/vector-memory.jsonl` — **129 entries** with embeddings, timestamps, agent IDs. | WORKING |
+| **SQLite conversation memory** | `memory/main.sqlite` (14MB), `memory/allrounder.sqlite` (13MB), `memory/eng.sqlite` (100KB). | WORKING |
+| **Memory content** | Vector memory contains real conversations: news queries, coding tasks, with cost/latency/model metadata. | REAL DATA |
+| **Memory search** | `memory/vector-memory.js` exists for semantic search. | CODE EXISTS |
+| **Context persistence** | Agents retain conversation history across sessions via SQLite. | WORKING |
+
+**Honest verdict:** Memory is the **strongest component**. Vector memory has 129 real entries with embeddings. SQLite stores full conversation history. Agents DO have persistent memory.
+
+#### 6. Shared Knowledge Base Updated After Issue Resolution — NOT HAPPENING
+
+| Component | Evidence | Verdict |
+|---|---|---|
+| **KNOWLEDGEBASE.md** | Updated by LLMs (Claude Code, Windsurf) — not by agents themselves. | MANUAL ONLY |
+| **workspace/MEMORY.md** | Updated by LLMs — not by agents. | MANUAL ONLY |
+| **Kanban board** | `kanban/board-state.json` has 1 test card ("Test API") in backlog. Never used for real work. | UNUSED |
+| **Cost events log** | `workspace/logs/cost-events.jsonl` — **0 bytes**. Empty. | NEVER WRITTEN |
+| **Routing decisions log** | `workspace/logs/routing-decisions.jsonl` — **0 bytes**. Empty. | NEVER WRITTEN |
+| **Config audit** | `logs/config-audit.jsonl` — 3 entries. Minimal. | MINIMAL |
+
+**Honest verdict:** The knowledge base is updated **only by external LLMs** (Claude Code, Windsurf, Cursor) during development sessions. Agents themselves **never update** the knowledge base, MEMORY.md, or any shared state after resolving issues.
+
+---
+
+### Summary: What's Real vs What's Spec
+
+```
+WORKING (real evidence):
+  ✅ Health monitoring (3,557 health checks)
+  ✅ Error detection + auto-ticketing (70 tickets, 71 errors)
+  ✅ Retry on failure (3 attempts per request)
+  ✅ Vector memory (129 entries with embeddings)
+  ✅ SQLite conversation memory (27MB across 3 agents)
+  ✅ 19 skills now LIVE in gateway (just fixed)
+  ✅ Smart router model selection (performance.jsonl has real routing decisions)
+  ✅ Cron jobs exist (Gmail digest, though some errored)
+  ✅ Agent-to-agent tool enabled in config
+
+NOT WORKING (spec only, no evidence of execution):
+  ❌ Self-improvement / reflect-learn (never ran, empty state)
+  ❌ Agents proactively searching web to update skills
+  ❌ Agents actually communicating with each other
+  ❌ CEO delegation to specialist agents
+  ❌ Morning standup / scrum
+  ❌ Auto-diagnose from tickets
+  ❌ Auto-fix after diagnosis
+  ❌ Knowledge base updated by agents after issue resolution
+  ❌ Cost event logging (empty file)
+  ❌ Routing decision logging (empty file)
+  ❌ Kanban used for real work (1 test card only)
+```
+
+### What Needs To Be Built (Revised Priority)
+
+Based on this audit, the **real gaps** are:
+
+| Priority | Gap | What To Build |
+|---|---|---|
+| **P0** | Agents don't talk to each other | Wire OpenClaw's native a2a tool so agents actually send messages to each other, not roleplay |
+| **P0** | No self-improvement loop | Create a cron job that triggers reflect-learn on each agent after every N conversations |
+| **P1** | No proactive web research | Create a cron job that triggers RESEARCH agent to scan for updates relevant to active projects |
+| **P1** | No auto-diagnose from tickets | Wire DevOps agent to read tickets.jsonl, attempt known fixes, update knowledge base |
+| **P1** | Cost/routing logs empty | Wire cost-tracker and smart-router skills to actually write to their log files |
+| **P2** | No morning standup | Create cron job: RED asks each agent for status, aggregates, posts to shared workspace |
+| **P2** | No CEO delegation | Wire task-runner skill to actually dispatch tasks to specialist agents via a2a |
+| **P3** | Knowledge base not agent-updated | After issue resolution, agents should append findings to a shared learnings file |
+
+---
+
+*Last updated: 2026-02-15 17:30 ET by Windsurf Cascade*
 *OpenClaw version: 2026.2.14 | RedOS version: 3.7.0*
-*Phase 1 COMPLETE. Phases 2–5 pending — see Enhancement Roadmap above.*
+*Skills schema FIXED and LIVE. Honest audit complete. See §21 for full evidence.*
