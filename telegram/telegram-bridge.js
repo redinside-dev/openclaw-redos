@@ -281,8 +281,12 @@ ${config.description}
 
 **Available Commands:**
 /help - Show this help message
+/status - System overview
+/dashboard - Open Mission Control
 /stats - Show usage statistics
 /cost - Show cost information
+/tickets - Open tickets
+/cron - Cron job status
 /kanban - Show Kanban board
 /learn - Show learning summary
 
@@ -307,6 +311,10 @@ ${config.emoji} **${config.name} - Help**
 **Commands:**
 /start - Welcome message
 /help - This help
+/status - System overview
+/dashboard - Open Mission Control
+/tickets - Open tickets
+/cron - Cron job status
 /stats - Usage statistics
 /cost - Cost breakdown
 /kanban - Kanban board status
@@ -623,6 +631,122 @@ Every 5 experiences trigger automatic reflection and learning.
       `.trim();
 
       await bot.sendMessage(chatId, message, { parse_mode: 'Markdown' });
+    });
+
+    // /dashboard command - Open Mission Control Web App
+    bot.onText(/\/dashboard/, async (msg) => {
+      const chatId = msg.chat.id;
+      const mcUrl = process.env.MISSION_CONTROL_URL || 'http://localhost:19000';
+
+      await bot.sendMessage(chatId,
+        `🖥️ **Mission Control Dashboard**\n\n` +
+        `Open the full dashboard in your browser:\n${mcUrl}\n\n` +
+        `Or use these quick commands:\n` +
+        `/status - System overview\n` +
+        `/tickets - Open tickets\n` +
+        `/cron - Cron job status`,
+        {
+          parse_mode: 'Markdown',
+          reply_markup: {
+            inline_keyboard: [[
+              { text: '🖥️ Open Mission Control', web_app: { url: mcUrl } }
+            ]]
+          }
+        }
+      );
+    });
+
+    // /status command - Quick system overview
+    bot.onText(/\/status/, async (msg) => {
+      const chatId = msg.chat.id;
+      try {
+        const data = await fetch(`${GATEWAY_URL}/api/dashboard`).then(r => r.json());
+        const s = data.summary || {};
+        const agents = data.agents || [];
+        const agentList = agents.map(a => `  ${a.name} (${a.id}) → ${(a.model || '').split('/').pop()}`).join('\n');
+
+        const statusMsg = `
+🦞 **RedOS Mission Control — Status**
+
+**Agents:** ${s.agentCount || 0} online
+${agentList}
+
+**Cron Jobs:** ${s.cronSucceeded || 0}/${s.cronEnabled || 0} OK${s.cronFailed > 0 ? ` ⚠️ ${s.cronFailed} failed` : ' ✅'}
+
+**Tickets:** ${s.openTickets || 0} open, ${s.resolvedTickets || 0} resolved${s.openTickets > 0 ? ' ⚠️' : ' ✅'}
+
+**Learnings:** ${s.learningCount || 0} entries
+**Skills:** ${s.skillCount || 0} active
+**Cost Today:** $${(s.totalCost || 0).toFixed(4)}
+
+🕐 ${new Date().toLocaleString()}
+        `.trim();
+
+        const mcUrl = process.env.MISSION_CONTROL_URL || 'http://localhost:19000';
+        await bot.sendMessage(chatId, statusMsg, {
+          parse_mode: 'Markdown',
+          reply_markup: {
+            inline_keyboard: [[
+              { text: '🖥️ Full Dashboard', web_app: { url: mcUrl } }
+            ]]
+          }
+        });
+      } catch (error) {
+        await bot.sendMessage(chatId, `❌ Failed to get status: ${error.message}`);
+      }
+    });
+
+    // /tickets command - Show open tickets
+    bot.onText(/\/tickets/, async (msg) => {
+      const chatId = msg.chat.id;
+      try {
+        const data = await fetch(`${GATEWAY_URL}/api/dashboard`).then(r => r.json());
+        const tickets = data.tickets || [];
+
+        if (!tickets.length) {
+          await bot.sendMessage(chatId, '✅ **No tickets** — all clear!', { parse_mode: 'Markdown' });
+          return;
+        }
+
+        const ticketList = tickets.map(t => {
+          const icon = t.status === 'OPEN' ? '🔴' : t.status === 'IN_PROGRESS' ? '🟡' : t.status === 'RESOLVED' ? '🟢' : '⚪';
+          return `${icon} **${t.id}** [${t.priority}] ${t.status}\n   ${t.summary || '--'}\n   Assignee: ${t.assignee || '--'}`;
+        }).join('\n\n');
+
+        await bot.sendMessage(chatId,
+          `📋 **Tickets (${tickets.length})**\n\n${ticketList}`,
+          { parse_mode: 'Markdown' }
+        );
+      } catch (error) {
+        await bot.sendMessage(chatId, `❌ Failed to get tickets: ${error.message}`);
+      }
+    });
+
+    // /cron command - Show cron job status
+    bot.onText(/\/cron/, async (msg) => {
+      const chatId = msg.chat.id;
+      try {
+        const data = await fetch(`${GATEWAY_URL}/api/dashboard`).then(r => r.json());
+        const jobs = (data.cronJobs || []).filter(j => j.enabled);
+
+        if (!jobs.length) {
+          await bot.sendMessage(chatId, '⏰ No enabled cron jobs.', { parse_mode: 'Markdown' });
+          return;
+        }
+
+        const jobList = jobs.map(j => {
+          const icon = j.lastStatus === 'ok' ? '✅' : j.lastStatus === 'error' ? '❌' : '⏳';
+          const dur = j.lastDurationMs ? `${(j.lastDurationMs / 1000).toFixed(1)}s` : '--';
+          return `${icon} **${j.name}** (${j.agentId})\n   Status: ${j.lastStatus || 'pending'} | Duration: ${dur}${j.consecutiveErrors > 0 ? ` | ⚠️ ${j.consecutiveErrors} errors` : ''}`;
+        }).join('\n\n');
+
+        await bot.sendMessage(chatId,
+          `⏰ **Cron Jobs (${jobs.length} enabled)**\n\n${jobList}`,
+          { parse_mode: 'Markdown' }
+        );
+      } catch (error) {
+        await bot.sendMessage(chatId, `❌ Failed to get cron status: ${error.message}`);
+      }
     });
   }
 
