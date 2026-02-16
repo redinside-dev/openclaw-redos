@@ -442,7 +442,28 @@ function quickModel(agentId,newModel,oldModel){
     }).catch(e=>{toast('Failed: '+e.message,false)});
 }
 
-// ---- Data Loading ----
+// ---- Render All ----
+function renderAll(){
+  const s=D.summary||{};
+  const dot=document.getElementById('dot');
+  dot.className='hdr-dot'+(s.cronFailed>0||s.openTickets>0?' warn':'');
+  const tkBadge=document.querySelector('[data-p="tickets"] .badge');
+  if(s.openTickets>0){if(!tkBadge){const b=document.createElement('span');b.className='badge';b.textContent=s.openTickets;document.querySelector('[data-p="tickets"]').appendChild(b)}else{tkBadge.textContent=s.openTickets}}else if(tkBadge){tkBadge.remove()}
+  try{renderOverview()}catch(e){console.error('renderOverview',e)}
+  try{renderAgents()}catch(e){console.error('renderAgents',e)}
+  try{renderCron()}catch(e){console.error('renderCron',e)}
+  try{renderTickets()}catch(e){console.error('renderTickets',e)}
+  try{renderLearnings()}catch(e){console.error('renderLearnings',e)}
+  try{renderSkills()}catch(e){console.error('renderSkills',e)}
+  try{renderCost()}catch(e){console.error('renderCost',e)}
+  try{renderRouting()}catch(e){console.error('renderRouting',e)}
+  try{renderPrompt()}catch(e){console.error('renderPrompt',e)}
+  try{renderCaching()}catch(e){console.error('renderCaching',e)}
+  try{renderErrors()}catch(e){console.error('renderErrors',e)}
+  document.getElementById('upd').textContent='Updated '+new Date().toLocaleTimeString();
+}
+
+// ---- Data Loading (fetch for refresh) ----
 async function loadAll(){
   try{
     const [dashboard,errors,gwErrors,costDetails,routing,caching,prompt,skillDetails,gwLogs]=await Promise.all([
@@ -457,23 +478,23 @@ async function loadAll(){
       fetch('/api/gateway-logs').then(r=>r.json()).catch(()=>[]),
     ]);
     D={...dashboard,_errors:errors,_gatewayErrors:gwErrors,_costDetails:costDetails,_routing:routing,_caching:caching,_prompt:prompt,_skillDetails:skillDetails,_gatewayLogs:gwLogs};
-    LOADED=true;
-    const s=D.summary||{};
-    const dot=document.getElementById('dot');
-    dot.className='hdr-dot'+(s.cronFailed>0||s.openTickets>0?' warn':'');
-    // Update tab badges
-    const tkBadge=document.querySelector('[data-p="tickets"] .badge');
-    if(s.openTickets>0){if(!tkBadge){const b=document.createElement('span');b.className='badge';b.textContent=s.openTickets;document.querySelector('[data-p="tickets"]').appendChild(b)}else{tkBadge.textContent=s.openTickets}}else if(tkBadge){tkBadge.remove()}
-    renderOverview();renderAgents();renderCron();renderTickets();renderLearnings();renderSkills();renderCost();renderRouting();renderPrompt();renderCaching();renderErrors();
-    document.getElementById('upd').textContent='Updated '+new Date().toLocaleTimeString();
+    renderAll();
   }catch(err){
-    console.error('Load failed:',err);
-    document.getElementById('dot').className='hdr-dot err';
-    document.getElementById('upd').textContent='Error \u2014 '+err.message;
+    console.error('Fetch refresh failed (using SSR data):',err);
   }
 }
-loadAll();
-setInterval(loadAll,15000);
+
+// ---- Initial Load: use server-injected data if available ----
+if(window.__INIT_DATA__){
+  D=window.__INIT_DATA__;
+  console.log('Using server-injected data:',Object.keys(D).length,'keys');
+  renderAll();
+}else{
+  console.warn('No __INIT_DATA__ found, falling back to fetch');
+  loadAll();
+}
+// Auto-refresh every 15s (will silently fail through proxy, that's OK)
+setInterval(()=>{loadAll().catch(()=>{})},15000);
 </script>
 </body>
 </html>

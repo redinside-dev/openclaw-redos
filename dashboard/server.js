@@ -421,8 +421,30 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // Dynamic index: inject all data server-side so page works without fetch
+  if (url.pathname === '/' || url.pathname === '/index.html') {
+    const allData = {
+      ...getSystemSummary(),
+      _errors: getRecentErrors(),
+      _gatewayErrors: getGatewayErrors(),
+      _costDetails: getCostDetails(),
+      _routing: getRoutingConfig(),
+      _caching: getCachingConfig(),
+      _prompt: getPromptEngineering(),
+      _skillDetails: getSkillDetails(),
+      _gatewayLogs: getGatewayLogTail(50),
+    };
+    const htmlTemplate = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf-8');
+    // Inject data before closing </body>
+    const dataScript = `<script>window.__INIT_DATA__=${JSON.stringify(allData).replace(/</g,'\\u003c')};</script>`;
+    const html = htmlTemplate.replace('</body>', dataScript + '\n</body>');
+    res.writeHead(200, { 'Content-Type': 'text/html', 'Cache-Control': 'no-cache, no-store' });
+    res.end(html);
+    return;
+  }
+
   // Static files
-  let filePath = url.pathname === '/' ? '/index.html' : url.pathname;
+  let filePath = url.pathname;
   filePath = path.join(__dirname, filePath);
 
   const ext = path.extname(filePath);
