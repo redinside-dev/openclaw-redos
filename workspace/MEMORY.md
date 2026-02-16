@@ -110,9 +110,9 @@ Curated long-term memory for this OpenClaw workspace.
   - `workspace/briefs/daily-brief-topics.md`
   - `workspace/briefs/daily-brief-instructions.md`
 - Created project collaboration template: `workspace/projects/_template/STATE.yaml`
-- Added cron job **(disabled pending time confirmation)**:
+- Added cron job (enabled):
   - `RED Daily Brief (Telegram)` id=`14c3b159-749f-4855-8a36-39964a865aaf`
-  - schedule: 08:30 America/Toronto (draft)
+  - schedule: **09:00 America/Toronto (daily, 7 days/week)**
   - delivery: Telegram → `telegram:1012034994`
 
 ### DM pairing message branding — 2026-02-15
