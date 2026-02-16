@@ -1,0 +1,16 @@
+[
+  {
+    "action": "HIRE",
+    "workerId": "main",
+    "timestamp": "2026-02-16T01:08:11.184Z",
+    "reason": "Manual hire via dashboard",
+    "success": true
+  },
+  {
+    "action": "HIRE",
+    "workerId": "main",
+    "timestamp": "2026-02-16T01:08:17.733Z",
+    "reason": "Manual hire via dashboard",
+    "success": true
+  }
+]
