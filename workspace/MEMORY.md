@@ -115,6 +115,13 @@ Curated long-term memory for this OpenClaw workspace.
   - schedule: 08:30 America/Toronto (draft)
   - delivery: Telegram → `telegram:1012034994`
 
+### DM pairing message branding — 2026-02-15
+
+- Patched the unknown-sender DM pairing reply so it does **not** mention internal product naming.
+- New text uses: **“Anurag’s assistant: access not approved”** and **“Approval code: XXXXXXXX”**.
+- Implemented as a local patch to installed gateway bundles (may be overwritten by upgrades).
+- Added a re-apply script: `~/.openclaw/scripts/patch-pairing-reply.sh`.
+
 ### Git commit attribution policy — 2026-02-15
 
 - Repo-local git identity for `openclaw-redos` set to:
