@@ -23,6 +23,14 @@ class CEOWorker extends AutonomousWorker {
     this.monitorInterval = 60000; // Check every 1 minute
     this.taskStuckThreshold = 120000; // 2 minutes
     this.workerStartAttempts = new Map(); // Track start attempts
+    this.workerPerformance = new Map(); // workerId -> { tasks, successes, failures, avgLatency, lastActive }
+    this.fireThresholds = {
+      minTasks: 3,            // Minimum tasks before evaluating
+      maxFailureRate: 0.6,    // Fire if >60% failure rate
+      maxAvgLatency: 180000,  // Fire if avg latency >3 minutes
+      inactiveTimeout: 300000 // Fire if inactive >5 minutes
+    };
+    this.hireFireLog = [];    // Audit trail of all hire/fire actions
   }
 
   async start() {
@@ -209,31 +217,230 @@ class CEOWorker extends AutonomousWorker {
   }
 
   /**
-   * Monitor worker health (for future FIRE capability)
+   * Monitor worker health and FIRE underperformers
    */
   async monitorWorkerHealth() {
-    // TODO: Track worker performance
-    // - Tasks completed per hour
-    // - Success rate
-    // - Response time
-    // CEO can FIRE underperforming workers
+    const activeWorkers = await this.getActiveWorkers();
+
+    // Update last-seen for active workers
+    for (const wid of activeWorkers) {
+      if (!this.workerPerformance.has(wid)) {
+        this.workerPerformance.set(wid, { tasks: 0, successes: 0, failures: 0, totalLatency: 0, lastActive: Date.now() });
+      }
+      this.workerPerformance.get(wid).lastActive = Date.now();
+    }
+
+    // Load completed/failed task counts from queue
+    try {
+      const queue = await this.loadQueue();
+      const completed = queue.completed || [];
+      const failed = queue.failed || [];
+
+      // Tally per-worker stats from recent tasks (last hour)
+      const oneHourAgo = Date.now() - 3600000;
+      for (const t of completed) {
+        if (new Date(t.completed_at || 0).getTime() < oneHourAgo) continue;
+        const wid = (t.claimed_by || '').toLowerCase();
+        if (!wid) continue;
+        if (!this.workerPerformance.has(wid)) {
+          this.workerPerformance.set(wid, { tasks: 0, successes: 0, failures: 0, totalLatency: 0, lastActive: Date.now() });
+        }
+        const perf = this.workerPerformance.get(wid);
+        // Avoid double-counting by checking task id
+        if (!perf._counted) perf._counted = new Set();
+        if (perf._counted.has(t.id)) continue;
+        perf._counted.add(t.id);
+        perf.tasks++;
+        perf.successes++;
+        if (t.completed_at && t.claimed_at) {
+          perf.totalLatency += new Date(t.completed_at).getTime() - new Date(t.claimed_at).getTime();
+        }
+      }
+      for (const t of failed) {
+        if (new Date(t.failed_at || 0).getTime() < oneHourAgo) continue;
+        const wid = (t.claimed_by || '').toLowerCase();
+        if (!wid) continue;
+        if (!this.workerPerformance.has(wid)) {
+          this.workerPerformance.set(wid, { tasks: 0, successes: 0, failures: 0, totalLatency: 0, lastActive: Date.now() });
+        }
+        const perf = this.workerPerformance.get(wid);
+        if (!perf._counted) perf._counted = new Set();
+        if (perf._counted.has(t.id)) continue;
+        perf._counted.add(t.id);
+        perf.tasks++;
+        perf.failures++;
+      }
+    } catch (e) {
+      // Queue might not have completed/failed arrays yet
+    }
+
+    // Evaluate each tracked worker
+    const now = Date.now();
+    for (const [wid, perf] of this.workerPerformance.entries()) {
+      // Skip CEO itself
+      if (wid === 'ceo') continue;
+
+      const failureRate = perf.tasks > 0 ? perf.failures / perf.tasks : 0;
+      const avgLatency = perf.successes > 0 ? perf.totalLatency / perf.successes : 0;
+      const inactive = now - perf.lastActive;
+
+      let fireReason = null;
+
+      if (perf.tasks >= this.fireThresholds.minTasks && failureRate > this.fireThresholds.maxFailureRate) {
+        fireReason = `High failure rate: ${(failureRate * 100).toFixed(0)}% (${perf.failures}/${perf.tasks} tasks failed)`;
+      } else if (perf.successes >= this.fireThresholds.minTasks && avgLatency > this.fireThresholds.maxAvgLatency) {
+        fireReason = `Slow performance: avg ${Math.round(avgLatency / 1000)}s per task (threshold: ${this.fireThresholds.maxAvgLatency / 1000}s)`;
+      } else if (inactive > this.fireThresholds.inactiveTimeout && activeWorkers.includes(wid)) {
+        fireReason = `Inactive for ${Math.round(inactive / 1000)}s while still running`;
+      }
+
+      if (fireReason) {
+        console.log(`\n🔥 CEO FIRING ${wid}: ${fireReason}`);
+        await this.fireWorker(wid, fireReason);
+      }
+    }
+  }
+
+  /**
+   * FIRE: Stop an underperforming worker
+   */
+  async fireWorker(workerId, reason) {
+    const logEntry = {
+      action: 'FIRE',
+      workerId,
+      reason,
+      timestamp: new Date().toISOString(),
+      performance: this.workerPerformance.get(workerId) || {}
+    };
+
+    try {
+      // Kill the worker process
+      await execAsync(`pkill -f "autonomous-worker.js ${workerId}"`);
+      logEntry.success = true;
+      console.log(`   ✅ Worker ${workerId} terminated`);
+
+      // Reassign any in-progress tasks from this worker
+      const queue = await this.loadQueue();
+      const inProgress = queue.in_progress || [];
+      let reassigned = 0;
+
+      for (let i = inProgress.length - 1; i >= 0; i--) {
+        if ((inProgress[i].claimed_by || '').toLowerCase() === workerId) {
+          const task = inProgress.splice(i, 1)[0];
+          task.status = 'pending';
+          task.claimed_by = null;
+          task.ceo_override = {
+            timestamp: new Date().toISOString(),
+            reason: `Worker ${workerId} fired: ${reason}`,
+            authority: 'CEO'
+          };
+          queue.pending.push(task);
+          reassigned++;
+        }
+      }
+
+      if (reassigned > 0) {
+        await this.saveQueue(queue);
+        console.log(`   📋 Reassigned ${reassigned} task(s) back to pending queue`);
+        logEntry.tasksReassigned = reassigned;
+      }
+
+      // Clear performance data
+      this.workerPerformance.delete(workerId);
+
+    } catch (error) {
+      logEntry.success = false;
+      logEntry.error = error.message;
+      console.log(`   ⚠️  Could not kill ${workerId}: ${error.message} (may already be stopped)`);
+    }
+
+    this.hireFireLog.push(logEntry);
+
+    // Persist log to disk
+    await this.persistHireFireLog();
+
+    return logEntry;
+  }
+
+  /**
+   * Record worker activity (called externally via API)
+   */
+  recordWorkerActivity(workerId, taskId, success, latencyMs) {
+    if (!this.workerPerformance.has(workerId)) {
+      this.workerPerformance.set(workerId, { tasks: 0, successes: 0, failures: 0, totalLatency: 0, lastActive: Date.now() });
+    }
+    const perf = this.workerPerformance.get(workerId);
+    perf.tasks++;
+    if (success) {
+      perf.successes++;
+      perf.totalLatency += latencyMs || 0;
+    } else {
+      perf.failures++;
+    }
+    perf.lastActive = Date.now();
+  }
+
+  /**
+   * Get full worker status for dashboard/API
+   */
+  getWorkerStatus() {
+    const workers = [];
+    for (const [wid, perf] of this.workerPerformance.entries()) {
+      const failureRate = perf.tasks > 0 ? perf.failures / perf.tasks : 0;
+      const avgLatency = perf.successes > 0 ? Math.round(perf.totalLatency / perf.successes) : 0;
+      workers.push({
+        id: wid,
+        tasks: perf.tasks,
+        successes: perf.successes,
+        failures: perf.failures,
+        failureRate: Math.round(failureRate * 100),
+        avgLatencyMs: avgLatency,
+        lastActive: perf.lastActive,
+        status: failureRate > this.fireThresholds.maxFailureRate ? 'at_risk' :
+                (Date.now() - perf.lastActive > this.fireThresholds.inactiveTimeout ? 'inactive' : 'healthy')
+      });
+    }
+    return {
+      workers,
+      thresholds: this.fireThresholds,
+      hireFireLog: this.hireFireLog.slice(-20),
+      stats: {
+        totalHires: this.hireFireLog.filter(l => l.action === 'HIRE').length,
+        totalFires: this.hireFireLog.filter(l => l.action === 'FIRE').length,
+      }
+    };
+  }
+
+  /**
+   * Persist hire/fire log to disk
+   */
+  async persistHireFireLog() {
+    try {
+      const logPath = `${process.cwd()}/workspace/ops/ceo-hire-fire-log.json`;
+      await fs.writeFile(logPath, JSON.stringify(this.hireFireLog, null, 2));
+    } catch (e) {
+      console.error('Failed to persist hire/fire log:', e.message);
+    }
   }
 }
 
+// Singleton for API access
+let ceoWorkerInstance = null;
+
 // Start CEO worker if run directly
 if (import.meta.url === `file://${process.argv[1]}`) {
-  const ceo = new CEOWorker();
+  ceoWorkerInstance = new CEOWorker();
 
   process.on('SIGINT', () => {
     console.log('\n👔 CEO shutting down gracefully...');
-    ceo.stop();
+    ceoWorkerInstance.stop();
     process.exit(0);
   });
 
-  ceo.start().catch(err => {
+  ceoWorkerInstance.start().catch(err => {
     console.error('CEO worker failed:', err);
     process.exit(1);
   });
 }
 
-export { CEOWorker };
+export { CEOWorker, ceoWorkerInstance };
