@@ -143,10 +143,42 @@ Curated long-term memory for this OpenClaw workspace.
 
 **This is the first real end-to-end self-healing cycle:** detect → ticket → diagnose → fix → learn.
 
+### Session 3 — 2026-02-15 19:00 ET
+
+**Dashboard SSR Fix (root cause resolved):**
+- Browser preview proxy was blocking `/api/` fetch calls → all tabs showed empty
+- Fix: Server now injects ALL data as `window.__INIT_DATA__` JSON blob directly into HTML at serve time
+- Zero fetch dependency for initial render; fetch kept only for 15s auto-refresh
+- Each renderer wrapped in try/catch so one failure doesn't break all tabs
+- Commit: `7fbf1d6`
+
+**MCP Context7 Skill Added:**
+- Created `workspace/skills/mcp-context7/SKILL.md`
+- Tools: `resolve-library-id`, `get-library-docs` — live library documentation lookup
+- API key stored in `.env` as `CONTEXT7_API_KEY` (not hardcoded)
+- Added to `.env.example` template
+- Registered and enabled in `openclaw.json`
+
+**Telegram Mission Control Integration:**
+- Added commands to Telegram bridge: `/dashboard`, `/status`, `/tickets`, `/cron`
+- `/dashboard` sends public URL + Telegram Web App button (opens dashboard inline)
+- `/status` shows agents, cron, tickets, costs summary
+- Updated `/start` and `/help` to list new commands
+- Commit: `c887cf7`
+
+**Cloudflare Tunnel:**
+- Installed cloudflared, created quick tunnel exposing port 19000
+- Public URL: `https://mls-investment-replied-cigarette.trycloudflare.com`
+- URL stored in `.env` as `MISSION_CONTROL_URL`
+- Note: URL changes on restart; for permanent URL, set up named Cloudflare tunnel
+- No authentication currently — dashboard is read-only (except model override endpoint)
+
 ### Remaining
 
 - Phase 4: CEO dynamic hiring/firing (not started)
+- Verify dashboard renders correctly in browser (SSR fix deployed but user hasn't confirmed yet)
+- Consider adding basic auth to Cloudflare tunnel for security
 - Monitor cron jobs over next few days to confirm stability
 - Cost-tracker + smart-router still not writing to log files (lower priority)
 
-*Last updated: 2026-02-15 18:30 ET by Windsurf Cascade — Self-healing verified. 2 tickets resolved. Dashboard live on port 19000.*
+*Last updated: 2026-02-15 19:24 ET by Windsurf Cascade — Dashboard SSR fix, MCP Context7 skill, Telegram Mission Control commands, Cloudflare tunnel.*
