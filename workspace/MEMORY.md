@@ -115,6 +115,13 @@ Curated long-term memory for this OpenClaw workspace.
   - schedule: 08:30 America/Toronto (draft)
   - delivery: Telegram → `telegram:1012034994`
 
+### Git commit attribution policy — 2026-02-15
+
+- Repo-local git identity for `openclaw-redos` set to:
+  - name: `anuragg-saxenaa`
+  - email: `anuragg.saxenaa@gmail.com`
+- Latest commit rewritten and force-pushed so **author+committer** are `anuragg-saxenaa`.
+
 ### Phase 5: Mission Control Dashboard (2026-02-15 17:38–17:50 ET) — see KNOWLEDGEBASE.md §23
 
 **Built:**

@@ -43,6 +43,8 @@ Then read this file. The `openclaw.json` (live secrets) and `identity/` (device 
 >
 > **Also update `~/.openclaw/workspace/MEMORY.md`** with a short “what changed” bullet so any LLM (Cursor/Claude/Claude Code/etc.) can load fast context.
 >
+> **Git attribution rule (this repo):** commits should be authored+committed as the collaborator `anuragg-saxenaa`.
+>
 > This ensures zero context loss between sessions.
 
 ---
