@@ -773,7 +773,7 @@
       "name": "OPS SLA Enforcement Check",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771206701989,
+      "updatedAtMs": 1771208516324,
       "schedule": {
         "kind": "every",
         "everyMs": 1800000,
@@ -792,10 +792,10 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771208495024,
-        "lastRunAtMs": 1771206695052,
+        "nextRunAtMs": 1771210295024,
+        "lastRunAtMs": 1771208495050,
         "lastStatus": "ok",
-        "lastDurationMs": 6937,
+        "lastDurationMs": 21274,
         "consecutiveErrors": 0
       }
     },
@@ -805,7 +805,7 @@
       "name": "OPS System Health Monitor",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771207658647,
+      "updatedAtMs": 1771208638512,
       "schedule": {
         "kind": "every",
         "everyMs": 900000,
@@ -825,10 +825,10 @@
       },
       "state": {
         "lastStatus": "ok",
-        "lastRunAtMs": 1771207595044,
-        "lastDurationMs": 63603,
+        "lastRunAtMs": 1771208516324,
+        "lastDurationMs": 122188,
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1771208495024
+        "nextRunAtMs": 1771209395024
       }
     },
     {
@@ -865,7 +865,7 @@
       "name": "OPS Ticket Auto-Diagnose & Fix",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771205270991,
+      "updatedAtMs": 1771208644949,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -884,10 +884,10 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771208495024,
-        "lastRunAtMs": 1771205128375,
+        "nextRunAtMs": 1771212095024,
+        "lastRunAtMs": 1771208638512,
         "lastStatus": "ok",
-        "lastDurationMs": 142616,
+        "lastDurationMs": 6437,
         "consecutiveErrors": 0
       }
     },
@@ -897,7 +897,7 @@
       "name": "RESEARCH Proactive Knowledge Update",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771194095024,
+      "updatedAtMs": 1771208830409,
       "schedule": {
         "kind": "every",
         "everyMs": 14400000,
@@ -916,7 +916,11 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771208495024
+        "nextRunAtMs": 1771222895024,
+        "lastRunAtMs": 1771208644949,
+        "lastStatus": "ok",
+        "lastDurationMs": 185460,
+        "consecutiveErrors": 0
       }
     },
     {

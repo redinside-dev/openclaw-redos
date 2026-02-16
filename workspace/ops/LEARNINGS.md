@@ -109,3 +109,13 @@ repeating mistakes and to build institutional knowledge.
 - **Details:** gateway.err.log showed repeated Telegram getUpdates conflicts (409: Conflict: terminated by other getUpdates request) on 2026-02-14 and 2026-02-15. These occur when multiple Telegram bot instances (using the same bot token) simultaneously poll getUpdates. Conflicts self-resolved when duplicate gateway instances were terminated. Current system has only one gateway instance (PID 4956) and no conflicts since 2026-02-15T05:38Z.
 - **Prevention:** Before starting gateway, verify no existing instances are running: `ps aux | grep openclaw-gateway`. Avoid manual gateway starts while systemd/launchd is managing it. If conflicts occur, check for multiple processes and terminate duplicates. Consider adding monitoring for multiple gateway instances.
 - **Applied To:** TICKET-20260215-004 RESOLVED, LEARNINGS.md updated
+
+### LEARNING-20260216-002
+- **Date:** 2026-02-16T02:24:00Z
+- **Source Ticket:** observation (proactive research scan)
+- **Agent:** RESEARCH
+- **Category:** security
+- **Summary:** Two critical OpenClaw CVEs in 2026; both mitigated by staying on current version
+- **Details:** Proactive web search found two critical CVEs: (1) CVE-2026-25593 - Local RCE via CLI path injection in config.apply (affects versions < 2026.1.20). (2) CVE-2026-25253 - Remote one-click RCE via WebSocket token hijacking (CVSS 8.8, affects versions < 2026.1.29). Current system running v2026.2.14, protected from both. Also found model performance issues: GPT-5.2 slow token generation (4 tps), Z.ai GLM-5 GPU shortages, Perplexity brief outage (resolved Feb 6).
+- **Prevention:** Always keep OpenClaw updated to latest version. Run `openclaw d-update` regularly. Monitor for model performance issues and have fallback chains ready. Follow OpenClaw security advisories and GitHub releases.
+- **Applied To:** LEARNINGS.md, memory/2026-02-16.md
