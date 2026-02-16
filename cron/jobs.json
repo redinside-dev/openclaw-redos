@@ -773,7 +773,7 @@
       "name": "OPS SLA Enforcement Check",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771203104841,
+      "updatedAtMs": 1771205073678,
       "schedule": {
         "kind": "every",
         "everyMs": 1800000,
@@ -792,10 +792,10 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771204895024,
-        "lastRunAtMs": 1771203095041,
+        "nextRunAtMs": 1771206695024,
+        "lastRunAtMs": 1771205065553,
         "lastStatus": "ok",
-        "lastDurationMs": 9800,
+        "lastDurationMs": 8125,
         "consecutiveErrors": 0
       }
     },
@@ -805,7 +805,7 @@
       "name": "OPS System Health Monitor",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771203119085,
+      "updatedAtMs": 1771205128375,
       "schedule": {
         "kind": "every",
         "everyMs": 900000,
@@ -825,10 +825,10 @@
       },
       "state": {
         "lastStatus": "ok",
-        "lastRunAtMs": 1771203104841,
-        "lastDurationMs": 14244,
+        "lastRunAtMs": 1771205073678,
+        "lastDurationMs": 54697,
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1771203995024
+        "nextRunAtMs": 1771205795024
       }
     },
     {
@@ -865,7 +865,7 @@
       "name": "OPS Ticket Auto-Diagnose & Fix",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771201739781,
+      "updatedAtMs": 1771205270991,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -884,10 +884,10 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771204895024,
-        "lastRunAtMs": 1771201449997,
+        "nextRunAtMs": 1771208495024,
+        "lastRunAtMs": 1771205128375,
         "lastStatus": "ok",
-        "lastDurationMs": 289784,
+        "lastDurationMs": 142616,
         "consecutiveErrors": 0
       }
     },
@@ -953,12 +953,12 @@
       "id": "14c3b159-749f-4855-8a36-39964a865aaf",
       "agentId": "main",
       "name": "RED Daily Brief (Telegram)",
-      "enabled": false,
+      "enabled": true,
       "createdAtMs": 1771202886122,
-      "updatedAtMs": 1771202886122,
+      "updatedAtMs": 1771205663329,
       "schedule": {
         "kind": "cron",
-        "expr": "30 8 * * *",
+        "expr": "0 9 * * *",
         "tz": "America/Toronto"
       },
       "sessionTarget": "isolated",
@@ -972,7 +972,9 @@
         "channel": "telegram",
         "to": "telegram:1012034994"
       },
-      "state": {}
+      "state": {
+        "nextRunAtMs": 1771250400000
+      }
     }
   ]
 }
