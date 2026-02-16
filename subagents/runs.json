@@ -41,6 +41,46 @@
         "status": "ok"
       },
       "cleanupCompletedAt": 1771205857514
+    },
+    "1a37c504-4332-4d7c-a0b4-eb3e1c9ff84f": {
+      "runId": "1a37c504-4332-4d7c-a0b4-eb3e1c9ff84f",
+      "childSessionKey": "agent:eng:subagent:aa954ac1-4463-415e-b263-385a199f8e92",
+      "requesterSessionKey": "agent:ops:main",
+      "requesterOrigin": {
+        "channel": "whatsapp"
+      },
+      "requesterDisplayKey": "agent:ops:main",
+      "task": "Reply PONG",
+      "cleanup": "keep",
+      "createdAt": 1771207591628,
+      "startedAt": 1771207591759,
+      "archiveAtMs": 1771211191628,
+      "cleanupHandled": true,
+      "endedAt": 1771207594145,
+      "outcome": {
+        "status": "ok"
+      },
+      "cleanupCompletedAt": 1771207594193
+    },
+    "69f14d10-4446-425c-bd80-c4292c70e74a": {
+      "runId": "69f14d10-4446-425c-bd80-c4292c70e74a",
+      "childSessionKey": "agent:eng:subagent:e307624e-9edb-4da7-954f-8143af67ec33",
+      "requesterSessionKey": "agent:main:main",
+      "requesterOrigin": {
+        "channel": "whatsapp"
+      },
+      "requesterDisplayKey": "agent:main:main",
+      "task": "Reply PONG",
+      "cleanup": "keep",
+      "createdAt": 1771207853226,
+      "startedAt": 1771207853381,
+      "archiveAtMs": 1771211453226,
+      "cleanupHandled": true,
+      "endedAt": 1771207855757,
+      "outcome": {
+        "status": "ok"
+      },
+      "cleanupCompletedAt": 1771207855803
     }
   }
 }
