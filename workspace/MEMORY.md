@@ -4,6 +4,10 @@ Curated long-term memory for this OpenClaw workspace.
 
 ## Tooling / Workflow
 
+- **Source of truth discipline:** After every significant change (config, cron, skills, routing, policies), update:
+  - `/Users/redinside/.openclaw/KNOWLEDGEBASE.md` (full architecture + ops)
+  - `/Users/redinside/.openclaw/workspace/MEMORY.md` (short “what changed”)
+
 - **Cursor CLI:** Use `cursor-agent` as the canonical command (installed at `~/.local/bin/cursor-agent`). Prefer **login-based auth** (`cursor-agent login/status`) over `CURSOR_API_KEY`.
 - **Cursor coding model:** default to **Claude Sonnet 4.5** via `cursor-agent --model sonnet-4.5` for coding tasks.
 - **X/Twitter reading (no-login):** Use **Option 1** Jina mirror first: rewrite `https://x.com/...` → `https://r.jina.ai/https://x.com/...`. If blocked, try `pbs.twimg.com/media/...` direct image. If still blocked, use Browser Relay attached logged-in tab. Helper skill: `skills/x-mirror`.
@@ -99,6 +103,17 @@ Curated long-term memory for this OpenClaw workspace.
 7. RED Daily Summary — 6 PM ET weekdays (Telegram DM to Anurag)
 
 **Live issue detected:** Auth token failures on eng/research/finance — OPS health monitor should auto-detect this.
+
+### Daily Brief (Telegram) — 2026-02-15
+
+- Created customizable agenda files:
+  - `workspace/briefs/daily-brief-topics.md`
+  - `workspace/briefs/daily-brief-instructions.md`
+- Created project collaboration template: `workspace/projects/_template/STATE.yaml`
+- Added cron job **(disabled pending time confirmation)**:
+  - `RED Daily Brief (Telegram)` id=`14c3b159-749f-4855-8a36-39964a865aaf`
+  - schedule: 08:30 America/Toronto (draft)
+  - delivery: Telegram → `telegram:1012034994`
 
 ### Phase 5: Mission Control Dashboard (2026-02-15 17:38–17:50 ET) — see KNOWLEDGEBASE.md §23
 

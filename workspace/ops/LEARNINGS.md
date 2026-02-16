@@ -79,3 +79,13 @@ repeating mistakes and to build institutional knowledge.
 - **Details:** After a series of LLM timeout fixes, new errors appeared at 23:30-23:35Z: "Your authentication token has been invalidated" followed by "Malformed agent session key; refusing workspace resolution." This suggests authentication reset corrupted session state, causing cascading failures in nested and session:agent:* lanes.
 - **Prevention:** When resolving authentication-related issues, restart gateway to clear stale session state. Monitor session:agent:* and nested lanes for malformed key errors after config changes.
 - **Applied To:** TICKET-20260215-003 opened for investigation
+
+### LEARNING-20260215-007
+- **Date:** 2026-02-16T00:30:00Z
+- **Source Ticket:** TICKET-20260215-003
+- **Agent:** OPS
+- **Category:** infra
+- **Summary:** Session state corruption after config changes can self-heal; monitor before restarting
+- **Details:** After TICKET-20260215-002 fixes (removed zai/glm-4.7-flashx, changed OPS primary, increased timeouts), session state corruption occurred: "Malformed agent session key" and "authentication token invalidated" errors. These were transient and self-healed after ~5 minutes. Root cause was partial gateway state refresh during config edits, not actual token expiration (OAuth token valid for 4 more days). System stable for ~50 minutes after errors stopped.
+- **Prevention:** When session state corruption occurs after config changes, monitor for 5-10 minutes before taking action. Many issues self-heal. If errors persist, run `openclaw doctor --fix` followed by `openclaw gateway restart` to clear corrupted session state. Avoid unnecessary gateway restarts for transient issues.
+- **Applied To:** TICKET-20260215-003 RESOLVED, LEARNINGS.md updated

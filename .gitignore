@@ -131,6 +131,9 @@ autonomous-worker-v2.js
 # SQLite databases (memory stores)
 memory/*.sqlite
 
+# Vendor clones (keep out of repo; we only commit our notes)
+workspace/research/vendor/
+
 # ==========================================
 # LAUNCHD PLIST (contains env vars / secrets)
 # ==========================================

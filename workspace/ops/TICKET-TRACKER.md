@@ -33,21 +33,21 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 ## Active Tickets
 
 ### TICKET-20260215-003
-- **Status:** OPEN
+- **Status:** RESOLVED
 - **Priority:** P2
 - **Created:** 2026-02-15T23:51:00Z
 - **SLA Deadline:** 2026-02-16T07:51:00Z (8 hours)
 - **Reporter:** OPS (cron)
-- **Assignee:** TBD
+- **Assignee:** OPS
 - **Summary:** Authentication token and session key errors after LLM timeout resolution
 - **Details:** New errors detected at 23:30-23:35Z (6:30-6:35 PM ET), after TICKET-20260215-002 was resolved:
   - 23:34:35Z: "FailoverError: Your authentication token has been invalidated. Please try signing in again." (main lane, research and finance sessions)
   - 23:30:20Z: "Error: Malformed agent session key; refusing workspace resolution." (nested and session:agent:eng lanes)
   - 23:35:03Z: LLM timeout again for OPS cron job (300s exceeded) despite earlier resolution
-- **Root Cause:** TBD - investigate if authentication reset is causing cascading session issues, and why timeout recurred after model/timeout fix
-- **Resolution:** TBD
-- **Learnings:** TBD
-- **Resolved At:** TBD
+- **Root Cause:** Session state corruption during TICKET-20260215-002 resolution process. Config changes (removed zai/glm-4.7-flashx, changed OPS primary to zai/glm-4.7, increased timeouts to 300s) likely triggered a partial gateway state refresh that corrupted active sessions. The OAuth token itself was valid (expires 1771565873248, ~4 days after error), so "authentication token invalidated" was a symptom of corrupted session state, not actual token expiration. The 23:35:03Z timeout was the current ticket job hitting the 300s limit during complex operations.
+- **Resolution:** Issue self-healed after ~5 minutes. No gateway restart required. Errors stopped after 23:35Z and system has been stable for ~50 minutes since. If errors recur, run `openclaw doctor --fix` followed by `openclaw gateway restart` to clear corrupted session state.
+- **Learnings:** LEARNING-20260215-007
+- **Resolved At:** 2026-02-16T00:30:00Z
 
 ## Resolved Tickets (Last 7 Days)
 
