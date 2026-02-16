@@ -1595,6 +1595,230 @@ Auto-refreshes every 15 seconds. Shows live cron job status, ticket tracking, le
 
 ---
 
-*Last updated: 2026-02-15 17:50 ET by Windsurf Cascade*
+## §24 — Dashboard SSR Fix + MCP Context7 + Telegram Mission Control (2026-02-15)
+
+**Session by:** Windsurf Cascade
+**Date:** 2026-02-15 19:00–19:24 ET
+**Commits:** `7fbf1d6`, `c887cf7`, `9d40943`
+
+### Dashboard SSR Fix
+
+**Problem:** Dashboard tabs showed empty when accessed via browser preview proxy — the proxy blocked `/api/` fetch calls.
+
+**Root cause fix:** Server-side rendering (SSR) data injection.
+
+```
+dashboard/server.js (GET /)
+  1. Calls ALL data loaders (getSystemSummary, getRecentErrors, getCostDetails, getRoutingConfig, etc.)
+  2. Serializes into JSON blob
+  3. Injects as <script>window.__INIT_DATA__={...}</script> before </body>
+  4. Browser renders immediately from window.__INIT_DATA__ — zero fetch dependency
+  5. Fetch kept only for 15s auto-refresh (silently fails through proxy, that's OK)
+```
+
+**Data keys injected (17 total):** agents, cronJobs, tickets, learnings, skills, cost, vectorMemoryEntries, summary, _errors, _gatewayErrors, _costDetails, _routing, _caching, _prompt, _skillDetails, _gatewayLogs, _ceoStatus
+
+### MCP Context7 Skill
+
+New skill for live library documentation lookup via MCP protocol.
+
+| Item | Value |
+|------|-------|
+| Skill dir | `workspace/skills/mcp-context7/SKILL.md` |
+| Tools | `resolve-library-id`, `get-library-docs` |
+| API key | `.env` → `CONTEXT7_API_KEY` (not hardcoded) |
+| Config | `openclaw.json` → `skills.entries.mcp-context7: {enabled: true}` |
+
+### Telegram Mission Control Integration
+
+Added commands to `telegram/telegram-bridge.js`:
+
+| Command | Function |
+|---------|----------|
+| `/dashboard` | Sends public tunnel URL + Telegram Web App button (opens dashboard inline) |
+| `/status` | Quick system overview: agents, cron, tickets, costs |
+| `/tickets` | Lists all tickets with status icons |
+| `/cron` | Lists enabled cron jobs with status |
+
+- Updated `/start` and `/help` to include new commands
+- Web App button uses `MISSION_CONTROL_URL` from `.env`
+
+### Cloudflare Tunnel
+
+- Installed `cloudflared` via direct download
+- Quick tunnel: `cloudflared tunnel --url http://localhost:19000`
+- Public URL stored in `.env` as `MISSION_CONTROL_URL`
+- **Note:** Quick tunnel URL changes on restart. For permanent URL, set up a named Cloudflare tunnel with a free account.
+
+---
+
+## §25 — Phase 4: CEO Dynamic Hiring/Firing + Dashboard Basic Auth (2026-02-15)
+
+**Session by:** Windsurf Cascade
+**Date:** 2026-02-15 19:33–19:44 ET
+**Commits:** `e284602`, `65b0a4a`
+
+### CEO Worker — Full FIRE Capability
+
+File: `agents/ceo-worker.js`
+
+**Performance tracking per worker:**
+- Tasks completed, successes, failures, total latency
+- Tallied from task queue (completed/failed arrays) over last hour
+- Updated every monitoring cycle (60s)
+
+**Auto-fire thresholds:**
+
+| Threshold | Value | Action |
+|-----------|-------|--------|
+| Min tasks before eval | 3 | Won't fire until worker has handled ≥3 tasks |
+| Max failure rate | 60% | Fires worker if >60% of tasks failed |
+| Max avg latency | 180s | Fires worker if average task time >3 minutes |
+| Inactive timeout | 300s | Fires worker if process running but no activity for >5 minutes |
+
+**Fire sequence:**
+1. `pkill -f "autonomous-worker.js {workerId}"` — terminate process
+2. Move fired worker's in-progress tasks back to pending queue with `ceo_override` metadata
+3. Clear performance data for fired worker
+4. Append to `hireFireLog` array + persist to `workspace/ops/ceo-hire-fire-log.json`
+
+**Hire sequence:**
+1. `spawn('node', ['agents/autonomous-worker.js', workerId, ...])` — detached process
+2. Wait 3s, verify worker appears in `ps aux`
+3. Log to `hireFireLog`
+
+### Dashboard Basic Auth
+
+File: `dashboard/server.js`
+
+| Setting | Value | Source |
+|---------|-------|--------|
+| `DASHBOARD_USER` | `red` | `.env` |
+| `DASHBOARD_PASS` | `redos2026` | `.env` |
+
+**Auth logic:**
+- If `DASHBOARD_PASS` is empty → auth disabled (local-only mode)
+- If request has no `X-Forwarded-For` and host is `localhost`/`127.0.0.1` → skip auth
+- Otherwise → require HTTP Basic Auth header
+- Returns 401 with `WWW-Authenticate: Basic realm="Mission Control"` on failure
+
+### New API Endpoints
+
+| Method | Path | Purpose |
+|--------|------|---------|
+| GET | `/api/ceo/status` | Agent roster + hire/fire log + stats |
+| POST | `/api/ceo/hire` | Manual hire: `{agentId}` |
+| POST | `/api/ceo/fire` | Manual fire: `{agentId, reason}` |
+
+### Dashboard UI — CEO Controls Tab
+
+New tab "CEO Controls" in `dashboard/index.html`:
+- **Stats cards:** Active agents, total hires, total fires, CEO authority level
+- **Agent table:** All 8 agents with name, model, status, Hire/Fire buttons
+- **Audit log:** Chronological hire/fire events with timestamps and reasons
+- **Thresholds display:** Current auto-fire thresholds
+- Fire button shows confirmation dialog before executing
+
+---
+
+## §26 — Complete Architecture Flow (2026-02-15)
+
+### System Overview
+
+```
+User (Telegram/Browser)
+  │
+  ├─ Telegram ──→ telegram/telegram-bridge.js
+  │                 ├─ /status, /dashboard, /tickets, /cron → reads dashboard API
+  │                 ├─ /model, /use-ollama, /use-perplexity → model override
+  │                 └─ regular message → gateway/server.js /api/chat
+  │
+  └─ Browser ───→ dashboard/server.js (port 19000)
+                    ├─ Basic auth (tunnel only)
+                    ├─ SSR: injects all data into HTML
+                    ├─ /api/dashboard, /api/errors, /api/ceo/status, etc.
+                    └─ Cloudflare tunnel → public URL
+```
+
+### Gateway Flow (port 18789)
+
+```
+gateway/server.js
+  ├─ /api/chat ──→ Status check → Prompt cache → Context retrieval
+  │                → Model override check → SLA timeout
+  │                → gateway/track-router.js (fast vs orchestrated)
+  │                    ├─ Fast track → gateway/resilient-handler.js → model call
+  │                    └─ Orchestrated → agents/ed-red-orchestrator.js
+  │                        └─ HATAKE parser → multi-agent plan → execute steps
+  │
+  ├─ /api/ceo/* → agents/ceo-agent.js (task mgmt, secretary spawning)
+  └─ /api/system/* → status monitor (maintenance mode)
+```
+
+### Agent Roster
+
+| ID | Name | Role | Primary Model | Fallbacks | Telegram |
+|----|------|------|---------------|-----------|----------|
+| main | RED | CEO / Front Controller | openai-codex/gpt-5.2 | zai/glm-4.7 → ollama/llama3.1:8b | @RedinsideBot |
+| allrounder | ZEN | CSO / Daily Driver | openai-codex/gpt-5.2 | zai/glm-4.7 → ollama/llama3.1:8b | @ZenRedBot |
+| hatake | HATAKE | Parser / Prompt Eng | ollama/qwen2.5-coder:7b | ollama/llama3.1:8b → zai/glm-4.7 | — |
+| eng | ENG | Engineering | openai-codex/gpt-5.2 | zai/glm-4.7 → ollama/llama3.1:8b | ENG_BOT |
+| research | RESEARCH | Research | openai-codex/gpt-5.2 | zai/glm-4.7 → ollama/llama3.1:8b | — |
+| finance | FINANCE | Finance | openai-codex/gpt-5.2 | zai/glm-4.7 → ollama/llama3.1:8b | — |
+| ops | OPS | Operations | zai/glm-4.7 | ollama/llama3.1:8b | — |
+| infosec | INFOSEC | Security | openai-codex/gpt-5.2 | zai/glm-4.7 → ollama/llama3.1:8b | @INFOSECRED_BOT |
+
+### Skills (22 registered, all enabled)
+
+```
+hatake-parser, smart-router, retry-cascade, reflect-learn, cost-tracker,
+proactive-agent-1-2-4, agent-autonomy-kit, task-runner, status-reporter,
+mission-control-telegram, ai-humanizer, anurag-briefs, eng-coding,
+model-usage, exa-mcp, holdings-analyzer, clawdhub, summarize, x-mirror,
+self-healing-protocol, prompt-engineering, mcp-context7
+```
+
+### Cron Jobs (7 enabled)
+
+| Job | Agent | Schedule | Purpose |
+|-----|-------|----------|---------|
+| OPS Morning Standup | OPS | 9 AM ET weekdays | Poll agents for status |
+| OPS SLA Enforcement | OPS | Every 30 min | Escalate SLA breaches |
+| OPS Health Monitor | OPS | Every 15 min | Auto-create tickets for errors |
+| RED Self-Improvement | RED | Every 6 hours | Review patterns, apply fixes |
+| OPS Ticket Auto-Diagnose | OPS | Every hour | Read open tickets, attempt fix |
+| RESEARCH Proactive Update | RESEARCH | Every 4 hours | Web scan for tool/model updates |
+| RED Daily Summary | RED | 6 PM ET weekdays | Telegram DM to Anurag |
+
+### Dashboard Pages (13 tabs)
+
+Overview, Agents, Cron Jobs, Tickets & SLA, Learnings, Skills, Cost Estimator, Smart Routing, Prompt Eng, Caching, Errors & Logs, OpenClaw, **CEO Controls**
+
+### Key Files
+
+| File | Purpose |
+|------|---------|
+| `openclaw.json` | Master config: agents, models, skills, bindings, tools |
+| `.env` | API keys, tunnel URL, dashboard auth, budget limits |
+| `gateway/server.js` | Main gateway (port 18789) |
+| `gateway/resilient-handler.js` | Model calls with retry/fallback |
+| `gateway/track-router.js` | Fast vs orchestrated routing |
+| `telegram/telegram-bridge.js` | Telegram bot bridge (all accounts) |
+| `dashboard/server.js` | Mission Control server (port 19000) |
+| `dashboard/index.html` | Mission Control UI (SSR + auto-refresh) |
+| `agents/ceo-worker.js` | CEO autonomous worker (hire/fire/override) |
+| `agents/ceo-agent.js` | CEO agent (task mgmt, secretaries) |
+| `agents/ed-red-orchestrator.js` | Multi-agent orchestration |
+| `agents/hatake-parser.js` | HATAKE prompt parser |
+| `workspace/MEMORY.md` | Short-form changelog |
+| `KNOWLEDGEBASE.md` | Full architecture + ops documentation |
+| `workspace/ops/TICKET-TRACKER.md` | Issue tracking |
+| `workspace/ops/LEARNINGS.md` | Institutional knowledge |
+| `workspace/ops/ceo-hire-fire-log.json` | CEO audit trail |
+| `cron/jobs.json` | Cron job definitions + state |
+
+---
+
+*Last updated: 2026-02-15 20:09 ET by Windsurf Cascade*
 *OpenClaw version: 2026.2.14 | RedOS version: 3.7.0*
-*All phases implemented. Dashboard live on port 19000. Phase 4 (CEO hiring/firing) pending.*
+*All phases complete. Dashboard live on port 19000. CEO hire/fire active. Basic auth enabled for tunnel.*
