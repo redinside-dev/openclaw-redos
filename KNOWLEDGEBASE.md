@@ -39,7 +39,11 @@ Then read this file. The `openclaw.json` (live secrets) and `identity/` (device 
 
 ### Mandate: Keep This File Updated
 
-> **After every significant change — whether you are an AI assistant or a human — update this KNOWLEDGEBASE.md and commit it.** No change should be made to this project without a corresponding entry here. This ensures zero context loss between sessions.
+> **After every significant change — whether you are an AI assistant or a human — update this KNOWLEDGEBASE.md and commit it.** No change should be made to this project without a corresponding entry here.
+>
+> **Also update `~/.openclaw/workspace/MEMORY.md`** with a short “what changed” bullet so any LLM (Cursor/Claude/Claude Code/etc.) can load fast context.
+>
+> This ensures zero context loss between sessions.
 
 ---
 

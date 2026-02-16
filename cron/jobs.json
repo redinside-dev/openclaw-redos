@@ -773,7 +773,7 @@
       "name": "OPS SLA Enforcement Check",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771199502110,
+      "updatedAtMs": 1771203104841,
       "schedule": {
         "kind": "every",
         "everyMs": 1800000,
@@ -792,10 +792,10 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771201295024,
-        "lastRunAtMs": 1771199495049,
+        "nextRunAtMs": 1771204895024,
+        "lastRunAtMs": 1771203095041,
         "lastStatus": "ok",
-        "lastDurationMs": 7061,
+        "lastDurationMs": 9800,
         "consecutiveErrors": 0
       }
     },
@@ -805,7 +805,7 @@
       "name": "OPS System Health Monitor",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771199553763,
+      "updatedAtMs": 1771203119085,
       "schedule": {
         "kind": "every",
         "everyMs": 900000,
@@ -825,10 +825,10 @@
       },
       "state": {
         "lastStatus": "ok",
-        "lastRunAtMs": 1771199502110,
-        "lastDurationMs": 51653,
+        "lastRunAtMs": 1771203104841,
+        "lastDurationMs": 14244,
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1771200395024
+        "nextRunAtMs": 1771203995024
       }
     },
     {
@@ -865,7 +865,7 @@
       "name": "OPS Ticket Auto-Diagnose & Fix",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771198639862,
+      "updatedAtMs": 1771201739781,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -884,10 +884,10 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771201295024,
-        "lastRunAtMs": 1771198203786,
+        "nextRunAtMs": 1771204895024,
+        "lastRunAtMs": 1771201449997,
         "lastStatus": "ok",
-        "lastDurationMs": 436076,
+        "lastDurationMs": 289784,
         "consecutiveErrors": 0
       }
     },
@@ -948,6 +948,31 @@
       "state": {
         "nextRunAtMs": 1771282800000
       }
+    },
+    {
+      "id": "14c3b159-749f-4855-8a36-39964a865aaf",
+      "agentId": "main",
+      "name": "RED Daily Brief (Telegram)",
+      "enabled": false,
+      "createdAtMs": 1771202886122,
+      "updatedAtMs": 1771202886122,
+      "schedule": {
+        "kind": "cron",
+        "expr": "30 8 * * *",
+        "tz": "America/Toronto"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Create Anurag Saxena’s daily brief.\n\nInstructions:\n- Read these workspace files first:\n  - briefs/daily-brief-instructions.md\n  - briefs/daily-brief-topics.md\n- Use web_search/web_fetch when needed for headlines; include direct links.\n- Keep it concise; omit empty sections.\n- No crypto.\n\nDeliver the brief as a Telegram message."
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "telegram",
+        "to": "telegram:1012034994"
+      },
+      "state": {}
     }
   ]
 }

@@ -1,0 +1,44 @@
+# Project state (template)
+
+project:
+  name: ""
+  owner: "Anurag"
+  coordinator: "RED"
+  created: ""
+  status: "active"   # active|paused|done
+
+goals:
+  - ""
+
+constraints:
+  - ""
+
+workstreams:
+  research:
+    assignee: "RESEARCH"
+    status: "todo"   # todo|doing|blocked|done
+    notes: []
+
+  engineering:
+    assignee: "ENG"
+    status: "todo"
+    notes: []
+
+  ops:
+    assignee: "OPS"
+    status: "todo"
+    notes: []
+
+  finance:
+    assignee: "FINANCE"
+    status: "todo"
+    notes: []
+
+  infosec:
+    assignee: "INFOSEC"
+    status: "todo"
+    notes: []
+
+decisions: []
+risks: []
+next_actions: []
