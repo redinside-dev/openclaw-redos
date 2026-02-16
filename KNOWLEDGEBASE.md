@@ -74,7 +74,7 @@ Then read this file. The `openclaw.json` (live secrets) and `identity/` (device 
 
 ### Local branding overrides
 
-- Unknown-sender DM pairing reply text is locally patched to say “Anurag’s assistant” (no internal product naming).
+- Unknown-sender DM pairing reply text is locally patched to a human assistant message (“This is Anurag’s virtual assistant…”) with a pairing code (no internal product naming).
 - Script: `~/.openclaw/scripts/patch-pairing-reply.sh`
 - Note: upgrades may overwrite the dist bundles; re-run the script after updates.
 
