@@ -72,6 +72,12 @@ Then read this file. The `openclaw.json` (live secrets) and `identity/` (device 
 14. [What Still Needs To Be Done](#14-what-still-needs-to-be-done)
 15. [Quick Reference Cheatsheet](#15-quick-reference-cheatsheet)
 
+### Local branding overrides
+
+- Unknown-sender DM pairing reply text is locally patched to say “Anurag’s assistant” (no internal product naming).
+- Script: `~/.openclaw/scripts/patch-pairing-reply.sh`
+- Note: upgrades may overwrite the dist bundles; re-run the script after updates.
+
 ---
 
 ## 1. System Overview
