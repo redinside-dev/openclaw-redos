@@ -1,4 +1,46 @@
 {
   "version": 2,
-  "runs": {}
+  "runs": {
+    "717e5b7e-733e-4353-8ca2-1f410162f161": {
+      "runId": "717e5b7e-733e-4353-8ca2-1f410162f161",
+      "childSessionKey": "agent:eng:subagent:488a9d13-9e77-4a84-b5c5-d3c1fd9db4b0",
+      "requesterSessionKey": "agent:ops:main",
+      "requesterOrigin": {
+        "channel": "whatsapp"
+      },
+      "requesterDisplayKey": "agent:ops:main",
+      "task": "Reply with the single word PONG and nothing else.",
+      "cleanup": "keep",
+      "createdAt": 1771205603910,
+      "startedAt": 1771205604041,
+      "archiveAtMs": 1771209203910,
+      "cleanupHandled": true,
+      "endedAt": 1771205611854,
+      "outcome": {
+        "status": "error",
+        "error": "Encountered invalidated oauth token for user, failing request"
+      },
+      "cleanupCompletedAt": 1771205631766
+    },
+    "49698539-97fd-476b-bd5a-bed5c2b061a1": {
+      "runId": "49698539-97fd-476b-bd5a-bed5c2b061a1",
+      "childSessionKey": "agent:eng:subagent:8a01571b-455e-487e-9a6a-0f38fee7e755",
+      "requesterSessionKey": "agent:ops:main",
+      "requesterOrigin": {
+        "channel": "whatsapp"
+      },
+      "requesterDisplayKey": "agent:ops:main",
+      "task": "Reply with the single word PONG",
+      "cleanup": "keep",
+      "createdAt": 1771205855675,
+      "startedAt": 1771205855779,
+      "archiveAtMs": 1771209455675,
+      "cleanupHandled": true,
+      "endedAt": 1771205857468,
+      "outcome": {
+        "status": "ok"
+      },
+      "cleanupCompletedAt": 1771205857514
+    }
+  }
 }

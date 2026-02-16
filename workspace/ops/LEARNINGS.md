@@ -89,3 +89,13 @@ repeating mistakes and to build institutional knowledge.
 - **Details:** After TICKET-20260215-002 fixes (removed zai/glm-4.7-flashx, changed OPS primary, increased timeouts), session state corruption occurred: "Malformed agent session key" and "authentication token invalidated" errors. These were transient and self-healed after ~5 minutes. Root cause was partial gateway state refresh during config edits, not actual token expiration (OAuth token valid for 4 more days). System stable for ~50 minutes after errors stopped.
 - **Prevention:** When session state corruption occurs after config changes, monitor for 5-10 minutes before taking action. Many issues self-heal. If errors persist, run `openclaw doctor --fix` followed by `openclaw gateway restart` to clear corrupted session state. Avoid unnecessary gateway restarts for transient issues.
 - **Applied To:** TICKET-20260215-003 RESOLVED, LEARNINGS.md updated
+
+### LEARNING-20260215-008
+- **Date:** 2026-02-16T01:28:00Z
+- **Source Ticket:** TICKET-20260215-004
+- **Agent:** OPS
+- **Category:** infra
+- **Summary:** Telegram 409 conflicts indicate multiple bot instances polling same token
+- **Details:** gateway.err.log showed repeated Telegram getUpdates conflicts (409: Conflict: terminated by other getUpdates request) on 2026-02-14 and 2026-02-15. These occur when multiple Telegram bot instances (using the same bot token) simultaneously poll getUpdates. Conflicts self-resolved when duplicate gateway instances were terminated. Current system has only one gateway instance (PID 4956) and no conflicts since 2026-02-15T05:38Z.
+- **Prevention:** Before starting gateway, verify no existing instances are running: `ps aux | grep openclaw-gateway`. Avoid manual gateway starts while systemd/launchd is managing it. If conflicts occur, check for multiple processes and terminate duplicates. Consider adding monitoring for multiple gateway instances.
+- **Applied To:** TICKET-20260215-004 RESOLVED, LEARNINGS.md updated
