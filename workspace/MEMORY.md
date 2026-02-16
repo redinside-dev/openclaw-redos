@@ -118,7 +118,10 @@ Curated long-term memory for this OpenClaw workspace.
 ### DM pairing message branding — 2026-02-15
 
 - Patched the unknown-sender DM pairing reply so it does **not** mention internal product naming.
-- New text uses: **“Anurag’s assistant: access not approved”** and **“Approval code: XXXXXXXX”**.
+- New text (human assistant tone):
+  - “This is Anurag’s virtual assistant and it is private.”
+  - “Pairing code: XXXXXXXX”
+  - “If you want access, please pair with this code. Anurag will approve it when he’s back. Thanks for reaching out — we’ll get back to you.”
 - Implemented as a local patch to installed gateway bundles (may be overwritten by upgrades).
 - Added a re-apply script: `~/.openclaw/scripts/patch-pairing-reply.sh`.
 
