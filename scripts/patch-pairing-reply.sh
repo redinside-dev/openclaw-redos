@@ -16,7 +16,8 @@ for f in "${TARGETS[@]}"; do
 
   if grep -q "OpenClaw: access not configured" "$f"; then
     # Replace the whole buildPairingReply return block (exact match from upstream dist)
-    perl -0777 -i -pe 's/\treturn \[\n\t\t"OpenClaw: access not configured\.",\n\t\t"",\n\t\tidLine,\n\t\t"",\n\t\t`Pairing code: \$\{code\}`,\n\t\t"",\n\t\t"Ask the bot owner to approve with:",\n\t\tformatCliCommand\(`openclaw pairing approve \$\{channel\} \$\{code\}`\)\n\t\]\.join\("\\n"\);/\treturn [\n\t\t"Anurag\x{2019}s assistant: access not approved.",\n\t\t"",\n\t\tidLine,\n\t\t"",\n\t\t`Approval code: ${code}`,\n\t\t"",\n\t\t"Please ask Anurag to approve this code."\n\t]\.join("\\n");/gs' "$f"
+    perl -0777 -i -pe 's/\treturn \[\n\t\t"OpenClaw: access not configured\.",\n\t\t"",\n\t\tidLine,\n\t\t"",\n\t\t`Pairing code: \$\{code\}`,\n\t\t"",\n\t\t"Ask the bot owner to approve with:",\n\t\tformatCliCommand\(`openclaw pairing approve \$\{channel\} \$\{code\}`\)\n\t\]\.join\("\\n"\);/\treturn [\n\t\t"This is Anurag\x{2019}s virtual assistant and it is private.",\n\t\t"",
+\t\tidLine,\n\t\t"",\n\t\t`Pairing code: ${code}`,\n\t\t"",\n\t\t"If you want access, please pair with this code.",\n\t\t"Anurag will approve it when he\x{2019}s back.",\n\t\t"Thanks for reaching out — we\x{2019}ll get back to you."\n\t]\.join("\\n");/gs' "$f"
   fi
 
 done
