@@ -1784,7 +1784,7 @@ model-usage, exa-mcp, holdings-analyzer, clawdhub, summarize, x-mirror,
 self-healing-protocol, prompt-engineering, mcp-context7
 ```
 
-### Cron Jobs (7 enabled)
+### Cron Jobs (8 enabled)
 
 | Job | Agent | Schedule | Purpose |
 |-----|-------|----------|---------|
@@ -1794,6 +1794,7 @@ self-healing-protocol, prompt-engineering, mcp-context7
 | RED Self-Improvement | RED | Every 6 hours | Review patterns, apply fixes |
 | OPS Ticket Auto-Diagnose | OPS | Every hour | Read open tickets, attempt fix |
 | RESEARCH Proactive Update | RESEARCH | Every 4 hours | Web scan for tool/model updates |
+| **RED Daily Brief** | RED | **9:00 AM ET daily (7 days/week)** | Telegram DM daily brief (topics configurable via `workspace/briefs/daily-brief-topics.md`) |
 | RED Daily Summary | RED | 6 PM ET weekdays | Telegram DM to Anurag |
 
 ### Dashboard Pages (13 tabs)
@@ -1825,6 +1826,6 @@ Overview, Agents, Cron Jobs, Tickets & SLA, Learnings, Skills, Cost Estimator, S
 
 ---
 
-*Last updated: 2026-02-15 20:09 ET by Windsurf Cascade*
+*Last updated: 2026-02-15 21:33 ET by anuragg-saxenaa*
 *OpenClaw version: 2026.2.14 | RedOS version: 3.7.0*
 *All phases complete. Dashboard live on port 19000. CEO hire/fire active. Basic auth enabled for tunnel.*
