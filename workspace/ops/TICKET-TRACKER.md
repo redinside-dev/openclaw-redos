@@ -32,6 +32,20 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 
 ## Active Tickets
 
+### TICKET-20260215-004
+- **Status:** RESOLVED
+- **Priority:** P3
+- **Created:** 2026-02-16T01:24:00Z
+- **SLA Deadline:** 2026-02-18T01:24:00Z (48 hours)
+- **Reporter:** OPS (cron)
+- **Assignee:** OPS
+- **Summary:** Historical Telegram getUpdates conflicts indicate multiple bot instances
+- **Details:** gateway.err.log shows extensive Telegram getUpdates conflict errors (409: Conflict: terminated by other getUpdates request) on 2026-02-14 from ~19:44:38Z to 19:58:40Z. Additional conflicts occurred on 2026-02-15T05:38:07.854Z. These errors indicate multiple bot instances were running simultaneously. Conflicts self-resolved when duplicate instances were terminated.
+- **Root Cause:** Multiple gateway instances running simultaneously, both polling the same Telegram bot token. Current system has only one gateway instance (PID 4956) and no conflicts have occurred since 2026-02-15T05:38Z.
+- **Resolution:** Issue self-resolved when duplicate gateway instances were terminated. Verified only one gateway is currently running. No immediate action needed.
+- **Learnings:** LEARNING-20260215-008
+- **Resolved At:** 2026-02-16T01:28:00Z
+
 ### TICKET-20260215-003
 - **Status:** RESOLVED
 - **Priority:** P2
