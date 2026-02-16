@@ -90,6 +90,16 @@ repeating mistakes and to build institutional knowledge.
 - **Prevention:** When session state corruption occurs after config changes, monitor for 5-10 minutes before taking action. Many issues self-heal. If errors persist, run `openclaw doctor --fix` followed by `openclaw gateway restart` to clear corrupted session state. Avoid unnecessary gateway restarts for transient issues.
 - **Applied To:** TICKET-20260215-003 RESOLVED, LEARNINGS.md updated
 
+### LEARNING-20260216-001
+- **Date:** 2026-02-16T02:15:00Z
+- **Source Ticket:** observation
+- **Agent:** main
+- **Category:** workflow
+- **Summary:** When a user requests agent-to-agent delegation, verify `sessions_spawn` capability first; don’t claim it’s forbidden without testing.
+- **Details:** Earlier, the system reported `sessions_spawn` as forbidden for agentIds, but later it succeeded when invoked directly. This indicates capability can depend on runtime state/policy and must be tested before asserting constraints.
+- **Prevention:** If delegation is requested, attempt `agents_list` + a minimal `sessions_spawn` (e.g., PONG) to confirm; if blocked, report the exact error.
+- **Applied To:** LEARNINGS.md (this entry)
+
 ### LEARNING-20260215-008
 - **Date:** 2026-02-16T01:28:00Z
 - **Source Ticket:** TICKET-20260215-004
