@@ -173,12 +173,33 @@ Curated long-term memory for this OpenClaw workspace.
 - Note: URL changes on restart; for permanent URL, set up named Cloudflare tunnel
 - No authentication currently — dashboard is read-only (except model override endpoint)
 
+### Session 4 — 2026-02-15 19:44 ET
+
+**Phase 4: CEO Dynamic Hiring/Firing (COMPLETE):**
+- `ceo-worker.js`: Full FIRE capability with performance tracking
+  - Monitors failure rate (>60%), avg latency (>3min), inactive timeout (>5min)
+  - Auto-fires underperforming workers, reassigns their tasks to pending queue
+  - Hire/fire audit log persisted to `workspace/ops/ceo-hire-fire-log.json`
+  - `getWorkerStatus()` exposes worker health to dashboard/API
+- Dashboard server: New endpoints `GET /api/ceo/status`, `POST /api/ceo/hire`, `POST /api/ceo/fire`
+- Dashboard UI: New "CEO Controls" tab with agent roster, hire/fire buttons, audit log, threshold display
+- Commit: `e284602`
+
+**Dashboard Basic Auth (COMPLETE):**
+- `DASHBOARD_USER` and `DASHBOARD_PASS` in `.env`
+- Auth skipped for localhost (direct access), enforced when `X-Forwarded-For` present (tunnel)
+- Credentials: user=`red`, pass=`redos2026`
+- Added to `.env.example` template
+
+**Dashboard Verification:**
+- SSR confirmed: 17 data keys injected including `_ceoStatus`
+- Auth confirmed: localhost → 200, external (X-Forwarded-For) → 401
+- Browser preview opened on port 19000
+
 ### Remaining
 
-- Phase 4: CEO dynamic hiring/firing (not started)
-- Verify dashboard renders correctly in browser (SSR fix deployed but user hasn't confirmed yet)
-- Consider adding basic auth to Cloudflare tunnel for security
 - Monitor cron jobs over next few days to confirm stability
 - Cost-tracker + smart-router still not writing to log files (lower priority)
+- Cloudflare tunnel URL changes on restart — consider named tunnel for permanence
 
-*Last updated: 2026-02-15 19:24 ET by Windsurf Cascade — Dashboard SSR fix, MCP Context7 skill, Telegram Mission Control commands, Cloudflare tunnel.*
+*Last updated: 2026-02-15 19:44 ET by Windsurf Cascade — Phase 4 CEO hire/fire complete, dashboard basic auth added, all verified.*
