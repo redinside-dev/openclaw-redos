@@ -259,12 +259,47 @@ Curated long-term memory for this OpenClaw workspace.
 - Workaround: cron jobs and sub-agent spawns use `zai/glm-4.7` (works fine)
 - To fix permanently: re-authenticate codex OAuth via `openclaw login`
 
-### Remaining
+### Session 6 — 2026-02-15 21:00 ET — PRODUCTION READINESS VERIFICATION
 
-- Re-authenticate openai-codex OAuth tokens (manual step)
+**Gateway restart required:**
+- Gateway had cached stale config from before Session 5 fix (the invalid `allowAgents` in defaults error)
+- `launchctl kickstart -k` restarted gateway cleanly (PID 18133)
+- No config errors on fresh start — per-agent `allowAgents` loaded correctly
+
+**Live test results (all 4 autonomy systems):**
+
+| System | Test | Result |
+|--------|------|--------|
+| **Agent-to-Agent** | OPS → sessions_spawn → ENG → "PONG" | ✅ 10s round trip |
+| **Agent-to-Agent** | RED → sessions_spawn → ENG → "PONG" | ✅ 26s round trip |
+| **Self-Healing** | OPS health check → read logs → "NO NEW ERRORS FOUND" | ✅ Correct |
+| **Self-Improvement** | RED reflection → analyzed patterns → wrote LEARNING-20260216-001 | ✅ Written to file |
+| **Self-Reliance** | 3 cron jobs firing (SLA, Health, Ticket Diagnose), 5 more scheduled | ✅ Autonomous |
+
+**Autonomous agent output discovered (produced without human input):**
+- **TICKET-20260215-004:** OPS detected Telegram 409 conflicts → diagnosed → resolved → LEARNING-008
+- **LEARNING-20260216-001:** RED identified delegation pattern issue → wrote prevention steps
+- **LEARNING-20260216-002:** RESEARCH proactive scan found 2 CVEs (CVE-2026-25593, CVE-2026-25253) — both mitigated by v2026.2.14
+- **Memory entries:** OPS + RESEARCH wrote daily logs to `workspace/memory/2026-02-15.md` and `2026-02-16.md`
+
+**Codex auth discovery:**
+- `openclaw login` doesn't exist — correct command: `openclaw models auth login --provider openai-codex`
+- But that requires a provider plugin which isn't installed for openai-codex (built-in OAuth)
+- Multi-account failover: `openclaw models auth paste-token --profile-id "openai-codex:account2"` for API keys
+- Deferred: using default account (`io.anuragsaxena@gmail.com`, Team plan, expires Feb 20)
+
+**Commits:**
+- `0d99060` — autonomous agent runtime output (TICKET-004, LEARNING-008, memory entries)
+- `0494938` — RED self-improvement learning (LEARNING-20260216-001)
+- `6cbd119` — cron state + subagent run logs
+- `33e5cbe` — RESEARCH CVE findings (LEARNING-20260216-002)
+
+### Remaining (Low Priority)
+
 - Install dashboard launchd plist: `cp ai.openclaw.dashboard.plist ~/Library/LaunchAgents/ && launchctl load ~/Library/LaunchAgents/ai.openclaw.dashboard.plist`
-- Monitor cron jobs to confirm sessions_spawn delegation works in production
-- Cost-tracker + smart-router still not writing to log files (lower priority)
-- Cloudflare tunnel URL changes on restart — consider named tunnel for permanence
+- Multi-account Codex failover (3 accounts ready, only 1 authenticated)
+- Cost-tracker + smart-router skills not writing to log files
+- Cloudflare tunnel URL changes on restart — consider named tunnel
+- MEMORY.md is 14.6K chars, gateway truncates at 2.5K in context — consider archiving older sessions
 
-*Last updated: 2026-02-15 20:27 ET by Windsurf Cascade — Critical autonomy fixes: sessions_spawn working, agent delegation verified, memory enrichment added.*
+*Last updated: 2026-02-15 21:27 ET by Windsurf Cascade — Production readiness verified: all 4 autonomy systems tested and confirmed working.*
