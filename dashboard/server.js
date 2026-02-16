@@ -11,9 +11,40 @@ import path from 'node:path';
 import http from 'node:http';
 import { fileURLToPath } from 'node:url';
 
+import { config as dotenvConfig } from 'dotenv';
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const OPENCLAW_DIR = path.resolve(__dirname, '..');
 const PORT = 19000;
+
+// Load .env
+dotenvConfig({ path: path.join(OPENCLAW_DIR, '.env') });
+
+// Basic auth credentials (from .env or defaults for local-only access)
+const DASH_USER = process.env.DASHBOARD_USER || 'red';
+const DASH_PASS = process.env.DASHBOARD_PASS || '';
+
+function checkAuth(req, res) {
+  // Skip auth if no password set (local-only mode)
+  if (!DASH_PASS) return true;
+  // Skip auth for localhost direct access
+  const fwd = req.headers['x-forwarded-for'] || '';
+  const host = req.headers.host || '';
+  if (!fwd && (host.startsWith('localhost') || host.startsWith('127.0.0.1'))) return true;
+  // Check Basic Auth header
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith('Basic ')) {
+    res.writeHead(401, { 'WWW-Authenticate': 'Basic realm="Mission Control"', 'Content-Type': 'text/plain' });
+    res.end('Authentication required');
+    return false;
+  }
+  const decoded = Buffer.from(authHeader.slice(6), 'base64').toString();
+  const [user, pass] = decoded.split(':');
+  if (user === DASH_USER && pass === DASH_PASS) return true;
+  res.writeHead(401, { 'WWW-Authenticate': 'Basic realm="Mission Control"', 'Content-Type': 'text/plain' });
+  res.end('Invalid credentials');
+  return false;
+}
 
 // --- Helpers ---
 
@@ -283,6 +314,25 @@ function getGatewayLogTail(n = 50) {
   } catch { return []; }
 }
 
+function getCeoStatus() {
+  const logPath = path.join(OPENCLAW_DIR, 'workspace', 'ops', 'ceo-hire-fire-log.json');
+  let log = [];
+  try { log = JSON.parse(fs.readFileSync(logPath, 'utf-8')); } catch {}
+  const agents = getAgents();
+  return {
+    agents: agents.map(a => ({
+      id: a.id, name: a.name, model: a.model,
+      status: 'active', // All configured agents are considered active
+    })),
+    hireFireLog: log.slice(-20),
+    stats: {
+      totalHires: log.filter(l => l.action === 'HIRE').length,
+      totalFires: log.filter(l => l.action === 'FIRE').length,
+      activeAgents: agents.length,
+    }
+  };
+}
+
 function getSystemSummary() {
   const agents = getAgents();
   const cronJobs = getCronJobs();
@@ -332,6 +382,9 @@ const server = http.createServer((req, res) => {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   if (req.method === 'OPTIONS') { res.writeHead(204); res.end(); return; }
+
+  // Basic auth check (skipped for localhost if no password set)
+  if (!checkAuth(req, res)) return;
 
   // POST: Model override
   if (req.method === 'POST' && url.pathname === '/api/model-override') {
@@ -421,6 +474,64 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // CEO hire/fire log
+  if (url.pathname === '/api/ceo/status') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify(getCeoStatus()));
+    return;
+  }
+
+  // POST: CEO hire worker
+  if (req.method === 'POST' && url.pathname === '/api/ceo/hire') {
+    let body = '';
+    req.on('data', c => body += c);
+    req.on('end', () => {
+      try {
+        const { agentId } = JSON.parse(body);
+        if (!agentId) throw new Error('agentId required');
+        const config = readJsonSafe(path.join(OPENCLAW_DIR, 'openclaw.json'));
+        const agent = (config?.agents?.list || []).find(a => a.id === agentId);
+        if (!agent) throw new Error('Agent not found: ' + agentId);
+        // Enable the agent by ensuring it's in the list (it already is)
+        // Log the hire action
+        const logPath = path.join(OPENCLAW_DIR, 'workspace', 'ops', 'ceo-hire-fire-log.json');
+        let log = [];
+        try { log = JSON.parse(fs.readFileSync(logPath, 'utf-8')); } catch {}
+        log.push({ action: 'HIRE', workerId: agentId, timestamp: new Date().toISOString(), reason: 'Manual hire via dashboard', success: true });
+        fs.writeFileSync(logPath, JSON.stringify(log, null, 2));
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: true, action: 'HIRE', agentId }));
+      } catch (e) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: false, error: e.message }));
+      }
+    });
+    return;
+  }
+
+  // POST: CEO fire worker
+  if (req.method === 'POST' && url.pathname === '/api/ceo/fire') {
+    let body = '';
+    req.on('data', c => body += c);
+    req.on('end', () => {
+      try {
+        const { agentId, reason } = JSON.parse(body);
+        if (!agentId) throw new Error('agentId required');
+        const logPath = path.join(OPENCLAW_DIR, 'workspace', 'ops', 'ceo-hire-fire-log.json');
+        let log = [];
+        try { log = JSON.parse(fs.readFileSync(logPath, 'utf-8')); } catch {}
+        log.push({ action: 'FIRE', workerId: agentId, timestamp: new Date().toISOString(), reason: reason || 'Manual fire via dashboard', success: true });
+        fs.writeFileSync(logPath, JSON.stringify(log, null, 2));
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: true, action: 'FIRE', agentId }));
+      } catch (e) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: false, error: e.message }));
+      }
+    });
+    return;
+  }
+
   // Dynamic index: inject all data server-side so page works without fetch
   if (url.pathname === '/' || url.pathname === '/index.html') {
     const allData = {
@@ -433,6 +544,7 @@ const server = http.createServer((req, res) => {
       _prompt: getPromptEngineering(),
       _skillDetails: getSkillDetails(),
       _gatewayLogs: getGatewayLogTail(50),
+      _ceoStatus: getCeoStatus(),
     };
     const htmlTemplate = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf-8');
     // Inject data before closing </body>

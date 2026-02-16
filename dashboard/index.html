@@ -116,6 +116,7 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   <button class="tab" data-p="caching">Caching</button>
   <button class="tab" data-p="errors">Errors &amp; Logs</button>
   <button class="tab" data-p="openclaw">OpenClaw</button>
+  <button class="tab" data-p="ceo">CEO Controls</button>
 </div>
 
 <div class="main">
@@ -219,6 +220,28 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   </div>
   <div class="iframe-wrap">
     <iframe id="oc-frame" src="about:blank" allow="clipboard-read; clipboard-write"></iframe>
+  </div>
+</div>
+
+<!-- CEO CONTROLS -->
+<div class="pg" id="pg-ceo">
+  <div class="sec-t" style="margin-bottom:10px">CEO Agent Controls — Hire / Fire / Monitor</div>
+  <div class="g g4" id="ceo-stats"></div>
+  <div class="sec" style="margin-top:16px">
+    <div class="g g2">
+      <div>
+        <div class="sec-t">Active Agents</div>
+        <div class="c" style="overflow-x:auto"><table class="t" id="ceo-agents"><thead><tr><th>Agent</th><th>Name</th><th>Model</th><th>Status</th><th>Action</th></tr></thead><tbody></tbody></table></div>
+      </div>
+      <div>
+        <div class="sec-t">Hire / Fire Log</div>
+        <div class="c" id="ceo-log" style="max-height:400px;overflow-y:auto"></div>
+      </div>
+    </div>
+  </div>
+  <div class="sec" style="margin-top:16px">
+    <div class="sec-t">Fire Thresholds</div>
+    <div class="c" id="ceo-thresholds" style="font-size:11px;color:var(--text2)"></div>
   </div>
 </div>
 
@@ -408,6 +431,67 @@ function renderErrors(){
     return`<tr><td style="font-size:9px;white-space:nowrap;color:var(--text3);font-family:monospace">${l.time?new Date(l.time).toLocaleTimeString():'--'}</td><td style="${cls};font-weight:700;font-size:9px">${lv}</td><td style="font-size:10px;max-width:600px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${h(msg)}">${h(msg)}</td></tr>`}).join('');
 }
 
+// ---- CEO Controls ----
+function renderCeo(){
+  const ceo=D._ceoStatus||{};
+  const agents=ceo.agents||D.agents||[];
+  const log=ceo.hireFireLog||[];
+  const stats=ceo.stats||{};
+  document.getElementById('ceo-stats').innerHTML=[
+    `<div class="c"><div class="c-t">Active Agents</div><div class="c-v" style="color:var(--green)">${stats.activeAgents||agents.length}</div></div>`,
+    `<div class="c"><div class="c-t">Total Hires</div><div class="c-v" style="color:var(--blue)">${stats.totalHires||0}</div></div>`,
+    `<div class="c"><div class="c-t">Total Fires</div><div class="c-v" style="color:var(--red)">${stats.totalFires||0}</div></div>`,
+    `<div class="c"><div class="c-t">CEO Authority</div><div class="c-v" style="color:var(--purple);font-size:16px">HIRE / FIRE / OVERRIDE</div></div>`,
+  ].join('');
+  // Agent table with hire/fire buttons
+  const tb=document.querySelector('#ceo-agents tbody');
+  tb.innerHTML=agents.map(a=>{
+    const statusCls=a.status==='active'?'p-g':a.status==='at_risk'?'p-y':'p-r';
+    return`<tr>
+      <td style="color:var(--text);font-weight:600">${EMO[a.id]||'\u{1F916}'} ${h(a.id)}</td>
+      <td>${h(a.name)}</td>
+      <td><span class="p p-c">${h(a.model||'--')}</span></td>
+      <td><span class="p ${statusCls}">${a.status||'active'}</span></td>
+      <td><button class="hdr-btn" style="color:var(--red);border-color:var(--red)" onclick="ceoFire('${a.id}')">Fire</button>
+          <button class="hdr-btn" style="color:var(--green);border-color:var(--green)" onclick="ceoHire('${a.id}')">Hire</button></td>
+    </tr>`}).join('');
+  // Hire/Fire log
+  const logEl=document.getElementById('ceo-log');
+  if(log.length){
+    logEl.innerHTML=log.slice().reverse().map(l=>{
+      const cls=l.action==='FIRE'?'er':'ok';
+      const icon=l.action==='FIRE'?'\u{1F525}':'\u{1F4BC}';
+      return`<div class="fi ${cls}"><div class="fi-t">${l.timestamp?new Date(l.timestamp).toLocaleString():'--'}</div><div class="fi-b">${icon} <strong>${l.action}</strong> ${h(l.workerId||'--')} &mdash; ${h(l.reason||'--')}${l.success===false?' <span class="p p-r">FAILED</span>':''}</div></div>`}).join('');
+  }else{
+    logEl.innerHTML='<div style="padding:30px;text-align:center;color:var(--text3);font-size:12px">No hire/fire actions yet</div>';
+  }
+  // Thresholds
+  const th=ceo.thresholds||{minTasks:3,maxFailureRate:0.6,maxAvgLatency:180000,inactiveTimeout:300000};
+  document.getElementById('ceo-thresholds').innerHTML=`
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px">
+      <div><strong>Min tasks before eval:</strong> ${th.minTasks}</div>
+      <div><strong>Max failure rate:</strong> ${(th.maxFailureRate*100).toFixed(0)}%</div>
+      <div><strong>Max avg latency:</strong> ${(th.maxAvgLatency/1000).toFixed(0)}s</div>
+      <div><strong>Inactive timeout:</strong> ${(th.inactiveTimeout/1000).toFixed(0)}s</div>
+    </div>
+    <div style="margin-top:8px;font-size:10px;color:var(--text3)">CEO automatically fires workers exceeding these thresholds. Fired workers' tasks are reassigned to the pending queue.</div>`;
+}
+function ceoHire(agentId){
+  fetch('/api/ceo/hire',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({agentId})})
+    .then(r=>r.json()).then(d=>{
+      if(d.ok){toast(`Hired: ${agentId}`,true);loadAll()}
+      else{toast('Error: '+d.error,false)}
+    }).catch(e=>{toast('Failed: '+e.message,false)});
+}
+function ceoFire(agentId){
+  if(!confirm(`Fire agent "${agentId}"? Their tasks will be reassigned.`))return;
+  fetch('/api/ceo/fire',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({agentId,reason:'Manual fire via dashboard'})})
+    .then(r=>r.json()).then(d=>{
+      if(d.ok){toast(`Fired: ${agentId}`,true);loadAll()}
+      else{toast('Error: '+d.error,false)}
+    }).catch(e=>{toast('Failed: '+e.message,false)});
+}
+
 // ---- Model Override ----
 function openModal(agentId){
   const sel=document.getElementById('mdl-agent');
@@ -460,13 +544,14 @@ function renderAll(){
   try{renderPrompt()}catch(e){console.error('renderPrompt',e)}
   try{renderCaching()}catch(e){console.error('renderCaching',e)}
   try{renderErrors()}catch(e){console.error('renderErrors',e)}
+  try{renderCeo()}catch(e){console.error('renderCeo',e)}
   document.getElementById('upd').textContent='Updated '+new Date().toLocaleTimeString();
 }
 
 // ---- Data Loading (fetch for refresh) ----
 async function loadAll(){
   try{
-    const [dashboard,errors,gwErrors,costDetails,routing,caching,prompt,skillDetails,gwLogs]=await Promise.all([
+    const [dashboard,errors,gwErrors,costDetails,routing,caching,prompt,skillDetails,gwLogs,ceoStatus]=await Promise.all([
       fetch('/api/dashboard').then(r=>r.json()),
       fetch('/api/errors').then(r=>r.json()).catch(()=>[]),
       fetch('/api/gateway-errors').then(r=>r.json()).catch(()=>[]),
@@ -476,8 +561,9 @@ async function loadAll(){
       fetch('/api/prompt-engineering').then(r=>r.json()).catch(()=>({})),
       fetch('/api/skill-details').then(r=>r.json()).catch(()=>[]),
       fetch('/api/gateway-logs').then(r=>r.json()).catch(()=>[]),
+      fetch('/api/ceo/status').then(r=>r.json()).catch(()=>({})),
     ]);
-    D={...dashboard,_errors:errors,_gatewayErrors:gwErrors,_costDetails:costDetails,_routing:routing,_caching:caching,_prompt:prompt,_skillDetails:skillDetails,_gatewayLogs:gwLogs};
+    D={...dashboard,_errors:errors,_gatewayErrors:gwErrors,_costDetails:costDetails,_routing:routing,_caching:caching,_prompt:prompt,_skillDetails:skillDetails,_gatewayLogs:gwLogs,_ceoStatus:ceoStatus};
     renderAll();
   }catch(err){
     console.error('Fetch refresh failed (using SSR data):',err);
