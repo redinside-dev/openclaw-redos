@@ -115,6 +115,10 @@ Curated long-term memory for this OpenClaw workspace.
   - schedule: **09:00 America/Toronto (daily, 7 days/week)**
   - delivery: Telegram → `telegram:1012034994`
 
+### WhatsApp pairing approvals — 2026-02-15
+
+- Approved WhatsApp sender **+918869929233** via pairing code **JHKMGMJ3**.
+
 ### DM pairing message branding — 2026-02-15
 
 - Patched the unknown-sender DM pairing reply so it does **not** mention internal product naming.
