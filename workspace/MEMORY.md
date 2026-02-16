@@ -228,10 +228,43 @@ Curated long-term memory for this OpenClaw workspace.
 - Auth confirmed: localhost → 200, external (X-Forwarded-For) → 401
 - Browser preview opened on port 19000
 
+### Session 5 — 2026-02-15 20:18 ET — CRITICAL AUTONOMY FIXES
+
+**Root cause of broken agent-to-agent communication (FIXED):**
+1. All cron job prompts used `sessions_send(agentId="eng", message="...")` — **wrong API**
+   - `sessions_send` requires `sessionKey`, not `agentId`
+   - Correct tool: `sessions_spawn(agentId="eng", task="...")`
+   - Fixed all 5 cron jobs that use inter-agent delegation
+2. SOUL.md (all 8 workspaces) told agents to use `sessions_send` with `agentId` — **fixed to `sessions_spawn`**
+3. `openclaw.json` had no `subagents.allowAgents` config — agents got "forbidden" error
+   - Added `"subagents": {"allowAgents": ["*"]}` to all 8 agents in `agents.list`
+   - Note: this key is only valid per-agent, NOT in `agents.defaults` (schema rejects it there)
+
+**Verified end-to-end:** OPS → sessions_spawn → ENG → "PONG" reply — **full round trip works**
+
+**Self-improvement cron fix:**
+- Upgraded model from `zai/glm-4.7` to `openai-codex/gpt-5.2` for better analysis
+- Made LEARNINGS.md output mandatory (must write something every run)
+
+**Memory enrichment:**
+- Added "Memory Enrichment (MANDATORY)" section to SOUL.md
+- Agents must write daily memory entries to `workspace/memory/{YYYY-MM-DD}.md` after each cron run
+
+**Dashboard watchdog:**
+- Created `ai.openclaw.dashboard.plist` for launchd auto-restart
+- Gateway already had launchd KeepAlive (confirmed running as pid via `ai.openclaw.gateway`)
+
+**OAuth issue (known, not blocking):**
+- `openai-codex/gpt-5.2` OAuth tokens invalidated for sub-agent sessions
+- Workaround: cron jobs and sub-agent spawns use `zai/glm-4.7` (works fine)
+- To fix permanently: re-authenticate codex OAuth via `openclaw login`
+
 ### Remaining
 
-- Monitor cron jobs over next few days to confirm stability
+- Re-authenticate openai-codex OAuth tokens (manual step)
+- Install dashboard launchd plist: `cp ai.openclaw.dashboard.plist ~/Library/LaunchAgents/ && launchctl load ~/Library/LaunchAgents/ai.openclaw.dashboard.plist`
+- Monitor cron jobs to confirm sessions_spawn delegation works in production
 - Cost-tracker + smart-router still not writing to log files (lower priority)
 - Cloudflare tunnel URL changes on restart — consider named tunnel for permanence
 
-*Last updated: 2026-02-15 19:44 ET by Windsurf Cascade — Phase 4 CEO hire/fire complete, dashboard basic auth added, all verified.*
+*Last updated: 2026-02-15 20:27 ET by Windsurf Cascade — Critical autonomy fixes: sessions_spawn working, agent delegation verified, memory enrichment added.*

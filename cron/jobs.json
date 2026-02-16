@@ -805,7 +805,7 @@
       "name": "OPS System Health Monitor",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771205128375,
+      "updatedAtMs": 1771205815209,
       "schedule": {
         "kind": "every",
         "everyMs": 900000,
@@ -825,10 +825,10 @@
       },
       "state": {
         "lastStatus": "ok",
-        "lastRunAtMs": 1771205073678,
-        "lastDurationMs": 54697,
+        "lastRunAtMs": 1771205795045,
+        "lastDurationMs": 20164,
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1771205795024
+        "nextRunAtMs": 1771206695024
       }
     },
     {
