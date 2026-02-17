@@ -189,8 +189,69 @@ function getLearnings() {
 
 function getStandups() {
   const content = readFileSafe(path.join(OPENCLAW_DIR, 'workspace', 'ops', 'STANDUP-LOG.md'));
-  // Just return raw content for now
-  return content;
+  // Parse into structured entries by splitting on ### Standup headers
+  const entries = [];
+  const blocks = content.split(/\n(?=### Standup )/).filter(b => b.trim().startsWith('### Standup'));
+  for (const block of blocks.slice(-10).reverse()) {
+    const titleMatch = block.match(/^### Standup (.+)/m);
+    const title = titleMatch ? titleMatch[1].trim() : 'Unknown';
+    // Extract rows from the agent table
+    const tableMatch = block.match(/\| Agent[^\n]*\n\|[-| ]+\n((?:\|[^\n]+\n?)+)/);
+    const agents = [];
+    if (tableMatch) {
+      for (const row of tableMatch[1].trim().split('\n')) {
+        const cells = row.split('|').map(c => c.trim()).filter(Boolean);
+        if (cells.length >= 2 && cells[0] && cells[0] !== 'Agent') {
+          agents.push({
+            name: cells[0],
+            status: cells[1] || '',
+            workingOn: cells[2] || '',
+            blockers: cells[3] || '',
+            eta: cells[4] || '',
+            next: cells[5] || ''
+          });
+        }
+      }
+    }
+    const ticketsMatch = block.match(/\*\*Open Tickets:\*\* (.+)/);
+    const slaMatch = block.match(/\*\*SLA Breaches:\*\* (.+)/);
+    const healthMatch = block.match(/\*\*System Health:\*\* (.+)/);
+    const actionItems = [];
+    const actionBlock = block.match(/\*\*Action Items:\*\*([\s\S]*?)(?:\n---|\n###|$)/);
+    if (actionBlock) {
+      for (const line of actionBlock[1].trim().split('\n')) {
+        const m = line.match(/^\d+\.\s+(.+)/);
+        if (m) actionItems.push(m[1].trim());
+      }
+    }
+    entries.push({
+      title,
+      tickets: ticketsMatch ? ticketsMatch[1].trim() : null,
+      slaBreaches: slaMatch ? slaMatch[1].trim() : null,
+      systemHealth: healthMatch ? healthMatch[1].trim() : null,
+      agents,
+      actionItems,
+      raw: block
+    });
+  }
+  return { entries, rawContent: content };
+}
+
+function getAgentStatus() {
+  const statusDir = path.join(OPENCLAW_DIR, 'workspace', 'ops', 'agent-status');
+  const agents = ['main', 'eng', 'research', 'finance', 'ops', 'infosec'];
+  const today = new Date().toISOString().slice(0, 10);
+  const results = [];
+  for (const agentId of agents) {
+    const fp = path.join(statusDir, `${agentId}.json`);
+    try {
+      const data = JSON.parse(fs.readFileSync(fp, 'utf8'));
+      results.push({ ...data, stale: data.date !== today });
+    } catch {
+      results.push({ agent: agentId, date: null, stale: true, workingOn: null, completedYesterday: null, eta: null, blockers: null, sprintGoal: null, updatedAt: null });
+    }
+  }
+  return results;
 }
 
 function getRecentErrors() {
@@ -624,7 +685,12 @@ const server = http.createServer((req, res) => {
   }
   if (url.pathname === '/api/standups') {
     res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ content: getStandups() }));
+    res.end(JSON.stringify(getStandups()));
+    return;
+  }
+  if (url.pathname === '/api/agent-status') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify(getAgentStatus()));
     return;
   }
   if (url.pathname === '/api/tickets-log') {

@@ -141,6 +141,26 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
 /* Select override */
 .model-sel{padding:3px 6px;background:var(--bg4);border:1px solid var(--bg5);border-radius:4px;color:var(--cyan);font-size:10px;cursor:pointer;outline:none;max-width:180px}
 .model-sel:hover{border-color:var(--blue)}
+/* Standup */
+.sd-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px 14px}
+.sd-card.has-blockers{border-color:var(--red)}
+.sd-card.stale{border-color:var(--bg5);opacity:.6}
+.sd-agent{font-weight:700;font-size:13px;display:flex;align-items:center;gap:6px;margin-bottom:8px}
+.sd-agent .badge-stale{font-size:8px;padding:1px 5px;border-radius:8px;background:var(--bg5);color:var(--text3)}
+.sd-agent .badge-blocker{font-size:8px;padding:1px 5px;border-radius:8px;background:var(--red);color:#fff}
+.sd-field{font-size:10px;color:var(--text3);margin-bottom:3px;line-height:1.5}
+.sd-field span{color:var(--text);font-weight:500}
+.sd-entry{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px 16px;margin-bottom:12px}
+.sd-entry-title{font-size:12px;font-weight:700;color:var(--cyan);margin-bottom:10px}
+.sd-table{width:100%;border-collapse:collapse;font-size:10px}
+.sd-table th{text-align:left;padding:4px 8px;border-bottom:1px solid var(--border);color:var(--text3);font-weight:600}
+.sd-table td{padding:4px 8px;border-bottom:1px solid var(--bg4);vertical-align:top}
+.sd-table tr:last-child td{border-bottom:none}
+.sd-blocker-cell{color:var(--red)}
+.sd-meta-row{display:flex;gap:16px;flex-wrap:wrap;font-size:10px;color:var(--text3);margin-top:8px}
+.sd-meta-row span{color:var(--text)}
+.sd-ai-list{list-style:none;padding:0;margin:6px 0 0 0;font-size:10px;color:var(--text)}
+.sd-ai-list li::before{content:"→ ";color:var(--cyan)}
 </style>
 </head>
 <body>
@@ -158,6 +178,7 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   <button class="tab on" data-p="overview">Overview</button>
   <button class="tab" data-p="agents">Agents</button>
   <button class="tab" data-p="pipeline">Pipeline</button>
+  <button class="tab" data-p="standup">Standup</button>
   <button class="tab" data-p="cron">Cron Jobs</button>
   <button class="tab" data-p="tickets">Tickets &amp; SLA</button>
   <button class="tab" data-p="learnings">Learnings</button>
@@ -264,6 +285,23 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
     <span style="margin-left:auto;font-size:10px;color:var(--text3)">&#x21bb; 3s</span>
   </div>
   <div id="pl-feed"></div>
+</div>
+
+<!-- STANDUP -->
+<div class="pg" id="pg-standup">
+  <div class="sec-t" style="display:flex;align-items:center;gap:8px">
+    Morning Standup &amp; Sprint Board
+    <span id="sd-meta" style="font-size:10px;color:var(--text3);margin-left:4px"></span>
+    <span style="margin-left:auto;font-size:10px;color:var(--text3)">&#x21bb; 30s</span>
+  </div>
+
+  <!-- Per-agent live status cards -->
+  <div class="sec-t" style="font-size:12px;margin-top:0;padding-top:0">Live Agent Status <span id="sd-date" style="color:var(--text3);font-weight:400"></span></div>
+  <div id="sd-cards" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;margin-bottom:20px"></div>
+
+  <!-- Latest standup entries -->
+  <div class="sec-t" style="font-size:12px;margin-top:10px;padding-top:0">Standup History</div>
+  <div id="sd-history"></div>
 </div>
 
 <!-- CRON -->
@@ -1098,6 +1136,93 @@ async function loadPipeline(){
 }
 loadPipeline();
 setInterval(loadPipeline,3000);
+
+// ── STANDUP ──────────────────────────────────────────
+const AGENT_META={
+  main:{emoji:'👑',label:'RED (CEO)'},
+  eng:{emoji:'💻',label:'ENG'},
+  research:{emoji:'🔬',label:'RESEARCH'},
+  finance:{emoji:'💰',label:'FINANCE'},
+  ops:{emoji:'⚙️',label:'OPS'},
+  infosec:{emoji:'🔒',label:'INFOSEC'}
+};
+
+function renderAgentStatusCards(agents){
+  const el=document.getElementById('sd-cards');
+  const today=new Date().toISOString().slice(0,10);
+  document.getElementById('sd-date').textContent='— '+today;
+  if(!agents||!agents.length){el.innerHTML='<p style="color:var(--text3);font-size:11px">No status data yet. Check-in crons run at 9:05am ET on weekdays.</p>';return;}
+  el.innerHTML=agents.map(a=>{
+    const meta=AGENT_META[a.agent]||{emoji:'🤖',label:a.agent};
+    const stale=a.stale;
+    const hasBlockers=a.blockers&&a.blockers!=='None'&&a.blockers.trim()!=='';
+    let badges='';
+    if(stale) badges+='<span class="badge-stale">No check-in today</span>';
+    if(hasBlockers) badges+='<span class="badge-blocker">BLOCKED</span>';
+    const field=(label,val)=>val?`<div class="sd-field">${label}: <span>${escHtml(val)}</span></div>`:'';
+    return `<div class="sd-card ${hasBlockers?'has-blockers':''} ${stale?'stale':''}">
+  <div class="sd-agent">${meta.emoji} ${meta.label} ${badges}</div>
+  ${field('Sprint goal',a.sprintGoal)}
+  ${field('Working on',a.workingOn)}
+  ${field('Completed',a.completedYesterday)}
+  ${field('ETA',a.eta)}
+  ${hasBlockers?`<div class="sd-field">Blockers: <span style="color:var(--red)">${escHtml(a.blockers)}</span></div>`:''}
+  ${a.updatedAt?`<div style="font-size:9px;color:var(--text3);margin-top:6px">Updated ${new Date(a.updatedAt).toLocaleTimeString()}</div>`:''}
+</div>`;
+  }).join('');
+}
+
+function renderStandupHistory(data){
+  const el=document.getElementById('sd-history');
+  if(!data||!data.entries||!data.entries.length){
+    el.innerHTML='<p style="color:var(--text3);font-size:11px">No standup entries yet. First standup compiles at 9:15am ET on weekdays.</p>';
+    return;
+  }
+  el.innerHTML=data.entries.map(e=>{
+    const agentRows=e.agents.map(a=>{
+      const blockerCell=a.blockers&&a.blockers!=='None'&&a.blockers!==''?`<td class="sd-blocker-cell">${escHtml(a.blockers)}</td>`:`<td style="color:var(--text3)">None</td>`;
+      return `<tr>
+        <td style="font-weight:600">${escHtml(a.name)}</td>
+        <td>${escHtml(a.status)}</td>
+        <td>${escHtml(a.workingOn)}</td>
+        ${blockerCell}
+        <td>${escHtml(a.eta)}</td>
+        <td>${escHtml(a.next)}</td>
+      </tr>`;
+    }).join('');
+    const aiItems=e.actionItems.map(i=>`<li>${escHtml(i)}</li>`).join('');
+    const healthCol=e.systemHealth&&e.systemHealth.toLowerCase().includes('degraded')?'color:var(--red)':e.systemHealth&&e.systemHealth.toLowerCase().includes('healthy')?'color:var(--green)':'';
+    return `<div class="sd-entry">
+  <div class="sd-entry-title">📋 ${escHtml(e.title)}</div>
+  ${agentRows?`<div style="overflow-x:auto"><table class="sd-table">
+    <thead><tr><th>Agent</th><th>Status</th><th>Working On</th><th>Blockers</th><th>ETA</th><th>Next</th></tr></thead>
+    <tbody>${agentRows}</tbody>
+  </table></div>`:''}
+  <div class="sd-meta-row">
+    ${e.tickets?`<div>Tickets: <span>${escHtml(e.tickets)}</span></div>`:''}
+    ${e.slaBreaches?`<div>SLA: <span style="${e.slaBreaches.toLowerCase().includes('breach')||e.slaBreaches.toLowerCase()!=='none'?'color:var(--red)':''}">${escHtml(e.slaBreaches)}</span></div>`:''}
+    ${e.systemHealth?`<div>Health: <span style="${healthCol}">${escHtml(e.systemHealth)}</span></div>`:''}
+  </div>
+  ${aiItems?`<div style="margin-top:8px;font-size:10px;color:var(--text3);font-weight:600">Action Items</div><ul class="sd-ai-list">${aiItems}</ul>`:''}
+</div>`;
+  }).join('');
+}
+
+function escHtml(s){if(!s)return '';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+async function loadStandup(){
+  try{
+    const [statusData,standupData]=await Promise.all([
+      fetch('/api/agent-status').then(r=>r.json()).catch(()=>[]),
+      fetch('/api/standups').then(r=>r.json()).catch(()=>null)
+    ]);
+    renderAgentStatusCards(statusData);
+    renderStandupHistory(standupData);
+    document.getElementById('sd-meta').textContent='last updated '+new Date().toLocaleTimeString();
+  }catch(e){}
+}
+loadStandup();
+setInterval(loadStandup,30000);
 </script>
 </body>
 </html>
