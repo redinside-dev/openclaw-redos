@@ -236,6 +236,53 @@ Row tinting: red = breached, amber = open/blocked, green = resolved.
 
 ---
 
+## Standup System
+
+### How it works (fixed 2026-02-17)
+Previous design used `sessions_send` to contact agents at 9am — agents are idle so it always failed silently. New design:
+
+1. **9:05am ET** — 6 per-agent check-in crons (RED/main, ENG, RESEARCH, FINANCE, OPS, INFOSEC) each independently write `workspace/ops/agent-status/<agentId>.json`:
+   ```json
+   { "agent": "eng", "date": "YYYY-MM-DD", "workingOn": "...", "completedYesterday": "...", "eta": "...", "blockers": "...", "sprintGoal": "...", "updatedAt": "ISO" }
+   ```
+2. **9:15am ET** — OPS Scrum Master reads those files, compiles standup → `STANDUP-LOG.md` + Telegram DM to Anurag.
+
+### Mission Control Standup tab
+- **Live cards** (30s refresh): last active time + model + calls today (from routing log) + check-in data when available
+- **Standup history**: parsed from STANDUP-LOG.md — agent table, tickets, SLA, action items
+
+### Standup troubleshooting
+- Cards show "No check-in today" → check-in crons haven't run yet (9:05am ET weekdays) or agent errored. Check cron tab.
+- Cards show activity but no check-in text → routing log has the agent active but JSON file not written. Check that the check-in cron ran ok.
+
+---
+
+## Pipeline — Full Traceability
+
+### What's captured (as of 2026-02-17)
+
+| Field | Source | Notes |
+|-------|--------|-------|
+| Trigger type | `routing-decisions.jsonl` session_key | telegram/cron/subagent/direct |
+| Trigger message | `agents/main/sessions/<id>.jsonl` | Telegram: actual user message text |
+| Cron job name | `cron/jobs.json` | matched by cronJobId from session_key |
+| Agent, model, provider | `routing-decisions.jsonl` | per step |
+| Tier (free/paid) | `llm-analytics.jsonl` + `cost-events.jsonl` | ollama=free, cloud=paid |
+| Latency per step | `llm-analytics.jsonl` `latency_ms` | in ms |
+| Tokens in/out/cached | `cost-events.jsonl` `tokens.*` | per step |
+| Cost per step | `cost-events.jsonl` `cost_usd` | estimated or provider-reported |
+| Prompt context | `routing-decisions.jsonl` `prompt_tail` | last 600 chars — added 2026-02-17 |
+| Response preview | `llm-analytics.jsonl` `response_preview` | first 600 chars — added 2026-02-17 |
+
+**Note**: `prompt_tail` and `response_preview` are only populated for requests made **after** the gateway was restarted on 2026-02-17. Historical entries show session-extracted messages where available.
+
+### Plugin enhancements (plugins/llm-analytics/index.js)
+- `llm_input` hook now also writes `prompt_tail` (last 600 chars of event.prompt) and `run_id`
+- `llm_output` hook now also writes `response_preview`, `run_id`, `session_key`, `response_chars`
+- After any upgrade to the plugin, restart the gateway: `openclaw gateway restart`
+
+---
+
 ## Troubleshooting
 
 ### Dashboard shows $0 / fake cost data
@@ -258,4 +305,4 @@ grep -i openrouter ~/.openclaw/openclaw.json
 If found: remove the entries, run `openclaw gateway restart`.
 
 ---
-Last updated: 2026-02-17 — Mission Control dashboard v2: cost estimator (real data), pipeline tab, agent hierarchy CRUD, cron model editing, tickets SLA
+Last updated: 2026-02-17 — Standup system (check-in crons, Standup tab, live cards), pipeline full traceability (trigger message, prompt/response preview, per-step cost/latency), LLM analytics plugin enhanced

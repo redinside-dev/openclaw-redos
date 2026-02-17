@@ -75,7 +75,8 @@ All tabs and what they show:
 |-----|-------------|
 | Overview | System health, agent cards, recent activity |
 | Agents | Hierarchy tree (org chart) + agent cards; Edit / Add / Sub-agent management |
-| **Pipeline** | **Real-time request flow** — shows how each message routes from trigger → RED → delegated agents; 3s poll |
+| **Pipeline** | **Full traceability** — trigger message, delegation chain, per-step model/cost/latency/tokens, prompt context + response preview; stats bar; 3s poll |
+| **Standup** | **Live agent status cards** (last seen, model, calls today) + standup history; 30s poll |
 | Cron Jobs | All cron jobs with status, last run, model dropdown (change model on demand) |
 | Tickets & SLA | Live ticket tracker, SLA countdown/breach detection, 30s poll |
 | Learnings | Institutional knowledge base |
@@ -90,21 +91,35 @@ All tabs and what they show:
 
 ### Dashboard data sources
 - Cost data: `workspace/logs/cost-events.jsonl` (authoritative — written by LLM analytics plugin)
-- Pipeline: `workspace/logs/routing-decisions.jsonl` + `workspace/logs/llm-analytics.jsonl` (joined by agent + timestamp)
+- Pipeline: all 3 logs joined: `routing-decisions.jsonl` (start ts, prompt_tail) + `llm-analytics.jsonl` (end ts, response_preview) + `cost-events.jsonl` (tokens, tier); Telegram session file for user message
+- Standup history: `workspace/ops/STANDUP-LOG.md` (parsed)
+- Agent live status: `workspace/ops/agent-status/<id>.json` (written by 9:05am check-in crons) + `routing-decisions.jsonl` (last seen, calls today)
 - Tickets: `workspace/ops/TICKET-TRACKER.md` (markdown parsed)
 - Agent hierarchy: `workspace/ops/agent-hierarchy.json`
 
-### Dashboard APIs added (this session)
+### Dashboard APIs
 | Endpoint | Purpose |
 |----------|---------|
 | `GET /api/analytics` | Cost breakdown by model/agent/provider + recent feed |
-| `GET /api/pipeline` | Request flow pipelines (last 20) |
+| `GET /api/pipeline` | Full pipeline traceability (last 25) with trigger message, per-step metrics |
 | `GET /api/agents` | Live agent list with hierarchy |
 | `PATCH /api/agents/:id` | Edit agent (name, model, role, parent, bot) |
 | `POST /api/agents` | Add new agent |
 | `DELETE /api/agents/:id` | Remove agent |
 | `PATCH /api/cron-jobs/:id` | Change model for a cron job on demand |
 | `GET /api/tickets` | Live ticket list (30s poll) |
+| `GET /api/standups` | Parsed standup history (last 10 entries) |
+| `GET /api/agent-status` | Per-agent live status + last seen from routing log |
+
+### Standup system
+- **9:05am ET** — 6 check-in crons (RED, ENG, RESEARCH, FINANCE, OPS, INFOSEC) each write `workspace/ops/agent-status/<id>.json` with: sprintGoal, workingOn, completedYesterday, ETA, blockers
+- **9:15am ET** — OPS Scrum Master reads those files, compiles standup → `STANDUP-LOG.md` + Telegram summary
+- **Fix**: removed sessions_send dependency (agents are idle at 9am; sessions_send silently fails)
+
+### LLM Analytics plugin enhancements
+- `prompt_tail` (last 600 chars of prompt) now written to `routing-decisions.jsonl` — captures the actual user message/task for all new requests
+- `response_preview` (first 600 chars), `run_id`, `session_key` now written to `llm-analytics.jsonl` — enables full round-trip tracing
+- Gateway restart required to activate: done 2026-02-17
 
 ---
 
@@ -145,4 +160,4 @@ The RED Self-Improvement cron has been observed autonomously modifying `openclaw
 
 ---
 
-*Last updated: 2026-02-17 — dashboard fully upgraded: cost estimator (real data), pipeline tab, agent hierarchy + CRUD, cron model editing, tickets SLA tracking*
+*Last updated: 2026-02-17 — Standup tab (live agent cards + history), standup check-in crons, pipeline full traceability (trigger message, prompt/response preview, per-step cost/latency/tokens, stats bar), LLM analytics plugin enhanced (prompt_tail + response_preview)*
