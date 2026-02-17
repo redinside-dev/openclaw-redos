@@ -91,6 +91,27 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
 .live-dot{color:var(--green);font-size:10px;line-height:1;animation:ldot 1.5s ease-in-out infinite}
 @keyframes ldot{0%,100%{opacity:1}50%{opacity:.2}}
 .feed-free{color:var(--green);font-weight:700}.feed-paid{color:var(--yellow);font-weight:700}
+/* Pipeline */
+.pl-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin-bottom:10px}
+.pl-card.live{border-color:var(--green);box-shadow:0 0 8px rgba(80,200,120,.15)}
+.pl-hdr{display:flex;align-items:center;gap:8px;margin-bottom:10px;font-size:11px}
+.pl-trigger{font-weight:700;color:var(--text)}
+.pl-meta{font-size:10px;color:var(--text3);margin-left:auto;display:flex;gap:10px}
+.pl-flow{display:flex;align-items:flex-start;gap:0;overflow-x:auto;padding-bottom:4px}
+.pl-step{display:flex;flex-direction:column;align-items:center;position:relative}
+.pl-arrow{display:flex;align-items:center;padding:0 4px;color:var(--text3);font-size:16px;margin-top:14px}
+.pl-node{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:8px 10px;text-align:center;min-width:90px;max-width:130px}
+.pl-node.paid{border-color:var(--yellow)}
+.pl-node.live-node{border-color:var(--green);animation:plpulse 1.5s ease-in-out infinite}
+@keyframes plpulse{0%,100%{box-shadow:0 0 0 0 rgba(80,200,120,.4)}50%{box-shadow:0 0 0 4px rgba(80,200,120,0)}}
+.pl-node-emoji{font-size:16px;line-height:1.3}
+.pl-node-name{font-size:10px;font-weight:700;color:var(--text);margin-top:2px}
+.pl-node-model{font-size:8px;color:var(--cyan);margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:120px}
+.pl-node-lat{font-size:9px;color:var(--text3);margin-top:3px}
+.pl-node-cost{font-size:9px;font-weight:700;margin-top:1px}
+.pl-source{background:var(--bg4);border:1px solid var(--border);border-radius:6px;padding:8px 10px;text-align:center;min-width:70px}
+.pl-source-icon{font-size:18px}
+.pl-source-label{font-size:9px;color:var(--text3);margin-top:2px}
 /* Hierarchy tree */
 .htree{display:flex;flex-direction:column;align-items:center;gap:0;min-width:600px}
 .htree-level{display:flex;gap:10px;justify-content:center;position:relative;padding-top:28px}
@@ -136,6 +157,7 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
 <div class="tabs" id="tabBar">
   <button class="tab on" data-p="overview">Overview</button>
   <button class="tab" data-p="agents">Agents</button>
+  <button class="tab" data-p="pipeline">Pipeline</button>
   <button class="tab" data-p="cron">Cron Jobs</button>
   <button class="tab" data-p="tickets">Tickets &amp; SLA</button>
   <button class="tab" data-p="learnings">Learnings</button>
@@ -232,6 +254,16 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
       <button onclick="closeAgentModal()" style="background:var(--bg4);color:var(--text3);border:none;padding:8px 16px;border-radius:4px;font-size:12px;cursor:pointer">Cancel</button>
     </div>
   </div>
+</div>
+
+<!-- PIPELINE -->
+<div class="pg" id="pg-pipeline">
+  <div class="sec-t" style="display:flex;align-items:center;gap:8px">
+    <span class="live-dot">&#9679;</span> Live Request Pipeline
+    <span id="pl-meta" style="font-size:10px;color:var(--text3);margin-left:4px">loading…</span>
+    <span style="margin-left:auto;font-size:10px;color:var(--text3)">&#x21bb; 3s</span>
+  </div>
+  <div id="pl-feed"></div>
 </div>
 
 <!-- CRON -->
@@ -997,6 +1029,75 @@ async function refreshCostLive(){
   }catch(e){}
 }
 setInterval(refreshCostLive,5000);
+
+// ---- Pipeline ----
+const TRIGGER_LABELS={telegram:'💬 Telegram',cron:'⏱ Cron',direct:'🖥 Direct',other:'🔗 Request'};
+const CHANNEL_LABELS={DM:' DM','Group':' Group'};
+function fmtLat(ms){if(ms==null)return'…';if(ms<1000)return ms+'ms';if(ms<60000)return(ms/1000).toFixed(1)+'s';return Math.floor(ms/60000)+'m'+(Math.round((ms%60000)/1000))+'s';}
+function renderPipeline(pipelines){
+  const feed=document.getElementById('pl-feed');
+  const meta=document.getElementById('pl-meta');
+  if(!feed)return;
+  if(!pipelines||!pipelines.length){feed.innerHTML='<div style="padding:40px;text-align:center;color:var(--text3)">No pipeline data yet — waiting for requests…</div>';return;}
+  const liveCount=pipelines.filter(p=>p.isLive).length;
+  if(meta)meta.textContent=pipelines.length+' pipelines · '+(liveCount?liveCount+' live':'all completed');
+  feed.innerHTML=pipelines.map(p=>{
+    const tLabel=(TRIGGER_LABELS[p.triggerType]||'🔗 Request')+(p.channel?CHANNEL_LABELS[p.channel]||'':'');
+    const timeStr=p.triggeredAt?new Date(p.triggeredAt).toLocaleTimeString():'--';
+    const liveTag=p.isLive?'<span style="background:var(--green);color:#000;font-size:8px;font-weight:700;padding:1px 5px;border-radius:8px;margin-left:4px">LIVE</span>':'';
+
+    // Build flow: source node + steps
+    const sourceHtml=`
+      <div class="pl-step">
+        <div class="pl-source">
+          <div class="pl-source-icon">${p.triggerType==='telegram'?'👤':p.triggerType==='cron'?'⏰':'🖥'}</div>
+          <div class="pl-source-label">${h(tLabel)}</div>
+        </div>
+      </div>`;
+
+    const stepsHtml=p.steps.map((s,i)=>{
+      const isLocal=(s.provider||'').startsWith('ollama');
+      const isPaid=!isLocal&&s.costUsd>0;
+      const isLiveNode=p.isLive&&!s.completed&&i===p.steps.length-1;
+      const nodeCls='pl-node'+(isPaid?' paid':'')+(isLiveNode?' live-node':'');
+      const modelShort=(s.model||'').split('/').pop().replace(':latest','');
+      const costHtml=s.costUsd==null?'<span style="color:var(--text3)">…</span>':s.costUsd>0?`<span class="feed-paid">$${s.costUsd.toFixed(4)}</span>`:'<span class="feed-free">FREE</span>';
+      const tokStr=s.tokensIn!=null?`${(s.tokensIn/1000).toFixed(1)}k→${(s.tokensOut||0).toFixed?((s.tokensOut/1000).toFixed(1))+'k':'?'}`:' ';
+      return`<div class="pl-arrow">&#8594;</div>
+        <div class="pl-step">
+          <div class="${nodeCls}">
+            <div class="pl-node-emoji">${EMO[s.agent]||'🤖'}</div>
+            <div class="pl-node-name">${h(s.agent)}</div>
+            <div class="pl-node-model" title="${h(s.model)}">${h(modelShort)}</div>
+            <div class="pl-node-lat">${fmtLat(s.latencyMs)} · ${tokStr}</div>
+            <div class="pl-node-cost">${costHtml}</div>
+          </div>
+        </div>`;
+    }).join('');
+
+    return`<div class="pl-card${p.isLive?' live':''}">
+      <div class="pl-hdr">
+        <span class="pl-trigger">${h(tLabel)}</span>
+        ${liveTag}
+        <span class="pl-meta">
+          <span>${timeStr}</span>
+          <span>${p.agentCount} agent${p.agentCount!==1?'s':''}</span>
+          <span>${p.totalCost>0?'<span class="feed-paid">$'+p.totalCost.toFixed(4)+'</span>':'<span class="feed-free">$0 free</span>'}</span>
+        </span>
+      </div>
+      <div class="pl-flow">${sourceHtml}${stepsHtml}</div>
+    </div>`;
+  }).join('');
+}
+
+async function loadPipeline(){
+  try{
+    const data=await fetch('/api/pipeline').then(r=>r.json()).catch(()=>null);
+    if(data) renderPipeline(data);
+  }catch(e){}
+}
+loadPipeline();
+setInterval(loadPipeline,3000);
 </script>
 </body>
 </html>
