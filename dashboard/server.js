@@ -103,6 +103,7 @@ function getCronJobs() {
     agentId: j.agentId,
     enabled: j.enabled,
     schedule: j.schedule,
+    model: j.payload?.model || null,
     lastStatus: j.state?.lastStatus || null,
     lastRunAtMs: j.state?.lastRunAtMs || null,
     lastDurationMs: j.state?.lastDurationMs || null,
@@ -443,6 +444,34 @@ const server = http.createServer((req, res) => {
       } catch (e) {
         res.writeHead(400, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ ok: false, error: e.message }));
+      }
+    });
+    return;
+  }
+
+  // --- Cron job model update ---
+  if (req.method === 'PATCH' && url.pathname.startsWith('/api/cron-jobs/')) {
+    const jobId = url.pathname.split('/api/cron-jobs/')[1];
+    let body = '';
+    req.on('data', d => { body += d; });
+    req.on('end', () => {
+      try {
+        const { model } = JSON.parse(body);
+        const jobsFile = path.join(OPENCLAW_DIR, 'cron', 'jobs.json');
+        const data = JSON.parse(fs.readFileSync(jobsFile, 'utf8'));
+        const job = (data.jobs || []).find(j => j.id === jobId);
+        if (!job) { res.writeHead(404); res.end(JSON.stringify({ error: 'job not found' })); return; }
+        if (!job.payload) job.payload = {};
+        if (model && model !== '__default__') {
+          job.payload.model = model;
+        } else {
+          delete job.payload.model;
+        }
+        fs.writeFileSync(jobsFile, JSON.stringify(data, null, 2));
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: true, id: jobId, model: job.payload.model || null }));
+      } catch (e) {
+        res.writeHead(400); res.end(JSON.stringify({ error: e.message }));
       }
     });
     return;

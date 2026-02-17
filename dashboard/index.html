@@ -144,7 +144,7 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
 <!-- CRON -->
 <div class="pg" id="pg-cron">
   <div class="sec-t">All Cron Jobs</div>
-  <div class="c" style="overflow-x:auto"><table class="t" id="cr-t"><thead><tr><th>Name</th><th>Agent</th><th>Schedule</th><th>Enabled</th><th>Status</th><th>Last Run</th><th>Duration</th><th>Errors</th></tr></thead><tbody></tbody></table></div>
+  <div class="c" style="overflow-x:auto"><table class="t" id="cr-t"><thead><tr><th>Name</th><th>Agent</th><th>Schedule</th><th>Enabled</th><th>Status</th><th>Last Run</th><th>Duration</th><th>Errors</th><th>Model</th></tr></thead><tbody></tbody></table></div>
 </div>
 
 <!-- TICKETS -->
@@ -359,11 +359,39 @@ function renderAgents(){
     </div>`}).join('');
 }
 
+const CRON_MODELS=[
+  {v:'__default__',l:'agent default'},
+  {v:'ollama/llama3.1:8b',l:'llama3.1:8b (free)'},
+  {v:'ollama/qwen2.5-coder:7b',l:'qwen2.5-coder:7b (free)'},
+  {v:'openai-codex/gpt-5.2',l:'gpt-5.2 (paid)'},
+];
+function cronModelSel(id,cur){
+  const opts=CRON_MODELS.map(m=>`<option value="${m.v}"${(cur||'__default__')===m.v?' selected':''}>${m.l}</option>`).join('');
+  return`<select class="model-sel" onchange="setCronModel('${id}',this)">${opts}</select>`;
+}
+async function setCronModel(id,sel){
+  const model=sel.value;
+  sel.disabled=true;
+  try{
+    const r=await fetch('/api/cron-jobs/'+id,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({model})});
+    const d=await r.json();
+    if(d.ok){
+      // Update local data so re-render stays consistent
+      const job=(D.cronJobs||[]).find(j=>j.id===id);
+      if(job) job.model=d.model;
+      sel.style.borderColor='var(--green)';
+      setTimeout(()=>{sel.style.borderColor='';},1500);
+    } else {
+      sel.style.borderColor='var(--red)';
+    }
+  }catch(e){sel.style.borderColor='var(--red)';}
+  sel.disabled=false;
+}
 function renderCron(){
   const tb=document.querySelector('#cr-t tbody');
   const jobs=D.cronJobs||[];
-  if(!jobs.length){tb.innerHTML='<tr><td colspan="8" style="text-align:center;padding:30px;color:var(--text3)">No cron jobs configured</td></tr>';return}
-  tb.innerHTML=jobs.map(j=>`<tr style="${j.enabled?'':'opacity:.35'}"><td style="color:var(--text);font-weight:500">${h(j.name||j.id)}</td><td>${EMO[j.agentId]||''} ${h(j.agentId)}</td><td><code style="font-size:9px;color:var(--cyan)">${h(sched(j.schedule))}</code></td><td>${j.enabled?'<span class="p p-g">ON</span>':'<span class="p p-x">OFF</span>'}</td><td>${j.lastStatus?'<span class="p '+pill(j.lastStatus)+'">'+j.lastStatus+'</span>':'<span class="p p-x">--</span>'}</td><td>${j.lastRunAtMs?ago(j.lastRunAtMs):'--'}</td><td>${j.lastDurationMs?(j.lastDurationMs/1000).toFixed(1)+'s':'--'}</td><td>${j.consecutiveErrors>0?'<span style="color:var(--red);font-weight:700">'+j.consecutiveErrors+'</span>':'0'}</td></tr>`).join('');
+  if(!jobs.length){tb.innerHTML='<tr><td colspan="9" style="text-align:center;padding:30px;color:var(--text3)">No cron jobs configured</td></tr>';return}
+  tb.innerHTML=jobs.map(j=>`<tr style="${j.enabled?'':'opacity:.35'}"><td style="color:var(--text);font-weight:500">${h(j.name||j.id)}</td><td>${EMO[j.agentId]||''} ${h(j.agentId)}</td><td><code style="font-size:9px;color:var(--cyan)">${h(sched(j.schedule))}</code></td><td>${j.enabled?'<span class="p p-g">ON</span>':'<span class="p p-x">OFF</span>'}</td><td>${j.lastStatus?'<span class="p '+pill(j.lastStatus)+'">'+j.lastStatus+'</span>':'<span class="p p-x">--</span>'}</td><td>${j.lastRunAtMs?ago(j.lastRunAtMs):'--'}</td><td>${j.lastDurationMs?(j.lastDurationMs/1000).toFixed(1)+'s':'--'}</td><td>${j.consecutiveErrors>0?'<span style="color:var(--red);font-weight:700">'+j.consecutiveErrors+'</span>':'0'}</td><td>${cronModelSel(j.id,j.model)}</td></tr>`).join('');
 }
 
 function renderTickets(){
