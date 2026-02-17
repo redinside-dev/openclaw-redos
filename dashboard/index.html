@@ -280,9 +280,19 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
 <!-- PIPELINE -->
 <div class="pg" id="pg-pipeline">
   <div class="sec-t" style="display:flex;align-items:center;gap:8px">
-    <span class="live-dot">&#9679;</span> Live Request Pipeline
+    <span class="live-dot">&#9679;</span> Request Pipeline — Full Traceability
     <span id="pl-meta" style="font-size:10px;color:var(--text3);margin-left:4px">loading…</span>
     <span style="margin-left:auto;font-size:10px;color:var(--text3)">&#x21bb; 3s</span>
+  </div>
+  <!-- Today's summary stats -->
+  <div id="pl-stats" style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px;padding:10px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;font-size:11px">
+    <div>📨 Today's requests: <strong id="pl-stat-count">–</strong></div>
+    <div>📱 Telegram: <strong id="pl-stat-tg">–</strong></div>
+    <div>⏰ Cron: <strong id="pl-stat-cron">–</strong></div>
+    <div>⏱ Avg response: <strong id="pl-stat-lat">–</strong></div>
+    <div>💰 Today's cost: <strong id="pl-stat-cost">–</strong></div>
+    <div>☁ Paid calls: <strong id="pl-stat-paid">–</strong></div>
+    <div>🆓 Free calls: <strong id="pl-stat-free">–</strong></div>
   </div>
   <div id="pl-feed"></div>
 </div>
@@ -1072,66 +1082,132 @@ setInterval(refreshCostLive,5000);
 const TRIGGER_LABELS={telegram:'💬 Telegram',cron:'⏱ Cron',direct:'🖥 Direct',other:'🔗 Request'};
 const CHANNEL_LABELS={DM:' DM','Group':' Group'};
 function fmtLat(ms){if(ms==null)return'…';if(ms<1000)return ms+'ms';if(ms<60000)return(ms/1000).toFixed(1)+'s';return Math.floor(ms/60000)+'m'+(Math.round((ms%60000)/1000))+'s';}
+function fmtMs(ms){
+  if(ms==null||ms<0)return '…';
+  if(ms<1000)return ms+'ms';
+  if(ms<60000)return (ms/1000).toFixed(1)+'s';
+  return Math.floor(ms/60000)+'m '+(Math.floor(ms/1000)%60)+'s';
+}
+function fmtTok(n){if(!n)return '0';if(n>=1000)return (n/1000).toFixed(1)+'k';return String(n);}
+function fmtCost(c){if(c==null)return null;if(c===0)return '$0';return '$'+c.toFixed(c<0.01?6:4);}
+function plToggle(id){const el=document.getElementById(id);if(el)el.style.display=el.style.display==='none'?'block':'none';}
+
 function renderPipeline(pipelines){
   const feed=document.getElementById('pl-feed');
   const meta=document.getElementById('pl-meta');
   if(!feed)return;
   if(!pipelines||!pipelines.length){feed.innerHTML='<div style="padding:40px;text-align:center;color:var(--text3)">No pipeline data yet — waiting for requests…</div>';return;}
   const liveCount=pipelines.filter(p=>p.isLive).length;
-  if(meta)meta.textContent=pipelines.length+' pipelines · '+(liveCount?liveCount+' live':'all completed');
-  feed.innerHTML=pipelines.map(p=>{
-    const tLabel=(TRIGGER_LABELS[p.triggerType]||'🔗 Request')+(p.channel?CHANNEL_LABELS[p.channel]||'':'');
-    const timeStr=p.triggeredAt?new Date(p.triggeredAt).toLocaleTimeString():'--';
-    const liveTag=p.isLive?'<span style="background:var(--green);color:#000;font-size:8px;font-weight:700;padding:1px 5px;border-radius:8px;margin-left:4px">LIVE</span>':'';
+  const todayCount=pipelines.filter(p=>p.triggeredAt&&p.triggeredAt.startsWith(new Date().toISOString().slice(0,10))).length;
+  if(meta)meta.textContent=todayCount+' pipelines today · '+(liveCount?liveCount+' live ●':'all completed');
 
-    // Build flow: source node + steps
-    const sourceHtml=`
-      <div class="pl-step">
-        <div class="pl-source">
-          <div class="pl-source-icon">${p.triggerType==='telegram'?'👤':p.triggerType==='cron'?'⏰':'🖥'}</div>
-          <div class="pl-source-label">${h(tLabel)}</div>
-        </div>
-      </div>`;
+  feed.innerHTML=pipelines.map((p,pi)=>{
+    const tid='pl-detail-'+pi;
+    const dtStr=p.triggeredAt?new Date(p.triggeredAt).toLocaleString():'--';
+    const liveTag=p.isLive?'<span style="background:var(--green);color:#000;font-size:8px;font-weight:700;padding:1px 6px;border-radius:8px">LIVE</span>':'';
+    const sourceIcon=p.triggerType==='telegram'?'📱':p.triggerType==='cron'?'⏰':p.triggerType==='whatsapp'?'💬':'🖥';
+    const sourceLabel=p.triggerType==='telegram'?'Telegram DM':p.triggerType==='cron'?(p.cronJobName||'Cron job'):p.triggerType==='whatsapp'?'WhatsApp':'Direct';
 
-    const stepsHtml=p.steps.map((s,i)=>{
-      const isLocal=(s.provider||'').startsWith('ollama');
-      const isPaid=!isLocal&&s.costUsd>0;
-      const isLiveNode=p.isLive&&!s.completed&&i===p.steps.length-1;
-      const nodeCls='pl-node'+(isPaid?' paid':'')+(isLiveNode?' live-node':'');
-      const modelShort=(s.model||'').split('/').pop().replace(':latest','');
-      const costHtml=s.costUsd==null?'<span style="color:var(--text3)">…</span>':s.costUsd>0?`<span class="feed-paid">$${s.costUsd.toFixed(4)}</span>`:'<span class="feed-free">FREE</span>';
-      const tokStr=s.tokensIn!=null?`${(s.tokensIn/1000).toFixed(1)}k→${(s.tokensOut||0).toFixed?((s.tokensOut/1000).toFixed(1))+'k':'?'}`:' ';
-      return`<div class="pl-arrow">&#8594;</div>
-        <div class="pl-step">
-          <div class="${nodeCls}">
-            <div class="pl-node-emoji">${EMO[s.agent]||'🤖'}</div>
-            <div class="pl-node-name">${h(s.agent)}</div>
-            <div class="pl-node-model" title="${h(s.model)}">${h(modelShort)}</div>
-            <div class="pl-node-lat">${fmtLat(s.latencyMs)} · ${tokStr}</div>
-            <div class="pl-node-cost">${costHtml}</div>
-          </div>
-        </div>`;
+    // Summary bar metrics
+    const totalSec=p.totalLatencyMs?fmtMs(p.totalLatencyMs):'–';
+    const hasPaid=p.paidCost>0;
+    const costTag=p.totalCost===0?'<span style="color:var(--green)">$0 FREE</span>':
+      `<span style="color:var(--gold,#f0a500)">${fmtCost(p.totalCost)}</span>`;
+    const paidTag=hasPaid?`<span style="font-size:9px;background:#f0a50022;color:var(--gold,#f0a500);padding:1px 5px;border-radius:4px">☁ ${fmtCost(p.paidCost)} paid</span>`:'';
+    const freeTag=p.freeCost===0&&!hasPaid?'<span style="font-size:9px;background:#0f03;color:var(--green);padding:1px 5px;border-radius:4px">🆓 Ollama</span>':'';
+    const tokTotal=(p.totalTokensIn||0)+(p.totalTokensOut||0);
+
+    // Trigger message block
+    const triggerMsgHtml=p.triggerMessage?`<div style="background:var(--bg1);border-left:3px solid var(--cyan);padding:6px 10px;border-radius:4px;font-size:11px;color:var(--text);margin-bottom:10px;line-height:1.5;white-space:pre-wrap;word-break:break-word">${h(p.triggerMessage)}</div>`:'';
+
+    // Build step rows (vertical list)
+    const stepsHtml=p.steps.map((s,si)=>{
+      const isLocal=(s.provider||'').toLowerCase().startsWith('ollama');
+      const isPaid=!isLocal;
+      const modelShort=(s.model||'').replace('ollama/','').replace('openai-codex/','').replace(':latest','');
+      const agentEmoji=EMO[s.agent]||'🤖';
+      const tierBadge=isPaid?'<span style="font-size:8px;background:#f0a50022;color:var(--gold,#f0a500);padding:1px 4px;border-radius:3px">PAID</span>':'<span style="font-size:8px;background:#0f03;color:var(--green);padding:1px 4px;border-radius:3px">FREE</span>';
+      const latBadge=s.latencyMs!=null?`<span style="font-size:9px;color:var(--text3)">${fmtMs(s.latencyMs)}</span>`:'<span style="font-size:9px;color:var(--text3)">running…</span>';
+      const costBadge=s.costUsd!=null&&s.costUsd>0?`<span style="font-size:9px;color:var(--gold,#f0a500)">${fmtCost(s.costUsd)}</span>`:'';
+      const trigLabel=s.triggerType==='subagent'?'delegated':'trigger';
+      const connector=si>0?'<div style="width:2px;height:12px;background:var(--border);margin:0 18px"></div>':'';
+
+      // Detail section (prompt tail + response preview)
+      const detailId='step-detail-'+pi+'-'+si;
+      const promptHtml=s.promptTail?`<div style="margin-top:8px"><div style="font-size:9px;color:var(--text3);margin-bottom:3px">▸ Prompt context (last 600 chars)</div><pre style="font-size:9px;color:var(--text2);background:var(--bg1);padding:6px 8px;border-radius:4px;overflow-x:auto;white-space:pre-wrap;word-break:break-word;max-height:120px;overflow-y:auto">${h(s.promptTail)}</pre></div>`:'';
+      const responseHtml=s.responsePreview?`<div style="margin-top:6px"><div style="font-size:9px;color:var(--text3);margin-bottom:3px">▸ Response preview</div><pre style="font-size:9px;color:var(--text2);background:var(--bg1);padding:6px 8px;border-radius:4px;overflow-x:auto;white-space:pre-wrap;word-break:break-word;max-height:120px;overflow-y:auto">${h(s.responsePreview)}</pre></div>`:'';
+      const tokenRow=`<div style="font-size:9px;color:var(--text3);margin-top:6px">Tokens in: ${fmtTok(s.tokensIn)} &nbsp;|&nbsp; out: ${fmtTok(s.tokensOut)} &nbsp;|&nbsp; cached: ${fmtTok(s.tokensCached)} &nbsp;|&nbsp; history msgs: ${s.historyCount||0}</div>`;
+
+      return`${connector}<div style="display:flex;gap:10px;align-items:flex-start">
+  <div style="display:flex;flex-direction:column;align-items:center;padding-top:2px">
+    <div style="width:28px;height:28px;border-radius:50%;background:${isPaid?'#f0a50033':'#00ff0022'};border:1px solid ${isPaid?'var(--gold,#f0a500)':'var(--green)'};display:flex;align-items:center;justify-content:center;font-size:14px">${agentEmoji}</div>
+  </div>
+  <div style="flex:1;background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:8px 12px">
+    <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:4px">
+      <span style="font-weight:700;font-size:12px">${h(s.agent.toUpperCase())}</span>
+      ${tierBadge}
+      <span style="font-size:10px;color:var(--cyan);background:var(--bg5);padding:1px 5px;border-radius:3px">${h(modelShort)}</span>
+      <span style="font-size:9px;color:var(--text3)">${trigLabel}</span>
+      ${latBadge}
+      ${costBadge}
+    </div>
+    <div style="font-size:9px;color:var(--text3)">
+      ${new Date(s.ts).toLocaleTimeString()} &nbsp;·&nbsp; ${fmtTok(s.tokensIn)}↑ ${fmtTok(s.tokensOut)}↓ tokens
+      ${s.promptLen?` &nbsp;·&nbsp; prompt ${(s.promptLen/1000).toFixed(1)}k chars`:''}
+    </div>
+    ${(promptHtml||responseHtml)?`<div style="margin-top:6px"><button onclick="plToggle('${detailId}')" style="font-size:9px;padding:2px 6px;border:1px solid var(--border);border-radius:3px;background:var(--bg4);color:var(--text3);cursor:pointer">expand ▾</button><div id="${detailId}" style="display:none">${tokenRow}${promptHtml}${responseHtml}</div></div>`:''}
+  </div>
+</div>`;
     }).join('');
 
-    return`<div class="pl-card${p.isLive?' live':''}">
-      <div class="pl-hdr">
-        <span class="pl-trigger">${h(tLabel)}</span>
-        ${liveTag}
-        <span class="pl-meta">
-          <span>${timeStr}</span>
-          <span>${p.agentCount} agent${p.agentCount!==1?'s':''}</span>
-          <span>${p.totalCost>0?'<span class="feed-paid">$'+p.totalCost.toFixed(4)+'</span>':'<span class="feed-free">$0 free</span>'}</span>
-        </span>
-      </div>
-      <div class="pl-flow">${sourceHtml}${stepsHtml}</div>
-    </div>`;
+    return`<div class="pl-card${p.isLive?' live':''}" style="margin-bottom:16px">
+  <div class="pl-hdr" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+    <span style="font-size:16px">${sourceIcon}</span>
+    <span style="font-weight:700;font-size:12px">${h(sourceLabel)}</span>
+    ${liveTag}
+    <span style="color:var(--text3);font-size:10px">${dtStr}</span>
+    <div style="margin-left:auto;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+      <span style="font-size:10px">⏱ ${totalSec}</span>
+      <span style="font-size:10px">🤖 ${p.agentCount} agent${p.agentCount!==1?'s':''}</span>
+      <span style="font-size:10px">🪙 ${fmtTok(tokTotal)} tokens</span>
+      <span style="font-size:10px">${costTag}</span>
+      ${paidTag}${freeTag}
+    </div>
+  </div>
+  ${triggerMsgHtml}
+  <div style="padding:4px 0">${stepsHtml}</div>
+</div>`;
   }).join('');
+}
+
+function updatePipelineStats(pipelines){
+  const today=new Date().toISOString().slice(0,10);
+  const todayPl=pipelines.filter(p=>p.triggeredAt&&p.triggeredAt.startsWith(today));
+  const tgPl=todayPl.filter(p=>p.triggerType==='telegram');
+  const cronPl=todayPl.filter(p=>p.triggerType==='cron');
+  const completedLats=todayPl.filter(p=>p.totalLatencyMs>0).map(p=>p.totalLatencyMs);
+  const avgLat=completedLats.length?completedLats.reduce((a,b)=>a+b,0)/completedLats.length:0;
+  const totalCost=todayPl.reduce((s,p)=>s+(p.totalCost||0),0);
+  const allSteps=todayPl.flatMap(p=>p.steps||[]);
+  const paidSteps=allSteps.filter(s=>s.tier==='paid').length;
+  const freeSteps=allSteps.filter(s=>s.tier==='free').length;
+  const $=id=>document.getElementById(id);
+  if($('pl-stat-count'))$('pl-stat-count').textContent=todayPl.length;
+  if($('pl-stat-tg'))$('pl-stat-tg').textContent=tgPl.length;
+  if($('pl-stat-cron'))$('pl-stat-cron').textContent=cronPl.length;
+  if($('pl-stat-lat'))$('pl-stat-lat').textContent=avgLat?fmtMs(avgLat):'–';
+  if($('pl-stat-cost'))$('pl-stat-cost').textContent=totalCost>0?fmtCost(totalCost):'$0';
+  if($('pl-stat-paid'))$('pl-stat-paid').textContent=paidSteps;
+  if($('pl-stat-free'))$('pl-stat-free').textContent=freeSteps;
 }
 
 async function loadPipeline(){
   try{
     const data=await fetch('/api/pipeline').then(r=>r.json()).catch(()=>null);
-    if(data) renderPipeline(data);
+    if(data){
+      renderPipeline(data);
+      updatePipelineStats(data);
+    }
   }catch(e){}
 }
 loadPipeline();
