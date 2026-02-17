@@ -12,6 +12,7 @@ import http from 'node:http';
 import { fileURLToPath } from 'node:url';
 
 import { config as dotenvConfig } from 'dotenv';
+import { costMonitor } from '../cost-monitor/monitor.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const OPENCLAW_DIR = path.resolve(__dirname, '..');
@@ -242,8 +243,40 @@ function getCostDetails() {
     'moonshot/kimi-k2.5': { type: 'payg', monthlyCost: 0, inputPer1k: 0.0015, outputPer1k: 0.0025 },
   };
   const subscriptionTotal = Object.values(modelCosts).reduce((s, m) => s + m.monthlyCost, 0);
-  const todayPayg = state?.today?.total || 0;
-  const todayRequests = state?.today?.requests || 0;
+
+  // --- Read real cost data from LLM analytics JSONL (authoritative source) ---
+  let todayPayg = 0;
+  let todayRequests = 0;
+  const byModel = {};
+  const byAgent = {};
+  try {
+    const costFile = path.join(OPENCLAW_DIR, 'workspace', 'logs', 'cost-events.jsonl');
+    const today = new Date().toISOString().slice(0, 10);
+    if (fs.existsSync(costFile)) {
+      const lines = fs.readFileSync(costFile, 'utf8').split('\n').filter(Boolean);
+      for (const line of lines) {
+        try {
+          const e = JSON.parse(line);
+          if (!e.ts || !e.ts.startsWith(today)) continue;
+          const cost = Number(e.cost_usd);
+          if (!Number.isFinite(cost) || cost <= 0) continue;
+          todayPayg += cost;
+          todayRequests += 1;
+          const m = e.model || 'unknown';
+          const a = e.agent || 'unknown';
+          if (!byModel[m]) byModel[m] = { cost: 0, requests: 0, tokens: 0 };
+          byModel[m].cost += cost;
+          byModel[m].requests += 1;
+          byModel[m].tokens += (Number(e.tokens?.input) || 0) + (Number(e.tokens?.output) || 0);
+          if (!byAgent[a]) byAgent[a] = { cost: 0, requests: 0 };
+          byAgent[a].cost += cost;
+          byAgent[a].requests += 1;
+        } catch {}
+      }
+    }
+  } catch {}
+  todayPayg = Math.round(todayPayg * 1000000) / 1000000;
+
   // Savings: if all requests went through payg at avg $0.003/req
   const estimatedWithoutOptimization = todayRequests * 0.003;
   const savings = Math.max(0, estimatedWithoutOptimization - todayPayg);
@@ -253,8 +286,11 @@ function getCostDetails() {
     subscriptionMonthly: subscriptionTotal,
     todayPayg,
     todayRequests,
+    byModel,
+    byAgent,
     estimatedSavings: savings,
     dailyBudget: 5.00,
+    dataSource: 'llm-analytics-jsonl',
   };
 }
 
@@ -532,6 +568,88 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // --- LLM Analytics API ---
+  if (url.pathname === '/api/analytics') {
+    const logsDir = path.join(OPENCLAW_DIR, 'workspace', 'logs');
+    const costFile = path.join(logsDir, 'cost-events.jsonl');
+    const routingFile = path.join(logsDir, 'routing-decisions.jsonl');
+    const analyticsFile = path.join(logsDir, 'llm-analytics.jsonl');
+
+    const readJsonl = (fp, limit = 100) => {
+      try {
+        if (!fs.existsSync(fp)) return [];
+        const lines = fs.readFileSync(fp, 'utf8').split('\n').filter(Boolean);
+        return lines.slice(-limit).map(l => { try { return JSON.parse(l); } catch { return null; } }).filter(Boolean);
+      } catch { return []; }
+    };
+
+    const costs = readJsonl(costFile, 200);
+    const routing = readJsonl(routingFile, 200);
+    const analytics = readJsonl(analyticsFile, 200);
+
+    const today = new Date().toISOString().slice(0, 10);
+    const todayCosts = costs.filter(c => c.ts && c.ts.startsWith(today));
+    const dailySpend = todayCosts.reduce((sum, c) => {
+      const v = Number(c.cost_usd);
+      return sum + (Number.isFinite(v) && v > 0 ? v : 0);
+    }, 0);
+    const totalCalls = todayCosts.length;
+
+    const byModel = {};
+    const byAgent = {};
+    const byProvider = {};
+
+    for (const c of todayCosts) {
+      const model = c.model || 'unknown';
+      const agent = c.agent || 'unknown';
+      const provider = c.provider || (typeof model === 'string' && model.includes('/') ? model.split('/')[0] : 'unknown');
+
+      const tin = Number(c.tokens?.input) || 0;
+      const tout = Number(c.tokens?.output) || 0;
+      const tcache = Number(c.tokens?.cache_read) || 0;
+      const costRaw = Number(c.cost_usd);
+      const cost = (Number.isFinite(costRaw) && costRaw >= 0) ? costRaw : 0;
+
+      if (!byModel[model]) byModel[model] = { calls: 0, cost_usd: 0, tokens_in: 0, tokens_out: 0, tokens_cache_read: 0 };
+      byModel[model].calls += 1;
+      byModel[model].cost_usd += cost;
+      byModel[model].tokens_in += tin;
+      byModel[model].tokens_out += tout;
+      byModel[model].tokens_cache_read += tcache;
+
+      if (!byAgent[agent]) byAgent[agent] = { calls: 0, cost_usd: 0, tokens_in: 0, tokens_out: 0 };
+      byAgent[agent].calls += 1;
+      byAgent[agent].cost_usd += cost;
+      byAgent[agent].tokens_in += tin;
+      byAgent[agent].tokens_out += tout;
+
+      if (!byProvider[provider]) byProvider[provider] = { calls: 0, cost_usd: 0 };
+      byProvider[provider].calls += 1;
+      byProvider[provider].cost_usd += cost;
+    }
+
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({
+      dailySpend: Math.round(dailySpend * 10000) / 10000,
+      totalCalls,
+      totalEntries: costs.length,
+      byProvider,
+      byModel,
+      byAgent,
+      recentCosts: todayCosts.slice(-20),
+      recentRouting: routing.slice(-20),
+      recentAnalytics: analytics.slice(-20),
+    }));
+    return;
+  }
+
+  // --- Proxy to native OpenClaw Control UI ---
+  if (url.pathname === '/api/control-ui-url') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ url: 'http://127.0.0.1:18789/' }));
+    return;
+  }
+
   // Dynamic index: inject all data server-side so page works without fetch
   if (url.pathname === '/' || url.pathname === '/index.html') {
     const allData = {
@@ -545,6 +663,7 @@ const server = http.createServer((req, res) => {
       _skillDetails: getSkillDetails(),
       _gatewayLogs: getGatewayLogTail(50),
       _ceoStatus: getCeoStatus(),
+      _controlUiUrl: 'http://127.0.0.1:18789/',
     };
     const htmlTemplate = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf-8');
     // Inject data before closing </body>
