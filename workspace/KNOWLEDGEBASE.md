@@ -130,4 +130,132 @@ Do NOT push OpenClaw workspace/config/docs to GitHub/shared repos until Anurag e
 - Before pushing any repo, run a quick secret scan (at minimum: `git grep -n "(API_KEY|SECRET|TOKEN|PRIVATE KEY|BEGIN)"`).
 
 ---
-Last updated: 2026-02-09
+
+## Mission Control Dashboard (port 19000)
+
+### Architecture
+
+Two separate processes:
+- **Native gateway** — port 18789, managed by launchd (`ai.openclaw.gateway`). All agent traffic flows through here.
+- **Dashboard server** — port 19000, started manually (`node dashboard/server.js`). Reads log files and openclaw.json; exposes REST APIs for the UI.
+
+**NOT in launchd** — dashboard must be restarted manually after reboots.
+
+### Starting / restarting dashboard
+
+```bash
+pkill -f "dashboard/server.js" 2>/dev/null; sleep 1
+cd ~/.openclaw && node dashboard/server.js >> /tmp/dashboard.log 2>&1 &
+# Verify
+curl -s -u red:redos2026 http://localhost:19000/api/analytics | head -c 200
+```
+
+> Do NOT use `openclaw gateway restart` — that only restarts the native gateway on port 18789.
+
+### Tabs and their data sources
+
+| Tab | Data source | Notes |
+|-----|-------------|-------|
+| Overview | System health, agent cards | Static + agent count |
+| Agents | `openclaw.json` + `workspace/ops/agent-hierarchy.json` | CRUD + org chart |
+| **Pipeline** | `routing-decisions.jsonl` + `llm-analytics.jsonl` | Joined, 3s poll |
+| Cron Jobs | `cron/jobs.json` | Model editable inline |
+| Tickets & SLA | `workspace/ops/TICKET-TRACKER.md` | 30s poll, breach detection |
+| Learnings | `workspace/ops/LEARNINGS.md` | — |
+| Skills | openclaw.json skills | — |
+| Cost Estimator | `workspace/logs/cost-events.jsonl` | 5s poll, real data |
+| Smart Routing | openclaw.json routing | — |
+| Errors & Logs | Gateway error log | Live tail |
+
+### API endpoints (dashboard server)
+
+| Method | Endpoint | Purpose |
+|--------|----------|---------|
+| GET | `/api/analytics` | Cost breakdown by model/agent/provider + recent feed |
+| GET | `/api/pipeline` | Last 20 request pipelines |
+| GET | `/api/agents` | Live agent list with hierarchy (role, parentId, bot) |
+| PATCH | `/api/agents/:id` | Edit agent (name, model, role, parentId, bot) |
+| POST | `/api/agents` | Add new agent to openclaw.json + hierarchy sidecar |
+| DELETE | `/api/agents/:id` | Remove agent (403 if default agent) |
+| PATCH | `/api/cron-jobs/:id` | Change model for a cron job (`__default__` = delete override) |
+| GET | `/api/tickets` | Live ticket list parsed from TICKET-TRACKER.md |
+
+### Log files (written by LLM Analytics plugin)
+
+All live at `workspace/logs/`:
+
+| File | Written at | Key fields |
+|------|------------|------------|
+| `cost-events.jsonl` | Per call | ts, agent, model, provider, tokens_in, tokens_out, cost_usd, cost_source |
+| `routing-decisions.jsonl` | Call START | ts, agent, session_key, selected_model, provider, prompt_length |
+| `llm-analytics.jsonl` | Call END | ts, agent, model, latency_ms, tokens_in, tokens_out, cost_usd |
+
+**session_key patterns:**
+- `agent:main:telegram:direct:<userId>` — Telegram DM
+- `agent:<id>:subagent:<uuid>` — sub-agent delegation
+- `agent:<id>:cron:<uuid>` — cron job
+
+### Pipeline join logic
+
+`routing-decisions.jsonl` records call START; `llm-analytics.jsonl` records call END. To join them:
+
+```
+join key: same agent + abs((analytics.ts - latency_ms) - routing.ts) < 4000ms
+```
+
+Clustering: non-subagent trigger starts a new pipeline; subagent events within a 3-minute window from pipeline start attach to that pipeline.
+
+### Agent hierarchy sidecar
+
+`workspace/ops/agent-hierarchy.json` — stores `parentMap` and `roles` that cannot safely go into openclaw.json (schema validation risk):
+
+```json
+{
+  "parentMap": {
+    "allrounder": "main", "hatake": "allrounder",
+    "eng": "main", "research": "main",
+    "finance": "main", "ops": "main", "infosec": "main"
+  },
+  "roles": { "main": "CEO — ...", ... }
+}
+```
+
+Edit this file or use the Agents tab → Edit button in the dashboard.
+
+### Cron job model override
+
+The `PATCH /api/cron-jobs/:id` endpoint edits `cron/jobs.json` in place, setting `job.payload.model`. Sending `"__default__"` deletes the override so the job uses the agent's configured model. Available choices: agent default / `ollama/llama3.1:8b` / `ollama/qwen2.5-coder:7b` / `openai-codex/gpt-5.2`.
+
+### Tickets SLA
+
+Breach detection is computed server-side:
+```js
+slaBreached = isOpen && slaDeadline && new Date(slaDeadline) < new Date()
+```
+Row tinting: red = breached, amber = open/blocked, green = resolved.
+
+---
+
+## Troubleshooting
+
+### Dashboard shows $0 / fake cost data
+Dashboard and gateway are separate processes. Make sure `plugins/llm-analytics/index.js` is enabled in `openclaw.json` (plugins.entries) and the gateway has been restarted so costs flow to `workspace/logs/cost-events.jsonl`. Then restart the dashboard server.
+
+### "EADDRINUSE: port 19000"
+Old dashboard process still running. Kill it:
+```bash
+pkill -f "dashboard/server.js"; sleep 2; node dashboard/server.js &
+```
+
+### Pipeline tab shows nothing / all done:false
+Join mismatch — ensure `routing-decisions.jsonl` and `llm-analytics.jsonl` both have recent entries. Pipeline requires at least 1 completed call (latency_ms must be set).
+
+### Self-improvement cron modifying openclaw.json
+The RED Self-Improvement cron has been observed adding `openrouter` provider and changing model chains autonomously. Check periodically:
+```bash
+grep -i openrouter ~/.openclaw/openclaw.json
+```
+If found: remove the entries, run `openclaw gateway restart`.
+
+---
+Last updated: 2026-02-17 — Mission Control dashboard v2: cost estimator (real data), pipeline tab, agent hierarchy CRUD, cron model editing, tickets SLA
