@@ -769,6 +769,8 @@ const server = http.createServer((req, res) => {
     const logsDir = path.join(OPENCLAW_DIR, 'workspace', 'logs');
     const routingFile = path.join(logsDir, 'routing-decisions.jsonl');
     const analyticsFile = path.join(logsDir, 'llm-analytics.jsonl');
+    const costFile = path.join(logsDir, 'cost-events.jsonl');
+
     const readTail = (fp, n) => {
       try {
         if (!fs.existsSync(fp)) return [];
@@ -776,46 +778,138 @@ const server = http.createServer((req, res) => {
         return lines.slice(-n).map(l => { try { return JSON.parse(l); } catch { return null; } }).filter(Boolean);
       } catch { return []; }
     };
-    const routing = readTail(routingFile, 400);
-    const analytics = readTail(analyticsFile, 400);
 
-    // Join routing + analytics: routing.ts = call START, analytics.ts = call END.
-    // Match by: same agent + (analytics.ts - latency_ms) ≈ routing.ts (within 4s)
+    const routing = readTail(routingFile, 600);
+    const analytics = readTail(analyticsFile, 600);
+    const costs = readTail(costFile, 600);
+
+    // Read Telegram session for user messages (find messages by timestamp)
+    const telegramMessages = []; // [{ts, text}]
+    try {
+      const sessionsIdx = JSON.parse(fs.readFileSync(path.join(OPENCLAW_DIR, 'agents', 'main', 'sessions', 'sessions.json'), 'utf8'));
+      const telegramMeta = sessionsIdx['agent:main:telegram:direct:1012034994'];
+      if (telegramMeta) {
+        const sessionFile = path.join(OPENCLAW_DIR, 'agents', 'main', 'sessions', `${telegramMeta.sessionId}.jsonl`);
+        if (fs.existsSync(sessionFile)) {
+          const sessionLines = fs.readFileSync(sessionFile, 'utf8').split('\n').filter(Boolean).slice(-200);
+          for (const l of sessionLines) {
+            try {
+              const m = JSON.parse(l);
+              if (m.message?.role === 'user' && m.timestamp) {
+                const content = m.message.content;
+                let text = '';
+                if (Array.isArray(content)) {
+                  for (const c of content) {
+                    if (c.type === 'text') text += c.text;
+                  }
+                } else if (typeof content === 'string') {
+                  text = content;
+                }
+                // Skip OpenClaw injected system notifications (subagent completion, etc.)
+                const isSystemMsg = (
+                  text.includes('[System Message]') ||
+                  text.includes('[sessionId:') ||
+                  /^\[(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun) \d{4}/.test(text.trim())
+                );
+                if (!isSystemMsg && text.trim()) {
+                  // Clean up "Replied message" format — extract the body or show as reply
+                  let cleanText = text;
+                  if (text.startsWith('Replied message (untrusted')) {
+                    // Try to extract text after the JSON block
+                    const afterJson = text.replace(/```json[\s\S]*?```/g, '').replace('Replied message (untrusted, for context):', '').trim();
+                    cleanText = afterJson || '[User replied to bot message]';
+                  }
+                  telegramMessages.push({ tsMs: new Date(m.timestamp).getTime(), text: cleanText.slice(0, 800) });
+                }
+              }
+            } catch {}
+          }
+        }
+      }
+    } catch {}
+
+    // Build analytics lookup by run_id (preferred) or agent+time
+    const analyticsById = new Map();
+    const analyticsByAgent = {};
+    for (const a of analytics) {
+      if (a.run_id) analyticsById.set(a.run_id, a);
+      if (!analyticsByAgent[a.agent]) analyticsByAgent[a.agent] = [];
+      analyticsByAgent[a.agent].push(a);
+    }
+
+    // Build cost lookup by session_key
+    const costBySessionKey = {};
+    for (const c of costs) {
+      const k = c.session_key || '';
+      if (!costBySessionKey[k]) costBySessionKey[k] = [];
+      costBySessionKey[k].push(c);
+    }
+
+    // Join routing + analytics
     const merged = routing.map(r => {
       const rMs = new Date(r.ts).getTime();
-      const match = analytics.find(a =>
-        a.agent === r.agent &&
-        Math.abs((new Date(a.ts).getTime() - (a.latency_ms || 0)) - rMs) < 4000
-      );
       const sk = r.session_key || '';
+
+      // Try run_id join first, then fallback to time+agent
+      let match = r.run_id ? analyticsById.get(r.run_id) : null;
+      if (!match) {
+        const agentAnalytics = analyticsByAgent[r.agent] || [];
+        match = agentAnalytics.find(a =>
+          Math.abs((new Date(a.ts).getTime() - (a.latency_ms || 0)) - rMs) < 5000
+        );
+      }
+
+      // Get cost event for this call (join by session_key + time proximity)
+      const costCandidates = costBySessionKey[sk] || [];
+      const costEntry = costCandidates.find(c => Math.abs(new Date(c.ts).getTime() - rMs) < 10000) || null;
+
+      // Parse trigger type
       let triggerType = 'direct';
       let channel = null;
+      let cronJobId = null;
+      let userId = null;
       if (sk.includes(':subagent:')) triggerType = 'subagent';
-      else if (sk.includes(':telegram:direct:')) { triggerType = 'telegram'; channel = 'DM'; }
-      else if (sk.includes(':telegram:group:')) { triggerType = 'telegram'; channel = 'Group'; }
-      else if (sk.includes(':cron:')) triggerType = 'cron';
-      const isLocal = (r.provider || '').startsWith('ollama');
+      else if (sk.includes(':telegram:direct:')) {
+        triggerType = 'telegram'; channel = 'DM';
+        userId = sk.split(':telegram:direct:')[1];
+      } else if (sk.includes(':telegram:group:')) {
+        triggerType = 'telegram'; channel = 'Group';
+      } else if (sk.includes(':whatsapp:')) {
+        triggerType = 'whatsapp'; channel = 'WhatsApp';
+      } else if (sk.includes(':cron:')) {
+        triggerType = 'cron';
+        cronJobId = sk.split(':cron:')[1]?.split(':')[0];
+      }
+
+      const isLocal = (r.provider || '').toLowerCase().startsWith('ollama');
+      const latencyMs = match ? match.latency_ms : (costEntry ? costEntry.latency_ms : null);
+      const tokensIn = match ? (match.tokens_in || 0) : (costEntry?.tokens?.input || 0);
+      const tokensOut = match ? (match.tokens_out || 0) : (costEntry?.tokens?.output || 0);
+      const tokensCached = match ? (match.tokens_cached || 0) : (costEntry?.tokens?.cache_read || 0);
+      const costUsd = match ? (match.cost_usd || 0) : (costEntry?.cost_usd || 0);
+
       return {
-        ts: r.ts, tsMs: rMs, agent: r.agent, sessionKey: sk,
-        model: r.selected_model || r.model || 'unknown',
+        ts: r.ts, tsMs: rMs, endMs: latencyMs ? (rMs + latencyMs) : null,
+        agent: r.agent, sessionKey: sk,
+        model: r.selected_model || `${r.provider}/${r.model}` || 'unknown',
         provider: r.provider || 'unknown',
-        triggerType, channel,
+        triggerType, channel, cronJobId, userId,
         historyCount: r.history_messages || 0,
         promptLen: r.prompt_length || 0,
-        latencyMs: match ? match.latency_ms : null,
-        tokensIn: match ? (match.tokens_in || 0) : null,
-        tokensOut: match ? (match.tokens_out || 0) : null,
-        tokensCached: match ? (match.tokens_cached || 0) : 0,
-        costUsd: match ? (match.cost_usd || 0) : null,
-        tier: isLocal ? 'free' : 'paid',
-        completed: !!match,
+        promptTail: r.prompt_tail || match?.prompt_tail || null,
+        responsePreview: match?.response_preview || null,
+        responseChars: match?.response_chars || 0,
+        latencyMs,
+        tokensIn, tokensOut, tokensCached,
+        costUsd, tier: isLocal ? 'free' : 'paid',
+        billingType: costEntry?.billing_type || (isLocal ? 'free' : 'payg'),
+        completed: !!match || !!costEntry,
+        success: costEntry ? costEntry.success !== false : null,
       };
     }).sort((a, b) => a.tsMs - b.tsMs);
 
-    // Cluster into pipelines:
-    // A new pipeline starts on each non-subagent trigger (telegram/cron/direct).
-    // Subagent events within 3 min of the trigger attach to the current pipeline.
-    const WINDOW = 3 * 60 * 1000;
+    // Cluster into pipelines (non-subagent trigger = new pipeline; subagents attach within 5 min)
+    const WINDOW = 5 * 60 * 1000;
     const pipelines = [];
     let cur = null;
     for (const e of merged) {
@@ -823,23 +917,78 @@ const server = http.createServer((req, res) => {
       const sinceStart = cur ? (e.tsMs - new Date(cur.triggeredAt).getTime()) : Infinity;
       if (!cur || (isRoot && sinceStart > WINDOW)) {
         if (cur) pipelines.push(cur);
-        cur = { triggeredAt: e.ts, triggerType: e.triggerType, channel: e.channel, steps: [], lastMs: e.tsMs };
+        cur = {
+          triggeredAt: e.ts, triggerAtMs: e.tsMs,
+          triggerType: e.triggerType, channel: e.channel,
+          cronJobId: e.cronJobId, userId: e.userId,
+          steps: [], lastMs: e.tsMs
+        };
       }
       cur.steps.push(e);
-      cur.lastMs = Math.max(cur.lastMs, e.tsMs + (e.latencyMs || 0));
+      cur.lastMs = Math.max(cur.lastMs, e.endMs || e.tsMs);
     }
     if (cur) pipelines.push(cur);
 
+    // Enrich each pipeline with metrics + trigger message
     const now = Date.now();
-    const result = pipelines.slice(-20).reverse().map((p, i) => {
+    const result = pipelines.slice(-25).reverse().map((p, i) => {
       const totalCost = p.steps.reduce((s, e) => s + (e.costUsd || 0), 0);
+      const paidCost = p.steps.filter(e => e.tier === 'paid').reduce((s, e) => s + (e.costUsd || 0), 0);
+      const freeCost = p.steps.filter(e => e.tier === 'free').reduce((s, e) => s + (e.costUsd || 0), 0);
       const uniqueAgents = [...new Set(p.steps.map(e => e.agent))];
+      const paidModels = [...new Set(p.steps.filter(e => e.tier === 'paid').map(e => e.model))];
+      const freeModels = [...new Set(p.steps.filter(e => e.tier === 'free').map(e => e.model))];
       const hasIncomplete = p.steps.some(e => !e.completed);
       const isLive = hasIncomplete || (now - p.lastMs) < 90000;
+      const totalLatencyMs = p.lastMs - p.triggerAtMs;
+      const totalTokensIn = p.steps.reduce((s, e) => s + (e.tokensIn || 0), 0);
+      const totalTokensOut = p.steps.reduce((s, e) => s + (e.tokensOut || 0), 0);
+
+      // Find the trigger message from Telegram session (closest user message before pipeline start, within 30s)
+      let triggerMessage = null;
+      if (p.triggerType === 'telegram') {
+        const candidates = telegramMessages.filter(m => Math.abs(m.tsMs - p.triggerAtMs) < 90000);
+        if (candidates.length > 0) {
+          triggerMessage = candidates.sort((a, b) => Math.abs(a.tsMs - p.triggerAtMs) - Math.abs(b.tsMs - p.triggerAtMs))[0]?.text || null;
+        }
+      }
+
+      // Get cron job name if applicable
+      let cronJobName = null;
+      if (p.triggerType === 'cron' && p.cronJobId) {
+        try {
+          const jobs = JSON.parse(fs.readFileSync(path.join(OPENCLAW_DIR, 'cron', 'jobs.json'), 'utf8'));
+          const job = (jobs.jobs || []).find(j => j.id === p.cronJobId);
+          cronJobName = job?.name || null;
+        } catch {}
+      }
+
+      // Look for prompt_tail in root step for cron trigger message
+      const rootStep = p.steps[0];
+      const triggerPrompt = triggerMessage || (p.triggerType === 'cron' ? (cronJobName || 'Cron job') : null) || rootStep?.promptTail || null;
+
       return {
-        id: `pl-${i}`, triggeredAt: p.triggeredAt, triggerType: p.triggerType, channel: p.channel,
-        steps: p.steps, totalCost: Math.round(totalCost * 10000) / 10000,
-        agentCount: uniqueAgents.length, isLive,
+        id: `pl-${i}`,
+        triggeredAt: p.triggeredAt,
+        triggerType: p.triggerType,
+        channel: p.channel,
+        cronJobName,
+        triggerMessage: triggerPrompt,
+        isLive,
+        // Steps with full traceability
+        steps: p.steps,
+        // Aggregate metrics
+        totalCost: Math.round(totalCost * 1_000_000) / 1_000_000,
+        paidCost: Math.round(paidCost * 1_000_000) / 1_000_000,
+        freeCost: Math.round(freeCost * 1_000_000) / 1_000_000,
+        totalLatencyMs: totalLatencyMs > 0 ? totalLatencyMs : null,
+        agentCount: uniqueAgents.length,
+        agents: uniqueAgents,
+        paidModels,
+        freeModels,
+        totalTokensIn,
+        totalTokensOut,
+        requestsToday: null, // filled by analytics tab
       };
     });
 

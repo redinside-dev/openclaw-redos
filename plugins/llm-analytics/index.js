@@ -128,6 +128,10 @@ export default {
     api.on("llm_input", (event, ctx) => {
       const ts = new Date().toISOString();
       const key = event.runId || `${ctx.sessionId}-${Date.now()}`;
+      const promptText = event.prompt || "";
+      // Capture last 600 chars of prompt — system prompt is at the top,
+      // so the tail contains the actual user message/task.
+      const promptTail = promptText.length > 600 ? promptText.slice(-600) : promptText;
 
       pendingInputs.set(key, {
         ts,
@@ -136,7 +140,8 @@ export default {
         model: event.model,
         agentId: ctx.agentId || "unknown",
         sessionKey: ctx.sessionKey || ctx.sessionId || "unknown",
-        promptLength: (event.prompt || "").length,
+        promptLength: promptText.length,
+        promptTail,
         historyCount: (event.historyMessages || []).length,
         imagesCount: event.imagesCount || 0,
       });
@@ -145,10 +150,12 @@ export default {
         ts,
         agent: ctx.agentId || "unknown",
         session_key: ctx.sessionKey || ctx.sessionId,
+        run_id: event.runId || null,
         selected_model: `${event.provider}/${event.model}`,
         provider: event.provider,
         model: event.model,
-        prompt_length: (event.prompt || "").length,
+        prompt_length: promptText.length,
+        prompt_tail: promptTail,
         history_messages: (event.historyMessages || []).length,
         images_count: event.imagesCount || 0,
         daily_spend_so_far: getDailySpend(),
@@ -231,19 +238,29 @@ export default {
         }
       } catch {}
 
+      // Extract response preview from assistant texts
+      const assistantTexts = event.assistantTexts || [];
+      const responseText = assistantTexts.join("\n").trim();
+      const responsePreview = responseText.length > 600 ? responseText.slice(0, 600) : responseText;
+
       appendJsonl(ANALYTICS_LOG, {
         ts,
         type: "llm_call",
-        agent: ctx.agentId || "unknown",
+        agent: ctx.agentId || (inputData && inputData.agentId) || "unknown",
         provider,
         model: `${provider}/${model}`,
+        run_id: event.runId || null,
+        session_key: ctx.sessionKey || ctx.sessionId || (inputData && inputData.sessionKey) || null,
         latency_ms: latencyMs,
         tokens_in: usageNorm?.input || 0,
         tokens_out: usageNorm?.output || 0,
         tokens_cached: usageNorm?.cacheRead || 0,
         cost_usd: Math.round(costUsd * 1_000_000) / 1_000_000,
         prompt_length: inputData?.promptLength || 0,
+        prompt_tail: inputData?.promptTail || null,
         history_count: inputData?.historyCount || 0,
+        response_preview: responsePreview || null,
+        response_chars: responseText.length,
       });
 
       // Clean up stale entries (older than 10 minutes)
