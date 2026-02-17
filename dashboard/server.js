@@ -79,16 +79,36 @@ function fileStat(filePath) {
 
 // --- Data Loaders ---
 
+const HIERARCHY_FILE = path.join(OPENCLAW_DIR, 'workspace', 'ops', 'agent-hierarchy.json');
+
+function getHierarchy() {
+  try {
+    if (fs.existsSync(HIERARCHY_FILE)) return JSON.parse(fs.readFileSync(HIERARCHY_FILE, 'utf8'));
+  } catch {}
+  return { parentMap: {}, roles: {} };
+}
+
+function saveHierarchy(data) {
+  fs.mkdirSync(path.dirname(HIERARCHY_FILE), { recursive: true });
+  fs.writeFileSync(HIERARCHY_FILE, JSON.stringify(data, null, 2));
+}
+
 function getAgents() {
   const config = readJsonSafe(path.join(OPENCLAW_DIR, 'openclaw.json'));
   if (!config) return [];
   const agents = config.agents?.list || [];
   const defaults = config.agents?.defaults || {};
+  const hier = getHierarchy();
   return agents.map(a => ({
     id: a.id,
-    name: a.identity?.name || a.id,
+    name: a.name || a.identity?.name || a.id,
+    identityName: a.identity?.name || a.id,
+    role: hier.roles?.[a.id] || '',
     model: a.model?.primary || defaults.model?.primary || 'unknown',
     fallbacks: a.model?.fallbacks || defaults.model?.fallbacks || [],
+    parentId: hier.parentMap?.[a.id] || null,
+    isDefault: a.default || false,
+    bot: a.groupChat?.mentionPatterns?.[0] || null,
     workspace: a.workspace || '',
     memoryDb: fileStat(path.join(OPENCLAW_DIR, 'memory', `${a.id}.sqlite`)),
   }));
@@ -452,6 +472,104 @@ const server = http.createServer((req, res) => {
         res.end(JSON.stringify({ ok: false, error: e.message }));
       }
     });
+    return;
+  }
+
+  // --- Agent management ---
+  if (url.pathname === '/api/agents' && req.method === 'GET') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify(getAgents()));
+    return;
+  }
+
+  if (url.pathname === '/api/agents' && req.method === 'POST') {
+    let body = '';
+    req.on('data', d => { body += d; });
+    req.on('end', () => {
+      try {
+        const { id, name, identityName, primaryModel, fallbacks, role, parentId, bot } = JSON.parse(body);
+        if (!id || !name) { res.writeHead(400); res.end(JSON.stringify({ error: 'id and name are required' })); return; }
+        const configFile = path.join(OPENCLAW_DIR, 'openclaw.json');
+        const config = JSON.parse(fs.readFileSync(configFile, 'utf8'));
+        if ((config.agents?.list || []).find(a => a.id === id)) {
+          res.writeHead(409); res.end(JSON.stringify({ error: 'agent id already exists' })); return;
+        }
+        const newAgent = {
+          id,
+          name,
+          model: { primary: primaryModel || 'ollama/llama3.1:8b', fallbacks: fallbacks || ['openai-codex/gpt-5.2'] },
+          identity: { name: identityName || name.split(' ')[0] },
+          groupChat: { mentionPatterns: bot ? [bot] : [] },
+          subagents: { allowAgents: ['*'] },
+        };
+        config.agents.list.push(newAgent);
+        fs.writeFileSync(configFile, JSON.stringify(config, null, 2));
+        const hier = getHierarchy();
+        if (role) { hier.roles = hier.roles || {}; hier.roles[id] = role; }
+        if (parentId) { hier.parentMap = hier.parentMap || {}; hier.parentMap[id] = parentId; }
+        saveHierarchy(hier);
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: true, id }));
+      } catch (e) {
+        res.writeHead(400); res.end(JSON.stringify({ error: e.message }));
+      }
+    });
+    return;
+  }
+
+  if (req.method === 'PATCH' && url.pathname.startsWith('/api/agents/')) {
+    const agentId = url.pathname.split('/api/agents/')[1];
+    let body = '';
+    req.on('data', d => { body += d; });
+    req.on('end', () => {
+      try {
+        const updates = JSON.parse(body);
+        const configFile = path.join(OPENCLAW_DIR, 'openclaw.json');
+        const config = JSON.parse(fs.readFileSync(configFile, 'utf8'));
+        const agent = (config.agents?.list || []).find(a => a.id === agentId);
+        if (!agent) { res.writeHead(404); res.end(JSON.stringify({ error: 'agent not found' })); return; }
+        if (updates.name !== undefined) { agent.name = updates.name; }
+        if (updates.identityName !== undefined) { agent.identity = agent.identity || {}; agent.identity.name = updates.identityName; }
+        if (updates.primaryModel !== undefined) { agent.model = agent.model || {}; agent.model.primary = updates.primaryModel; }
+        if (updates.fallbacks !== undefined) { agent.model = agent.model || {}; agent.model.fallbacks = updates.fallbacks; }
+        if (updates.bot !== undefined) { agent.groupChat = agent.groupChat || {}; agent.groupChat.mentionPatterns = updates.bot ? [updates.bot] : []; }
+        fs.writeFileSync(configFile, JSON.stringify(config, null, 2));
+        const hier = getHierarchy();
+        if (updates.role !== undefined) { hier.roles = hier.roles || {}; hier.roles[agentId] = updates.role; }
+        if (updates.parentId !== undefined) {
+          hier.parentMap = hier.parentMap || {};
+          if (updates.parentId) { hier.parentMap[agentId] = updates.parentId; } else { delete hier.parentMap[agentId]; }
+        }
+        saveHierarchy(hier);
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: true }));
+      } catch (e) {
+        res.writeHead(400); res.end(JSON.stringify({ error: e.message }));
+      }
+    });
+    return;
+  }
+
+  if (req.method === 'DELETE' && url.pathname.startsWith('/api/agents/')) {
+    const agentId = url.pathname.split('/api/agents/')[1];
+    try {
+      const configFile = path.join(OPENCLAW_DIR, 'openclaw.json');
+      const config = JSON.parse(fs.readFileSync(configFile, 'utf8'));
+      const idx = (config.agents?.list || []).findIndex(a => a.id === agentId);
+      if (idx === -1) { res.writeHead(404); res.end(JSON.stringify({ error: 'agent not found' })); return; }
+      if (config.agents.list[idx].default) { res.writeHead(403); res.end(JSON.stringify({ error: 'cannot remove the default agent' })); return; }
+      config.agents.list.splice(idx, 1);
+      fs.writeFileSync(configFile, JSON.stringify(config, null, 2));
+      const hier = getHierarchy();
+      delete (hier.parentMap || {})[agentId];
+      delete (hier.roles || {})[agentId];
+      Object.keys(hier.parentMap || {}).forEach(k => { if (hier.parentMap[k] === agentId) delete hier.parentMap[k]; });
+      saveHierarchy(hier);
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ ok: true }));
+    } catch (e) {
+      res.writeHead(400); res.end(JSON.stringify({ error: e.message }));
+    }
     return;
   }
 
