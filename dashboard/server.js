@@ -126,12 +126,18 @@ function getTickets() {
       const m = body.match(new RegExp(`\\*\\*${key}:\\*\\*\\s*(.+)`));
       return m ? m[1].trim() : '';
     };
+    const status = get('Status');
+    const slaDeadline = get('SLA Deadline');
+    const isOpen = status === 'OPEN' || status === 'IN_PROGRESS' || status === 'BLOCKED';
+    const slaBreached = isOpen && slaDeadline ? new Date(slaDeadline) < new Date() : false;
     tickets.push({
-      id, status: get('Status'), priority: get('Priority'),
-      created: get('Created'), slaDeadline: get('SLA Deadline'),
+      id, status, priority: get('Priority'),
+      created: get('Created'), slaDeadline,
       reporter: get('Reporter'), assignee: get('Assignee'),
-      summary: get('Summary'), rootCause: get('Root Cause'),
+      summary: get('Summary'), details: get('Details'),
+      rootCause: get('Root Cause'),
       resolution: get('Resolution'), resolvedAt: get('Resolved At'),
+      slaBreached,
     });
   }
   return tickets;
@@ -506,6 +512,11 @@ const server = http.createServer((req, res) => {
   if (url.pathname === '/api/tickets-log') {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify(getRecentTicketsLog()));
+    return;
+  }
+  if (url.pathname === '/api/tickets') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify(getTickets()));
     return;
   }
   if (url.pathname === '/api/cost-details') {
