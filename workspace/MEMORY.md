@@ -1,309 +1,87 @@
-# MEMORY.md
+# MEMORY.md — OpenClaw RedOS Workspace
 
-Curated long-term memory for this OpenClaw workspace.
-
-## Tooling / Workflow
-
-- **Source of truth discipline:** After every significant change (config, cron, skills, routing, policies), update:
-  - `/Users/redinside/.openclaw/KNOWLEDGEBASE.md` (full architecture + ops)
-  - `/Users/redinside/.openclaw/workspace/MEMORY.md` (short “what changed”)
-
-- **Cursor CLI:** Use `cursor-agent` as the canonical command (installed at `~/.local/bin/cursor-agent`). Prefer **login-based auth** (`cursor-agent login/status`) over `CURSOR_API_KEY`.
-- **Cursor coding model:** default to **Claude Sonnet 4.5** via `cursor-agent --model sonnet-4.5` for coding tasks.
-- **X/Twitter reading (no-login):** Use **Option 1** Jina mirror first: rewrite `https://x.com/...` → `https://r.jina.ai/https://x.com/...`. If blocked, try `pbs.twimg.com/media/...` direct image. If still blocked, use Browser Relay attached logged-in tab. Helper skill: `skills/x-mirror`.
-
-## Preferences / Policies (CANONICAL - DO NOT CHANGE UNLESS EXPLICITLY ASKED)
-
-⚠️ **CRITICAL:** The following agent/model routing configuration is locked in as the canonical setup. **Never change unless Anurag explicitly asks.**
-
-### Agent Configuration (Locked)
-
-| Agent | Telegram Bot | Identity | Primary Model | Fallback Chain |
-|-------|-------------|----------|---------------|----------------|
-| **main** | @RedinsideBot (account: default) | RED | `openai-codex/gpt-5.2` | `zai/glm-4.7` → `ollama/llama3.1:8b` |
-| **allrounder** | @ZenRedBot (account: allrounder) | ZEN | `openai-codex/gpt-5.2` | `zai/glm-4.7` → `zai/glm-4.7-flashx` |
-
-### Key Points (Never Modify Without Explicit Request)
-
-- **RED (main):** Principal architect/strategist agent; uses OpenAI Codex gpt-5.2 primary with ZAI/GLM fallback
-- **ZEN (allrounder):** Daily-driver assistant; uses **OpenAI Codex gpt-5.2** primary, ZAI GLM-4.7 secondary
-- **Kimi 2.5 (moonshot/kimi-k2.5):** NO ACTIVE SUBSCRIPTION — marked `status: unavailable` in model-registry.json. Do NOT use as fallback until subscription is activated.
-- **Channel preference:** Telegram-only (unless Anurag explicitly changes)
-- **Portfolio scope:** Ignore crypto entirely (stocks only)
-- **Ticker note:** EMR = Emerson Electric
-- **ZEN Codex OAuth account:** `io.anuragsaxena@gmail.com` (stored under `~/.openclaw/agents/allrounder/agent/auth-profiles.json`)
-- **RED Codex OAuth account:** unchanged (stored under `~/.openclaw/agents/main/agent/auth-profiles.json`)
-- **Coding tasks:** Always use `cursor-agent` with `--model sonnet-4.5` (Claude Sonnet 4.5)
-- **Web search tool default:** Perplexity (**model id:** `sonar`)
-- **Web search fallback:** if Perplexity fails, fall back to Exa MCP (`exa.web_search_exa` via mcporter)
-- **ZAI_API_KEY** stored in OpenClaw config for GLM fallback
-- **Perplexity API key** stored for **web search tool** (not ZEN primary model)
-- **XAI_API_KEY** stored for Grok/xAI features
-
-### Bindings (Locked)
-
-- `channel=telegram, accountId=default` → `agentId=main` (RED)
-- `channel=telegram, accountId=allrounder` → `agentId=allrounder` (ZEN)
+> Curated long-term memory. **Full reference:** `KNOWLEDGEBASE.md`. **History:** `MEMORY-ARCHIVE-2026-02-15.md`.
 
 ---
 
+## Current State (as of 2026-02-17)
+
+| Component | Status |
+|-----------|--------|
+| OpenClaw CLI | v2026.2.15 |
+| Native gateway | Running — launchd `ai.openclaw.gateway`, port 18789 |
+| Dashboard | Port 19000, basic auth (red / redos2026) |
+| Dashboard tunnel | Cloudflare quick tunnel — URL in `workspace/DASHBOARD_URL.txt` |
+| Telegram | 7/7 accounts OK |
+| WhatsApp | Linked +16476092313, DM isolation `per-channel-peer` |
+| Agents | 8 active: main / allrounder / hatake / eng / research / finance / ops / infosec |
+| Sessions | Cleared 2026-02-17 — fresh start, 0 stale sessions |
+| Skills | 22 registered, all enabled |
+| Cron jobs | Enabled — all use agent default model (no PAYG hard-coding) |
+| Sandbox | mode: off — tools.deny active: `group:web`, `browser` |
+
 ---
 
-## Session State — 2026-02-15
+## Routing Policy (CANONICAL — DO NOT CHANGE WITHOUT EXPLICIT REQUEST)
 
-### Claude Code Session (completed)
+| Agent | Bot | Identity | Primary | Fallback |
+|-------|-----|----------|---------|---------|
+| main | @RedinsideBot | RED | openai-codex/gpt-5.2 | ollama/llama3.1:8b |
+| allrounder | @ZenRedBot | ZEN | ollama/llama3.1:8b | openai-codex/gpt-5.2 |
+| hatake | — | HATAKE | ollama/qwen2.5-coder:7b | ollama/llama3.1:8b → gpt-5.2 |
+| eng | @ENGRED_BOT | ENG | ollama/llama3.1:8b | openai-codex/gpt-5.2 |
+| research | @RESEARCHRED_BOT | RESEARCH | openai-codex/gpt-5.2 | ollama/llama3.1:8b |
+| finance | @FINANCERED_BOT | FINANCE | ollama/llama3.1:8b | openai-codex/gpt-5.2 |
+| ops | @OPSRED_BOT | OPS | ollama/llama3.1:8b | openai-codex/gpt-5.2 |
+| infosec | @INFOSECRED_BOT | INFOSEC | ollama/llama3.1:8b | openai-codex/gpt-5.2 |
 
-- Gateway token mismatch fixed: `openclaw status` now shows reachable
-- KNOWLEDGEBASE.md created at `~/.openclaw/KNOWLEDGEBASE.md` (§1–§19)
-- Pre-commit cleanup: removed stubs, untracked runtime files (completions, audit logs, update-check)
-- README completely rewritten to reflect OpenClaw-native architecture (not the old Express server)
-- Architecture clarified: RedOS = Skills + MCP + Agent Config on top of OpenClaw. No custom server.
-- Model tier fixed: ZAI/GLM first, Kimi disabled (no subscription)
-- Mission Control UI fixed: WebSocket was pointing to dead port 19000 → now 18789
-- All committed and pushed to `github.com/redinside-dev/openclaw-redos`
+- **Codex account:** `io.anuragsaxena@gmail.com` — Team plan, 1-year subscription
+- **Kimi (moonshot/kimi-k2.5):** NO subscription — do NOT use
+- **ZAI/GLM-4.7:** PAYG — never hard-code in cron or fallback chains
+- **openrouter:** NOT authorized — remove immediately if found in config
+- **Web search:** Perplexity (sonar-pro) via `tools.web.search` — NOT as agent primary model
+- **Coding:** cursor-agent with Claude Sonnet 4.5
+- **Git identity:** `anuragg-saxenaa` / `anuragg.saxenaa@gmail.com`
+- **Pairing reply:** patched to "Anurag's virtual assistant" — re-run `scripts/patch-pairing-reply.sh` after upgrades
 
-### Windsurf Cascade Session (2026-02-15 16:54–17:30 ET)
+---
 
-**Phase 1 — COMPLETE (with fix):**
-- §20 written to KNOWLEDGEBASE.md with full enhancement roadmap (5 phases)
-- Fixed stale `workspace-allrounder/MEMORY.md` (kimi-k2.5 → zai/glm-4.7)
-- All 8 agent fallback chains fixed — `kimi-k2.5` removed, `zai/glm-4.7` first
-- 19 skills registered in `openclaw.json` — **initially wrong schema** (`path`/`description` rejected by gateway), **fixed to `{enabled: true}` only**
-- Gateway confirmed: `[reload] config change applied` — 19 skills LIVE
+## Open Issues
 
-**Honest Evidence Audit (§21) — key findings:**
-- Self-healing: PARTIAL — detects + retries, but no auto-diagnose or auto-fix
-- Self-improvement: NOT WORKING — reflect-learn never ran, empty state
-- Agent-to-agent comms: NOT WORKING — a2a enabled but agents never used it
-- Vector memory: WORKING — 129 entries with embeddings, 27MB SQLite
-- Knowledge base sharing: NOT WORKING — only updated by external LLMs, not agents
-- Cost/routing logs: EMPTY — skills registered but not writing data yet
+| Priority | Description |
+|----------|-------------|
+| P3 | TICKET-20260216-002 — undici AbortErrors during Telegram polling, awaiting ENG fix |
+| Low | Cloudflare quick tunnel URL changes on restart — consider named tunnel |
+| Low | Codex 3rd account (`anurawg.saxena@gmail.com`) needs OAuth tokens |
+| Low | Phase 2: nested sub-agent depth — schema doesn't support yet |
 
-### Skills: LIVE IN GATEWAY (schema fixed)
+---
 
-19 skills registered with correct schema `{enabled: true}`. Gateway accepted at 2026-02-15 22:08 UTC. Skills are auto-discovered from `workspace/skills/` directory.
+## Branch Strategy (set 2026-02-17)
 
-### P0/P1/P2 Implementation (2026-02-15 17:17–17:45 ET) — see KNOWLEDGEBASE.md §22
+- **`main`** — stable, reverted to `3d6f6a2` (last confirmed working state)
+- **`feature/cost-routing-fixes`** — all session fixes: ZAI drain, negative costs, live cost estimator, repo cleanup
 
-**Built:**
-- `workspace/ops/TICKET-TRACKER.md` — issue tracking with SLA policy (P0=30min, P1=2h, P2=8h, P3=48h)
-- `workspace/ops/STANDUP-LOG.md` — daily standup records
-- `workspace/ops/LEARNINGS.md` — institutional knowledge (2 seed entries from audit)
-- `workspace/skills/self-healing-protocol/SKILL.md` — 6-step self-healing protocol (registered + live)
-- SOUL.md updated (both workspaces) with self-healing, scrum, self-improvement protocols
-- `agents.defaults.model.fallbacks` fixed (kimi was still first in defaults)
+Work incrementally from feature branch back into main. Never merge wholesale — cherry-pick fixes one at a time.
 
-**7 Cron Jobs (all enabled):**
-1. OPS Morning Standup — 9 AM ET weekdays (uses `sessions_send` to poll agents)
-2. OPS SLA Enforcement — every 30 min (escalates breaches)
-3. OPS Health Monitor — every 15 min (auto-creates tickets for new errors)
-4. RED Self-Improvement — every 6 hours (reviews patterns, applies permanent fixes)
-5. OPS Ticket Auto-Diagnose — every hour (reads open tickets, attempts fix)
-6. RESEARCH Proactive Update — every 4 hours (web scans for tool/model updates)
-7. RED Daily Summary — 6 PM ET weekdays (Telegram DM to Anurag)
+---
 
-**Live issue detected:** Auth token failures on eng/research/finance — OPS health monitor should auto-detect this.
+## Critical Rules
 
-### Daily Brief (Telegram) — 2026-02-15
+### Config safety (LEARNING-007)
+**NEVER add unvalidated keys to `openclaw.json`.** Always run `openclaw doctor` first.
 
-- Created customizable agenda files:
-  - `workspace/briefs/daily-brief-topics.md`
-  - `workspace/briefs/daily-brief-instructions.md`
-- Created project collaboration template: `workspace/projects/_template/STATE.yaml`
-- Added cron job (enabled):
-  - `RED Daily Brief (Telegram)` id=`14c3b159-749f-4855-8a36-39964a865aaf`
-  - schedule: **09:00 America/Toronto (daily, 7 days/week)**
-  - delivery: Telegram → `telegram:1012034994`
+### Cost rule
+**Never hard-code a PAYG model (ZAI, openrouter) in cron jobs or fallback chains.** Use agent default — Ollama is primary and free.
 
-### WhatsApp pairing approvals — 2026-02-15
+### Self-improvement cron warning
+The RED Self-Improvement cron has been observed autonomously modifying `openclaw.json` — adding openrouter provider, changing model chains. Check config periodically. Recovery: remove unauthorized entries, run `openclaw gateway restart`.
 
-- Approved WhatsApp sender **+918869929233** via pairing code **JHKMGMJ3**.
+### Canonical doc filenames
+- `workspace/KNOWLEDGEBASE.md` — architecture + troubleshooting
+- `workspace/MEMORY.md` — this file
+- NO `KNOWLEDGE_BASE.md`, NO `knowledge.md` — delete if found
 
-### DM pairing message branding — 2026-02-15
+---
 
-- Patched the unknown-sender DM pairing reply so it does **not** mention internal product naming.
-- New text (human assistant tone):
-  - “This is Anurag’s virtual assistant and it is private.”
-  - “Pairing code: XXXXXXXX”
-  - “If you want access, please pair with this code. Anurag will approve it when he’s back. Thanks for reaching out — we’ll get back to you.”
-- Implemented as a local patch to installed gateway bundles (may be overwritten by upgrades).
-- Added a re-apply script: `~/.openclaw/scripts/patch-pairing-reply.sh`.
-
-### Git commit attribution policy — 2026-02-15
-
-- Repo-local git identity for `openclaw-redos` set to:
-  - name: `anuragg-saxenaa`
-  - email: `anuragg.saxenaa@gmail.com`
-- Latest commit rewritten and force-pushed so **author+committer** are `anuragg-saxenaa`.
-
-### Phase 5: Mission Control Dashboard (2026-02-15 17:38–17:50 ET) — see KNOWLEDGEBASE.md §23
-
-**Built:**
-- `dashboard/server.js` — Node.js server on port 19000, reads local state files, serves API + static
-- `dashboard/index.html` — New single-page dashboard (7 pages: Overview, Agents, Cron, Tickets, Learnings, Errors, Skills)
-- Old `index.html` renamed to `cost-monitor.html` (preserved)
-- Auto-refreshes every 15s, dark theme, no external dependencies
-
-**Run:** `/opt/homebrew/bin/node ~/.openclaw/dashboard/server.js` → http://localhost:19000
-
-**Verified:** API returns real data — 8 agents, 20 skills, 7 enabled cron jobs (1 already succeeded: OPS Health Monitor), 3 learnings, 129 vector memories.
-
-### Model Fix (2026-02-15 17:55 ET)
-
-- Removed invalid `zai/glm-4.7-flashx` from all agents (defaults overrides, hatake, ops)
-- Upgraded OPS primary from `ollama/llama3.1:8b` → `zai/glm-4.7` (local model too slow for cron, caused 120s timeout)
-- Gateway restarted, Health Monitor error state reset
-- SLA Enforcement ran OK (20.1s) before fix; Health Monitor timed out (120s) due to slow local model + bad fallback
-
-### Cron Status After Fix
-
-| Job | Status | Notes |
-|---|---|---|
-| OPS Health Monitor | error→reset | Timed out on ollama, now using zai/glm-4.7 |
-| OPS SLA Enforcement | ok (20.1s) | Ran successfully |
-| Others | pending | Waiting for next cron cycle (~18:06 ET) |
-
-### Self-Healing Verified (2026-02-15 18:21–18:30 ET)
-
-**OPS agent autonomously:**
-1. Ran Health Monitor cron job, read gateway.err.log + errors.jsonl
-2. Created TICKET-20260215-001 (P2: health monitoring stopped for 17h)
-3. Created TICKET-20260215-002 (P1: LLM timeout errors from bad model + low timeout)
-4. Wrote memory log at `workspace-ops/memory/2026-02-15.md`
-
-**We then resolved both tickets:**
-- Removed `zai/glm-4.7-flashx` from all agents
-- Upgraded OPS primary to `zai/glm-4.7`
-- Increased all cron timeouts to 300s
-- Added LEARNING-003, 004, 005 to LEARNINGS.md
-
-**This is the first real end-to-end self-healing cycle:** detect → ticket → diagnose → fix → learn.
-
-### Session 3 — 2026-02-15 19:00 ET
-
-**Dashboard SSR Fix (root cause resolved):**
-- Browser preview proxy was blocking `/api/` fetch calls → all tabs showed empty
-- Fix: Server now injects ALL data as `window.__INIT_DATA__` JSON blob directly into HTML at serve time
-- Zero fetch dependency for initial render; fetch kept only for 15s auto-refresh
-- Each renderer wrapped in try/catch so one failure doesn't break all tabs
-- Commit: `7fbf1d6`
-
-**MCP Context7 Skill Added:**
-- Created `workspace/skills/mcp-context7/SKILL.md`
-- Tools: `resolve-library-id`, `get-library-docs` — live library documentation lookup
-- API key stored in `.env` as `CONTEXT7_API_KEY` (not hardcoded)
-- Added to `.env.example` template
-- Registered and enabled in `openclaw.json`
-
-**Telegram Mission Control Integration:**
-- Added commands to Telegram bridge: `/dashboard`, `/status`, `/tickets`, `/cron`
-- `/dashboard` sends public URL + Telegram Web App button (opens dashboard inline)
-- `/status` shows agents, cron, tickets, costs summary
-- Updated `/start` and `/help` to list new commands
-- Commit: `c887cf7`
-
-**Cloudflare Tunnel:**
-- Installed cloudflared, created quick tunnel exposing port 19000
-- Public URL: `https://mls-investment-replied-cigarette.trycloudflare.com`
-- URL stored in `.env` as `MISSION_CONTROL_URL`
-- Note: URL changes on restart; for permanent URL, set up named Cloudflare tunnel
-- No authentication currently — dashboard is read-only (except model override endpoint)
-
-### Session 4 — 2026-02-15 19:44 ET
-
-**Phase 4: CEO Dynamic Hiring/Firing (COMPLETE):**
-- `ceo-worker.js`: Full FIRE capability with performance tracking
-  - Monitors failure rate (>60%), avg latency (>3min), inactive timeout (>5min)
-  - Auto-fires underperforming workers, reassigns their tasks to pending queue
-  - Hire/fire audit log persisted to `workspace/ops/ceo-hire-fire-log.json`
-  - `getWorkerStatus()` exposes worker health to dashboard/API
-- Dashboard server: New endpoints `GET /api/ceo/status`, `POST /api/ceo/hire`, `POST /api/ceo/fire`
-- Dashboard UI: New "CEO Controls" tab with agent roster, hire/fire buttons, audit log, threshold display
-- Commit: `e284602`
-
-**Dashboard Basic Auth (COMPLETE):**
-- `DASHBOARD_USER` and `DASHBOARD_PASS` in `.env`
-- Auth skipped for localhost (direct access), enforced when `X-Forwarded-For` present (tunnel)
-- Credentials: user=`red`, pass=`redos2026`
-- Added to `.env.example` template
-
-**Dashboard Verification:**
-- SSR confirmed: 17 data keys injected including `_ceoStatus`
-- Auth confirmed: localhost → 200, external (X-Forwarded-For) → 401
-- Browser preview opened on port 19000
-
-### Session 5 — 2026-02-15 20:18 ET — CRITICAL AUTONOMY FIXES
-
-**Root cause of broken agent-to-agent communication (FIXED):**
-1. All cron job prompts used `sessions_send(agentId="eng", message="...")` — **wrong API**
-   - `sessions_send` requires `sessionKey`, not `agentId`
-   - Correct tool: `sessions_spawn(agentId="eng", task="...")`
-   - Fixed all 5 cron jobs that use inter-agent delegation
-2. SOUL.md (all 8 workspaces) told agents to use `sessions_send` with `agentId` — **fixed to `sessions_spawn`**
-3. `openclaw.json` had no `subagents.allowAgents` config — agents got "forbidden" error
-   - Added `"subagents": {"allowAgents": ["*"]}` to all 8 agents in `agents.list`
-   - Note: this key is only valid per-agent, NOT in `agents.defaults` (schema rejects it there)
-
-**Verified end-to-end:** OPS → sessions_spawn → ENG → "PONG" reply — **full round trip works**
-
-**Self-improvement cron fix:**
-- Upgraded model from `zai/glm-4.7` to `openai-codex/gpt-5.2` for better analysis
-- Made LEARNINGS.md output mandatory (must write something every run)
-
-**Memory enrichment:**
-- Added "Memory Enrichment (MANDATORY)" section to SOUL.md
-- Agents must write daily memory entries to `workspace/memory/{YYYY-MM-DD}.md` after each cron run
-
-**Dashboard watchdog:**
-- Created `ai.openclaw.dashboard.plist` for launchd auto-restart
-- Gateway already had launchd KeepAlive (confirmed running as pid via `ai.openclaw.gateway`)
-
-**OAuth issue (known, not blocking):**
-- `openai-codex/gpt-5.2` OAuth tokens invalidated for sub-agent sessions
-- Workaround: cron jobs and sub-agent spawns use `zai/glm-4.7` (works fine)
-- To fix permanently: re-authenticate codex OAuth via `openclaw login`
-
-### Session 6 — 2026-02-15 21:00 ET — PRODUCTION READINESS VERIFICATION
-
-**Gateway restart required:**
-- Gateway had cached stale config from before Session 5 fix (the invalid `allowAgents` in defaults error)
-- `launchctl kickstart -k` restarted gateway cleanly (PID 18133)
-- No config errors on fresh start — per-agent `allowAgents` loaded correctly
-
-**Live test results (all 4 autonomy systems):**
-
-| System | Test | Result |
-|--------|------|--------|
-| **Agent-to-Agent** | OPS → sessions_spawn → ENG → "PONG" | ✅ 10s round trip |
-| **Agent-to-Agent** | RED → sessions_spawn → ENG → "PONG" | ✅ 26s round trip |
-| **Self-Healing** | OPS health check → read logs → "NO NEW ERRORS FOUND" | ✅ Correct |
-| **Self-Improvement** | RED reflection → analyzed patterns → wrote LEARNING-20260216-001 | ✅ Written to file |
-| **Self-Reliance** | 3 cron jobs firing (SLA, Health, Ticket Diagnose), 5 more scheduled | ✅ Autonomous |
-
-**Autonomous agent output discovered (produced without human input):**
-- **TICKET-20260215-004:** OPS detected Telegram 409 conflicts → diagnosed → resolved → LEARNING-008
-- **LEARNING-20260216-001:** RED identified delegation pattern issue → wrote prevention steps
-- **LEARNING-20260216-002:** RESEARCH proactive scan found 2 CVEs (CVE-2026-25593, CVE-2026-25253) — both mitigated by v2026.2.14
-- **Memory entries:** OPS + RESEARCH wrote daily logs to `workspace/memory/2026-02-15.md` and `2026-02-16.md`
-
-**Codex auth discovery:**
-- `openclaw login` doesn't exist — correct command: `openclaw models auth login --provider openai-codex`
-- But that requires a provider plugin which isn't installed for openai-codex (built-in OAuth)
-- Multi-account failover: `openclaw models auth paste-token --profile-id "openai-codex:account2"` for API keys
-- Deferred: using default account (`io.anuragsaxena@gmail.com`, Team plan, expires Feb 20)
-
-**Commits:**
-- `0d99060` — autonomous agent runtime output (TICKET-004, LEARNING-008, memory entries)
-- `0494938` — RED self-improvement learning (LEARNING-20260216-001)
-- `6cbd119` — cron state + subagent run logs
-- `33e5cbe` — RESEARCH CVE findings (LEARNING-20260216-002)
-
-### Remaining (Low Priority)
-
-- Install dashboard launchd plist: `cp ai.openclaw.dashboard.plist ~/Library/LaunchAgents/ && launchctl load ~/Library/LaunchAgents/ai.openclaw.dashboard.plist`
-- Multi-account Codex failover (3 accounts ready, only 1 authenticated)
-- Cost-tracker + smart-router skills not writing to log files
-- Cloudflare tunnel URL changes on restart — consider named tunnel
-- MEMORY.md is 14.6K chars, gateway truncates at 2.5K in context — consider archiving older sessions
-
-*Last updated: 2026-02-15 21:27 ET by Windsurf Cascade — Production readiness verified: all 4 autonomy systems tested and confirmed working.*
+*Last updated: 2026-02-17 — clean restart, sessions cleared, research agent model fixed, docs synced*

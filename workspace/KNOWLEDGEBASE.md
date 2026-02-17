@@ -13,26 +13,28 @@ Use this when something feels off (routing, auth, web search, channels). It’s 
 
 ### Agents / Bots
 
-**RED (agentId: `main`)**
-- Telegram bot: `@RedinsideBot`
-- Binding: `channel=telegram, accountId=default → agentId=main`
-- Primary model: `openai-codex/gpt-5.2`
-- Fallbacks: `moonshot/kimi-k2.5`
-- Codex OAuth creds location: `~/.openclaw/agents/main/agent/auth-profiles.json`
+| Agent | Bot | Identity | Primary | Fallback |
+|-------|-----|----------|---------|---------|
+| main | @RedinsideBot | RED | openai-codex/gpt-5.2 | ollama/llama3.1:8b |
+| allrounder | @ZenRedBot | ZEN | ollama/llama3.1:8b | openai-codex/gpt-5.2 |
+| hatake | — | HATAKE | ollama/qwen2.5-coder:7b | ollama/llama3.1:8b → gpt-5.2 |
+| eng | @ENGRED_BOT | ENG | ollama/llama3.1:8b | openai-codex/gpt-5.2 |
+| research | @RESEARCHRED_BOT | RESEARCH | openai-codex/gpt-5.2 | ollama/llama3.1:8b |
+| finance | @FINANCERED_BOT | FINANCE | ollama/llama3.1:8b | openai-codex/gpt-5.2 |
+| ops | @OPSRED_BOT | OPS | ollama/llama3.1:8b | openai-codex/gpt-5.2 |
+| infosec | @INFOSECRED_BOT | INFOSEC | ollama/llama3.1:8b | openai-codex/gpt-5.2 |
 
-**ZEN (agentId: `allrounder`)**
-- Telegram bot: `@ZenRedBot`
-- Binding: `channel=telegram, accountId=allrounder → agentId=allrounder`
-- Primary model: `openai-codex/gpt-5.2`
-- Fallbacks: `zai/glm-4.7` → `moonshot/kimi-k2.5`
-- Codex OAuth account: `io.anuragsaxena@gmail.com`
-- Codex OAuth creds location: `~/.openclaw/agents/allrounder/agent/auth-profiles.json`
+- **Codex account:** `io.anuragsaxena@gmail.com` — Team plan, 1-year subscription
+- **Kimi (moonshot/kimi-k2.5):** NO subscription — do NOT use
+- **ZAI/GLM-4.7:** PAYG — never in fallback chains or cron jobs
+- **openrouter:** NOT authorized — remove immediately if found in config
+- Codex OAuth creds: `~/.openclaw/agents/<agentId>/agent/auth-profiles.json`
 
 ### Web Search
 - Tool: `tools.web.search`
-- Provider: `perplexity`
-- Model id: `sonar` (IMPORTANT: **not** `perplexity/sonar`)
-- Fallback policy: Perplexity → Exa MCP (`mcporter call exa.web_search_exa ...`)
+- Provider: `perplexity`, Model id: `sonar-pro` (configured in `openclaw.json`)
+- **Do NOT set `perplexity/sonar-pro` as an agent's primary LLM model** — it is a web search tool only
+- Fallback: Exa MCP (`mcporter call exa.web_search_exa ...`)
 
 ### GLM/ZAI model guardrail
 - Use **`zai/glm-4.7`** as the supported GLM model id in OpenClaw.
