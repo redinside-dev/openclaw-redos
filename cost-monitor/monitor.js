@@ -1,9 +1,44 @@
 import { EventEmitter } from 'events';
 import fs from 'fs/promises';
+import { existsSync, readFileSync } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const OPENCLAW_DIR = path.resolve(__dirname, '..');
+const COST_EVENTS_JSONL = path.join(OPENCLAW_DIR, 'workspace', 'logs', 'cost-events.jsonl');
+
+// Rebuild today's totals from the authoritative cost-events.jsonl written by the LLM analytics plugin.
+// This ensures state.json (read by cron guardrail + agents) always reflects real native-gateway traffic.
+function buildTodayFromJsonl() {
+  const today = new Date().toISOString().slice(0, 10);
+  const result = { total: 0, byModel: {}, byAgent: {}, requests: 0 };
+  try {
+    if (!existsSync(COST_EVENTS_JSONL)) return result;
+    const lines = readFileSync(COST_EVENTS_JSONL, 'utf8').split('\n').filter(Boolean);
+    for (const line of lines) {
+      try {
+        const e = JSON.parse(line);
+        if (!e.ts || !e.ts.startsWith(today)) continue;
+        const cost = Number(e.cost_usd);
+        if (!Number.isFinite(cost) || cost < 0) continue;
+        result.total += cost;
+        result.requests += 1;
+        const m = e.model || 'unknown';
+        const a = e.agent || 'unknown';
+        if (!result.byModel[m]) result.byModel[m] = { cost: 0, requests: 0, tokens: 0 };
+        result.byModel[m].cost += cost;
+        result.byModel[m].requests += 1;
+        result.byModel[m].tokens += (Number(e.tokens?.input) || 0) + (Number(e.tokens?.output) || 0);
+        if (!result.byAgent[a]) result.byAgent[a] = { cost: 0, requests: 0 };
+        result.byAgent[a].cost += cost;
+        result.byAgent[a].requests += 1;
+      } catch {}
+    }
+  } catch {}
+  result.total = Math.round(result.total * 1000000) / 1000000;
+  return result;
+}
 
 export class CostMonitor extends EventEmitter {
   constructor() {
@@ -21,8 +56,11 @@ export class CostMonitor extends EventEmitter {
       }
     };
 
-    // Load saved state
-    this.load().catch(() => console.log('No previous state found'));
+    // Load saved state, then sync from authoritative JSONL
+    this.load().catch(() => {}).finally(() => this.syncFromJsonl());
+
+    // Re-sync from JSONL every 5 minutes to stay current with native gateway traffic
+    setInterval(() => this.syncFromJsonl(), 5 * 60 * 1000);
 
     // Save every minute
     setInterval(() => this.save(), 60 * 1000);
@@ -32,9 +70,17 @@ export class CostMonitor extends EventEmitter {
   }
 
   async recordRequest(agentId, model, tokens, cost) {
-    // Ensure types are correct
-    cost = Number(cost) || 0;
-    this.state.today.total = Number(this.state.today.total) || 0;
+    // Ensure types are correct (recordRequest must never throw)
+    cost = Number(cost);
+    if (!Number.isFinite(cost)) cost = 0;
+
+    this.state.today.total = Number(this.state.today.total);
+    if (!Number.isFinite(this.state.today.total)) this.state.today.total = 0;
+
+    const tIn = Number(tokens?.input);
+    const tOut = Number(tokens?.output);
+    const safeTokensIn = Number.isFinite(tIn) ? tIn : 0;
+    const safeTokensOut = Number.isFinite(tOut) ? tOut : 0;
 
     this.state.today.total += cost;
     this.state.today.requests += 1;
@@ -46,7 +92,7 @@ export class CostMonitor extends EventEmitter {
     this.state.today.byModel[model].cost = Number(this.state.today.byModel[model].cost) || 0;
     this.state.today.byModel[model].cost += cost;
     this.state.today.byModel[model].requests += 1;
-    this.state.today.byModel[model].tokens += (tokens.input + tokens.output);
+    this.state.today.byModel[model].tokens += (safeTokensIn + safeTokensOut);
 
     // By agent
     if (!this.state.today.byAgent[agentId]) {
@@ -65,7 +111,9 @@ export class CostMonitor extends EventEmitter {
     // Emit update for dashboard
     this.emit('cost-update', this.state);
 
-    console.log(`💰 Cost: $${cost.toFixed(6)} | Total today: $${this.state.today.total.toFixed(4)}`);
+    const costStr = Number.isFinite(cost) ? cost.toFixed(6) : '0.000000';
+    const totalStr = Number.isFinite(this.state.today.total) ? this.state.today.total.toFixed(4) : '0.0000';
+    console.log(`💰 Cost: $${costStr} | Total today: $${totalStr}`);
   }
 
   getBudgetRemaining() {
@@ -129,6 +177,20 @@ export class CostMonitor extends EventEmitter {
       requests: 0
     };
     this.save();
+  }
+
+  syncFromJsonl() {
+    try {
+      const fresh = buildTodayFromJsonl();
+      // Only update if JSONL has more data than in-memory state
+      if (fresh.requests >= this.state.today.requests) {
+        this.state.today = fresh;
+        this.save().catch(() => {});
+        console.log(`✅ Synced cost state from JSONL — today: $${fresh.total.toFixed(4)}, ${fresh.requests} requests`);
+      }
+    } catch (e) {
+      console.error('CostMonitor syncFromJsonl error:', e.message);
+    }
   }
 }
 

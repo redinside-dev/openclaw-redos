@@ -1,0 +1,8 @@
+{
+  "id": "llm-analytics",
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {}
+  }
+}
