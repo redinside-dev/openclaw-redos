@@ -637,6 +637,89 @@ const server = http.createServer((req, res) => {
     res.end(JSON.stringify(getTickets()));
     return;
   }
+  if (url.pathname === '/api/pipeline') {
+    const logsDir = path.join(OPENCLAW_DIR, 'workspace', 'logs');
+    const routingFile = path.join(logsDir, 'routing-decisions.jsonl');
+    const analyticsFile = path.join(logsDir, 'llm-analytics.jsonl');
+    const readTail = (fp, n) => {
+      try {
+        if (!fs.existsSync(fp)) return [];
+        const lines = fs.readFileSync(fp, 'utf8').split('\n').filter(Boolean);
+        return lines.slice(-n).map(l => { try { return JSON.parse(l); } catch { return null; } }).filter(Boolean);
+      } catch { return []; }
+    };
+    const routing = readTail(routingFile, 400);
+    const analytics = readTail(analyticsFile, 400);
+
+    // Join routing + analytics: routing.ts = call START, analytics.ts = call END.
+    // Match by: same agent + (analytics.ts - latency_ms) ≈ routing.ts (within 4s)
+    const merged = routing.map(r => {
+      const rMs = new Date(r.ts).getTime();
+      const match = analytics.find(a =>
+        a.agent === r.agent &&
+        Math.abs((new Date(a.ts).getTime() - (a.latency_ms || 0)) - rMs) < 4000
+      );
+      const sk = r.session_key || '';
+      let triggerType = 'direct';
+      let channel = null;
+      if (sk.includes(':subagent:')) triggerType = 'subagent';
+      else if (sk.includes(':telegram:direct:')) { triggerType = 'telegram'; channel = 'DM'; }
+      else if (sk.includes(':telegram:group:')) { triggerType = 'telegram'; channel = 'Group'; }
+      else if (sk.includes(':cron:')) triggerType = 'cron';
+      const isLocal = (r.provider || '').startsWith('ollama');
+      return {
+        ts: r.ts, tsMs: rMs, agent: r.agent, sessionKey: sk,
+        model: r.selected_model || r.model || 'unknown',
+        provider: r.provider || 'unknown',
+        triggerType, channel,
+        historyCount: r.history_messages || 0,
+        promptLen: r.prompt_length || 0,
+        latencyMs: match ? match.latency_ms : null,
+        tokensIn: match ? (match.tokens_in || 0) : null,
+        tokensOut: match ? (match.tokens_out || 0) : null,
+        tokensCached: match ? (match.tokens_cached || 0) : 0,
+        costUsd: match ? (match.cost_usd || 0) : null,
+        tier: isLocal ? 'free' : 'paid',
+        completed: !!match,
+      };
+    }).sort((a, b) => a.tsMs - b.tsMs);
+
+    // Cluster into pipelines:
+    // A new pipeline starts on each non-subagent trigger (telegram/cron/direct).
+    // Subagent events within 3 min of the trigger attach to the current pipeline.
+    const WINDOW = 3 * 60 * 1000;
+    const pipelines = [];
+    let cur = null;
+    for (const e of merged) {
+      const isRoot = e.triggerType !== 'subagent';
+      const sinceStart = cur ? (e.tsMs - new Date(cur.triggeredAt).getTime()) : Infinity;
+      if (!cur || (isRoot && sinceStart > WINDOW)) {
+        if (cur) pipelines.push(cur);
+        cur = { triggeredAt: e.ts, triggerType: e.triggerType, channel: e.channel, steps: [], lastMs: e.tsMs };
+      }
+      cur.steps.push(e);
+      cur.lastMs = Math.max(cur.lastMs, e.tsMs + (e.latencyMs || 0));
+    }
+    if (cur) pipelines.push(cur);
+
+    const now = Date.now();
+    const result = pipelines.slice(-20).reverse().map((p, i) => {
+      const totalCost = p.steps.reduce((s, e) => s + (e.costUsd || 0), 0);
+      const uniqueAgents = [...new Set(p.steps.map(e => e.agent))];
+      const hasIncomplete = p.steps.some(e => !e.completed);
+      const isLive = hasIncomplete || (now - p.lastMs) < 90000;
+      return {
+        id: `pl-${i}`, triggeredAt: p.triggeredAt, triggerType: p.triggerType, channel: p.channel,
+        steps: p.steps, totalCost: Math.round(totalCost * 10000) / 10000,
+        agentCount: uniqueAgents.length, isLive,
+      };
+    });
+
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify(result));
+    return;
+  }
+
   if (url.pathname === '/api/cost-details') {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify(getCostDetails()));
