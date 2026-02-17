@@ -122,9 +122,9 @@
       "id": "7d1f3378-1f52-48ee-a2d9-9c4aaf8f5c88",
       "agentId": "main",
       "name": "Gmail Unread Summary (Telegram)",
-      "enabled": false,
+      "enabled": true,
       "createdAtMs": 1770402245398,
-      "updatedAtMs": 1770733791931,
+      "updatedAtMs": 1771344956120,
       "schedule": {
         "kind": "cron",
         "expr": "*/15 8-18 * * 1-5",
@@ -142,19 +142,20 @@
         "mode": "none"
       },
       "state": {
-        "lastRunAtMs": 1770732900025,
+        "lastRunAtMs": 1771344900032,
         "lastStatus": "ok",
-        "lastDurationMs": 56902,
-        "consecutiveErrors": 0
+        "lastDurationMs": 56088,
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1771346700000
       }
     },
     {
       "id": "2ef34ad2-e703-415d-8ad9-08a5acdfa1ca",
       "agentId": "main",
       "name": "GitHub Repo Updates (2 repos, 4x/day)",
-      "enabled": false,
+      "enabled": true,
       "createdAtMs": 1770406640940,
-      "updatedAtMs": 1770733793554,
+      "updatedAtMs": 1771340468258,
       "schedule": {
         "kind": "cron",
         "expr": "0 10,12,14,16 * * 1-5",
@@ -172,9 +173,11 @@
         "mode": "none"
       },
       "state": {
-        "lastRunAtMs": 1770670854977,
+        "lastRunAtMs": 1771340430899,
         "lastStatus": "ok",
-        "lastDurationMs": 54759
+        "lastDurationMs": 37359,
+        "nextRunAtMs": 1771347600000,
+        "consecutiveErrors": 0
       }
     },
     {
@@ -295,9 +298,9 @@
       "id": "45337086-6c37-4c11-97bc-92d824e3c71f",
       "agentId": "main",
       "name": "Daily AI + OpenClaw Trends Brief (Telegram DM)",
-      "enabled": false,
+      "enabled": true,
       "createdAtMs": 1770593929748,
-      "updatedAtMs": 1770733799876,
+      "updatedAtMs": 1771302377905,
       "schedule": {
         "kind": "cron",
         "expr": "30 20 * * *",
@@ -307,8 +310,9 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "Create a concise daily brief for Anurag (Telegram DM) about: (1) AI model/news trends, (2) OpenClaw ecosystem/tooling updates, (3) 2-3 actionable takeaways. Use web search. Policy: try Perplexity web search first; if it fails for any reason, fall back to Exa MCP via mcporter (exa.web_search_exa / exa.web_search_advanced_exa). Keep it Telegram-friendly: bullets + links at end. Ignore crypto entirely; focus on AI tooling and relevant infra/security changes. Do not mention internal keys/tokens.",
-        "timeoutSeconds": 180
+        "message": "Create a concise daily brief for Anurag (Telegram DM) about: (1) AI model/news trends, (2) OpenClaw ecosystem/tooling updates, (3) 2-3 actionable takeaways. Use web search via Perplexity (web_search). Keep it Telegram-friendly: bullets + links at end. Ignore crypto entirely; focus on AI tooling and relevant infra/security changes. Do not mention internal keys/tokens.",
+        "timeoutSeconds": 300,
+        "model": "ollama/llama3.1:8b"
       },
       "delivery": {
         "mode": "announce",
@@ -317,11 +321,11 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1770687000021,
-        "lastStatus": "error",
-        "lastDurationMs": 1142,
-        "lastError": "Error: All models failed (2): openai-codex/gpt-5.2: Provider openai-codex is in cooldown (all profiles unavailable) (rate_limit) | moonshot/kimi-k2.5: Provider moonshot is in cooldown (all profiles unavailable) (rate_limit)",
-        "consecutiveErrors": 1
+        "lastRunAtMs": 1771302150336,
+        "lastStatus": "ok",
+        "lastDurationMs": 92061,
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1771378200000
       }
     },
     {
@@ -537,206 +541,171 @@
       }
     },
     {
-      "id": "d0390e79-2afe-4b26-a2c5-b2780ac152ef",
+      "id": "sa-main-checkin-0001",
       "agentId": "main",
-      "name": "Gmail Unread Summary (Telegram)",
-      "enabled": false,
-      "createdAtMs": 1770654652701,
-      "updatedAtMs": 1770708171028,
+      "name": "RED Morning Check-in (standup)",
+      "enabled": true,
+      "createdAtMs": 1771344956120,
+      "updatedAtMs": 1771344956120,
       "schedule": {
-        "kind": "every",
-        "everyMs": 3600000,
-        "anchorMs": 1770654652701
+        "kind": "cron",
+        "expr": "5 9 * * 1-5",
+        "tz": "America/Toronto"
       },
       "sessionTarget": "isolated",
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "Gmail Unread Summary task for anorag.saxena@gmail.com\n\nState file: /Users/redinside/.openclaw/workspace/tmp/gmail-unread-digest.json\n\n1. Load state file (create with empty seenThreadIds if missing)\n2. Run: gog gmail search \"in:inbox is:unread\" --account anorag.saxena@gmail.com --json --max 15\n3. Parse JSON output to get threads with id, date, from, subject\n4. Determine new threads (id not in seenThreadIds)\n5. If new threads exist:\n   - Build message: \"📧 Unread Gmail (since last check)\\n\\n\"\n   - For each new thread (max 8): add \"• {date} | {from}\\n  {subject}\\n\\n\"\n   - If >8 new: add \"(+{N} more)\\n\"\n   - Add footer: \"Provider: {provider} | Model: {model}\"\n   - Send Telegram DM to user 1012034994\n6. Update state file: merge all fetched thread ids into seenThreadIds (dedupe)\n7. If no new threads: do nothing (no message)"
-      },
-      "delivery": {
-        "mode": "announce",
-        "channel": "telegram",
-        "to": "1012034994"
-      },
-      "state": {
-        "lastRunAtMs": 1770690652726,
-        "lastStatus": "error",
-        "lastDurationMs": 98733,
-        "consecutiveErrors": 3,
-        "lastError": "cron announce delivery failed"
-      }
-    },
-    {
-      "id": "2db6929c-c97e-445b-a907-b2a8a6895337",
-      "agentId": "main",
-      "name": "Gmail Unread Summary",
-      "enabled": false,
-      "createdAtMs": 1770656544669,
-      "updatedAtMs": 1770708171043,
-      "schedule": {
-        "kind": "every",
-        "everyMs": 1800000,
-        "anchorMs": 1770656544669
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "message": "Execute the Gmail Unread Digest task:\n\n1. Read state from /Users/redinside/.openclaw/workspace/tmp/gmail-unread-digest.json (if missing, treat as empty {seenThreadIds: []})\n2. Fetch unread inbox threads: gog gmail search \"in:inbox is:unread\" --account anorag.saxena@gmail.com --json --max 15\n3. Determine which threads are NEW (id not in seenThreadIds)\n4. If no new threads: do nothing (just exit)\n5. If new threads exist: send ONE Telegram DM to user 1012034994 with summary:\n   - Title: \"Unread Gmail (since last check)\"\n   - List each new thread (max 8): date, from, subject\n   - If more than 8: add \"(+N more)\"\n   - End with: Provider: gog CLI | Model: Gmail API\n   - Keep under 2500 chars\n6. Update state file by adding all currently-fetched thread ids to seenThreadIds (dedupe)\n\nIMPORTANT: Do NOT mark emails as read. Do NOT archive/delete.",
-        "timeoutSeconds": 120
-      },
-      "delivery": {
-        "mode": "none"
-      },
-      "state": {
-        "lastRunAtMs": 1770658344685,
-        "lastStatus": "error",
-        "lastDurationMs": 684,
-        "lastError": "Error: All models failed (2): openai-codex/gpt-5.2: Provider openai-codex is in cooldown (all profiles unavailable) (rate_limit) | moonshot/kimi-k2.5: Provider moonshot is in cooldown (all profiles unavailable) (rate_limit)"
-      }
-    },
-    {
-      "id": "273c873f-7504-4784-a2a4-cd98af459f5b",
-      "agentId": "main",
-      "name": "Gmail Unread Summary (Telegram)",
-      "enabled": false,
-      "createdAtMs": 1770660078174,
-      "updatedAtMs": 1770708171069,
-      "schedule": {
-        "kind": "every",
-        "everyMs": 604800000,
-        "anchorMs": 1770660078174
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "message": "Gmail Unread Summary (automated) — Telegram only\n\nAccount: anorag.saxena@gmail.com\n\nGoal:\n- Send Anurag a short summary of NEW unread inbox threads since last check.\n- Do NOT send emails. Do NOT mark anything as read. Do NOT archive/delete.\n\nState:\n- Read/write JSON state at /Users/redinside/.openclaw/workspace/tmp/gmail-unread-digest.json\n  Shape: { \"seenThreadIds\": [\"...\"] }\n\nSteps:\n1) Load state file (if missing, treat as empty).\n2) Fetch unread inbox threads (max 15) using exec:\n   gog gmail search \"in:inbox is:unread\" --account anorag.saxena@gmail.com --json --max 15\n3) Determine which threads are NEW (id not in seenThreadIds).\n4) If there are no new threads: do nothing.\n5) If there are new threads: send ONE Telegram DM to user id 1012034994 with:\n   - Title: \"Unread Gmail (since last check)\"\n   - For each new thread (max 8): date, from, subject\n   - If more than 8: add \"(+N more)\"\n   Keep under 2500 chars.\n6) Update state file by adding all currently-seen thread ids (from the fetched list) to seenThreadIds (dedupe).\n\nOutput rules:\n- Plain English. No jargon.\n- End message with: Provider: <provider> | Model: <model>",
-        "model": "moonshot/kimi-k2.5",
+        "message": "You are RED (CEO). Write your morning standup status.\n\nRead /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md and /Users/redinside/.openclaw/workspace/ops/LEARNINGS.md for context.\n\nWrite your status to /Users/redinside/.openclaw/workspace/ops/agent-status/main.json as valid JSON:\n{\n  \"agent\": \"main\",\n  \"date\": \"YYYY-MM-DD\",\n  \"updatedAt\": \"ISO timestamp\",\n  \"sprintGoal\": \"1-sentence goal for this sprint\",\n  \"workingOn\": \"What you are focused on today\",\n  \"completedYesterday\": \"What you completed yesterday or recently\",\n  \"eta\": \"ETA for current sprint goal (e.g. EOD, 2 days, etc.)\",\n  \"blockers\": \"Any blockers, or 'None'\"\n}\n\nDo not send a Telegram message. Just write the file.",
+        "model": "ollama/llama3.1:8b",
         "thinking": "low",
         "timeoutSeconds": 120
       },
       "delivery": {
-        "mode": "announce",
-        "channel": "telegram",
-        "to": "1012034994"
+        "mode": "none"
       },
-      "state": {}
+      "state": {
+        "nextRunAtMs": 1771423500000
+      }
     },
     {
-      "id": "f6d1caba-ecbb-4546-bbba-24aa5fe7ef1c",
-      "agentId": "main",
-      "name": "Gmail Unread Summary (Telegram)",
-      "enabled": false,
-      "createdAtMs": 1770664551262,
-      "updatedAtMs": 1770708171063,
+      "id": "sa-eng-checkin-0001",
+      "agentId": "eng",
+      "name": "ENG Morning Check-in (standup)",
+      "enabled": true,
+      "createdAtMs": 1771344956120,
+      "updatedAtMs": 1771344956120,
       "schedule": {
-        "kind": "every",
-        "everyMs": 3600000,
-        "anchorMs": 1770664551262
+        "kind": "cron",
+        "expr": "5 9 * * 1-5",
+        "tz": "America/Toronto"
       },
       "sessionTarget": "isolated",
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "Run Gmail unread digest check:\n\n1. Read state from /Users/redinside/.openclaw/workspace/tmp/gmail-unread-digest.json (if missing, treat as {\"seenThreadIds\": []})\n2. Fetch unread inbox threads: gog gmail search \"in:inbox is:unread\" --account anorag.saxena@gmail.com --json --max 15\n3. Compare thread IDs with seenThreadIds to find NEW threads only\n4. If no new threads: do nothing (just exit)\n5. If new threads exist: Send ONE Telegram DM to user 1012034994 with summary:\n   - Title: \"📧 Unread Gmail (since last check)\"\n   - List up to 8 new threads with: date, from, subject\n   - If more than 8: add \"(+N more)\"\n   - End with: Provider: <provider> | Model: <model>\n6. Update state file by adding all current thread IDs to seenThreadIds (dedupe)\n\nRules: Do NOT mark emails as read. Do NOT archive/delete. Keep message under 2500 chars.",
-        "model": "openai-codex/gpt-5.2",
+        "message": "You are ENG (Engineering Lead). Write your morning standup status.\n\nRead /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md for any tickets assigned to you.\n\nWrite your status to /Users/redinside/.openclaw/workspace/ops/agent-status/eng.json as valid JSON:\n{\n  \"agent\": \"eng\",\n  \"date\": \"YYYY-MM-DD\",\n  \"updatedAt\": \"ISO timestamp\",\n  \"sprintGoal\": \"1-sentence engineering goal for this sprint\",\n  \"workingOn\": \"What you are focused on today (be specific: feature, bug, PR)\",\n  \"completedYesterday\": \"What you completed recently\",\n  \"eta\": \"ETA for current work (e.g. EOD, 2 days, next sprint)\",\n  \"blockers\": \"Any blockers, or 'None'\"\n}\n\nDo not send a Telegram message. Just write the file.",
+        "model": "ollama/llama3.1:8b",
         "thinking": "low",
-        "timeoutSeconds": 60
+        "timeoutSeconds": 120
       },
       "delivery": {
         "mode": "none"
       },
       "state": {
-        "lastRunAtMs": 1770686151286,
-        "lastStatus": "error",
-        "lastDurationMs": 1060,
-        "consecutiveErrors": 2,
-        "lastError": "Error: All models failed (2): openai-codex/gpt-5.2: Provider openai-codex is in cooldown (all profiles unavailable) (rate_limit) | moonshot/kimi-k2.5: Provider moonshot is in cooldown (all profiles unavailable) (rate_limit)"
+        "nextRunAtMs": 1771423500000
       }
     },
     {
-      "id": "b5b26ef5-0c59-4666-bd2b-9b4c09deaafd",
-      "agentId": "main",
-      "name": "Gmail Unread Summary (Telegram)",
-      "enabled": false,
-      "createdAtMs": 1770665481760,
-      "updatedAtMs": 1770708171037,
+      "id": "sa-research-checkin-0001",
+      "agentId": "research",
+      "name": "RESEARCH Morning Check-in (standup)",
+      "enabled": true,
+      "createdAtMs": 1771344956120,
+      "updatedAtMs": 1771344956120,
       "schedule": {
-        "kind": "every",
-        "everyMs": 14400000,
-        "anchorMs": 1770665481760
+        "kind": "cron",
+        "expr": "5 9 * * 1-5",
+        "tz": "America/Toronto"
       },
       "sessionTarget": "isolated",
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "Gmail Unread Summary (automated) — Telegram only\n\nAccount: anorag.saxena@gmail.com\n\nGoal:\n- Send Anurag a short summary of NEW unread inbox threads since last check.\n- Do NOT send emails. Do NOT mark anything as read. Do NOT archive/delete.\n\nState:\n- Read/write JSON state at /Users/redinside/.openclaw/workspace/tmp/gmail-unread-digest.json\n  Shape: { \"seenThreadIds\": [\"...\"] }\n\nSteps:\n1) Load state file (if missing, treat as empty).\n2) Fetch unread inbox threads (max 15) using exec:\n   gog gmail search \"in:inbox is:unread\" --account anorag.saxena@gmail.com --json --max 15\n3) Determine which threads are NEW (id not in seenThreadIds).\n4) If there are no new threads: do nothing.\n5) If there are new threads: send ONE Telegram DM to user id 1012034994 with:\n   - Title: \"Unread Gmail (since last check)\"\n   - For each new thread (max 8): date, from, subject\n   - If more than 8: add \"(+N more)\"\n   Keep under 2500 chars.\n6) Update state file by adding all currently-seen thread ids (from the fetched list) to seenThreadIds (dedupe).\n\nOutput rules:\n- Plain English. No jargon.\n- End message with: Provider: <provider> | Model: <model>",
-        "thinking": "low"
-      },
-      "delivery": {
-        "mode": "announce"
-      },
-      "state": {}
-    },
-    {
-      "id": "9eb88a89-e9cf-4a22-9bc0-17de230218e4",
-      "agentId": "main",
-      "name": "Gmail Unread Summary (Telegram)",
-      "enabled": false,
-      "createdAtMs": 1770666342990,
-      "updatedAtMs": 1770708171057,
-      "schedule": {
-        "kind": "every",
-        "everyMs": 1800000,
-        "anchorMs": 1770666342990
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "message": "Gmail Unread Summary task (automated) — Telegram only\n\nAccount: anorag.saxena@gmail.com\n\nGoal:\n- Send Anurag a short summary of NEW unread inbox threads since last check.\n- Do NOT send emails. Do NOT mark anything as read. Do NOT archive/delete.\n\nState:\n- Read/write JSON state at /Users/redinside/.openclaw/workspace/tmp/gmail-unread-digest.json\n  Shape: { \"seenThreadIds\": [\"...\"] }\n\nSteps:\n1) Load state file (if missing, treat as empty).\n2) Fetch unread inbox threads (max 15) using exec:\n   gog gmail search \"in:inbox is:unread\" --account anorag.saxena@gmail.com --json --max 15\n3) Determine which threads are NEW (id not in seenThreadIds).\n4) If there are no new threads: do nothing.\n5) If there are new threads: send ONE Telegram DM to user id 1012034994 with:\n   - Title: \"Unread Gmail (since last check)\"\n   - For each new thread (max 8): date, from, subject\n   - If more than 8: add \"(+N more)\"\n   Keep under 2500 chars.\n6) Update state file by adding all currently-seen thread ids (from the fetched list) to seenThreadIds (dedupe).\n\nOutput rules:\n- Plain English. No jargon.\n- End message with: Provider: <provider> | Model: <model>",
-        "model": "moonshot/kimi-k2.5"
+        "message": "You are RESEARCH (Research Analyst). Write your morning standup status.\n\nRead /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md and /Users/redinside/.openclaw/workspace/ops/LEARNINGS.md for context.\n\nWrite your status to /Users/redinside/.openclaw/workspace/ops/agent-status/research.json as valid JSON:\n{\n  \"agent\": \"research\",\n  \"date\": \"YYYY-MM-DD\",\n  \"updatedAt\": \"ISO timestamp\",\n  \"sprintGoal\": \"1-sentence research goal for this sprint\",\n  \"workingOn\": \"What you are researching today\",\n  \"completedYesterday\": \"What you completed recently\",\n  \"eta\": \"ETA for current research output\",\n  \"blockers\": \"Any blockers or missing data, or 'None'\"\n}\n\nDo not send a Telegram message. Just write the file.",
+        "model": "ollama/llama3.1:8b",
+        "thinking": "low",
+        "timeoutSeconds": 120
       },
       "delivery": {
         "mode": "none"
       },
       "state": {
-        "lastRunAtMs": 1770691543018,
-        "lastStatus": "ok",
-        "lastDurationMs": 51793,
-        "consecutiveErrors": 0
+        "nextRunAtMs": 1771423500000
       }
     },
     {
-      "id": "d60deb95-55d3-4aad-92ff-2c06a2105f61",
-      "agentId": "main",
-      "name": "Gmail Unread Summary (Telegram)",
-      "enabled": false,
-      "createdAtMs": 1770680740106,
-      "updatedAtMs": 1770708171050,
+      "id": "sa-finance-checkin-0001",
+      "agentId": "finance",
+      "name": "FINANCE Morning Check-in (standup)",
+      "enabled": true,
+      "createdAtMs": 1771344956120,
+      "updatedAtMs": 1771344956120,
       "schedule": {
-        "kind": "every",
-        "everyMs": 1800000,
-        "anchorMs": 1770680740106
+        "kind": "cron",
+        "expr": "5 9 * * 1-5",
+        "tz": "America/Toronto"
       },
       "sessionTarget": "isolated",
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "Execute the Gmail unread digest script at /Users/redinside/.openclaw/workspace/scripts/gmail-unread-digest.sh and report the result. The script sends a Telegram summary of new unread emails. If it fails, diagnose the issue.",
-        "timeoutSeconds": 60
+        "message": "You are FINANCE (Finance Analyst). Write your morning standup status.\n\nRead /Users/redinside/.openclaw/workspace/portfolio/HOLDINGS.md if available for context.\n\nWrite your status to /Users/redinside/.openclaw/workspace/ops/agent-status/finance.json as valid JSON:\n{\n  \"agent\": \"finance\",\n  \"date\": \"YYYY-MM-DD\",\n  \"updatedAt\": \"ISO timestamp\",\n  \"sprintGoal\": \"1-sentence finance goal for this sprint\",\n  \"workingOn\": \"What you are focused on today (portfolio review, analysis, etc.)\",\n  \"completedYesterday\": \"What you completed recently\",\n  \"eta\": \"ETA for current deliverable\",\n  \"blockers\": \"Any blockers (missing data, pending input), or 'None'\"\n}\n\nDo not send a Telegram message. Just write the file.",
+        "model": "ollama/llama3.1:8b",
+        "thinking": "low",
+        "timeoutSeconds": 120
       },
       "delivery": {
         "mode": "none"
       },
       "state": {
-        "lastRunAtMs": 1770689740133,
-        "lastStatus": "error",
-        "lastDurationMs": 60016,
-        "consecutiveErrors": 5,
-        "lastError": "Error: cron: job execution timed out"
+        "nextRunAtMs": 1771423500000
+      }
+    },
+    {
+      "id": "sa-ops-checkin-0001",
+      "agentId": "ops",
+      "name": "OPS Morning Check-in (standup)",
+      "enabled": true,
+      "createdAtMs": 1771344956120,
+      "updatedAtMs": 1771344956120,
+      "schedule": {
+        "kind": "cron",
+        "expr": "5 9 * * 1-5",
+        "tz": "America/Toronto"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "You are OPS (Scrum Master). Write your morning standup status.\n\nRead /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md and /Users/redinside/.openclaw/logs/gateway.err.log (last 10 lines) for context.\n\nWrite your status to /Users/redinside/.openclaw/workspace/ops/agent-status/ops.json as valid JSON:\n{\n  \"agent\": \"ops\",\n  \"date\": \"YYYY-MM-DD\",\n  \"updatedAt\": \"ISO timestamp\",\n  \"sprintGoal\": \"1-sentence ops goal for this sprint\",\n  \"workingOn\": \"What you are focused on today (ticket management, health, SLA)\",\n  \"completedYesterday\": \"What you completed recently\",\n  \"eta\": \"ETA for current ops deliverable\",\n  \"blockers\": \"Any system issues or blockers, or 'None'\"\n}\n\nDo not send a Telegram message. Just write the file.",
+        "model": "ollama/llama3.1:8b",
+        "thinking": "low",
+        "timeoutSeconds": 120
+      },
+      "delivery": {
+        "mode": "none"
+      },
+      "state": {
+        "nextRunAtMs": 1771423500000
+      }
+    },
+    {
+      "id": "sa-infosec-checkin-0001",
+      "agentId": "infosec",
+      "name": "INFOSEC Morning Check-in (standup)",
+      "enabled": true,
+      "createdAtMs": 1771344956120,
+      "updatedAtMs": 1771344956120,
+      "schedule": {
+        "kind": "cron",
+        "expr": "5 9 * * 1-5",
+        "tz": "America/Toronto"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "You are INFOSEC (Security Officer). Write your morning standup status.\n\nRead /Users/redinside/.openclaw/logs/gateway.err.log (last 20 lines) and /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md for context.\n\nWrite your status to /Users/redinside/.openclaw/workspace/ops/agent-status/infosec.json as valid JSON:\n{\n  \"agent\": \"infosec\",\n  \"date\": \"YYYY-MM-DD\",\n  \"updatedAt\": \"ISO timestamp\",\n  \"sprintGoal\": \"1-sentence security goal for this sprint\",\n  \"workingOn\": \"What you are monitoring or hardening today\",\n  \"completedYesterday\": \"What security checks or improvements you completed recently\",\n  \"eta\": \"ETA for current security deliverable\",\n  \"blockers\": \"Any security concerns or blockers, or 'None'\"\n}\n\nDo not send a Telegram message. Just write the file.",
+        "model": "ollama/llama3.1:8b",
+        "thinking": "low",
+        "timeoutSeconds": 120
+      },
+      "delivery": {
+        "mode": "none"
+      },
+      "state": {
+        "nextRunAtMs": 1771423500000
       }
     },
     {
@@ -745,17 +714,17 @@
       "name": "OPS Scrum Master — Morning Standup",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771298868615,
+      "updatedAtMs": 1771344956120,
       "schedule": {
         "kind": "cron",
-        "expr": "0 9 * * 1-5",
+        "expr": "15 9 * * 1-5",
         "tz": "America/Toronto"
       },
       "sessionTarget": "isolated",
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "You are OPS, the Scrum Master. Run the daily standup now.\n\nSTEPS:\n1. Read /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md to get open ticket count and SLA status.\n2. Read /Users/redinside/.openclaw/workspace/ops/LEARNINGS.md to check recent learnings.\n3. Read /Users/redinside/.openclaw/logs/gateway.err.log (last 30 lines) for recent errors.\n4. Read /Users/redinside/.openclaw/logs/health.jsonl (last 5 entries) for system health.\n5. Use sessions_send to ask EACH agent for their status:\n   - sessions_send(agentId=\"main\", message=\"Standup check-in: What did you work on recently? Any blockers? What's next?\")\n   - sessions_send(agentId=\"eng\", message=\"Standup check-in: What did you work on recently? Any blockers? What's next?\")\n   - sessions_send(agentId=\"research\", message=\"Standup check-in: What did you work on recently? Any blockers? What's next?\")\n   - sessions_send(agentId=\"finance\", message=\"Standup check-in: What did you work on recently? Any blockers? What's next?\")\n   - sessions_send(agentId=\"infosec\", message=\"Standup check-in: What did you work on recently? Any blockers? What's next?\")\n6. Compile all responses into a standup summary.\n7. Append the standup summary to /Users/redinside/.openclaw/workspace/ops/STANDUP-LOG.md using the format defined there.\n8. Send a Telegram summary to Anurag (user ID: 1012034994) with:\n   - Open ticket count by priority\n   - Any SLA breaches\n   - Key blockers from agents\n   - System health status (healthy/degraded/down)\n   Keep under 2000 chars.\n\nIMPORTANT: Actually use sessions_send to talk to other agents. Do NOT simulate their responses.",
+        "message": "You are OPS, the Scrum Master. Compile and publish the daily standup.\n\nBACKGROUND: Each agent wrote their morning status to a JSON file at 9:05am. Read those files now to compile the standup. Do NOT use sessions_send — agents are idle and won't respond.\n\nSTEPS:\n1. Read each agent status file (skip missing files gracefully, mark agent as 'No check-in'):\n   - /Users/redinside/.openclaw/workspace/ops/agent-status/main.json\n   - /Users/redinside/.openclaw/workspace/ops/agent-status/eng.json\n   - /Users/redinside/.openclaw/workspace/ops/agent-status/research.json\n   - /Users/redinside/.openclaw/workspace/ops/agent-status/finance.json\n   - /Users/redinside/.openclaw/workspace/ops/agent-status/ops.json\n   - /Users/redinside/.openclaw/workspace/ops/agent-status/infosec.json\n   Each file has: { agent, date, workingOn, completedYesterday, eta, blockers, sprintGoal, updatedAt }\n\n2. Read /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md — count open tickets by priority.\n\n3. Read /Users/redinside/.openclaw/logs/gateway.err.log (last 20 lines) — check system health.\n\n4. Append a standup entry to /Users/redinside/.openclaw/workspace/ops/STANDUP-LOG.md in this format:\n```\n### Standup YYYY-MM-DD 09:15 ET\n\n**OPS (Scrum Master) Roll Call:**\n\n| Agent | Status | Working On | Blockers | ETA | Next |\n|-------|--------|-----------|----------|-----|------|\n| RED | ... | ... | ... | ... | ... |\n| ENG | ... | ... | ... | ... | ... |\n| RESEARCH | ... | ... | ... | ... | ... |\n| FINANCE | ... | ... | ... | ... | ... |\n| OPS | ... | ... | ... | ... | ... |\n| INFOSEC | ... | ... | ... | ... | ... |\n\n**Open Tickets:** {count} (P0: {n}, P1: {n}, P2: {n}, P3: {n})\n**SLA Breaches:** {list or \"None\"}\n**System Health:** {healthy/degraded/issues}\n**Action Items:**\n1. ...\n```\n\n5. Send a Telegram summary to Anurag (user ID: 1012034994) — keep under 2500 chars:\n   - Header: Morning Standup YYYY-MM-DD\n   - Per-agent one-liner: what they're working on, any blockers\n   - Ticket count + SLA status\n   - System health\n   - Top action items\n\nRULES:\n- If an agent has no status file or date != today: mark as 'No check-in'.\n- Never fabricate agent responses. Only use what's in the JSON files.",
         "model": "ollama/llama3.1:8b",
         "thinking": "low",
         "timeoutSeconds": 300
@@ -764,7 +733,11 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771336800000
+        "nextRunAtMs": 1771423200000,
+        "lastRunAtMs": 1771336821138,
+        "lastStatus": "ok",
+        "lastDurationMs": 112599,
+        "consecutiveErrors": 0
       }
     },
     {
@@ -773,7 +746,7 @@
       "name": "OPS SLA Enforcement Check",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771298868575,
+      "updatedAtMs": 1771345543206,
       "schedule": {
         "kind": "every",
         "everyMs": 1800000,
@@ -792,12 +765,11 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771300295024,
-        "lastRunAtMs": 1771298495051,
-        "lastStatus": "error",
-        "lastDurationMs": 26,
-        "consecutiveErrors": 1,
-        "lastError": "model not allowed: zai/glm-4.7"
+        "nextRunAtMs": 1771347095024,
+        "lastRunAtMs": 1771345295039,
+        "lastStatus": "ok",
+        "lastDurationMs": 248167,
+        "consecutiveErrors": 0
       }
     },
     {
@@ -806,7 +778,7 @@
       "name": "OPS System Health Monitor",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771298868561,
+      "updatedAtMs": 1771346279575,
       "schedule": {
         "kind": "every",
         "everyMs": 900000,
@@ -825,12 +797,11 @@
         "mode": "none"
       },
       "state": {
-        "lastStatus": "error",
-        "lastRunAtMs": 1771298495077,
-        "lastDurationMs": 2,
-        "consecutiveErrors": 1,
-        "nextRunAtMs": 1771299395024,
-        "lastError": "model not allowed: zai/glm-4.7"
+        "lastStatus": "ok",
+        "lastRunAtMs": 1771346195047,
+        "lastDurationMs": 84528,
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1771347095024
       }
     },
     {
@@ -839,7 +810,7 @@
       "name": "RED Self-Improvement Reflection",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771298868587,
+      "updatedAtMs": 1771345804166,
       "schedule": {
         "kind": "every",
         "everyMs": 21600000,
@@ -858,7 +829,11 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771302095024
+        "nextRunAtMs": 1771366895024,
+        "lastRunAtMs": 1771345705884,
+        "lastStatus": "ok",
+        "lastDurationMs": 98282,
+        "consecutiveErrors": 0
       }
     },
     {
@@ -867,7 +842,7 @@
       "name": "OPS Ticket Auto-Diagnose & Fix",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771298868597,
+      "updatedAtMs": 1771345892333,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -886,12 +861,11 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771302095024,
-        "lastRunAtMs": 1771298495079,
-        "lastStatus": "error",
-        "lastDurationMs": 2,
-        "consecutiveErrors": 1,
-        "lastError": "model not allowed: zai/glm-4.7"
+        "nextRunAtMs": 1771348895024,
+        "lastRunAtMs": 1771345804166,
+        "lastStatus": "ok",
+        "lastDurationMs": 88167,
+        "consecutiveErrors": 0
       }
     },
     {
@@ -900,7 +874,7 @@
       "name": "RESEARCH Proactive Knowledge Update",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771298868605,
+      "updatedAtMs": 1771338649458,
       "schedule": {
         "kind": "every",
         "everyMs": 14400000,
@@ -919,10 +893,10 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771309295024,
-        "lastRunAtMs": 1771208644949,
+        "nextRunAtMs": 1771352495024,
+        "lastRunAtMs": 1771338543645,
         "lastStatus": "ok",
-        "lastDurationMs": 185460,
+        "lastDurationMs": 105813,
         "consecutiveErrors": 0
       }
     },
@@ -932,7 +906,7 @@
       "name": "RED CEO Daily Summary to Anurag",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771298868623,
+      "updatedAtMs": 1771301710574,
       "schedule": {
         "kind": "cron",
         "expr": "0 18 * * 1-5",
@@ -962,7 +936,7 @@
       "name": "RED Daily Brief (Telegram)",
       "enabled": true,
       "createdAtMs": 1771202886122,
-      "updatedAtMs": 1771298868633,
+      "updatedAtMs": 1771337032624,
       "schedule": {
         "kind": "cron",
         "expr": "0 9 * * *",
@@ -973,7 +947,8 @@
       "payload": {
         "kind": "agentTurn",
         "message": "Create Anurag Saxena’s daily brief.\n\nInstructions:\n- Read these workspace files first:\n  - briefs/daily-brief-instructions.md\n  - briefs/daily-brief-topics.md\n- Use web_search/web_fetch when needed for headlines; include direct links.\n- Keep it concise; omit empty sections.\n- No crypto.\n\nDeliver the brief as a Telegram message.",
-        "model": "ollama/llama3.1:8b"
+        "model": "ollama/llama3.1:8b",
+        "timeoutSeconds": 300
       },
       "delivery": {
         "mode": "announce",
@@ -981,7 +956,11 @@
         "to": "telegram:1012034994"
       },
       "state": {
-        "nextRunAtMs": 1771336800000
+        "nextRunAtMs": 1771423200000,
+        "lastRunAtMs": 1771336933737,
+        "lastStatus": "ok",
+        "lastDurationMs": 98887,
+        "consecutiveErrors": 0
       }
     }
   ]
