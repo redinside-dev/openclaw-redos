@@ -32,6 +32,20 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 
 ## Active Tickets
 
+### TICKET-20260216-005
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-02-17T03:11:00Z
+- **SLA Deadline:** 2026-02-17T05:11:00Z (2 hours)
+- **Reporter:** OPS (cron)
+- **Assignee:** OPS
+- **Summary:** Health monitoring stopped again - health.jsonl last entry ~33.5 hours ago
+- **Details:** health.jsonl last entry timestamp: 2026-02-15T05:37:46.108Z (~12:37 AM ET on Feb 15). Current time: 2026-02-17T03:11:00Z (~10:11 PM ET on Feb 16). Gap is approximately 33.5 hours with no health monitoring. This issue was previously addressed in TICKET-20260215-001 (resolved 2026-02-15T23:30:00Z). The OPS Health Monitor cron job may have failed or been disabled again.
+- **Root Cause:** TBD - need to verify cron/jobs.json status and check if OPS Health Monitor job is still enabled
+- **Resolution:**
+- **Learnings:**
+- **Resolved At:**
+
 ### TICKET-20260215-004
 - **Status:** RESOLVED
 - **Priority:** P3

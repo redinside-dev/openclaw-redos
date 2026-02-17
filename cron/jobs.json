@@ -745,7 +745,7 @@
       "name": "OPS Scrum Master — Morning Standup",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771194095024,
+      "updatedAtMs": 1771298868615,
       "schedule": {
         "kind": "cron",
         "expr": "0 9 * * 1-5",
@@ -756,7 +756,7 @@
       "payload": {
         "kind": "agentTurn",
         "message": "You are OPS, the Scrum Master. Run the daily standup now.\n\nSTEPS:\n1. Read /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md to get open ticket count and SLA status.\n2. Read /Users/redinside/.openclaw/workspace/ops/LEARNINGS.md to check recent learnings.\n3. Read /Users/redinside/.openclaw/logs/gateway.err.log (last 30 lines) for recent errors.\n4. Read /Users/redinside/.openclaw/logs/health.jsonl (last 5 entries) for system health.\n5. Use sessions_send to ask EACH agent for their status:\n   - sessions_send(agentId=\"main\", message=\"Standup check-in: What did you work on recently? Any blockers? What's next?\")\n   - sessions_send(agentId=\"eng\", message=\"Standup check-in: What did you work on recently? Any blockers? What's next?\")\n   - sessions_send(agentId=\"research\", message=\"Standup check-in: What did you work on recently? Any blockers? What's next?\")\n   - sessions_send(agentId=\"finance\", message=\"Standup check-in: What did you work on recently? Any blockers? What's next?\")\n   - sessions_send(agentId=\"infosec\", message=\"Standup check-in: What did you work on recently? Any blockers? What's next?\")\n6. Compile all responses into a standup summary.\n7. Append the standup summary to /Users/redinside/.openclaw/workspace/ops/STANDUP-LOG.md using the format defined there.\n8. Send a Telegram summary to Anurag (user ID: 1012034994) with:\n   - Open ticket count by priority\n   - Any SLA breaches\n   - Key blockers from agents\n   - System health status (healthy/degraded/down)\n   Keep under 2000 chars.\n\nIMPORTANT: Actually use sessions_send to talk to other agents. Do NOT simulate their responses.",
-        "model": "zai/glm-4.7",
+        "model": "ollama/llama3.1:8b",
         "thinking": "low",
         "timeoutSeconds": 300
       },
@@ -764,7 +764,7 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771250400000
+        "nextRunAtMs": 1771336800000
       }
     },
     {
@@ -773,7 +773,7 @@
       "name": "OPS SLA Enforcement Check",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771208516324,
+      "updatedAtMs": 1771298868575,
       "schedule": {
         "kind": "every",
         "everyMs": 1800000,
@@ -784,7 +784,7 @@
       "payload": {
         "kind": "agentTurn",
         "message": "You are OPS, the Scrum Master. Run SLA enforcement check.\n\nSTEPS:\n1. Read /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md\n2. For each OPEN or IN_PROGRESS ticket:\n   a. Calculate time since creation vs SLA deadline\n   b. If approaching deadline (within 50% of remaining time): ping the assignee via sessions_send reminding them of the SLA\n   c. If past deadline: escalate to RED (CEO) via sessions_send(agentId=\"main\", message=\"SLA BREACH: TICKET-{ref} is past deadline. Priority: {P}. Assignee: {agent}. Summary: {summary}\")\n   d. If P0 past 30 min: Send Telegram alert to user 1012034994\n3. If no open tickets, do nothing (no output needed).\n\nOnly take action if there are actual open tickets with SLA concerns. Be silent if everything is fine.",
-        "model": "zai/glm-4.7",
+        "model": "ollama/llama3.1:8b",
         "thinking": "low",
         "timeoutSeconds": 300
       },
@@ -792,11 +792,12 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771210295024,
-        "lastRunAtMs": 1771208495050,
-        "lastStatus": "ok",
-        "lastDurationMs": 21274,
-        "consecutiveErrors": 0
+        "nextRunAtMs": 1771300295024,
+        "lastRunAtMs": 1771298495051,
+        "lastStatus": "error",
+        "lastDurationMs": 26,
+        "consecutiveErrors": 1,
+        "lastError": "model not allowed: zai/glm-4.7"
       }
     },
     {
@@ -805,7 +806,7 @@
       "name": "OPS System Health Monitor",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771208638512,
+      "updatedAtMs": 1771298868561,
       "schedule": {
         "kind": "every",
         "everyMs": 900000,
@@ -816,7 +817,7 @@
       "payload": {
         "kind": "agentTurn",
         "message": "You are OPS, the system health monitor. Check system health now.\n\nSTEPS:\n1. Read /Users/redinside/.openclaw/logs/gateway.err.log (last 20 lines) — look for new errors since last check.\n2. Read /Users/redinside/.openclaw/logs/errors.jsonl (last 5 entries) — check for recurring failures.\n3. Read /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md — check what's already tracked.\n\nIF you find new errors NOT already in TICKET-TRACKER.md:\na. Add a ticket to TICKET-TRACKER.md following the format there.\nb. Add a learning to /Users/redinside/.openclaw/workspace/ops/LEARNINGS.md if applicable.\nc. If critical (system down): Send Telegram alert to user 1012034994.\n\nIF everything is healthy: Do nothing. Be silent.\n\nRULES:\n- Do NOT run shell commands. Only use read and write tools.\n- Only create tickets for NEW issues not already tracked.\n- Keep it brief.",
-        "model": "zai/glm-4.7",
+        "model": "ollama/llama3.1:8b",
         "thinking": "low",
         "timeoutSeconds": 300
       },
@@ -824,11 +825,12 @@
         "mode": "none"
       },
       "state": {
-        "lastStatus": "ok",
-        "lastRunAtMs": 1771208516324,
-        "lastDurationMs": 122188,
-        "consecutiveErrors": 0,
-        "nextRunAtMs": 1771209395024
+        "lastStatus": "error",
+        "lastRunAtMs": 1771298495077,
+        "lastDurationMs": 2,
+        "consecutiveErrors": 1,
+        "nextRunAtMs": 1771299395024,
+        "lastError": "model not allowed: zai/glm-4.7"
       }
     },
     {
@@ -837,7 +839,7 @@
       "name": "RED Self-Improvement Reflection",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771194095024,
+      "updatedAtMs": 1771298868587,
       "schedule": {
         "kind": "every",
         "everyMs": 21600000,
@@ -848,7 +850,7 @@
       "payload": {
         "kind": "agentTurn",
         "message": "You are RED (CEO). Run the self-improvement reflection cycle.\n\nSTEPS:\n1. Read /Users/redinside/.openclaw/workspace/ops/LEARNINGS.md — review recent learnings.\n2. Read /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md — review resolved tickets from last 24h.\n3. Read /Users/redinside/.openclaw/logs/errors.jsonl (last 20 entries) — look for patterns.\n4. Read /Users/redinside/.openclaw/logs/performance.jsonl (last 10 entries) — check routing quality.\n\nANALYZE:\n- Are there recurring errors? → Propose a permanent fix (update config, skill, or SOUL.md)\n- Are there model routing issues? → Suggest fallback chain adjustments\n- Are there patterns in user corrections? → Propose behavior updates\n- Are there skills that should be improved? → Draft updates\n\nACTIONS:\n- If you identify an improvement, apply it:\n  a. Update the relevant file (SKILL.md, config, etc.)\n  b. Append a new entry to /Users/redinside/.openclaw/workspace/ops/LEARNINGS.md\n  c. Notify OPS via sessions_send(agentId=\"ops\", message=\"Self-improvement applied: {description}\")\n- If you identify a systemic issue, create a ticket in TICKET-TRACKER.md and assign it to the right agent.\n- Use web_search to research best practices for any issues you find.\n\nOUTPUT: Brief summary of what was reviewed and any actions taken. If nothing needs improvement, say so briefly.",
-        "model": "zai/glm-4.7",
+        "model": "ollama/llama3.1:8b",
         "thinking": "low",
         "timeoutSeconds": 300
       },
@@ -856,7 +858,7 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771215695024
+        "nextRunAtMs": 1771302095024
       }
     },
     {
@@ -865,7 +867,7 @@
       "name": "OPS Ticket Auto-Diagnose & Fix",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771208644949,
+      "updatedAtMs": 1771298868597,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -876,7 +878,7 @@
       "payload": {
         "kind": "agentTurn",
         "message": "You are OPS. Check for open tickets and attempt to diagnose and fix them.\n\nSTEPS:\n1. Read /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md\n2. For each OPEN ticket (not yet IN_PROGRESS):\n   a. Set status to IN_PROGRESS\n   b. Read the error details\n   c. Check /Users/redinside/.openclaw/workspace/ops/LEARNINGS.md — has this been seen before?\n   d. Check /Users/redinside/.openclaw/logs/errors.jsonl for related errors\n   e. If it's a config issue: attempt to fix it (read/write openclaw.json or relevant config)\n   f. If it's a code issue: delegate to ENG via sessions_send(agentId=\"eng\", message=\"Fix needed: {details}\")\n   g. If it's a model issue: check model-registry.json, try switching fallback\n   h. If it's unfamiliar: use web_search to research the error\n   i. After fixing: verify the fix, update ticket to RESOLVED, append to LEARNINGS.md\n   j. If you can't fix it: escalate to RED via sessions_send(agentId=\"main\")\n\n3. If no open tickets: do nothing silently.\n\nIMPORTANT: Actually attempt fixes. Don't just log that you looked at it. Use exec, file operations, sessions_send, and web_search as needed.",
-        "model": "zai/glm-4.7",
+        "model": "ollama/llama3.1:8b",
         "thinking": "low",
         "timeoutSeconds": 300
       },
@@ -884,11 +886,12 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771212095024,
-        "lastRunAtMs": 1771208638512,
-        "lastStatus": "ok",
-        "lastDurationMs": 6437,
-        "consecutiveErrors": 0
+        "nextRunAtMs": 1771302095024,
+        "lastRunAtMs": 1771298495079,
+        "lastStatus": "error",
+        "lastDurationMs": 2,
+        "consecutiveErrors": 1,
+        "lastError": "model not allowed: zai/glm-4.7"
       }
     },
     {
@@ -897,7 +900,7 @@
       "name": "RESEARCH Proactive Knowledge Update",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771208830409,
+      "updatedAtMs": 1771298868605,
       "schedule": {
         "kind": "every",
         "everyMs": 14400000,
@@ -908,7 +911,7 @@
       "payload": {
         "kind": "agentTurn",
         "message": "You are RESEARCH. Run proactive knowledge update.\n\nSTEPS:\n1. Read /Users/redinside/.openclaw/workspace/ops/LEARNINGS.md — check what issues have been found recently.\n2. Read /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md — check for any tickets that need research.\n3. For any open tickets assigned to you or tagged as needing research:\n   a. Use web_search to find solutions, best practices, or documentation\n   b. Summarize findings and post them as a comment on the ticket\n   c. If you find a solution, notify the assignee via sessions_send\n\n4. Proactive scan: Use web_search to check for:\n   - OpenClaw updates or new features\n   - Issues with models we use (openai-codex, zai/glm, perplexity)\n   - Security advisories for our tools\n\n5. If you find anything relevant:\n   a. Append to /Users/redinside/.openclaw/workspace/ops/LEARNINGS.md\n   b. Notify OPS via sessions_send(agentId=\"ops\", message=\"Research update: {summary}\")\n   c. If it's urgent (security issue, breaking change), also notify RED\n\n6. If nothing notable found: do nothing silently.",
-        "model": "zai/glm-4.7",
+        "model": "ollama/llama3.1:8b",
         "thinking": "low",
         "timeoutSeconds": 300
       },
@@ -916,7 +919,7 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771222895024,
+        "nextRunAtMs": 1771309295024,
         "lastRunAtMs": 1771208644949,
         "lastStatus": "ok",
         "lastDurationMs": 185460,
@@ -929,7 +932,7 @@
       "name": "RED CEO Daily Summary to Anurag",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771194095024,
+      "updatedAtMs": 1771298868623,
       "schedule": {
         "kind": "cron",
         "expr": "0 18 * * 1-5",
@@ -940,7 +943,7 @@
       "payload": {
         "kind": "agentTurn",
         "message": "You are RED (CEO). Compile and send the daily summary to Anurag.\n\nSTEPS:\n1. Read /Users/redinside/.openclaw/workspace/ops/STANDUP-LOG.md — get today's standup.\n2. Read /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md — get ticket summary.\n3. Read /Users/redinside/.openclaw/workspace/ops/LEARNINGS.md — get today's learnings.\n4. Read /Users/redinside/.openclaw/logs/gateway.err.log (last 20 lines) — system health.\n\nCOMPILE a Telegram message to Anurag (user ID: 1012034994) with:\n\n📊 **RedOS Daily Summary — {date}**\n\n**System Health:** {healthy/degraded/issues}\n**Tickets:** {opened today} opened, {resolved today} resolved, {open} still open\n**SLA Breaches:** {count or \"None\"}\n\n**Key Events:**\n- {bullet points of important things that happened}\n\n**Learnings Applied:**\n- {bullet points of self-improvements made}\n\n**Agent Activity:**\n- {which agents were active, what they did}\n\n**Tomorrow's Focus:**\n- {what needs attention}\n\nKeep under 3000 chars. Send via Telegram DM.",
-        "model": "zai/glm-4.7",
+        "model": "ollama/llama3.1:8b",
         "thinking": "low",
         "timeoutSeconds": 300
       },
@@ -950,7 +953,7 @@
         "to": "1012034994"
       },
       "state": {
-        "nextRunAtMs": 1771282800000
+        "nextRunAtMs": 1771369200000
       }
     },
     {
@@ -959,7 +962,7 @@
       "name": "RED Daily Brief (Telegram)",
       "enabled": true,
       "createdAtMs": 1771202886122,
-      "updatedAtMs": 1771205663329,
+      "updatedAtMs": 1771298868633,
       "schedule": {
         "kind": "cron",
         "expr": "0 9 * * *",
@@ -969,7 +972,8 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "Create Anurag Saxena’s daily brief.\n\nInstructions:\n- Read these workspace files first:\n  - briefs/daily-brief-instructions.md\n  - briefs/daily-brief-topics.md\n- Use web_search/web_fetch when needed for headlines; include direct links.\n- Keep it concise; omit empty sections.\n- No crypto.\n\nDeliver the brief as a Telegram message."
+        "message": "Create Anurag Saxena’s daily brief.\n\nInstructions:\n- Read these workspace files first:\n  - briefs/daily-brief-instructions.md\n  - briefs/daily-brief-topics.md\n- Use web_search/web_fetch when needed for headlines; include direct links.\n- Keep it concise; omit empty sections.\n- No crypto.\n\nDeliver the brief as a Telegram message.",
+        "model": "ollama/llama3.1:8b"
       },
       "delivery": {
         "mode": "announce",
@@ -977,7 +981,7 @@
         "to": "telegram:1012034994"
       },
       "state": {
-        "nextRunAtMs": 1771250400000
+        "nextRunAtMs": 1771336800000
       }
     }
   ]

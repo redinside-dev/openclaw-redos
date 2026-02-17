@@ -77,6 +77,8 @@ runtime/
 state/
 browser/
 media/
+infra/
+workspace-eng/social-automation/
 
 # Agent state files
 agents-state.json
