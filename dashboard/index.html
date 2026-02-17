@@ -1147,27 +1147,53 @@ const AGENT_META={
   infosec:{emoji:'🔒',label:'INFOSEC'}
 };
 
+function timeAgo(isoStr){
+  if(!isoStr) return null;
+  const diff=Date.now()-new Date(isoStr).getTime();
+  const m=Math.floor(diff/60000);
+  if(m<1) return 'just now';
+  if(m<60) return m+'m ago';
+  const h=Math.floor(m/60);
+  if(h<24) return h+'h '+( m%60)+'m ago';
+  return Math.floor(h/24)+'d ago';
+}
+
 function renderAgentStatusCards(agents){
   const el=document.getElementById('sd-cards');
   const today=new Date().toISOString().slice(0,10);
   document.getElementById('sd-date').textContent='— '+today;
-  if(!agents||!agents.length){el.innerHTML='<p style="color:var(--text3);font-size:11px">No status data yet. Check-in crons run at 9:05am ET on weekdays.</p>';return;}
+  if(!agents||!agents.length){el.innerHTML='<p style="color:var(--text3);font-size:11px">No agent data available.</p>';return;}
   el.innerHTML=agents.map(a=>{
     const meta=AGENT_META[a.agent]||{emoji:'🤖',label:a.agent};
-    const stale=a.stale;
+    const hasCheckin=!a.stale&&a.workingOn;
     const hasBlockers=a.blockers&&a.blockers!=='None'&&a.blockers.trim()!=='';
+    const isActive=a.lastSeenAt&&(Date.now()-new Date(a.lastSeenAt).getTime())<3600000; // active in last 1h
+    // Status dot
+    const dot=isActive?'<span style="color:var(--green);font-size:9px">●</span>':'<span style="color:var(--text3);font-size:9px">○</span>';
     let badges='';
-    if(stale) badges+='<span class="badge-stale">No check-in today</span>';
     if(hasBlockers) badges+='<span class="badge-blocker">BLOCKED</span>';
     const field=(label,val)=>val?`<div class="sd-field">${label}: <span>${escHtml(val)}</span></div>`:'';
-    return `<div class="sd-card ${hasBlockers?'has-blockers':''} ${stale?'stale':''}">
-  <div class="sd-agent">${meta.emoji} ${meta.label} ${badges}</div>
+    // Live activity section (always shown if we have routing data)
+    const liveSection=a.lastSeenAt?`
+<div style="border-top:1px solid var(--border);margin-top:8px;padding-top:8px">
+  <div class="sd-field">Last active: <span style="color:var(--cyan)">${escHtml(timeAgo(a.lastSeenAt))}</span>${a.lastSessionType?' via <span>'+escHtml(a.lastSessionType)+'</span>':''}</div>
+  ${a.lastModel?field('Model',a.lastModel.replace('ollama/','').replace('openai-codex/','')):''}
+  ${a.callsToday?`<div class="sd-field">Calls today: <span>${a.callsToday}</span>${a.tokensToday?' &nbsp;·&nbsp; <span>'+a.tokensToday.toLocaleString()+' tokens</span>':''}</div>`:''}
+</div>`:'';
+    // Check-in section
+    const checkinSection=hasCheckin?`
+<div style="border-top:1px solid var(--border);margin-top:8px;padding-top:8px">
   ${field('Sprint goal',a.sprintGoal)}
   ${field('Working on',a.workingOn)}
   ${field('Completed',a.completedYesterday)}
   ${field('ETA',a.eta)}
   ${hasBlockers?`<div class="sd-field">Blockers: <span style="color:var(--red)">${escHtml(a.blockers)}</span></div>`:''}
-  ${a.updatedAt?`<div style="font-size:9px;color:var(--text3);margin-top:6px">Updated ${new Date(a.updatedAt).toLocaleTimeString()}</div>`:''}
+  <div style="font-size:9px;color:var(--text3);margin-top:4px">Check-in ${escHtml(timeAgo(a.updatedAt))}</div>
+</div>`:`<div style="font-size:9px;color:var(--text3);margin-top:8px;border-top:1px solid var(--border);padding-top:8px">No check-in today — check-in cron runs 9:05am ET</div>`;
+    return `<div class="sd-card ${hasBlockers?'has-blockers':''}" style="${isActive?'border-color:var(--green)33':''}">
+  <div class="sd-agent">${dot} ${meta.emoji} ${meta.label} ${badges}</div>
+  ${liveSection}
+  ${checkinSection}
 </div>`;
   }).join('');
 }
