@@ -91,6 +91,32 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
 .live-dot{color:var(--green);font-size:10px;line-height:1;animation:ldot 1.5s ease-in-out infinite}
 @keyframes ldot{0%,100%{opacity:1}50%{opacity:.2}}
 .feed-free{color:var(--green);font-weight:700}.feed-paid{color:var(--yellow);font-weight:700}
+/* Hierarchy tree */
+.htree{display:flex;flex-direction:column;align-items:center;gap:0;min-width:600px}
+.htree-level{display:flex;gap:10px;justify-content:center;position:relative;padding-top:28px}
+.htree-level::before{content:'';position:absolute;top:0;height:1px;background:var(--bg5);left:var(--bar-l,10%);width:var(--bar-w,80%)}
+.htree-wrap{display:flex;flex-direction:column;align-items:center;position:relative}
+.htree-vline{width:1px;height:28px;background:var(--bg5);margin:0 auto}
+.htree-node{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 14px;text-align:center;cursor:pointer;min-width:110px;max-width:150px;transition:border-color .15s,background .15s;position:relative}
+.htree-node:hover{border-color:var(--cyan);background:var(--bg4)}
+.htree-node.is-root{border-color:var(--gold,#f0a500);min-width:140px}
+.htree-node.is-cso{border-color:var(--blue)}
+.htree-emoji{font-size:18px;line-height:1.2}
+.htree-name{font-weight:700;font-size:11px;color:var(--text);margin-top:2px}
+.htree-role{font-size:9px;color:var(--text3);margin-top:2px;line-height:1.3;max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.htree-model{display:inline-block;margin-top:5px;font-size:8px;padding:1px 5px;border-radius:8px;background:var(--bg5);color:var(--cyan)}
+.htree-actions{display:flex;gap:4px;justify-content:center;margin-top:6px}
+.htree-btn{font-size:8px;padding:2px 6px;border:1px solid var(--border);border-radius:3px;background:var(--bg4);color:var(--text3);cursor:pointer}
+.htree-btn:hover{border-color:var(--blue);color:var(--blue)}
+.htree-btn.add{border-color:var(--green);color:var(--green)}
+.htree-btn.add:hover{background:var(--green);color:#000}
+/* Agent card buttons */
+.ac-actions{display:flex;gap:6px;margin-top:4px}
+.ac-btn{font-size:9px;padding:3px 8px;border:1px solid var(--border);border-radius:3px;background:var(--bg4);color:var(--text3);cursor:pointer}
+.ac-btn:hover{border-color:var(--blue);color:var(--blue)}
+.ac-btn.add{border-color:var(--green);color:var(--green)}
+.ac-btn.add:hover{background:var(--green);color:#000}
+.ac-btn.danger:hover{border-color:var(--red);color:var(--red)}
 /* Select override */
 .model-sel{padding:3px 6px;background:var(--bg4);border:1px solid var(--bg5);border-radius:4px;color:var(--cyan);font-size:10px;cursor:pointer;outline:none;max-width:180px}
 .model-sel:hover{border-color:var(--blue)}
@@ -137,8 +163,75 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
 
 <!-- AGENTS -->
 <div class="pg" id="pg-agents">
-  <div class="sec-t" style="margin-bottom:6px">All Agents <span style="font-weight:400;font-size:11px;color:var(--text3)">— click model to change</span></div>
+  <!-- Hierarchy tree -->
+  <div class="sec" style="margin-bottom:16px">
+    <div class="sec-t" style="display:flex;align-items:center;gap:8px">
+      Agent Hierarchy &amp; Communication Flow
+      <span style="margin-left:auto;font-size:10px;color:var(--text3)">click any node to edit</span>
+    </div>
+    <div class="c" id="ag-hier" style="overflow-x:auto;padding:20px 12px"></div>
+  </div>
+  <!-- Agent cards -->
+  <div class="sec-t" style="margin-bottom:6px;display:flex;align-items:center;gap:10px">
+    All Agents
+    <span style="font-weight:400;font-size:11px;color:var(--text3)">— click model to change inline</span>
+    <button onclick="openAgentModal(null,null)" style="margin-left:auto;background:var(--green);color:#000;border:none;padding:4px 12px;border-radius:4px;font-size:11px;font-weight:700;cursor:pointer">+ Add Agent</button>
+  </div>
   <div class="g g3" id="ag-grid"></div>
+</div>
+
+<!-- Agent edit/add modal -->
+<div id="ag-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9999;align-items:center;justify-content:center">
+  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:24px;width:480px;max-width:95vw;max-height:90vh;overflow-y:auto">
+    <div style="display:flex;align-items:center;margin-bottom:18px">
+      <div id="ag-modal-title" style="font-size:14px;font-weight:700;color:var(--text)">Edit Agent</div>
+      <button onclick="closeAgentModal()" style="margin-left:auto;background:none;border:none;color:var(--text3);font-size:18px;cursor:pointer;line-height:1">&times;</button>
+    </div>
+    <div style="display:grid;gap:12px">
+      <div>
+        <label style="font-size:10px;color:var(--text3);display:block;margin-bottom:4px">Agent ID <span style="color:var(--red)">*</span></label>
+        <input id="ag-f-id" placeholder="e.g. eng" style="width:100%;box-sizing:border-box;background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:6px 10px;border-radius:4px;font-size:12px">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div>
+          <label style="font-size:10px;color:var(--text3);display:block;margin-bottom:4px">Display Name <span style="color:var(--red)">*</span></label>
+          <input id="ag-f-name" placeholder="e.g. Engineering" style="width:100%;box-sizing:border-box;background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:6px 10px;border-radius:4px;font-size:12px">
+        </div>
+        <div>
+          <label style="font-size:10px;color:var(--text3);display:block;margin-bottom:4px">Short Identity</label>
+          <input id="ag-f-iname" placeholder="e.g. ENG" style="width:100%;box-sizing:border-box;background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:6px 10px;border-radius:4px;font-size:12px">
+        </div>
+      </div>
+      <div>
+        <label style="font-size:10px;color:var(--text3);display:block;margin-bottom:4px">Role Description</label>
+        <input id="ag-f-role" placeholder="e.g. Engineering Lead — Software development & infra" style="width:100%;box-sizing:border-box;background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:6px 10px;border-radius:4px;font-size:12px">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div>
+          <label style="font-size:10px;color:var(--text3);display:block;margin-bottom:4px">Primary Model</label>
+          <select id="ag-f-model" style="width:100%;box-sizing:border-box;background:var(--bg3);border:1px solid var(--border);color:var(--cyan);padding:6px 8px;border-radius:4px;font-size:11px"></select>
+        </div>
+        <div>
+          <label style="font-size:10px;color:var(--text3);display:block;margin-bottom:4px">Parent Agent</label>
+          <select id="ag-f-parent" style="width:100%;box-sizing:border-box;background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:6px 8px;border-radius:4px;font-size:11px"></select>
+        </div>
+      </div>
+      <div>
+        <label style="font-size:10px;color:var(--text3);display:block;margin-bottom:4px">Fallback Models <span style="color:var(--text3)">(comma-separated)</span></label>
+        <input id="ag-f-fallbacks" placeholder="e.g. ollama/llama3.1:8b, openai-codex/gpt-5.2" style="width:100%;box-sizing:border-box;background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:6px 10px;border-radius:4px;font-size:12px">
+      </div>
+      <div>
+        <label style="font-size:10px;color:var(--text3);display:block;margin-bottom:4px">Telegram Bot Handle <span style="color:var(--text3)">(optional)</span></label>
+        <input id="ag-f-bot" placeholder="e.g. @ENGRED_BOT" style="width:100%;box-sizing:border-box;background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:6px 10px;border-radius:4px;font-size:12px">
+      </div>
+    </div>
+    <div id="ag-modal-err" style="display:none;color:var(--red);font-size:11px;margin-top:10px"></div>
+    <div style="display:flex;gap:10px;margin-top:18px">
+      <button id="ag-modal-save" onclick="saveAgentModal()" style="flex:1;background:var(--blue);color:#fff;border:none;padding:8px;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer">Save</button>
+      <button id="ag-modal-del" onclick="deleteAgent()" style="background:var(--red);color:#fff;border:none;padding:8px 16px;border-radius:4px;font-size:12px;cursor:pointer">Delete</button>
+      <button onclick="closeAgentModal()" style="background:var(--bg4);color:var(--text3);border:none;padding:8px 16px;border-radius:4px;font-size:12px;cursor:pointer">Cancel</button>
+    </div>
+  </div>
 </div>
 
 <!-- CRON -->
@@ -359,15 +452,159 @@ function renderOverview(){
   document.getElementById('ov-ag').innerHTML=(D.agents||[]).map(a=>`<div class="ac"><div class="ac-top"><div>${EMO[a.id]||'\u{1F916}'} <span class="ac-n">${h(a.name)}</span></div><span class="p p-g">online</span></div><div class="ac-r">${ROLES[a.id]||a.id}</div><div class="ac-m"><span>Model: <strong style="color:var(--cyan)">${(a.model||'').split('/').pop()}</strong></span><span>Mem: ${a.memoryDb?(a.memoryDb.size/1048576).toFixed(1)+'MB':'--'}</span></div></div>`).join('');
 }
 
+// --- Hierarchy tree ---
+function buildTree(agents, rootId) {
+  function nodeHtml(a, isRoot) {
+    const cls=isRoot?'htree-node is-root':(a.id==='allrounder'?'htree-node is-cso':'htree-node');
+    const roleShort=(a.role||ROLES[a.id]||a.id).split('—')[0].trim();
+    const modelShort=(a.model||'').split('/').pop();
+    const children=agents.filter(x=>x.parentId===a.id);
+    const hasChildren=children.length>0;
+    const childrenHtml=hasChildren?`
+      <div class="htree-level" style="--child-count:${children.length}">
+        ${children.map(c=>`<div class="htree-wrap"><div class="htree-vline"></div>${nodeHtml(c,false)}</div>`).join('')}
+      </div>`:'';
+    return`<div style="display:flex;flex-direction:column;align-items:center">
+      <div class="${cls}" onclick="openAgentModal('${a.id}',null)">
+        <div class="htree-emoji">${EMO[a.id]||'\u{1F916}'}</div>
+        <div class="htree-name">${h(a.identityName||a.name)}</div>
+        <div class="htree-role" title="${h(a.role||ROLES[a.id]||'')}">${h(roleShort)}</div>
+        <span class="htree-model">${h(modelShort)}</span>
+        <div class="htree-actions">
+          <button class="htree-btn" onclick="event.stopPropagation();openAgentModal('${a.id}',null)">✏ Edit</button>
+          <button class="htree-btn add" onclick="event.stopPropagation();openAgentModal(null,'${a.id}')">+ Sub</button>
+        </div>
+      </div>
+      ${hasChildren?`<div class="htree-vline"></div>${childrenHtml}`:''}
+    </div>`;
+  }
+  const root=agents.find(a=>a.id===rootId);
+  if(!root) return '<div style="color:var(--text3);padding:20px">No hierarchy data</div>';
+  // Compute horizontal bar width for each level
+  return`<div class="htree">${nodeHtml(root,true)}</div>`;
+}
+
+function renderHierarchy(){
+  const agents=D.agents||[];
+  const root=agents.find(a=>a.isDefault)||agents[0];
+  if(!root){document.getElementById('ag-hier').innerHTML='<div style="color:var(--text3)">No agents</div>';return;}
+  // Fix htree-level ::before width dynamically after render
+  const el=document.getElementById('ag-hier');
+  el.innerHTML=buildTree(agents,root.id);
+  // Draw connecting horizontal bars after layout
+  el.querySelectorAll('.htree-level').forEach(lvl=>{
+    const items=lvl.querySelectorAll(':scope > .htree-wrap');
+    if(items.length<2)return;
+    const first=items[0].getBoundingClientRect();
+    const last=items[items.length-1].getBoundingClientRect();
+    const parent=lvl.getBoundingClientRect();
+    const w=last.left+last.width/2-(first.left+first.width/2);
+    const l=first.left+first.width/2-parent.left;
+    lvl.style.setProperty('--bar-w',w+'px');
+    lvl.style.setProperty('--bar-l',l+'px');
+  });
+}
+
+// --- Agent management modal ---
+let _agModalId=null;
+function openAgentModal(id, preParentId){
+  _agModalId=id;
+  const agents=D.agents||[];
+  const a=id?agents.find(x=>x.id===id):null;
+  document.getElementById('ag-modal-title').textContent=id?`Edit Agent: ${id}`:'Add New Agent';
+  document.getElementById('ag-modal-del').style.display=(id&&!a?.isDefault)?'':'none';
+  document.getElementById('ag-modal-err').style.display='none';
+  // Populate fields
+  const fid=document.getElementById('ag-f-id');
+  fid.value=id||'';
+  fid.readOnly=!!id;
+  fid.style.opacity=id?'.5':'1';
+  document.getElementById('ag-f-name').value=a?.name||'';
+  document.getElementById('ag-f-iname').value=a?.identityName||'';
+  document.getElementById('ag-f-role').value=a?.role||'';
+  document.getElementById('ag-f-bot').value=a?.bot||'';
+  document.getElementById('ag-f-fallbacks').value=(a?.fallbacks||[]).join(', ');
+  // Model select
+  const msel=document.getElementById('ag-f-model');
+  msel.innerHTML=MODELS_ALL.map(m=>`<option value="${m}"${m===(a?.model||'ollama/llama3.1:8b')?' selected':''}>${m}</option>`).join('');
+  // Parent select
+  const psel=document.getElementById('ag-f-parent');
+  psel.innerHTML=`<option value="">(none — root)</option>`+agents.filter(x=>x.id!==id).map(x=>`<option value="${x.id}"${(a?.parentId===x.id||(preParentId&&preParentId===x.id))?' selected':''}>${EMO[x.id]||''} ${x.name} (${x.id})</option>`).join('');
+  // Show
+  const modal=document.getElementById('ag-modal');
+  modal.style.display='flex';
+}
+function closeAgentModal(){
+  document.getElementById('ag-modal').style.display='none';
+  _agModalId=null;
+}
+async function saveAgentModal(){
+  const id=_agModalId;
+  const newId=document.getElementById('ag-f-id').value.trim();
+  const name=document.getElementById('ag-f-name').value.trim();
+  const identityName=document.getElementById('ag-f-iname').value.trim();
+  const role=document.getElementById('ag-f-role').value.trim();
+  const primaryModel=document.getElementById('ag-f-model').value;
+  const parentId=document.getElementById('ag-f-parent').value||null;
+  const bot=document.getElementById('ag-f-bot').value.trim()||null;
+  const fallbacksRaw=document.getElementById('ag-f-fallbacks').value;
+  const fallbacks=fallbacksRaw.split(',').map(s=>s.trim()).filter(Boolean);
+  const errEl=document.getElementById('ag-modal-err');
+  if(!newId||!name){errEl.textContent='ID and Display Name are required.';errEl.style.display='block';return;}
+  const btn=document.getElementById('ag-modal-save');
+  btn.disabled=true; btn.textContent='Saving…';
+  try{
+    let r;
+    if(id){
+      r=await fetch('/api/agents/'+id,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,identityName,role,primaryModel,fallbacks,parentId,bot})});
+    } else {
+      r=await fetch('/api/agents',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:newId,name,identityName,role,primaryModel,fallbacks,parentId,bot})});
+    }
+    const d=await r.json();
+    if(d.ok){
+      closeAgentModal();
+      const agents=await fetch('/api/agents').then(r=>r.json()).catch(()=>D.agents);
+      D.agents=agents;
+      renderAgents();
+      renderHierarchy();
+    } else {
+      errEl.textContent=d.error||'Save failed';errEl.style.display='block';
+    }
+  }catch(e){errEl.textContent=e.message;errEl.style.display='block';}
+  btn.disabled=false; btn.textContent='Save';
+}
+async function deleteAgent(){
+  if(!_agModalId)return;
+  if(!confirm('Remove agent "'+_agModalId+'" from config? This cannot be undone.'))return;
+  try{
+    const r=await fetch('/api/agents/'+_agModalId,{method:'DELETE'});
+    const d=await r.json();
+    if(d.ok){
+      closeAgentModal();
+      const agents=await fetch('/api/agents').then(r=>r.json()).catch(()=>D.agents);
+      D.agents=agents;
+      renderAgents();
+      renderHierarchy();
+    } else { alert(d.error||'Delete failed'); }
+  }catch(e){alert(e.message);}
+}
+
 function renderAgents(){
+  renderHierarchy();
   document.getElementById('ag-grid').innerHTML=(D.agents||[]).map(a=>{
     const opts=MODELS_ALL.map(m=>`<option value="${m}"${m===a.model?' selected':''}>${m}</option>`).join('');
+    const roleText=a.role||ROLES[a.id]||a.id;
     return`<div class="ac" style="gap:8px">
-      <div class="ac-top"><div>${EMO[a.id]||'\u{1F916}'} <span class="ac-n">${h(a.name)}</span></div><span class="p p-g">online</span></div>
-      <div class="ac-r">${ROLES[a.id]||a.id}</div>
+      <div class="ac-top"><div>${EMO[a.id]||'\u{1F916}'} <span class="ac-n">${h(a.identityName||a.name)}</span></div><span class="p p-g">online</span></div>
+      <div class="ac-r" title="${h(roleText)}" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${h(roleText)}</div>
       <div class="ac-m"><span>Primary:</span> <select class="model-sel" onchange="quickModel('${a.id}',this.value,'${h(a.model)}')">${opts}</select></div>
       <div class="ac-m"><span>Fallbacks: ${(a.fallbacks||[]).map(f=>'<span class="p p-x">'+h(f)+'</span>').join(' \u2192 ')||'none'}</span></div>
-      <div class="ac-m"><span>Memory: ${a.memoryDb?(a.memoryDb.size/1048576).toFixed(1)+' MB':'none'}</span><span>Workspace: ${h(a.workspace||'default')}</span></div>
+      <div class="ac-m"><span>Memory: ${a.memoryDb?(a.memoryDb.size/1048576).toFixed(1)+' MB':'none'}</span>${a.bot?`<span>Bot: <strong style="color:var(--cyan)">${h(a.bot)}</strong></span>`:''}${a.parentId?`<span>Reports to: <strong>${h(a.parentId)}</strong></span>`:''}</div>
+      <div class="ac-actions">
+        <button class="ac-btn" onclick="openAgentModal('${a.id}',null)">✏ Edit</button>
+        <button class="ac-btn add" onclick="openAgentModal(null,'${a.id}')">+ Sub-agent</button>
+        ${!a.isDefault?`<button class="ac-btn danger" onclick="openAgentModal('${a.id}',null)">🗑 Remove</button>`:''}
+      </div>
     </div>`}).join('');
 }
 
