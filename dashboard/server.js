@@ -241,15 +241,77 @@ function getAgentStatus() {
   const statusDir = path.join(OPENCLAW_DIR, 'workspace', 'ops', 'agent-status');
   const agents = ['main', 'eng', 'research', 'finance', 'ops', 'infosec'];
   const today = new Date().toISOString().slice(0, 10);
+
+  // Build last-seen index from routing-decisions.jsonl (last 500 entries)
+  const routingFile = path.join(OPENCLAW_DIR, 'workspace', 'logs', 'routing-decisions.jsonl');
+  const analyticsFile = path.join(OPENCLAW_DIR, 'workspace', 'logs', 'llm-analytics.jsonl');
+  const lastSeen = {};  // agentId -> { ts, model, sessionKey, callsToday, totalTokensToday }
+  try {
+    const todayPrefix = today;
+    const rLines = fs.readFileSync(routingFile, 'utf8').split('\n').filter(Boolean).slice(-500);
+    for (const l of rLines) {
+      try {
+        const r = JSON.parse(l);
+        const agentId = r.agent;
+        if (!agents.includes(agentId)) continue;
+        if (!lastSeen[agentId] || new Date(r.ts) > new Date(lastSeen[agentId].ts)) {
+          lastSeen[agentId] = { ts: r.ts, model: r.selected_model, sessionKey: r.session_key, callsToday: 0 };
+        }
+        if (r.ts && r.ts.startsWith(todayPrefix)) {
+          lastSeen[agentId].callsToday = (lastSeen[agentId].callsToday || 0) + 1;
+        }
+      } catch {}
+    }
+    // Merge token totals from analytics log
+    const aLines = fs.readFileSync(analyticsFile, 'utf8').split('\n').filter(Boolean).slice(-500);
+    for (const l of aLines) {
+      try {
+        const a = JSON.parse(l);
+        const agentId = a.agent;
+        if (!agents.includes(agentId) || !a.ts.startsWith(todayPrefix)) continue;
+        if (lastSeen[agentId]) {
+          lastSeen[agentId].tokensToday = (lastSeen[agentId].tokensToday || 0) + (a.tokens_in || 0) + (a.tokens_out || 0);
+        }
+      } catch {}
+    }
+  } catch {}
+
+  // Classify session type for display
+  function sessionLabel(sk) {
+    if (!sk) return null;
+    if (sk.includes(':cron:')) return 'cron';
+    if (sk.includes(':subagent:')) return 'sub-agent';
+    if (sk.includes(':telegram:')) return 'Telegram';
+    return 'direct';
+  }
+
   const results = [];
   for (const agentId of agents) {
     const fp = path.join(statusDir, `${agentId}.json`);
+    let checkin = null;
     try {
-      const data = JSON.parse(fs.readFileSync(fp, 'utf8'));
-      results.push({ ...data, stale: data.date !== today });
-    } catch {
-      results.push({ agent: agentId, date: null, stale: true, workingOn: null, completedYesterday: null, eta: null, blockers: null, sprintGoal: null, updatedAt: null });
-    }
+      checkin = JSON.parse(fs.readFileSync(fp, 'utf8'));
+    } catch {}
+
+    const ls = lastSeen[agentId] || null;
+    results.push({
+      agent: agentId,
+      // Check-in data (from 9am cron)
+      date: checkin?.date || null,
+      stale: !checkin || checkin.date !== today,
+      sprintGoal: checkin?.sprintGoal || null,
+      workingOn: checkin?.workingOn || null,
+      completedYesterday: checkin?.completedYesterday || null,
+      eta: checkin?.eta || null,
+      blockers: checkin?.blockers || null,
+      updatedAt: checkin?.updatedAt || null,
+      // Live activity from routing log
+      lastSeenAt: ls?.ts || null,
+      lastModel: ls?.model || null,
+      lastSessionType: sessionLabel(ls?.sessionKey) || null,
+      callsToday: ls?.callsToday || 0,
+      tokensToday: ls?.tokensToday || 0,
+    });
   }
   return results;
 }
