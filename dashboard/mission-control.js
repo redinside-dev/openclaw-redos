@@ -64,6 +64,7 @@ class MissionControl {
     }
 
     connectWebSocket() {
+        return; // Disabled: WebSocket server no longer exists at port 18789; SSE is used instead
         try {
             this.ws = new WebSocket('ws://127.0.0.1:18789');
 

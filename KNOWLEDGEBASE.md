@@ -50,7 +50,7 @@ Then read this file. The `openclaw.json` (live secrets) and `identity/` (device 
 ---
 
 > **Single source of truth** for architecture, configuration, fixes, and operational procedures.
-> Updated: 2026-02-15 | Version: OpenClaw 2026.2.14 + RedOS 3.6.0
+> Updated: 2026-02-18 | Version: OpenClaw 2026.2.15 + RedOS 3.7.0
 
 ---
 
@@ -1024,8 +1024,9 @@ security: Security-related change
 | 3 | **XAI API key** | MEDIUM | `XAI_API_KEY` is still set to placeholder `<YOUR_XAI_KEY>` — update if xAI (Grok) access needed |
 | 4 | **Test Telegram bots end-to-end** | MEDIUM | Verify all 8 bots respond correctly after the token fix |
 | 5 | **Automate device-auth sync on rotate** | LOW | `devices rotate` should auto-sync `device-auth.json` |
-| 6 | **Remove/replace old server.js (port 19000)** | LOW | Old RedOS custom gateway on port 19000 may still be referenced; migrate everything to native OpenClaw port 18789 |
-| 7 | **Update `meta.lastTouchedVersion`** | LOW | Still shows `2026.2.13`; update to `2026.2.14` |
+| 6 | **Put dashboard in launchd** | LOW | Dashboard process (port 19000) is started manually; add a LaunchAgent plist so it auto-starts on reboot |
+| 7 | **Verify Slack socket-mode channel replies live** | LOW | CLI deliver confirmed working; verify real socket-mode events (actual Slack messages) also trigger replies correctly |
+| 8 | **Cloudflare named tunnel for dashboard** | LOW | Quick tunnel URL changes on every restart; set up a named Cloudflare tunnel for stable URL |
 
 ### Architecture Enhancements (Future)
 
@@ -1073,6 +1074,69 @@ sleep 3 && openclaw status
 ~/.openclaw/openclaw.json                # Main config
 ~/Library/LaunchAgents/ai.openclaw.gateway.plist  # Service definition
 ```
+
+---
+
+## §19 — Slack Channel Auto-Reply + Dashboard Real-Time Sync (2026-02-18)
+
+### FIX-005: Slack Channel Auto-Reply Returned Empty Payloads
+
+**Symptom:** Messages sent to Slack channels (with `requireMention: false`) triggered agent processing but produced no reply — logs showed `queuedFinal = false`, no delivery.
+
+**Root cause (traced to OpenClaw dist):** When `requireMention: false`, `defaultGroupActivation()` returns `"always"` activation mode. The `buildGroupIntro()` function then injects a system prompt instructing the agent to "mostly lurk and stay silent unless directly addressed." Agent dutifully returned `SILENT_REPLY_TOKEN` → empty `finalPayloads` → no delivery.
+
+**Fix:**
+1. Added per-channel `systemPrompt` overrides in `openclaw.json` under `channels.slack.channels`:
+   - Wildcard `"*"` entry as default fallback for any channel
+   - 4 specific channel overrides (C0AG4AY6VME, C0AEV3MDEDD, C0AEV3J2L23, C0AF4KB4TUK)
+   - Each systemPrompt: "ALWAYS respond to every message with helpful text. Do NOT stay silent."
+2. Added `## Slack Channel Responses (MANDATORY)` section to `workspace/SOUL.md`
+3. Synced updated SOUL.md to all 12 agent sandboxes (old sandboxes had Feb 16 version, 7997 bytes; new version is 13682 bytes)
+
+**Key config location:** `openclaw.json` → `channels.slack.channels` (supports wildcard `"*"` and per-channel-ID entries; hot-reloaded without gateway restart)
+
+**Verified:** `openclaw agent --agent main --channel slack --message "hi" --deliver --reply-to channel:C0AG4AY6VME` returns reply text.
+
+---
+
+### FEAT-001: Dashboard Real-Time Sync (SSE + loadAll fix)
+
+**Problem 1:** Model updates in Mission Control did not reflect in real-time. `saveAgentModal()` only called `renderAgents()` + `renderHierarchy()` — overview, routing, CEO panels stayed stale.
+
+**Problem 2:** `connectWebSocket()` in `mission-control.js` was connecting to `ws://127.0.0.1:18789` (the OpenClaw gateway WebSocket, which does not serve dashboard events). Connection errored and silently failed.
+
+**Problem 3:** 30-second polling interval too slow for production use.
+
+**Fixes applied** (on branch `feature/dashboard-realtime-sync`, merged to main):
+
+**`dashboard/server.js`:**
+- Added `sseClients` Set + `broadcastSSE(event, data)` helper
+- Added `fs.watch(configFile)` → broadcasts `config_changed` event on `openclaw.json` change
+- Added `GET /api/events` SSE endpoint (requires basic auth)
+- Fixed `PATCH /api/agents/:id` to broadcast `agents_changed` and return `{ ok: true, agent: updatedAgent }`
+- Fixed `POST /api/model-override` to broadcast `agents_changed` after write
+
+**`dashboard/index.html`:**
+- `saveAgentModal()` success: calls `await loadAll()` (full refresh) instead of partial re-render
+- `deleteAgent()` success: same
+- Polling reduced from 30s → 10s
+- Added SSE `EventSource('/api/events')` subscription — triggers `loadAll()` on `agents_changed` or `config_changed`
+
+**`dashboard/mission-control.js`:**
+- Disabled dead WebSocket: added `return;` at start of `connectWebSocket()` with comment
+
+**Dashboard SSE endpoint:** `GET http://localhost:19000/api/events` (basic auth required: red/redos2026)
+
+**New Dashboard API added:**
+| Endpoint | Purpose |
+|----------|---------|
+| `GET /api/events` | SSE stream — broadcasts `agents_changed` and `config_changed` events |
+
+---
+
+### CREATED: CLAUDE.md
+
+`/Users/redinside/.openclaw/CLAUDE.md` — guidance file for Claude Code instances working in this repo. Covers architecture, common commands, agent roster, model providers, request flow, key files, auth requirements, and critical rules.
 
 ---
 

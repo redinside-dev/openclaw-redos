@@ -18,6 +18,25 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const OPENCLAW_DIR = path.resolve(__dirname, '..');
 const PORT = 19000;
 
+// SSE clients for real-time push
+const sseClients = new Set();
+function broadcastSSE(event, data) {
+  const msg = `event: ${event}\ndata: ${JSON.stringify(data)}\n\n`;
+  for (const res of sseClients) {
+    try { res.write(msg); } catch { sseClients.delete(res); }
+  }
+}
+
+// Watch openclaw.json for changes and broadcast to SSE clients
+const configFile = path.join(OPENCLAW_DIR, 'openclaw.json');
+try {
+  fs.watch(configFile, () => {
+    broadcastSSE('config_changed', { ts: Date.now() });
+  });
+} catch (e) {
+  console.warn('Could not watch openclaw.json:', e.message);
+}
+
 // Load .env
 dotenvConfig({ path: path.join(OPENCLAW_DIR, '.env') });
 
@@ -567,6 +586,22 @@ const server = http.createServer((req, res) => {
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
+  // SSE: real-time push for config changes
+  if (url.pathname === '/api/events') {
+    req.socket.setNoDelay(true);
+    res.writeHead(200, {
+      'Content-Type': 'text/event-stream',
+      'Cache-Control': 'no-cache',
+      'Connection': 'keep-alive',
+      'Access-Control-Allow-Origin': '*',
+    });
+    res.write('retry: 3000\n\n');
+    res.write('event: connected\ndata: {}\n\n');
+    sseClients.add(res);
+    req.on('close', () => sseClients.delete(res));
+    return;
+  }
+
   if (req.method === 'OPTIONS') { res.writeHead(204); res.end(); return; }
 
   // Basic auth check (skipped for localhost if no password set)
@@ -588,6 +623,7 @@ const server = http.createServer((req, res) => {
         const oldModel = agent.model.primary || config.agents?.defaults?.model?.primary || 'unknown';
         agent.model.primary = model;
         fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
+        broadcastSSE('agents_changed', { agentId, ts: Date.now() });
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ ok: true, agentId, oldModel, newModel: model }));
       } catch (e) {
@@ -664,8 +700,11 @@ const server = http.createServer((req, res) => {
           if (updates.parentId) { hier.parentMap[agentId] = updates.parentId; } else { delete hier.parentMap[agentId]; }
         }
         saveHierarchy(hier);
+        broadcastSSE('agents_changed', { agentId, ts: Date.now() });
         res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ ok: true }));
+        const updatedConfig = JSON.parse(fs.readFileSync(configFile, 'utf8'));
+        const updatedAgent = (updatedConfig.agents?.list || []).find(a => a.id === agentId);
+        res.end(JSON.stringify({ ok: true, agent: updatedAgent }));
       } catch (e) {
         res.writeHead(400); res.end(JSON.stringify({ error: e.message }));
       }
@@ -967,8 +1006,12 @@ const server = http.createServer((req, res) => {
       const rootStep = p.steps[0];
       const triggerPrompt = triggerMessage || (p.triggerType === 'cron' ? (cronJobName || 'Cron job') : null) || rootStep?.promptTail || null;
 
+      // Stable request ID: date + sequential index within day
+      const dayPrefix = p.triggeredAt.slice(0, 10).replace(/-/g, '');
+      const reqId = `REQ-${dayPrefix}-${String(pipelines.length - i).padStart(3, '0')}`;
+
       return {
-        id: `pl-${i}`,
+        id: reqId,
         triggeredAt: p.triggeredAt,
         triggerType: p.triggerType,
         channel: p.channel,

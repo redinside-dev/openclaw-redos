@@ -121,6 +121,16 @@ workspace/tasks/
 # Telegram poll offsets (runtime counters)
 telegram/update-offset-*.json
 
+# Runtime cron/monitor state files
+workspace/tmp/github-repo-monitor*.json
+workspace/tmp/github-repo-monitor*.txt
+workspace/tmp/gmail-unread-*.json
+workspace/tmp/gmail-unread-*.txt
+workspace/DASHBOARD_URL.txt
+
+# Node registration state
+node.json
+
 # CLI auto-generated completions (not custom code)
 completions/
 

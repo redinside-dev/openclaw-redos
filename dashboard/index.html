@@ -161,6 +161,71 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
 .sd-meta-row span{color:var(--text)}
 .sd-ai-list{list-style:none;padding:0;margin:6px 0 0 0;font-size:10px;color:var(--text)}
 .sd-ai-list li::before{content:"→ ";color:var(--cyan)}
+/* Pipeline — DynaTrace-style trace */
+.req-list{display:flex;flex-direction:column;gap:6px}
+.req-row{background:var(--bg2);border:1px solid var(--border);border-radius:6px;transition:border-color .15s}
+.req-row.open{border-color:var(--cyan)}
+.req-row-hdr{display:flex;align-items:center;gap:10px;padding:9px 12px;cursor:pointer;user-select:none;flex-wrap:wrap;border-radius:6px}
+.req-row-hdr:hover{background:var(--bg3)}
+.req-id{font-family:monospace;font-size:10px;color:var(--text3);min-width:90px}
+.req-src{font-size:11px;font-weight:600;min-width:110px}
+.req-msg{font-size:11px;color:var(--text2);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:340px}
+.req-agents{font-size:10px;color:var(--text3);min-width:60px}
+.req-lat{font-size:10px;color:var(--text3);min-width:50px;text-align:right}
+.req-cost{font-size:10px;min-width:64px;text-align:right}
+.req-badge{font-size:8px;padding:1px 5px;border-radius:4px;font-weight:700}
+.req-badge.live{background:var(--green);color:#000}
+.req-badge.ok{background:var(--bg5);color:var(--text3)}
+.req-caret{font-size:10px;color:var(--text3);margin-left:4px;transition:transform .2s}
+.req-row.open .req-caret{transform:rotate(90deg);color:var(--cyan)}
+/* Expanded trace panel */
+.req-trace{display:none;padding:0 12px 14px;border-top:1px solid var(--border)}
+.req-row.open .req-trace{display:block}
+.req-trigger-box{background:var(--bg1);border-left:3px solid var(--cyan);padding:8px 10px;border-radius:4px;font-size:11px;color:var(--text);margin:10px 0;line-height:1.5;white-space:pre-wrap;word-break:break-word;max-height:90px;overflow-y:auto}
+.req-summary{display:flex;gap:14px;flex-wrap:wrap;font-size:10px;color:var(--text3);padding:6px 0 10px;border-bottom:1px solid var(--border);margin-bottom:12px}
+.req-summary strong{color:var(--text)}
+/* Trace hierarchy */
+.trace-tree{display:flex;flex-direction:column;gap:0}
+.trace-connector{display:flex;align-items:stretch;gap:0;margin-top:0}
+.trace-vline{width:2px;background:var(--border);margin-left:20px;margin-right:14px;flex-shrink:0;border-radius:1px}
+.trace-children{display:flex;flex-direction:column;gap:0;flex:1}
+/* Trace node card */
+.tnode{background:var(--bg3);border:1px solid var(--border);border-radius:6px;margin-bottom:8px;overflow:hidden;transition:border-color .15s}
+.tnode:hover{border-color:var(--blue)}
+.tnode.paid-node{border-left:3px solid var(--gold,#f0a500)}
+.tnode.free-node{border-left:3px solid var(--green)}
+.tnode.expanded{border-color:var(--cyan)}
+/* Node header row */
+.tnode-hdr{display:flex;align-items:center;gap:8px;padding:9px 12px;cursor:pointer;flex-wrap:wrap}
+.tnode-hdr:hover{background:var(--bg4,var(--bg5))}
+.tnode-agent{font-weight:700;font-size:13px;min-width:80px}
+.tnode-tier{font-size:8px;padding:2px 5px;border-radius:3px;font-weight:700;flex-shrink:0}
+.tnode-tier.paid{background:#f0a50022;color:var(--gold,#f0a500)}
+.tnode-tier.free{background:#0f03;color:var(--green)}
+.tnode-model{font-size:9px;padding:2px 6px;border-radius:3px;background:var(--bg5);color:var(--cyan);font-family:monospace;flex-shrink:0}
+.tnode-what{font-size:10px;color:var(--text3);flex:1}
+.tnode-lat{font-size:12px;color:var(--text);font-weight:600;min-width:44px;text-align:right;flex-shrink:0}
+.tnode-cost{font-size:10px;min-width:58px;text-align:right;flex-shrink:0}
+.tnode-expand{font-size:9px;color:var(--text3);transition:transform .2s;flex-shrink:0;padding:0 2px}
+.tnode.expanded .tnode-expand{transform:rotate(180deg);color:var(--cyan)}
+/* Gantt bar — always visible */
+.tnode-gantt{padding:0 12px 6px}
+.tnode-gantt-track{background:var(--bg1);height:8px;border-radius:4px;position:relative;overflow:hidden}
+.tnode-gantt-bar{position:absolute;height:100%;border-radius:4px;min-width:4px}
+.tnode-gantt-bar.paid-bar{background:var(--gold,#f0a500)}
+.tnode-gantt-bar.free-bar{background:var(--green)}
+/* Always-visible body: tokens + response snippet */
+.tnode-body{padding:0 12px 8px;display:flex;flex-direction:column;gap:5px}
+.tnode-tokens{font-size:10px;color:var(--text3);font-family:monospace}
+.tnode-tokens b{color:var(--text);font-weight:600}
+.tnode-resp-snippet{font-size:10px;color:var(--text2);background:var(--bg1);padding:5px 8px;border-radius:4px;line-height:1.45;max-height:52px;overflow:hidden;position:relative;white-space:pre-wrap;word-break:break-word}
+.tnode-resp-snippet::after{content:'';position:absolute;bottom:0;left:0;right:0;height:18px;background:linear-gradient(transparent,var(--bg1))}
+/* Expandable full detail */
+.tnode-full{display:none;padding:10px 12px 12px;border-top:1px solid var(--border);background:var(--bg1)}
+.tnode.expanded .tnode-full{display:block}
+.tnode-dlabel{font-size:9px;color:var(--text3);margin-bottom:3px;margin-top:8px;text-transform:uppercase;letter-spacing:.5px}
+.tnode-dlabel:first-child{margin-top:0}
+.tnode-pre{font-size:9px;color:var(--text2);background:var(--bg2);padding:6px 8px;border-radius:4px;white-space:pre-wrap;word-break:break-word;max-height:200px;overflow-y:auto;line-height:1.4;font-family:monospace}
 </style>
 </head>
 <body>
@@ -643,10 +708,7 @@ async function saveAgentModal(){
     const d=await r.json();
     if(d.ok){
       closeAgentModal();
-      const agents=await fetch('/api/agents').then(r=>r.json()).catch(()=>D.agents);
-      D.agents=agents;
-      renderAgents();
-      renderHierarchy();
+      await loadAll();
     } else {
       errEl.textContent=d.error||'Save failed';errEl.style.display='block';
     }
@@ -661,10 +723,7 @@ async function deleteAgent(){
     const d=await r.json();
     if(d.ok){
       closeAgentModal();
-      const agents=await fetch('/api/agents').then(r=>r.json()).catch(()=>D.agents);
-      D.agents=agents;
-      renderAgents();
-      renderHierarchy();
+      await loadAll();
     } else { alert(d.error||'Delete failed'); }
   }catch(e){alert(e.message);}
 }
@@ -1063,7 +1122,7 @@ if(window.__INIT_DATA__){
   loadAll();
 }
 // Full refresh every 30s
-setInterval(()=>{loadAll().catch(()=>{})},30000);
+setInterval(()=>{loadAll().catch(()=>{})},10000);
 // Fast live cost poll every 5s — only updates cost + feed elements
 async function refreshCostLive(){
   try{
@@ -1078,6 +1137,18 @@ async function refreshCostLive(){
 }
 setInterval(refreshCostLive,5000);
 
+// SSE: subscribe to real-time config change events
+(function initSSE(){
+  let es;
+  function connect(){
+    es = new EventSource('/api/events');
+    es.addEventListener('agents_changed', ()=>{ loadAll().catch(()=>{}); });
+    es.addEventListener('config_changed', ()=>{ loadAll().catch(()=>{}); });
+    es.onerror = ()=>{ es.close(); setTimeout(connect, 5000); };
+  }
+  connect();
+})();
+
 // ---- Pipeline ----
 const TRIGGER_LABELS={telegram:'💬 Telegram',cron:'⏱ Cron',direct:'🖥 Direct',other:'🔗 Request'};
 const CHANNEL_LABELS={DM:' DM','Group':' Group'};
@@ -1090,94 +1161,135 @@ function fmtMs(ms){
 }
 function fmtTok(n){if(!n)return '0';if(n>=1000)return (n/1000).toFixed(1)+'k';return String(n);}
 function fmtCost(c){if(c==null)return null;if(c===0)return '$0';return '$'+c.toFixed(c<0.01?6:4);}
-function plToggle(id){const el=document.getElementById(id);if(el)el.style.display=el.style.display==='none'?'block':'none';}
+
+// Toggle open/closed state of a tree node header
+function whatDoing(s){
+  if(s.triggerType==='telegram'||s.triggerType==='whatsapp') return 'Handling user message';
+  if(s.triggerType==='cron') return 'Running scheduled job';
+  if(s.triggerType==='subagent') return 'Delegated sub-task';
+  return 'Processing request';
+}
 
 function renderPipeline(pipelines){
   const feed=document.getElementById('pl-feed');
   const meta=document.getElementById('pl-meta');
   if(!feed)return;
-  if(!pipelines||!pipelines.length){feed.innerHTML='<div style="padding:40px;text-align:center;color:var(--text3)">No pipeline data yet — waiting for requests…</div>';return;}
+  if(!pipelines||!pipelines.length){
+    feed.innerHTML='<div style="padding:40px;text-align:center;color:var(--text3)">No requests yet — waiting for traffic…</div>';
+    return;
+  }
+
+  const today=new Date().toISOString().slice(0,10);
+  const todayPl=pipelines.filter(p=>p.triggeredAt&&p.triggeredAt.startsWith(today));
   const liveCount=pipelines.filter(p=>p.isLive).length;
-  const todayCount=pipelines.filter(p=>p.triggeredAt&&p.triggeredAt.startsWith(new Date().toISOString().slice(0,10))).length;
-  if(meta)meta.textContent=todayCount+' pipelines today · '+(liveCount?liveCount+' live ●':'all completed');
+  if(meta)meta.textContent=todayPl.length+' requests today · '+(liveCount?liveCount+' LIVE ●':'all completed');
 
-  feed.innerHTML=pipelines.map((p,pi)=>{
-    const tid='pl-detail-'+pi;
-    const dtStr=p.triggeredAt?new Date(p.triggeredAt).toLocaleString():'--';
-    const liveTag=p.isLive?'<span style="background:var(--green);color:#000;font-size:8px;font-weight:700;padding:1px 6px;border-radius:8px">LIVE</span>':'';
-    const sourceIcon=p.triggerType==='telegram'?'📱':p.triggerType==='cron'?'⏰':p.triggerType==='whatsapp'?'💬':'🖥';
-    const sourceLabel=p.triggerType==='telegram'?'Telegram DM':p.triggerType==='cron'?(p.cronJobName||'Cron job'):p.triggerType==='whatsapp'?'WhatsApp':'Direct';
+  feed.innerHTML='<div class="req-list">'+pipelines.map((p,pi)=>{
+    const rid=p.id||('REQ-'+pi);
+    const srcIcon=p.triggerType==='telegram'?'📱':p.triggerType==='cron'?'⏰':p.triggerType==='whatsapp'?'💬':'🖥';
+    const srcLabel=p.triggerType==='telegram'?'Telegram DM':p.triggerType==='cron'?(p.cronJobName||'Cron Job'):p.triggerType==='whatsapp'?'WhatsApp':'Direct';
+    const msgPreview=p.triggerMessage?p.triggerMessage.replace(/\n/g,' ').slice(0,60)+(p.triggerMessage.length>60?'…':''):'—';
+    const costStr=p.totalCost>0?`<span style="color:var(--gold,#f0a500)">${fmtCost(p.totalCost)}</span>`:'<span style="color:var(--green)">FREE</span>';
+    const latStr=p.totalLatencyMs?fmtMs(p.totalLatencyMs):'–';
+    const liveBadge=p.isLive?'<span class="req-badge live">LIVE</span>':'<span class="req-badge ok">done</span>';
+    const timeStr=p.triggeredAt?new Date(p.triggeredAt).toLocaleTimeString():'';
 
-    // Summary bar metrics
-    const totalSec=p.totalLatencyMs?fmtMs(p.totalLatencyMs):'–';
-    const hasPaid=p.paidCost>0;
-    const costTag=p.totalCost===0?'<span style="color:var(--green)">$0 FREE</span>':
-      `<span style="color:var(--gold,#f0a500)">${fmtCost(p.totalCost)}</span>`;
-    const paidTag=hasPaid?`<span style="font-size:9px;background:#f0a50022;color:var(--gold,#f0a500);padding:1px 5px;border-radius:4px">☁ ${fmtCost(p.paidCost)} paid</span>`:'';
-    const freeTag=p.freeCost===0&&!hasPaid?'<span style="font-size:9px;background:#0f03;color:var(--green);padding:1px 5px;border-radius:4px">🆓 Ollama</span>':'';
-    const tokTotal=(p.totalTokensIn||0)+(p.totalTokensOut||0);
+    const pipelineStartMs=p.triggeredAt?new Date(p.triggeredAt).getTime():0;
+    const totalDur=p.totalLatencyMs||Math.max(...(p.steps||[]).map(s=>s.latencyMs||0),1);
 
-    // Trigger message block
-    const triggerMsgHtml=p.triggerMessage?`<div style="background:var(--bg1);border-left:3px solid var(--cyan);padding:6px 10px;border-radius:4px;font-size:11px;color:var(--text);margin-bottom:10px;line-height:1.5;white-space:pre-wrap;word-break:break-word">${h(p.triggerMessage)}</div>`:'';
+    const rootSteps=(p.steps||[]).filter(s=>s.triggerType!=='subagent');
+    const subSteps=(p.steps||[]).filter(s=>s.triggerType==='subagent');
 
-    // Build step rows (vertical list)
-    const stepsHtml=p.steps.map((s,si)=>{
-      const isLocal=(s.provider||'').toLowerCase().startsWith('ollama');
-      const isPaid=!isLocal;
+    // Build a single trace node card. All key info always visible; click header to expand full prompt+response.
+    function buildNode(s,nodeKey){
+      const isPaid=s.tier==='paid';
       const modelShort=(s.model||'').replace('ollama/','').replace('openai-codex/','').replace(':latest','');
-      const agentEmoji=EMO[s.agent]||'🤖';
-      const tierBadge=isPaid?'<span style="font-size:8px;background:#f0a50022;color:var(--gold,#f0a500);padding:1px 4px;border-radius:3px">PAID</span>':'<span style="font-size:8px;background:#0f03;color:var(--green);padding:1px 4px;border-radius:3px">FREE</span>';
-      const latBadge=s.latencyMs!=null?`<span style="font-size:9px;color:var(--text3)">${fmtMs(s.latencyMs)}</span>`:'<span style="font-size:9px;color:var(--text3)">running…</span>';
-      const costBadge=s.costUsd!=null&&s.costUsd>0?`<span style="font-size:9px;color:var(--gold,#f0a500)">${fmtCost(s.costUsd)}</span>`:'';
-      const trigLabel=s.triggerType==='subagent'?'delegated':'trigger';
-      const connector=si>0?'<div style="width:2px;height:12px;background:var(--border);margin:0 18px"></div>':'';
+      const lat=s.latencyMs!=null?fmtMs(s.latencyMs):'…';
+      const costDisp=s.costUsd>0?fmtCost(s.costUsd):(s.tier==='free'?'<span style="color:var(--green)">$0</span>':'–');
+      // Gantt: offset = % of pipeline elapsed before this step starts, width = % of pipeline this step takes
+      const barOff=pipelineStartMs&&s.tsMs?Math.max(0,Math.min(88,Math.round((s.tsMs-pipelineStartMs)/totalDur*100))):0;
+      const barW=s.latencyMs?Math.max(2,Math.min(100-barOff,Math.round(s.latencyMs/totalDur*100))):4;
+      const hasDetail=!!(s.promptTail||s.responsePreview);
 
-      // Detail section (prompt tail + response preview)
-      const detailId='step-detail-'+pi+'-'+si;
-      const promptHtml=s.promptTail?`<div style="margin-top:8px"><div style="font-size:9px;color:var(--text3);margin-bottom:3px">▸ Prompt context (last 600 chars)</div><pre style="font-size:9px;color:var(--text2);background:var(--bg1);padding:6px 8px;border-radius:4px;overflow-x:auto;white-space:pre-wrap;word-break:break-word;max-height:120px;overflow-y:auto">${h(s.promptTail)}</pre></div>`:'';
-      const responseHtml=s.responsePreview?`<div style="margin-top:6px"><div style="font-size:9px;color:var(--text3);margin-bottom:3px">▸ Response preview</div><pre style="font-size:9px;color:var(--text2);background:var(--bg1);padding:6px 8px;border-radius:4px;overflow-x:auto;white-space:pre-wrap;word-break:break-word;max-height:120px;overflow-y:auto">${h(s.responsePreview)}</pre></div>`:'';
-      const tokenRow=`<div style="font-size:9px;color:var(--text3);margin-top:6px">Tokens in: ${fmtTok(s.tokensIn)} &nbsp;|&nbsp; out: ${fmtTok(s.tokensOut)} &nbsp;|&nbsp; cached: ${fmtTok(s.tokensCached)} &nbsp;|&nbsp; history msgs: ${s.historyCount||0}</div>`;
+      // Always-visible token row
+      const tokenLine=`↑ <b>${fmtTok(s.tokensIn)}</b> in &nbsp;·&nbsp; ↓ <b>${fmtTok(s.tokensOut)}</b> out &nbsp;·&nbsp; <b>${fmtTok(s.tokensCached)}</b> cached &nbsp;·&nbsp; <b>${s.historyCount||0}</b> ctx msgs`;
+      // Response snippet (always visible, 2-line preview)
+      const respSnippet=s.responsePreview?`<div class="tnode-resp-snippet">${h(s.responsePreview)}</div>`
+        :'<div style="font-size:10px;color:var(--text3);font-style:italic">No response captured yet</div>';
 
-      return`${connector}<div style="display:flex;gap:10px;align-items:flex-start">
-  <div style="display:flex;flex-direction:column;align-items:center;padding-top:2px">
-    <div style="width:28px;height:28px;border-radius:50%;background:${isPaid?'#f0a50033':'#00ff0022'};border:1px solid ${isPaid?'var(--gold,#f0a500)':'var(--green)'};display:flex;align-items:center;justify-content:center;font-size:14px">${agentEmoji}</div>
+      // Full detail (shown when node is expanded)
+      const tokenFull=`<div class="tnode-dlabel">Token breakdown</div><div style="font-size:10px;color:var(--text3);font-family:monospace;margin-bottom:4px">↑ ${fmtTok(s.tokensIn)} tokens in &nbsp;·&nbsp; ↓ ${fmtTok(s.tokensOut)} tokens out &nbsp;·&nbsp; ${fmtTok(s.tokensCached)} cached &nbsp;·&nbsp; ${s.historyCount||0} history context messages</div>`;
+      const promptFull=s.promptTail?`<div class="tnode-dlabel">Prompt context (last 600 chars)</div><pre class="tnode-pre">${h(s.promptTail)}</pre>`:'';
+      const respFull=s.responsePreview?`<div class="tnode-dlabel">Full response</div><pre class="tnode-pre">${h(s.responsePreview)}</pre>`:'';
+
+      return`<div class="tnode ${isPaid?'paid-node':'free-node'}" data-id="${nodeKey}">
+  <div class="tnode-hdr" onclick="event.stopPropagation();this.closest('.tnode').classList.toggle('expanded')">
+    <span style="font-size:16px">${EMO[s.agent]||'🤖'}</span>
+    <span class="tnode-agent">${h((s.agent||'').toUpperCase())}</span>
+    <span class="tnode-tier ${isPaid?'paid':'free'}">${isPaid?'PAID':'FREE'}</span>
+    <span class="tnode-model">${h(modelShort)}</span>
+    <span class="tnode-what">${whatDoing(s)}</span>
+    <span class="tnode-lat">${lat}</span>
+    <span class="tnode-cost">${costDisp}</span>
+    ${hasDetail?'<span class="tnode-expand">▼ detail</span>':''}
   </div>
-  <div style="flex:1;background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:8px 12px">
-    <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:4px">
-      <span style="font-weight:700;font-size:12px">${h(s.agent.toUpperCase())}</span>
-      ${tierBadge}
-      <span style="font-size:10px;color:var(--cyan);background:var(--bg5);padding:1px 5px;border-radius:3px">${h(modelShort)}</span>
-      <span style="font-size:9px;color:var(--text3)">${trigLabel}</span>
-      ${latBadge}
-      ${costBadge}
+  <div class="tnode-gantt">
+    <div class="tnode-gantt-track" title="Start +${barOff}% · Duration ${barW}% of total">
+      <div class="tnode-gantt-bar ${isPaid?'paid-bar':'free-bar'}" style="left:${barOff}%;width:${barW}%"></div>
     </div>
-    <div style="font-size:9px;color:var(--text3)">
-      ${new Date(s.ts).toLocaleTimeString()} &nbsp;·&nbsp; ${fmtTok(s.tokensIn)}↑ ${fmtTok(s.tokensOut)}↓ tokens
-      ${s.promptLen?` &nbsp;·&nbsp; prompt ${(s.promptLen/1000).toFixed(1)}k chars`:''}
+  </div>
+  <div class="tnode-body">
+    <div class="tnode-tokens">${tokenLine}</div>
+    ${respSnippet}
+  </div>
+  ${hasDetail?`<div class="tnode-full">${tokenFull}${promptFull}${respFull}</div>`:''}
+</div>`;
+    }
+
+    const rootHtml=rootSteps.map((s,i)=>buildNode(s,`${pi}-r${i}`)).join('');
+    const subHtml=subSteps.length
+      ? `<div class="trace-connector">
+  <div class="trace-vline"></div>
+  <div class="trace-children">${subSteps.map((s,i)=>buildNode(s,`${pi}-s${i}`)).join('')}</div>
+</div>`
+      : '';
+
+    const triggerBox=p.triggerMessage?`<div class="req-trigger-box">${h(p.triggerMessage)}</div>`:'';
+    const totalTok=(p.totalTokensIn||0)+(p.totalTokensOut||0);
+    const summaryRow=`<div class="req-summary">
+  <span>⏱ Total: <strong>${latStr}</strong></span>
+  <span>🤖 <strong>${p.agentCount}</strong> agent${p.agentCount!==1?'s':''}</span>
+  <span>🪙 <strong>${fmtTok(totalTok)}</strong> tokens</span>
+  ${p.paidCost>0?`<span>☁ <strong style="color:var(--gold,#f0a500)">${fmtCost(p.paidCost)}</strong> paid</span>`:''}
+  ${p.totalCost===0?`<span style="color:var(--green)">🆓 free run</span>`:''}
+  ${p.paidModels?.length?`<span style="color:var(--gold,#f0a500)">Paid: ${p.paidModels.map(m=>m.split('/').pop()).join(', ')}</span>`:''}
+  ${p.freeModels?.length?`<span style="color:var(--green)">Free: ${p.freeModels.map(m=>m.split('/').pop()).join(', ')}</span>`:''}
+</div>`;
+
+    // KEY FIX: onclick is ONLY on .req-row-hdr — not on the whole .req-row card.
+    // Clicks inside .req-trace do NOT propagate to toggle the row.
+    return`<div class="req-row" data-id="${h(rid)}">
+  <div class="req-row-hdr" onclick="this.closest('.req-row').classList.toggle('open')">
+    <span class="req-id">${h(rid)}</span>
+    <span class="req-src">${srcIcon} ${h(srcLabel)}</span>
+    <span class="req-msg" title="${h(p.triggerMessage||'')}">${h(msgPreview)}</span>
+    <span class="req-agents">${p.agentCount} agent${p.agentCount!==1?'s':''}</span>
+    <span class="req-lat">${latStr}</span>
+    <span class="req-cost">${costStr}</span>
+    ${liveBadge}
+    <span class="req-caret">▶</span>
+  </div>
+  <div class="req-trace">
+    <div style="font-size:10px;color:var(--text3);margin-top:10px;margin-bottom:4px">${srcIcon} ${h(srcLabel)} &nbsp;·&nbsp; ${timeStr}</div>
+    ${triggerBox}
+    ${summaryRow}
+    <div class="trace-tree">
+      ${rootHtml}
+      ${subHtml}
     </div>
-    ${(promptHtml||responseHtml)?`<div style="margin-top:6px"><button onclick="plToggle('${detailId}')" style="font-size:9px;padding:2px 6px;border:1px solid var(--border);border-radius:3px;background:var(--bg4);color:var(--text3);cursor:pointer">expand ▾</button><div id="${detailId}" style="display:none">${tokenRow}${promptHtml}${responseHtml}</div></div>`:''}
   </div>
 </div>`;
-    }).join('');
-
-    return`<div class="pl-card${p.isLive?' live':''}" style="margin-bottom:16px">
-  <div class="pl-hdr" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px">
-    <span style="font-size:16px">${sourceIcon}</span>
-    <span style="font-weight:700;font-size:12px">${h(sourceLabel)}</span>
-    ${liveTag}
-    <span style="color:var(--text3);font-size:10px">${dtStr}</span>
-    <div style="margin-left:auto;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
-      <span style="font-size:10px">⏱ ${totalSec}</span>
-      <span style="font-size:10px">🤖 ${p.agentCount} agent${p.agentCount!==1?'s':''}</span>
-      <span style="font-size:10px">🪙 ${fmtTok(tokTotal)} tokens</span>
-      <span style="font-size:10px">${costTag}</span>
-      ${paidTag}${freeTag}
-    </div>
-  </div>
-  ${triggerMsgHtml}
-  <div style="padding:4px 0">${stepsHtml}</div>
-</div>`;
-  }).join('');
+  }).join('')+'</div>';
 }
 
 function updatePipelineStats(pipelines){
@@ -1205,13 +1317,24 @@ async function loadPipeline(){
   try{
     const data=await fetch('/api/pipeline').then(r=>r.json()).catch(()=>null);
     if(data){
+      // Preserve which rows/nodes are currently open before re-render
+      const feed=document.getElementById('pl-feed');
+      const openRows=new Set([...feed.querySelectorAll('.req-row.open')].map(el=>el.dataset.id));
+      const openNodes=new Set([...feed.querySelectorAll('.tnode.expanded')].map(el=>el.dataset.id));
       renderPipeline(data);
       updatePipelineStats(data);
+      // Restore open states after re-render
+      for(const el of feed.querySelectorAll('.req-row')){
+        if(openRows.has(el.dataset.id)) el.classList.add('open');
+      }
+      for(const el of feed.querySelectorAll('.tnode')){
+        if(openNodes.has(el.dataset.id)) el.classList.add('expanded');
+      }
     }
   }catch(e){}
 }
 loadPipeline();
-setInterval(loadPipeline,3000);
+setInterval(loadPipeline,15000);
 
 // ── STANDUP ──────────────────────────────────────────
 const AGENT_META={
