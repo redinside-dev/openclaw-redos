@@ -9,7 +9,7 @@ if [ -z "$GDRIVE" ]; then
   exit 1
 fi
 
-GDRIVE_BACKUP="$GDRIVE/MyDrive/OpenClaw/backups"
+GDRIVE_BACKUP="$GDRIVE/My Drive/OpenClaw/backups"
 
 # Create backup directory if it doesn't exist
 mkdir -p "$GDRIVE_BACKUP"
@@ -27,8 +27,17 @@ mkdir -p "$TEMP_DIR"
 # Backup critical files
 echo "📦 Backing up files..."
 
-# Configuration
+# Configuration (has all API keys, bot tokens — most critical file)
 [ -f ~/.openclaw/openclaw.json ] && cp ~/.openclaw/openclaw.json "$TEMP_DIR/" 2>/dev/null
+
+# Device identity — Ed25519 keypair (cannot be regenerated if lost)
+[ -d ~/.openclaw/identity ] && cp -r ~/.openclaw/identity "$TEMP_DIR/" 2>/dev/null
+
+# Device registry — paired device tokens
+[ -f ~/.openclaw/devices/paired.json ] && mkdir -p "$TEMP_DIR/devices" && cp ~/.openclaw/devices/paired.json "$TEMP_DIR/devices/" 2>/dev/null
+
+# Exec approvals socket token
+[ -f ~/.openclaw/exec-approvals.json ] && cp ~/.openclaw/exec-approvals.json "$TEMP_DIR/" 2>/dev/null
 
 # Agents data
 [ -d ~/.openclaw/agents ] && cp -r ~/.openclaw/agents "$TEMP_DIR/" 2>/dev/null

@@ -118,7 +118,7 @@ Port 19000 — basic auth `red` / `redos2026`. Not in launchd; must start manual
 
 ## Authentication (Must Stay in Sync)
 
-Three files must all carry the same `OPENCLAW_GATEWAY_TOKEN` value (`"redinside-local-token-2024"`), or gateway auth fails:
+Three files must all carry the same `OPENCLAW_GATEWAY_TOKEN` value (check `~/.zshrc` for the actual value — never commit it), or gateway auth fails:
 1. `openclaw.json` → `gateway.auth.token`
 2. `~/Library/LaunchAgents/ai.openclaw.gateway.plist` → `OPENCLAW_GATEWAY_TOKEN`
 3. `~/.zshrc` → `export OPENCLAW_GATEWAY_TOKEN=...`
