@@ -4,13 +4,13 @@
 
 ---
 
-## Current State (as of 2026-02-17)
+## Current State (as of 2026-02-18)
 
 | Component | Status |
 |-----------|--------|
 | OpenClaw CLI | v2026.2.15 |
 | Native gateway | Running — launchd `ai.openclaw.gateway`, port 18789 |
-| Dashboard | Port 19000, basic auth (red / redos2026) — started manually via `node dashboard/server.js` |
+| Dashboard | Port 19000, basic auth (red / redos2026) — started manually via `node dashboard/server.js`; SSE real-time sync active |
 | Dashboard tunnel | Cloudflare quick tunnel — URL in `workspace/DASHBOARD_URL.txt` |
 | Telegram | 7/7 accounts OK |
 | WhatsApp | Linked +16476092313, DM isolation `per-channel-peer` |
@@ -75,7 +75,7 @@ All tabs and what they show:
 |-----|-------------|
 | Overview | System health, agent cards, recent activity |
 | Agents | Hierarchy tree (org chart) + agent cards; Edit / Add / Sub-agent management |
-| **Pipeline** | **Full traceability** — trigger message, delegation chain, per-step model/cost/latency/tokens, prompt context + response preview; stats bar; 3s poll |
+| **Pipeline** | **DynaTrace-style per-request drill-down** — collapsed request list (REQ-ID, source, msg preview, latency, cost); click row to expand full trace tree; each node always shows model, tier, latency bar, token counts, response snippet; click node to expand full prompt context + response; 15s poll with open-state preserved |
 | **Standup** | **Live agent status cards** (last seen, model, calls today) + standup history; 30s poll |
 | Cron Jobs | All cron jobs with status, last run, model dropdown (change model on demand) |
 | Tickets & SLA | Live ticket tracker, SLA countdown/breach detection, 30s poll |
@@ -110,6 +110,7 @@ All tabs and what they show:
 | `GET /api/tickets` | Live ticket list (30s poll) |
 | `GET /api/standups` | Parsed standup history (last 10 entries) |
 | `GET /api/agent-status` | Per-agent live status + last seen from routing log |
+| `GET /api/events` | SSE stream — `agents_changed` + `config_changed` events for real-time UI sync |
 
 ### Standup system
 - **9:05am ET** — 6 check-in crons (RED, ENG, RESEARCH, FINANCE, OPS, INFOSEC) each write `workspace/ops/agent-status/<id>.json` with: sprintGoal, workingOn, completedYesterday, ETA, blockers
@@ -127,18 +128,19 @@ All tabs and what they show:
 
 | Priority | Description |
 |----------|-------------|
-| P1 | TICKET-20260216-005 — Health monitoring gap ~33h, SLA deadline 2026-02-17T05:11:00Z |
 | P3 | TICKET-20260216-002 — undici AbortErrors during Telegram polling, awaiting ENG fix |
 | Low | Cloudflare quick tunnel URL changes on restart — consider named tunnel |
 | Low | Codex 3rd account (`anurawg.saxena@gmail.com`) needs OAuth tokens |
 | Low | Dashboard process not in launchd — must be started manually after reboot |
+| Low | Verify Slack socket-mode channel replies live (CLI deliver confirmed, real socket-mode not yet confirmed) |
 
 ---
 
 ## Branch Strategy
 
-- **`main`** — stable, all work merged here incrementally (current HEAD: `103a5ca`)
+- **`main`** — stable, all work merged here incrementally
 - **`feature/cost-routing-fixes`** — original feature branch (preserved, all work now in main)
+- **`feature/dashboard-realtime-sync`** — dashboard SSE + real-time fixes (pending merge to main)
 
 ---
 
@@ -160,4 +162,13 @@ The RED Self-Improvement cron has been observed autonomously modifying `openclaw
 
 ---
 
-*Last updated: 2026-02-17 — Standup tab (live agent cards + history), standup check-in crons, pipeline full traceability (trigger message, prompt/response preview, per-step cost/latency/tokens, stats bar), LLM analytics plugin enhanced (prompt_tail + response_preview)*
+---
+
+## 2026-02-18 Session Changes
+
+- **Slack channel auto-reply fixed**: `buildGroupIntro` lurk mode root-caused. Per-channel `systemPrompt` overrides added to `openclaw.json → channels.slack.channels`. Wildcard `"*"` + 4 channel-specific entries. SOUL.md updated with Slack response mandate, synced to all 12 agent sandboxes.
+- **Dashboard real-time sync**: SSE endpoint (`GET /api/events`) added to `dashboard/server.js` with `fs.watch` on `openclaw.json`. `saveAgentModal`/`deleteAgent` now call `loadAll()`. Polling 30s→10s. Dead WebSocket to port 18789 disabled.
+- **CLAUDE.md created**: `/Users/redinside/.openclaw/CLAUDE.md` — Claude Code guidance for this repo.
+- **Feature branch**: `feature/dashboard-realtime-sync` (dashboard changes).
+
+*Last updated: 2026-02-18 — Slack channel auto-reply fix, dashboard SSE real-time sync, CLAUDE.md*

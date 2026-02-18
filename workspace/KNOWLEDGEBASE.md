@@ -131,6 +131,53 @@ Do NOT push OpenClaw workspace/config/docs to GitHub/shared repos until Anurag e
 
 ---
 
+## Slack Scrum System
+
+### Channel Map
+
+| Channel | ID | Purpose |
+|---------|----|---------|
+| `#redos-scrum` | `C0AEV3J2L23` | Daily standup — each agent posts at 9:05am ET; OPS summary at 9:15am |
+| `#redos-mission-control` | `C0AEV3MDEDD` | OPS health alerts (every 30min, only on DEGRADED/CRITICAL or every 3rd run) |
+| `#all-redos` | `C0AG4AY6VME` | CEO daily summary at 6pm ET — **bot must be invited manually** |
+| `#openclaw-optimization` | `C0AF4KB4TUK` | ENG/INFOSEC technical optimization discussions |
+
+### How the scrum works
+
+**9:05am ET (weekdays)** — 6 per-agent check-in crons each:
+1. Read context (tickets, learnings, logs)
+2. Write status to `workspace/ops/agent-status/<id>.json`
+3. Post to `#redos-scrum` via Slack skill:
+   ```
+   👑 RED (CEO) — Daily Standup
+   📅 Date | 🎯 Sprint Goal | ✅ Completed Yesterday | 🔨 Working On | ⏱️ ETA | 🚧 Blockers
+   ```
+
+**9:15am ET** — OPS Scrum Master reads all JSON files, posts compiled summary to `#redos-scrum`:
+```
+⚙️ Daily Scrum Summary — <date>
+Agents checked in: N/8
+Per-agent status + Sprint Goals + Open Tickets + Action Items
+```
+
+**6pm ET** — RED CEO Daily Summary also posts to `#all-redos` (after Telegram delivery)
+
+**Every 30min** — OPS Health Monitor posts to `#redos-mission-control` (only if DEGRADED/CRITICAL or every 3rd run)
+
+### Slack config (channels.slack)
+- `groupPolicy: "allowlist"` — bot only responds in channels it's been invited to (Slack-level restriction)
+- `dmPolicy: "pairing"` — DMs require pairing
+- Note: `groupAllowFrom` is NOT a valid Slack key in OpenClaw schema (unlike Telegram). Channel access is managed at Slack app level.
+- Bot identity in workspace: `demo_app` / `B0AFDTD3U92` / team: `RedOS`
+
+### Adding bot to a new channel
+The bot cannot self-join channels (missing `channels:join` scope). You must invite it from Slack:
+```
+/invite @demo_app
+```
+
+---
+
 ## Mission Control Dashboard (port 19000)
 
 ### Architecture
@@ -158,7 +205,7 @@ curl -s -u red:redos2026 http://localhost:19000/api/analytics | head -c 200
 |-----|-------------|-------|
 | Overview | System health, agent cards | Static + agent count |
 | Agents | `openclaw.json` + `workspace/ops/agent-hierarchy.json` | CRUD + org chart |
-| **Pipeline** | `routing-decisions.jsonl` + `llm-analytics.jsonl` | Joined, 3s poll |
+| **Pipeline** | `routing-decisions.jsonl` + `llm-analytics.jsonl` | Joined, 15s poll, open-state preserved |
 | Cron Jobs | `cron/jobs.json` | Model editable inline |
 | Tickets & SLA | `workspace/ops/TICKET-TRACKER.md` | 30s poll, breach detection |
 | Learnings | `workspace/ops/LEARNINGS.md` | — |
@@ -280,6 +327,15 @@ Previous design used `sessions_send` to contact agents at 9am — agents are idl
 - `llm_input` hook now also writes `prompt_tail` (last 600 chars of event.prompt) and `run_id`
 - `llm_output` hook now also writes `response_preview`, `run_id`, `session_key`, `response_chars`
 - After any upgrade to the plugin, restart the gateway: `openclaw gateway restart`
+
+### Pipeline UI (dashboard/index.html)
+DynaTrace-style per-request drill-down (as of 2026-02-17):
+- **Collapsed list**: one row per request — REQ-YYYYMMDD-NNN, source icon, message preview, agent count, total latency, cost, LIVE/done badge
+- **Click row header** → expands trace tree (source info, trigger message box, summary stats)
+- **Each trace node** always shows: agent emoji + name, tier badge (PAID/FREE), model, what-doing label, Gantt latency bar (proportional, offset from pipeline start), response time, cost, token counts, response snippet (2-line preview)
+- **Click node header** → expands full detail: token breakdown, prompt context (last 600 chars), full response (first 600 chars)
+- **Sub-agent steps** nested under root steps with vertical connector line
+- **Poll**: 15s, open row/node state preserved across re-renders (data-id attributes)
 
 ---
 
