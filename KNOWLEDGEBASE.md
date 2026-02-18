@@ -373,10 +373,10 @@ Cost Monitor records → response                Assemble → validate (OPS gate
 |---|---|---|
 | **openai-codex** | gpt-5.2 | OAuth (profile: `openai-codex:default`) |
 | **moonshot** | kimi-k1.5, kimi-k2.5 | Token (profile: `moonshot:manual`) |
-| **zai** | glm-4.7, glm-4.7-flashx | `ZAI_API_KEY` in env (`8ae7e33ef1464...`) |
+| **zai** | glm-4.7, glm-4.7-flashx | `ZAI_API_KEY` in env (see `openclaw.json → env.vars`) |
 | **google** | gemini-1.5-flash | Token (profile: `google:manual`) |
 | **xai** | — | `XAI_API_KEY` in env (placeholder) |
-| **perplexity** | sonar-pro | `pplx-QOjmJ7Nj...` (web search) |
+| **perplexity** | sonar-pro | API key in `openclaw.json → tools.web.search.apiKey` (web search) |
 
 ---
 
@@ -402,19 +402,19 @@ Key sections:
   gateway.mode                  "local"
   gateway.bind                  "loopback"
   gateway.auth.mode             "token"
-  gateway.auth.token            "redinside-local-token-2024"  ← CRITICAL
+  gateway.auth.token            <your-gateway-token>  ← CRITICAL (see ~/.zshrc $OPENCLAW_GATEWAY_TOKEN)
 ```
 
 ### 7b. `~/Library/LaunchAgents/ai.openclaw.gateway.plist` — Service Definition
 
 ```xml
 Key env vars the gateway process receives:
-  OPENCLAW_GATEWAY_TOKEN    "redinside-local-token-2024"   ← must match openclaw.json
-  OPENCLAW_SERVICE_VERSION  "2026.2.14"
+  OPENCLAW_GATEWAY_TOKEN    <your-gateway-token>   ← must match openclaw.json
+  OPENCLAW_SERVICE_VERSION  "2026.2.15"
   OPENCLAW_GATEWAY_PORT     "18789"
   HOME                      "/Users/redinside"
   PATH                      "/opt/homebrew/bin:..."
-  ZAI_API_KEY               "8ae7e33ef1464..."
+  ZAI_API_KEY               <zai-api-key>  (from openclaw.json → env.vars.ZAI_API_KEY)
   OLLAMA_API_KEY            "ollama-local"
 ```
 
@@ -423,23 +423,26 @@ Key env vars the gateway process receives:
 ```json
 {
   "version": 1,
-  "deviceId": "78771e433c212e61d9ed3546f673a4f44f8a2339436d181d10cd0017379e0770",
+  "deviceId": "<sha256-of-public-key-hex>",
   "tokens": {
     "operator": {
-      "token": "b_6QMNoJBOGQ4sGKOTJancO2ozC_HeyeyHtgmJJB3L4",
+      "token": "<device-operator-token>",
       "role": "operator",
       "scopes": ["operator.admin", "operator.approvals", "operator.pairing"],
-      "updatedAtMs": 1771180049783
+      "updatedAtMs": <timestamp>
     }
   }
 }
 ```
+> **This file is gitignored.** Never commit real token values. The actual file lives at `~/.openclaw/identity/device-auth.json` and is backed up to Google Drive.
 
 ### 7d. `~/.openclaw/devices/paired.json` — Gateway-Side Device Registry
 
 Two paired devices:
-1. **CLI device** (`78771e43...`) — `token: b_6QMNoJBO...` · role: operator · platform: darwin
-2. **Control UI** (`c1be9e35...`) — `token: bbd4c6a9...` · role: operator · platform: MacIntel · clientMode: webchat
+1. **CLI device** — role: operator, platform: darwin
+2. **Control UI** — role: operator, platform: MacIntel, clientMode: webchat
+
+> **This file is gitignored.** Token values are sensitive. Run `openclaw devices list` to inspect live state.
 
 ### 7e. `~/.openclaw/identity/device.json` — Ed25519 Keypair
 
@@ -452,9 +455,9 @@ Contains `deviceId`, `publicKeyPem`, `privateKeyPem`. The device ID is derived a
 ### How the Gateway Token Works
 
 ```
-Shell env:          OPENCLAW_GATEWAY_TOKEN = "redinside-local-token-2024"
-openclaw.json:      gateway.auth.token     = "redinside-local-token-2024"  (config override)
-launchd plist:      OPENCLAW_GATEWAY_TOKEN = "redinside-local-token-2024"  (gateway process env)
+Shell env:          OPENCLAW_GATEWAY_TOKEN = <your-gateway-token>
+openclaw.json:      gateway.auth.token     = <your-gateway-token>  (config override)
+launchd plist:      OPENCLAW_GATEWAY_TOKEN = <your-gateway-token>  (gateway process env)
 
 Resolution order:
   Gateway process: authConfig.token ?? process.env.OPENCLAW_GATEWAY_TOKEN
@@ -659,16 +662,16 @@ If you ever change the gateway token:
 1. User runs: openclaw tui
 
 2. tui-DMcWwYZ_.js resolveGatewayConnection():
-   → token = process.env.OPENCLAW_GATEWAY_TOKEN = "redinside-local-token-2024"
-     OR config.gateway.auth.token = "redinside-local-token-2024"
+   → token = process.env.OPENCLAW_GATEWAY_TOKEN  (from ~/.zshrc)
+     OR config.gateway.auth.token  (from openclaw.json — gitignored)
 
 3. GatewayClient sends connect:
-   → auth.token = "redinside-local-token-2024"
+   → auth.token = <gateway-token>
    → device = { id, publicKey, signature(v2+nonce), signedAt, nonce }
    → role = "operator", scopes = ["operator.admin"]
 
 4. Gateway authorizeGatewayConnect():
-   → safeEqualSecret("redinside-local-token-2024", "redinside-local-token-2024") → TRUE
+   → safeEqualSecret(clientToken, gatewayToken) → TRUE
    → authOk = true → SKIP device token check
 
 5. Connected. TUI session active.
@@ -784,15 +787,15 @@ unreachable (connect failed: unauthorized: device token mismatch (rotate/reissue
 ```
 
 **Root Cause:** Three different token values were in play:
-- Shell env (`~/.zshrc`): `OPENCLAW_GATEWAY_TOKEN=redinside-local-token-2024`
-- launchd plist: `OPENCLAW_GATEWAY_TOKEN=1a43d7bd555540a847330ce7a7fb7c6882c9ee38e5d01782`
+- Shell env (`~/.zshrc`): `OPENCLAW_GATEWAY_TOKEN=<token-A>`
+- launchd plist: `OPENCLAW_GATEWAY_TOKEN=<token-B>` (different value)
 - `openclaw.json`: `gateway.auth.token` had been removed (undefined)
 
-The client sent `redinside-local-token-2024` (from shell). The gateway expected `1a43d7bd...` (from plist). Shared-secret auth failed, then device token check also failed because the client sent the gateway token string (not the device token), which didn't match the paired device token either.
+The client sent token-A (from shell). The gateway expected token-B (from plist). Shared-secret auth failed, then device token check also failed.
 
 **Fix:**
-1. Updated plist `OPENCLAW_GATEWAY_TOKEN` → `redinside-local-token-2024`
-2. Restored `openclaw.json` `gateway.auth.token` → `redinside-local-token-2024`
+1. Updated plist `OPENCLAW_GATEWAY_TOKEN` → same value as shell env
+2. Restored `openclaw.json` `gateway.auth.token` → same value
 3. Updated `OPENCLAW_SERVICE_VERSION` in plist from `2026.2.12` → `2026.2.14`
 4. Restarted gateway
 

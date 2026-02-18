@@ -88,7 +88,10 @@ learning-state.json
 # Runtime state data
 cost-monitor/state.json
 devices/paired.json
+devices/pending.json
+devices/*.tmp
 identity/device-auth.json
+identity/device.json
 
 # Agent auth/model runtime configs
 **/agent/auth-profiles.json
