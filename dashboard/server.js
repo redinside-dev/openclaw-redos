@@ -538,6 +538,53 @@ function getCeoStatus() {
   };
 }
 
+function getA2ADelegations() {
+  const filePath = path.join(OPENCLAW_DIR, 'workspace', 'logs', 'a2a-delegations.jsonl');
+  const lines = readJsonlTail(filePath, 500);
+
+  const today = new Date().toISOString().slice(0, 10);
+  const MATCH_WINDOW_MS = 15 * 60 * 1000; // 15 min pairing window
+
+  // Separate dispatches and results
+  const dispatches = lines.filter(l => l.type === 'dispatch');
+  const results = lines.filter(l => l.type === 'result');
+
+  // Pair dispatch+result by spawner+subagent+task (within 15 min window)
+  const paired = dispatches.map(d => {
+    const dMs = new Date(d.ts).getTime();
+    const match = results.find(r =>
+      r.spawner === d.spawner &&
+      r.subagent === d.subagent &&
+      r.task === d.task &&
+      Math.abs(new Date(r.ts).getTime() - dMs) < MATCH_WINDOW_MS
+    );
+    return {
+      ts: d.ts,
+      spawner: d.spawner,
+      subagent: d.subagent,
+      task: d.task,
+      resultTs: match?.ts || null,
+      resultPreview: match?.result_preview || null,
+      durationMs: match ? (new Date(match.ts).getTime() - dMs) : null,
+      completed: !!match,
+    };
+  }).sort((a, b) => new Date(b.ts) - new Date(a.ts));
+
+  // Stats for today
+  const todayDispatches = dispatches.filter(d => d.ts && d.ts.startsWith(today));
+  const bySpawner = {};
+  const bySubagent = {};
+  for (const d of todayDispatches) {
+    bySpawner[d.spawner] = (bySpawner[d.spawner] || 0) + 1;
+    bySubagent[d.subagent] = (bySubagent[d.subagent] || 0) + 1;
+  }
+
+  return {
+    today: { total: todayDispatches.length, bySpawner, bySubagent },
+    delegations: paired.slice(0, 50),
+  };
+}
+
 function getSystemSummary() {
   const agents = getAgents();
   const cronJobs = getCronJobs();
@@ -1204,6 +1251,13 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // --- A2A Delegation Log ---
+  if (url.pathname === '/api/a2a') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify(getA2ADelegations()));
+    return;
+  }
+
   // --- Proxy to native OpenClaw Control UI ---
   if (url.pathname === '/api/control-ui-url') {
     res.writeHead(200, { 'Content-Type': 'application/json' });
@@ -1224,6 +1278,7 @@ const server = http.createServer((req, res) => {
       _skillDetails: getSkillDetails(),
       _gatewayLogs: getGatewayLogTail(50),
       _ceoStatus: getCeoStatus(),
+      _a2a: getA2ADelegations(),
       _controlUiUrl: 'http://127.0.0.1:18789/',
     };
     const htmlTemplate = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf-8');

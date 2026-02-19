@@ -243,6 +243,7 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   <button class="tab on" data-p="overview">Overview</button>
   <button class="tab" data-p="agents">Agents</button>
   <button class="tab" data-p="pipeline">Pipeline</button>
+  <button class="tab" data-p="team">Team</button>
   <button class="tab" data-p="standup">Standup</button>
   <button class="tab" data-p="cron">Cron Jobs</button>
   <button class="tab" data-p="tickets">Tickets &amp; SLA</button>
@@ -360,6 +361,28 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
     <div>🆓 Free calls: <strong id="pl-stat-free">–</strong></div>
   </div>
   <div id="pl-feed"></div>
+</div>
+
+<!-- TEAM -->
+<div class="pg" id="pg-team">
+  <div class="sec-t" style="display:flex;align-items:center;gap:8px">
+    Company Status
+    <span id="tm-count" style="font-size:10px;color:var(--text3);margin-left:4px"></span>
+    <button onclick="loadTeam()" style="margin-left:auto;background:none;border:1px solid var(--border);color:var(--text2);font-size:10px;padding:2px 8px;border-radius:4px;cursor:pointer">&#x21bb; Refresh</button>
+  </div>
+
+  <!-- Active Agents -->
+  <div class="sec-t" style="font-size:12px;margin-top:0;padding-top:0">Active Agents</div>
+  <div id="tm-agents" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin-bottom:20px"></div>
+
+  <!-- Recent Delegations -->
+  <div class="sec-t" style="font-size:12px;margin-top:10px;padding-top:0">Recent A2A Delegations <span id="tm-today" style="color:var(--text3);font-weight:400;font-size:11px"></span></div>
+  <div class="c" style="overflow-x:auto">
+    <table class="t" id="tm-deleg">
+      <thead><tr><th>Time</th><th>From</th><th>To</th><th>Task</th><th>Duration</th><th>Status</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
 </div>
 
 <!-- STANDUP -->
@@ -1448,6 +1471,86 @@ async function loadStandup(){
 }
 loadStandup();
 setInterval(loadStandup,30000);
+
+// --- TEAM TAB ---
+function relTime(iso){const s=Math.round((Date.now()-new Date(iso).getTime())/1000);if(s<60)return s+'s ago';if(s<3600)return Math.round(s/60)+'m ago';return Math.round(s/3600)+'h ago';}
+const AGENT_META = {
+  main:       { emoji:'👑', name:'RED (CEO)',            alwaysOn:true  },
+  allrounder: { emoji:'🌐', name:'ZEN (CSO)',            alwaysOn:true  },
+  ops:        { emoji:'⚙️', name:'OPS (Scrum Master)',   alwaysOn:true  },
+  hatake:     { emoji:'🥷', name:'HATAKE (Parser)',       alwaysOn:true  },
+  eng:        { emoji:'💻', name:'ENG (Engineering)',    alwaysOn:false },
+  research:   { emoji:'🔬', name:'RESEARCH (Analyst)',   alwaysOn:false },
+  finance:    { emoji:'💰', name:'FINANCE (Finance)',    alwaysOn:false },
+  infosec:    { emoji:'🔒', name:'INFOSEC (Security)',   alwaysOn:false },
+};
+
+function renderTeamAgents(statusData) {
+  const el = document.getElementById('tm-agents');
+  if (!el) return;
+  const today = new Date().toISOString().slice(0,10);
+  el.innerHTML = statusData.map(s => {
+    const meta = AGENT_META[s.agent] || { emoji:'🤖', name:s.agent, alwaysOn:false };
+    const stale = !s.date || s.date !== today;
+    const statusColor = stale ? 'var(--text3)' : 'var(--green)';
+    const badge = meta.alwaysOn ? '<span style="font-size:9px;background:var(--blue);color:#fff;padding:1px 5px;border-radius:8px;margin-left:4px">always-on</span>' : '';
+    return `<div class="c" style="padding:12px">
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px">
+        <span style="font-size:16px">${meta.emoji}</span>
+        <strong style="font-size:12px">${meta.name}</strong>${badge}
+        <span style="margin-left:auto;width:8px;height:8px;border-radius:50%;background:${statusColor};display:inline-block"></span>
+      </div>
+      <div style="font-size:11px;color:var(--text2);margin-bottom:3px">
+        ${stale ? '<span style="color:var(--text3)">No check-in today</span>' : escHtml(s.workingOn || '—')}
+      </div>
+      ${s.blockers && s.blockers !== 'None' ? `<div style="font-size:10px;color:var(--red);margin-top:2px">🚧 ${escHtml(s.blockers)}</div>` : ''}
+      ${s.lastSeenAt ? `<div style="font-size:10px;color:var(--text3);margin-top:4px">Last active: ${relTime(s.lastSeenAt)} · ${s.callsToday||0} calls today</div>` : ''}
+    </div>`;
+  }).join('');
+}
+
+function renderTeamDelegations(a2aData) {
+  const tbody = document.querySelector('#tm-deleg tbody');
+  if (!tbody) return;
+  const today = document.getElementById('tm-today');
+  if (today && a2aData.today) {
+    today.textContent = `${a2aData.today.total} delegations today`;
+  }
+  const deleg = a2aData.delegations || [];
+  if (!deleg.length) {
+    tbody.innerHTML = '<tr><td colspan="6" style="color:var(--text3);text-align:center">No delegations recorded yet. Agents write to workspace/logs/a2a-delegations.jsonl when using sessions_spawn.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = deleg.map(d => {
+    const spawnerMeta = AGENT_META[d.spawner] || { emoji:'🤖' };
+    const subMeta = AGENT_META[d.subagent] || { emoji:'🤖' };
+    const dur = d.durationMs ? (d.durationMs < 60000 ? `${Math.round(d.durationMs/1000)}s` : `${Math.round(d.durationMs/60000)}m${Math.round((d.durationMs%60000)/1000)}s`) : '—';
+    const status = d.completed ? '<span style="color:var(--green)">✅ done</span>' : '<span style="color:var(--text3)">⏳ pending</span>';
+    return `<tr>
+      <td style="white-space:nowrap;color:var(--text3)">${new Date(d.ts).toLocaleTimeString()}</td>
+      <td>${spawnerMeta.emoji} ${d.spawner}</td>
+      <td>${subMeta.emoji} ${d.subagent}</td>
+      <td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${escHtml(d.task||'')}</td>
+      <td style="white-space:nowrap">${dur}</td>
+      <td>${status}</td>
+    </tr>`;
+  }).join('');
+}
+
+async function loadTeam() {
+  try {
+    const count = document.getElementById('tm-count');
+    const [statusData, a2aData] = await Promise.all([
+      fetch('/api/agent-status').then(r=>r.json()).catch(()=>[]),
+      fetch('/api/a2a').then(r=>r.json()).catch(()=>({ today:{total:0}, delegations:[] })),
+    ]);
+    renderTeamAgents(statusData);
+    renderTeamDelegations(a2aData);
+    if (count) count.textContent = 'updated '+new Date().toLocaleTimeString();
+  } catch(e) {}
+}
+loadTeam();
+setInterval(loadTeam, 30000);
 </script>
 </body>
 </html>
