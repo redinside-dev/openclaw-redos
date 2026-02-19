@@ -1,0 +1,4 @@
+{
+  "_comment": "OPS-managed task registry. Updated by agents when accepting delegated tasks. OPS monitors ETAs every 30 min.",
+  "tasks": []
+}

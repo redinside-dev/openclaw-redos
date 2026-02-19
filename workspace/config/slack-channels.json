@@ -1,0 +1,11 @@
+{
+  "_comment": "Per-agent Slack channel IDs. Populated by RED on first deploy via Slack API. Run: openclaw agent --agent main --message 'Create per-agent Slack channels and update workspace/config/slack-channels.json'",
+  "_status": "pending — channels not yet created",
+  "red": null,
+  "zen": null,
+  "eng": null,
+  "research": null,
+  "finance": null,
+  "ops": null,
+  "infosec": null
+}
