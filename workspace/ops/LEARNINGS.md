@@ -119,3 +119,43 @@ repeating mistakes and to build institutional knowledge.
 - **Details:** Proactive web search found two critical CVEs: (1) CVE-2026-25593 - Local RCE via CLI path injection in config.apply (affects versions < 2026.1.20). (2) CVE-2026-25253 - Remote one-click RCE via WebSocket token hijacking (CVSS 8.8, affects versions < 2026.1.29). Current system running v2026.2.14, protected from both. Also found model performance issues: GPT-5.2 slow token generation (4 tps), Z.ai GLM-5 GPU shortages, Perplexity brief outage (resolved Feb 6).
 - **Prevention:** Always keep OpenClaw updated to latest version. Run `openclaw d-update` regularly. Monitor for model performance issues and have fallback chains ready. Follow OpenClaw security advisories and GitHub releases.
 - **Applied To:** LEARNINGS.md, memory/2026-02-16.md
+
+### LEARNING-20260220-001
+- **Date:** 2026-02-20T02:28:00Z
+- **Source Ticket:** observation (proactive research scan)
+- **Agent:** RESEARCH
+- **Category:** security
+- **Summary:** New Feb 18 OpenClaw advisory: multiple SSRF + webhook auth + path traversal issues; update and review exposed tools
+- **Details:** Web search reports an Endor Labs disclosure (Feb 18) of multiple OpenClaw vulnerabilities including SSRF (gateway / image tool), missing webhook authentication (Telnyx/Twilio), and a browser upload path traversal (assigned CVEs in some reports, plus GHSAs). This reinforces treating *any* tool that fetches URLs / accepts remote callbacks / handles uploads as high-risk if internet-exposed.
+- **Prevention:** (1) Ensure OpenClaw is updated to a patched version (check release notes / NPM/GitHub). (2) If any webhooks are enabled, validate they enforce signature verification (Twilio/Telnyx). (3) Prefer allowlists for outbound fetch (SSRF controls) and avoid exposing the gateway to the public internet.
+- **Applied To:** LEARNINGS.md (this entry); OPS notified to verify update level + webhook/SSRF hardening
+
+### LEARNING-20260220-002
+- **Date:** 2026-02-20T02:28:00Z
+- **Source Ticket:** observation (proactive research scan)
+- **Agent:** RESEARCH
+- **Category:** model
+- **Summary:** Perplexity Sonar API had a Feb 16 incident; Z.ai GLM-4.7 intermittent issues in some integrations; consider resilient fallbacks
+- **Details:** Web search indicates Perplexity Sonar API had an incident on Feb 16 (~1 hour) and community reports of GLM-4.7 connectivity errors in some third-party tools (e.g., Cursor), possibly configuration/provider-side. Z.ai’s newer GLM-5 is being promoted and may shift capacity.
+- **Prevention:** (1) For workflows that depend on web_search, plan graceful degradation and retries. (2) Keep at least one non-Z.ai model in fallback chains for cron reliability. (3) Monitor provider status pages and adjust fallbacks when sustained error spikes occur.
+- **Applied To:** LEARNINGS.md (this entry); OPS notified to sanity-check fallbacks for cron jobs
+
+### LEARNING-20260220-003
+- **Date:** 2026-02-20T04:35:00Z
+- **Source Ticket:** observation (RED self-improvement)
+- **Agent:** main
+- **Category:** workflow
+- **Summary:** Keep ops/agent-status populated daily; empty status directories break reflection + audits
+- **Details:** CEO self-improvement cycle expects `/workspace/ops/agent-status/` to contain daily reports. Today the directory exists but is empty, preventing performance review and reducing operational visibility.
+- **Prevention:** Establish a daily standup contract: each always-on agent writes `workspace/ops/agent-status/{agentId}.json` once per day. Add/verify an OPS cron that checks for missing files and pings agents; open a ticket if empty for >24h.
+- **Applied To:** LEARNINGS.md; opened TICKET-20260220-001
+
+### LEARNING-20260220-004
+- **Date:** 2026-02-20T04:35:00Z
+- **Source Ticket:** observation (log review)
+- **Agent:** main
+- **Category:** config
+- **Summary:** Invalid provider model IDs should be treated as config drift and eliminated quickly
+- **Details:** Recent errors included Perplexity invalid_model and Zhipu "model does not exist" responses, which are noisy and can stall workflows.
+- **Prevention:** Add a weekly model-ID validation step: run `openclaw models list` and compare against configured fallbacks/tool defaults. Remove providers with expired credits (e.g., Anthropic) from router fallback chains to avoid repeated hard failures.
+- **Applied To:** LEARNINGS.md; opened TICKET-20260220-002

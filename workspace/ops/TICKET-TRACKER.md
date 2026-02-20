@@ -32,6 +32,48 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 
 ## Active Tickets
 
+### TICKET-20260220-001
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-02-20T04:30:00Z
+- **SLA Deadline:** 2026-02-20T06:30:00Z (2 hours)
+- **Reporter:** main (RED self-improvement)
+- **Assignee:** OPS
+- **Summary:** Agent standup/status reports missing (ops/agent-status/ is empty)
+- **Details:** The daily status directory `/workspace/ops/agent-status/` exists but contains no reports for today. This blocks CEO reflection, idle-agent auditing, and reduces observability.
+- **Root Cause:** TBD (agents not writing, cron/audit not running, or path mismatch)
+- **Resolution:**
+- **Learnings:**
+- **Resolved At:**
+
+### TICKET-20260220-002
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-20T04:30:00Z
+- **SLA Deadline:** 2026-02-20T12:30:00Z (8 hours)
+- **Reporter:** main (RED self-improvement)
+- **Assignee:** ENG
+- **Summary:** Provider/model misconfiguration: Perplexity invalid model id and Zhipu "model does not exist" errors
+- **Details:** `errors.jsonl` shows repeated 400 invalid_model for Perplexity (`llama-3.1-sonar-small-128k-online`) and Zhipu error code 1211 (model不存在). These are configuration-level issues (bad model IDs) and should be removed/updated to valid model names.
+- **Root Cause:** TBD - stale model IDs in model registry / provider config.
+- **Resolution:**
+- **Learnings:**
+- **Resolved At:**
+
+### TICKET-20260220-003
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-20T04:30:00Z
+- **SLA Deadline:** 2026-02-20T12:30:00Z (8 hours)
+- **Reporter:** main (RED self-improvement)
+- **Assignee:** OPS
+- **Summary:** Routing/model selection quality: OPS workflows frequently run on ollama/llama3.1:8b despite reliability needs
+- **Details:** Recent routing decisions show OPS cron and main workflows selecting `ollama/llama3.1:8b`. This increases timeout/5xx risk (also seen as OLLAMA Internal Server Error). OPS tasks that touch cron/tickets/log parsing should prefer a reliable hosted model (e.g., openai-codex/gpt-5.2 or zai/glm-4.7) with ollama only as last-ditch fallback.
+- **Root Cause:** TBD - router preference weights or OPS primary model config regressed.
+- **Resolution:**
+- **Learnings:**
+- **Resolved At:**
+
 ### TICKET-20260216-005
 - **Status:** OPEN
 - **Priority:** P1
@@ -43,6 +85,11 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Details:** health.jsonl last entry timestamp: 2026-02-15T05:37:46.108Z (~12:37 AM ET on Feb 15). Current time: 2026-02-17T03:11:00Z (~10:11 PM ET on Feb 16). Gap is approximately 33.5 hours with no health monitoring. This issue was previously addressed in TICKET-20260215-001 (resolved 2026-02-15T23:30:00Z). The OPS Health Monitor cron job may have failed or been disabled again.
 - **Root Cause:** TBD - need to verify cron/jobs.json status and check if OPS Health Monitor job is still enabled
 - **Resolution:**
+  - **RESEARCH notes (2026-02-20):** Suggested triage steps if health.jsonl stalled:
+    - Verify cron scheduler + job enabled: inspect `cron/jobs.json` for the OPS Health Monitor entry and ensure it isn’t disabled.
+    - Check gateway logs around expected triggers for cron-run errors/timeouts.
+    - Run `openclaw status --deep` and `openclaw doctor` for structured diagnostics; if the job exists but doesn’t fire, restart gateway after confirming config is valid.
+    - If this keeps recurring after restarts, consider a “watchdog” cron that alerts when `health.jsonl` hasn’t advanced in >N minutes.
 - **Learnings:**
 - **Resolved At:**
 

@@ -689,7 +689,7 @@
       "name": "OPS SLA Enforcement Check",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771563205443,
+      "updatedAtMs": 1771566913546,
       "schedule": {
         "kind": "every",
         "everyMs": 1800000,
@@ -711,10 +711,10 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771564895024,
-        "lastRunAtMs": 1771563095081,
+        "nextRunAtMs": 1771568495024,
+        "lastRunAtMs": 1771566698063,
         "lastStatus": "ok",
-        "lastDurationMs": 110362,
+        "lastDurationMs": 215483,
         "consecutiveErrors": 0
       }
     },
@@ -724,7 +724,7 @@
       "name": "OPS System Health Monitor",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771564165940,
+      "updatedAtMs": 1771567128047,
       "schedule": {
         "kind": "every",
         "everyMs": 900000,
@@ -747,10 +747,10 @@
       },
       "state": {
         "lastStatus": "ok",
-        "lastRunAtMs": 1771563995057,
-        "lastDurationMs": 170883,
+        "lastRunAtMs": 1771566913546,
+        "lastDurationMs": 214501,
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1771564895024
+        "nextRunAtMs": 1771567595024
       }
     },
     {
@@ -790,7 +790,7 @@
       "name": "OPS Ticket Auto-Diagnose & Fix",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771561892128,
+      "updatedAtMs": 1771565375071,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -812,10 +812,10 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771564895024,
-        "lastRunAtMs": 1771561661014,
+        "nextRunAtMs": 1771568495024,
+        "lastRunAtMs": 1771565214321,
         "lastStatus": "ok",
-        "lastDurationMs": 231114,
+        "lastDurationMs": 160750,
         "consecutiveErrors": 0
       }
     },
@@ -966,9 +966,8 @@
       "payload": {
         "kind": "agentTurn",
         "message": "You are INFOSEC (Security Officer). Review ENG's recent work for security implications.\n\nSTEPS:\n1. Use slack tool to read recent messages from #openclaw-optimization:\n   action=\"readMessages\", channelId=\"C0AF4KB4TUK\", limit=30\n2. Read /Users/redinside/.openclaw/logs/gateway.err.log (last 30 lines) for security events.\n3. Review any code changes, config updates, or new integrations ENG has posted.\n4. Check /Users/redinside/.openclaw/workspace/ops/LEARNINGS.md for known security patterns.\n5. For each security concern found:\n   a. Post a security advisory to #openclaw-optimization with severity level\n   b. Create a ticket in TICKET-TRACKER.md if P1/P2\n6. Post security review summary to #openclaw-optimization:\n   ```\n   🔒 *INFOSEC Security Review — <date>*\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n   Reviewed ENG updates. Security assessment:\n   *Status:* ✅ CLEAR / ⚠️ ADVISORIES / 🔴 CRITICAL\n   <findings and recommendations>\n   ```\n   Use slack tool: action=\"sendMessage\", to=\"channel:C0AF4KB4TUK\" ",
-        "model": "ollama/llama3.1:8b",
         "thinking": "low",
-        "timeoutSeconds": 300
+        "timeoutSeconds": 360
       },
       "delivery": {
         "mode": "none"
@@ -1051,7 +1050,7 @@
       "name": "OPS Task ETA Monitor",
       "enabled": true,
       "createdAtMs": 1771544316316,
-      "updatedAtMs": 1771564334138,
+      "updatedAtMs": 1771566280449,
       "schedule": {
         "kind": "every",
         "everyMs": 1800000,
@@ -1069,10 +1068,10 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771565916316,
-        "lastRunAtMs": 1771564165992,
+        "nextRunAtMs": 1771567716316,
+        "lastRunAtMs": 1771566155021,
         "lastStatus": "ok",
-        "lastDurationMs": 168146,
+        "lastDurationMs": 125428,
         "consecutiveErrors": 0
       }
     },
@@ -1082,7 +1081,7 @@
       "name": "OPS Idle Agent Audit",
       "enabled": true,
       "createdAtMs": 1771544316316,
-      "updatedAtMs": 1771562658957,
+      "updatedAtMs": 1771566459320,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -1100,10 +1099,10 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771565916316,
-        "lastRunAtMs": 1771562512981,
+        "nextRunAtMs": 1771569516316,
+        "lastRunAtMs": 1771566280449,
         "lastStatus": "ok",
-        "lastDurationMs": 145976,
+        "lastDurationMs": 178871,
         "consecutiveErrors": 0
       }
     }
