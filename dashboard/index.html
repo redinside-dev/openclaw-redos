@@ -1361,12 +1361,14 @@ setInterval(loadPipeline,15000);
 
 // ── STANDUP ──────────────────────────────────────────
 const AGENT_META={
-  main:{emoji:'👑',label:'RED (CEO)'},
-  eng:{emoji:'💻',label:'ENG'},
-  research:{emoji:'🔬',label:'RESEARCH'},
-  finance:{emoji:'💰',label:'FINANCE'},
-  ops:{emoji:'⚙️',label:'OPS'},
-  infosec:{emoji:'🔒',label:'INFOSEC'}
+  main:       {emoji:'👑', name:'RED (CEO)',            label:'RED (CEO)',            alwaysOn:true  },
+  allrounder: {emoji:'🌐', name:'ZEN (CSO)',            label:'ZEN (CSO)',            alwaysOn:true  },
+  ops:        {emoji:'⚙️', name:'OPS (Scrum Master)',   label:'OPS',                  alwaysOn:true  },
+  hatake:     {emoji:'🥷', name:'HATAKE (Parser)',       label:'HATAKE',               alwaysOn:true  },
+  eng:        {emoji:'💻', name:'ENG (Engineering)',    label:'ENG',                  alwaysOn:false },
+  research:   {emoji:'🔬', name:'RESEARCH (Analyst)',   label:'RESEARCH',             alwaysOn:false },
+  finance:    {emoji:'💰', name:'FINANCE (Finance)',    label:'FINANCE',              alwaysOn:false },
+  infosec:    {emoji:'🔒', name:'INFOSEC (Security)',   label:'INFOSEC',              alwaysOn:false },
 };
 
 function timeAgo(isoStr){
@@ -1474,16 +1476,6 @@ setInterval(loadStandup,30000);
 
 // --- TEAM TAB ---
 function relTime(iso){const s=Math.round((Date.now()-new Date(iso).getTime())/1000);if(s<60)return s+'s ago';if(s<3600)return Math.round(s/60)+'m ago';return Math.round(s/3600)+'h ago';}
-const AGENT_META = {
-  main:       { emoji:'👑', name:'RED (CEO)',            alwaysOn:true  },
-  allrounder: { emoji:'🌐', name:'ZEN (CSO)',            alwaysOn:true  },
-  ops:        { emoji:'⚙️', name:'OPS (Scrum Master)',   alwaysOn:true  },
-  hatake:     { emoji:'🥷', name:'HATAKE (Parser)',       alwaysOn:true  },
-  eng:        { emoji:'💻', name:'ENG (Engineering)',    alwaysOn:false },
-  research:   { emoji:'🔬', name:'RESEARCH (Analyst)',   alwaysOn:false },
-  finance:    { emoji:'💰', name:'FINANCE (Finance)',    alwaysOn:false },
-  infosec:    { emoji:'🔒', name:'INFOSEC (Security)',   alwaysOn:false },
-};
 
 function renderTeamAgents(statusData) {
   const el = document.getElementById('tm-agents');
