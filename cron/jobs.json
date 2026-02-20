@@ -124,7 +124,7 @@
       "name": "Gmail Unread Summary (Telegram)",
       "enabled": true,
       "createdAtMs": 1770402245398,
-      "updatedAtMs": 1771543858979,
+      "updatedAtMs": 1771544715269,
       "schedule": {
         "kind": "cron",
         "expr": "*/15 8-18 * * 1-5",
@@ -142,11 +142,11 @@
         "mode": "none"
       },
       "state": {
-        "lastRunAtMs": 1771543838825,
+        "lastRunAtMs": 1771544700041,
         "lastStatus": "ok",
-        "lastDurationMs": 20154,
+        "lastDurationMs": 15228,
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1771544700000
+        "nextRunAtMs": 1771592400000
       }
     },
     {
@@ -276,7 +276,7 @@
       "name": "Daily AI + OpenClaw Trends Brief (Telegram DM)",
       "enabled": true,
       "createdAtMs": 1770593929748,
-      "updatedAtMs": 1771464748691,
+      "updatedAtMs": 1771551074111,
       "schedule": {
         "kind": "cron",
         "expr": "30 20 * * *",
@@ -296,12 +296,11 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1771464748689,
-        "lastStatus": "error",
-        "lastDurationMs": 2,
-        "consecutiveErrors": 2,
-        "nextRunAtMs": 1771551000000,
-        "lastError": "model not allowed: ollama/llama3.1:8b"
+        "lastRunAtMs": 1771551000054,
+        "lastStatus": "ok",
+        "lastDurationMs": 74057,
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1771637400000
       }
     },
     {
@@ -477,7 +476,7 @@
         "kind": "agentTurn",
         "message": "You are RED (CEO). Write your morning standup status.\n\nRead /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md and /Users/redinside/.openclaw/workspace/ops/LEARNINGS.md for context.\n\nWrite your status to /Users/redinside/.openclaw/workspace/ops/agent-status/main.json as valid JSON:\n{\n  \"agent\": \"main\",\n  \"date\": \"YYYY-MM-DD\",\n  \"updatedAt\": \"ISO timestamp\",\n  \"sprintGoal\": \"1-sentence goal for this sprint\",\n  \"workingOn\": \"What you are focused on today\",\n  \"completedYesterday\": \"What you completed yesterday or recently\",\n  \"eta\": \"ETA for current sprint goal (e.g. EOD, 2 days, etc.)\",\n  \"blockers\": \"Any blockers, or 'None'\"\n}\n\nAfter writing the JSON file, use the slack tool to post your standup to #redos-scrum.\n\nPost this message to channel:C0AEV3J2L23:\n```\n👑 *RED (CEO) — Daily Standup*\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📅 *Date:* <today's date, e.g. Mon Feb 17 2026>\n🎯 *Sprint Goal:* <your sprintGoal>\n✅ *Completed Yesterday:* <your completedYesterday>\n🔨 *Working On Today:* <your workingOn>\n⏱️ *ETA:* <your eta>\n🚧 *Blockers:* <your blockers or None>\n```\n\nUse slack tool action \"sendMessage\" with to=\"channel:C0AEV3J2L23\".\nDo NOT send a Telegram message. Just write the file and post to Slack.",
         "thinking": "low",
-        "timeoutSeconds": 120
+        "timeoutSeconds": 240
       },
       "delivery": {
         "mode": "none"
@@ -508,9 +507,8 @@
       "payload": {
         "kind": "agentTurn",
         "message": "You are ENG (Engineering Lead). Write your morning standup status.\n\nRead /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md for any tickets assigned to you.\n\nWrite your status to /Users/redinside/.openclaw/workspace/ops/agent-status/eng.json as valid JSON:\n{\n  \"agent\": \"eng\",\n  \"date\": \"YYYY-MM-DD\",\n  \"updatedAt\": \"ISO timestamp\",\n  \"sprintGoal\": \"1-sentence engineering goal for this sprint\",\n  \"workingOn\": \"What you are focused on today (be specific: feature, bug, PR)\",\n  \"completedYesterday\": \"What you completed recently\",\n  \"eta\": \"ETA for current work (e.g. EOD, 2 days, next sprint)\",\n  \"blockers\": \"Any blockers, or 'None'\"\n}\n\nAfter writing the JSON file, use the slack tool to post your standup to #redos-scrum.\n\nPost this message to channel:C0AEV3J2L23:\n```\n💻 *ENG (Engineering Lead) — Daily Standup*\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📅 *Date:* <today's date, e.g. Mon Feb 17 2026>\n🎯 *Sprint Goal:* <your sprintGoal>\n✅ *Completed Yesterday:* <your completedYesterday>\n🔨 *Working On Today:* <your workingOn>\n⏱️ *ETA:* <your eta>\n🚧 *Blockers:* <your blockers or None>\n```\n\nUse slack tool action \"sendMessage\" with to=\"channel:C0AEV3J2L23\".\nDo NOT send a Telegram message. Just write the file and post to Slack.",
-        "model": "ollama/llama3.1:8b",
         "thinking": "low",
-        "timeoutSeconds": 120
+        "timeoutSeconds": 240
       },
       "delivery": {
         "mode": "none"
@@ -541,7 +539,7 @@
         "kind": "agentTurn",
         "message": "You are RESEARCH (Research Analyst). Write your morning standup status.\n\nRead /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md and /Users/redinside/.openclaw/workspace/ops/LEARNINGS.md for context.\n\nWrite your status to /Users/redinside/.openclaw/workspace/ops/agent-status/research.json as valid JSON:\n{\n  \"agent\": \"research\",\n  \"date\": \"YYYY-MM-DD\",\n  \"updatedAt\": \"ISO timestamp\",\n  \"sprintGoal\": \"1-sentence research goal for this sprint\",\n  \"workingOn\": \"What you are researching today\",\n  \"completedYesterday\": \"What you completed recently\",\n  \"eta\": \"ETA for current research output\",\n  \"blockers\": \"Any blockers or missing data, or 'None'\"\n}\n\nAfter writing the JSON file, use the slack tool to post your standup to #redos-scrum.\n\nPost this message to channel:C0AEV3J2L23:\n```\n🔬 *RESEARCH (Research Analyst) — Daily Standup*\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📅 *Date:* <today's date, e.g. Mon Feb 17 2026>\n🎯 *Sprint Goal:* <your sprintGoal>\n✅ *Completed Yesterday:* <your completedYesterday>\n🔨 *Working On Today:* <your workingOn>\n⏱️ *ETA:* <your eta>\n🚧 *Blockers:* <your blockers or None>\n```\n\nUse slack tool action \"sendMessage\" with to=\"channel:C0AEV3J2L23\".\nDo NOT send a Telegram message. Just write the file and post to Slack.",
         "thinking": "low",
-        "timeoutSeconds": 120
+        "timeoutSeconds": 240
       },
       "delivery": {
         "mode": "none"
@@ -572,9 +570,8 @@
       "payload": {
         "kind": "agentTurn",
         "message": "You are FINANCE (Finance Analyst). Write your morning standup status.\n\nRead /Users/redinside/.openclaw/workspace/portfolio/HOLDINGS.md if available for context.\n\nWrite your status to /Users/redinside/.openclaw/workspace/ops/agent-status/finance.json as valid JSON:\n{\n  \"agent\": \"finance\",\n  \"date\": \"YYYY-MM-DD\",\n  \"updatedAt\": \"ISO timestamp\",\n  \"sprintGoal\": \"1-sentence finance goal for this sprint\",\n  \"workingOn\": \"What you are focused on today (portfolio review, analysis, etc.)\",\n  \"completedYesterday\": \"What you completed recently\",\n  \"eta\": \"ETA for current deliverable\",\n  \"blockers\": \"Any blockers (missing data, pending input), or 'None'\"\n}\n\nAfter writing the JSON file, use the slack tool to post your standup to #redos-scrum.\n\nPost this message to channel:C0AEV3J2L23:\n```\n💰 *FINANCE (Finance Analyst) — Daily Standup*\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📅 *Date:* <today's date, e.g. Mon Feb 17 2026>\n🎯 *Sprint Goal:* <your sprintGoal>\n✅ *Completed Yesterday:* <your completedYesterday>\n🔨 *Working On Today:* <your workingOn>\n⏱️ *ETA:* <your eta>\n🚧 *Blockers:* <your blockers or None>\n```\n\nUse slack tool action \"sendMessage\" with to=\"channel:C0AEV3J2L23\".\nDo NOT send a Telegram message. Just write the file and post to Slack.",
-        "model": "ollama/llama3.1:8b",
         "thinking": "low",
-        "timeoutSeconds": 120
+        "timeoutSeconds": 240
       },
       "delivery": {
         "mode": "none"
@@ -637,9 +634,8 @@
       "payload": {
         "kind": "agentTurn",
         "message": "You are INFOSEC (Security Officer). Write your morning standup status.\n\nRead /Users/redinside/.openclaw/logs/gateway.err.log (last 20 lines) and /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md for context.\n\nWrite your status to /Users/redinside/.openclaw/workspace/ops/agent-status/infosec.json as valid JSON:\n{\n  \"agent\": \"infosec\",\n  \"date\": \"YYYY-MM-DD\",\n  \"updatedAt\": \"ISO timestamp\",\n  \"sprintGoal\": \"1-sentence security goal for this sprint\",\n  \"workingOn\": \"What you are monitoring or hardening today\",\n  \"completedYesterday\": \"What security checks or improvements you completed recently\",\n  \"eta\": \"ETA for current security deliverable\",\n  \"blockers\": \"Any security concerns or blockers, or 'None'\"\n}\n\nAfter writing the JSON file, use the slack tool to post your standup to #redos-scrum.\n\nPost this message to channel:C0AEV3J2L23:\n```\n🔒 *INFOSEC (Security Officer) — Daily Standup*\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📅 *Date:* <today's date, e.g. Mon Feb 17 2026>\n🎯 *Sprint Goal:* <your sprintGoal>\n✅ *Completed Yesterday:* <your completedYesterday>\n🔨 *Working On Today:* <your workingOn>\n⏱️ *ETA:* <your eta>\n🚧 *Blockers:* <your blockers or None>\n```\n\nUse slack tool action \"sendMessage\" with to=\"channel:C0AEV3J2L23\".\nDo NOT send a Telegram message. Just write the file and post to Slack.",
-        "model": "ollama/llama3.1:8b",
         "thinking": "low",
-        "timeoutSeconds": 120
+        "timeoutSeconds": 240
       },
       "delivery": {
         "mode": "none"
@@ -693,7 +689,7 @@
       "name": "OPS SLA Enforcement Check",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771543469639,
+      "updatedAtMs": 1771563205443,
       "schedule": {
         "kind": "every",
         "everyMs": 1800000,
@@ -715,10 +711,10 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771545095024,
-        "lastRunAtMs": 1771543295060,
+        "nextRunAtMs": 1771564895024,
+        "lastRunAtMs": 1771563095081,
         "lastStatus": "ok",
-        "lastDurationMs": 174579,
+        "lastDurationMs": 110362,
         "consecutiveErrors": 0
       }
     },
@@ -728,7 +724,7 @@
       "name": "OPS System Health Monitor",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771544375592,
+      "updatedAtMs": 1771564165940,
       "schedule": {
         "kind": "every",
         "everyMs": 900000,
@@ -751,10 +747,10 @@
       },
       "state": {
         "lastStatus": "ok",
-        "lastRunAtMs": 1771544195052,
-        "lastDurationMs": 180540,
+        "lastRunAtMs": 1771563995057,
+        "lastDurationMs": 170883,
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1771545095024
+        "nextRunAtMs": 1771564895024
       }
     },
     {
@@ -763,7 +759,7 @@
       "name": "RED Self-Improvement Reflection",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771540032109,
+      "updatedAtMs": 1771561661014,
       "schedule": {
         "kind": "every",
         "everyMs": 21600000,
@@ -781,12 +777,11 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771561295024,
-        "lastRunAtMs": 1771540032107,
-        "lastStatus": "error",
-        "lastDurationMs": 2,
-        "consecutiveErrors": 8,
-        "lastError": "model not allowed: ollama/llama3.1:8b"
+        "nextRunAtMs": 1771582895024,
+        "lastRunAtMs": 1771561565098,
+        "lastStatus": "ok",
+        "lastDurationMs": 95916,
+        "consecutiveErrors": 0
       }
     },
     {
@@ -795,7 +790,7 @@
       "name": "OPS Ticket Auto-Diagnose & Fix",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771543838769,
+      "updatedAtMs": 1771561892128,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -817,10 +812,10 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771546895024,
-        "lastRunAtMs": 1771543668938,
+        "nextRunAtMs": 1771564895024,
+        "lastRunAtMs": 1771561661014,
         "lastStatus": "ok",
-        "lastDurationMs": 169831,
+        "lastDurationMs": 231114,
         "consecutiveErrors": 0
       }
     },
@@ -830,7 +825,7 @@
       "name": "RESEARCH Proactive Knowledge Update",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771540254589,
+      "updatedAtMs": 1771554676999,
       "schedule": {
         "kind": "every",
         "everyMs": 14400000,
@@ -848,12 +843,11 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771554095024,
-        "lastRunAtMs": 1771540254587,
-        "lastStatus": "error",
-        "lastDurationMs": 2,
-        "consecutiveErrors": 12,
-        "lastError": "model not allowed: ollama/llama3.1:8b"
+        "nextRunAtMs": 1771568495024,
+        "lastRunAtMs": 1771554533721,
+        "lastStatus": "ok",
+        "lastDurationMs": 143278,
+        "consecutiveErrors": 0
       }
     },
     {
@@ -1057,7 +1051,7 @@
       "name": "OPS Task ETA Monitor",
       "enabled": true,
       "createdAtMs": 1771544316316,
-      "updatedAtMs": 1771544316316,
+      "updatedAtMs": 1771564334138,
       "schedule": {
         "kind": "every",
         "everyMs": 1800000,
@@ -1075,7 +1069,11 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771546116316
+        "nextRunAtMs": 1771565916316,
+        "lastRunAtMs": 1771564165992,
+        "lastStatus": "ok",
+        "lastDurationMs": 168146,
+        "consecutiveErrors": 0
       }
     },
     {
@@ -1084,7 +1082,7 @@
       "name": "OPS Idle Agent Audit",
       "enabled": true,
       "createdAtMs": 1771544316316,
-      "updatedAtMs": 1771544316316,
+      "updatedAtMs": 1771562658957,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -1102,7 +1100,11 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771547916316
+        "nextRunAtMs": 1771565916316,
+        "lastRunAtMs": 1771562512981,
+        "lastStatus": "ok",
+        "lastDurationMs": 145976,
+        "consecutiveErrors": 0
       }
     }
   ]
