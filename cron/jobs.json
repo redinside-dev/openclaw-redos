@@ -724,7 +724,7 @@
       "name": "OPS System Health Monitor",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771567128047,
+      "updatedAtMs": 1771567757496,
       "schedule": {
         "kind": "every",
         "everyMs": 900000,
@@ -747,10 +747,10 @@
       },
       "state": {
         "lastStatus": "ok",
-        "lastRunAtMs": 1771566913546,
-        "lastDurationMs": 214501,
+        "lastRunAtMs": 1771567595074,
+        "lastDurationMs": 162422,
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1771567595024
+        "nextRunAtMs": 1771568495024
       }
     },
     {
@@ -1050,7 +1050,7 @@
       "name": "OPS Task ETA Monitor",
       "enabled": true,
       "createdAtMs": 1771544316316,
-      "updatedAtMs": 1771566280449,
+      "updatedAtMs": 1771567852196,
       "schedule": {
         "kind": "every",
         "everyMs": 1800000,
@@ -1068,10 +1068,10 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771567716316,
-        "lastRunAtMs": 1771566155021,
+        "nextRunAtMs": 1771569516316,
+        "lastRunAtMs": 1771567757566,
         "lastStatus": "ok",
-        "lastDurationMs": 125428,
+        "lastDurationMs": 94630,
         "consecutiveErrors": 0
       }
     },
