@@ -234,11 +234,11 @@
       "billing": { "type": "free" },
       "maxConcurrent": 1,
       "constraints": ["single_instance", "local_only"],
-      "status": "available",
+      "status": "unstable",
       "testedAt": "2026-02-20",
-      "testResult": "OK (78s cold start)",
-      "bestFor": "ENG tasks — best free model for code and architecture",
-      "doNotUseFor": "Quick tasks (slow cold start), parallel runs"
+      "testResult": "UNRELIABLE — sometimes returns empty response, sometimes times out at 120s",
+      "bestFor": "Manual/experimental use only — do not assign as primary",
+      "doNotUseFor": "Production agent primary model"
     },
     {
       "id": "ollama/glm-4.7-flash:latest",
@@ -264,7 +264,7 @@
     "main":       { "tier": "gpt",    "primary": "openai-codex/gpt-5.2",   "fallback": "ollama/llama3.1:8b",       "reason": "CEO — high quality required" },
     "allrounder": { "tier": "gpt",    "primary": "openai-codex/gpt-5.2",   "fallback": "ollama/llama3.1:8b",       "reason": "CSO — high quality required" },
     "research":   { "tier": "gpt",    "primary": "openai-codex/gpt-5.2",   "fallback": "ollama/llama3.1:8b",       "reason": "Deep research needs reasoning" },
-    "eng":        { "tier": "ollama", "primary": "ollama/gpt-oss:20b",     "fallback": "ollama/llama3.1:8b",       "reason": "Best free model for code" },
+    "eng":        { "tier": "ollama", "primary": "ollama/llama3.1:8b",     "fallback": "ollama/qwen2.5-coder:7b",  "reason": "Reliable local model (gpt-oss:20b unstable — empty responses)" },
     "finance":    { "tier": "ollama", "primary": "ollama/llama3.1:8b",     "fallback": "ollama/gpt-oss:20b",       "reason": "Free — sufficient for finance monitoring" },
     "ops":        { "tier": "ollama", "primary": "ollama/llama3.1:8b",     "fallback": "ollama/qwen2.5-coder:7b",  "reason": "Free — monitoring and health checks" },
     "infosec":    { "tier": "ollama", "primary": "ollama/llama3.1:8b",     "fallback": "ollama/gpt-oss:20b",       "reason": "Free — security reviews" },
