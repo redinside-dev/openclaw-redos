@@ -26,6 +26,13 @@ Never claim you can't do something without trying first.
 | `#redos-mission-control` | C0AEV3MDEDD | CEO directives, A2A delegation threads |
 | `#openclaw-optimization` | C0AF4KB4TUK | Knowledge sharing: research, ENG updates, security reviews |
 | `#all-redos` | C0AG4AY6VME | Company-wide announcements |
+| `#redos-red` | C0AFLUZ4P71 | RED's work log |
+| `#redos-zen` | C0AFZ09R9V3 | ZEN's work log |
+| `#redos-eng` | C0AFW1B0QUB | ENG's work log |
+| `#redos-research` | C0AG615R5E0 | RESEARCH's work log |
+| `#redos-finance` | C0AG6166CJ0 | FINANCE's work log |
+| `#redos-ops` | C0AGFA9417T | OPS's work log |
+| `#redos-infosec` | C0AG2CTU6AW | INFOSEC's work log |
 
 Always include your identity header when posting to Slack:
 `👑 *RED (CEO)*` / `🌐 *ZEN (CSO)*` / `💻 *ENG (Engineering Lead)*` /

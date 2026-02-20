@@ -22,21 +22,17 @@ Every `sessions_spawn` call MUST be visible on Slack. This skill defines the com
 Each agent also posts work updates to their own channel. Channel IDs are in
 `config/slack-channels.json` (created by RED on first deploy).
 
-| Channel | Agent | Posts What |
-|---|---|---|
-| `#redos-red` | RED | Task decisions, delegation summaries, CEO directives |
-| `#redos-zen` | ZEN | Research findings, briefings |
-| `#redos-eng` | ENG | Code changes, architecture decisions |
-| `#redos-research` | RESEARCH | Analysis reports, learning updates |
-| `#redos-finance` | FINANCE | Financial reports, budget status |
-| `#redos-ops` | OPS | Health checks, orchestration log, task tracking |
-| `#redos-infosec` | INFOSEC | Security reviews, alerts |
+| Channel | ID | Agent | Posts What |
+|---|---|---|---|
+| `#redos-red` | C0AFLUZ4P71 | RED | Task decisions, delegation summaries, CEO directives |
+| `#redos-zen` | C0AFZ09R9V3 | ZEN | Research findings, briefings |
+| `#redos-eng` | C0AFW1B0QUB | ENG | Code changes, architecture decisions |
+| `#redos-research` | C0AG615R5E0 | RESEARCH | Analysis reports, learning updates |
+| `#redos-finance` | C0AG6166CJ0 | FINANCE | Financial reports, budget status |
+| `#redos-ops` | C0AGFA9417T | OPS | Health checks, orchestration log, task tracking |
+| `#redos-infosec` | C0AG2CTU6AW | INFOSEC | Security reviews, alerts |
 
-To get the channel ID for your personal channel:
-```js
-const channels = JSON.parse(fs.readFileSync('config/slack-channels.json'));
-const myChannelId = channels[agentId]; // e.g. channels['eng']
-```
+IDs are also in `config/slack-channels.json`. Use the ID directly when posting via the slack tool.
 Post a brief update to your channel after completing any significant task.
 
 ---
