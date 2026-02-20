@@ -206,20 +206,81 @@
       "provider": "ollama",
       "type": "local",
       "tier": 1,
-      "quality": 4,
-      "speed": 7,
+      "quality": 5,
+      "speed": 5,
+      "coldStartSeconds": 58,
       "contextWindow": 131072,
-      "capabilities": ["general", "summarize", "parse", "format"],
-      "billing": {
-        "type": "free"
-      },
+      "capabilities": ["general", "summarize", "parse", "format", "standup", "ops"],
+      "billing": { "type": "free" },
       "maxConcurrent": 1,
-      "constraints": ["no_tools", "single_instance", "local_only"],
+      "constraints": ["single_instance", "local_only"],
       "status": "available",
-      "bestFor": "General Tier 1 tasks, summaries, HATAKE fallback",
-      "doNotUseFor": "Anything requiring tools, web access, or complex reasoning"
+      "testedAt": "2026-02-20",
+      "testResult": "OK (58s cold start)",
+      "bestFor": "OPS, FINANCE, INFOSEC standup and monitoring tasks",
+      "doNotUseFor": "Parallel tasks (single instance), tasks needing <10s response"
+    },
+    {
+      "id": "ollama/gpt-oss:20b",
+      "displayName": "GPT-OSS 20B (Local Free — Best Local Quality)",
+      "provider": "ollama",
+      "type": "local",
+      "tier": 2,
+      "quality": 7,
+      "speed": 4,
+      "coldStartSeconds": 78,
+      "contextWindow": 131072,
+      "capabilities": ["general", "code", "analysis", "reasoning", "engineering"],
+      "billing": { "type": "free" },
+      "maxConcurrent": 1,
+      "constraints": ["single_instance", "local_only"],
+      "status": "available",
+      "testedAt": "2026-02-20",
+      "testResult": "OK (78s cold start)",
+      "bestFor": "ENG tasks — best free model for code and architecture",
+      "doNotUseFor": "Quick tasks (slow cold start), parallel runs"
+    },
+    {
+      "id": "ollama/glm-4.7-flash:latest",
+      "displayName": "GLM-4.7 Flash (Local — BROKEN)",
+      "provider": "ollama",
+      "type": "local",
+      "tier": 1,
+      "quality": 0,
+      "speed": 0,
+      "billing": { "type": "free" },
+      "maxConcurrent": 0,
+      "status": "unavailable",
+      "testedAt": "2026-02-20",
+      "testResult": "FAIL — times out at 180s, no response",
+      "bestFor": "N/A",
+      "doNotUseFor": "Everything — do not use until fixed"
     }
   ],
+
+  "agentModelMap": {
+    "_comment": "Current model assignments per agent. Edit openclaw.json agents.list[].model to change. Run openclaw doctor after any change.",
+    "_updated": "2026-02-20",
+    "main":       { "tier": "gpt",    "primary": "openai-codex/gpt-5.2",   "fallback": "ollama/llama3.1:8b",       "reason": "CEO — high quality required" },
+    "allrounder": { "tier": "gpt",    "primary": "openai-codex/gpt-5.2",   "fallback": "ollama/llama3.1:8b",       "reason": "CSO — high quality required" },
+    "research":   { "tier": "gpt",    "primary": "openai-codex/gpt-5.2",   "fallback": "ollama/llama3.1:8b",       "reason": "Deep research needs reasoning" },
+    "eng":        { "tier": "ollama", "primary": "ollama/gpt-oss:20b",     "fallback": "ollama/llama3.1:8b",       "reason": "Best free model for code" },
+    "finance":    { "tier": "ollama", "primary": "ollama/llama3.1:8b",     "fallback": "ollama/gpt-oss:20b",       "reason": "Free — sufficient for finance monitoring" },
+    "ops":        { "tier": "ollama", "primary": "ollama/llama3.1:8b",     "fallback": "ollama/qwen2.5-coder:7b",  "reason": "Free — monitoring and health checks" },
+    "infosec":    { "tier": "ollama", "primary": "ollama/llama3.1:8b",     "fallback": "ollama/gpt-oss:20b",       "reason": "Free — security reviews" },
+    "hatake":     { "tier": "ollama", "primary": "ollama/qwen2.5-coder:7b","fallback": "ollama/llama3.1:8b",       "reason": "Fast parser — speed critical" }
+  },
+
+  "howToSwitch": {
+    "_instructions": "To change a model for any agent:",
+    "steps": [
+      "1. Edit /Users/redinside/.openclaw/openclaw.json → agents.list[] → find agent by id → update model.primary and model.fallbacks",
+      "2. Run: openclaw doctor  (validates the config)",
+      "3. Restart gateway: launchctl unload ~/Library/LaunchAgents/ai.openclaw.gateway.plist && sleep 1 && launchctl load ~/Library/LaunchAgents/ai.openclaw.gateway.plist",
+      "4. Update agentModelMap above to keep this registry in sync"
+    ],
+    "example": "To switch ENG from gpt-oss:20b to llama3.1:8b: set primary to 'ollama/llama3.1:8b' in openclaw.json"
+  },
 
   "providerConfig": {
     "_instructions": "Add your API keys here. Subscription providers don't need keys (handled by CLI tools).",
