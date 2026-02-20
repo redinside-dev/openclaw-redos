@@ -539,49 +539,86 @@ function getCeoStatus() {
 }
 
 function getA2ADelegations() {
-  const filePath = path.join(OPENCLAW_DIR, 'workspace', 'logs', 'a2a-delegations.jsonl');
-  const lines = readJsonlTail(filePath, 500);
+  // Read from framework-native routing-decisions.jsonl (always written, unlike agent-written JSONL)
+  const filePath = path.join(OPENCLAW_DIR, 'workspace', 'logs', 'routing-decisions.jsonl');
+  const lines = readJsonlTail(filePath, 2000);
 
   const today = new Date().toISOString().slice(0, 10);
-  const MATCH_WINDOW_MS = 15 * 60 * 1000; // 15 min pairing window
 
-  // Separate dispatches and results
-  const dispatches = lines.filter(l => l.type === 'dispatch');
-  const results = lines.filter(l => l.type === 'result');
+  // Build parent map from announce entries:
+  // run_id = "announce:v1:agent:{subagentId}:subagent:{uuid}:..."
+  // The 'agent' field on the announce entry is the PARENT (recipient of the result)
+  const parentMap = {}; // uuid → parentAgent
+  for (const l of lines) {
+    const runId = l.run_id || '';
+    if (runId.startsWith('announce:v1:agent:') && runId.includes(':subagent:')) {
+      const afterAgent = runId.slice('announce:v1:agent:'.length); // "{subagentId}:subagent:{uuid}:..."
+      const subagentUuid = afterAgent.split(':subagent:')[1]?.split(':')[0];
+      if (subagentUuid) parentMap[subagentUuid] = l.agent;
+    }
+  }
 
-  // Pair dispatch+result by spawner+subagent+task (within 15 min window)
-  const paired = dispatches.map(d => {
-    const dMs = new Date(d.ts).getTime();
-    const match = results.find(r =>
-      r.spawner === d.spawner &&
-      r.subagent === d.subagent &&
-      r.task === d.task &&
-      Math.abs(new Date(r.ts).getTime() - dMs) < MATCH_WINDOW_MS
-    );
-    return {
-      ts: d.ts,
-      spawner: d.spawner,
-      subagent: d.subagent,
-      task: d.task,
-      resultTs: match?.ts || null,
-      resultPreview: match?.result_preview || null,
-      durationMs: match ? (new Date(match.ts).getTime() - dMs) : null,
-      completed: !!match,
-    };
-  }).sort((a, b) => new Date(b.ts) - new Date(a.ts));
+  // Group subagent entries by UUID
+  const sessions = {}; // uuid → { entries[], agent }
+  for (const l of lines) {
+    const sk = l.session_key || '';
+    if (!sk.includes(':subagent:')) continue;
+    const uuid = sk.split(':subagent:')[1];
+    if (!uuid) continue;
+    if (!sessions[uuid]) sessions[uuid] = { entries: [], agent: l.agent };
+    sessions[uuid].entries.push(l);
+  }
+
+  // Build delegation records
+  const delegations = [];
+  for (const [uuid, { entries, agent }] of Object.entries(sessions)) {
+    const sorted = entries.sort((a, b) => a.ts < b.ts ? -1 : 1);
+    const first = sorted[0];
+    const last = sorted[sorted.length - 1];
+    const firstMs = new Date(first.ts).getTime();
+    const lastMs = new Date(last.ts).getTime();
+
+    // Extract task hint from [Subagent Task]: marker in prompt_tail
+    let task = '';
+    for (const e of sorted) {
+      const tail = e.prompt_tail || '';
+      const marker = tail.indexOf('[Subagent Task]:');
+      if (marker !== -1) {
+        task = tail.slice(marker + '[Subagent Task]:'.length).trim().slice(0, 120);
+        break;
+      }
+    }
+    if (!task) task = (first.prompt_tail || '').trim().slice(0, 100) || '(no task label)';
+
+    // Spawner = parent from announce map; if not found, use the agent that SENT the announce
+    // We store parent from parentMap[uuid] which = the agent that received the announce (the requester)
+    const spawner = parentMap[uuid] || '?';
+
+    delegations.push({
+      ts: first.ts,
+      spawner,
+      subagent: agent,
+      task,
+      durationMs: lastMs - firstMs,
+      turns: entries.length,
+      completed: uuid in parentMap, // announce was received = completed
+    });
+  }
+
+  delegations.sort((a, b) => new Date(b.ts) - new Date(a.ts));
 
   // Stats for today
-  const todayDispatches = dispatches.filter(d => d.ts && d.ts.startsWith(today));
+  const todayDels = delegations.filter(d => d.ts && d.ts.startsWith(today));
   const bySpawner = {};
   const bySubagent = {};
-  for (const d of todayDispatches) {
+  for (const d of todayDels) {
     bySpawner[d.spawner] = (bySpawner[d.spawner] || 0) + 1;
     bySubagent[d.subagent] = (bySubagent[d.subagent] || 0) + 1;
   }
 
   return {
-    today: { total: todayDispatches.length, bySpawner, bySubagent },
-    delegations: paired.slice(0, 50),
+    today: { total: todayDels.length, bySpawner, bySubagent },
+    delegations: delegations.slice(0, 50),
   };
 }
 

@@ -48,17 +48,6 @@ See the `a2a-transparency` skill for the full Slack threading protocol.
 
 **`sessions_send` requires an active sessionKey — use `sessions_spawn` for ALL new delegation.**
 
-## A2A Delegation Log
-
-After every `sessions_spawn` call, append one line to
-`workspace/logs/a2a-delegations.jsonl`:
-```
-{"type":"dispatch","ts":"<ISO>","spawner":"<agentId>","subagent":"<agentId>","task":"<one-line summary>"}
-```
-When the result comes back, append:
-```
-{"type":"result","ts":"<ISO>","spawner":"<agentId>","subagent":"<agentId>","task":"<same summary>","result_preview":"<first 100 chars>"}
-```
 
 ## Memory Protocol
 
