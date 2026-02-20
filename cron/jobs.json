@@ -124,7 +124,7 @@
       "name": "Gmail Unread Summary (Telegram)",
       "enabled": true,
       "createdAtMs": 1770402245398,
-      "updatedAtMs": 1771371920032,
+      "updatedAtMs": 1771543858979,
       "schedule": {
         "kind": "cron",
         "expr": "*/15 8-18 * * 1-5",
@@ -142,11 +142,11 @@
         "mode": "none"
       },
       "state": {
-        "lastRunAtMs": 1771371900039,
+        "lastRunAtMs": 1771543838825,
         "lastStatus": "ok",
-        "lastDurationMs": 19993,
+        "lastDurationMs": 20154,
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1771419600000
+        "nextRunAtMs": 1771544700000
       }
     },
     {
@@ -155,7 +155,7 @@
       "name": "GitHub Repo Updates (2 repos, 4x/day)",
       "enabled": true,
       "createdAtMs": 1770406640940,
-      "updatedAtMs": 1771362072385,
+      "updatedAtMs": 1771534862242,
       "schedule": {
         "kind": "cron",
         "expr": "0 10,12,14,16 * * 1-5",
@@ -173,10 +173,10 @@
         "mode": "none"
       },
       "state": {
-        "lastRunAtMs": 1771362020103,
+        "lastRunAtMs": 1771534826546,
         "lastStatus": "ok",
-        "lastDurationMs": 52282,
-        "nextRunAtMs": 1771426800000,
+        "lastDurationMs": 35696,
+        "nextRunAtMs": 1771599600000,
         "consecutiveErrors": 0
       }
     },
@@ -271,36 +271,12 @@
       }
     },
     {
-      "id": "fd95e7f1-e0c2-4f28-b22b-6f1015a740b6",
-      "agentId": "allrounder",
-      "name": "Daily Telegram market brief (weekdays 5:30pm ET)",
-      "enabled": false,
-      "createdAtMs": 1770592756167,
-      "updatedAtMs": 1770733798324,
-      "schedule": {
-        "kind": "cron",
-        "expr": "30 17 * * 1-5",
-        "tz": "America/Toronto"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "message": "Daily Market Brief (Reminder): Create a concise end-of-day market brief for Anurag. Constraints: stocks-only (ignore crypto). Output format:\n1) Headline (1 line)\n2) Bullet highlights (5-10 bullets): major indices/sector leadership, rates/dollar/oil if relevant, key news themes, notable earnings/events, risk flags.\n3) Watchlist: 3-7 tickers/themes worth monitoring (conservative, high-signal).\n4) \"What to do / next\" (1-3 bullets).\nIf a longer report would help, say \"Reply 'full report'\" and send a **human-readable attachment** (PDF preferred; HTML fallback if PDF generation isn’t available).\nTone: technical, up-to-date, human.",
-        "timeoutSeconds": 180
-      },
-      "delivery": {
-        "mode": "announce"
-      },
-      "state": {}
-    },
-    {
       "id": "45337086-6c37-4c11-97bc-92d824e3c71f",
       "agentId": "main",
       "name": "Daily AI + OpenClaw Trends Brief (Telegram DM)",
       "enabled": true,
       "createdAtMs": 1770593929748,
-      "updatedAtMs": 1771378200049,
+      "updatedAtMs": 1771464748691,
       "schedule": {
         "kind": "cron",
         "expr": "30 20 * * *",
@@ -311,8 +287,7 @@
       "payload": {
         "kind": "agentTurn",
         "message": "Create a concise daily brief for Anurag (Telegram DM) about: (1) AI model/news trends, (2) OpenClaw ecosystem/tooling updates, (3) 2-3 actionable takeaways. Use web search via Perplexity (web_search). Keep it Telegram-friendly: bullets + links at end. Ignore crypto entirely; focus on AI tooling and relevant infra/security changes. Do not mention internal keys/tokens.",
-        "timeoutSeconds": 300,
-        "model": "ollama/llama3.1:8b"
+        "timeoutSeconds": 300
       },
       "delivery": {
         "mode": "announce",
@@ -321,39 +296,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1771378200027,
+        "lastRunAtMs": 1771464748689,
         "lastStatus": "error",
-        "lastDurationMs": 22,
-        "consecutiveErrors": 1,
-        "nextRunAtMs": 1771464600000,
+        "lastDurationMs": 2,
+        "consecutiveErrors": 2,
+        "nextRunAtMs": 1771551000000,
         "lastError": "model not allowed: ollama/llama3.1:8b"
       }
-    },
-    {
-      "id": "f6a2b245-3db7-4771-80dc-076c28ac7d42",
-      "agentId": "main",
-      "name": "Daily Full Status (Telegram bullets + Email PDF)",
-      "enabled": false,
-      "createdAtMs": 1770603928232,
-      "updatedAtMs": 1770733802340,
-      "schedule": {
-        "kind": "cron",
-        "expr": "0 21 * * *",
-        "tz": "America/Toronto"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "message": "At runtime (daily status job):\n1) Run `/Users/redinside/.openclaw/workspace/scripts/send_daily_status.sh`.\n2) Capture its stdout exactly; that stdout is the Telegram bullet summary.\n3) Ensure the script completes successfully (it generates markdown+pdf and emails the pdf to anorag.saxena@gmail.com via gog).\nReturn ONLY the stdout from the script as your final answer (no extra commentary)."
-      },
-      "delivery": {
-        "mode": "announce",
-        "channel": "telegram",
-        "to": "1012034994",
-        "bestEffort": true
-      },
-      "state": {}
     },
     {
       "id": "6e4089e6-ae0e-412a-86a1-8323c5497dd9",
@@ -511,43 +460,12 @@
       }
     },
     {
-      "id": "103d1e7b-f629-4875-8ea2-6e3b8c52fe2f",
-      "agentId": "main",
-      "name": "POC Check-in: Ollama Smart Routing (Research)",
-      "enabled": false,
-      "createdAtMs": 1770620310942,
-      "updatedAtMs": 1770733813142,
-      "schedule": {
-        "kind": "every",
-        "everyMs": 1800000,
-        "anchorMs": 1770620310942
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "message": "Check-in task (coordination):\n- Query the Research agent progress on the Ollama + smart routing POC.\n- If new results exist, summarize them in 5-8 bullets and update COMBINED_TASK_TRACKER.md (HQ) with status + links.\n- If blocked, ask 1 crisp question.\n\nImportant: Do NOT implement installs/config changes. Only coordination + logging.\n\nWhen done, send summary to Anurag (Telegram) only if there is new material; otherwise return NO_REPLY."
-      },
-      "delivery": {
-        "mode": "announce",
-        "channel": "telegram",
-        "to": "1012034994",
-        "bestEffort": true
-      },
-      "state": {
-        "lastRunAtMs": 1770733710971,
-        "lastStatus": "ok",
-        "lastDurationMs": 26312,
-        "consecutiveErrors": 0
-      }
-    },
-    {
       "id": "sa-main-checkin-0001",
       "agentId": "main",
       "name": "RED Morning Check-in (standup)",
       "enabled": true,
       "createdAtMs": 1771344956120,
-      "updatedAtMs": 1771344956120,
+      "updatedAtMs": 1771509900068,
       "schedule": {
         "kind": "cron",
         "expr": "5 9 * * 1-5",
@@ -558,7 +476,6 @@
       "payload": {
         "kind": "agentTurn",
         "message": "You are RED (CEO). Write your morning standup status.\n\nRead /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md and /Users/redinside/.openclaw/workspace/ops/LEARNINGS.md for context.\n\nWrite your status to /Users/redinside/.openclaw/workspace/ops/agent-status/main.json as valid JSON:\n{\n  \"agent\": \"main\",\n  \"date\": \"YYYY-MM-DD\",\n  \"updatedAt\": \"ISO timestamp\",\n  \"sprintGoal\": \"1-sentence goal for this sprint\",\n  \"workingOn\": \"What you are focused on today\",\n  \"completedYesterday\": \"What you completed yesterday or recently\",\n  \"eta\": \"ETA for current sprint goal (e.g. EOD, 2 days, etc.)\",\n  \"blockers\": \"Any blockers, or 'None'\"\n}\n\nAfter writing the JSON file, use the slack tool to post your standup to #redos-scrum.\n\nPost this message to channel:C0AEV3J2L23:\n```\n👑 *RED (CEO) — Daily Standup*\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📅 *Date:* <today's date, e.g. Mon Feb 17 2026>\n🎯 *Sprint Goal:* <your sprintGoal>\n✅ *Completed Yesterday:* <your completedYesterday>\n🔨 *Working On Today:* <your workingOn>\n⏱️ *ETA:* <your eta>\n🚧 *Blockers:* <your blockers or None>\n```\n\nUse slack tool action \"sendMessage\" with to=\"channel:C0AEV3J2L23\".\nDo NOT send a Telegram message. Just write the file and post to Slack.",
-        "model": "ollama/llama3.1:8b",
         "thinking": "low",
         "timeoutSeconds": 120
       },
@@ -566,7 +483,12 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771423500000
+        "nextRunAtMs": 1771596300000,
+        "lastRunAtMs": 1771509900049,
+        "lastStatus": "error",
+        "lastDurationMs": 19,
+        "consecutiveErrors": 2,
+        "lastError": "model not allowed: ollama/llama3.1:8b"
       }
     },
     {
@@ -575,7 +497,7 @@
       "name": "ENG Morning Check-in (standup)",
       "enabled": true,
       "createdAtMs": 1771344956120,
-      "updatedAtMs": 1771344956120,
+      "updatedAtMs": 1771509964396,
       "schedule": {
         "kind": "cron",
         "expr": "5 9 * * 1-5",
@@ -594,7 +516,11 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771423500000
+        "nextRunAtMs": 1771596300000,
+        "lastRunAtMs": 1771509900069,
+        "lastStatus": "ok",
+        "lastDurationMs": 64327,
+        "consecutiveErrors": 0
       }
     },
     {
@@ -603,7 +529,7 @@
       "name": "RESEARCH Morning Check-in (standup)",
       "enabled": true,
       "createdAtMs": 1771344956120,
-      "updatedAtMs": 1771344956120,
+      "updatedAtMs": 1771509964399,
       "schedule": {
         "kind": "cron",
         "expr": "5 9 * * 1-5",
@@ -614,7 +540,6 @@
       "payload": {
         "kind": "agentTurn",
         "message": "You are RESEARCH (Research Analyst). Write your morning standup status.\n\nRead /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md and /Users/redinside/.openclaw/workspace/ops/LEARNINGS.md for context.\n\nWrite your status to /Users/redinside/.openclaw/workspace/ops/agent-status/research.json as valid JSON:\n{\n  \"agent\": \"research\",\n  \"date\": \"YYYY-MM-DD\",\n  \"updatedAt\": \"ISO timestamp\",\n  \"sprintGoal\": \"1-sentence research goal for this sprint\",\n  \"workingOn\": \"What you are researching today\",\n  \"completedYesterday\": \"What you completed recently\",\n  \"eta\": \"ETA for current research output\",\n  \"blockers\": \"Any blockers or missing data, or 'None'\"\n}\n\nAfter writing the JSON file, use the slack tool to post your standup to #redos-scrum.\n\nPost this message to channel:C0AEV3J2L23:\n```\n🔬 *RESEARCH (Research Analyst) — Daily Standup*\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📅 *Date:* <today's date, e.g. Mon Feb 17 2026>\n🎯 *Sprint Goal:* <your sprintGoal>\n✅ *Completed Yesterday:* <your completedYesterday>\n🔨 *Working On Today:* <your workingOn>\n⏱️ *ETA:* <your eta>\n🚧 *Blockers:* <your blockers or None>\n```\n\nUse slack tool action \"sendMessage\" with to=\"channel:C0AEV3J2L23\".\nDo NOT send a Telegram message. Just write the file and post to Slack.",
-        "model": "ollama/llama3.1:8b",
         "thinking": "low",
         "timeoutSeconds": 120
       },
@@ -622,7 +547,12 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771423500000
+        "nextRunAtMs": 1771596300000,
+        "lastRunAtMs": 1771509964396,
+        "lastStatus": "error",
+        "lastDurationMs": 3,
+        "consecutiveErrors": 2,
+        "lastError": "model not allowed: ollama/llama3.1:8b"
       }
     },
     {
@@ -631,7 +561,7 @@
       "name": "FINANCE Morning Check-in (standup)",
       "enabled": true,
       "createdAtMs": 1771344956120,
-      "updatedAtMs": 1771344956120,
+      "updatedAtMs": 1771510046200,
       "schedule": {
         "kind": "cron",
         "expr": "5 9 * * 1-5",
@@ -650,7 +580,11 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771423500000
+        "nextRunAtMs": 1771596300000,
+        "lastRunAtMs": 1771509964399,
+        "lastStatus": "ok",
+        "lastDurationMs": 81801,
+        "consecutiveErrors": 0
       }
     },
     {
@@ -659,7 +593,7 @@
       "name": "OPS Morning Check-in (standup)",
       "enabled": true,
       "createdAtMs": 1771344956120,
-      "updatedAtMs": 1771344956120,
+      "updatedAtMs": 1771510166204,
       "schedule": {
         "kind": "cron",
         "expr": "5 9 * * 1-5",
@@ -672,13 +606,18 @@
         "message": "You are OPS (Scrum Master). Write your morning standup status.\n\nRead /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md and /Users/redinside/.openclaw/logs/gateway.err.log (last 10 lines) for context.\n\nWrite your status to /Users/redinside/.openclaw/workspace/ops/agent-status/ops.json as valid JSON:\n{\n  \"agent\": \"ops\",\n  \"date\": \"YYYY-MM-DD\",\n  \"updatedAt\": \"ISO timestamp\",\n  \"sprintGoal\": \"1-sentence ops goal for this sprint\",\n  \"workingOn\": \"What you are focused on today (ticket management, health, SLA)\",\n  \"completedYesterday\": \"What you completed recently\",\n  \"eta\": \"ETA for current ops deliverable\",\n  \"blockers\": \"Any system issues or blockers, or 'None'\"\n}\n\nAfter writing the JSON file, use the slack tool to post your standup to #redos-scrum.\n\nPost this message to channel:C0AEV3J2L23:\n```\n⚙️ *OPS (Scrum Master) — Daily Standup*\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📅 *Date:* <today's date, e.g. Mon Feb 17 2026>\n🎯 *Sprint Goal:* <your sprintGoal>\n✅ *Completed Yesterday:* <your completedYesterday>\n🔨 *Working On Today:* <your workingOn>\n⏱️ *ETA:* <your eta>\n🚧 *Blockers:* <your blockers or None>\n```\n\nUse slack tool action \"sendMessage\" with to=\"channel:C0AEV3J2L23\".\nDo NOT send a Telegram message. Just write the file and post to Slack.",
         "model": "ollama/llama3.1:8b",
         "thinking": "low",
-        "timeoutSeconds": 120
+        "timeoutSeconds": 240
       },
       "delivery": {
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771423500000
+        "nextRunAtMs": 1771596300000,
+        "lastRunAtMs": 1771510046200,
+        "lastStatus": "error",
+        "lastDurationMs": 120004,
+        "consecutiveErrors": 2,
+        "lastError": "Error: cron: job execution timed out"
       }
     },
     {
@@ -687,7 +626,7 @@
       "name": "INFOSEC Morning Check-in (standup)",
       "enabled": true,
       "createdAtMs": 1771344956120,
-      "updatedAtMs": 1771344956120,
+      "updatedAtMs": 1771510260697,
       "schedule": {
         "kind": "cron",
         "expr": "5 9 * * 1-5",
@@ -706,7 +645,11 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771423500000
+        "nextRunAtMs": 1771596300000,
+        "lastRunAtMs": 1771510166204,
+        "lastStatus": "ok",
+        "lastDurationMs": 94493,
+        "consecutiveErrors": 0
       }
     },
     {
@@ -715,7 +658,7 @@
       "name": "OPS Scrum Master — Morning Standup",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771376161329,
+      "updatedAtMs": 1771510674861,
       "schedule": {
         "kind": "cron",
         "expr": "15 9 * * 1-5",
@@ -731,13 +674,16 @@
         "timeoutSeconds": 300
       },
       "delivery": {
-        "mode": "none"
+        "mode": "announce",
+        "channel": "telegram",
+        "to": "1012034994",
+        "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771423200000,
-        "lastRunAtMs": 1771336821138,
+        "nextRunAtMs": 1771596900000,
+        "lastRunAtMs": 1771510514544,
         "lastStatus": "ok",
-        "lastDurationMs": 112599,
+        "lastDurationMs": 160317,
         "consecutiveErrors": 0
       }
     },
@@ -747,7 +693,7 @@
       "name": "OPS SLA Enforcement Check",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771377774815,
+      "updatedAtMs": 1771543469639,
       "schedule": {
         "kind": "every",
         "everyMs": 1800000,
@@ -763,13 +709,16 @@
         "timeoutSeconds": 300
       },
       "delivery": {
-        "mode": "none"
+        "mode": "announce",
+        "channel": "telegram",
+        "to": "1012034994",
+        "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771381295024,
-        "lastRunAtMs": 1771377695059,
+        "nextRunAtMs": 1771545095024,
+        "lastRunAtMs": 1771543295060,
         "lastStatus": "ok",
-        "lastDurationMs": 79756,
+        "lastDurationMs": 174579,
         "consecutiveErrors": 0
       }
     },
@@ -779,7 +728,7 @@
       "name": "OPS System Health Monitor",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771378707533,
+      "updatedAtMs": 1771544375592,
       "schedule": {
         "kind": "every",
         "everyMs": 900000,
@@ -795,14 +744,17 @@
         "timeoutSeconds": 300
       },
       "delivery": {
-        "mode": "none"
+        "mode": "announce",
+        "channel": "telegram",
+        "to": "1012034994",
+        "bestEffort": true
       },
       "state": {
         "lastStatus": "ok",
-        "lastRunAtMs": 1771378595053,
-        "lastDurationMs": 112480,
+        "lastRunAtMs": 1771544195052,
+        "lastDurationMs": 180540,
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1771380395024
+        "nextRunAtMs": 1771545095024
       }
     },
     {
@@ -811,7 +763,7 @@
       "name": "RED Self-Improvement Reflection",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771380089656,
+      "updatedAtMs": 1771540032109,
       "schedule": {
         "kind": "every",
         "everyMs": 21600000,
@@ -822,7 +774,6 @@
       "payload": {
         "kind": "agentTurn",
         "message": "You are RED (CEO). Run the self-improvement reflection cycle.\n\nSTEPS:\n1. Read /Users/redinside/.openclaw/workspace/ops/LEARNINGS.md — review recent learnings.\n2. Read /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md — review resolved tickets from last 24h.\n3. Read /Users/redinside/.openclaw/logs/errors.jsonl (last 20 entries) — look for patterns.\n4. Read /Users/redinside/.openclaw/workspace/logs/routing-decisions.jsonl (last 30 entries) — check routing quality and agent performance.\n5. Read /Users/redinside/.openclaw/workspace/ops/agent-status/ — review what each agent reported today.\n\nANALYZE:\n- Are there recurring errors? → Propose a permanent fix (update config, skill, or LEARNINGS.md)\n- Are there model routing issues? → Suggest fallback chain adjustments\n- Are there patterns in user corrections? → Propose behavior updates\n- Which agents are performing well? Which need support?\n- What should the team focus on tomorrow?\n\nACTIONS:\n- If you identify an improvement, apply it (update LEARNINGS.md, SKILL.md, or config as needed)\n- Use sessions_spawn (NOT sessions_send) to notify relevant agents:\n  sessions_spawn(agentId=\"ops\", task=\"Self-improvement review complete. Please update TICKET-TRACKER.md if any items resolved: {summary}\")\n- Create a ticket in TICKET-TRACKER.md for any systemic issue found\n\nPOST TO SLACK:\nAfter your analysis, post your improvement directives to #redos-mission-control using the slack tool:\n```\n👑 *RED (CEO) — Daily Improvement Directives*\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📊 *Patterns observed:* <what you found>\n🔧 *Actions taken:* <what you fixed>\n📋 *Directives for the team:*\n• ENG: <directive if any>\n• RESEARCH: <directive if any>\n• OPS: <directive if any>\n• INFOSEC: <directive if any>\n```\nUse slack tool: action=\"sendMessage\", to=\"channel:C0AEV3MDEDD\"\n\nOUTPUT: Brief summary of what was reviewed and any actions taken.",
-        "model": "ollama/llama3.1:8b",
         "thinking": "low",
         "timeoutSeconds": 300
       },
@@ -830,11 +781,12 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771388495024,
-        "lastRunAtMs": 1771367101349,
-        "lastStatus": "ok",
-        "lastDurationMs": 173038,
-        "consecutiveErrors": 0
+        "nextRunAtMs": 1771561295024,
+        "lastRunAtMs": 1771540032107,
+        "lastStatus": "error",
+        "lastDurationMs": 2,
+        "consecutiveErrors": 8,
+        "lastError": "model not allowed: ollama/llama3.1:8b"
       }
     },
     {
@@ -843,7 +795,7 @@
       "name": "OPS Ticket Auto-Diagnose & Fix",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771377946373,
+      "updatedAtMs": 1771543838769,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -859,13 +811,16 @@
         "timeoutSeconds": 300
       },
       "delivery": {
-        "mode": "none"
+        "mode": "announce",
+        "channel": "telegram",
+        "to": "1012034994",
+        "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771381295024,
-        "lastRunAtMs": 1771377888786,
+        "nextRunAtMs": 1771546895024,
+        "lastRunAtMs": 1771543668938,
         "lastStatus": "ok",
-        "lastDurationMs": 57587,
+        "lastDurationMs": 169831,
         "consecutiveErrors": 0
       }
     },
@@ -875,7 +830,7 @@
       "name": "RESEARCH Proactive Knowledge Update",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771380089656,
+      "updatedAtMs": 1771540254589,
       "schedule": {
         "kind": "every",
         "everyMs": 14400000,
@@ -886,7 +841,6 @@
       "payload": {
         "kind": "agentTurn",
         "message": "You are RESEARCH. Run proactive knowledge update.\n\nSTEPS:\n1. Read /Users/redinside/.openclaw/workspace/ops/LEARNINGS.md — check what issues have been found recently.\n2. Read /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md — check for any tickets that need research.\n3. For any open tickets assigned to you or tagged as needing research:\n   a. Use web_search to find solutions, best practices, or documentation\n   b. Summarize findings and post them as a comment on the ticket\n   c. If you find a solution, notify the assignee via sessions_send\n\n4. Proactive scan: Use web_search to check for:\n   - OpenClaw updates or new features\n   - Issues with models we use (openai-codex, zai/glm, perplexity)\n   - Security advisories for our tools\n\n5. If you find anything relevant:\n   a. Append to /Users/redinside/.openclaw/workspace/ops/LEARNINGS.md\n   b. Notify OPS via sessions_send(agentId=\"ops\", message=\"Research update: {summary}\")\n   c. If it's urgent (security issue, breaking change), also notify RED\n\n6. If nothing notable found: do nothing silently.\n\nPOST TO SLACK:\nAfter completing research and updating files, post key findings to #openclaw-optimization so your colleagues can learn from it:\nUse slack tool: action=\"sendMessage\", to=\"channel:C0AF4KB4TUK\"\nMessage format:\n```\n🔬 *RESEARCH Knowledge Update — <date>*\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n<3-5 bullet points of the most actionable findings>\n*Recommended team actions:* <what ENG/OPS/INFOSEC should do based on this>\n```",
-        "model": "ollama/llama3.1:8b",
         "thinking": "low",
         "timeoutSeconds": 300
       },
@@ -894,11 +848,12 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771381295024,
-        "lastRunAtMs": 1771367417303,
-        "lastStatus": "ok",
-        "lastDurationMs": 174897,
-        "consecutiveErrors": 0
+        "nextRunAtMs": 1771554095024,
+        "lastRunAtMs": 1771540254587,
+        "lastStatus": "error",
+        "lastDurationMs": 2,
+        "consecutiveErrors": 12,
+        "lastError": "model not allowed: ollama/llama3.1:8b"
       }
     },
     {
@@ -907,7 +862,7 @@
       "name": "RED CEO Daily Summary to Anurag",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771376161329,
+      "updatedAtMs": 1771542016662,
       "schedule": {
         "kind": "cron",
         "expr": "0 18 * * 1-5",
@@ -918,7 +873,6 @@
       "payload": {
         "kind": "agentTurn",
         "message": "You are RED (CEO). Compile and send the daily summary to Anurag.\n\nSTEPS:\n1. Read /Users/redinside/.openclaw/workspace/ops/STANDUP-LOG.md — get today's standup.\n2. Read /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md — get ticket summary.\n3. Read /Users/redinside/.openclaw/workspace/ops/LEARNINGS.md — get today's learnings.\n4. Read /Users/redinside/.openclaw/logs/gateway.err.log (last 20 lines) — system health.\n\nCOMPILE a Telegram message to Anurag (user ID: 1012034994) with:\n\n📊 **RedOS Daily Summary — {date}**\n\n**System Health:** {healthy/degraded/issues}\n**Tickets:** {opened today} opened, {resolved today} resolved, {open} still open\n**SLA Breaches:** {count or \"None\"}\n\n**Key Events:**\n- {bullet points of important things that happened}\n\n**Learnings Applied:**\n- {bullet points of self-improvements made}\n\n**Agent Activity:**\n- {which agents were active, what they did}\n\n**Tomorrow's Focus:**\n- {what needs attention}\n\nKeep under 3000 chars. Send via Telegram DM.\n\nAfter sending the Telegram summary, also post to Slack #all-redos (channel:C0AG4AY6VME).\n\nFormat the Slack message as:\n```\n👑 *CEO Daily Summary — <date>*\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📊 *Today's Activity*\n• Calls: <N> | Spend: $<amount>\n• Active agents: <list>\n\n🎯 *Sprint Progress*\n<bullet list of key items from standup>\n\n🎫 *Tickets*\n• <open count> open | <resolved count> resolved today\n• <any SLA breaches>\n\n📚 *Learnings / Decisions*\n<key learnings from today>\n\n🔮 *Tomorrow's Focus*\n<key priorities>\n```\nUse slack tool: action=\"sendMessage\", to=\"channel:C0AG4AY6VME\" ",
-        "model": "ollama/llama3.1:8b",
         "thinking": "low",
         "timeoutSeconds": 300
       },
@@ -928,11 +882,12 @@
         "to": "1012034994"
       },
       "state": {
-        "nextRunAtMs": 1771455600000,
-        "lastRunAtMs": 1771369226192,
-        "lastStatus": "ok",
-        "lastDurationMs": 127167,
-        "consecutiveErrors": 0
+        "nextRunAtMs": 1771628400000,
+        "lastRunAtMs": 1771542016660,
+        "lastStatus": "error",
+        "lastDurationMs": 2,
+        "consecutiveErrors": 2,
+        "lastError": "model not allowed: ollama/llama3.1:8b"
       }
     },
     {
@@ -941,7 +896,7 @@
       "name": "RED Daily Brief (Telegram)",
       "enabled": true,
       "createdAtMs": 1771202886122,
-      "updatedAtMs": 1771337032624,
+      "updatedAtMs": 1771509622303,
       "schedule": {
         "kind": "cron",
         "expr": "0 9 * * *",
@@ -952,7 +907,6 @@
       "payload": {
         "kind": "agentTurn",
         "message": "Create Anurag Saxena’s daily brief.\n\nInstructions:\n- Read these workspace files first:\n  - briefs/daily-brief-instructions.md\n  - briefs/daily-brief-topics.md\n- Use web_search/web_fetch when needed for headlines; include direct links.\n- Keep it concise; omit empty sections.\n- No crypto.\n\nDeliver the brief as a Telegram message.",
-        "model": "ollama/llama3.1:8b",
         "timeoutSeconds": 300
       },
       "delivery": {
@@ -961,11 +915,12 @@
         "to": "telegram:1012034994"
       },
       "state": {
-        "nextRunAtMs": 1771423200000,
-        "lastRunAtMs": 1771336933737,
-        "lastStatus": "ok",
-        "lastDurationMs": 98887,
-        "consecutiveErrors": 0
+        "nextRunAtMs": 1771596000000,
+        "lastRunAtMs": 1771509622302,
+        "lastStatus": "error",
+        "lastDurationMs": 1,
+        "consecutiveErrors": 2,
+        "lastError": "model not allowed: ollama/llama3.1:8b"
       }
     },
     {
@@ -974,7 +929,7 @@
       "name": "ENG ← RESEARCH: Read & Apply Learnings",
       "enabled": true,
       "createdAtMs": 1771380089656,
-      "updatedAtMs": 1771380089656,
+      "updatedAtMs": 1771516020337,
       "schedule": {
         "kind": "cron",
         "expr": "45 10 * * 1-5",
@@ -993,7 +948,11 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771429500000
+        "nextRunAtMs": 1771602300000,
+        "lastRunAtMs": 1771515930951,
+        "lastStatus": "ok",
+        "lastDurationMs": 89386,
+        "consecutiveErrors": 0
       }
     },
     {
@@ -1002,7 +961,7 @@
       "name": "INFOSEC ← ENG: Security Review of Updates",
       "enabled": true,
       "createdAtMs": 1771380089656,
-      "updatedAtMs": 1771380089656,
+      "updatedAtMs": 1771529709867,
       "schedule": {
         "kind": "cron",
         "expr": "30 14 * * 2,4",
@@ -1015,13 +974,18 @@
         "message": "You are INFOSEC (Security Officer). Review ENG's recent work for security implications.\n\nSTEPS:\n1. Use slack tool to read recent messages from #openclaw-optimization:\n   action=\"readMessages\", channelId=\"C0AF4KB4TUK\", limit=30\n2. Read /Users/redinside/.openclaw/logs/gateway.err.log (last 30 lines) for security events.\n3. Review any code changes, config updates, or new integrations ENG has posted.\n4. Check /Users/redinside/.openclaw/workspace/ops/LEARNINGS.md for known security patterns.\n5. For each security concern found:\n   a. Post a security advisory to #openclaw-optimization with severity level\n   b. Create a ticket in TICKET-TRACKER.md if P1/P2\n6. Post security review summary to #openclaw-optimization:\n   ```\n   🔒 *INFOSEC Security Review — <date>*\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n   Reviewed ENG updates. Security assessment:\n   *Status:* ✅ CLEAR / ⚠️ ADVISORIES / 🔴 CRITICAL\n   <findings and recommendations>\n   ```\n   Use slack tool: action=\"sendMessage\", to=\"channel:C0AF4KB4TUK\" ",
         "model": "ollama/llama3.1:8b",
         "thinking": "low",
-        "timeoutSeconds": 180
+        "timeoutSeconds": 300
       },
       "delivery": {
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771529400000
+        "nextRunAtMs": 1771961400000,
+        "lastRunAtMs": 1771529529862,
+        "lastStatus": "error",
+        "lastDurationMs": 180005,
+        "lastError": "Error: cron: job execution timed out",
+        "consecutiveErrors": 1
       }
     },
     {
@@ -1058,7 +1022,7 @@
       "name": "RED Morning Team Pulse (Slack A2A)",
       "enabled": true,
       "createdAtMs": 1771380089656,
-      "updatedAtMs": 1771380089656,
+      "updatedAtMs": 1771511660545,
       "schedule": {
         "kind": "cron",
         "expr": "30 9 * * 1-5",
@@ -1074,10 +1038,71 @@
         "timeoutSeconds": 300
       },
       "delivery": {
+        "mode": "announce",
+        "channel": "telegram",
+        "to": "1012034994",
+        "bestEffort": true
+      },
+      "state": {
+        "nextRunAtMs": 1771597800000,
+        "lastRunAtMs": 1771511574938,
+        "lastStatus": "ok",
+        "lastDurationMs": 85607,
+        "consecutiveErrors": 0
+      }
+    },
+    {
+      "id": "ops-task-eta-monitor-0001",
+      "agentId": "ops",
+      "name": "OPS Task ETA Monitor",
+      "enabled": true,
+      "createdAtMs": 1771544316316,
+      "updatedAtMs": 1771544316316,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 1800000,
+        "anchorMs": 1771544316316
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "thinking": "low",
+        "timeoutSeconds": 240,
+        "message": "You are OPS (Orchestrator). Run task ETA monitoring.\n\nSTEPS:\n1. Read /Users/redinside/.openclaw/workspace/ops/task-registry.json\n2. If no tasks or all completed: do nothing silently.\n3. For each task with status \"in_progress\" and an eta field:\n   a. If current time > eta: mark the task as overdue\n   b. Post a warning to Slack #redos-ops: \"⏰ *Task ETA Breach* — TASK-{id}: {title} was due {eta}. Assignee: {assignee}\"\n      Use slack tool: action=\"sendMessage\", to=\"channel:C0AEV3MDEDD\"\n   c. Notify the parent agent via sessions_spawn if requestedBy is set:\n      sessions_spawn(agentId=\"{requestedBy}\", task=\"OPS alert: Task {id} ({title}) assigned to {assignee} has passed its ETA of {eta}. Please check status.\")\n4. Update task-registry.json with any status changes.\n\nBe silent if all tasks are on track."
+      },
+      "delivery": {
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771425000000
+        "nextRunAtMs": 1771546116316
+      }
+    },
+    {
+      "id": "ops-idle-agent-audit-0001",
+      "agentId": "ops",
+      "name": "OPS Idle Agent Audit",
+      "enabled": true,
+      "createdAtMs": 1771544316316,
+      "updatedAtMs": 1771544316316,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 3600000,
+        "anchorMs": 1771544316316
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "thinking": "low",
+        "timeoutSeconds": 240,
+        "message": "You are OPS (Orchestrator). Run idle agent audit.\n\nSTEPS:\n1. Read agent status files:\n   - /Users/redinside/.openclaw/workspace/ops/agent-status/main.json\n   - /Users/redinside/.openclaw/workspace/ops/agent-status/eng.json\n   - /Users/redinside/.openclaw/workspace/ops/agent-status/research.json\n   - /Users/redinside/.openclaw/workspace/ops/agent-status/finance.json\n   - /Users/redinside/.openclaw/workspace/ops/agent-status/ops.json\n   - /Users/redinside/.openclaw/workspace/ops/agent-status/infosec.json\n2. Always-on agents are: main, allrounder, ops. Check if they have checkin from today.\n3. If any always-on agent has no status file or status dated before today:\n   a. Use sessions_spawn to ping them: sessions_spawn(agentId=\"{agentId}\", task=\"OPS check: You have no standup for today. Please write your status to workspace/ops/agent-status/{agentId}.json and post to #redos-scrum.\")\n   b. Post a note to #redos-ops: \"⚠️ {agent} has no check-in for today — pinged via sessions_spawn\"\n      Use slack tool: action=\"sendMessage\", to=\"channel:C0AEV3MDEDD\"\n4. Be silent if all always-on agents have checked in today."
+      },
+      "delivery": {
+        "mode": "none"
+      },
+      "state": {
+        "nextRunAtMs": 1771547916316
       }
     }
   ]
