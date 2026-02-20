@@ -1220,7 +1220,7 @@ const server = http.createServer((req, res) => {
     const routingFile = path.join(logsDir, 'routing-decisions.jsonl');
     const analyticsFile = path.join(logsDir, 'llm-analytics.jsonl');
 
-    const readJsonl = (fp, limit = 100) => {
+    const readJsonl = (fp, limit = 5000) => {
       try {
         if (!fs.existsSync(fp)) return [];
         const lines = fs.readFileSync(fp, 'utf8').split('\n').filter(Boolean);
@@ -1228,9 +1228,9 @@ const server = http.createServer((req, res) => {
       } catch { return []; }
     };
 
-    const costs = readJsonl(costFile, 200);
+    const costs = readJsonl(costFile, 500);
     const routing = readJsonl(routingFile, 200);
-    const analytics = readJsonl(analyticsFile, 200);
+    const allAnalytics = readJsonl(analyticsFile, 5000);
 
     const today = new Date().toISOString().slice(0, 10);
     const todayCosts = costs.filter(c => c.ts && c.ts.startsWith(today));
@@ -1273,17 +1273,86 @@ const server = http.createServer((req, res) => {
       byProvider[provider].cost_usd += cost;
     }
 
+    // --- Time-series from llm-analytics.jsonl (last 30 days) ---
+    const FREE_PROVIDERS = new Set(['ollama']);
+    const byDay = {}; // date -> { calls, tokens_in, tokens_out, cost_usd, free_calls, paid_calls, latency_sum, latency_count }
+    const byAgentAll = {}; // agentId -> { calls, tokens_in, tokens_out, cost_usd, latency_sum, latency_count }
+    const byProviderAll = {}; // provider -> { calls, tokens_in, tokens_out }
+
+    const cutoff = new Date();
+    cutoff.setDate(cutoff.getDate() - 30);
+    const cutoffStr = cutoff.toISOString().slice(0, 10);
+
+    for (const a of allAnalytics) {
+      if (!a.ts) continue;
+      const date = a.ts.slice(0, 10);
+      if (date < cutoffStr) continue;
+
+      const agent = a.agent || 'unknown';
+      const provider = a.provider || (typeof a.model === 'string' && a.model.includes('/') ? a.model.split('/')[0] : 'unknown');
+      const tin = Number(a.tokens_in) || 0;
+      const tout = Number(a.tokens_out) || 0;
+      const costV = Number(a.cost_usd) || 0;
+      const lat = Number(a.latency_ms) || 0;
+      const isFree = FREE_PROVIDERS.has(provider);
+
+      if (!byDay[date]) byDay[date] = { calls: 0, tokens_in: 0, tokens_out: 0, cost_usd: 0, free_calls: 0, paid_calls: 0, latency_sum: 0, latency_count: 0 };
+      byDay[date].calls += 1;
+      byDay[date].tokens_in += tin;
+      byDay[date].tokens_out += tout;
+      byDay[date].cost_usd += costV;
+      if (isFree) byDay[date].free_calls += 1; else byDay[date].paid_calls += 1;
+      if (lat > 0) { byDay[date].latency_sum += lat; byDay[date].latency_count += 1; }
+
+      if (!byAgentAll[agent]) byAgentAll[agent] = { calls: 0, tokens_in: 0, tokens_out: 0, cost_usd: 0, latency_sum: 0, latency_count: 0 };
+      byAgentAll[agent].calls += 1;
+      byAgentAll[agent].tokens_in += tin;
+      byAgentAll[agent].tokens_out += tout;
+      byAgentAll[agent].cost_usd += costV;
+      if (lat > 0) { byAgentAll[agent].latency_sum += lat; byAgentAll[agent].latency_count += 1; }
+
+      if (!byProviderAll[provider]) byProviderAll[provider] = { calls: 0, tokens_in: 0, tokens_out: 0, isFree };
+      byProviderAll[provider].calls += 1;
+      byProviderAll[provider].tokens_in += tin;
+      byProviderAll[provider].tokens_out += tout;
+    }
+
+    // Fill missing days in last 7 days
+    const days7 = [];
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date(); d.setDate(d.getDate() - i);
+      const ds = d.toISOString().slice(0, 10);
+      const entry = byDay[ds] || { calls: 0, tokens_in: 0, tokens_out: 0, cost_usd: 0, free_calls: 0, paid_calls: 0 };
+      days7.push({ date: ds, ...entry });
+    }
+
+    // Today totals from analytics
+    const todayAnalytics = allAnalytics.filter(a => a.ts && a.ts.startsWith(today));
+    const todayTokensIn = todayAnalytics.reduce((s, a) => s + (Number(a.tokens_in) || 0), 0);
+    const todayTokensOut = todayAnalytics.reduce((s, a) => s + (Number(a.tokens_out) || 0), 0);
+    const todayCallsAnalytics = todayAnalytics.length;
+
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({
+      // Today summary (from cost-events)
       dailySpend: Math.round(dailySpend * 10000) / 10000,
       totalCalls,
       totalEntries: costs.length,
       byProvider,
       byModel,
       byAgent,
+      // Today from analytics
+      todayCallsAnalytics,
+      todayTokensIn,
+      todayTokensOut,
+      // Time-series
+      days7,
+      byAgentAll,
+      byProviderAll,
+      // Recent raw
       recentCosts: todayCosts.slice(-20),
       recentRouting: routing.slice(-20),
-      recentAnalytics: analytics.slice(-20),
+      recentAnalytics: allAnalytics.slice(-20),
     }));
     return;
   }
