@@ -1,0 +1,73 @@
+# CCS Profiles Reference
+# Claude Code Subscription (CCS) — proxy backend profiles for Claude Code
+#
+# CCS routes Claude Code (the single coding agent) through different subscription backends.
+# All profiles are used FROM WITHIN Claude Code — not as separate agents.
+# Claude Code remains the sole coding agent; CCS only changes which subscription pays for it.
+#
+# Setup: https://github.com/zetaloop/ccs (or equivalent)
+# Usage: ccs <profile> [args]
+
+profiles:
+
+  # Primary: Direct Claude Code (Anthropic subscription — $20/mo Pro)
+  claude-direct:
+    description: Native Claude Code CLI with Anthropic subscription
+    invocation: claude -p
+    subscription: Anthropic Claude Pro
+    cost: $20/mo
+    quota: ~limited msgs/day (resets daily)
+    priority: 1  # Always preferred
+
+  # Secondary: Claude Code via Cursor Pro backend
+  # Cursor Pro gives access to Claude Sonnet/Opus, GPT-4o — unlimited
+  cursor:
+    description: Claude Code using Cursor Pro subscription as backend
+    invocation: ccs cursor -p
+    subscription: Cursor Pro
+    cost: $20/mo (existing subscription)
+    quota: unlimited (Cursor Pro)
+    priority: 2  # Used when Anthropic Claude quota exhausted
+
+  # Tertiary: Claude Code via 9Router → Gemini OAuth
+  gemini:
+    description: Claude Code using Gemini OAuth as backend via 9Router
+    invocation: ccs 9router --provider gemini -p
+    subscription: Google OAuth (free tier)
+    cost: $0
+    quota: ~1000 req/day (resets midnight PST)
+    priority: 3
+
+  # Quaternary: Claude Code via 9Router → Codex (ChatGPT Plus)
+  codex:
+    description: Claude Code using ChatGPT Plus subscription as backend via 9Router
+    invocation: ccs 9router --provider codex -p
+    subscription: ChatGPT Plus
+    cost: $0 (existing subscription)
+    quota: unlimited
+    priority: 4
+
+  # Fallback: Claude Code via 9Router → iFlow (always free)
+  iflow:
+    description: Claude Code using iFlow as backend via 9Router (no account needed)
+    invocation: ccs 9router --provider iflow -p
+    subscription: none (genuinely free)
+    cost: $0
+    quota: unlimited
+    priority: 5
+
+  # Fallback: Claude Code via 9Router → Qwen
+  qwen:
+    description: Claude Code using Qwen as backend via 9Router
+    invocation: ccs 9router --provider qwen -p
+    subscription: Alibaba Cloud (free tier)
+    cost: $0
+    quota: generous free tier
+    priority: 6
+
+# Notes:
+# - ccs-smart.sh auto-selects the highest-priority available profile automatically
+# - provider-quota.json is refreshed every 30min by the 9router-quota-sync cron
+# - All profiles use Claude Code as the agent — only the backend subscription differs
+# - 9Router auto-starts on login via launchd (ai.openclaw.9router)
+# - No manual intervention needed after one-time setup (run setup-eng-tools.sh once)

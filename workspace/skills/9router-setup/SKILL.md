@@ -1,0 +1,188 @@
+# 9Router Setup & Operations Skill
+
+## Purpose
+Install, configure, health-check, and troubleshoot 9Router — the local proxy that routes coding tasks to free/subscription providers (Gemini, Codex, iFlow, Qwen) when Claude Code and Cursor Pro are exhausted.
+
+## What is 9Router
+
+9Router is a local OpenAI-compatible API proxy (port 20128) that:
+- Accepts `/v1/chat/completions` requests
+- Routes to the best available free/subscription provider
+- Returns OpenAI-compatible responses
+- Exposes `/api/quota` for live provider quota status
+- Exposes `/health` for health checks
+
+Provider fallback order within 9Router:
+1. Gemini OAuth (free tier, ~1000 req/day)
+2. Codex (ChatGPT Plus subscription)
+3. iFlow / Qwen / Kiro (genuinely free, no account)
+
+## Start / Stop / Status
+
+```bash
+# Start 9Router (default port 20128)
+9router start
+# OR
+npx 9router start --port 20128
+
+# Stop 9Router
+9router stop
+
+# Health check
+curl http://localhost:20128/health
+
+# Check quota for all providers
+curl http://localhost:20128/api/quota | python3 -m json.tool
+
+# Tail logs
+9router logs --tail 50
+```
+
+## Installation
+
+```bash
+# Run setup-eng-tools.sh for full one-shot install
+bash scripts/setup-eng-tools.sh
+
+# Manual install
+npm install -g 9router
+# OR
+npx 9router@latest setup
+```
+
+## Adding / Configuring Providers
+
+### Gemini (Google OAuth — free ~1000/day)
+```bash
+9router auth add gemini
+# Opens browser for Google OAuth — sign in with your Google account
+# No billing required; free tier is per-account per-day
+```
+
+### Codex (ChatGPT Plus subscription)
+```bash
+9router auth add codex
+# Requires active ChatGPT Plus subscription
+# Sign in with OpenAI account
+```
+
+### iFlow (genuinely free, no account)
+```bash
+9router auth add iflow
+# No authentication required — always available
+```
+
+### Qwen (Alibaba Cloud — free tier)
+```bash
+9router auth add qwen
+# Requires Alibaba Cloud account (free tier is generous)
+```
+
+### Kiro (free)
+```bash
+9router auth add kiro
+```
+
+## Adding a New CCS Profile
+
+When a new subscription service is available, add it as a CCS profile:
+```bash
+# Create a new CCS profile
+ccs auth create <profile-name>
+# Example: ccs auth create gemini-pro
+
+# List available profiles
+ccs profiles list
+
+# Test a profile
+ccs <profile-name> -p "Say hello"
+```
+
+## Quota File Sync
+
+The `9router-quota-sync` cron (every 30min, OPS agent) updates `workspace/tmp/provider-quota.json`.
+
+To manually refresh:
+```bash
+curl -sf http://localhost:20128/api/quota | python3 -c "
+import json, sys, datetime
+data = json.load(sys.stdin)
+data['updated'] = datetime.datetime.utcnow().isoformat() + 'Z'
+data['9router_running'] = True
+print(json.dumps(data, indent=2))
+" > workspace/tmp/provider-quota.json
+```
+
+If 9Router is not running, write a stub:
+```bash
+echo '{"updated":"'$(date -u +%Y-%m-%dT%H:%M:%SZ)'","9router_running":false,"claude-code":{"available":true},"cursor":{"available":true}}' > workspace/tmp/provider-quota.json
+```
+
+## Troubleshooting
+
+### 9Router not starting
+```bash
+# Check if port is in use
+lsof -i :20128
+
+# Kill conflicting process
+kill $(lsof -t -i :20128)
+
+# Restart
+9router start
+```
+
+### Gemini quota exhausted (~1000/day)
+```bash
+# Check quota
+curl http://localhost:20128/api/quota | python3 -c "import json,sys; q=json.load(sys.stdin); print(q.get('gemini', {}))"
+
+# Switch default provider to codex temporarily
+9router config set default-provider codex
+
+# Or wait for Gemini quota reset (resets daily at midnight PST)
+```
+
+### Provider returning empty responses
+```bash
+# Test provider directly
+9router test --provider gemini -p "Say hello"
+9router test --provider codex -p "Say hello"
+
+# Check provider status
+curl http://localhost:20128/api/quota
+```
+
+### CCS profile not working
+```bash
+# Re-authenticate
+ccs <profile-name> --reauth
+
+# Check profile config
+ccs profiles list
+
+# Test profile
+ccs <profile-name> -p "Say hello"
+```
+
+## Health Check Script (for OPS monitoring)
+
+```bash
+#!/bin/bash
+# Quick health check — returns 0 if healthy, 1 if not
+curl -sf http://localhost:20128/health > /dev/null 2>&1 && echo "9Router: UP" || echo "9Router: DOWN"
+```
+
+## Quota Monitoring Dashboard
+
+9Router exposes a web UI at: `http://localhost:20128/dashboard`
+- Shows per-provider quota usage
+- Real-time request routing visualization
+- Error log
+
+## Integration with Smart Router
+
+The smart-router skill reads `workspace/tmp/provider-quota.json` to apply Rule 0 (quota gate).
+The `9router-quota-sync` cron keeps this file fresh every 30 minutes.
+
+If the quota file is stale (>1h), smart-router fails open (treats all quotaSource models as available).

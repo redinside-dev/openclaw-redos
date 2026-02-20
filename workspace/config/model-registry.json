@@ -3,7 +3,7 @@
     "name": "AgentOS Model Registry",
     "version": "3.0",
     "description": "All available models, capabilities, pricing. CUSTOMERS: edit this file to configure your AI company.",
-    "updated": "2026-02-15"
+    "updated": "2026-02-20"
   },
 
   "models": [
@@ -30,8 +30,64 @@
       },
       "maxConcurrent": 1,
       "status": "available",
+      "quotaSource": "workspace/tmp/provider-quota.json#claude-code",
       "bestFor": "Complex multi-file coding, refactoring, full-stack apps, debugging hard problems",
       "doNotUseFor": "Simple formatting, non-code tasks, quick lookups"
+    },
+    {
+      "id": "cursor/pro",
+      "displayName": "Claude Code via Cursor Pro backend (CCS)",
+      "provider": "cursor",
+      "type": "ccs-backend",
+      "_note": "Claude Code remains the coding agent. CCS routes the session through Cursor Pro's subscription as the backend. No separate Cursor agent — same Claude Code interface.",
+      "tier": 5,
+      "quality": 9,
+      "speed": 7,
+      "contextWindow": 200000,
+      "capabilities": ["code", "refactor", "multi_file", "test", "debug", "architecture", "agentic"],
+      "billing": {
+        "type": "subscription",
+        "monthlyCost": 0,
+        "perCallCost": 0,
+        "note": "Uses existing Cursor Pro subscription as backend via CCS. Claude Code is still the agent."
+      },
+      "invocation": {
+        "method": "ccs",
+        "command": "ccs cursor"
+      },
+      "maxConcurrent": 3,
+      "status": "available",
+      "quotaSource": "workspace/tmp/provider-quota.json#cursor",
+      "bestFor": "Primary fallback when Anthropic Claude Pro quota exhausted — Claude Code uses Cursor Pro subscription as backend",
+      "doNotUseFor": "Anthropic Claude Pro is available (use that first)"
+    },
+    {
+      "id": "9router/auto",
+      "displayName": "9Router Auto (Multi-Provider Fallback)",
+      "provider": "9router",
+      "type": "api",
+      "tier": 5,
+      "quality": 9,
+      "speed": 7,
+      "contextWindow": 200000,
+      "capabilities": ["code", "refactor", "multi_file", "test", "debug", "architecture", "agentic"],
+      "billing": {
+        "type": "subscription",
+        "monthlyCost": 0,
+        "perCallCost": 0,
+        "note": "Routes to subscription/free providers: Gemini (OAuth), Codex (ChatGPT Plus), iFlow, Qwen"
+      },
+      "invocation": {
+        "method": "api",
+        "baseUrl": "http://localhost:20128/v1",
+        "authTokenEnv": "NINER_ROUTER_KEY"
+      },
+      "maxConcurrent": 5,
+      "status": "available",
+      "quotaCheck": "http://localhost:20128/api/quota",
+      "quotaSource": "workspace/tmp/provider-quota.json#9router",
+      "bestFor": "Complex coding when Claude Code and Cursor Pro subscriptions are exhausted — seamless fallback via Gemini/Codex/iFlow/Qwen",
+      "doNotUseFor": "Tasks requiring specific Claude API features not available via proxy"
     },
     {
       "id": "openai-codex/gpt-5.2",
@@ -311,6 +367,19 @@
     "ollama": {
       "baseUrl": "http://127.0.0.1:11434",
       "note": "Local. Free. Must have Ollama running with models pulled."
+    },
+    "9router": {
+      "baseUrl": "http://localhost:20128/v1",
+      "quotaEndpoint": "http://localhost:20128/api/quota",
+      "healthEndpoint": "http://localhost:20128/health",
+      "authTokenEnv": "NINER_ROUTER_KEY",
+      "note": "9Router local proxy. Routes to Gemini (OAuth), Codex (ChatGPT Plus sub), iFlow, Qwen. All $0. Must be running on port 20128.",
+      "providers": ["gemini", "codex", "iflow", "qwen"]
+    },
+    "cursor": {
+      "method": "ccs",
+      "command": "ccs cursor",
+      "note": "Cursor Pro subscription accessed via CCS CLIProxy. Gives access to Claude Sonnet/Opus, GPT-4o. Must have CCS installed and Cursor Pro authenticated."
     }
   }
 }

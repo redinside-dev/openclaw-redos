@@ -1,0 +1,11 @@
+{
+  "updated": "1970-01-01T00:00:00Z",
+  "_note": "Stale placeholder — refreshed every 30min by 9router-quota-sync cron (OPS agent)",
+  "9router_running": false,
+  "claude-code": { "available": true, "remaining": "unknown" },
+  "cursor":      { "available": true, "remaining": "unknown" },
+  "gemini":      { "available": true, "remaining": "unknown" },
+  "codex":       { "available": true, "remaining": "unknown" },
+  "iflow":       { "available": true, "remaining": "unlimited" },
+  "qwen":        { "available": true, "remaining": "unknown" }
+}

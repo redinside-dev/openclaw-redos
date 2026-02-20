@@ -15,7 +15,7 @@ After EVERY model call, append to `workspace/logs/cost-events.jsonl`:
   "model": "claude-code/sonnet-4.5",
   "provider": "anthropic",
   "tier": 5,
-  "billing_type": "subscription|payg|free",
+  "billing_type": "subscription|subscription_9router|payg|free",
   "tokens": {"input": 2340, "output": 1856, "total": 4196},
   "cost_usd": 0.00,
   "latency_ms": 3420,
@@ -25,11 +25,26 @@ After EVERY model call, append to `workspace/logs/cost-events.jsonl`:
 }
 ```
 
+For 9Router sessions, use extended fields:
+```json
+{
+  "billing_type": "subscription_9router",
+  "provider": "9router",
+  "9router_actual_provider": "gemini|codex|iflow|qwen",
+  "cost_usd": 0.00
+}
+```
+
 ## Cost Rules
 
 ### Subscription Models (cost = $0 per call)
 - openai-codex/gpt-5.2 (all 3 sessions)
 - claude-code/sonnet-4.5
+- cursor/pro (Cursor Pro subscription via CCS CLIProxy)
+- 9router/auto (all providers within 9Router): $0 per call
+  - Gemini OAuth (free tier, ~1000/day)
+  - Codex (ChatGPT Plus subscription)
+  - iFlow / Qwen / Kiro (genuinely free, no account)
 - perplexity/sonar, sonar-pro, sonar-reasoning (within Pro plan)
 - ollama/* (always free)
 
@@ -68,6 +83,10 @@ Subscriptions used today:
   Codex Pro#2 (ZEN):    {n} calls
   Codex Plus (shared):  {n} calls
   Claude Code (ENG):    {n} sessions
+  Cursor Pro (CCS):     {n} sessions
+  9Router sessions:     {n} calls
+    → Providers used: {gemini: n, codex: n, iflow: n, qwen: n}
+    → Subscription quota saved: ~{estimated_tokens} tokens
   Perplexity Pro:       {n} searches
   Ollama (local):       {n} calls, uptime {pct}%
 
