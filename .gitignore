@@ -79,6 +79,7 @@ browser/
 media/
 infra/
 workspace-eng/social-automation/
+sandbox/containers.json
 
 # Agent state files
 agents-state.json

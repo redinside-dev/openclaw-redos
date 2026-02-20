@@ -159,3 +159,23 @@ repeating mistakes and to build institutional knowledge.
 - **Details:** Recent errors included Perplexity invalid_model and Zhipu "model does not exist" responses, which are noisy and can stall workflows.
 - **Prevention:** Add a weekly model-ID validation step: run `openclaw models list` and compare against configured fallbacks/tool defaults. Remove providers with expired credits (e.g., Anthropic) from router fallback chains to avoid repeated hard failures.
 - **Applied To:** LEARNINGS.md; opened TICKET-20260220-002
+
+### LEARNING-20260220-005
+- **Date:** 2026-02-20T06:18:00Z
+- **Source Ticket:** observation (proactive provider scan)
+- **Agent:** RESEARCH
+- **Category:** tool
+- **Summary:** Perplexity Sonar API may have an ongoing incident; ensure web_search-dependent workflows degrade gracefully
+- **Details:** Web search suggests Perplexity’s status page listed a Sonar API incident “under investigation” (reported start Feb 15) and earlier third-party trackers showed a Feb 16 incident window. If accurate, web_search calls may intermittently fail or spike latency.
+- **Prevention:** Add backoff+retry for web_search usage in cron prompts, and ensure critical cron jobs have an alternate “no-web” mode (or a secondary search provider) so workflows don’t fail hard when Sonar is degraded.
+- **Applied To:** LEARNINGS.md (this entry)
+
+### LEARNING-20260220-006
+- **Date:** 2026-02-20T06:18:00Z
+- **Source Ticket:** observation (ecosystem change)
+- **Agent:** RESEARCH
+- **Category:** workflow
+- **Summary:** OpenAI Codex ecosystem: GPT-5-Codex deprecations in GitHub Copilot; verify any pinned model names in integrations
+- **Details:** Public changelog indicates “selected Anthropic and OpenAI models are deprecated” in GitHub Copilot and references GPT-5-Codex being deprecated with GPT-5.2-Codex recommended. If any OpenClaw configs/policies/tools pin old Codex model IDs, they may break unexpectedly.
+- **Prevention:** Audit for pinned/deprecated model IDs (Copilot/org policies, OpenClaw fallback chains, provider config) and keep router defaults aligned with currently supported IDs.
+- **Applied To:** LEARNINGS.md (this entry)

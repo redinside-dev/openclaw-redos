@@ -689,7 +689,7 @@
       "name": "OPS SLA Enforcement Check",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771566913546,
+      "updatedAtMs": 1771574018667,
       "schedule": {
         "kind": "every",
         "everyMs": 1800000,
@@ -711,10 +711,10 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771568495024,
-        "lastRunAtMs": 1771566698063,
+        "nextRunAtMs": 1771575695024,
+        "lastRunAtMs": 1771573895056,
         "lastStatus": "ok",
-        "lastDurationMs": 215483,
+        "lastDurationMs": 123611,
         "consecutiveErrors": 0
       }
     },
@@ -724,7 +724,7 @@
       "name": "OPS System Health Monitor",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771567757496,
+      "updatedAtMs": 1771574265899,
       "schedule": {
         "kind": "every",
         "everyMs": 900000,
@@ -747,10 +747,11 @@
       },
       "state": {
         "lastStatus": "ok",
-        "lastRunAtMs": 1771567595074,
-        "lastDurationMs": 162422,
+        "lastRunAtMs": 1771574018667,
+        "lastDurationMs": 247232,
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1771568495024
+        "nextRunAtMs": 1771574795024,
+        "runningAtMs": 1771574795053
       }
     },
     {
@@ -790,7 +791,7 @@
       "name": "OPS Ticket Auto-Diagnose & Fix",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771565375071,
+      "updatedAtMs": 1771572551997,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -812,10 +813,10 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771568495024,
-        "lastRunAtMs": 1771565214321,
+        "nextRunAtMs": 1771575695024,
+        "lastRunAtMs": 1771572389471,
         "lastStatus": "ok",
-        "lastDurationMs": 160750,
+        "lastDurationMs": 162526,
         "consecutiveErrors": 0
       }
     },
@@ -825,7 +826,7 @@
       "name": "RESEARCH Proactive Knowledge Update",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771554676999,
+      "updatedAtMs": 1771568980490,
       "schedule": {
         "kind": "every",
         "everyMs": 14400000,
@@ -843,10 +844,10 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771568495024,
-        "lastRunAtMs": 1771554533721,
+        "nextRunAtMs": 1771582895024,
+        "lastRunAtMs": 1771568909629,
         "lastStatus": "ok",
-        "lastDurationMs": 143278,
+        "lastDurationMs": 70861,
         "consecutiveErrors": 0
       }
     },
@@ -1050,7 +1051,7 @@
       "name": "OPS Task ETA Monitor",
       "enabled": true,
       "createdAtMs": 1771544316316,
-      "updatedAtMs": 1771567852196,
+      "updatedAtMs": 1771573285272,
       "schedule": {
         "kind": "every",
         "everyMs": 1800000,
@@ -1068,10 +1069,10 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771569516316,
-        "lastRunAtMs": 1771567757566,
+        "nextRunAtMs": 1771574916316,
+        "lastRunAtMs": 1771573202971,
         "lastStatus": "ok",
-        "lastDurationMs": 94630,
+        "lastDurationMs": 82301,
         "consecutiveErrors": 0
       }
     },
@@ -1081,7 +1082,7 @@
       "name": "OPS Idle Agent Audit",
       "enabled": true,
       "createdAtMs": 1771544316316,
-      "updatedAtMs": 1771566459320,
+      "updatedAtMs": 1771573472321,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -1099,10 +1100,10 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771569516316,
-        "lastRunAtMs": 1771566280449,
+        "nextRunAtMs": 1771576716316,
+        "lastRunAtMs": 1771573285272,
         "lastStatus": "ok",
-        "lastDurationMs": 178871,
+        "lastDurationMs": 187049,
         "consecutiveErrors": 0
       }
     }
