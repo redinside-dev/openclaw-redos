@@ -2087,6 +2087,64 @@ gateway.err.log 409 errors → OPS Health Monitor detects
 
 ---
 
-*Last updated: 2026-02-15 21:27 ET by Windsurf Cascade*
-*OpenClaw version: 2026.2.14 | RedOS version: 3.7.0*
-*All 4 autonomy systems tested and confirmed production-ready. 10 learnings, 4 tickets, 96 memory lines — all produced autonomously by agents.*
+---
+
+## §20 — Lean A2A Reset (2026-02-19, branch: feature/lean-a2a-reset)
+
+### What Was Done
+
+Full framework-first reset of the multi-agent system. All changes on branch `feature/lean-a2a-reset` — **not yet merged to main**.
+
+#### Phase 1: Fixed 7 broken cron jobs
+Cron jobs had `"model": "ollama/llama3.1:8b"` overrides for agents using `openai-codex/gpt-5.2` → `model not allowed` errors. Fix: remove `model` key from those job payloads.
+
+Affected jobs (fixed): `sa-main-checkin-0001`, `sa-research-checkin-0001`, `bde6d3d8` (RED Self-Improvement, 8 consecutive errors), `1d58e865` (RESEARCH Knowledge Update, 12 consecutive errors), `a5bdd899` (CEO Daily Summary), `14c3b159` (RED Daily Brief), `45337086` (Daily AI Trends Brief).
+
+Timeout fixes: `sa-ops-checkin-0001` 120→240s, `a2a-infosec-reviews-eng-0001` 180→300s.
+
+Dead jobs removed: `103d1e7b` (POC Check-in), `f6a2b245` (Daily Full Status), `fd95e7f1` (Daily Telegram market brief).
+
+New OPS orchestration crons added: `ops-task-eta-monitor-0001` (every 30min), `ops-idle-agent-audit-0001` (every 60min).
+
+#### Phase 2: Vector memory enabled
+`openclaw.json` → `agents.defaults.memorySearch.experimental.sessionMemory: true`
+
+**Critical note:** Adding `experimental` at individual agent level is rejected by `openclaw doctor`. The correct path is `agents.defaults.memorySearch.experimental.sessionMemory`. Found by grepping OpenClaw dist files.
+
+#### Phase 3: SOUL.md rewritten
+`workspace/SOUL.md` reduced from 259 lines (13 sections) to ~75 lines (framework-aligned). Removed duplicated framework behavior; added company structure table, Slack channel map, decision complexity framework, scrum protocol, and self-healing protocol.
+
+#### Phase 4: New files
+- `workspace/config/slack-channels.json` — stub pending RED bootstrapping per-agent Slack channels
+- `workspace/ops/task-registry.json` — OPS-managed task list (starts empty)
+- `workspace/logs/a2a-delegations.jsonl` — empty, gitignored (kept as fallback)
+
+#### Phase 5: Dashboard Team tab
+`dashboard/server.js`: Added `getA2ADelegations()` + `/api/a2a` route.
+`dashboard/index.html`: Added "Team" tab showing active agents + delegation log.
+
+#### A2A Reliability Fix
+**Problem:** `getA2ADelegations()` read from `workspace/logs/a2a-delegations.jsonl` which agents write manually. Agents wake up stateless and may not write the file → dashboard shows nothing.
+
+**Fix:** Rewrote `getA2ADelegations()` to read `routing-decisions.jsonl` natively — the framework always writes this file.
+
+**Algorithm:**
+- Subagent sessions: `session_key` contains `:subagent:{uuid}`
+- Parent (spawner): announce entries have `run_id = "announce:v1:agent:{subagentId}:subagent:{uuid}:..."` — the `agent` field = the PARENT
+- Task: extracted from `[Subagent Task]:` marker in `prompt_tail`
+
+**Removed** manual write-to-file instruction from SOUL.md (no longer needed).
+
+#### OpenClaw upgrade to 2026.2.19-2
+- `scripts/patch-pairing-reply.sh` updated with new dist filenames for this build
+- New filenames: `pi-embedded-Cn8f5u97.js`, `pi-embedded-CHb5giY2.js`, `reply-B4B0jUCM.js`, `plugin-sdk/reply-Bsg9j6AP.js`, `subagent-registry-DOZpiiys.js`
+
+### Pending (not yet done)
+1. **Merge `feature/lean-a2a-reset` → `main`**
+2. **Bootstrap per-agent Slack channels** — send RED a Telegram message to create #redos-red, #redos-zen, #redos-eng, #redos-research, #redos-finance, #redos-ops, #redos-infosec and populate `workspace/config/slack-channels.json`
+3. **Morning verification** — confirm 7/7 standups, scrum post, CEO Daily Summary
+
+---
+
+*Last updated: 2026-02-20 by Claude Code (Sonnet 4.6)*
+*OpenClaw version: 2026.2.19-2 | RedOS version: 3.8.0 (feature/lean-a2a-reset, not yet merged)*

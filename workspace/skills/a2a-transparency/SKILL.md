@@ -9,7 +9,7 @@ Every `sessions_spawn` call MUST be visible on Slack. This skill defines the com
 
 ---
 
-## Channel Structure (Group Rooms)
+## Channel Structure
 
 | Channel | ID | Purpose |
 |---|---|---|
@@ -17,6 +17,23 @@ Every `sessions_spawn` call MUST be visible on Slack. This skill defines the com
 | `#redos-scrum` | C0AEV3J2L23 | Daily standups, team check-ins |
 | `#openclaw-optimization` | C0AF4KB4TUK | Knowledge sharing: research findings, ENG code, INFOSEC reviews |
 | `#all-redos` | C0AG4AY6VME | Company-wide announcements, team greetings |
+
+### Per-Agent Work Channels
+Each agent also posts work updates to their own channel. Channel IDs are in
+`config/slack-channels.json` (created by RED on first deploy).
+
+| Channel | ID | Agent | Posts What |
+|---|---|---|---|
+| `#redos-red` | C0AFLUZ4P71 | RED | Task decisions, delegation summaries, CEO directives |
+| `#redos-zen` | C0AFZ09R9V3 | ZEN | Research findings, briefings |
+| `#redos-eng` | C0AFW1B0QUB | ENG | Code changes, architecture decisions |
+| `#redos-research` | C0AG615R5E0 | RESEARCH | Analysis reports, learning updates |
+| `#redos-finance` | C0AG6166CJ0 | FINANCE | Financial reports, budget status |
+| `#redos-ops` | C0AGFA9417T | OPS | Health checks, orchestration log, task tracking |
+| `#redos-infosec` | C0AG2CTU6AW | INFOSEC | Security reviews, alerts |
+
+IDs are also in `config/slack-channels.json`. Use the ID directly when posting via the slack tool.
+Post a brief update to your channel after completing any significant task.
 
 ---
 
@@ -154,6 +171,40 @@ curl -s -X POST https://slack.com/api/chat.postMessage \
 ```
 
 ---
+
+## Task Registry Protocol
+
+When you accept a delegated task (spawned by another agent), register it:
+
+1. Read `ops/task-registry.json`
+2. Add an entry:
+```json
+{
+  "id": "TASK-<YYYYMMDD>-<NNN>",
+  "title": "<task summary>",
+  "assignee": "<your agentId>",
+  "requestedBy": "<spawner agentId>",
+  "status": "in_progress",
+  "eta": "<ISO datetime>",
+  "startedAt": "<ISO datetime>",
+  "completedAt": null,
+  "notes": "Spawned at <time>"
+}
+```
+3. When done: set `"status": "completed"` and `"completedAt": "<ISO>"`
+4. Post completion to your personal channel and to #redos-mission-control thread
+
+## A2A Delegation Log Protocol
+
+Append to `logs/a2a-delegations.jsonl` on every spawn:
+```json
+{"type":"dispatch","ts":"<ISO>","spawner":"<agentId>","subagent":"<agentId>","task":"<one-line summary>"}
+```
+On result receipt:
+```json
+{"type":"result","ts":"<ISO>","spawner":"<agentId>","subagent":"<agentId>","task":"<same summary>","result_preview":"<first 100 chars of result>"}
+```
+This file is read by the Mission Control dashboard Team tab.
 
 ## What "Groups" Map To
 
