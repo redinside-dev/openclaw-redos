@@ -2146,5 +2146,72 @@ New OPS orchestration crons added: `ops-task-eta-monitor-0001` (every 30min), `o
 
 ---
 
+## §21 — Unified Subscription-Aware Routing (2026-02-20)
+
+### Problem Solved
+When Claude Code's Pro quota was exhausted mid-session, there was no graceful fallback — tasks either failed or fell back to expensive gpt-5.2. The smart-router had no quota awareness.
+
+### Architecture
+
+**Principle: Claude Code is always the coding agent. CCS (Claude Code Subscription) provides additional subscription backends that Claude Code uses transparently.**
+
+```
+ENG receives coding task
+    ↓
+Smart Router V2 — Rule 0 (Quota Gate)
+    reads workspace/tmp/provider-quota.json
+    ↓
+Tier 5 Provider Pool (all $0):
+  1st: claude-code/sonnet-4.5  (Anthropic Claude Pro — direct)
+  2nd: cursor/pro               (Cursor Pro subscription via CCS — same quality)
+  3rd: 9router/auto             (9Router → Gemini/Codex/iFlow/Qwen — all free)
+    ↓
+DevContext MCP — context saved/restored automatically on provider switch
+    ↓
+Cost Tracker — logs billing_type: subscription_9router, cost_usd: 0.00
+```
+
+### What Was Built
+
+| File | Change |
+|---|---|
+| `workspace/config/model-registry.json` | Added `cursor/pro` and `9router/auto` as Tier 5 models; added `quotaSource` to claude-code entry |
+| `workspace/skills/smart-router/SKILL.md` | Added Rule 0 (quota gate), updated Rule 1, extended Step 2 filter, added quota file reference |
+| `workspace/skills/cost-tracker/SKILL.md` | Added `subscription_9router` billing type; added cursor/pro and 9router to subscription list; extended daily report |
+| `workspace/skills/cloud-code-bridge/SKILL.md` | **NEW** — ENG coding task routing via CCS backends + DevContext protocol |
+| `workspace/skills/9router-setup/SKILL.md` | **NEW** — 9Router setup, provider auth, troubleshooting for OPS |
+| `workspace/config/ccs-profiles.yaml` | **NEW** — CCS profile reference (no secrets) |
+| `scripts/ccs-smart.sh` | **NEW** — Quota-aware backend auto-selector for Claude Code |
+| `scripts/setup-eng-tools.sh` | **NEW** — One-time team onboarding: 9Router + CCS + DevContext |
+| `workspace/tmp/provider-quota.json` | **NEW** — Live quota state (refreshed by cron every 30min) |
+| `cron/jobs.json` | Added `9router-quota-sync-0001` (every 30min, OPS, silent) |
+
+### Key Concepts
+
+**CCS (Claude Code Subscription):** Routes Claude Code through alternative subscription backends. The coding agent remains Claude Code — only the underlying model subscription differs. Backends: Cursor Pro, Gemini OAuth, Codex (ChatGPT Plus), iFlow, Qwen.
+
+**9Router:** Local OpenAI-compatible proxy (port 20128). Accepts `/v1/chat/completions`, routes to best available free provider. Exposes `/api/quota` for live quota data.
+
+**provider-quota.json:** Written by `9router-quota-sync` cron every 30min. Smart Router reads this before every Tier 5 assignment. If stale >1h, fails open (treats all models as available).
+
+**DevContext MCP:** Saves/restores session context when provider switches mid-task. Registered in `~/.claude/mcp_settings.json`. Zero extra tokens needed for re-explanation.
+
+### Zero-Cost Guarantee
+All Tier 5 providers are $0 per call:
+- Anthropic Claude Pro: $20/mo flat (subscription)
+- Cursor Pro: $20/mo flat (existing subscription, accessed via CCS)
+- Gemini OAuth: free tier (~1000/day)
+- Codex: ChatGPT Plus subscription
+- iFlow/Qwen: genuinely free, no account
+
+### Operational Notes
+- `9router-quota-sync-0001` cron runs every 30min (OPS agent, Ollama llama3.1:8b, 30s timeout, silent)
+- `9Router` auto-starts on login via launchd (`ai.openclaw.9router`, installed by `setup-eng-tools.sh`)
+- `setup-eng-tools.sh` is **one-time onboarding only** — once run, all routing is automatic
+- `ccs-smart.sh` is invoked by ENG agent internally — not meant for manual use
+- No manual intervention needed in normal operation; everything is driven by crons + smart router + launchd
+
+---
+
 *Last updated: 2026-02-20 by Claude Code (Sonnet 4.6)*
-*OpenClaw version: 2026.2.19-2 | RedOS version: 3.8.0 (feature/lean-a2a-reset, not yet merged)*
+*OpenClaw version: 2026.2.19-2 | RedOS version: 3.9.0*

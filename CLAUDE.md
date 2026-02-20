@@ -13,10 +13,19 @@ Two distinct layers:
 ## Common Commands
 
 ```bash
-# Restart gateway (apply config changes)
-launchctl unload ~/Library/LaunchAgents/ai.openclaw.gateway.plist && sleep 1 && launchctl load ~/Library/LaunchAgents/ai.openclaw.gateway.plist
+# ── SINGLE COMMAND to restart the full stack after any config change ──
+bash ~/.openclaw/scripts/redos-restart.sh
 
-# Check system status
+# Check stack status (no restart)
+bash ~/.openclaw/scripts/redos-restart.sh --status
+
+# On Mac Mini boot: NOTHING needed — all services auto-start via launchd:
+#   Ollama:    homebrew.mxcl.ollama   (brew manages this)
+#   Gateway:   ai.openclaw.node + ai.openclaw.gateway
+#   Dashboard: ai.openclaw.dashboard
+#   9Router:   ai.openclaw.9router (after running setup-eng-tools.sh once)
+
+# Check system status (OpenClaw native)
 openclaw status
 openclaw status --deep
 

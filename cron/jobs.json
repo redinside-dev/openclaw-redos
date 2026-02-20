@@ -689,7 +689,7 @@
       "name": "OPS SLA Enforcement Check",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771574018667,
+      "updatedAtMs": 1771577626479,
       "schedule": {
         "kind": "every",
         "everyMs": 1800000,
@@ -711,11 +711,12 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771575695024,
-        "lastRunAtMs": 1771573895056,
+        "nextRunAtMs": 1771579295024,
+        "lastRunAtMs": 1771577495054,
         "lastStatus": "ok",
-        "lastDurationMs": 123611,
-        "consecutiveErrors": 0
+        "lastDurationMs": 131425,
+        "consecutiveErrors": 0,
+        "runningAtMs": 1771579295050
       }
     },
     {
@@ -724,7 +725,7 @@
       "name": "OPS System Health Monitor",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771574265899,
+      "updatedAtMs": 1771578538483,
       "schedule": {
         "kind": "every",
         "everyMs": 900000,
@@ -747,11 +748,11 @@
       },
       "state": {
         "lastStatus": "ok",
-        "lastRunAtMs": 1771574018667,
-        "lastDurationMs": 247232,
+        "lastRunAtMs": 1771578395054,
+        "lastDurationMs": 143429,
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1771574795024,
-        "runningAtMs": 1771574795053
+        "nextRunAtMs": 1771579295024,
+        "runningAtMs": 1771579295050
       }
     },
     {
@@ -791,7 +792,7 @@
       "name": "OPS Ticket Auto-Diagnose & Fix",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771572551997,
+      "updatedAtMs": 1771576140121,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -813,11 +814,12 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771575695024,
-        "lastRunAtMs": 1771572389471,
+        "nextRunAtMs": 1771579295024,
+        "lastRunAtMs": 1771576020112,
         "lastStatus": "ok",
-        "lastDurationMs": 162526,
-        "consecutiveErrors": 0
+        "lastDurationMs": 120009,
+        "consecutiveErrors": 0,
+        "runningAtMs": 1771579295050
       }
     },
     {
@@ -1051,7 +1053,7 @@
       "name": "OPS Task ETA Monitor",
       "enabled": true,
       "createdAtMs": 1771544316316,
-      "updatedAtMs": 1771573285272,
+      "updatedAtMs": 1771578765418,
       "schedule": {
         "kind": "every",
         "everyMs": 1800000,
@@ -1069,11 +1071,44 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771574916316,
-        "lastRunAtMs": 1771573202971,
+        "nextRunAtMs": 1771580316316,
+        "lastRunAtMs": 1771578538505,
         "lastStatus": "ok",
-        "lastDurationMs": 82301,
+        "lastDurationMs": 226913,
         "consecutiveErrors": 0
+      }
+    },
+    {
+      "id": "9router-quota-sync-0001",
+      "agentId": "ops",
+      "name": "9Router Quota Sync",
+      "enabled": true,
+      "createdAtMs": 1771576000000,
+      "updatedAtMs": 1771577830052,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 1800000,
+        "anchorMs": 1771576000000
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "You are OPS. Run the 9Router quota sync — update workspace/tmp/provider-quota.json with live quota data.\n\nSTEPS:\n1. Check if 9Router is running: exec `curl -sf http://localhost:20128/health` (timeout 5s).\n2a. If 9Router is running: exec `curl -sf http://localhost:20128/api/quota` to get quota JSON.\n   Parse the result and write to /Users/redinside/.openclaw/workspace/tmp/provider-quota.json with:\n   - All provider quota fields from the API response\n   - Add top-level field: \"updated\": \"<current ISO timestamp>\"\n   - Add top-level field: \"9router_running\": true\n   Keep the file under 2KB.\n2b. If 9Router is NOT running (curl fails): write the following to /Users/redinside/.openclaw/workspace/tmp/provider-quota.json:\n   {\"updated\": \"<current ISO timestamp>\", \"9router_running\": false, \"claude-code\": {\"available\": true, \"remaining\": \"unknown\"}, \"cursor\": {\"available\": true, \"remaining\": \"unknown\"}, \"gemini\": {\"available\": false, \"reason\": \"9router not running\"}, \"codex\": {\"available\": false, \"reason\": \"9router not running\"}, \"iflow\": {\"available\": false, \"reason\": \"9router not running\"}, \"qwen\": {\"available\": false, \"reason\": \"9router not running\"}}\n3. Do nothing else — no Telegram, no Slack, no tickets. Be completely silent.\n\nThis is a background maintenance task. Silent success.",
+        "model": "ollama/llama3.1:8b",
+        "thinking": "low",
+        "timeoutSeconds": 30
+      },
+      "delivery": {
+        "mode": "none"
+      },
+      "state": {
+        "nextRunAtMs": 1771579600000,
+        "lastRunAtMs": 1771577800031,
+        "lastStatus": "error",
+        "lastDurationMs": 30021,
+        "lastError": "Error: cron: job execution timed out",
+        "consecutiveErrors": 1
       }
     },
     {
@@ -1082,7 +1117,7 @@
       "name": "OPS Idle Agent Audit",
       "enabled": true,
       "createdAtMs": 1771544316316,
-      "updatedAtMs": 1771573472321,
+      "updatedAtMs": 1771577101055,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -1100,10 +1135,10 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771576716316,
-        "lastRunAtMs": 1771573285272,
+        "nextRunAtMs": 1771580316316,
+        "lastRunAtMs": 1771576900771,
         "lastStatus": "ok",
-        "lastDurationMs": 187049,
+        "lastDurationMs": 200284,
         "consecutiveErrors": 0
       }
     }
