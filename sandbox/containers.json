@@ -9,14 +9,6 @@
       "configHash": "fd392d0630d950d414f514126da97f2335419c603a41e51c5f4cd3e352cf9d08"
     },
     {
-      "containerName": "openclaw-sbx-agent-infosec-5ffee503",
-      "sessionKey": "agent:infosec",
-      "createdAtMs": 1771300172231,
-      "lastUsedAtMs": 1771565936884,
-      "image": "openclaw-sandbox:bookworm-slim",
-      "configHash": "b367cf240363a5d1bce2897483193196f2ab9aff836553b7afde0dd4c4c305f9"
-    },
-    {
       "containerName": "openclaw-sbx-agent-allrounder-6eef2e24",
       "sessionKey": "agent:allrounder",
       "createdAtMs": 1771301618864,
@@ -49,10 +41,18 @@
       "configHash": "c139cf79d6f34d3f53edbc53896e2a671003c14c46c4cae7bb1ed76d6e109c14"
     },
     {
+      "containerName": "openclaw-sbx-agent-infosec-5ffee503",
+      "sessionKey": "agent:infosec",
+      "createdAtMs": 1771300172231,
+      "lastUsedAtMs": 1771567736857,
+      "image": "openclaw-sandbox:bookworm-slim",
+      "configHash": "b367cf240363a5d1bce2897483193196f2ab9aff836553b7afde0dd4c4c305f9"
+    },
+    {
       "containerName": "openclaw-sbx-agent-ops-8e240406",
       "sessionKey": "agent:ops",
       "createdAtMs": 1771300172223,
-      "lastUsedAtMs": 1771567328759,
+      "lastUsedAtMs": 1771567962158,
       "image": "openclaw-sandbox:bookworm-slim",
       "configHash": "c37515c55f435d381e547cde7e5960cc9454cb8e62979993d332878a44270412"
     }
