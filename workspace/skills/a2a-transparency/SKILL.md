@@ -20,7 +20,7 @@ Every `sessions_spawn` call MUST be visible on Slack. This skill defines the com
 
 ### Per-Agent Work Channels
 Each agent also posts work updates to their own channel. Channel IDs are in
-`workspace/config/slack-channels.json` (created by RED on first deploy).
+`config/slack-channels.json` (created by RED on first deploy).
 
 | Channel | Agent | Posts What |
 |---|---|---|
@@ -34,7 +34,7 @@ Each agent also posts work updates to their own channel. Channel IDs are in
 
 To get the channel ID for your personal channel:
 ```js
-const channels = JSON.parse(fs.readFileSync('workspace/config/slack-channels.json'));
+const channels = JSON.parse(fs.readFileSync('config/slack-channels.json'));
 const myChannelId = channels[agentId]; // e.g. channels['eng']
 ```
 Post a brief update to your channel after completing any significant task.
@@ -180,7 +180,7 @@ curl -s -X POST https://slack.com/api/chat.postMessage \
 
 When you accept a delegated task (spawned by another agent), register it:
 
-1. Read `workspace/ops/task-registry.json`
+1. Read `ops/task-registry.json`
 2. Add an entry:
 ```json
 {
@@ -200,7 +200,7 @@ When you accept a delegated task (spawned by another agent), register it:
 
 ## A2A Delegation Log Protocol
 
-Append to `workspace/logs/a2a-delegations.jsonl` on every spawn:
+Append to `logs/a2a-delegations.jsonl` on every spawn:
 ```json
 {"type":"dispatch","ts":"<ISO>","spawner":"<agentId>","subagent":"<agentId>","task":"<one-line summary>"}
 ```

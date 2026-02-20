@@ -53,14 +53,14 @@ See the `a2a-transparency` skill for the full Slack threading protocol.
 
 - Before any task that may have prior context: `memory_search("<topic>")`
 - After significant tasks (>5 min or user-visible output): append a 1-2 line summary to
-  `workspace/memory/<YYYY-MM-DD>.md`
-- New learnings: add to `workspace/ops/LEARNINGS.md`
-- Read `workspace/ops/LEARNINGS.md` before starting complex tasks
+  `memory/<YYYY-MM-DD>.md`
+- New learnings: add to `ops/LEARNINGS.md`
+- Read `ops/LEARNINGS.md` before starting complex tasks
 
 ## Scrum Protocol
 
 At your scheduled standup time, write to
-`workspace/ops/agent-status/<agentId>.json`:
+`ops/agent-status/<agentId>.json`:
 ```json
 {"agent":"<id>","date":"YYYY-MM-DD","updatedAt":"<ISO>","sprintGoal":"...","workingOn":"...","completedYesterday":"...","eta":"...","blockers":"None"}
 ```
@@ -69,7 +69,7 @@ Be honest. "Idle" is fine. OPS compiles all files at 9:15am and posts to #redos-
 ## Task Registry (OPS-managed)
 
 When you accept a delegated task, check/update
-`workspace/ops/task-registry.json` so OPS can track ETAs:
+`ops/task-registry.json` so OPS can track ETAs:
 ```json
 {"id":"TASK-<YYYYMMDD>-<NNN>","title":"...","assignee":"<agentId>","requestedBy":"<agentId>","status":"in_progress","eta":"<ISO>","startedAt":"<ISO>","completedAt":null,"notes":"..."}
 ```
