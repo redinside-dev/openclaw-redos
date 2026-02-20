@@ -1357,6 +1357,26 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // --- Skill toggle ---
+  if (req.method === 'POST' && url.pathname.startsWith('/api/skills/') && url.pathname.endsWith('/toggle')) {
+    const skillName = url.pathname.split('/api/skills/')[1].replace('/toggle', '');
+    if (!skillName) { res.writeHead(400); res.end(JSON.stringify({ error: 'skill name required' })); return; }
+    try {
+      const configPath = path.join(OPENCLAW_DIR, 'openclaw.json');
+      const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+      const entries = config.skills?.entries;
+      if (!entries) { res.writeHead(400); res.end(JSON.stringify({ error: 'no skills.entries in config' })); return; }
+      if (!entries[skillName]) entries[skillName] = { enabled: false };
+      entries[skillName].enabled = !entries[skillName].enabled;
+      fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ ok: true, skill: skillName, enabled: entries[skillName].enabled }));
+    } catch (e) {
+      res.writeHead(500); res.end(JSON.stringify({ error: e.message }));
+    }
+    return;
+  }
+
   // --- A2A Delegation Log ---
   if (url.pathname === '/api/a2a') {
     res.writeHead(200, { 'Content-Type': 'application/json' });
