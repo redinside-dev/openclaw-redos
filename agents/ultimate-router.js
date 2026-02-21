@@ -74,7 +74,7 @@ export class UltimateRouter {
       },
 
       // Tier 2: Real-Time & Internet
-      'perplexity/llama-3.1-sonar-small-128k-online': {
+      'perplexity/sonar-pro': {
         tier: 'internet',
         cost: 0.0002,
         speed: 'fast',
@@ -85,7 +85,7 @@ export class UltimateRouter {
       },
 
       // Tier 3: General Purpose
-      'glm/glm-4.7-flash': {
+      'zai/glm-4.7': {
         tier: 'standard',
         cost: 0,
         speed: 'fast',
@@ -160,7 +160,7 @@ export class UltimateRouter {
           const internetCheck = internetDetector.needsInternet(message);
           return internetCheck.needed && internetCheck.confidence === 'high';
         },
-        model: 'perplexity/llama-3.1-sonar-small-128k-online',
+        model: 'perplexity/sonar-pro',
         reason: 'Real-time data needs internet-enabled model'
       },
 
@@ -183,7 +183,7 @@ export class UltimateRouter {
           const wordCount = message.split(' ').length;
           return wordCount > 10 && wordCount < 100;
         },
-        model: 'glm/glm-4.7-flash',
+        model: 'zai/glm-4.7',
         reason: 'General task, GLM is fast and capable'
       },
 

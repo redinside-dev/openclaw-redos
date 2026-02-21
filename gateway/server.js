@@ -232,7 +232,7 @@ app.get('/api/status', async (req, res) => {
     message: systemStatus.message,
     agents: ['main', 'allrounder', 'eng', 'research', 'finance', 'ops', 'infosec'],
     models: {
-      available: ['ollama/llama3.1:8b', 'ollama/qwen2.5-coder:7b', 'ollama/glm-4.7-flash:latest', 'perplexity/llama-3.1-sonar-small-128k-online'],
+      available: ['ollama/llama3.1:8b', 'ollama/qwen2.5-coder:7b', 'perplexity/sonar-pro', 'perplexity/sonar', 'zai/glm-4.7'],
       preferred: 'ollama/llama3.1:8b'
     },
     cost: costMonitor.getState(),

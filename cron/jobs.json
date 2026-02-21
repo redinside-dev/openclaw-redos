@@ -510,7 +510,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "You are ENG (Engineering Lead). Write your morning standup status.\n\nRead /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md for any tickets assigned to you.\n\nWrite your status to /Users/redinside/.openclaw/workspace/ops/agent-status/eng.json as valid JSON:\n{\n  \"agent\": \"eng\",\n  \"date\": \"YYYY-MM-DD\",\n  \"updatedAt\": \"ISO timestamp\",\n  \"sprintGoal\": \"1-sentence engineering goal for this sprint\",\n  \"workingOn\": \"What you are focused on today (be specific: feature, bug, PR)\",\n  \"completedYesterday\": \"What you completed recently\",\n  \"eta\": \"ETA for current work (e.g. EOD, 2 days, next sprint)\",\n  \"blockers\": \"Any blockers, or 'None'\"\n}\n\nAfter writing the JSON file, use the message tool to post your standup to #redos-scrum.\n\nPost this message to channel:C0AEV3J2L23:\n```\n💻 *ENG (Engineering Lead) — Daily Standup*\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📅 *Date:* <today's date, e.g. Mon Feb 17 2026>\n🎯 *Sprint Goal:* <your sprintGoal>\n✅ *Completed Yesterday:* <your completedYesterday>\n🔨 *Working On Today:* <your workingOn>\n⏱️ *ETA:* <your eta>\n🚧 *Blockers:* <your blockers or None>\n```\n\nUse the message tool: action=\"sendMessage\", to=\"channel:C0AEV3J2L23\".\nDo NOT send a Telegram message. Just write the file and post to Slack.",
+        "message": "STEP 0 (MANDATORY before writing standup): Read workspace/tmp/hatake-routing-YYYY-MM-DD.json (today's date). If it exists, use HATAKE's complexity scores and intent to inform what you report as workingOn.\n\nYou are ENG (Engineering Lead). Write your morning standup status.\n\nRead /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md for any tickets assigned to you.\n\nWrite your status to /Users/redinside/.openclaw/workspace/ops/agent-status/eng.json as valid JSON:\n{\n  \"agent\": \"eng\",\n  \"date\": \"YYYY-MM-DD\",\n  \"updatedAt\": \"ISO timestamp\",\n  \"sprintGoal\": \"1-sentence engineering goal for this sprint\",\n  \"workingOn\": \"What you are focused on today (be specific: feature, bug, PR)\",\n  \"completedYesterday\": \"What you completed recently\",\n  \"eta\": \"ETA for current work (e.g. EOD, 2 days, next sprint)\",\n  \"blockers\": \"Any blockers, or 'None'\"\n}\n\nAfter writing the JSON file, use the message tool to post your standup to #redos-scrum.\n\nPost this message to channel:C0AEV3J2L23:\n```\n💻 *ENG (Engineering Lead) — Daily Standup*\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📅 *Date:* <today's date, e.g. Mon Feb 17 2026>\n🎯 *Sprint Goal:* <your sprintGoal>\n✅ *Completed Yesterday:* <your completedYesterday>\n🔨 *Working On Today:* <your workingOn>\n⏱️ *ETA:* <your eta>\n🚧 *Blockers:* <your blockers or None>\n```\n\nUse the message tool: action=\"sendMessage\", to=\"channel:C0AEV3J2L23\".\nDo NOT send a Telegram message. Just write the file and post to Slack.",
         "thinking": "low",
         "timeoutSeconds": 240
       },
@@ -689,7 +689,7 @@
       "name": "OPS SLA Enforcement Check",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771687518319,
+      "updatedAtMs": 1771691118440,
       "schedule": {
         "kind": "every",
         "everyMs": 1800000,
@@ -710,12 +710,12 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771691118319,
-        "lastRunAtMs": 1771687518294,
+        "nextRunAtMs": 1771694718440,
+        "lastRunAtMs": 1771691118345,
         "lastStatus": "error",
-        "lastDurationMs": 25,
-        "consecutiveErrors": 12,
-        "lastError": "model not allowed: ollama/llama3.1:8b"
+        "lastDurationMs": 95,
+        "consecutiveErrors": 13,
+        "lastError": "FailoverError: No available auth profile for openai-codex (all in cooldown or unavailable)."
       }
     },
     {
@@ -724,7 +724,7 @@
       "name": "OPS System Health Monitor",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771687518319,
+      "updatedAtMs": 1771691118476,
       "schedule": {
         "kind": "every",
         "everyMs": 900000,
@@ -746,11 +746,11 @@
       },
       "state": {
         "lastStatus": "error",
-        "lastRunAtMs": 1771687518319,
-        "lastDurationMs": 0,
-        "consecutiveErrors": 13,
-        "nextRunAtMs": 1771691118319,
-        "lastError": "model not allowed: ollama/llama3.1:8b"
+        "lastRunAtMs": 1771691118440,
+        "lastDurationMs": 36,
+        "consecutiveErrors": 14,
+        "nextRunAtMs": 1771694718476,
+        "lastError": "FailoverError: No available auth profile for openai-codex (all in cooldown or unavailable)."
       }
     },
     {
@@ -777,7 +777,7 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771690895024,
+        "nextRunAtMs": 1771712495024,
         "lastRunAtMs": 1771669295047,
         "lastStatus": "ok",
         "lastDurationMs": 90734,
@@ -790,7 +790,7 @@
       "name": "OPS Ticket Auto-Diagnose & Fix",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771687402207,
+      "updatedAtMs": 1771691002319,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -811,12 +811,12 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771691002207,
-        "lastRunAtMs": 1771687402188,
+        "nextRunAtMs": 1771694602319,
+        "lastRunAtMs": 1771691002239,
         "lastStatus": "error",
-        "lastDurationMs": 19,
-        "consecutiveErrors": 10,
-        "lastError": "model not allowed: ollama/llama3.1:8b"
+        "lastDurationMs": 80,
+        "consecutiveErrors": 11,
+        "lastError": "FailoverError: No available auth profile for openai-codex (all in cooldown or unavailable)."
       }
     },
     {
@@ -1050,7 +1050,7 @@
       "name": "OPS Task ETA Monitor",
       "enabled": true,
       "createdAtMs": 1771544316316,
-      "updatedAtMs": 1771688326244,
+      "updatedAtMs": 1771693722019,
       "schedule": {
         "kind": "every",
         "everyMs": 1800000,
@@ -1068,12 +1068,11 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771690116316,
-        "lastRunAtMs": 1771688316361,
-        "lastStatus": "error",
-        "lastDurationMs": 9883,
-        "consecutiveErrors": 2,
-        "lastError": "FailoverError: ⚠️ API rate limit reached. Please try again later."
+        "nextRunAtMs": 1771695516316,
+        "lastRunAtMs": 1771693716350,
+        "lastStatus": "ok",
+        "lastDurationMs": 5669,
+        "consecutiveErrors": 0
       }
     },
     {
@@ -1082,7 +1081,7 @@
       "name": "9Router Quota Sync",
       "enabled": true,
       "createdAtMs": 1771576000000,
-      "updatedAtMs": 1771686739275,
+      "updatedAtMs": 1771690908750,
       "schedule": {
         "kind": "every",
         "everyMs": 1800000,
@@ -1101,11 +1100,11 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771690339275,
-        "lastRunAtMs": 1771686739252,
+        "nextRunAtMs": 1771694508750,
+        "lastRunAtMs": 1771690908719,
         "lastStatus": "error",
-        "lastDurationMs": 23,
-        "consecutiveErrors": 33,
+        "lastDurationMs": 31,
+        "consecutiveErrors": 34,
         "lastError": "model not allowed: ollama/llama3.1:8b"
       }
     },
@@ -1115,7 +1114,7 @@
       "name": "OPS Idle Agent Audit",
       "enabled": true,
       "createdAtMs": 1771544316316,
-      "updatedAtMs": 1771688326310,
+      "updatedAtMs": 1771691935012,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -1133,11 +1132,11 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771691916316,
-        "lastRunAtMs": 1771688326244,
+        "nextRunAtMs": 1771695516316,
+        "lastRunAtMs": 1771691934968,
         "lastStatus": "error",
-        "lastDurationMs": 66,
-        "consecutiveErrors": 1,
+        "lastDurationMs": 44,
+        "consecutiveErrors": 2,
         "lastError": "FailoverError: No available auth profile for openai-codex (all in cooldown or unavailable)."
       }
     },
@@ -1148,7 +1147,8 @@
       "enabled": true,
       "schedule": {
         "kind": "every",
-        "everyMs": 3600000
+        "everyMs": 3600000,
+        "anchorMs": 1771689756567
       },
       "sessionTarget": "isolated",
       "wakeMode": "now",
@@ -1161,7 +1161,37 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": null
+        "nextRunAtMs": 1771695853047,
+        "lastError": "FailoverError: ⚠️ API rate limit reached. Please try again later.",
+        "lastRunAtMs": 1771692234270,
+        "lastStatus": "error",
+        "lastDurationMs": 18777,
+        "consecutiveErrors": 6
+      },
+      "updatedAtMs": 1771692253047
+    },
+    {
+      "id": "hatake-daily-briefing-0001",
+      "name": "HATAKE Daily Intent Briefing",
+      "agentId": "hatake",
+      "enabled": true,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 9 * * *",
+        "tz": "America/Toronto"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "timeoutSeconds": 120,
+        "message": "You are HATAKE, the RedOS intent parser and task classifier.\n\nYour job: read today's task queue and produce routing recommendations for all agents.\n\nSTEPS:\n1. Read workspace/ops/HEARTBEAT.md — list all IN_PROGRESS tasks\n2. For each task, classify:\n   - intent: what kind of work (code|research|security|ops|finance)\n   - complexity: 1-10\n   - recommended_agent: best agent for this task\n   - priority: P0|P1|P2|P3\n   - estimated_tokens: rough token cost estimate\n3. Write your analysis to workspace/tmp/hatake-routing-YYYY-MM-DD.json:\n```json\n{\n  \"date\": \"<today>\",\n  \"generated_by\": \"hatake\",\n  \"tasks\": [\n    {\n      \"id\": \"HB-001\",\n      \"intent\": \"code\",\n      \"complexity\": 5,\n      \"recommended_agent\": \"eng\",\n      \"priority\": \"P2\",\n      \"rationale\": \"GitHub API + markdown report — standard ENG work\"\n    }\n  ],\n  \"routing_summary\": \"<1 sentence: who should be busy today>\"\n}\n```\n4. Be brief and factual. Output JSON only — no prose.\n\nRULES:\n- Complexity 1-3: any agent can handle\n- Complexity 4-6: use specialist agent\n- Complexity 7-10: escalate to gpt-5.2 model, notify RED\n- If HEARTBEAT has no IN_PROGRESS tasks: write {\"tasks\": [], \"routing_summary\": \"No active tasks\"}"
+      },
+      "delivery": {
+        "mode": "none"
+      },
+      "state": {
+        "nextRunAtMs": 1771768800000
       }
     }
   ]

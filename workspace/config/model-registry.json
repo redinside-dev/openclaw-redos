@@ -361,8 +361,8 @@
     },
     "zai": {
       "apiKey": "YOUR_ZAI_API_KEY_HERE",
-      "baseUrl": "https://open.bigmodel.cn/api/paas/v4",
-      "note": "Pay-as-you-go. Primary use: OPS agent + Ollama fallback."
+      "baseUrl": "https://api.z.ai/api/paas/v4",
+      "note": "Pay-as-you-go via z.ai (international endpoint). Models: glm-4.7 (standard), glm-4.7-flash (free)."
     },
     "ollama": {
       "baseUrl": "http://127.0.0.1:11434",

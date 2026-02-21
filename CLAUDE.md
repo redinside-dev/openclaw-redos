@@ -2,6 +2,20 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Session Persistence
+
+**Never lose context!** Claude Code automatically saves sessions. After crashes or terminal closes:
+
+```bash
+# Resume last session (keeps all context)
+~/.local/bin/claude --resume
+
+# Or just run claude - it often auto-resumes
+~/.local/bin/claude
+```
+
+Your conversation history, context, and work state are preserved automatically.
+
 ## What This Repo Is
 
 **OpenClaw RedOS** — custom business logic, agent identities, skills, and orchestration built on top of the OpenClaw CLI runtime. This is the git repo (`https://github.com/redinside-dev/openclaw-redos.git`).

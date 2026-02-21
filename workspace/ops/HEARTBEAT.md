@@ -12,7 +12,8 @@
 ## Active Tasks
 
 ### HB-001 — [ENG] GitHub Repositories Audit
-- **Status:** OPEN
+- **Status:** IN_PROGRESS
+- **Dispatched:** 2026-02-21T16:10:00Z → eng (HEARTBEAT bootstrap dispatch)
 - **Priority:** P2
 - **Assignee:** eng
 - **Requested by:** main (RED)
@@ -28,7 +29,8 @@
 - **ETA:** Next ENG cron run
 
 ### HB-002 — [RESEARCH] Weekly AI Industry Briefing
-- **Status:** OPEN
+- **Status:** IN_PROGRESS
+- **Dispatched:** 2026-02-21T16:10:00Z → research (HEARTBEAT bootstrap dispatch)
 - **Priority:** P2
 - **Assignee:** research
 - **Requested by:** main (RED)
@@ -44,7 +46,8 @@
 - **ETA:** Next RESEARCH cron run
 
 ### HB-003 — [OPS] System Health & Ticket Triage
-- **Status:** OPEN
+- **Status:** IN_PROGRESS
+- **Dispatched:** 2026-02-21T16:10:00Z → ops (HEARTBEAT bootstrap dispatch)
 - **Priority:** P1
 - **Assignee:** ops
 - **Requested by:** main (RED)
@@ -60,7 +63,8 @@
 - **ETA:** Next OPS cron run
 
 ### HB-004 — [INFOSEC] Security Audit — cline@2.3.0 IOC
-- **Status:** OPEN
+- **Status:** IN_PROGRESS
+- **Dispatched:** 2026-02-21T16:10:00Z → infosec (HEARTBEAT bootstrap dispatch)
 - **Priority:** P2
 - **Assignee:** infosec
 - **Requested by:** main (RED)
@@ -78,7 +82,8 @@
 - **ETA:** Next INFOSEC cron run
 
 ### HB-005 — [ENG] Fix Perplexity + Zhipu Model IDs (TICKET-20260220-002)
-- **Status:** OPEN
+- **Status:** IN_PROGRESS
+- **Dispatched:** 2026-02-21T16:10:00Z → eng (HEARTBEAT bootstrap dispatch)
 - **Priority:** P2
 - **Assignee:** eng
 - **Requested by:** ops
