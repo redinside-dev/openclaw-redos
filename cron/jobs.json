@@ -604,7 +604,6 @@
       "payload": {
         "kind": "agentTurn",
         "message": "You are OPS (Scrum Master). Write your morning standup status.\n\nRead /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md and /Users/redinside/.openclaw/logs/gateway.err.log (last 10 lines) for context.\n\nWrite your status to /Users/redinside/.openclaw/workspace/ops/agent-status/ops.json as valid JSON:\n{\n  \"agent\": \"ops\",\n  \"date\": \"YYYY-MM-DD\",\n  \"updatedAt\": \"ISO timestamp\",\n  \"sprintGoal\": \"1-sentence ops goal for this sprint\",\n  \"workingOn\": \"What you are focused on today (ticket management, health, SLA)\",\n  \"completedYesterday\": \"What you completed recently\",\n  \"eta\": \"ETA for current ops deliverable\",\n  \"blockers\": \"Any system issues or blockers, or 'None'\"\n}\n\nAfter writing the JSON file, use the message tool to post your standup to #redos-scrum.\n\nPost this message to channel:C0AEV3J2L23:\n```\n⚙️ *OPS (Scrum Master) — Daily Standup*\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📅 *Date:* <today's date, e.g. Mon Feb 17 2026>\n🎯 *Sprint Goal:* <your sprintGoal>\n✅ *Completed Yesterday:* <your completedYesterday>\n🔨 *Working On Today:* <your workingOn>\n⏱️ *ETA:* <your eta>\n🚧 *Blockers:* <your blockers or None>\n```\n\nUse the message tool: action=\"sendMessage\", to=\"channel:C0AEV3J2L23\".\nDo NOT send a Telegram message. Just write the file and post to Slack.",
-        "model": "ollama/llama3.1:8b",
         "thinking": "low",
         "timeoutSeconds": 240
       },
@@ -667,7 +666,6 @@
       "payload": {
         "kind": "agentTurn",
         "message": "You are OPS, the Scrum Master. Compile and publish the daily standup.\n\nBACKGROUND: Each agent wrote their morning status to a JSON file at 9:05am. Read those files now to compile the standup. Do NOT use sessions_send — agents are idle and won't respond.\n\nSTEPS:\n1. Read each agent status file (skip missing files gracefully, mark agent as 'No check-in'):\n   - /Users/redinside/.openclaw/workspace/ops/agent-status/main.json\n   - /Users/redinside/.openclaw/workspace/ops/agent-status/eng.json\n   - /Users/redinside/.openclaw/workspace/ops/agent-status/research.json\n   - /Users/redinside/.openclaw/workspace/ops/agent-status/finance.json\n   - /Users/redinside/.openclaw/workspace/ops/agent-status/ops.json\n   - /Users/redinside/.openclaw/workspace/ops/agent-status/infosec.json\n   Each file has: { agent, date, workingOn, completedYesterday, eta, blockers, sprintGoal, updatedAt }\n\n2. Read /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md — count open tickets by priority.\n\n3. Read /Users/redinside/.openclaw/logs/gateway.err.log (last 20 lines) — check system health.\n\n4. Append a standup entry to /Users/redinside/.openclaw/workspace/ops/STANDUP-LOG.md in this format:\n```\n### Standup YYYY-MM-DD 09:15 ET\n\n**OPS (Scrum Master) Roll Call:**\n\n| Agent | Status | Working On | Blockers | ETA | Next |\n|-------|--------|-----------|----------|-----|------|\n| RED | ... | ... | ... | ... | ... |\n| ENG | ... | ... | ... | ... | ... |\n| RESEARCH | ... | ... | ... | ... | ... |\n| FINANCE | ... | ... | ... | ... | ... |\n| OPS | ... | ... | ... | ... | ... |\n| INFOSEC | ... | ... | ... | ... | ... |\n\n**Open Tickets:** {count} (P0: {n}, P1: {n}, P2: {n}, P3: {n})\n**SLA Breaches:** {list or \"None\"}\n**System Health:** {healthy/degraded/issues}\n**Action Items:**\n1. ...\n```\n\n5. Send a Telegram summary to Anurag (user ID: 1012034994) — keep under 2500 chars:\n   - Header: Morning Standup YYYY-MM-DD\n   - Per-agent one-liner: what they're working on, any blockers\n   - Ticket count + SLA status\n   - System health\n   - Top action items\n\nRULES:\n- If an agent has no status file or date != today: mark as 'No check-in'.\n- Never fabricate agent responses. Only use what's in the JSON files.\n\n5. Post the compiled standup summary to Slack channel #redos-scrum (channel:C0AEV3J2L23).\n   Format the Slack message as:\n   ```\n   ⚙️ *Daily Scrum Summary — <date>*\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n   *Agents checked in:* <count>/<total>\n   \n   <for each agent that checked in>\n   <emoji> *<AGENT NAME>* — <workingOn>\n   › Completed: <completedYesterday>\n   › ETA: <eta> | Blockers: <blockers>\n   \n   *Sprint Goals:* <list>\n   *Open Tickets:* <count> open, <count> breached SLA\n   *Action Items:* <if any>\n   ```\n   Use the message tool: action=\"sendMessage\", to=\"channel:C0AEV3J2L23\"\n   \n6. Send the standup summary to Anurag via Telegram DM (user 1012034994) as before.",
-        "model": "ollama/llama3.1:8b",
         "thinking": "low",
         "timeoutSeconds": 300
       },
@@ -702,7 +700,6 @@
       "payload": {
         "kind": "agentTurn",
         "message": "You are OPS, the Scrum Master. Run SLA enforcement check.\n\nSTEPS:\n1. Read /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md\n2. For each OPEN or IN_PROGRESS ticket:\n   a. Calculate time since creation vs SLA deadline\n   b. If approaching deadline (within 50% of remaining time): ping the assignee via sessions_send reminding them of the SLA\n   c. If past deadline: escalate to RED (CEO) via sessions_send(agentId=\"main\", message=\"SLA BREACH: TICKET-{ref} is past deadline. Priority: {P}. Assignee: {agent}. Summary: {summary}\")\n   d. If P0 past 30 min: Send Telegram alert to user 1012034994\n3. If no open tickets, do nothing (no output needed).\n\nOnly take action if there are actual open tickets with SLA concerns. Be silent if everything is fine.",
-        "model": "ollama/llama3.1:8b",
         "thinking": "low",
         "timeoutSeconds": 300
       },
@@ -738,7 +735,6 @@
       "payload": {
         "kind": "agentTurn",
         "message": "You are OPS, the system health monitor. Check system health now.\n\nSTEPS:\n1. Read /Users/redinside/.openclaw/logs/gateway.err.log (last 20 lines) — look for new errors since last check.\n2. Read /Users/redinside/.openclaw/logs/errors.jsonl (last 5 entries) — check for recurring failures.\n3. Read /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md — check what's already tracked.\n\nIF you find new errors NOT already in TICKET-TRACKER.md:\na. Add a ticket to TICKET-TRACKER.md following the format there.\nb. Add a learning to /Users/redinside/.openclaw/workspace/ops/LEARNINGS.md if applicable.\nc. If critical (system down): Send Telegram alert to user 1012034994.\n\nIF everything is healthy: Do nothing. Be silent.\n\nRULES:\n- Do NOT run shell commands. Only use read and write tools.\n- Only create tickets for NEW issues not already tracked.\n- Keep it brief.\n\nAfter completing all checks and file updates, use the message tool to post a health summary to #redos-mission-control (channel:C0AEV3MDEDD).\n\nFormat:\n```\n🔍 *System Health Check — <timestamp>*\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\nStatus: ✅ HEALTHY / ⚠️ DEGRADED / 🔴 CRITICAL\n<summary of findings — errors found, tickets opened/updated, actions taken>\n```\nOnly post if there are findings OR every 3rd run (to avoid channel spam). Always post if status is DEGRADED or CRITICAL.\nUse the message tool: action=\"sendMessage\", to=\"channel:C0AEV3MDEDD\" ",
-        "model": "ollama/llama3.1:8b",
         "thinking": "low",
         "timeoutSeconds": 300
       },
@@ -805,7 +801,6 @@
       "payload": {
         "kind": "agentTurn",
         "message": "You are OPS. Check for open tickets and attempt to diagnose and fix them.\n\nSTEPS:\n1. Read /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md\n2. For each OPEN ticket (not yet IN_PROGRESS):\n   a. Set status to IN_PROGRESS\n   b. Read the error details\n   c. Check /Users/redinside/.openclaw/workspace/ops/LEARNINGS.md — has this been seen before?\n   d. Check /Users/redinside/.openclaw/logs/errors.jsonl for related errors\n   e. If it's a config issue: attempt to fix it (read/write openclaw.json or relevant config)\n   f. If it's a code issue: delegate to ENG via sessions_send(agentId=\"eng\", message=\"Fix needed: {details}\")\n   g. If it's a model issue: check model-registry.json, try switching fallback\n   h. If it's unfamiliar: use web_search to research the error\n   i. After fixing: verify the fix, update ticket to RESOLVED, append to LEARNINGS.md\n   j. If you can't fix it: escalate to RED via sessions_send(agentId=\"main\")\n\n3. If no open tickets: do nothing silently.\n\nIMPORTANT: Actually attempt fixes. Don't just log that you looked at it. Use exec, file operations, sessions_send, and web_search as needed.",
-        "model": "ollama/llama3.1:8b",
         "thinking": "low",
         "timeoutSeconds": 300
       },
@@ -937,7 +932,6 @@
       "payload": {
         "kind": "agentTurn",
         "message": "You are ENG (Engineering Lead). Read your colleagues' latest findings and respond.\n\nSTEPS:\n1. Use the message tool to read recent messages from #openclaw-optimization:\n   action=\"readMessages\", channelId=\"C0AF4KB4TUK\", limit=20\n2. Read /Users/redinside/.openclaw/workspace/ops/LEARNINGS.md for context.\n3. Identify any findings from RESEARCH or INFOSEC that are relevant to engineering.\n4. For each relevant finding:\n   a. Assess if you need to take action (code change, config update, dependency check)\n   b. If yes, do it or create a ticket in TICKET-TRACKER.md\n5. Post your engineering response/acknowledgment to #openclaw-optimization:\n   ```\n   💻 *ENG Response — <date>*\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n   Read RESEARCH/INFOSEC updates. Here's my take:\n   <your engineering assessment and actions taken>\n   ```\n   Use the message tool: action=\"sendMessage\", to=\"channel:C0AF4KB4TUK\" ",
-        "model": "ollama/llama3.1:8b",
         "thinking": "low",
         "timeoutSeconds": 180
       },
@@ -1001,7 +995,6 @@
       "payload": {
         "kind": "agentTurn",
         "message": "You are OPS (Scrum Master). Facilitate the Friday team retrospective.\n\nSTEPS:\n1. Read /Users/redinside/.openclaw/workspace/ops/STANDUP-LOG.md — review the week's standups.\n2. Read /Users/redinside/.openclaw/workspace/ops/LEARNINGS.md — what was learned this week.\n3. Read /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md — tickets resolved this week.\n4. Use the message tool to read #openclaw-optimization messages from this week:\n   action=\"readMessages\", channelId=\"C0AF4KB4TUK\", limit=50\n\n5. Ask each agent for their retrospective input via sessions_spawn:\n   - sessions_spawn(agentId=\"eng\", task=\"Friday retro: What did you learn this week from your colleagues (RESEARCH, INFOSEC, OPS)? What will you do differently next week? 2-3 sentences max.\")\n   - sessions_spawn(agentId=\"research\", task=\"Friday retro: What was the most valuable insight you shared with the team this week? What did you learn from ENG or INFOSEC? 2-3 sentences max.\")\n   - sessions_spawn(agentId=\"infosec\", task=\"Friday retro: What security improvements happened this week? What do you want the team to focus on next week? 2-3 sentences max.\")\n   - sessions_spawn(agentId=\"finance\", task=\"Friday retro: Any financial/cost insights from this week? What should be watched next week? 2-3 sentences max.\")\n\n6. Compile ALL responses and post to #redos-scrum as the weekly retrospective:\n   ```\n   ⚙️ *Friday Retrospective — Week of <date>*\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n   📊 *Week Summary:* <tickets resolved, calls made, key learnings>\n   \n   💬 *What the team learned from each other:*\n   💻 ENG: <their retro response>\n   🔬 RESEARCH: <their retro response>\n   🔒 INFOSEC: <their retro response>\n   💰 FINANCE: <their retro response>\n   \n   🎯 *Next week focus:* <OPS recommendation>\n   ```\n   Use the message tool: action=\"sendMessage\", to=\"channel:C0AEV3J2L23\"\n\n7. Append a weekly summary entry to /Users/redinside/.openclaw/workspace/ops/LEARNINGS.md",
-        "model": "ollama/llama3.1:8b",
         "thinking": "low",
         "timeoutSeconds": 300
       },
@@ -1057,7 +1050,7 @@
       "name": "OPS Task ETA Monitor",
       "enabled": true,
       "createdAtMs": 1771544316316,
-      "updatedAtMs": 1771686525685,
+      "updatedAtMs": 1771688326244,
       "schedule": {
         "kind": "every",
         "everyMs": 1800000,
@@ -1075,11 +1068,11 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771688316316,
-        "lastRunAtMs": 1771686516424,
+        "nextRunAtMs": 1771690116316,
+        "lastRunAtMs": 1771688316361,
         "lastStatus": "error",
-        "lastDurationMs": 9261,
-        "consecutiveErrors": 1,
+        "lastDurationMs": 9883,
+        "consecutiveErrors": 2,
         "lastError": "FailoverError: ⚠️ API rate limit reached. Please try again later."
       }
     },
@@ -1122,7 +1115,7 @@
       "name": "OPS Idle Agent Audit",
       "enabled": true,
       "createdAtMs": 1771544316316,
-      "updatedAtMs": 1771684739571,
+      "updatedAtMs": 1771688326310,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -1140,11 +1133,35 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771688316316,
-        "lastRunAtMs": 1771684731730,
-        "lastStatus": "ok",
-        "lastDurationMs": 7841,
-        "consecutiveErrors": 0
+        "nextRunAtMs": 1771691916316,
+        "lastRunAtMs": 1771688326244,
+        "lastStatus": "error",
+        "lastDurationMs": 66,
+        "consecutiveErrors": 1,
+        "lastError": "FailoverError: No available auth profile for openai-codex (all in cooldown or unavailable)."
+      }
+    },
+    {
+      "id": "heartbeat-task-router-0001",
+      "name": "HEARTBEAT Task Router",
+      "agentId": "ops",
+      "enabled": true,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 3600000
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "timeoutSeconds": 300,
+        "message": "You are OPS (Scrum Master). Check HEARTBEAT.md and dispatch open tasks.\n\nSTEPS:\n1. Read workspace/ops/HEARTBEAT.md — find all tasks with Status: OPEN\n2. For each OPEN task:\n   a. Check workspace/ops/agent-status/<assignee>.json — was this agent active today?\n   b. If agent has NOT worked on this task today: dispatch it via sessions_spawn(agentId=\"<assignee>\", task=\"<copy the full task Description from HEARTBEAT.md>\")\n   c. After dispatching, update the task's Status in HEARTBEAT.md from OPEN to IN_PROGRESS\n3. Post a dispatch summary to #redos-ops using the message tool: action=\"sendMessage\", to=\"channel:C0AGFA9417T\"\n   Format:\n   ```\n   ⚙️ *HEARTBEAT Dispatch — <date>*\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━\n   • Dispatched: <list of task IDs sent>\n   • Skipped: <list of already in-progress>\n   ```\n\nRULES:\n- Only dispatch tasks with Status: OPEN. Skip IN_PROGRESS and COMPLETED.\n- Never dispatch the same task twice in one day.\n- Be silent if nothing to dispatch (all tasks are IN_PROGRESS or COMPLETED).\n- Use sessions_spawn (NOT sessions_send) for delegation."
+      },
+      "delivery": {
+        "mode": "none"
+      },
+      "state": {
+        "nextRunAtMs": null
       }
     }
   ]
