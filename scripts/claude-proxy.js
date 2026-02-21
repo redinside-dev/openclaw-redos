@@ -1,13 +1,14 @@
 #!/usr/bin/env node
 /**
- * claude-proxy.js — Seamless Anthropic→Cursor failover proxy
+ * claude-proxy.js — Seamless 3-tier failover proxy
  *
  * Claude Code always talks to this proxy (port 19001).
- * This proxy forwards to Anthropic first. If rate-limited (429/529),
- * it automatically retries through the CCS Cursor daemon (port 20129).
- * Claude Code never knows the difference — fully seamless mid-session.
+ * Failover chain:
+ *   1. Cloud 1 (primary) — passthrough to api.anthropic.com
+ *   2. Cursor Pro (fallback on 429/529) — Anthropic↔OpenAI translation
+ *   3. Cloud 2 (final fallback) — OAuth token swap to second Claude Pro account
  *
- * Format translation:
+ * Format translation (Cursor only):
  *   Anthropic /v1/messages (Claude Code format)
  *     ↓  proxy translates  ↓
  *   OpenAI /v1/chat/completions (Cursor daemon format)
@@ -24,6 +25,7 @@ import { URL } from 'node:url';
 import fs from 'node:fs';
 import path from 'node:path';
 import { Transform } from 'node:stream';
+import { execSync } from 'node:child_process';
 
 const PORT = 19001;
 const ANTHROPIC_BASE = 'https://api.anthropic.com';
@@ -45,6 +47,16 @@ let cursorActive = false;     // true when using Cursor due to rate limit
 let cursorCooldown = null;    // timer to retry Anthropic after cooldown
 const ANTHROPIC_RETRY_MS = 5 * 60 * 1000; // retry Anthropic after 5 min cooldown
 
+// --- Cloud 2 state ---
+const CLOUD2_KEYCHAIN_SERVICE = 'Claude Code-credentials-205fcd97';
+const CLOUD2_CLIENT_ID = '9d1c250a-e61b-44d9-88ed-5944d1962f5e';
+const CLOUD2_SCOPES = 'user:profile user:inference user:sessions:claude_code user:mcp_servers';
+let cloud2Token = null;       // cached access token
+let cloud2TokenExpiry = 0;    // ms timestamp
+let cloud2RateLimited = false;
+let cloud2Cooldown = null;
+let cloud2Active = false;      // true when manually forced to Cloud 2
+
 function markAnthropicRateLimited() {
   if (!cursorActive) {
     log('[proxy] Anthropic rate-limited — switching to Cursor backend');
@@ -57,6 +69,164 @@ function markAnthropicRateLimited() {
     cursorActive = false;
     cursorCooldown = null;
   }, ANTHROPIC_RETRY_MS);
+}
+
+function markCloud2RateLimited() {
+  if (!cloud2RateLimited) {
+    log('[proxy] Cloud 2 rate-limited — no more fallbacks');
+    cloud2RateLimited = true;
+  }
+  if (cloud2Cooldown) clearTimeout(cloud2Cooldown);
+  cloud2Cooldown = setTimeout(() => {
+    log('[proxy] Cloud 2 cooldown elapsed — available again');
+    cloud2RateLimited = false;
+    cloud2Cooldown = null;
+  }, ANTHROPIC_RETRY_MS);
+}
+
+// --- Cloud 2 OAuth token management ---
+
+function getCloud2TokenFromKeychain() {
+  try {
+    const raw = execSync(
+      `security find-generic-password -s "${CLOUD2_KEYCHAIN_SERVICE}" -w`,
+      { encoding: 'utf8', timeout: 5000, stdio: ['pipe', 'pipe', 'pipe'] }
+    ).trim();
+    return JSON.parse(raw).claudeAiOauth || null;
+  } catch (e) {
+    log(`[proxy] Cloud2 Keychain read error: ${e.message}`);
+    return null;
+  }
+}
+
+function saveCloud2TokenToKeychain(oauth) {
+  try {
+    const payload = JSON.stringify({ claudeAiOauth: oauth });
+    // Delete then re-add (security CLI has no upsert)
+    try { execSync(`security delete-generic-password -s "${CLOUD2_KEYCHAIN_SERVICE}"`, { stdio: 'pipe' }); } catch {}
+    execSync(
+      `security add-generic-password -s "${CLOUD2_KEYCHAIN_SERVICE}" -a "Claude Code" -w ${JSON.stringify(payload)}`,
+      { stdio: 'pipe', timeout: 5000 }
+    );
+  } catch (e) {
+    log(`[proxy] Cloud2 Keychain write error: ${e.message}`);
+  }
+}
+
+async function refreshCloud2Token() {
+  const oauth = getCloud2TokenFromKeychain();
+  if (!oauth || !oauth.refreshToken) {
+    log('[proxy] Cloud2: no refresh token in Keychain');
+    return null;
+  }
+
+  // If cached token is still valid (with 2 min buffer), use it
+  if (cloud2Token && Date.now() < cloud2TokenExpiry - 120000) {
+    return cloud2Token;
+  }
+
+  // If Keychain token is still fresh (with 2 min buffer), use it directly
+  if (oauth.accessToken && oauth.expiresAt && Date.now() < oauth.expiresAt - 120000) {
+    cloud2Token = oauth.accessToken;
+    cloud2TokenExpiry = oauth.expiresAt;
+    log('[proxy] Cloud2: using existing Keychain token');
+    return cloud2Token;
+  }
+
+  // Refresh the token
+  log('[proxy] Cloud2: refreshing OAuth token...');
+  const refreshBody = JSON.stringify({
+    grant_type: 'refresh_token',
+    refresh_token: oauth.refreshToken,
+    client_id: CLOUD2_CLIENT_ID,
+    scope: CLOUD2_SCOPES,
+  });
+
+  return new Promise((resolve) => {
+    const postData = Buffer.from(refreshBody, 'utf8');
+    const req = https.request({
+      hostname: 'api.anthropic.com',
+      port: 443,
+      path: '/v1/oauth/token',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Content-Length': postData.length,
+      },
+    }, (res) => {
+      const chunks = [];
+      res.on('data', c => chunks.push(c));
+      res.on('end', () => {
+        try {
+          const data = JSON.parse(Buffer.concat(chunks).toString('utf8'));
+          if (data.access_token) {
+            cloud2Token = data.access_token;
+            cloud2TokenExpiry = Date.now() + (data.expires_in || 28800) * 1000;
+            log(`[proxy] Cloud2: token refreshed (expires in ${data.expires_in || 28800}s)`);
+
+            // Save rotated tokens back to Keychain
+            const updated = { ...oauth, accessToken: data.access_token, expiresAt: cloud2TokenExpiry };
+            if (data.refresh_token) updated.refreshToken = data.refresh_token;
+            saveCloud2TokenToKeychain(updated);
+
+            resolve(cloud2Token);
+          } else {
+            log(`[proxy] Cloud2: refresh failed — ${JSON.stringify(data)}`);
+            resolve(null);
+          }
+        } catch (e) {
+          log(`[proxy] Cloud2: refresh parse error — ${e.message}`);
+          resolve(null);
+        }
+      });
+    });
+    req.on('error', (e) => {
+      log(`[proxy] Cloud2: refresh request error — ${e.message}`);
+      resolve(null);
+    });
+    req.setTimeout(10000, () => { req.destroy(); resolve(null); });
+    req.write(postData);
+    req.end();
+  });
+}
+
+// --- Forward request to Anthropic with Cloud 2's auth ---
+function forwardRequestCloud2(originalReq, bodyBuffer, token) {
+  return new Promise((resolve, reject) => {
+    const target = new URL(ANTHROPIC_BASE);
+    const reqPath = originalReq.url || '/v1/messages';
+
+    const headers = {};
+    for (const [k, v] of Object.entries(originalReq.headers)) {
+      const kl = k.toLowerCase();
+      if (['host', 'connection', 'transfer-encoding', 'authorization', 'x-api-key'].includes(kl)) continue;
+      headers[k] = v;
+    }
+    headers['host'] = target.hostname;
+    headers['authorization'] = `Bearer ${token}`;
+    // Ensure oauth beta flag is present (required for OAuth Bearer auth)
+    const existingBeta = headers['anthropic-beta'] || '';
+    if (!existingBeta.includes('oauth-2025-04-20')) {
+      headers['anthropic-beta'] = existingBeta ? `${existingBeta},oauth-2025-04-20` : 'oauth-2025-04-20';
+    }
+    if (bodyBuffer.length) {
+      headers['content-length'] = bodyBuffer.length;
+    }
+
+    const options = {
+      hostname: target.hostname,
+      port: 443,
+      path: reqPath,
+      method: originalReq.method,
+      headers,
+    };
+
+    const proxyReq = https.request(options, proxyRes => resolve(proxyRes));
+    proxyReq.on('error', reject);
+    proxyReq.setTimeout(120000, () => proxyReq.destroy(new Error('cloud2 upstream timeout')));
+    if (bodyBuffer.length) proxyReq.write(bodyBuffer);
+    proxyReq.end();
+  });
 }
 
 // --- Check if Cursor daemon is running ---
@@ -410,8 +580,10 @@ const server = http.createServer(async (req, res) => {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({
       status: 'ok',
-      backend: cursorActive ? 'cursor' : 'anthropic',
+      backend: cloud2Active ? 'cloud2' : cursorActive ? 'cursor' : 'anthropic',
       cursorCooldownActive: !!cursorCooldown,
+      cloud2RateLimited,
+      cloud2TokenCached: !!cloud2Token,
     }));
     return;
   }
@@ -427,19 +599,63 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  // Force Cloud 2 mode
+  if (req.url === '/force-cloud2') {
+    cursorActive = false;
+    cloud2Active = true;
+    cloud2RateLimited = false;
+    if (cursorCooldown) { clearTimeout(cursorCooldown); cursorCooldown = null; }
+    log('[proxy] Manually forced to Cloud 2 backend');
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ status: 'ok', backend: 'cloud2', message: 'Switched to Cloud 2 — use /reset to go back' }));
+    return;
+  }
+
   // Reset back to Anthropic
   if (req.url === '/reset') {
     cursorActive = false;
+    cloud2RateLimited = false;
     if (cursorCooldown) { clearTimeout(cursorCooldown); cursorCooldown = null; }
-    log('[proxy] Manually reset to Anthropic backend');
+    if (cloud2Cooldown) { clearTimeout(cloud2Cooldown); cloud2Cooldown = null; }
+    cloud2Active = false;
+    cloud2Token = null;
+    cloud2TokenExpiry = 0;
+    log('[proxy] Manually reset to Anthropic backend (all tiers cleared)');
     res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ status: 'ok', backend: 'anthropic', message: 'Switched back to Anthropic' }));
+    res.end(JSON.stringify({ status: 'ok', backend: 'anthropic', message: 'Reset all tiers — back to Cloud 1' }));
     return;
   }
 
   const isApiCall = req.url?.startsWith('/v1/');
   if (!isApiCall) {
     res.writeHead(404); res.end('Not found'); return;
+  }
+
+  // If manually forced to Cloud 2, go straight to Cloud 2
+  if (cloud2Active) {
+    log(`[proxy] → Cloud 2 direct (${req.method} ${req.url})`);
+    const token = await refreshCloud2Token();
+    if (!token) {
+      log('[proxy] Cloud 2 token unavailable — falling back to Cloud 1');
+      cloud2Active = false;
+    } else {
+      try {
+        const c2Res = await forwardRequestCloud2(req, body, token);
+        const c2Status = c2Res.statusCode;
+        log(`[proxy] ← Cloud 2 ${c2Status}`);
+        if (c2Status === 429 || c2Status === 529) {
+          markCloud2RateLimited();
+          cloud2Active = false;
+          log('[proxy] Cloud 2 rate-limited — falling back to Cloud 1');
+        } else {
+          pipeResponse(c2Res, res);
+          return;
+        }
+      } catch (e) {
+        log(`[proxy] Cloud 2 error: ${e.message} — falling back to Cloud 1`);
+        cloud2Active = false;
+      }
+    }
   }
 
   // If already in cursor-mode, go straight to cursor
@@ -483,7 +699,34 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
-  // Try Anthropic first
+  // --- Helper: try Cloud 2 as final fallback ---
+  async function tryCloud2(reason) {
+    if (cloud2RateLimited) {
+      log(`[proxy] Cloud 2 also rate-limited — no more fallbacks (${reason})`);
+      return null;
+    }
+    const token = await refreshCloud2Token();
+    if (!token) {
+      log(`[proxy] Cloud 2 token unavailable — no more fallbacks (${reason})`);
+      return null;
+    }
+    log(`[proxy] → Cloud 2 (${reason})`);
+    try {
+      const c2Res = await forwardRequestCloud2(req, body, token);
+      const c2Status = c2Res.statusCode;
+      log(`[proxy] ← Cloud 2 ${c2Status}`);
+      if (c2Status === 429 || c2Status === 529) {
+        markCloud2RateLimited();
+        return c2Res; // return the 429 to caller to pass to client
+      }
+      return c2Res;
+    } catch (e) {
+      log(`[proxy] Cloud 2 error: ${e.message}`);
+      return null;
+    }
+  }
+
+  // ====== TIER 1: Try Anthropic (Cloud 1) first ======
   log(`[proxy] → Anthropic (${req.method} ${req.url})`);
   try {
     const proxyRes = await forwardRequest(ANTHROPIC_BASE, req, body);
@@ -491,22 +734,38 @@ const server = http.createServer(async (req, res) => {
     log(`[proxy] ← Anthropic ${status}`);
 
     if (status === 429 || status === 529) {
-      // Rate limited — switch to Cursor
+      // Rate limited — try Cursor, then Cloud 2
       markAnthropicRateLimited();
+      proxyRes.resume(); // drain the 429 response
+
+      // ====== TIER 2: Try Cursor ======
       const cursorRunning = await isCursorRunning();
       if (cursorRunning) {
         log(`[proxy] → Cursor (retry after ${status}, translating format)`);
-        proxyRes.resume(); // drain the 429 response
-        if (req.url?.startsWith('/v1/messages')) {
-          await forwardToCursor(req, body, res);
-        } else {
-          const cursorRes = await forwardRequest(CURSOR_BASE, req, body);
-          log(`[proxy] ← Cursor raw ${cursorRes.statusCode}`);
-          pipeResponse(cursorRes, res);
+        try {
+          if (req.url?.startsWith('/v1/messages')) {
+            await forwardToCursor(req, body, res);
+          } else {
+            const cursorRes = await forwardRequest(CURSOR_BASE, req, body);
+            log(`[proxy] ← Cursor raw ${cursorRes.statusCode}`);
+            pipeResponse(cursorRes, res);
+          }
+          return;
+        } catch (cursorErr) {
+          log(`[proxy] Cursor error: ${cursorErr.message} — trying Cloud 2`);
         }
       } else {
-        log('[proxy] Cursor daemon not running — returning rate limit to client');
-        pipeResponse(proxyRes, res);
+        log('[proxy] Cursor daemon not running — trying Cloud 2');
+      }
+
+      // ====== TIER 3: Try Cloud 2 ======
+      const c2Res = await tryCloud2(`after Cloud1 ${status} + Cursor unavailable`);
+      if (c2Res) {
+        pipeResponse(c2Res, res);
+      } else {
+        // All tiers exhausted — return 429 to client
+        res.writeHead(429, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: { message: 'All backends rate-limited or unavailable', type: 'rate_limit_error' } }));
       }
       return;
     }
@@ -514,17 +773,24 @@ const server = http.createServer(async (req, res) => {
     pipeResponse(proxyRes, res);
   } catch (e) {
     log(`[proxy] Anthropic error: ${e.message}`);
-    res.writeHead(502, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ error: { message: `Proxy error: ${e.message}`, type: 'proxy_error' } }));
+    // Cloud 1 network error — try Cloud 2 directly
+    const c2Res = await tryCloud2(`after Cloud1 error: ${e.message}`);
+    if (c2Res) {
+      pipeResponse(c2Res, res);
+    } else {
+      res.writeHead(502, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: { message: `Proxy error: ${e.message}`, type: 'proxy_error' } }));
+    }
   }
 });
 
 server.listen(PORT, '127.0.0.1', () => {
-  log(`[proxy] Claude meta-proxy listening on http://127.0.0.1:${PORT}`);
-  log(`[proxy] Anthropic: ${ANTHROPIC_BASE}`);
-  log(`[proxy] Cursor fallback: ${CURSOR_BASE} (via Anthropic→OpenAI translation)`);
+  log(`[proxy] Claude 3-tier meta-proxy listening on http://127.0.0.1:${PORT}`);
+  log(`[proxy] Tier 1: Cloud 1 (Anthropic passthrough) → ${ANTHROPIC_BASE}`);
+  log(`[proxy] Tier 2: Cursor Pro (Anthropic↔OpenAI translation) → ${CURSOR_BASE}`);
+  log(`[proxy] Tier 3: Cloud 2 (OAuth token swap) → ${ANTHROPIC_BASE}`);
   log(`[proxy] Cursor model: ${CURSOR_MODEL}`);
-  log(`[proxy] Anthropic retry cooldown: ${ANTHROPIC_RETRY_MS / 60000}min`);
+  log(`[proxy] Cooldown: ${ANTHROPIC_RETRY_MS / 60000}min`);
 });
 
 server.on('error', err => {
