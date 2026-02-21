@@ -514,7 +514,7 @@ Every 5 experiences trigger automatic reflection and learning.
             `❌ Invalid format. Use: /model <provider>/<model>\n\n` +
             `Examples:\n` +
             `/model ollama/llama3.1:8b\n` +
-            `/model perplexity/llama-3.1-sonar-small-128k-online\n` +
+            `/model perplexity/sonar-pro\n` +
             `/model anthropic/claude-sonnet-4.5`
           );
           return;
@@ -552,7 +552,7 @@ Every 5 experiences trigger automatic reflection and learning.
       const chatId = msg.chat.id;
       const userId = msg.from.id;
 
-      await userPreferences.setModelOverride(userId.toString(), 'perplexity', 'llama-3.1-sonar-small-128k-online');
+      await userPreferences.setModelOverride(userId.toString(), 'perplexity', 'sonar-pro');
 
       await bot.sendMessage(chatId,
         `🌐 **Switched to Perplexity (Internet-Enabled)**\n\n` +
