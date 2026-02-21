@@ -40,8 +40,8 @@ Provider priority for coding (all $0):
 |---|---|---|
 | needs_code + complexity >= complex | code, multi_file, agentic | 5 (Claude Code) |
 | needs_code + complexity < complex | code | 2+ |
-| needs_web + needs_realtime_data | web_search, realtime | 3 (Perplexity) |
-| needs_web only | web_search | 3 (Perplexity) |
+| needs_web + needs_realtime_data | web_search, realtime | 3 (Perplexity sonar-pro + Exa MCP) |
+| needs_web only | web_search | 3 (Perplexity sonar-pro + Exa MCP as validator) |
 | needs_realtime_data + reasoning needed | realtime, reasoning | 3 (Pplx Reasoning) |
 | complexity = complex/epic, no code | reasoning, planning | 4 (Codex) |
 | complexity = simple, no special needs | general | 1 (Ollama) |
@@ -113,7 +113,7 @@ Append to workspace/logs/routing-decisions.jsonl:
 ## Priority Rules (override scoring when applicable)
 
 1. **ALL complex coding → Tier 5 provider pool: [claude-code/sonnet-4.5, cursor/pro, 9router/auto].** Smart Router applies Rule 0 (quota gate) to select the highest-priority available provider. Never falls back to gpt-5.2 for coding.
-2. **ALL real-time data → Perplexity (Tier 3).** Never use stale training data for current info.
+2. **ALL real-time/web data → Perplexity sonar-pro (Tier 3) FIRST, then augment with Exa MCP tools.** Never use stale training data for current info. Every agent with `needs_web=true` MUST search — never answer from training knowledge alone. Exa MCP (`web_search_exa`, `web_search_advanced_exa`, `crawling_exa`) provides cross-validation and deeper source coverage. If Perplexity is unavailable/rate-limited, fall back to Exa MCP as primary search tool.
 3. **Architecture/planning → Codex gpt-5.2 (Tier 4).** 400K context, best for reasoning.
 4. **Simple parse/format → Ollama (Tier 1) or Z.AI Flash (Tier 2).** Don't waste premium models.
 5. **Ollama down → Z.AI flashx immediate fallback.** Don't queue, don't wait.
