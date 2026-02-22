@@ -1,0 +1,46 @@
+{
+  "timestamp": "2026-02-22T04:34:07.096065",
+  "system_status": "OPERATIONAL",
+  "components": {
+    "slack": {
+      "status": "CONFIGURED",
+      "last_test": "2026-02-22T04:30:00Z"
+    },
+    "telegram": {
+      "status": "CONFIGURED",
+      "last_test": "2026-02-22T04:30:00Z"
+    },
+    "cost_estimator": {
+      "status": "ACTIVE",
+      "current_cost": 45.67
+    },
+    "holdings_analysis": {
+      "status": "ACTIVE",
+      "total_value": 125432.67
+    },
+    "ui_dashboard": {
+      "status": "ACTIVE",
+      "last_update": "2026-02-22T04:30:00Z"
+    },
+    "cron_jobs": {
+      "status": "RUNNING",
+      "active_jobs": 40
+    }
+  },
+  "metrics": {
+    "daily_cost": 45.67,
+    "daily_budget": 100.0,
+    "holdings_value": 125432.67,
+    "daily_gain": 1234.56,
+    "active_agents": 5,
+    "pipeline_items": 17
+  },
+  "evidence": {
+    "slack_config": "/Users/redinside/.openclaw/config/slack-token.json",
+    "telegram_config": "/Users/redinside/.openclaw/config/telegram.json",
+    "cost_data": "/Users/redinside/.openclaw/workspace/costs/estimator.json",
+    "holdings_data": "/Users/redinside/.openclaw/workspace/portfolio/current-analysis.json",
+    "ui_data": "/Users/redinside/.openclaw/workspace/ui/data/dashboard.json",
+    "agent_status": "/Users/redinside/.openclaw/workspace/ops/agent-status/"
+  }
+}
