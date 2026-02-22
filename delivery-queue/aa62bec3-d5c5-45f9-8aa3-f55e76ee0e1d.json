@@ -1,0 +1,15 @@
+{
+  "id": "aa62bec3-d5c5-45f9-8aa3-f55e76ee0e1d",
+  "enqueuedAt": 1771750368495,
+  "channel": "telegram",
+  "to": "telegram:1012034994",
+  "accountId": "default",
+  "payloads": [
+    {
+      "text": "Another cron delivery misroute happened:\n\n- **Error:** `Message failed: Unknown target \"channel:C0AEV3MDEDD\" for Telegram`\n- **Meaning:** the job tried to send a Telegram message using a **Slack-style channel id** (`C0AEV3MDEDD`). Telegram delivery needs a **Telegram chatId** (or user id), not a Slack channel identifier.\n\nFix:\n- Update that cron/job destination to a Telegram target like `chatId:<...>` (or the intended Telegram user id), and reserve `channel:C0AEV3MDEDD` for Slack only.\n\nIf you paste the cron/job config snippet (or tell me which job id), I’ll point out exactly what field to change and what the correct Telegram target should be.\n\n_provider+model: openai-codex/gpt-5.2_",
+      "mediaUrls": []
+    }
+  ],
+  "retryCount": 1,
+  "lastError": "Telegram bot token missing for account \"default\" (set channels.telegram.accounts.default.botToken/tokenFile or TELEGRAM_BOT_TOKEN for default)."
+}
