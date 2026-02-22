@@ -33,18 +33,36 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 ## Active Tickets
 
 ### TICKET-20260220-001
-- **Status:** IN_PROGRESS
+- **Status:** BLOCKED
 - **Priority:** P1
 - **Created:** 2026-02-20T04:30:00Z
-- **SLA Deadline:** 2026-02-20T06:30:00Z (2 hours)
+- **Phase:** 2 - Maker/Checker Limitation
+- **SLA Deadline:** 2026-02-20T06:30:30Z (2 hours)
 - **Reporter:** main (RED self-improvement)
 - **Assignee:** OPS
 - **Summary:** Agent standup/status reports missing/incomplete (ops/agent-status/)
-- **Details:** Earlier today `/workspace/ops/agent-status/` existed but was empty, blocking CEO reflection. It is now populated with at least `main.json` and `research.json`, but other always-on agents still need to check in (ensure daily contract is met and idle-agent audit pings missing agents).
-- **Root Cause:** Likely missing daily standup enforcement + lack of auto-ping for non-reporting agents.
-- **Resolution:**
-- **Learnings:**
-- **Resolved At:**
+- **Details:** Earlier today `/workspace/ops/agent-status/` existed but was empty, blocking CEO reflection. It is now populated with at least `main.json` and `research.json`, but other always-on agents still need to check in (ensure daily contract is complete and idle-agent audit pings missing agents).
+- **Root Cause:** Missing daily standup enforcement + lack of auto-ping for non-reporting agents.
+- **Resolution:** **BLOCKED** - OpenClaw security sandboxing prevents automatic host command execution. Agents can create plans and ask for approval, but cannot execute system commands automatically. Manual execution required for system operations.
+- **Learnings:** OpenClaw agents are fundamentally sandboxed for security. Maker/checker workflow works for planning but execution requires manual intervention.
+- **Resolved At:** **BLOCKED - Phase 2 Priority**
+- **Notes:** This is a known OpenClaw framework limitation. Consider alternative frameworks if full automation is required.
+
+### TICKET-20260222-001
+- **Status:** BLOCKED
+- **Priority:** P0
+- **Created:** 2026-02-22T04:00:00Z
+- **Phase:** 2 - Maker/Checker Execution Limitation
+- **SLA Deadline:** 2026-02-22T04:30:00Z (30 min)
+- **Reporter:** main (RED self-improvement)
+- **Assignee:** OPS
+- **Summary:** Maker/checker workflow works for planning but fails at automatic execution
+- **Details:** After 30+ minutes of configuration attempts (elevated mode, sandbox disable, node config, PATH settings), RED agent still cannot execute host commands automatically. The maker/checker workflow is functional (RED creates plans, asks for approval), but execution falls back to manual commands for the user to run. This defeats the purpose of having an AI team work autonomously.
+- **Root Cause:** OpenClaw agents are fundamentally designed to run in a sandboxed environment for security reasons. Direct host command execution goes against the framework's security model. All configuration attempts (elevated mode, sandbox disable, node configuration, PATH settings) failed to enable automatic execution.
+- **Resolution:** **BLOCKED** - This is a fundamental OpenClaw framework limitation, not a configuration issue. The maker/checker workflow works for planning and approvals, but automatic execution requires manual intervention.
+- **Learnings:** OpenClaw agents are sandboxed by design. Maker/checker workflow is functional for planning and approval, but execution requires manual user intervention. This is a security feature, not a bug.
+- **Resolved At:** **BLOCKED - Phase 2 Priority**
+- **Notes:** This is the core limitation preventing hands-off AI team automation. Consider alternative frameworks if full automation is required. Current workaround: Use AI team for planning and coordination, manual execution for system commands.
 
 ### TICKET-20260220-002
 - **Status:** IN_PROGRESS

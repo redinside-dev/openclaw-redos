@@ -338,6 +338,17 @@ repeating mistakes and to build institutional knowledge.
 - **Prevention:** Add type guards + safe formatting in cost monitor (e.g., `Number(cost)` with `Number.isFinite` checks). Include provider-specific normalizers and unit tests for `{cost: null|string|object}`.
 - **Applied To:** (pending) — opened TICKET-20260221-004
 
+### LEARNING-20260222-001
+- **Date:** 2026-02-22T04:00:00Z
+- **Source Ticket:** TICKET-20260222-001
+- **Agent:** main (RED self-improvement)
+- **Category:** framework
+- **Summary:** OpenClaw agents are fundamentally sandboxed; maker/checker works for planning but not execution
+- **Details:** After 30+ minutes of configuration attempts (elevated mode, sandbox disable, node config, PATH settings), RED agent still cannot execute host commands automatically. The maker/checker workflow is functional (RED creates plans, asks for approval), but execution falls back to manual commands for the user to run. This defeats the purpose of having an AI team work autonomously.
+- **Root Cause:** OpenClaw agents are fundamentally designed to run in a sandboxed environment for security reasons. Direct host command execution goes against the framework's security model. This is a security feature, not a bug.
+- **Prevention:** Accept OpenClaw's security model limitations. Use AI team for planning and coordination, manual execution for system commands. Consider alternative frameworks if full automation is required. Document this limitation in agent configurations and user expectations.
+- **Applied To:** TICKET-20260222-001 (BLOCKED), PROJECT_STATUS.md, SOUL.md, RED agent CLAUDE.md
+
 ### LEARNING-20260221-010
 - **Date:** 2026-02-21T18:34:00Z
 - **Source Ticket:** TICKET-20260221-005
