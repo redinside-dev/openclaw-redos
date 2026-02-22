@@ -5,7 +5,7 @@
       "id": "69c261e4-53e0-495a-9d9b-4c22413e8f26",
       "agentId": "main",
       "name": "Daily Portfolio Review (Pre-Market)",
-      "enabled": false,
+      "enabled": true,
       "createdAtMs": 1770267281600,
       "updatedAtMs": 1771580003375,
       "schedule": {
@@ -25,7 +25,8 @@
         "lastRunAtMs": 1771579884816,
         "lastStatus": "ok",
         "lastDurationMs": 118559,
-        "consecutiveErrors": 0
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1771854300000
       },
       "delivery": {
         "mode": "none"
@@ -35,7 +36,7 @@
       "id": "199a722c-5a9f-4df0-a7d6-71f8039ee187",
       "agentId": "main",
       "name": "Trading Window Brief (8am-4pm ET)",
-      "enabled": false,
+      "enabled": true,
       "createdAtMs": 1770392652158,
       "updatedAtMs": 1770733787261,
       "schedule": {
@@ -61,14 +62,15 @@
         "lastRunAtMs": 1770732000027,
         "lastStatus": "ok",
         "lastDurationMs": 35086,
-        "consecutiveErrors": 0
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1771851600000
       }
     },
     {
       "id": "085332ff-3e0f-4d5e-b619-e0133d74c387",
       "agentId": "main",
       "name": "Trading Window Brief (4:00pm ET)",
-      "enabled": false,
+      "enabled": true,
       "createdAtMs": 1770392732884,
       "updatedAtMs": 1770733788831,
       "schedule": {
@@ -93,14 +95,15 @@
       "state": {
         "lastRunAtMs": 1770670800017,
         "lastStatus": "ok",
-        "lastDurationMs": 32748
+        "lastDurationMs": 32748,
+        "nextRunAtMs": 1771880400000
       }
     },
     {
       "id": "58248a42-7459-4341-9065-be5acc73f61e",
       "agentId": "main",
       "name": "QQQ Profit/Stop Watch (intraday)",
-      "enabled": false,
+      "enabled": true,
       "createdAtMs": 1770399961842,
       "updatedAtMs": 1770733790407,
       "schedule": {
@@ -125,7 +128,8 @@
       "state": {
         "lastRunAtMs": 1770670680014,
         "lastStatus": "ok",
-        "lastDurationMs": 18838
+        "lastDurationMs": 18838,
+        "nextRunAtMs": 1771866000000
       }
     },
     {
@@ -186,7 +190,7 @@
       "delivery": {
         "mode": "announce",
         "channel": "telegram",
-        "to": "1012034994",
+        "to": "channel:C0AEV3J2L23",
         "bestEffort": true
       },
       "state": {
@@ -201,7 +205,7 @@
       "id": "173f38b8-9f45-4236-b468-d6b8826c0ff0",
       "agentId": "main",
       "name": "Market Leads (Alpha Vantage, 4x/day)",
-      "enabled": false,
+      "enabled": true,
       "createdAtMs": 1770408691799,
       "updatedAtMs": 1770733795145,
       "schedule": {
@@ -227,14 +231,15 @@
         "lastRunAtMs": 1770667297558,
         "lastStatus": "error",
         "lastDurationMs": 668,
-        "lastError": "Error: All models failed (2): openai-codex/gpt-5.2: Provider openai-codex is in cooldown (all profiles unavailable) (rate_limit) | moonshot/kimi-k2.5: Provider moonshot is in cooldown (all profiles unavailable) (rate_limit)"
+        "lastError": "Error: All models failed (2): openai-codex/gpt-5.2: Provider openai-codex is in cooldown (all profiles unavailable) (rate_limit) | moonshot/kimi-k2.5: Provider moonshot is in cooldown (all profiles unavailable) (rate_limit)",
+        "nextRunAtMs": 1771858800000
       }
     },
     {
       "id": "c8481b2a-45c9-47bf-9161-8e72fa387098",
       "agentId": "main",
       "name": "System Health Watch (OpenClaw)",
-      "enabled": false,
+      "enabled": true,
       "createdAtMs": 1770410528466,
       "updatedAtMs": 1770733796705,
       "schedule": {
@@ -260,16 +265,17 @@
         "lastRunAtMs": 1770732055172,
         "lastStatus": "ok",
         "lastDurationMs": 35854,
-        "consecutiveErrors": 0
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1771851600000
       }
     },
     {
       "id": "35169d6a-7eef-471a-8848-7a446228e01e",
       "agentId": "main",
       "name": "Implementation Status Updates (temp, every 10 min)",
-      "enabled": false,
+      "enabled": true,
       "createdAtMs": 1770410925180,
-      "updatedAtMs": 1770708171075,
+      "updatedAtMs": 1771751402731,
       "schedule": {
         "kind": "cron",
         "expr": "*/10 * * * *",
@@ -290,10 +296,11 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1770708000006,
+        "lastRunAtMs": 1771751400036,
         "lastStatus": "ok",
-        "lastDurationMs": 8384,
-        "consecutiveErrors": 0
+        "lastDurationMs": 2695,
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1771752000000
       }
     },
     {
@@ -318,7 +325,7 @@
       "delivery": {
         "mode": "announce",
         "channel": "telegram",
-        "to": "1012034994",
+        "to": "channel:C0AEV3J2L23",
         "bestEffort": true
       },
       "state": {
@@ -334,7 +341,7 @@
       "id": "6e4089e6-ae0e-412a-86a1-8323c5497dd9",
       "agentId": "main",
       "name": "ENG Daily Proactive (Mode P)",
-      "enabled": false,
+      "enabled": true,
       "createdAtMs": 1770618290688,
       "updatedAtMs": 1770733803916,
       "schedule": {
@@ -351,21 +358,22 @@
       "delivery": {
         "mode": "announce",
         "channel": "telegram",
-        "to": "1012034994",
+        "to": "channel:C0AEV3J2L23",
         "bestEffort": true
       },
       "state": {
         "lastRunAtMs": 1770732300026,
         "lastStatus": "ok",
         "lastDurationMs": 56082,
-        "consecutiveErrors": 0
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1771855500000
       }
     },
     {
       "id": "e7e58107-e9ed-413c-90be-db9f3e8cc343",
       "agentId": "main",
       "name": "OPS Daily Proactive (Mode P)",
-      "enabled": false,
+      "enabled": true,
       "createdAtMs": 1770618296899,
       "updatedAtMs": 1770733805466,
       "schedule": {
@@ -382,21 +390,22 @@
       "delivery": {
         "mode": "announce",
         "channel": "telegram",
-        "to": "1012034994",
+        "to": "channel:C0AEV3J2L23",
         "bestEffort": true
       },
       "state": {
         "lastRunAtMs": 1770732600026,
         "lastStatus": "ok",
         "lastDurationMs": 58646,
-        "consecutiveErrors": 0
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1771855800000
       }
     },
     {
       "id": "59cbd270-fa3a-436e-a654-a5621b54c864",
       "agentId": "main",
       "name": "RESEARCH Daily Proactive (Mode P)",
-      "enabled": false,
+      "enabled": true,
       "createdAtMs": 1770618303701,
       "updatedAtMs": 1770733807681,
       "schedule": {
@@ -413,21 +422,22 @@
       "delivery": {
         "mode": "announce",
         "channel": "telegram",
-        "to": "1012034994",
+        "to": "channel:C0AEV3J2L23",
         "bestEffort": true
       },
       "state": {
         "lastRunAtMs": 1770732956927,
         "lastStatus": "ok",
         "lastDurationMs": 50623,
-        "consecutiveErrors": 0
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1771856100000
       }
     },
     {
       "id": "7ee66e0d-1b71-4a3a-903c-c1adf807e5d1",
       "agentId": "main",
       "name": "FINANCE Daily Proactive (Mode P)",
-      "enabled": false,
+      "enabled": true,
       "createdAtMs": 1770618311025,
       "updatedAtMs": 1770733810019,
       "schedule": {
@@ -444,21 +454,22 @@
       "delivery": {
         "mode": "announce",
         "channel": "telegram",
-        "to": "1012034994",
+        "to": "channel:C0AEV3J2L23",
         "bestEffort": true
       },
       "state": {
         "lastRunAtMs": 1770733200022,
         "lastStatus": "ok",
         "lastDurationMs": 34742,
-        "consecutiveErrors": 0
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1771856400000
       }
     },
     {
       "id": "cbffd7e1-8647-441e-af8c-33362e455f89",
       "agentId": "main",
       "name": "Cron Watchdog (alert on missed/failing jobs)",
-      "enabled": false,
+      "enabled": true,
       "createdAtMs": 1770618629260,
       "updatedAtMs": 1770733811556,
       "schedule": {
@@ -475,14 +486,15 @@
       "delivery": {
         "mode": "announce",
         "channel": "telegram",
-        "to": "1012034994",
+        "to": "channel:C0AEV3J2L23",
         "bestEffort": true
       },
       "state": {
         "lastRunAtMs": 1770733800005,
         "lastStatus": "ok",
         "lastDurationMs": 7677,
-        "consecutiveErrors": 0
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1771765200000
       }
     },
     {
@@ -712,7 +724,7 @@
       "delivery": {
         "mode": "announce",
         "channel": "telegram",
-        "to": "1012034994",
+        "to": "channel:C0AEV3J2L23",
         "bestEffort": true
       },
       "state": {
@@ -746,7 +758,7 @@
       "delivery": {
         "mode": "announce",
         "channel": "telegram",
-        "to": "1012034994",
+        "to": "channel:C0AEV3J2L23",
         "bestEffort": true
       },
       "state": {
@@ -780,7 +792,7 @@
       "delivery": {
         "mode": "announce",
         "channel": "telegram",
-        "to": "1012034994",
+        "to": "channel:C0AEV3J2L23",
         "bestEffort": true
       },
       "state": {
@@ -848,7 +860,7 @@
       "delivery": {
         "mode": "announce",
         "channel": "telegram",
-        "to": "1012034994",
+        "to": "channel:C0AEV3J2L23",
         "bestEffort": true
       },
       "state": {
@@ -1079,14 +1091,14 @@
       "payload": {
         "kind": "agentTurn",
         "message": "You are RED (CEO). Run the morning team pulse — gather a brief status from each team member and post it to Slack so the whole team can see each other.\n\nSTEPS:\n1. Read /Users/redinside/.openclaw/workspace/ops/agent-status/ — collect everyone's standup JSON files.\n2. Spawn each agent to get their 1-sentence morning focus:\n   - sessions_spawn(agentId=\"allrounder\", task=\"Good morning ZEN. In 1 sentence: what's your main focus today?\")\n   - sessions_spawn(agentId=\"eng\", task=\"Good morning ENG. In 1 sentence: what's your main focus today?\")\n   - sessions_spawn(agentId=\"research\", task=\"Good morning RESEARCH. In 1 sentence: what's your main focus today?\")\n   - sessions_spawn(agentId=\"finance\", task=\"Good morning FINANCE. In 1 sentence: what's your main focus today?\")\n   - sessions_spawn(agentId=\"ops\", task=\"Good morning OPS. In 1 sentence: what's your main focus today?\")\n   - sessions_spawn(agentId=\"infosec\", task=\"Good morning INFOSEC. In 1 sentence: what's your main focus today?\")\n3. Post the team greeting to #all-redos:\n   ```\n   👑 *Good morning, team! — <date>*\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n   Here's what everyone is working on today:\n   \n   👑 RED: <your own focus>\n   🌐 ZEN: <ZEN's response>\n   💻 ENG: <ENG's response>\n   🔬 RESEARCH: <RESEARCH's response>\n   💰 FINANCE: <FINANCE's response>\n   ⚙️ OPS: <OPS's response>\n   🔒 INFOSEC: <INFOSEC's response>\n   \n   Let's have a great day! 🚀\n   ```\n   Use the message tool: action=\"sendMessage\", to=\"channel:C0AG4AY6VME\" ",
-        "model": "openai-codex/gpt-5.2",
+        "model": "anthropic/claude-opus-4-6",
         "thinking": "low",
         "timeoutSeconds": 300
       },
       "delivery": {
         "mode": "announce",
         "channel": "telegram",
-        "to": "1012034994",
+        "to": "channel:C0AEV3J2L23",
         "bestEffort": true
       },
       "state": {
@@ -1148,7 +1160,7 @@
       "payload": {
         "kind": "agentTurn",
         "message": "You are OPS. Run the 9Router quota sync — update workspace/tmp/provider-quota.json with live status.\n\nSTEPS:\n1. Check if 9Router is running using exec (timeout 5s):\n   curl -sf http://localhost:20128/v1/models > /dev/null\n2a. If running:\n   Write /Users/redinside/.openclaw/workspace/tmp/provider-quota.json with:\n   {\"updated\":\"<ISO timestamp>\",\"9router_running\":true,\n     \"providers\":{\"claude-code\":{\"available\":\"unknown\"},\"cursor\":{\"available\":\"unknown\"},\"gemini\":{\"available\":\"unknown\"},\"codex\":{\"available\":\"unknown\"},\"iflow\":{\"available\":\"unknown\"},\"qwen\":{\"available\":\"unknown\"}},\n     \"note\":\"9router is up (v1/models OK); quota endpoint not available on this build\"}\n2b. If NOT running:\n   Write {\"updated\":\"<ISO timestamp>\",\"9router_running\":false,\"note\":\"9router down\"}\n\nConstraints:\n- Keep file under 2KB.\n- Silent success (NO_REPLY).\n",
-        "model": "openai-codex/gpt-5.2",
+        "model": "anthropic/claude-opus-4-6",
         "thinking": "low",
         "timeoutSeconds": 60
       },
@@ -1277,7 +1289,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 60,
-        "model": "openai-codex/gpt-5.2",
+        "model": "anthropic/claude-opus-4-6",
         "message": "You are OPS. Append a lightweight health record to /Users/redinside/.openclaw/logs/health.jsonl.\n\nSTEPS:\n1) exec: openclaw status --json\n2) Parse JSON output (ignore any leading warning lines before the first '{').\n3) Append ONE JSON line to /Users/redinside/.openclaw/logs/health.jsonl with:\n   {\"timestamp\":\"<ISO UTC>\",\"checks\":{\"gateway\":{\"reachable\":<bool>,\"connectLatencyMs\":<number|null>,\"version\":\"<string|null>\"}}}\n\nRules:\n- Do not send messages.\n- If parsing fails, do nothing.\n"
       },
       "delivery": {
@@ -1307,7 +1319,7 @@
         "prompt": "Check OpenAI Codex token expiry. Run this Python snippet and report:\n\nimport json, datetime, base64\ntry:\n    with open('/workspace/../../agents/main/agent/auth-profiles.json') as f:\n        profiles = json.load(f)\n    expiring = []\n    for name, p in profiles['profiles'].items():\n        if p.get('provider') == 'openai-codex' and p.get('expires'):\n            exp_ms = p['expires']\n            exp_dt = datetime.datetime.fromtimestamp(exp_ms/1000)\n            days_left = (exp_dt - datetime.datetime.now()).days\n            expiring.append((name, exp_dt.strftime('%Y-%m-%d'), days_left))\n    for name, exp, days in sorted(expiring, key=lambda x: x[2]):\n        status = 'EXPIRED' if days < 0 else ('URGENT' if days < 3 else ('WARNING' if days < 7 else 'OK'))\n        print(f'{status}: {name} expires {exp} ({days}d)')\nexcept Exception as e:\n    print(f'Error: {e}')\n\nIf any account shows EXPIRED or URGENT, post a Slack message to #redos-ops saying: 'ACTION NEEDED: OpenAI Codex account [name] has expired or expires in <3 days. Run: openclaw models auth login to re-authenticate.' Otherwise just log 'All OpenAI tokens OK' to workspace/logs/token-health.log with a timestamp."
       },
       "state": {
-        "scheduleErrorCount": 3,
+        "scheduleErrorCount": 4,
         "lastError": "schedule error: TypeError: Cannot read properties of undefined (reading 'trim')"
       }
     },
@@ -1334,7 +1346,7 @@
       "delivery": {
         "mode": "announce",
         "channel": "telegram",
-        "to": "1012034994",
+        "to": "channel:C0AEV3J2L23",
         "bestEffort": true
       },
       "state": {
