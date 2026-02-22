@@ -29,7 +29,10 @@
         "nextRunAtMs": 1771854300000
       },
       "delivery": {
-        "mode": "none"
+        "mode": "announce",
+        "channel": "slack",
+        "to": "channel:C0AEV3J2L23",
+        "bestEffort": true
       }
     },
     {
@@ -1303,7 +1306,8 @@
         "lastRunAtMs": 1771750950842,
         "lastStatus": "ok",
         "lastDurationMs": 20429,
-        "consecutiveErrors": 0
+        "consecutiveErrors": 0,
+        "runningAtMs": 1771751850840
       }
     },
     {
