@@ -52,7 +52,10 @@
         "message": "Trading Window Brief (Mon–Fri, 8am–4pm ET)\n\nInputs:\n- Holdings: /Users/redinside/.openclaw/workspace/portfolio/HOLDINGS.md\n- Latest full report: /Users/redinside/.openclaw/workspace/portfolio/reports/portfolio-review-2026-02-06.md (use as baseline until replaced)\n\nTask:\nCreate a short, non-overwhelming brief for Anurag to support decision-making during market hours.\n\nOutput:\nSend a SINGLE Telegram DM to user id 1012034994, under 2500 characters.\n\nStructure (strict):\n1) Today’s focus (1 sentence)\n2) Do this now (max 3 bullets)\n3) Watchlist / levels (max 5 bullets; symbol + what changes your mind)\n4) New ideas (max 2 ideas; 1 line each)\n\nRules:\n- Plain English. No jargon.\n- No more than 10 total bullets.\n- If there is no strong action today: say \"No action\" and focus on watchlist.\n- End with: Provider: <provider> | Model: <model>"
       },
       "delivery": {
-        "mode": "none"
+        "mode": "announce",
+        "channel": "slack",
+        "to": "channel:C0AF4KB4TUK",
+        "bestEffort": true
       },
       "state": {
         "lastRunAtMs": 1770732000027,
@@ -82,7 +85,10 @@
         "message": "Trading Window Brief (Mon–Fri)\n\nThis is the 4:00pm ET close-time brief.\n\nInputs:\n- Holdings: /Users/redinside/.openclaw/workspace/portfolio/HOLDINGS.md\n- Latest full report: /Users/redinside/.openclaw/workspace/portfolio/reports/portfolio-review-2026-02-06.md (use as baseline until replaced)\n\nTask:\nCreate a short, non-overwhelming brief for Anurag.\n\nOutput:\nSend a SINGLE Telegram DM to user id 1012034994, under 2500 characters.\n\nStructure (strict):\n1) Today’s focus (1 sentence)\n2) Do this now (max 3 bullets)\n3) Watchlist / levels (max 5 bullets; symbol + what changes your mind)\n4) New ideas (max 2 ideas; 1 line each)\n\nRules:\n- Plain English. No jargon.\n- No more than 10 total bullets.\n- If there is no strong action today: say \"No action\" and focus on watchlist.\n- End with: Provider: <provider> | Model: <model>"
       },
       "delivery": {
-        "mode": "none"
+        "mode": "announce",
+        "channel": "slack",
+        "to": "channel:C0AF4KB4TUK",
+        "bestEffort": true
       },
       "state": {
         "lastRunAtMs": 1770670800017,
@@ -111,7 +117,10 @@
         "message": "Intraday price watch for QQQ (Wealthsimple trade)\n\nContext:\n- Anurag bought QQQ at 608.15 USD today.\n- Stop plan: 598.00 (stop triggers)\n- Profit plan: 621.00\n- Monitoring window: until ~3:40pm ET today; after 3:40pm ET, stop sending alerts.\n\nTask:\n1) Fetch latest QQQ price using a free source (Yahoo chart endpoint is fine).\n2) Read state file /Users/redinside/.openclaw/workspace/tmp/qqq-watch.json (create if missing) with fields { \"lastAlert\": \"none|profit|stop\" }.\n3) If price >= 621 and lastAlert != \"profit\": send Telegram DM to user id 1012034994: \"QQQ hit target (~$621). Cancel stop order and place limit sell @ 621 if you want to take profit.\" Then update state lastAlert=profit.\n4) If price <= 598 and lastAlert != \"stop\": send Telegram DM: \"QQQ hit stop zone (~$598). Your stop-limit should trigger; do not re-enter today.\" Then update lastAlert=stop.\n5) Otherwise: do nothing.\n\nConstraints:\n- Do not spam; only send when crossing triggers.\n- Plain English.\n- End any sent message with: Provider: <provider> | Model: <model>"
       },
       "delivery": {
-        "mode": "none"
+        "mode": "announce",
+        "channel": "slack",
+        "to": "channel:C0AF4KB4TUK",
+        "bestEffort": true
       },
       "state": {
         "lastRunAtMs": 1770670680014,
@@ -140,7 +149,10 @@
         "message": "Gmail Unread Summary (automated) — Telegram only\n\nAccount: anorag.saxena@gmail.com\n\nGoal:\n- Send Anurag a short summary of NEW unread inbox threads since last check.\n- Do NOT send emails. Do NOT mark anything as read. Do NOT archive/delete.\n\nState:\n- Read/write JSON state at /Users/redinside/.openclaw/workspace/tmp/gmail-unread-digest.json\n  Shape: { \"seenThreadIds\": [\"...\"] }\n\nSteps:\n1) Load state file (if missing, treat as empty).\n2) Fetch unread inbox threads (max 15) using exec:\n   gog gmail search \"in:inbox is:unread\" --account anorag.saxena@gmail.com --json --max 15\n3) Determine which threads are NEW (id not in seenThreadIds).\n4) If there are no new threads: do nothing.\n5) If there are new threads: send ONE Telegram DM to user id 1012034994 with:\n   - Title: \"Unread Gmail (since last check)\"\n   - For each new thread (max 8): date, from, subject\n   - If more than 8: add \"(+N more)\"\n   Keep under 2500 chars.\n6) Update state file by adding all currently-seen thread ids (from the fetched list) to seenThreadIds (dedupe).\n\nOutput rules:\n- Plain English. No jargon.\n- End message with: Provider: <provider> | Model: <model>"
       },
       "delivery": {
-        "mode": "none"
+        "mode": "announce",
+        "channel": "slack",
+        "to": "channel:C0AF4KB4TUK",
+        "bestEffort": true
       },
       "state": {
         "lastRunAtMs": 1771631170631,
@@ -206,7 +218,10 @@
         "message": "Market Leads (Alpha Vantage) — short Telegram note\n\nGoal:\n- Provide 3–5 actionable intraday leads using Alpha Vantage market data (no execution).\n- Plain English, non-overwhelming.\n\nInputs:\n- Holdings file: /Users/redinside/.openclaw/workspace/portfolio/HOLDINGS.md\n\nProcess:\n1) Build a candidate list of US-listed tickers from HOLDINGS.md (ignore obvious non-US tickers like *.B, *.TO, and crypto symbols).\n2) Take top 10 candidates by max weight across TFSA+RRSP (approx_weight_pct).\n3) For each candidate, call alphavantage.TOOL_CALL tool_name=GLOBAL_QUOTE with {symbol}.\n4) Rank by absolute changePercent.\n\nOutput:\nSend ONE Telegram DM to user id 1012034994 under 2000 chars:\n- Header: \"Market Leads\"\n- \"Today’s bias\" (1 sentence)\n- \"Top movers to watch\" (3 bullets: symbol + change% + 1-line note)\n- \"Risk / do-not-do\" (1 bullet)\n- If data is stale or missing: say so and do not fabricate.\nEnd with Provider/Model footer.\n\nRules:\n- Not financial advice; no guarantees.\n- No more than 6 bullets total."
       },
       "delivery": {
-        "mode": "none"
+        "mode": "announce",
+        "channel": "slack",
+        "to": "channel:C0AF4KB4TUK",
+        "bestEffort": true
       },
       "state": {
         "lastRunAtMs": 1770667297558,
@@ -236,7 +251,10 @@
         "message": "System Health Watch (automated) — only alert on problems\n\nGoal:\n- Keep OpenClaw reliable and reduce \"silent failures\".\n- Check core services + key automations.\n- If everything looks healthy: do nothing (no Telegram).\n\nChecks:\n1) Gateway health:\n- Use exec: openclaw status\n- If status output contains errors, unhealthy flags, or can't connect: alert.\n\n2) Browser control health (isolated browser):\n- Call browser(status) with profile=\"openclaw\".\n- If enabled=false OR running=false OR cdpReady=false: alert.\n\n3) Cron integrity + freshness (key jobs):\n- Read /Users/redinside/.openclaw/cron/jobs.json\n- Ensure these job ids exist and are enabled:\n  - 69c261e4-53e0-495a-9d9b-4c22413e8f26 (Daily Portfolio Review)\n  - 199a722c-5a9f-4df0-a7d6-71f8039ee187 (Trading Window Brief)\n  - 7d1f3378-1f52-48ee-a2d9-9c4aaf8f5c88 (Gmail Unread Summary)\n  - 2ef34ad2-e703-415d-8ad9-08a5acdfa1ca (GitHub Repo Updates)\n  - 58248a42-7459-4341-9065-be5acc73f61e (QQQ Watch)\n- Also check for \"stale\" signals:\n  - If any of the jobs have state.nextRunAtMs that is > 10 minutes in the past (missed run), alert.\n  - If a job has no nextRunAtMs, alert.\n\nAlerting:\n- If any check fails, send ONE Telegram DM to user id 1012034994:\n  Title: \"OpenClaw Health Alert\"\n  Then bullets with failing components and the suggested fix.\n  Keep under 1500 chars.\n  End with: Provider: <provider> | Model: <model>\n\nRules:\n- Do not attempt restarts automatically.\n- Do not change config.\n- Do not spam: send at most one alert per run."
       },
       "delivery": {
-        "mode": "none"
+        "mode": "announce",
+        "channel": "slack",
+        "to": "channel:C0AF4KB4TUK",
+        "bestEffort": true
       },
       "state": {
         "lastRunAtMs": 1770732055172,
@@ -266,7 +284,10 @@
         "message": "Status update (automation work in progress)\n\nDone so far (safe, non-breaking):\n- Added cron: System Health Watch (OpenClaw) (alerts only, no auto restarts)\n- Updated POLICY.md to require progress pings + immediate failure reporting\n\nIn progress (next):\n- Add stale-run detection (alert if key crons stop running / nextRun missed)\n- Write a browser-control recovery playbook (so YouTube/Chrome timeouts have a clear fix path)\n\nETA:\n- Next improvement: ~10–15 min\n- Full set above: ~20–30 min total (from start)\n\nIf you want me to stop these 10-min updates at any time, reply: STOP UPDATES.\n\nProvider: <provider> | Model: <model>"
       },
       "delivery": {
-        "mode": "none"
+        "mode": "announce",
+        "channel": "slack",
+        "to": "channel:C0AF4KB4TUK",
+        "bestEffort": true
       },
       "state": {
         "lastRunAtMs": 1770708000006,
@@ -485,7 +506,10 @@
         "timeoutSeconds": 240
       },
       "delivery": {
-        "mode": "none"
+        "mode": "announce",
+        "channel": "slack",
+        "to": "channel:C0AF4KB4TUK",
+        "bestEffort": true
       },
       "state": {
         "nextRunAtMs": 1771855500000,
@@ -516,7 +540,10 @@
         "timeoutSeconds": 240
       },
       "delivery": {
-        "mode": "none"
+        "mode": "announce",
+        "channel": "slack",
+        "to": "channel:C0AF4KB4TUK",
+        "bestEffort": true
       },
       "state": {
         "nextRunAtMs": 1771855500000,
@@ -547,7 +574,10 @@
         "timeoutSeconds": 240
       },
       "delivery": {
-        "mode": "none"
+        "mode": "announce",
+        "channel": "slack",
+        "to": "channel:C0AF4KB4TUK",
+        "bestEffort": true
       },
       "state": {
         "nextRunAtMs": 1771855500000,
@@ -578,7 +608,10 @@
         "timeoutSeconds": 240
       },
       "delivery": {
-        "mode": "none"
+        "mode": "announce",
+        "channel": "slack",
+        "to": "channel:C0AF4KB4TUK",
+        "bestEffort": true
       },
       "state": {
         "nextRunAtMs": 1771855500000,
@@ -609,7 +642,10 @@
         "timeoutSeconds": 240
       },
       "delivery": {
-        "mode": "none"
+        "mode": "announce",
+        "channel": "slack",
+        "to": "channel:C0AF4KB4TUK",
+        "bestEffort": true
       },
       "state": {
         "nextRunAtMs": 1771855500000,
@@ -640,7 +676,10 @@
         "timeoutSeconds": 240
       },
       "delivery": {
-        "mode": "none"
+        "mode": "announce",
+        "channel": "slack",
+        "to": "channel:C0AF4KB4TUK",
+        "bestEffort": true
       },
       "state": {
         "nextRunAtMs": 1771855500000,
@@ -724,7 +763,7 @@
       "name": "OPS System Health Monitor",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771750360831,
+      "updatedAtMs": 1771751206865,
       "schedule": {
         "kind": "every",
         "everyMs": 900000,
@@ -746,10 +785,10 @@
       },
       "state": {
         "lastStatus": "ok",
-        "lastRunAtMs": 1771750349204,
-        "lastDurationMs": 11627,
+        "lastRunAtMs": 1771751195049,
+        "lastDurationMs": 11816,
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1771751195024
+        "nextRunAtMs": 1771752095024
       }
     },
     {
@@ -773,7 +812,10 @@
         "timeoutSeconds": 300
       },
       "delivery": {
-        "mode": "none"
+        "mode": "announce",
+        "channel": "slack",
+        "to": "channel:C0AF4KB4TUK",
+        "bestEffort": true
       },
       "state": {
         "nextRunAtMs": 1771755695024,
@@ -838,7 +880,10 @@
         "timeoutSeconds": 300
       },
       "delivery": {
-        "mode": "none"
+        "mode": "announce",
+        "channel": "slack",
+        "to": "channel:C0AF4KB4TUK",
+        "bestEffort": true
       },
       "state": {
         "nextRunAtMs": 1771755695024,
@@ -935,7 +980,10 @@
         "timeoutSeconds": 180
       },
       "delivery": {
-        "mode": "none"
+        "mode": "announce",
+        "channel": "slack",
+        "to": "channel:C0AF4KB4TUK",
+        "bestEffort": true
       },
       "state": {
         "nextRunAtMs": 1771861500000,
@@ -966,7 +1014,10 @@
         "timeoutSeconds": 360
       },
       "delivery": {
-        "mode": "none"
+        "mode": "announce",
+        "channel": "slack",
+        "to": "channel:C0AF4KB4TUK",
+        "bestEffort": true
       },
       "state": {
         "nextRunAtMs": 1771961400000,
@@ -998,7 +1049,10 @@
         "timeoutSeconds": 300
       },
       "delivery": {
-        "mode": "none"
+        "mode": "announce",
+        "channel": "slack",
+        "to": "channel:C0AF4KB4TUK",
+        "bestEffort": true
       },
       "state": {
         "nextRunAtMs": 1772226000000,
@@ -1049,7 +1103,7 @@
       "name": "OPS Task ETA Monitor",
       "enabled": true,
       "createdAtMs": 1771544316316,
-      "updatedAtMs": 1771749522338,
+      "updatedAtMs": 1771751321650,
       "schedule": {
         "kind": "every",
         "everyMs": 1800000,
@@ -1064,13 +1118,16 @@
         "message": "You are OPS (Orchestrator). Run task ETA monitoring.\n\nSTEPS:\n1. Read /Users/redinside/.openclaw/workspace/ops/task-registry.json\n2. If no tasks or all completed: do nothing silently.\n3. For each task with status \"in_progress\" and an eta field:\n   a. If current time > eta: mark the task as overdue\n   b. Post a warning to Slack #redos-ops: \"⏰ *Task ETA Breach* — TASK-{id}: {title} was due {eta}. Assignee: {assignee}\"\n      Use the message tool: action=\"sendMessage\", to=\"channel:C0AEV3MDEDD\"\n   c. Notify the parent agent via sessions_spawn if requestedBy is set:\n      sessions_spawn(agentId=\"{requestedBy}\", task=\"OPS alert: Task {id} ({title}) assigned to {assignee} has passed its ETA of {eta}. Please check status.\")\n4. Update task-registry.json with any status changes.\n\nBe silent if all tasks are on track."
       },
       "delivery": {
-        "mode": "none"
+        "mode": "announce",
+        "channel": "slack",
+        "to": "channel:C0AF4KB4TUK",
+        "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771751316316,
-        "lastRunAtMs": 1771749516346,
+        "nextRunAtMs": 1771753116316,
+        "lastRunAtMs": 1771751316344,
         "lastStatus": "ok",
-        "lastDurationMs": 5992,
+        "lastDurationMs": 5306,
         "consecutiveErrors": 0
       }
     },
@@ -1096,7 +1153,10 @@
         "timeoutSeconds": 60
       },
       "delivery": {
-        "mode": "none"
+        "mode": "announce",
+        "channel": "slack",
+        "to": "channel:C0AF4KB4TUK",
+        "bestEffort": true
       },
       "state": {
         "nextRunAtMs": 1771752400000,
@@ -1127,7 +1187,10 @@
         "message": "You are OPS (Orchestrator). Run idle agent audit.\n\nSTEPS:\n1. Read agent status files:\n   - /Users/redinside/.openclaw/workspace/ops/agent-status/main.json\n   - /Users/redinside/.openclaw/workspace/ops/agent-status/eng.json\n   - /Users/redinside/.openclaw/workspace/ops/agent-status/research.json\n   - /Users/redinside/.openclaw/workspace/ops/agent-status/finance.json\n   - /Users/redinside/.openclaw/workspace/ops/agent-status/ops.json\n   - /Users/redinside/.openclaw/workspace/ops/agent-status/infosec.json\n2. Always-on agents are: main, allrounder, ops. Check if they have checkin from today.\n3. If any always-on agent has no status file or status dated before today:\n   a. Use sessions_spawn to ping them: sessions_spawn(agentId=\"{agentId}\", task=\"OPS check: You have no standup for today. Please write your status to workspace/ops/agent-status/{agentId}.json and post to #redos-scrum.\")\n   b. Post a note to #redos-ops: \"⚠️ {agent} has no check-in for today — pinged via sessions_spawn\"\n      Use the message tool: action=\"sendMessage\", to=\"channel:C0AEV3MDEDD\"\n4. Be silent if all always-on agents have checked in today."
       },
       "delivery": {
-        "mode": "none"
+        "mode": "announce",
+        "channel": "slack",
+        "to": "channel:C0AF4KB4TUK",
+        "bestEffort": true
       },
       "state": {
         "nextRunAtMs": 1771753116316,
@@ -1155,16 +1218,19 @@
         "message": "You are OPS (Scrum Master). Check HEARTBEAT.md and dispatch open tasks.\n\nSTEPS:\n1. Read workspace/ops/HEARTBEAT.md — find all tasks with Status: OPEN\n2. For each OPEN task:\n   a. Check workspace/ops/agent-status/<assignee>.json — was this agent active today?\n   b. If agent has NOT worked on this task today: dispatch it via sessions_spawn(agentId=\"<assignee>\", task=\"<copy the full task Description from HEARTBEAT.md>\")\n   c. After dispatching, update the task's Status in HEARTBEAT.md from OPEN to IN_PROGRESS\n3. Post a dispatch summary to #redos-ops using the message tool: action=\"sendMessage\", to=\"channel:C0AGFA9417T\"\n   Format:\n   ```\n   ⚙️ *HEARTBEAT Dispatch — <date>*\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━\n   • Dispatched: <list of task IDs sent>\n   • Skipped: <list of already in-progress>\n   ```\n\nRULES:\n- Only dispatch tasks with Status: OPEN. Skip IN_PROGRESS and COMPLETED.\n- Never dispatch the same task twice in one day.\n- Be silent if nothing to dispatch (all tasks are IN_PROGRESS or COMPLETED).\n- Use sessions_spawn (NOT sessions_send) for delegation."
       },
       "delivery": {
-        "mode": "none"
+        "mode": "announce",
+        "channel": "slack",
+        "to": "channel:C0AF4KB4TUK",
+        "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771750956567,
-        "lastRunAtMs": 1771747371339,
+        "nextRunAtMs": 1771754556567,
+        "lastRunAtMs": 1771750971335,
         "lastStatus": "ok",
-        "lastDurationMs": 5573,
+        "lastDurationMs": 5507,
         "consecutiveErrors": 0
       },
-      "updatedAtMs": 1771747376912
+      "updatedAtMs": 1771750976842
     },
     {
       "id": "hatake-daily-briefing-0001",
@@ -1184,7 +1250,10 @@
         "message": "You are HATAKE, the RedOS intent parser and task classifier.\n\nYour job: read today's task queue and produce routing recommendations for all agents.\n\nSTEPS:\n1. Read workspace/ops/HEARTBEAT.md — list all IN_PROGRESS tasks\n2. For each task, classify:\n   - intent: what kind of work (code|research|security|ops|finance)\n   - complexity: 1-10\n   - recommended_agent: best agent for this task\n   - priority: P0|P1|P2|P3\n   - estimated_tokens: rough token cost estimate\n3. Write your analysis to workspace/tmp/hatake-routing-YYYY-MM-DD.json:\n```json\n{\n  \"date\": \"<today>\",\n  \"generated_by\": \"hatake\",\n  \"tasks\": [\n    {\n      \"id\": \"HB-001\",\n      \"intent\": \"code\",\n      \"complexity\": 5,\n      \"recommended_agent\": \"eng\",\n      \"priority\": \"P2\",\n      \"rationale\": \"GitHub API + markdown report — standard ENG work\"\n    }\n  ],\n  \"routing_summary\": \"<1 sentence: who should be busy today>\"\n}\n```\n4. Be brief and factual. Output JSON only — no prose.\n\nRULES:\n- Complexity 1-3: any agent can handle\n- Complexity 4-6: use specialist agent\n- Complexity 7-10: escalate to gpt-5.2 model, notify RED\n- If HEARTBEAT has no IN_PROGRESS tasks: write {\"tasks\": [], \"routing_summary\": \"No active tasks\"}"
       },
       "delivery": {
-        "mode": "none"
+        "mode": "announce",
+        "channel": "slack",
+        "to": "channel:C0AF4KB4TUK",
+        "bestEffort": true
       },
       "state": {
         "nextRunAtMs": 1771768800000
@@ -1196,7 +1265,7 @@
       "name": "Health JSONL Writer",
       "enabled": true,
       "createdAtMs": 1771695150814,
-      "updatedAtMs": 1771750077989,
+      "updatedAtMs": 1771750971271,
       "schedule": {
         "kind": "every",
         "everyMs": 900000,
@@ -1212,13 +1281,16 @@
         "message": "You are OPS. Append a lightweight health record to /Users/redinside/.openclaw/logs/health.jsonl.\n\nSTEPS:\n1) exec: openclaw status --json\n2) Parse JSON output (ignore any leading warning lines before the first '{').\n3) Append ONE JSON line to /Users/redinside/.openclaw/logs/health.jsonl with:\n   {\"timestamp\":\"<ISO UTC>\",\"checks\":{\"gateway\":{\"reachable\":<bool>,\"connectLatencyMs\":<number|null>,\"version\":\"<string|null>\"}}}\n\nRules:\n- Do not send messages.\n- If parsing fails, do nothing.\n"
       },
       "delivery": {
-        "mode": "none"
+        "mode": "announce",
+        "channel": "slack",
+        "to": "channel:C0AF4KB4TUK",
+        "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771750950814,
-        "lastRunAtMs": 1771750050840,
+        "nextRunAtMs": 1771751850814,
+        "lastRunAtMs": 1771750950842,
         "lastStatus": "ok",
-        "lastDurationMs": 27149,
+        "lastDurationMs": 20429,
         "consecutiveErrors": 0
       }
     },
