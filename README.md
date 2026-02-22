@@ -10,7 +10,7 @@
 
 | | |
 |---|---|
-| **OpenClaw CLI** | 2026.2.19-2 |
+| **OpenClaw CLI** | 2026.2.21-2 |
 | **Host** | Mac Mini · macOS 26 Tahoe · ARM64 |
 | **Gateway** | `ws://127.0.0.1:18789` — launchd `ai.openclaw.gateway` |
 | **Mission Control** | `http://localhost:19000` — launchd `ai.openclaw.dashboard` · auth: `red/redos2026` |
@@ -25,11 +25,11 @@
 | `main` | RED | CEO — orchestrator | openai-codex/gpt-5.2 | @RedinsideBot |
 | `allrounder` | ZEN | CSO — general assistant | openai-codex/gpt-5.2 | @ZenRedBot |
 | `hatake` | HATAKE | Intent parser (internal) | ollama/qwen2.5-coder:7b | _(none)_ |
-| `eng` | ENG | Engineering lead | ollama/llama3.1:8b | @ENG_BOT |
+| `eng` | ENG | Engineering lead | openai-codex/gpt-5.2 | @ENG_BOT |
 | `research` | RESEARCH | Research analyst | openai-codex/gpt-5.2 | @RESEARCH_BOT |
 | `finance` | FINANCE | Finance analyst | ollama/llama3.1:8b | @FINANCE_BOT |
-| `ops` | OPS | Scrum master / monitoring | ollama/llama3.1:8b | @OPS_BOT |
-| `infosec` | INFOSEC | Security officer | ollama/llama3.1:8b | @INFOSECRED_BOT |
+| `ops` | OPS | Scrum master / monitoring | openai-codex/gpt-5.2 | @OPS_BOT |
+| `infosec` | INFOSEC | Security officer | openai-codex/gpt-5.2 | @INFOSECRED_BOT |
 
 **Hierarchy:** RED → ZEN (+ HATAKE under ZEN); ENG, RESEARCH, FINANCE, OPS, INFOSEC report to RED.
 
@@ -81,13 +81,33 @@
 
 ---
 
-## Model Assignments
+## Model Assignments & Fallback Strategy
 
+### Primary Models
 | Tier | Models | Agents | Cost |
 |---|---|---|---|
-| **Subscription** | openai-codex/gpt-5.2 | RED, ZEN, RESEARCH | 💰 Paid — high quality |
-| **Local free** | ollama/llama3.1:8b | ENG, FINANCE, OPS, INFOSEC | 🆓 Free · 58s cold start |
-| **Local free** | ollama/qwen2.5-coder:7b | HATAKE | 🆓 Free · 11s |
+| **Premium** | openai-codex/gpt-5.2 | RED, ZEN, ENG, RESEARCH, OPS, INFOSEC | 💰 Paid — 5-account pool |
+| **Local free** | ollama/llama3.1:8b | FINANCE, HATAKE | 🆓 Free · 58s cold start |
+| **Local free** | ollama/qwen2.5-coder:7b | HATAKE (fallback) | 🆓 Free · 11s |
+
+### 4-Tier Intelligent Fallback System
+```
+🔥 Tier 1: OpenAI Codex (5 accounts: 3 Team + 2 Free)
+🧠 Tier 2: Anthropic Claude (1 account)
+🏠 Tier 3: Local Ollama (3 models, unlimited)
+💎 Tier 4: ZAI GLM Models (paid, cost-effective)
+```
+
+**OpenAI Account Pool:**
+- Miranda (Team/Business) - default
+- byionrun (Team/Business) - account2  
+- Anurag (Team/Business) - account4
+- Ryan (Free) - account5
+- redinside (Free) - account3
+
+**ZAI Models:**
+- `glm-4-plus` - 128K context, supports images
+- `glm-4` - 128K context, text only
 
 **Tested Ollama models (2026-02-20):**
 - ✅ `llama3.1:8b` — working (58s cold start)
