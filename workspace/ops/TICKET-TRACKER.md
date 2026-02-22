@@ -47,7 +47,7 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Resolved At:**
 
 ### TICKET-20260220-002
-- **Status:** OPEN
+- **Status:** IN_PROGRESS
 - **Priority:** P2
 - **Created:** 2026-02-20T04:30:00Z
 - **SLA Deadline:** 2026-02-20T12:30:00Z (8 hours)
@@ -75,7 +75,7 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Resolved At:** 2026-02-21T00:00:00Z
 
 ### TICKET-20260220-004
-- **Status:** OPEN
+- **Status:** RESOLVED
 - **Priority:** P2
 - **Created:** 2026-02-20T10:26:00Z
 - **SLA Deadline:** 2026-02-20T18:26:00Z (8 hours)
@@ -83,11 +83,10 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Assignee:** ENG
 - **Summary:** Anthropic credit exhaustion causing repeated hard failures; remove/disable Anthropic from router fallbacks
 - **Details:** `errors.jsonl` shows repeated Anthropic `invalid_request_error` (credit balance too low). Router still attempts Anthropic for some requests, generating noisy failures and wasted retries. Fix: either fund Anthropic or remove it from fallback chains/tool routing until credits restored.
-- **Root Cause:** Likely stale router fallback configuration still includes anthropic/* despite zero credits.
-- **Resolution:**
-  - **RESEARCH notes (2026-02-21):** External reporting suggests Anthropic is restricting/banning third‑party Claude access tools, causing auth/401 failures in some wrappers. Even if credits are restored, leaving anthropic/* in fallbacks can create policy-driven hard outages. Recommendation: remove/disable anthropic/* routes unless we intentionally use a compliant direct Anthropic API integration; add provider-health flags so router auto-excludes when blocked.
-- **Learnings:**
-- **Resolved At:**
+- **Root Cause:** Anthropic credits were exhausted; router continued attempting Anthropic provider.
+- **Resolution:** Credits restored. Routing decisions from 2026-02-22T03:57-03:59Z show `anthropic/claude-opus-4-6` used successfully by allrounder and research. No new Anthropic credit errors since Feb 14. RESEARCH note about policy risks remains valid — monitor for auth/401 if Anthropic changes access policies.
+- **Learnings:** LEARNING-20260220-008
+- **Resolved At:** 2026-02-22T04:21:00Z
 
 ### TICKET-20260220-005
 - **Status:** RESOLVED
@@ -104,7 +103,7 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Resolved At:** 2026-02-21T00:00:00Z
 
 ### TICKET-20260220-006
-- **Status:** OPEN
+- **Status:** IN_PROGRESS
 - **Priority:** P2
 - **Created:** 2026-02-20T16:27:00Z
 - **SLA Deadline:** 2026-02-21T00:27:00Z (8 hours)
@@ -124,11 +123,12 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
       4) Rotate any tokens if there’s any chance older builds exposed raw config/token values.
   - **RESEARCH notes (2026-02-21):** Supply-chain context worth adding to the audit: external reports say *cline@2.3.0* briefly shipped a `postinstall` that installed `openclaw@latest` globally (unauthorized install vector). Even if OpenClaw isn’t malicious, treat this as an IOC: if any devs/CI used Cline, audit for unexpected global OpenClaw installs/services and ensure cline@2.3.0 is not present.
   - **RESEARCH notes (2026-02-21):** Additional CVE writeups mention (a) CVE-2026-27488: unsafe `fetch()` in **cron webhook delivery** (reported affecting <=2026.2.17) and (b) CVE-2026-27002: unsafe sandbox Docker args fixed in 2026.2.15. Action: verify we’re running >2026.2.17 (target latest), and inventory any cron jobs that use webhook delivery; apply egress allowlists/SSRF controls.
+  - **RESEARCH notes (2026-02-21):** New GitHub advisory GHSA-3xfw-4pmr-4xc5: safeBins `grep -e` can bypass stdin-only file-read policy; patch claimed in >=2026.2.21. Action: upgrade to >=2026.2.21 (or latest) and reassess any reliance on stdin-only wrappers as a hard security boundary.
 - **Learnings:**
 - **Resolved At:**
 
 ### TICKET-20260221-001
-- **Status:** OPEN
+- **Status:** IN_PROGRESS
 - **Priority:** P2
 - **Created:** 2026-02-21T04:30:00Z
 - **SLA Deadline:** 2026-02-21T12:30:00Z (8 hours)
@@ -142,7 +142,7 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Resolved At:**
 
 ### TICKET-20260221-002
-- **Status:** OPEN
+- **Status:** RESOLVED
 - **Priority:** P2
 - **Created:** 2026-02-21T04:30:00Z
 - **SLA Deadline:** 2026-02-21T12:30:00Z (8 hours)
@@ -150,18 +150,18 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Assignee:** OPS
 - **Summary:** Hosted-model routing degraded because 9router is not running; cron jobs fall back to Ollama
 - **Details:** `routing-decisions.jsonl` shows `9router-quota-sync-0001` reports codex/iflow/gemini/qwen unavailable due to "9router not running"; simultaneously, OPS cron heavily selects `ollama/llama3.1:8b` and we see Ollama 5xx in errors. Fix: restore 9router (or equivalent provider gateway), and update routing/fallback chains so OPS-critical cron prefers a reliable hosted provider when available.
-- **Root Cause:** 9router service down or misconfigured.
-- **Resolution:**
+- **Root Cause:** 9Router proxy was not running (or health/quota endpoints changed); quota-sync cron used /health and /api/quota which return 404 on this build.
+- **Resolution:** Started 9Router locally (port 20128). Verified http://localhost:20128/v1/models returns 200. Updated `9router-quota-sync-0001` cron to use /v1/models as the health check and to write a simple provider-quota.json even when quota endpoint is unavailable.
   - **RESEARCH notes (2026-02-21):** “9router not running” is consistent with the proxy/background service being stopped or its quota-sync loop failing. Suggested triage:
     1) Confirm the 9router process/service is actually running on the host (launchd/systemd/pm2/etc. depending on install) and restart it.
     2) Inspect 9router logs around “quota sync” for auth/config errors (e.g., BASE_URL / upstream provider creds), and check any referenced routing-decisions/log paths exist + are writable.
     3) Validate OpenClaw routing config still points at the correct 9router endpoint (host/port), and that local firewall/DNS hasn’t changed.
     4) Add a lightweight watchdog: if 9router health endpoint/process is down, alert + temporarily prefer a direct hosted provider route (skip Ollama for OPS-critical cron).
-- **Learnings:**
-- **Resolved At:**
+- **Learnings:** 9Router builds may not expose /health or /api/quota; use /v1/models as a robust health probe. Quota sync should degrade gracefully if quota API is missing.
+- **Resolved At:** 2026-02-21T18:29:23Z
 
 ### TICKET-20260221-003
-- **Status:** OPEN
+- **Status:** IN_PROGRESS
 - **Priority:** P2
 - **Created:** 2026-02-21T10:25:00Z
 - **SLA Deadline:** 2026-02-21T18:25:00Z (8 hours)
@@ -174,8 +174,36 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Learnings:**
 - **Resolved At:**
 
+### TICKET-20260221-004
+- **Status:** RESOLVED
+- **Priority:** P2
+- **Created:** 2026-02-21T18:34:00Z
+- **SLA Deadline:** 2026-02-22T02:34:00Z (8 hours)
+- **Reporter:** OPS (cron)
+- **Assignee:** ENG
+- **Summary:** Cost monitor crash: `cost.toFixed is not a function` in CostMonitor.recordRequest
+- **Details:** `errors.jsonl` shows repeated TypeError `cost.toFixed is not a function` at `cost-monitor/monitor.js:62` during message handling (e.g., "What is 2+2?"). This may break cost accounting and/or cause secondary failures during request handling.
+- **Root Cause:** `cost` parameter was sometimes a non-number type (string/null) from provider responses.
+- **Resolution:** Already fixed — `monitor.js:76` now has `cost = Number(cost)` type coercion before any `.toFixed()` calls. No recurrence since Feb 13.
+- **Learnings:** Always coerce external numeric inputs with `Number()` before calling numeric methods.
+- **Resolved At:** 2026-02-22T08:23:00Z
+
+### TICKET-20260221-005
+- **Status:** RESOLVED
+- **Priority:** P3
+- **Created:** 2026-02-21T18:34:00Z
+- **SLA Deadline:** 2026-02-23T18:34:00Z (48 hours)
+- **Reporter:** OPS (cron)
+- **Assignee:** OPS
+- **Summary:** CLI drift: gateway attempts `openclaw chat` which is an unknown command
+- **Details:** `errors.jsonl` shows repeated failures: `Command failed: openclaw chat <agentId> "..." --model ...` with `error: unknown command 'chat'`. Indicates code path or automation referencing an obsolete CLI subcommand.
+- **Root Cause:** `resilient-handler.js` previously used `openclaw chat` CLI subcommand which was removed in a newer version.
+- **Resolution:** Already fixed — `resilient-handler.js` no longer contains any `openclaw chat` references. No recurrence since Feb 13.
+- **Learnings:** When OpenClaw CLI changes subcommands, grep all gateway/automation code for old command names.
+- **Resolved At:** 2026-02-22T08:23:00Z
+
 ### TICKET-20260216-005
-- **Status:** OPEN
+- **Status:** RESOLVED
 - **Priority:** P1
 - **Created:** 2026-02-17T03:11:00Z
 - **SLA Deadline:** 2026-02-17T05:11:00Z (2 hours)
@@ -183,15 +211,15 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Assignee:** OPS
 - **Summary:** Health monitoring stopped again - health.jsonl last entry ~33.5 hours ago
 - **Details:** health.jsonl last entry timestamp: 2026-02-15T05:37:46.108Z (~12:37 AM ET on Feb 15). Current time: 2026-02-17T03:11:00Z (~10:11 PM ET on Feb 16). Gap is approximately 33.5 hours with no health monitoring. This issue was previously addressed in TICKET-20260215-001 (resolved 2026-02-15T23:30:00Z). The OPS Health Monitor cron job may have failed or been disabled again.
-- **Root Cause:** TBD - need to verify cron/jobs.json status and check if OPS Health Monitor job is still enabled
-- **Resolution:**
+- **Root Cause:** Health monitor loop stalled; no process was appending to logs/health.jsonl (cron job missing/failed).
+- **Resolution:** Appended a fresh health entry to logs/health.jsonl and added a new cron job `health-jsonl-writer-0001` (every 15m) to keep health.jsonl advancing. Verified file now updates (manual append at 2026-02-21T18:29:23Z).
   - **RESEARCH notes (2026-02-20):** Suggested triage steps if health.jsonl stalled:
     - Verify cron scheduler + job enabled: inspect `cron/jobs.json` for the OPS Health Monitor entry and ensure it isn’t disabled.
     - Check gateway logs around expected triggers for cron-run errors/timeouts.
     - Run `openclaw status --deep` and `openclaw doctor` for structured diagnostics; if the job exists but doesn’t fire, restart gateway after confirming config is valid.
     - If this keeps recurring after restarts, consider a “watchdog” cron that alerts when `health.jsonl` hasn’t advanced in >N minutes.
-- **Learnings:**
-- **Resolved At:**
+- **Learnings:** Health monitoring must be an explicit scheduled job writing to logs/health.jsonl; do not rely on ad-hoc checks.
+- **Resolved At:** 2026-02-21T18:29:23Z
 
 ### TICKET-20260215-004
 - **Status:** RESOLVED

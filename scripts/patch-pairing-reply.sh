@@ -5,11 +5,11 @@ set -euo pipefail
 # This edits the installed OpenClaw dist bundle(s). Upgrades may overwrite it.
 
 TARGETS=(
-  "/opt/homebrew/lib/node_modules/openclaw/dist/pi-embedded-Cn8f5u97.js"
-  "/opt/homebrew/lib/node_modules/openclaw/dist/pi-embedded-CHb5giY2.js"
-  "/opt/homebrew/lib/node_modules/openclaw/dist/reply-B4B0jUCM.js"
-  "/opt/homebrew/lib/node_modules/openclaw/dist/plugin-sdk/reply-Bsg9j6AP.js"
-  "/opt/homebrew/lib/node_modules/openclaw/dist/subagent-registry-DOZpiiys.js"
+  "/opt/homebrew/lib/node_modules/openclaw/dist/pi-embedded-CAmQsy9D.js"
+  "/opt/homebrew/lib/node_modules/openclaw/dist/pi-embedded-DqgaE1xK.js"
+  "/opt/homebrew/lib/node_modules/openclaw/dist/reply-B2UJINPw.js"
+  "/opt/homebrew/lib/node_modules/openclaw/dist/plugin-sdk/reply-CqKtVq5t.js"
+  "/opt/homebrew/lib/node_modules/openclaw/dist/subagent-registry-Bdm_X-N1.js"
 )
 
 for f in "${TARGETS[@]}"; do

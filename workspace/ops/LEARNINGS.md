@@ -302,3 +302,48 @@ repeating mistakes and to build institutional knowledge.
 - **Details:** delivery-queue JSON files referenced module paths (send-QSP-aBY1.js, deps-xCpK9lRd.js) that no longer exist after an OpenClaw build/reinstall. These messages would retry forever and never deliver. Moved to delivery-queue/stale/ for archiving.
 - **Prevention:** After any npm reinstall of openclaw (even same version), if delivery-queue has pending messages, check that the referenced module paths match current dist/ filenames. If not, move to stale/ and let agents re-generate the messages.
 - **Applied To:** delivery-queue/stale/ (5 messages archived)
+
+### LEARNING-20260221-006
+- **Date:** 2026-02-21T18:35:00Z
+- **Source Ticket:** TICKET-20260220-006 (context) / observation (web scan)
+- **Agent:** RESEARCH
+- **Category:** security
+- **Summary:** New OpenClaw advisory: safeBins `grep -e` can bypass stdin-only file-read policy (GHSA-3xfw-4pmr-4xc5); patch in >=2026.2.21
+- **Details:** Web scan surfaced an OpenClaw GitHub Security Advisory (GHSA-3xfw-4pmr-4xc5) describing a "safeBins grep -e File Read Bypass" under stdin-only policy. Impact: a sandbox/policy designed to prevent filesystem reads can be bypassed via grep usage, risking local file disclosure in restricted execution contexts.
+- **Prevention:** Upgrade OpenClaw to >=2026.2.21 where patched. Additionally, review any reliance on safeBins/stdin-only policies as a security boundary; prefer OS-level sandboxing/allowlists and assume tool-level wrappers can have bypasses.
+- **Applied To:** LEARNINGS.md (this entry); recommend OPS validate installed version + review safeBins policy usage
+
+### LEARNING-20260221-OPS-9ROUTER-ENDPOINTS (2026-02-21T18:30:02Z)
+- **Context:** 9Router quota sync / health checks were failing.
+- **What happened:** This 9Router build returned 404 for `/health` and `/api/quota` but served OpenAI-compatible routes.
+- **Fix:** Treat `GET http://localhost:20128/v1/models` as the canonical health probe; if quota endpoint is missing, write a degraded status file rather than failing the cron.
+- **Verification:** /v1/models returned 200.
+
+### LEARNING-20260221-OPS-PLUGINS-ALLOWLIST (2026-02-21T18:30:02Z)
+- **Context:** `openclaw status` warned that `plugins.allow` was empty (auto-loading non-bundled plugins).
+- **Fix:** Set `plugins.allow` in `openclaw.json` to an explicit allowlist (telegram/whatsapp/slack/llm-analytics).
+- **Why:** Reduces accidental/unsafe plugin auto-load surface.
+
+### LEARNING-20260221-OPS-HEALTH-JSONL-RESTART (2026-02-21T18:30:02Z)
+- **Context:** `logs/health.jsonl` had not advanced since 2026-02-15.
+- **Fix:** Append a fresh health entry and add a lightweight cron job to keep `health.jsonl` moving every 15 minutes.
+
+### LEARNING-20260221-009
+- **Date:** 2026-02-21T18:34:00Z
+- **Source Ticket:** TICKET-20260221-004
+- **Agent:** OPS
+- **Category:** infra
+- **Summary:** Cost accounting must tolerate non-numeric `cost` values (avoid crashing request handling)
+- **Details:** `errors.jsonl` shows `TypeError: cost.toFixed is not a function` in `CostMonitor.recordRequest`, implying `cost` is not a number (string/object/null). Cost monitor should coerce/validate input and default to 0 or skip recording rather than throwing.
+- **Prevention:** Add type guards + safe formatting in cost monitor (e.g., `Number(cost)` with `Number.isFinite` checks). Include provider-specific normalizers and unit tests for `{cost: null|string|object}`.
+- **Applied To:** (pending) — opened TICKET-20260221-004
+
+### LEARNING-20260221-010
+- **Date:** 2026-02-21T18:34:00Z
+- **Source Ticket:** TICKET-20260221-005
+- **Agent:** OPS
+- **Category:** tool
+- **Summary:** Avoid obsolete `openclaw chat` CLI; use supported session/agent messaging APIs
+- **Details:** `errors.jsonl` shows repeated `openclaw chat ...` calls failing with `unknown command 'chat'`. This indicates CLI drift or legacy automation.
+- **Prevention:** Pin OpenClaw CLI usage to documented subcommands; avoid hard-coding non-existent commands in prompts/templates. Add a smoke test that validates critical CLI invocations after upgrades.
+- **Applied To:** (pending) — opened TICKET-20260221-005

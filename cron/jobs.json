@@ -281,7 +281,7 @@
       "name": "Daily AI + OpenClaw Trends Brief (Telegram DM)",
       "enabled": true,
       "createdAtMs": 1770593929748,
-      "updatedAtMs": 1771637485287,
+      "updatedAtMs": 1771723800407,
       "schedule": {
         "kind": "cron",
         "expr": "30 20 * * *",
@@ -301,11 +301,12 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1771637417918,
-        "lastStatus": "ok",
-        "lastDurationMs": 67369,
-        "consecutiveErrors": 0,
-        "nextRunAtMs": 1771723800000
+        "lastRunAtMs": 1771723800038,
+        "lastStatus": "error",
+        "lastDurationMs": 369,
+        "consecutiveErrors": 1,
+        "nextRunAtMs": 1771810200000,
+        "lastError": "FailoverError: OAuth token refresh failed for openai-codex: Failed to refresh OAuth token for openai-codex. Please try again or re-authenticate."
       }
     },
     {
@@ -689,7 +690,7 @@
       "name": "OPS SLA Enforcement Check",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771691118440,
+      "updatedAtMs": 1771750349204,
       "schedule": {
         "kind": "every",
         "everyMs": 1800000,
@@ -710,12 +711,11 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771694718440,
-        "lastRunAtMs": 1771691118345,
-        "lastStatus": "error",
-        "lastDurationMs": 95,
-        "consecutiveErrors": 13,
-        "lastError": "FailoverError: No available auth profile for openai-codex (all in cooldown or unavailable)."
+        "nextRunAtMs": 1771752095024,
+        "lastRunAtMs": 1771750295056,
+        "lastStatus": "ok",
+        "lastDurationMs": 54148,
+        "consecutiveErrors": 0
       }
     },
     {
@@ -724,7 +724,7 @@
       "name": "OPS System Health Monitor",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771691118476,
+      "updatedAtMs": 1771750360831,
       "schedule": {
         "kind": "every",
         "everyMs": 900000,
@@ -745,12 +745,11 @@
         "bestEffort": true
       },
       "state": {
-        "lastStatus": "error",
-        "lastRunAtMs": 1771691118440,
-        "lastDurationMs": 36,
-        "consecutiveErrors": 14,
-        "nextRunAtMs": 1771694718476,
-        "lastError": "FailoverError: No available auth profile for openai-codex (all in cooldown or unavailable)."
+        "lastStatus": "ok",
+        "lastRunAtMs": 1771750349204,
+        "lastDurationMs": 11627,
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1771751195024
       }
     },
     {
@@ -759,7 +758,7 @@
       "name": "RED Self-Improvement Reflection",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771669385781,
+      "updatedAtMs": 1771734224372,
       "schedule": {
         "kind": "every",
         "everyMs": 21600000,
@@ -777,10 +776,10 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771712495024,
-        "lastRunAtMs": 1771669295047,
+        "nextRunAtMs": 1771755695024,
+        "lastRunAtMs": 1771734095053,
         "lastStatus": "ok",
-        "lastDurationMs": 90734,
+        "lastDurationMs": 129319,
         "consecutiveErrors": 0
       }
     },
@@ -790,7 +789,7 @@
       "name": "OPS Ticket Auto-Diagnose & Fix",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771691002319,
+      "updatedAtMs": 1771748638138,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -811,12 +810,11 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771694602319,
-        "lastRunAtMs": 1771691002239,
-        "lastStatus": "error",
-        "lastDurationMs": 80,
-        "consecutiveErrors": 11,
-        "lastError": "FailoverError: No available auth profile for openai-codex (all in cooldown or unavailable)."
+        "nextRunAtMs": 1771752095024,
+        "lastRunAtMs": 1771748590074,
+        "lastStatus": "ok",
+        "lastDurationMs": 48064,
+        "consecutiveErrors": 0
       }
     },
     {
@@ -825,7 +823,7 @@
       "name": "RESEARCH Proactive Knowledge Update",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771683802132,
+      "updatedAtMs": 1771741397217,
       "schedule": {
         "kind": "every",
         "everyMs": 14400000,
@@ -843,11 +841,12 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771698095024,
-        "lastRunAtMs": 1771683695091,
-        "lastStatus": "ok",
-        "lastDurationMs": 107041,
-        "consecutiveErrors": 0
+        "nextRunAtMs": 1771755695024,
+        "lastRunAtMs": 1771741295057,
+        "lastStatus": "error",
+        "lastDurationMs": 102160,
+        "consecutiveErrors": 3,
+        "lastError": "Error: All models failed (2): openai-codex/gpt-5.2: Provider openai-codex is in cooldown (all profiles unavailable) (rate_limit) | anthropic/claude-opus-4-6: ⚠️ API rate limit reached. Please try again later. (rate_limit)"
       }
     },
     {
@@ -1050,7 +1049,7 @@
       "name": "OPS Task ETA Monitor",
       "enabled": true,
       "createdAtMs": 1771544316316,
-      "updatedAtMs": 1771693722019,
+      "updatedAtMs": 1771749522338,
       "schedule": {
         "kind": "every",
         "everyMs": 1800000,
@@ -1068,10 +1067,10 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771695516316,
-        "lastRunAtMs": 1771693716350,
+        "nextRunAtMs": 1771751316316,
+        "lastRunAtMs": 1771749516346,
         "lastStatus": "ok",
-        "lastDurationMs": 5669,
+        "lastDurationMs": 5992,
         "consecutiveErrors": 0
       }
     },
@@ -1081,7 +1080,7 @@
       "name": "9Router Quota Sync",
       "enabled": true,
       "createdAtMs": 1771576000000,
-      "updatedAtMs": 1771690908750,
+      "updatedAtMs": 1771750608568,
       "schedule": {
         "kind": "every",
         "everyMs": 1800000,
@@ -1091,21 +1090,20 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "You are OPS. Run the 9Router quota sync — update workspace/tmp/provider-quota.json with live quota data.\n\nSTEPS:\n1. Check if 9Router is running: exec `curl -sf http://localhost:20128/health` (timeout 5s).\n2a. If 9Router is running: exec `curl -sf http://localhost:20128/api/quota` to get quota JSON.\n   Parse the result and write to /Users/redinside/.openclaw/workspace/tmp/provider-quota.json with:\n   - All provider quota fields from the API response\n   - Add top-level field: \"updated\": \"<current ISO timestamp>\"\n   - Add top-level field: \"9router_running\": true\n   Keep the file under 2KB.\n2b. If 9Router is NOT running (curl fails): write the following to /Users/redinside/.openclaw/workspace/tmp/provider-quota.json:\n   {\"updated\": \"<current ISO timestamp>\", \"9router_running\": false, \"claude-code\": {\"available\": true, \"remaining\": \"unknown\"}, \"cursor\": {\"available\": true, \"remaining\": \"unknown\"}, \"gemini\": {\"available\": false, \"reason\": \"9router not running\"}, \"codex\": {\"available\": false, \"reason\": \"9router not running\"}, \"iflow\": {\"available\": false, \"reason\": \"9router not running\"}, \"qwen\": {\"available\": false, \"reason\": \"9router not running\"}}\n3. Do nothing else — no Telegram, no Slack, no tickets. Be completely silent.\n\nThis is a background maintenance task. Silent success.",
-        "model": "ollama/llama3.1:8b",
+        "message": "You are OPS. Run the 9Router quota sync — update workspace/tmp/provider-quota.json with live status.\n\nSTEPS:\n1. Check if 9Router is running using exec (timeout 5s):\n   curl -sf http://localhost:20128/v1/models > /dev/null\n2a. If running:\n   Write /Users/redinside/.openclaw/workspace/tmp/provider-quota.json with:\n   {\"updated\":\"<ISO timestamp>\",\"9router_running\":true,\n     \"providers\":{\"claude-code\":{\"available\":\"unknown\"},\"cursor\":{\"available\":\"unknown\"},\"gemini\":{\"available\":\"unknown\"},\"codex\":{\"available\":\"unknown\"},\"iflow\":{\"available\":\"unknown\"},\"qwen\":{\"available\":\"unknown\"}},\n     \"note\":\"9router is up (v1/models OK); quota endpoint not available on this build\"}\n2b. If NOT running:\n   Write {\"updated\":\"<ISO timestamp>\",\"9router_running\":false,\"note\":\"9router down\"}\n\nConstraints:\n- Keep file under 2KB.\n- Silent success (NO_REPLY).\n",
+        "model": "openai-codex/gpt-5.2",
         "thinking": "low",
-        "timeoutSeconds": 30
+        "timeoutSeconds": 60
       },
       "delivery": {
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771694508750,
-        "lastRunAtMs": 1771690908719,
-        "lastStatus": "error",
-        "lastDurationMs": 31,
-        "consecutiveErrors": 34,
-        "lastError": "model not allowed: ollama/llama3.1:8b"
+        "nextRunAtMs": 1771752400000,
+        "lastRunAtMs": 1771750600030,
+        "lastStatus": "ok",
+        "lastDurationMs": 8538,
+        "consecutiveErrors": 0
       }
     },
     {
@@ -1114,7 +1112,7 @@
       "name": "OPS Idle Agent Audit",
       "enabled": true,
       "createdAtMs": 1771544316316,
-      "updatedAtMs": 1771691935012,
+      "updatedAtMs": 1771749546267,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -1132,12 +1130,11 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771695516316,
-        "lastRunAtMs": 1771691934968,
-        "lastStatus": "error",
-        "lastDurationMs": 44,
-        "consecutiveErrors": 2,
-        "lastError": "FailoverError: No available auth profile for openai-codex (all in cooldown or unavailable)."
+        "nextRunAtMs": 1771753116316,
+        "lastRunAtMs": 1771749522338,
+        "lastStatus": "ok",
+        "lastDurationMs": 23929,
+        "consecutiveErrors": 0
       }
     },
     {
@@ -1161,14 +1158,13 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1771695853047,
-        "lastError": "FailoverError: ⚠️ API rate limit reached. Please try again later.",
-        "lastRunAtMs": 1771692234270,
-        "lastStatus": "error",
-        "lastDurationMs": 18777,
-        "consecutiveErrors": 6
+        "nextRunAtMs": 1771750956567,
+        "lastRunAtMs": 1771747371339,
+        "lastStatus": "ok",
+        "lastDurationMs": 5573,
+        "consecutiveErrors": 0
       },
-      "updatedAtMs": 1771692253047
+      "updatedAtMs": 1771747376912
     },
     {
       "id": "hatake-daily-briefing-0001",
@@ -1189,6 +1185,85 @@
       },
       "delivery": {
         "mode": "none"
+      },
+      "state": {
+        "nextRunAtMs": 1771768800000
+      }
+    },
+    {
+      "id": "health-jsonl-writer-0001",
+      "agentId": "ops",
+      "name": "Health JSONL Writer",
+      "enabled": true,
+      "createdAtMs": 1771695150814,
+      "updatedAtMs": 1771750077989,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 900000,
+        "anchorMs": 1771695150814
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "thinking": "low",
+        "timeoutSeconds": 60,
+        "model": "openai-codex/gpt-5.2",
+        "message": "You are OPS. Append a lightweight health record to /Users/redinside/.openclaw/logs/health.jsonl.\n\nSTEPS:\n1) exec: openclaw status --json\n2) Parse JSON output (ignore any leading warning lines before the first '{').\n3) Append ONE JSON line to /Users/redinside/.openclaw/logs/health.jsonl with:\n   {\"timestamp\":\"<ISO UTC>\",\"checks\":{\"gateway\":{\"reachable\":<bool>,\"connectLatencyMs\":<number|null>,\"version\":\"<string|null>\"}}}\n\nRules:\n- Do not send messages.\n- If parsing fails, do nothing.\n"
+      },
+      "delivery": {
+        "mode": "none"
+      },
+      "state": {
+        "nextRunAtMs": 1771750950814,
+        "lastRunAtMs": 1771750050840,
+        "lastStatus": "ok",
+        "lastDurationMs": 27149,
+        "consecutiveErrors": 0
+      }
+    },
+    {
+      "id": "openai-token-expiry-monitor-0001",
+      "name": "OpenAI Token Expiry Monitor",
+      "agentId": "ops",
+      "enabled": false,
+      "schedule": {
+        "kind": "cron",
+        "cron": "0 9 * * *"
+      },
+      "payload": {
+        "prompt": "Check OpenAI Codex token expiry. Run this Python snippet and report:\n\nimport json, datetime, base64\ntry:\n    with open('/workspace/../../agents/main/agent/auth-profiles.json') as f:\n        profiles = json.load(f)\n    expiring = []\n    for name, p in profiles['profiles'].items():\n        if p.get('provider') == 'openai-codex' and p.get('expires'):\n            exp_ms = p['expires']\n            exp_dt = datetime.datetime.fromtimestamp(exp_ms/1000)\n            days_left = (exp_dt - datetime.datetime.now()).days\n            expiring.append((name, exp_dt.strftime('%Y-%m-%d'), days_left))\n    for name, exp, days in sorted(expiring, key=lambda x: x[2]):\n        status = 'EXPIRED' if days < 0 else ('URGENT' if days < 3 else ('WARNING' if days < 7 else 'OK'))\n        print(f'{status}: {name} expires {exp} ({days}d)')\nexcept Exception as e:\n    print(f'Error: {e}')\n\nIf any account shows EXPIRED or URGENT, post a Slack message to #redos-ops saying: 'ACTION NEEDED: OpenAI Codex account [name] has expired or expires in <3 days. Run: openclaw models auth login to re-authenticate.' Otherwise just log 'All OpenAI tokens OK' to workspace/logs/token-health.log with a timestamp."
+      },
+      "state": {
+        "scheduleErrorCount": 3,
+        "lastError": "schedule error: TypeError: Cannot read properties of undefined (reading 'trim')"
+      }
+    },
+    {
+      "id": "ops-disk-monitor-daily-2026-02-22",
+      "agentId": "ops",
+      "name": "Daily Disk Space Monitor (Telegram)",
+      "enabled": true,
+      "createdAtMs": 1771747423771,
+      "updatedAtMs": 1771747423771,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 9 * * *",
+        "tz": "America/Toronto"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "thinking": "low",
+        "timeoutSeconds": 300,
+        "message": "Generate daily disk space monitoring report with largest directories and alerts. Run: python3 /Users/redinside/.openclaw/scripts/simple_disk_check.py"
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "telegram",
+        "to": "1012034994",
+        "bestEffort": true
       },
       "state": {
         "nextRunAtMs": 1771768800000

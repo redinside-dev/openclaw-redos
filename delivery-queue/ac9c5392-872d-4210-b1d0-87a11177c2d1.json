@@ -1,0 +1,15 @@
+{
+  "id": "ac9c5392-872d-4210-b1d0-87a11177c2d1",
+  "enqueuedAt": 1771750283919,
+  "channel": "telegram",
+  "to": "1012034994",
+  "accountId": "ops",
+  "payloads": [
+    {
+      "text": "Attention needed:\n\n- **SLA breaches are still outstanding** (multiple P1/P2 tickets remain IN_PROGRESS past deadline, incl. OPS/ENG/INFOSEC items; latest includes **TICKET-20260221-004** cost monitor crash).\n- **Escalations to RED/CEO are still blocked** when attempted from automation contexts due to **`gateway closed (1008): pairing required`** / inability to route `sessions_send`.\n\nIf you want me to stop the repeated SLA reminders from stacking up, the immediate unblock is to **re-pair/fix the gateway** so escalation messages can actually be delivered.",
+      "mediaUrls": []
+    }
+  ],
+  "retryCount": 1,
+  "lastError": "Telegram bot token missing for account \"ops\" (set channels.telegram.accounts.ops.botToken/tokenFile or TELEGRAM_BOT_TOKEN for default)."
+}
