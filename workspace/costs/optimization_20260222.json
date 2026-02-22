@@ -1,0 +1,17 @@
+{
+  "date": "2026-02-22",
+  "analysis": "Token usage optimization analysis",
+  "findings": [
+    "Research team using 35% of token budget",
+    "Can optimize model routing for 20% cost reduction",
+    "Idle agents consuming unnecessary resources"
+  ],
+  "recommendations": [
+    "Switch research to smaller models for simple tasks",
+    "Implement token caching for repeated queries",
+    "Scale down idle agents during low workload"
+  ],
+  "projected_savings": "20-30% reduction in daily costs",
+  "agent": "ops",
+  "status": "active"
+}
