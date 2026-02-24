@@ -43,7 +43,7 @@
       "name": "Trading Window Brief (8am-4pm ET)",
       "enabled": true,
       "createdAtMs": 1770392652158,
-      "updatedAtMs": 1771961506374,
+      "updatedAtMs": 1771965250446,
       "schedule": {
         "kind": "cron",
         "expr": "0,30 8-15 * * 1-5",
@@ -64,14 +64,14 @@
         "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "lastRunAtMs": 1771961430229,
-        "lastStatus": "ok",
-        "lastDurationMs": 76145,
-        "consecutiveErrors": 0,
-        "nextRunAtMs": 1771963200000,
-        "lastRunStatus": "ok",
+        "lastRunAtMs": 1771965228285,
+        "lastStatus": "error",
+        "lastDurationMs": 22161,
+        "consecutiveErrors": 2,
+        "nextRunAtMs": 1772024400000,
+        "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "runningAtMs": 1771964066263
+        "lastError": "400 No credentials for provider: cursor"
       }
     },
     {
@@ -80,7 +80,7 @@
       "name": "Trading Window Brief (4:00pm ET)",
       "enabled": true,
       "createdAtMs": 1770392732884,
-      "updatedAtMs": 1771894540022,
+      "updatedAtMs": 1771967389204,
       "schedule": {
         "kind": "cron",
         "expr": "0 16 * * 1-5",
@@ -101,10 +101,14 @@
         "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "lastRunAtMs": 1770670800017,
-        "lastStatus": "ok",
-        "lastDurationMs": 32748,
-        "nextRunAtMs": 1771966800000
+        "lastRunAtMs": 1771967089154,
+        "lastStatus": "error",
+        "lastDurationMs": 300050,
+        "nextRunAtMs": 1772053200000,
+        "lastRunStatus": "error",
+        "lastError": "cron: job execution timed out",
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 1
       }
     },
     {
@@ -113,7 +117,7 @@
       "name": "QQQ Profit/Stop Watch (intraday)",
       "enabled": true,
       "createdAtMs": 1770399961842,
-      "updatedAtMs": 1771960507690,
+      "updatedAtMs": 1771969799350,
       "schedule": {
         "kind": "cron",
         "expr": "*/2 12-15 * * 1-5",
@@ -134,13 +138,13 @@
         "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "lastRunAtMs": 1771960447655,
+        "lastRunAtMs": 1771969739299,
         "lastStatus": "error",
-        "lastDurationMs": 60035,
-        "nextRunAtMs": 1771964107690,
+        "lastDurationMs": 60051,
+        "nextRunAtMs": 1772038800000,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 6,
+        "consecutiveErrors": 8,
         "lastError": "cron: job execution timed out"
       }
     },
@@ -150,7 +154,7 @@
       "name": "Gmail Unread Summary (Telegram)",
       "enabled": true,
       "createdAtMs": 1770402245398,
-      "updatedAtMs": 1771962374632,
+      "updatedAtMs": 1771974115696,
       "schedule": {
         "kind": "cron",
         "expr": "*/15 8-18 * * 1-5",
@@ -171,15 +175,14 @@
         "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "lastRunAtMs": 1771962319759,
+        "lastRunAtMs": 1771974095466,
         "lastStatus": "ok",
-        "lastDurationMs": 54873,
+        "lastDurationMs": 20230,
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1771963200000,
+        "nextRunAtMs": 1772024400000,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "not-delivered",
-        "lastDelivered": false,
-        "runningAtMs": 1771964066263
+        "lastDelivered": false
       }
     },
     {
@@ -188,7 +191,7 @@
       "name": "GitHub Repo Updates (2 repos, 4x/day)",
       "enabled": true,
       "createdAtMs": 1770406640940,
-      "updatedAtMs": 1771956147797,
+      "updatedAtMs": 1771967490078,
       "schedule": {
         "kind": "cron",
         "expr": "0 10,13,16,19 * * 1-5",
@@ -210,13 +213,12 @@
         "target": "channel:C0AEV3J2L23"
       },
       "state": {
-        "lastRunAtMs": 1771956147777,
-        "lastStatus": "error",
-        "lastDurationMs": 20,
-        "nextRunAtMs": 1771966800000,
-        "consecutiveErrors": 1,
-        "lastRunStatus": "error",
-        "lastError": "Error: All models failed (2): openai-codex/gpt-5.2: Provider openai-codex is in cooldown (all profiles unavailable) (rate_limit) | anthropic/claude-opus-4-6: Provider anthropic is in cooldown (all profiles unavailable) (rate_limit)",
+        "lastRunAtMs": 1771967404500,
+        "lastStatus": "ok",
+        "lastDurationMs": 85578,
+        "nextRunAtMs": 1771977600000,
+        "consecutiveErrors": 0,
+        "lastRunStatus": "ok",
         "lastDeliveryStatus": "unknown"
       }
     },
@@ -226,7 +228,7 @@
       "name": "Market Leads (Alpha Vantage, 4x/day)",
       "enabled": true,
       "createdAtMs": 1770408691799,
-      "updatedAtMs": 1771959847415,
+      "updatedAtMs": 1771964393849,
       "schedule": {
         "kind": "cron",
         "expr": "0 10,12,14,15 * * 1-5",
@@ -247,14 +249,14 @@
         "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "lastRunAtMs": 1771959745617,
-        "lastStatus": "ok",
-        "lastDurationMs": 101798,
-        "nextRunAtMs": 1771963200000,
-        "lastRunStatus": "ok",
+        "lastRunAtMs": 1771964382569,
+        "lastStatus": "error",
+        "lastDurationMs": 11280,
+        "nextRunAtMs": 1772031600000,
+        "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 0,
-        "runningAtMs": 1771964066263
+        "consecutiveErrors": 1,
+        "lastError": "400 [gemini-cli/gemini-3-pro-preview] [400]: Unable to submit request because Thought signature is not valid.. Learn more: https://cloud.google.com/vertex-ai/generative-ai/docs/model-reference/gemini (reset after 30s)"
       }
     },
     {
@@ -263,7 +265,7 @@
       "name": "System Health Watch (OpenClaw)",
       "enabled": true,
       "createdAtMs": 1770410528466,
-      "updatedAtMs": 1771960507801,
+      "updatedAtMs": 1771974265753,
       "schedule": {
         "kind": "cron",
         "expr": "*/30 8-18 * * 1-5",
@@ -284,14 +286,14 @@
         "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "lastRunAtMs": 1771960507690,
+        "lastRunAtMs": 1771974115696,
         "lastStatus": "error",
-        "lastDurationMs": 111,
-        "consecutiveErrors": 8,
-        "nextRunAtMs": 1771964107801,
+        "lastDurationMs": 150057,
+        "consecutiveErrors": 11,
+        "nextRunAtMs": 1771977865753,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "lastError": "Error: All models failed (2): openai-codex/gpt-5.2: Provider openai-codex is in cooldown (all profiles unavailable) (rate_limit) | anthropic/claude-opus-4-6: Provider anthropic is in cooldown (all profiles unavailable) (rate_limit)"
+        "lastError": "cron: job execution timed out"
       }
     },
     {
@@ -300,7 +302,7 @@
       "name": "Implementation Status Updates (temp, every 10 min)",
       "enabled": true,
       "createdAtMs": 1770410925180,
-      "updatedAtMs": 1771963165679,
+      "updatedAtMs": 1771977029600,
       "schedule": {
         "kind": "cron",
         "expr": "*/10 * * * *",
@@ -321,14 +323,13 @@
         "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "lastRunAtMs": 1771963159128,
+        "lastRunAtMs": 1771977000032,
         "lastStatus": "ok",
-        "lastDurationMs": 6551,
+        "lastDurationMs": 29568,
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1771963200000,
+        "nextRunAtMs": 1771977600000,
         "lastRunStatus": "ok",
-        "lastDeliveryStatus": "unknown",
-        "runningAtMs": 1771964066263
+        "lastDeliveryStatus": "unknown"
       }
     },
     {
@@ -513,7 +514,7 @@
       "name": "Cron Watchdog (alert on missed/failing jobs)",
       "enabled": true,
       "createdAtMs": 1770618629260,
-      "updatedAtMs": 1771963465730,
+      "updatedAtMs": 1771977095803,
       "schedule": {
         "kind": "cron",
         "expr": "*/10 8-22 * * *",
@@ -533,14 +534,14 @@
         "target": "channel:C0AEV3J2L23"
       },
       "state": {
-        "lastRunAtMs": 1771963165679,
-        "lastStatus": "error",
-        "lastDurationMs": 300051,
-        "consecutiveErrors": 11,
-        "nextRunAtMs": 1771967065730,
-        "lastRunStatus": "error",
-        "lastDeliveryStatus": "unknown",
-        "lastError": "cron: job execution timed out"
+        "lastRunAtMs": 1771977029600,
+        "lastStatus": "ok",
+        "lastDurationMs": 66203,
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1771977600000,
+        "lastRunStatus": "ok",
+        "lastDeliveryStatus": "not-delivered",
+        "lastDelivered": false
       }
     },
     {
@@ -807,7 +808,7 @@
       "name": "OPS SLA Enforcement Check",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771962932197,
+      "updatedAtMs": 1771973795162,
       "schedule": {
         "kind": "every",
         "everyMs": 1800000,
@@ -828,14 +829,14 @@
         "target": "channel:C0AEV3J2L23"
       },
       "state": {
-        "nextRunAtMs": 1771966532197,
-        "lastRunAtMs": 1771962903208,
+        "nextRunAtMs": 1771977395162,
+        "lastRunAtMs": 1771973495077,
         "lastStatus": "error",
-        "lastDurationMs": 28989,
-        "consecutiveErrors": 9,
+        "lastDurationMs": 300085,
+        "consecutiveErrors": 11,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "lastError": "Error: All models failed (2): openai-codex/gpt-5.2: ⚠️ API rate limit reached. Please try again later. (rate_limit) | anthropic/claude-opus-4-6: Provider anthropic is in cooldown (all profiles unavailable) (rate_limit)"
+        "lastError": "cron: job execution timed out"
       }
     },
     {
@@ -844,7 +845,7 @@
       "name": "OPS System Health Monitor",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771961249776,
+      "updatedAtMs": 1771974095244,
       "schedule": {
         "kind": "every",
         "everyMs": 900000,
@@ -866,13 +867,13 @@
       },
       "state": {
         "lastStatus": "error",
-        "lastRunAtMs": 1771961178328,
-        "lastDurationMs": 71448,
-        "consecutiveErrors": 10,
-        "nextRunAtMs": 1771964849776,
+        "lastRunAtMs": 1771973795162,
+        "lastDurationMs": 300082,
+        "consecutiveErrors": 1,
+        "nextRunAtMs": 1771977095024,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "lastError": "Error: All models failed (2): openai-codex/gpt-5.2: Provider openai-codex is in cooldown (all profiles unavailable) (rate_limit) | anthropic/claude-opus-4-6: ⚠️ API rate limit reached. Please try again later. (rate_limit)"
+        "runningAtMs": 1771977095827
       }
     },
     {
@@ -902,7 +903,7 @@
         "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "nextRunAtMs": 1771971695079,
+        "nextRunAtMs": 1771993295024,
         "lastRunAtMs": 1771950095079,
         "lastStatus": "ok",
         "lastDurationMs": 68589,
@@ -917,7 +918,7 @@
       "name": "OPS Ticket Auto-Diagnose & Fix",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771961249882,
+      "updatedAtMs": 1771974568702,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -938,14 +939,14 @@
         "target": "channel:C0AEV3J2L23"
       },
       "state": {
-        "nextRunAtMs": 1771964849882,
-        "lastRunAtMs": 1771961249807,
+        "nextRunAtMs": 1771978168702,
+        "lastRunAtMs": 1771974268656,
         "lastStatus": "error",
-        "lastDurationMs": 75,
-        "consecutiveErrors": 9,
+        "lastDurationMs": 300046,
+        "consecutiveErrors": 12,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "lastError": "Error: All models failed (2): openai-codex/gpt-5.2: Provider openai-codex is in cooldown (all profiles unavailable) (rate_limit) | anthropic/claude-opus-4-6: Provider anthropic is in cooldown (all profiles unavailable) (rate_limit)"
+        "lastError": "cron: job execution timed out"
       }
     },
     {
@@ -975,14 +976,13 @@
         "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "nextRunAtMs": 1771971695261,
+        "nextRunAtMs": 1771986095024,
         "lastRunAtMs": 1771957295261,
         "lastStatus": "error",
         "lastDurationMs": 26,
         "consecutiveErrors": 2,
         "lastRunStatus": "error",
-        "lastDeliveryStatus": "unknown",
-        "lastError": "Error: All models failed (2): openai-codex/gpt-5.2: Provider openai-codex is in cooldown (all profiles unavailable) (rate_limit) | anthropic/claude-opus-4-6: Provider anthropic is in cooldown (all profiles unavailable) (rate_limit)"
+        "lastDeliveryStatus": "unknown"
       }
     },
     {
@@ -991,7 +991,7 @@
       "name": "RED CEO Daily Summary to Anurag",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771628474228,
+      "updatedAtMs": 1771974627741,
       "schedule": {
         "kind": "cron",
         "expr": "0 18 * * 1-5",
@@ -1011,11 +1011,14 @@
         "target": "1012034994"
       },
       "state": {
-        "nextRunAtMs": 1771974000000,
-        "lastRunAtMs": 1771628415373,
+        "nextRunAtMs": 1772060400000,
+        "lastRunAtMs": 1771974568702,
         "lastStatus": "ok",
-        "lastDurationMs": 58855,
-        "consecutiveErrors": 0
+        "lastDurationMs": 59039,
+        "consecutiveErrors": 0,
+        "lastRunStatus": "ok",
+        "lastDelivered": true,
+        "lastDeliveryStatus": "delivered"
       }
     },
     {
@@ -1202,7 +1205,7 @@
       "name": "OPS Task ETA Monitor",
       "enabled": true,
       "createdAtMs": 1771544316316,
-      "updatedAtMs": 1771961250017,
+      "updatedAtMs": 1771970560536,
       "schedule": {
         "kind": "every",
         "everyMs": 1800000,
@@ -1223,14 +1226,13 @@
         "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "nextRunAtMs": 1771964850017,
-        "lastRunAtMs": 1771961249882,
+        "nextRunAtMs": 1771978116316,
+        "lastRunAtMs": 1771970320452,
         "lastStatus": "error",
-        "lastDurationMs": 135,
-        "consecutiveErrors": 9,
+        "lastDurationMs": 240084,
+        "consecutiveErrors": 11,
         "lastRunStatus": "error",
-        "lastDeliveryStatus": "unknown",
-        "lastError": "Error: All models failed (2): openai-codex/gpt-5.2: Provider openai-codex is in cooldown (all profiles unavailable) (rate_limit) | anthropic/claude-opus-4-6: Provider anthropic is in cooldown (all profiles unavailable) (rate_limit)"
+        "lastDeliveryStatus": "unknown"
       }
     },
     {
@@ -1239,7 +1241,7 @@
       "name": "9Router Quota Sync",
       "enabled": true,
       "createdAtMs": 1771576000000,
-      "updatedAtMs": 1771963086371,
+      "updatedAtMs": 1771976456201,
       "schedule": {
         "kind": "every",
         "everyMs": 1800000,
@@ -1261,14 +1263,14 @@
         "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "nextRunAtMs": 1771964850058,
-        "lastRunAtMs": 1771963050058,
-        "lastStatus": "ok",
-        "lastDurationMs": 36313,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
-        "lastDeliveryStatus": "not-delivered",
-        "lastDelivered": false
+        "nextRunAtMs": 1771978235684,
+        "lastRunAtMs": 1771976435684,
+        "lastStatus": "error",
+        "lastDurationMs": 20517,
+        "consecutiveErrors": 1,
+        "lastRunStatus": "error",
+        "lastDeliveryStatus": "unknown",
+        "lastError": "Connection error."
       }
     },
     {
@@ -1277,7 +1279,7 @@
       "name": "OPS Idle Agent Audit",
       "enabled": true,
       "createdAtMs": 1771544316316,
-      "updatedAtMs": 1771961940961,
+      "updatedAtMs": 1771972956467,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -1298,14 +1300,14 @@
         "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "nextRunAtMs": 1771965540961,
-        "lastRunAtMs": 1771961940834,
+        "nextRunAtMs": 1771979916316,
+        "lastRunAtMs": 1771972716379,
         "lastStatus": "error",
-        "lastDurationMs": 127,
-        "consecutiveErrors": 7,
+        "lastDurationMs": 240088,
+        "consecutiveErrors": 9,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "lastError": "Error: All models failed (2): openai-codex/gpt-5.2: Provider openai-codex is in cooldown (all profiles unavailable) (rate_limit) | anthropic/claude-opus-4-6: Provider anthropic is in cooldown (all profiles unavailable) (rate_limit)"
+        "lastError": "cron: job execution timed out"
       }
     },
     {
@@ -1332,16 +1334,15 @@
         "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "nextRunAtMs": 1771964895273,
-        "lastRunAtMs": 1771961295087,
+        "nextRunAtMs": 1771977756567,
+        "lastRunAtMs": 1771966157096,
         "lastStatus": "error",
-        "lastDurationMs": 186,
-        "consecutiveErrors": 7,
+        "lastDurationMs": 300048,
+        "consecutiveErrors": 8,
         "lastRunStatus": "error",
-        "lastDeliveryStatus": "unknown",
-        "lastError": "Error: All models failed (2): openai-codex/gpt-5.2: Provider openai-codex is in cooldown (all profiles unavailable) (rate_limit) | anthropic/claude-opus-4-6: Provider anthropic is in cooldown (all profiles unavailable) (rate_limit)"
+        "lastDeliveryStatus": "unknown"
       },
-      "updatedAtMs": 1771961295273
+      "updatedAtMs": 1771966457144
     },
     {
       "id": "hatake-daily-briefing-0001",
@@ -1376,7 +1377,7 @@
       "name": "Health JSONL Writer",
       "enabled": true,
       "createdAtMs": 1771695150814,
-      "updatedAtMs": 1771962638159,
+      "updatedAtMs": 1771976894451,
       "schedule": {
         "kind": "every",
         "everyMs": 900000,
@@ -1398,14 +1399,14 @@
         "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "nextRunAtMs": 1771963502736,
-        "lastRunAtMs": 1771962602736,
+        "nextRunAtMs": 1771977750849,
+        "lastRunAtMs": 1771976850849,
         "lastStatus": "ok",
-        "lastDurationMs": 35423,
+        "lastDurationMs": 43602,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
-        "lastDeliveryStatus": "unknown",
-        "runningAtMs": 1771964066263
+        "lastDeliveryStatus": "not-delivered",
+        "lastDelivered": false
       }
     },
     {
@@ -1488,7 +1489,7 @@
       "name": "ZEN COO Team Coordination Check",
       "enabled": true,
       "createdAtMs": 1771895567713,
-      "updatedAtMs": 1771960889553,
+      "updatedAtMs": 1771976756238,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1507,14 +1508,14 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771967789503,
-        "lastRunAtMs": 1771960589503,
+        "nextRunAtMs": 1771983656201,
+        "lastRunAtMs": 1771976456201,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 300050,
+        "lastDurationMs": 300037,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 2,
-        "lastError": "cron: job execution timed out"
+        "consecutiveErrors": 4,
+        "lastError": "Error: cron: job execution timed out"
       }
     },
     {
@@ -1550,7 +1551,7 @@
       "name": "OPS Guardrail: Ticket Resolution Enforcer",
       "enabled": true,
       "createdAtMs": 1771897248854,
-      "updatedAtMs": 1771954861220,
+      "updatedAtMs": 1771970571393,
       "schedule": {
         "kind": "every",
         "everyMs": 14400000,
@@ -1569,14 +1570,14 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771969260376,
-        "lastRunAtMs": 1771954860376,
+        "nextRunAtMs": 1771984971015,
+        "lastRunAtMs": 1771970571015,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 844,
+        "lastDurationMs": 378,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 2,
-        "lastError": "Error: All models failed (2): openai-codex/gpt-5.2: Provider openai-codex is in cooldown (all profiles unavailable) (rate_limit) | anthropic/claude-opus-4-6: Provider anthropic is in cooldown (all profiles unavailable) (rate_limit)"
+        "consecutiveErrors": 3,
+        "lastError": "400 [gemini-cli/gemini-3-flash-preview] [400]: Unable to submit request because Thought signature is not valid.. Learn more: https://cloud.g (reset after 20s)"
       }
     },
     {
@@ -1619,7 +1620,7 @@
       "name": "RED Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897377295,
-      "updatedAtMs": 1771962319570,
+      "updatedAtMs": 1771970676720,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1638,11 +1639,11 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771969425267,
-        "lastRunAtMs": 1771962225267,
+        "nextRunAtMs": 1771977771393,
+        "lastRunAtMs": 1771970571393,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 94303,
+        "lastDurationMs": 105327,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
         "lastDelivered": true
@@ -1654,7 +1655,7 @@
       "name": "ZEN Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897390213,
-      "updatedAtMs": 1771962602701,
+      "updatedAtMs": 1771970976802,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1673,14 +1674,14 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771969713272,
-        "lastRunAtMs": 1771962513272,
+        "nextRunAtMs": 1771977876720,
+        "lastRunAtMs": 1771970676720,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 89429,
+        "lastDurationMs": 300082,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 4,
-        "lastError": "Error: All models failed (2): openai-codex/gpt-5.2: ⚠️ API rate limit reached. Please try again later. (rate_limit) | anthropic/claude-opus-4-6: ⚠️ API rate limit reached. Please try again later. (rate_limit)"
+        "consecutiveErrors": 5,
+        "lastError": "cron: job execution timed out"
       }
     },
     {
@@ -1708,7 +1709,7 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771970286429,
+        "nextRunAtMs": 1771983791560,
         "lastRunAtMs": 1771963086429,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
@@ -1742,14 +1743,13 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771970665731,
+        "nextRunAtMs": 1771983792835,
         "lastRunAtMs": 1771963465731,
         "lastRunStatus": "error",
         "lastStatus": "error",
         "lastDurationMs": 300081,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 4,
-        "lastError": "cron: job execution timed out"
+        "consecutiveErrors": 4
       }
     },
     {
@@ -1777,14 +1777,13 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771970965812,
+        "nextRunAtMs": 1771983794350,
         "lastRunAtMs": 1771963765812,
         "lastRunStatus": "error",
         "lastStatus": "error",
         "lastDurationMs": 300093,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 1,
-        "lastError": "cron: job execution timed out"
+        "consecutiveErrors": 1
       }
     },
     {
@@ -1793,7 +1792,7 @@
       "name": "OPS Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897395722,
-      "updatedAtMs": 1771962374718,
+      "updatedAtMs": 1771971276885,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1812,14 +1811,14 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771969574632,
-        "lastRunAtMs": 1771962374632,
+        "nextRunAtMs": 1771978176802,
+        "lastRunAtMs": 1771970976802,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 86,
+        "lastDurationMs": 300083,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 3,
-        "lastError": "Error: All models failed (2): openai-codex/gpt-5.2: Provider openai-codex is in cooldown (all profiles unavailable) (rate_limit) | anthropic/claude-opus-4-6: Provider anthropic is in cooldown (all profiles unavailable) (rate_limit)"
+        "consecutiveErrors": 4,
+        "lastError": "cron: job execution timed out"
       }
     },
     {
@@ -1828,7 +1827,7 @@
       "name": "INFOSEC Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897397121,
-      "updatedAtMs": 1771962374725,
+      "updatedAtMs": 1771971576958,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1847,14 +1846,14 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771969574718,
-        "lastRunAtMs": 1771962374718,
+        "nextRunAtMs": 1771978476885,
+        "lastRunAtMs": 1771971276885,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 7,
+        "lastDurationMs": 300073,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 3,
-        "lastError": "Error: All models failed (2): openai-codex/gpt-5.2: Provider openai-codex is in cooldown (all profiles unavailable) (rate_limit) | anthropic/claude-opus-4-6: Provider anthropic is in cooldown (all profiles unavailable) (rate_limit)"
+        "consecutiveErrors": 4,
+        "lastError": "cron: job execution timed out"
       }
     },
     {
@@ -1863,7 +1862,7 @@
       "name": "HATAKE Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897398357,
-      "updatedAtMs": 1771956397593,
+      "updatedAtMs": 1771964565197,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1882,14 +1881,13 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771963530840,
-        "lastRunAtMs": 1771956330840,
+        "nextRunAtMs": 1771983798357,
+        "lastRunAtMs": 1771964470435,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 66753,
+        "lastDurationMs": 94762,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 0,
-        "runningAtMs": 1771964066263
+        "consecutiveErrors": 0
       }
     },
     {
@@ -1898,7 +1896,7 @@
       "name": "CI Event Logger (cron → ci-log.jsonl)",
       "enabled": true,
       "createdAtMs": 1771907000000,
-      "updatedAtMs": 1771962999338,
+      "updatedAtMs": 1771976776748,
       "schedule": {
         "kind": "every",
         "everyMs": 600000,
@@ -1919,14 +1917,14 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771963574764,
-        "lastRunAtMs": 1771962974764,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 24574,
+        "nextRunAtMs": 1771977356238,
+        "lastRunAtMs": 1771976756238,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 20510,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 0,
-        "runningAtMs": 1771964066263
+        "consecutiveErrors": 1,
+        "lastError": "Connection error."
       }
     },
     {
@@ -1935,7 +1933,7 @@
       "name": "Self-Healing Guardrail: Health Snapshot → Tickets",
       "enabled": true,
       "createdAtMs": 1771907005000,
-      "updatedAtMs": 1771961430196,
+      "updatedAtMs": 1771974732029,
       "schedule": {
         "kind": "every",
         "everyMs": 1800000,
@@ -1956,14 +1954,13 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771963198511,
-        "lastRunAtMs": 1771961398511,
+        "nextRunAtMs": 1771977205000,
+        "lastRunAtMs": 1771974700596,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 31685,
+        "lastDurationMs": 31433,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 0,
-        "runningAtMs": 1771964066263
+        "consecutiveErrors": 0
       }
     },
     {
@@ -2037,7 +2034,7 @@
       "name": "A2A Communication Health Monitor",
       "enabled": true,
       "createdAtMs": 1771910000000,
-      "updatedAtMs": 1771910000000,
+      "updatedAtMs": 1771974852085,
       "schedule": {
         "kind": "cron",
         "expr": "0 18 * * 1-5",
@@ -2058,7 +2055,14 @@
         "target": "channel:C0AEV3J2L23"
       },
       "state": {
-        "nextRunAtMs": 1771970400000
+        "nextRunAtMs": 1772060400000,
+        "lastRunAtMs": 1771974732029,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 120056,
+        "lastError": "cron: job execution timed out",
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 1
       }
     },
     {
@@ -2097,7 +2101,7 @@
       "name": "ENG Coding Factory POC — Continuous Build",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1771952737780,
+      "updatedAtMs": 1771968500390,
       "schedule": {
         "kind": "cron",
         "expr": "0 */4 * * *",
@@ -2119,14 +2123,13 @@
         "target": "channel:C0AFW1B0QUB"
       },
       "state": {
-        "nextRunAtMs": 1771967014472,
-        "lastRunAtMs": 1771952737734,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 46,
+        "nextRunAtMs": 1771981414472,
+        "lastRunAtMs": 1771968431944,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 68446,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 3,
-        "lastError": "Error: All models failed (2): openai-codex/gpt-5.2: Provider openai-codex is in cooldown (all profiles unavailable) (rate_limit) | anthropic/claude-opus-4-6: Provider anthropic is in cooldown (all profiles unavailable) (rate_limit)"
+        "consecutiveErrors": 0
       }
     },
     {
@@ -2135,7 +2138,7 @@
       "name": "ENG Daily R&D Research Session",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1771912000000,
+      "updatedAtMs": 1771973037517,
       "schedule": {
         "kind": "cron",
         "expr": "0 14 * * *",
@@ -2156,7 +2159,13 @@
         "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "nextRunAtMs": 1771972800000
+        "nextRunAtMs": 1772046000000,
+        "lastRunAtMs": 1771972970162,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 67355,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 0
       }
     },
     {
@@ -2165,7 +2174,7 @@
       "name": "RED Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1771961009767,
+      "updatedAtMs": 1771974940740,
       "schedule": {
         "kind": "cron",
         "expr": "0 */2 * * *",
@@ -2187,11 +2196,11 @@
         "target": "channel:C0AEV3MDEDD"
       },
       "state": {
-        "nextRunAtMs": 1771966855483,
-        "lastRunAtMs": 1771960918224,
+        "nextRunAtMs": 1771981255483,
+        "lastRunAtMs": 1771974852085,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 91543,
+        "lastDurationMs": 88655,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 0
       }
@@ -2202,7 +2211,7 @@
       "name": "RESEARCH Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1771954490044,
+      "updatedAtMs": 1771976822769,
       "schedule": {
         "kind": "cron",
         "expr": "30 */3 * * *",
@@ -2223,14 +2232,14 @@
         "target": "channel:C0AEV3J2L23"
       },
       "state": {
-        "nextRunAtMs": 1771965000000,
-        "lastRunAtMs": 1771954392408,
+        "nextRunAtMs": 1771986600000,
+        "lastRunAtMs": 1771976776748,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 97636,
+        "lastDurationMs": 46021,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 3,
-        "lastError": "Error: All models failed (2): openai-codex/gpt-5.2: ⚠️ API rate limit reached. Please try again later. (rate_limit) | anthropic/claude-opus-4-6: ⚠️ API rate limit reached. Please try again later. (rate_limit)"
+        "consecutiveErrors": 5,
+        "lastError": "Connection error."
       }
     },
     {
@@ -2239,7 +2248,7 @@
       "name": "OPS Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1771961041013,
+      "updatedAtMs": 1771969739101,
       "schedule": {
         "kind": "cron",
         "expr": "15 */2 * * *",
@@ -2260,14 +2269,13 @@
         "target": "channel:C0AEV3J2L23"
       },
       "state": {
-        "nextRunAtMs": 1771967700000,
-        "lastRunAtMs": 1771961040909,
+        "nextRunAtMs": 1771982100000,
+        "lastRunAtMs": 1771969139039,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 104,
+        "lastDurationMs": 600062,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 4,
-        "lastError": "Error: All models failed (2): openai-codex/gpt-5.2: Provider openai-codex is in cooldown (all profiles unavailable) (rate_limit) | anthropic/claude-opus-4-6: Provider anthropic is in cooldown (all profiles unavailable) (rate_limit)"
+        "consecutiveErrors": 5
       }
     },
     {
@@ -2276,7 +2284,7 @@
       "name": "INFOSEC Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1771955411873,
+      "updatedAtMs": 1771972218694,
       "schedule": {
         "kind": "cron",
         "expr": "45 */4 * * *",
@@ -2297,14 +2305,14 @@
         "target": "channel:C0AEV3J2L23"
       },
       "state": {
-        "nextRunAtMs": 1771969500000,
-        "lastRunAtMs": 1771955411863,
+        "nextRunAtMs": 1771983900000,
+        "lastRunAtMs": 1771971618648,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 10,
+        "lastDurationMs": 600046,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 2,
-        "lastError": "Error: All models failed (2): openai-codex/gpt-5.2: Provider openai-codex is in cooldown (all profiles unavailable) (rate_limit) | anthropic/claude-opus-4-6: Provider anthropic is in cooldown (all profiles unavailable) (rate_limit)"
+        "consecutiveErrors": 3,
+        "lastError": "cron: job execution timed out"
       }
     },
     {
@@ -2334,14 +2342,13 @@
         "target": "channel:C0AFW1B0QUB"
       },
       "state": {
-        "nextRunAtMs": 1771972200000,
+        "nextRunAtMs": 1771986600000,
         "lastRunAtMs": 1771957909331,
         "lastRunStatus": "error",
         "lastStatus": "error",
         "lastDurationMs": 27,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 3,
-        "lastError": "Error: All models failed (2): openai-codex/gpt-5.2: Provider openai-codex is in cooldown (all profiles unavailable) (rate_limit) | anthropic/claude-opus-4-6: Provider anthropic is in cooldown (all profiles unavailable) (rate_limit)"
+        "consecutiveErrors": 3
       }
     },
     {
@@ -2350,7 +2357,7 @@
       "name": "ZEN Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1771952855512,
+      "updatedAtMs": 1771965228048,
       "schedule": {
         "kind": "cron",
         "expr": "0 */3 * * *",
@@ -2372,14 +2379,13 @@
         "target": "channel:C0AEV3MDEDD"
       },
       "state": {
-        "nextRunAtMs": 1771963325759,
-        "lastRunAtMs": 1771952855502,
+        "nextRunAtMs": 1771984925759,
+        "lastRunAtMs": 1771964627995,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 10,
+        "lastDurationMs": 600053,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 2,
-        "runningAtMs": 1771964066263
+        "consecutiveErrors": 3
       }
     },
     {
@@ -2425,7 +2431,7 @@
       "name": "HATAKE Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1771956330702,
+      "updatedAtMs": 1771968754656,
       "schedule": {
         "kind": "cron",
         "expr": "0 10,16,22 * * *",
@@ -2446,11 +2452,11 @@
         "target": "channel:C0AEV3MDEDD"
       },
       "state": {
-        "nextRunAtMs": 1771966800000,
-        "lastRunAtMs": 1771956184482,
+        "nextRunAtMs": 1771988400000,
+        "lastRunAtMs": 1771968608067,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 146220,
+        "lastDurationMs": 146589,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 0
       }
