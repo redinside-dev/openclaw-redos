@@ -319,10 +319,11 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Resolved At:** 2026-02-24T05:24:00Z
 
 ### TICKET-20260223-002
-- **Status:** IN_PROGRESS
+- **Status:** IN_PROGRESS (SLA BREACHED)
 - **Priority:** P2
 - **Created:** 2026-02-24T00:11:30Z
-- **SLA Deadline:** 2026-02-24T08:11:30Z (8 hours)
+- **SLA Deadline:** 2026-02-24T08:11:30Z (8 hours) — **BREACHED**
+- **Re-scope / New Target:** 2026-02-24T12:30:00Z (apply DNS mitigation + verify; no SSRF relax)
 - **Reporter:** OPS (cron)
 - **Assignee:** INFOSEC
 - **Summary:** Potential DNS/SSRF false positive: url-fetch blocked for microsoft.com as "resolves to private/internal/special-use IP"
@@ -332,13 +333,11 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
   Triage (2026-02-24 ~07:58Z):
   - Local resolution for `www.microsoft.com` returned **198.18.8.77** (198.18.0.0/15 is special-use benchmarking range), which SSRF protections correctly treat as private/special-use.
   - `dig @1.1.1.1 www.microsoft.com A` returned a normal public Akamai edge IP (**23.53.170.101**).
-  - `dig @8.8.8.8 www.microsoft.com A` returned **198.18.8.77** (suspect interception/policy; unlikely to be true Microsoft DNS).
-  - Routing to public DNS servers (1.1.1.1 / 8.8.8.8) is via **utun5** (Tailscale), so DNS may be intercepted/overridden.
-- **Root Cause:** Likely DNS interception or resolver policy while routed via Tailscale (utun5) causing `www.microsoft.com` to resolve to special-use 198.18/15.
+  - Routing to public DNS servers is via **utun5** (Tailscale) and `scutil --dns` shows global nameserver **100.64.0.2** on utun5 → local DNS chain is wrong.
+- **Root Cause:** DNS interception / resolver override while routed via Tailscale (utun5) causing `www.microsoft.com` to resolve into special-use 198.18/15.
 - **Resolution:**
   - Immediate mitigation: do **not** weaken SSRF controls; treat as environment DNS/routing issue.
-  - Adjust Tailscale DNS / exit-node routing to avoid overriding public DNS responses, or ensure outbound resolution uses a known-good resolver path.
-  - Re-test after DNS routing change; once `www.microsoft.com` resolves to public IPs consistently, close ticket.
+  - **BLOCKED pending approval**: requires sudo maintenance to flush macOS resolver + restart tailscaled (or adjust Tailscale DNS override) and then re-test resolution.
 - **Learnings:** SSRF controls correctly blocked a special-use (198.18/15) resolution; the actionable fix is DNS/routing hygiene, not relaxing the SSRF guard.
 - **Resolved At:**
 
@@ -514,7 +513,7 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Resolved At:** 2026-02-24T06:58:00Z
 
 ### TICKET-20260221-001
-- **Status:** IN_PROGRESS
+- **Status:** BLOCKED
 - **Priority:** P2
 - **Created:** 2026-02-21T04:30:00Z
 - **SLA Deadline:** 2026-02-21T12:30:00Z (8 hours)
@@ -533,6 +532,7 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
   - Token rotation criteria: rotate hooks tokens, Telegram bot tokens, and provider tokens **only if** (a) `cline@2.3.0` found in any build context, (b) unexplained global installs/processes found, (c) integrity checks fail (hash mismatch), or (d) logs show suspicious tool execution.
 - **Learnings:**
 - **Resolved At:**
+- **Blocker:** Requires confirmation on other dev machines/CI build contexts (npm global list + lockfile grep + persistence/service checks). No evidence on Mac mini, but coverage incomplete.
 
 ### TICKET-20260221-002
 - **Status:** RESOLVED
@@ -765,7 +765,7 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Resolved At:** 2026-02-24T05:24:00Z
 
 ### TICKET-20260224-024
-- **Status:** OPEN
+- **Status:** IN_PROGRESS
 - **Priority:** P2
 - **Created:** 2026-02-24T04:26:00Z
 - **SLA Deadline:** 2026-02-24T12:26:00Z (8 hours)
@@ -774,7 +774,12 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Summary:** Add schema validation/compat shim for tool calls (message/send requires channel+target; write requires content)
 - **Details:** Recurring production failures show missing required tool parameters: `message` calls without explicit `channel` when multiple providers configured, and `write` calls without `content`. These should be caught earlier via a compatibility layer (legacy → current schema) and/or a strict validator that returns actionable errors.
 - **Root Cause:** Prompt/template drift + lack of centralized tool-call validation.
-- **Resolution:**
+- **Resolution:** (in progress)
+  - Short-term: keep updating prompt templates/docs to match current tool schema (message: `action=send`, `channel`, `target`, `message`; write: require `content`).
+  - Implementation plan:
+    1) Add a small validator/compat layer that inspects tool-call payloads before dispatch and either (a) auto-fixes legacy fields (`sendMessage`→`send`, `to`→`target`, `content`→`message`) or (b) fails fast with a specific, actionable error.
+    2) Cover the two highest-impact cases first: `message` missing `channel` when multiple channels configured; `write` missing `content`.
+    3) Add a repo-level linter (pre-commit / cron) to grep for legacy schema in prompts/templates.
 - **Learnings:** LEARNING-20260224-004
 - **Resolved At:**
 
@@ -869,18 +874,21 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Resolved At:** 2026-02-24T05:24:00Z
 
 ### TICKET-20260224-030
-- **Status:** IN_PROGRESS
+- **Status:** RESOLVED
 - **Priority:** P1
 - **Created:** 2026-02-24T05:31:01+00:00
 - **SLA Deadline:** 2026-02-24T07:31:01+00:00 (2 hours)
 - **Reporter:** ops (health-snapshot)
 - **Assignee:** ops
 - **Summary:** Recurring failure pattern detected (51x): <ts> [agent/embedded] embedded run agent end: runId=<uuid> isError=true error=⚠️ API rate limit reached. Please try again later.
-- **Details:** Correlated in `/Users/redinside/.openclaw/logs/gateway.err.log` — repeated embedded failures across multiple runIds. Also appears as diagnostic lane errors for `lane=session:agent:ops:cron:9router-quota-sync-0001` with `FailoverError: ⚠️ API rate limit reached`.
-- **Root Cause:** Likely upstream provider rate limiting triggered by bursty embedded/cron activity (not yet pinned to a single provider). Similar errors historically observed on 2026-02-21 for `9router-quota-sync-0001` alongside OAuth refresh failures.
-- **Resolution:** Pending. Next actions: identify which provider/model is rate limiting for these embedded runs (check corresponding cron run JSONLs for provider/model), then apply one of: increase backoff/jitter, reduce cron frequency, or switch provider for the quota-sync job.
-- **Learnings:** 
-- **Resolved At:** 
+- **Details:** Correlated in `/Users/redinside/.openclaw/logs/gateway.err.log` — repeated embedded failures across multiple runIds. Also appeared as lane errors for `lane=session:agent:ops:cron:9router-quota-sync-0001`.
+- **Root Cause:** Upstream provider throttling during bursty cron/embedded activity. Gateway log shows at least some failures involve Anthropic failover attempts (`Profile anthropic:default timed out. Trying next account...`) followed by `FailoverError: ⚠️ API rate limit reached`.
+- **Resolution:** Mitigated the highest-impact contributor we control:
+  - Updated `9router-quota-sync-0001` to use a lightweight model (`mini`, thinking off) to avoid Anthropic 429/timeout pressure.
+  - Verified subsequent `9router-quota-sync-0001` run completed OK using provider=9router, model=cx/gpt-5.1-codex-mini.
+  - Remaining embedded-run `API rate limit reached` events are provider-side and tracked as ongoing system health degradation (see related backpressure tickets / lane-wait diagnostics).
+- **Learnings:** For cron health/telemetry jobs: avoid premium providers; pin to cheap/fast models and reduce burstiness to lower global throttling.
+- **Resolved At:** 2026-02-24T08:12:00Z
 
 ### TICKET-20260224-031
 - **Status:** OPEN
