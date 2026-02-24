@@ -7,7 +7,7 @@
     "What would a real SLA dashboard look like for the team's tickets?"
   ],
   "concerns": [
-    "a2a-delegations.jsonl is empty — agents are not logging interactions",
+    "5 new tickets opened at 01:01 EST — need to determine if these are alerts or real issues",
     "Several crons have been failing silently due to workspace-relative path issues",
     "TICKET-20260224-017 is still open — thread mode unavailable for subagent spawning"
   ],
