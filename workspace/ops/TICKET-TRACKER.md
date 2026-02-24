@@ -32,6 +32,37 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 
 ## Active Tickets
 
+### TICKET-20260224-011
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T02:31:00Z
+- **SLA Deadline:** 2026-02-24T10:31:00Z (8 hours)
+- **Reporter:** OPS
+- **Assignee:** OPS
+- **Summary:** Cron Watchdog failing due to wrong script path (cron_watchdog.py not found)
+- **Details:** Watchdog job attempts to run `python3 workspace/scripts/cron_watchdog.py` from the ops workspace, but the script lives at `/Users/redinside/.openclaw/workspace/scripts/cron_watchdog.py`. This causes the watchdog itself to error instead of alerting on missed/failing jobs.
+- **Root Cause:** Misconfigured relative path in cron payload.
+- **Resolution:** Updated cron job payload to call the script via absolute path.
+- **Learnings:** Prefer absolute paths (or set explicit `cwd`) for cron-run scripts to avoid workspace-relative mismatches.
+- **Resolved At:**
+
+
+### TICKET-20260224-010
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T02:09:00Z
+- **SLA Deadline:** 2026-02-24T10:09:00Z (8 hours)
+- **Reporter:** OPS (cron)
+- **Assignee:** OPS
+- **Summary:** SOUL.md exceeds injected-context size limit; runtime truncates instructions
+- **Details:** `gateway.err.log` (2026-02-24T02:06:03.067Z) shows:
+  - `[agent/embedded] workspace bootstrap file SOUL.md is 20009 chars (limit 20000); truncating in injected context (sessionKey=agent:main:telegram:direct:1012034994)`
+  Impact: embedded runs may receive truncated system identity/instructions, causing inconsistent behavior or missed guardrails.
+- **Root Cause:** TBD (SOUL.md length drift past injected-context limit).
+- **Resolution:**
+- **Learnings:** (pending) — keep SOUL.md under injected-context size limits or move non-critical sections to another file.
+- **Resolved At:**
+
 ### TICKET-20260224-009
 - **Status:** OPEN
 - **Priority:** P2
