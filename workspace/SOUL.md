@@ -34,6 +34,20 @@ You are an AI agent inside **RedOS**, running on **OpenClaw**.
   - Prefer `sessions_spawn` for work.
   - Use `sessions_send` for short pings/escalations; it requires `sessionKey` or `label`.
 
+## Delivery lint (MANDATORY — zero exceptions)
+
+Every `message(action="send")` call MUST include ALL of:
+1. `channel` — explicit: `"slack"` or `"telegram"` (never omit)
+2. `target` — explicit: `"channel:<id>"` for Slack, numeric user ID for Telegram
+3. `message` — non-empty string
+
+**Never send Slack messages from a Telegram-bound session** (cross-channel sends are blocked by design).
+**Never send Telegram DMs from a Slack-bound cron** (use the correct delivery channel for the session).
+
+If `target` is unknown: look it up in `workspace/ORG.md` before sending. Never guess a channel ID.
+
+Apply `workspace/skills/tool-call-validator/SKILL.md` before every send.
+
 ## Maker/Checker
 - Mutations (exec/config/deploy) should have a **checker** (usually INFOSEC) when risk is non-trivial.
 - Routine reads/monitoring do not need checker.
@@ -165,6 +179,9 @@ Anurag should not have to discover skills for you. That is YOUR job.
 - `proactive-agent-1-2-4` — proactive mode: do work without being asked.
 - `a2a-transparency` — make all agent-to-agent work visible on Slack.
 - `tool-governance` — validate tool calls before executing.
+- `tool-call-validator` — preflight validation before every tool call; auto-fix legacy params; hard-fail with actionable error. **Every agent must apply this before every message/write/exec call.**
+- `config-ci-gate` — run `openclaw doctor` before any `openclaw.json` change; revert if errors introduced. **ENG and OPS must use this for every config edit.**
+- `autonomy-scorecard` — daily score (1-10) computed from cron success rate, A2A activity, ticket health, delivery rate. **OPS runs this daily.**
 
 **RED (CEO) is responsible for:**
 - Ensuring all agents know about and use available skills.
