@@ -31,8 +31,8 @@
       "delivery": {
         "mode": "announce",
         "channel": "slack",
-        "to": "channel:C0AEV3J2L23",
-        "bestEffort": true
+        "bestEffort": true,
+        "target": "channel:C0AEV3J2L23"
       }
     },
     {
@@ -58,8 +58,8 @@
       "delivery": {
         "mode": "announce",
         "channel": "slack",
-        "to": "channel:C0AF4KB4TUK",
-        "bestEffort": true
+        "bestEffort": true,
+        "target": "channel:C0AF4KB4TUK"
       },
       "state": {
         "lastRunAtMs": 1770732000027,
@@ -92,8 +92,8 @@
       "delivery": {
         "mode": "announce",
         "channel": "slack",
-        "to": "channel:C0AF4KB4TUK",
-        "bestEffort": true
+        "bestEffort": true,
+        "target": "channel:C0AF4KB4TUK"
       },
       "state": {
         "lastRunAtMs": 1770670800017,
@@ -125,8 +125,8 @@
       "delivery": {
         "mode": "announce",
         "channel": "slack",
-        "to": "channel:C0AF4KB4TUK",
-        "bestEffort": true
+        "bestEffort": true,
+        "target": "channel:C0AF4KB4TUK"
       },
       "state": {
         "lastRunAtMs": 1770670680014,
@@ -158,8 +158,8 @@
       "delivery": {
         "mode": "announce",
         "channel": "slack",
-        "to": "channel:C0AF4KB4TUK",
-        "bestEffort": true
+        "bestEffort": true,
+        "target": "channel:C0AF4KB4TUK"
       },
       "state": {
         "lastRunAtMs": 1771631170631,
@@ -193,8 +193,8 @@
       "delivery": {
         "mode": "announce",
         "channel": "slack",
-        "to": "channel:C0AEV3J2L23",
-        "bestEffort": true
+        "bestEffort": true,
+        "target": "channel:C0AEV3J2L23"
       },
       "state": {
         "lastRunAtMs": 1771632000033,
@@ -227,8 +227,8 @@
       "delivery": {
         "mode": "announce",
         "channel": "slack",
-        "to": "channel:C0AF4KB4TUK",
-        "bestEffort": true
+        "bestEffort": true,
+        "target": "channel:C0AF4KB4TUK"
       },
       "state": {
         "lastRunAtMs": 1770667297558,
@@ -255,13 +255,13 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 150,
-        "message": "System Health Watch (automated) — only alert on problems\n\nGoal:\n- Keep OpenClaw reliable and reduce \"silent failures\".\n- Check core services + key automations.\n- If everything looks healthy: do nothing (no Telegram).\n\nChecks:\n1) Gateway health:\n- Use exec: openclaw status\n- If status output contains errors, unhealthy flags, or can't connect: alert.\n\n2) Browser control health (isolated browser):\n- Call browser(status) with profile=\"openclaw\".\n- If enabled=false OR running=false OR cdpReady=false: alert.\n\n3) Cron integrity + freshness (key jobs):\n- Read /Users/redinside/.openclaw/cron/jobs.json\n- Ensure these job ids exist and are enabled:\n  - 69c261e4-53e0-495a-9d9b-4c22413e8f26 (Daily Portfolio Review)\n  - 199a722c-5a9f-4df0-a7d6-71f8039ee187 (Trading Window Brief)\n  - 7d1f3378-1f52-48ee-a2d9-9c4aaf8f5c88 (Gmail Unread Summary)\n  - 2ef34ad2-e703-415d-8ad9-08a5acdfa1ca (GitHub Repo Updates)\n  - 58248a42-7459-4341-9065-be5acc73f61e (QQQ Watch)\n- Also check for \"stale\" signals:\n  - If any of the jobs have state.nextRunAtMs that is > 10 minutes in the past (missed run), alert.\n  - If a job has no nextRunAtMs, alert.\n\nAlerting:\n- If any check fails, send ONE Telegram DM to user id 1012034994:\n  Title: \"OpenClaw Health Alert\"\n  Then bullets with failing components and the suggested fix.\n  Keep under 1500 chars.\n  End with: Provider: <provider> | Model: <model>\n\nRules:\n- Do not attempt restarts automatically.\n- Do not change config.\n- Do not spam: send at most one alert per run."
+        "message": "System Health Watch (automated) — only alert on problems\n\nGoal:\n- Keep OpenClaw reliable and reduce \"silent failures\".\n- Check core services + key automations.\n- If everything looks healthy: do nothing (no Telegram).\n\nChecks:\n1) Gateway health:\n- Use exec: openclaw status\n- If status output contains errors, unhealthy flags, or can't connect: alert.\n\n2) Browser control health (isolated browser):\n- Call browser(status) with profile=\"openclaw\".\n- If enabled=false OR running=false OR cdpReady=false: alert.\n\n3) Cron integrity + freshness (key jobs):\n- Read ../cron/jobs.json\n- Ensure these job ids exist and are enabled:\n  - 69c261e4-53e0-495a-9d9b-4c22413e8f26 (Daily Portfolio Review)\n  - 199a722c-5a9f-4df0-a7d6-71f8039ee187 (Trading Window Brief)\n  - 7d1f3378-1f52-48ee-a2d9-9c4aaf8f5c88 (Gmail Unread Summary)\n  - 2ef34ad2-e703-415d-8ad9-08a5acdfa1ca (GitHub Repo Updates)\n  - 58248a42-7459-4341-9065-be5acc73f61e (QQQ Watch)\n- Also check for \"stale\" signals:\n  - If any of the jobs have state.nextRunAtMs that is > 10 minutes in the past (missed run), alert.\n  - If a job has no nextRunAtMs, alert.\n\nAlerting:\n- If any check fails, send ONE Telegram DM to user id 1012034994:\n  Title: \"OpenClaw Health Alert\"\n  Then bullets with failing components and the suggested fix.\n  Keep under 1500 chars.\n  End with: Provider: <provider> | Model: <model>\n\nRules:\n- Do not attempt restarts automatically.\n- Do not change config.\n- Do not spam: send at most one alert per run."
       },
       "delivery": {
         "mode": "announce",
         "channel": "slack",
-        "to": "channel:C0AF4KB4TUK",
-        "bestEffort": true
+        "bestEffort": true,
+        "target": "channel:C0AF4KB4TUK"
       },
       "state": {
         "lastRunAtMs": 1770732055172,
@@ -277,7 +277,7 @@
       "name": "Implementation Status Updates (temp, every 10 min)",
       "enabled": true,
       "createdAtMs": 1770410925180,
-      "updatedAtMs": 1771900807223,
+      "updatedAtMs": 1771906205104,
       "schedule": {
         "kind": "cron",
         "expr": "*/10 * * * *",
@@ -294,18 +294,17 @@
       "delivery": {
         "mode": "announce",
         "channel": "slack",
-        "to": "channel:C0AF4KB4TUK",
-        "bestEffort": true
+        "bestEffort": true,
+        "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "lastRunAtMs": 1771900800022,
+        "lastRunAtMs": 1771906200079,
         "lastStatus": "ok",
-        "lastDurationMs": 7201,
+        "lastDurationMs": 5025,
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1771901400000,
+        "nextRunAtMs": 1771906800000,
         "lastRunStatus": "ok",
-        "lastDelivered": true,
-        "lastDeliveryStatus": "delivered"
+        "lastDeliveryStatus": "unknown"
       }
     },
     {
@@ -330,8 +329,8 @@
       "delivery": {
         "mode": "announce",
         "channel": "telegram",
-        "to": "1012034994",
-        "bestEffort": true
+        "bestEffort": true,
+        "target": "1012034994"
       },
       "state": {
         "lastRunAtMs": 1771896618682,
@@ -366,8 +365,8 @@
       "delivery": {
         "mode": "announce",
         "channel": "slack",
-        "to": "channel:C0AEV3J2L23",
-        "bestEffort": true
+        "bestEffort": true,
+        "target": "channel:C0AEV3J2L23"
       },
       "state": {
         "lastRunAtMs": 1770732300026,
@@ -399,8 +398,8 @@
       "delivery": {
         "mode": "announce",
         "channel": "slack",
-        "to": "channel:C0AEV3J2L23",
-        "bestEffort": true
+        "bestEffort": true,
+        "target": "channel:C0AEV3J2L23"
       },
       "state": {
         "lastRunAtMs": 1770732600026,
@@ -432,8 +431,8 @@
       "delivery": {
         "mode": "announce",
         "channel": "slack",
-        "to": "channel:C0AEV3J2L23",
-        "bestEffort": true
+        "bestEffort": true,
+        "target": "channel:C0AEV3J2L23"
       },
       "state": {
         "lastRunAtMs": 1770732956927,
@@ -465,8 +464,8 @@
       "delivery": {
         "mode": "announce",
         "channel": "slack",
-        "to": "channel:C0AEV3J2L23",
-        "bestEffort": true
+        "bestEffort": true,
+        "target": "channel:C0AEV3J2L23"
       },
       "state": {
         "lastRunAtMs": 1770733200022,
@@ -482,7 +481,7 @@
       "name": "Cron Watchdog (alert on missed/failing jobs)",
       "enabled": true,
       "createdAtMs": 1770618629260,
-      "updatedAtMs": 1771900810271,
+      "updatedAtMs": 1771905016274,
       "schedule": {
         "kind": "cron",
         "expr": "*/10 8-22 * * *",
@@ -492,21 +491,21 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "Cron Watchdog (automated)\n\nRun the watchdog script:\npython3 /Users/redinside/.openclaw/workspace/scripts/cron_watchdog.py\n\nIf it prints NO_ALERT: return NO_REPLY.\nIf it prints anything else: return that output verbatim (Telegram alert).\n\nDo not take any other actions.",
+        "message": "Cron Watchdog (automated)\n\nRun the watchdog script:\npython3 workspace/scripts/cron_watchdog.py\n\nIf it prints NO_ALERT: return NO_REPLY.\nIf it prints anything else: return that output verbatim (Telegram alert).\n\nDo not take any other actions.",
         "timeoutSeconds": 300
       },
       "delivery": {
         "mode": "announce",
         "channel": "slack",
-        "to": "channel:C0AEV3J2L23",
-        "bestEffort": true
+        "bestEffort": true,
+        "target": "channel:C0AEV3J2L23"
       },
       "state": {
-        "lastRunAtMs": 1771900807223,
+        "lastRunAtMs": 1771905010594,
         "lastStatus": "ok",
-        "lastDurationMs": 3048,
+        "lastDurationMs": 5680,
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1771901400000,
+        "nextRunAtMs": 1771938000000,
         "lastRunStatus": "ok",
         "lastDelivered": false,
         "lastDeliveryStatus": "not-delivered"
@@ -535,8 +534,8 @@
       "delivery": {
         "mode": "announce",
         "channel": "slack",
-        "to": "channel:C0AF4KB4TUK",
-        "bestEffort": true
+        "bestEffort": true,
+        "target": "channel:C0AF4KB4TUK"
       },
       "state": {
         "nextRunAtMs": 1771941900000,
@@ -569,8 +568,8 @@
       "delivery": {
         "mode": "announce",
         "channel": "slack",
-        "to": "channel:C0AF4KB4TUK",
-        "bestEffort": true
+        "bestEffort": true,
+        "target": "channel:C0AF4KB4TUK"
       },
       "state": {
         "nextRunAtMs": 1771941900000,
@@ -603,8 +602,8 @@
       "delivery": {
         "mode": "announce",
         "channel": "slack",
-        "to": "channel:C0AF4KB4TUK",
-        "bestEffort": true
+        "bestEffort": true,
+        "target": "channel:C0AF4KB4TUK"
       },
       "state": {
         "nextRunAtMs": 1771941900000,
@@ -637,8 +636,8 @@
       "delivery": {
         "mode": "announce",
         "channel": "slack",
-        "to": "channel:C0AF4KB4TUK",
-        "bestEffort": true
+        "bestEffort": true,
+        "target": "channel:C0AF4KB4TUK"
       },
       "state": {
         "nextRunAtMs": 1771941900000,
@@ -671,8 +670,8 @@
       "delivery": {
         "mode": "announce",
         "channel": "slack",
-        "to": "channel:C0AF4KB4TUK",
-        "bestEffort": true
+        "bestEffort": true,
+        "target": "channel:C0AF4KB4TUK"
       },
       "state": {
         "nextRunAtMs": 1771941900000,
@@ -705,8 +704,8 @@
       "delivery": {
         "mode": "announce",
         "channel": "slack",
-        "to": "channel:C0AF4KB4TUK",
-        "bestEffort": true
+        "bestEffort": true,
+        "target": "channel:C0AF4KB4TUK"
       },
       "state": {
         "nextRunAtMs": 1771941900000,
@@ -739,8 +738,8 @@
       "delivery": {
         "mode": "announce",
         "channel": "slack",
-        "to": "channel:C0AEV3J2L23",
-        "bestEffort": true
+        "bestEffort": true,
+        "target": "channel:C0AEV3J2L23"
       },
       "state": {
         "nextRunAtMs": 1771942500000,
@@ -759,7 +758,7 @@
       "name": "OPS SLA Enforcement Check",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771899936424,
+      "updatedAtMs": 1771905302363,
       "schedule": {
         "kind": "every",
         "everyMs": 1800000,
@@ -776,14 +775,14 @@
       "delivery": {
         "mode": "announce",
         "channel": "slack",
-        "to": "channel:C0AEV3J2L23",
-        "bestEffort": true
+        "bestEffort": true,
+        "target": "channel:C0AEV3J2L23"
       },
       "state": {
-        "nextRunAtMs": 1771901665137,
-        "lastRunAtMs": 1771899865137,
+        "nextRunAtMs": 1771907065279,
+        "lastRunAtMs": 1771905265279,
         "lastStatus": "ok",
-        "lastDurationMs": 71287,
+        "lastDurationMs": 37084,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDelivered": true,
@@ -796,7 +795,7 @@
       "name": "OPS System Health Monitor",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771900646796,
+      "updatedAtMs": 1771906072268,
       "schedule": {
         "kind": "every",
         "everyMs": 900000,
@@ -813,18 +812,17 @@
       "delivery": {
         "mode": "announce",
         "channel": "slack",
-        "to": "channel:C0AEV3J2L23",
-        "bestEffort": true
+        "bestEffort": true,
+        "target": "channel:C0AEV3J2L23"
       },
       "state": {
         "lastStatus": "ok",
-        "lastRunAtMs": 1771900595071,
-        "lastDurationMs": 51725,
+        "lastRunAtMs": 1771906057818,
+        "lastDurationMs": 14450,
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1771901495071,
+        "nextRunAtMs": 1771906957818,
         "lastRunStatus": "ok",
-        "lastDeliveryStatus": "delivered",
-        "lastDelivered": true
+        "lastDeliveryStatus": "unknown"
       }
     },
     {
@@ -850,8 +848,8 @@
       "delivery": {
         "mode": "announce",
         "channel": "slack",
-        "to": "channel:C0AF4KB4TUK",
-        "bestEffort": true
+        "bestEffort": true,
+        "target": "channel:C0AF4KB4TUK"
       },
       "state": {
         "nextRunAtMs": 1771906895024,
@@ -867,7 +865,7 @@
       "name": "OPS Ticket Auto-Diagnose & Fix",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771752133191,
+      "updatedAtMs": 1771903357539,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -884,15 +882,18 @@
       "delivery": {
         "mode": "announce",
         "channel": "slack",
-        "to": "channel:C0AEV3J2L23",
-        "bestEffort": true
+        "bestEffort": true,
+        "target": "channel:C0AEV3J2L23"
       },
       "state": {
-        "nextRunAtMs": 1771903295024,
-        "lastRunAtMs": 1771752127048,
+        "nextRunAtMs": 1771906895063,
+        "lastRunAtMs": 1771903295063,
         "lastStatus": "ok",
-        "lastDurationMs": 6143,
-        "consecutiveErrors": 0
+        "lastDurationMs": 62476,
+        "consecutiveErrors": 0,
+        "lastRunStatus": "ok",
+        "lastDelivered": true,
+        "lastDeliveryStatus": "delivered"
       }
     },
     {
@@ -918,8 +919,8 @@
       "delivery": {
         "mode": "announce",
         "channel": "slack",
-        "to": "channel:C0AF4KB4TUK",
-        "bestEffort": true
+        "bestEffort": true,
+        "target": "channel:C0AF4KB4TUK"
       },
       "state": {
         "nextRunAtMs": 1771914095024,
@@ -952,7 +953,7 @@
       "delivery": {
         "mode": "announce",
         "channel": "telegram",
-        "to": "1012034994"
+        "target": "1012034994"
       },
       "state": {
         "nextRunAtMs": 1771974000000,
@@ -984,7 +985,7 @@
       "delivery": {
         "mode": "announce",
         "channel": "telegram",
-        "to": "telegram:1012034994"
+        "target": "telegram:1012034994"
       },
       "state": {
         "nextRunAtMs": 1771941600000,
@@ -1010,15 +1011,15 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "You are ENG (Engineering Lead). Read your colleagues' latest findings and respond.\n\nSTEPS:\n1. Use the message tool to read recent messages from #openclaw-optimization:\n   action=\"readMessages\", channelId=\"C0AF4KB4TUK\", limit=20\n2. Read workspace/ops/LEARNINGS.md for context.\n3. Identify any findings from RESEARCH or INFOSEC that are relevant to engineering.\n4. For each relevant finding:\n   a. Assess if you need to take action (code change, config update, dependency check)\n   b. If yes, do it or create a ticket in TICKET-TRACKER.md\n5. Post your engineering response/acknowledgment to #openclaw-optimization:\n   ```\n   💻 *ENG Response — <date>*\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n   Read RESEARCH/INFOSEC updates. Here's my take:\n   <your engineering assessment and actions taken>\n   ```\n   Use the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AF4KB4TUK\" ",
+        "message": "You are ENG (Engineering Lead). Read your colleagues' latest findings and respond.\n\nSTEPS:\n1. Use the message tool to read recent messages from #openclaw-optimization:\n   message(action=\"read\", channel=\"slack\", target=\"channel:C0AF4KB4TUK\", limit=20)\n2. Read workspace/ops/LEARNINGS.md for context.\n3. Identify any findings from RESEARCH or INFOSEC that are relevant to engineering.\n4. For each relevant finding:\n   a. Assess if you need to take action (code change, config update, dependency check)\n   b. If yes, do it or create a ticket in TICKET-TRACKER.md\n5. Post your engineering response/acknowledgment to #openclaw-optimization:\n   ```\n   💻 *ENG Response — <date>*\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n   Read RESEARCH/INFOSEC updates. Here's my take:\n   <your engineering assessment and actions taken>\n   ```\n   Use the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AF4KB4TUK\" ",
         "thinking": "low",
         "timeoutSeconds": 180
       },
       "delivery": {
         "mode": "announce",
         "channel": "slack",
-        "to": "channel:C0AF4KB4TUK",
-        "bestEffort": true
+        "bestEffort": true,
+        "target": "channel:C0AF4KB4TUK"
       },
       "state": {
         "nextRunAtMs": 1771947900000,
@@ -1044,15 +1045,15 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "You are INFOSEC (Security Officer). Review ENG's recent work for security implications.\n\nSTEPS:\n1. Use the message tool to read recent messages from #openclaw-optimization:\n   action=\"readMessages\", channelId=\"C0AF4KB4TUK\", limit=30\n2. Read logs/gateway.err.log (last 30 lines) for security events.\n3. Review any code changes, config updates, or new integrations ENG has posted.\n4. Check workspace/ops/LEARNINGS.md for known security patterns.\n5. For each security concern found:\n   a. Post a security advisory to #openclaw-optimization with severity level\n   b. Create a ticket in TICKET-TRACKER.md if P1/P2\n6. Post security review summary to #openclaw-optimization:\n   ```\n   🔒 *INFOSEC Security Review — <date>*\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n   Reviewed ENG updates. Security assessment:\n   *Status:* ✅ CLEAR / ⚠️ ADVISORIES / 🔴 CRITICAL\n   <findings and recommendations>\n   ```\n   Use the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AF4KB4TUK\" ",
+        "message": "You are INFOSEC (Security Officer). Review ENG's recent work for security implications.\n\nSTEPS:\n1. Use the message tool to read recent messages from #openclaw-optimization:\n   message(action=\"read\", channel=\"slack\", target=\"channel:C0AF4KB4TUK\", limit=30)\n2. Read logs/gateway.err.log (last 30 lines) for security events.\n3. Review any code changes, config updates, or new integrations ENG has posted.\n4. Check workspace/ops/LEARNINGS.md for known security patterns.\n5. For each security concern found:\n   a. Post a security advisory to #openclaw-optimization with severity level\n   b. Create a ticket in TICKET-TRACKER.md if P1/P2\n6. Post security review summary to #openclaw-optimization:\n   ```\n   🔒 *INFOSEC Security Review — <date>*\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n   Reviewed ENG updates. Security assessment:\n   *Status:* ✅ CLEAR / ⚠️ ADVISORIES / 🔴 CRITICAL\n   <findings and recommendations>\n   ```\n   Use the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AF4KB4TUK\" ",
         "thinking": "off",
         "timeoutSeconds": 600
       },
       "delivery": {
         "mode": "announce",
         "channel": "slack",
-        "to": "channel:C0AF4KB4TUK",
-        "bestEffort": true
+        "bestEffort": true,
+        "target": "channel:C0AF4KB4TUK"
       },
       "state": {
         "nextRunAtMs": 1771961400000,
@@ -1078,15 +1079,15 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "You are OPS (Scrum Master). Facilitate the Friday team retrospective.\n\nSTEPS:\n1. Read workspace/ops/STANDUP-LOG.md — review the week's standups.\n2. Read workspace/ops/LEARNINGS.md — what was learned this week.\n3. Read workspace/ops/TICKET-TRACKER.md — tickets resolved this week.\n4. Use the message tool to read #openclaw-optimization messages from this week:\n   action=\"readMessages\", channelId=\"C0AF4KB4TUK\", limit=50\n\n5. Ask each agent for their retrospective input via sessions_spawn:\n   - sessions_spawn(agentId=\"eng\", task=\"Friday retro: What did you learn this week from your colleagues (RESEARCH, INFOSEC, OPS)? What will you do differently next week? 2-3 sentences max.\")\n   - sessions_spawn(agentId=\"research\", task=\"Friday retro: What was the most valuable insight you shared with the team this week? What did you learn from ENG or INFOSEC? 2-3 sentences max.\")\n   - sessions_spawn(agentId=\"infosec\", task=\"Friday retro: What security improvements happened this week? What do you want the team to focus on next week? 2-3 sentences max.\")\n   - sessions_spawn(agentId=\"finance\", task=\"Friday retro: Any financial/cost insights from this week? What should be watched next week? 2-3 sentences max.\")\n\n6. Compile ALL responses and post to #redos-scrum as the weekly retrospective:\n   ```\n   ⚙️ *Friday Retrospective — Week of <date>*\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n   📊 *Week Summary:* <tickets resolved, calls made, key learnings>\n   \n   💬 *What the team learned from each other:*\n   💻 ENG: <their retro response>\n   🔬 RESEARCH: <their retro response>\n   🔒 INFOSEC: <their retro response>\n   💰 FINANCE: <their retro response>\n   \n   🎯 *Next week focus:* <OPS recommendation>\n   ```\n   Use the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AEV3J2L23\"\n\n7. Append a weekly summary entry to workspace/ops/LEARNINGS.md",
+        "message": "You are OPS (Scrum Master). Facilitate the Friday team retrospective.\n\nSTEPS:\n1. Read workspace/ops/STANDUP-LOG.md — review the week's standups.\n2. Read workspace/ops/LEARNINGS.md — what was learned this week.\n3. Read workspace/ops/TICKET-TRACKER.md — tickets resolved this week.\n4. Use the message tool to read #openclaw-optimization messages from this week:\n   message(action=\"read\", channel=\"slack\", target=\"channel:C0AF4KB4TUK\", limit=50)\n\n5. Ask each agent for their retrospective input via sessions_spawn:\n   - sessions_spawn(agentId=\"eng\", task=\"Friday retro: What did you learn this week from your colleagues (RESEARCH, INFOSEC, OPS)? What will you do differently next week? 2-3 sentences max.\")\n   - sessions_spawn(agentId=\"research\", task=\"Friday retro: What was the most valuable insight you shared with the team this week? What did you learn from ENG or INFOSEC? 2-3 sentences max.\")\n   - sessions_spawn(agentId=\"infosec\", task=\"Friday retro: What security improvements happened this week? What do you want the team to focus on next week? 2-3 sentences max.\")\n   - sessions_spawn(agentId=\"finance\", task=\"Friday retro: Any financial/cost insights from this week? What should be watched next week? 2-3 sentences max.\")\n\n6. Compile ALL responses and post to #redos-scrum as the weekly retrospective:\n   ```\n   ⚙️ *Friday Retrospective — Week of <date>*\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n   📊 *Week Summary:* <tickets resolved, calls made, key learnings>\n   \n   💬 *What the team learned from each other:*\n   💻 ENG: <their retro response>\n   🔬 RESEARCH: <their retro response>\n   🔒 INFOSEC: <their retro response>\n   💰 FINANCE: <their retro response>\n   \n   🎯 *Next week focus:* <OPS recommendation>\n   ```\n   Use the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AEV3J2L23\"\n\n7. Append a weekly summary entry to workspace/ops/LEARNINGS.md",
         "thinking": "low",
         "timeoutSeconds": 300
       },
       "delivery": {
         "mode": "announce",
         "channel": "slack",
-        "to": "channel:C0AF4KB4TUK",
-        "bestEffort": true
+        "bestEffort": true,
+        "target": "channel:C0AF4KB4TUK"
       },
       "state": {
         "nextRunAtMs": 1772226000000,
@@ -1120,8 +1121,8 @@
       "delivery": {
         "mode": "announce",
         "channel": "slack",
-        "to": "channel:C0AEV3J2L23",
-        "bestEffort": true
+        "bestEffort": true,
+        "target": "channel:C0AEV3J2L23"
       },
       "state": {
         "nextRunAtMs": 1771943400000,
@@ -1137,7 +1138,7 @@
       "name": "OPS Task ETA Monitor",
       "enabled": true,
       "createdAtMs": 1771544316316,
-      "updatedAtMs": 1771899314309,
+      "updatedAtMs": 1771904956108,
       "schedule": {
         "kind": "every",
         "everyMs": 1800000,
@@ -1149,24 +1150,23 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 240,
-        "message": "You are OPS (Orchestrator). Run task ETA monitoring.\n\nSTEPS:\n1. Read /Users/redinside/.openclaw/workspace/ops/task-registry.json\n2. If no tasks or all completed: do nothing silently.\n3. For each task with status \"in_progress\" and an eta field:\n   a. If current time > eta: mark the task as overdue\n   b. Post a warning to Slack #redos-ops: \"⏰ *Task ETA Breach* — TASK-{id}: {title} was due {eta}. Assignee: {assignee}\"\n      Use the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AEV3MDEDD\"\n   c. Notify the parent agent via sessions_spawn if requestedBy is set:\n      sessions_spawn(agentId=\"{requestedBy}\", task=\"OPS alert: Task {id} ({title}) assigned to {assignee} has passed its ETA of {eta}. Please check status.\")\n4. Update task-registry.json with any status changes.\n\nBe silent if all tasks are on track."
+        "message": "You are OPS (Orchestrator). Run task ETA monitoring.\n\nSTEPS:\n1. Read workspace/ops/task-registry.json\n2. If no tasks or all completed: do nothing silently.\n3. For each task with status \"in_progress\" and an eta field:\n   a. If current time > eta: mark the task as overdue\n   b. Post a warning to Slack #redos-ops: \"⏰ *Task ETA Breach* — TASK-{id}: {title} was due {eta}. Assignee: {assignee}\"\n      Use the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AEV3MDEDD\"\n   c. Notify the parent agent via sessions_spawn if requestedBy is set:\n      sessions_spawn(agentId=\"{requestedBy}\", task=\"OPS alert: Task {id} ({title}) assigned to {assignee} has passed its ETA of {eta}. Please check status.\")\n4. Update task-registry.json with any status changes.\n\nBe silent if all tasks are on track."
       },
       "delivery": {
         "mode": "announce",
         "channel": "slack",
-        "to": "channel:C0AF4KB4TUK",
-        "bestEffort": true
+        "bestEffort": true,
+        "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "nextRunAtMs": 1771901105440,
-        "lastRunAtMs": 1771899305440,
+        "nextRunAtMs": 1771906744589,
+        "lastRunAtMs": 1771904944589,
         "lastStatus": "ok",
-        "lastDurationMs": 8869,
+        "lastDurationMs": 11519,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDelivered": false,
-        "lastDeliveryStatus": "not-delivered",
-        "runningAtMs": 1771901105486
+        "lastDeliveryStatus": "not-delivered"
       }
     },
     {
@@ -1175,7 +1175,7 @@
       "name": "9Router Quota Sync",
       "enabled": true,
       "createdAtMs": 1771576000000,
-      "updatedAtMs": 1771900054615,
+      "updatedAtMs": 1771905453628,
       "schedule": {
         "kind": "every",
         "everyMs": 1800000,
@@ -1193,14 +1193,14 @@
       "delivery": {
         "mode": "announce",
         "channel": "slack",
-        "to": "channel:C0AF4KB4TUK",
-        "bestEffort": true
+        "bestEffort": true,
+        "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "nextRunAtMs": 1771901800148,
-        "lastRunAtMs": 1771900000148,
+        "nextRunAtMs": 1771907200240,
+        "lastRunAtMs": 1771905400240,
         "lastStatus": "ok",
-        "lastDurationMs": 54467,
+        "lastDurationMs": 53388,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDelivered": false,
@@ -1213,7 +1213,7 @@
       "name": "OPS Idle Agent Audit",
       "enabled": true,
       "createdAtMs": 1771544316316,
-      "updatedAtMs": 1771900791299,
+      "updatedAtMs": 1771904400251,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -1230,14 +1230,14 @@
       "delivery": {
         "mode": "announce",
         "channel": "slack",
-        "to": "channel:C0AF4KB4TUK",
-        "bestEffort": true
+        "bestEffort": true,
+        "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "nextRunAtMs": 1771904316398,
-        "lastRunAtMs": 1771900716398,
+        "nextRunAtMs": 1771907916445,
+        "lastRunAtMs": 1771904316445,
         "lastStatus": "ok",
-        "lastDurationMs": 74901,
+        "lastDurationMs": 83806,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDelivered": true,
@@ -1264,20 +1264,20 @@
       "delivery": {
         "mode": "announce",
         "channel": "slack",
-        "to": "channel:C0AF4KB4TUK",
-        "bestEffort": true
+        "bestEffort": true,
+        "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "nextRunAtMs": 1771902210962,
-        "lastRunAtMs": 1771898610962,
+        "nextRunAtMs": 1771909414116,
+        "lastRunAtMs": 1771905814116,
         "lastStatus": "ok",
-        "lastDurationMs": 5068,
+        "lastDurationMs": 19015,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDelivered": false,
         "lastDeliveryStatus": "not-delivered"
       },
-      "updatedAtMs": 1771898616030
+      "updatedAtMs": 1771905833131
     },
     {
       "id": "hatake-daily-briefing-0001",
@@ -1299,8 +1299,8 @@
       "delivery": {
         "mode": "announce",
         "channel": "slack",
-        "to": "channel:C0AF4KB4TUK",
-        "bestEffort": true
+        "bestEffort": true,
+        "target": "channel:C0AF4KB4TUK"
       },
       "state": {
         "nextRunAtMs": 1771941600000
@@ -1312,7 +1312,7 @@
       "name": "Health JSONL Writer",
       "enabled": true,
       "createdAtMs": 1771695150814,
-      "updatedAtMs": 1771900378401,
+      "updatedAtMs": 1771906003763,
       "schedule": {
         "kind": "every",
         "everyMs": 900000,
@@ -1323,25 +1323,24 @@
       "payload": {
         "kind": "agentTurn",
         "thinking": "off",
-        "timeoutSeconds": 180,
+        "timeoutSeconds": 90,
         "model": "openai-codex/gpt-5.2",
-        "message": "You are OPS. Append a lightweight health record to logs/health.jsonl.\n\nSTEPS:\n1) exec: openclaw status --json\n2) Parse JSON output (ignore any leading warning lines before the first '{').\n3) Append ONE JSON line to logs/health.jsonl with:\n   {\"timestamp\":\"<ISO UTC>\",\"checks\":{\"gateway\":{\"reachable\":<bool>,\"connectLatencyMs\":<number|null>,\"version\":\"<string|null>\"}}}\n\nRules:\n- Do not send messages.\n- If parsing fails, do nothing.\n"
+        "message": "You are OPS. Run the health JSONL writer script:\\n\\npython3 workspace/scripts/health-jsonl-writer.py\\n\\nDo not send messages. Script handles all logic silently."
       },
       "delivery": {
         "mode": "announce",
         "channel": "slack",
-        "to": "channel:C0AF4KB4TUK",
-        "bestEffort": true
+        "bestEffort": true,
+        "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "nextRunAtMs": 1771901250931,
-        "lastRunAtMs": 1771900350931,
+        "nextRunAtMs": 1771906756140,
+        "lastRunAtMs": 1771905856140,
         "lastStatus": "ok",
-        "lastDurationMs": 27470,
+        "lastDurationMs": 19669,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
-        "lastDeliveryStatus": "delivered",
-        "lastDelivered": true
+        "lastDeliveryStatus": "unknown"
       }
     },
     {
@@ -1354,7 +1353,7 @@
         "cron": "0 9 * * *"
       },
       "payload": {
-        "prompt": "Check OpenAI Codex token expiry. Run this Python snippet and report:\n\nimport json, datetime, base64\ntry:\n    with open('/workspace/../../agents/main/agent/auth-profiles.json') as f:\n        profiles = json.load(f)\n    expiring = []\n    for name, p in profiles['profiles'].items():\n        if p.get('provider') == 'openai-codex' and p.get('expires'):\n            exp_ms = p['expires']\n            exp_dt = datetime.datetime.fromtimestamp(exp_ms/1000)\n            days_left = (exp_dt - datetime.datetime.now()).days\n            expiring.append((name, exp_dt.strftime('%Y-%m-%d'), days_left))\n    for name, exp, days in sorted(expiring, key=lambda x: x[2]):\n        status = 'EXPIRED' if days < 0 else ('URGENT' if days < 3 else ('WARNING' if days < 7 else 'OK'))\n        print(f'{status}: {name} expires {exp} ({days}d)')\nexcept Exception as e:\n    print(f'Error: {e}')\n\nIf any account shows EXPIRED or URGENT, post a Slack message to #redos-ops saying: 'ACTION NEEDED: OpenAI Codex account [name] has expired or expires in <3 days. Run: openclaw models auth login to re-authenticate.' Otherwise just log 'All OpenAI tokens OK' to workspace/logs/token-health.log with a timestamp."
+        "prompt": "Check OpenAI Codex token expiry. Run this Python snippet and report:\n\nimport json, datetime, base64\ntry:\n    with open('../agents/main/agent/auth-profiles.json') as f:\n        profiles = json.load(f)\n    expiring = []\n    for name, p in profiles['profiles'].items():\n        if p.get('provider') == 'openai-codex' and p.get('expires'):\n            exp_ms = p['expires']\n            exp_dt = datetime.datetime.fromtimestamp(exp_ms/1000)\n            days_left = (exp_dt - datetime.datetime.now()).days\n            expiring.append((name, exp_dt.strftime('%Y-%m-%d'), days_left))\n    for name, exp, days in sorted(expiring, key=lambda x: x[2]):\n        status = 'EXPIRED' if days < 0 else ('URGENT' if days < 3 else ('WARNING' if days < 7 else 'OK'))\n        print(f'{status}: {name} expires {exp} ({days}d)')\nexcept Exception as e:\n    print(f'Error: {e}')\n\nIf any account shows EXPIRED or URGENT, post a Slack message to #redos-ops saying: 'ACTION NEEDED: OpenAI Codex account [name] has expired or expires in <3 days. Run: openclaw models auth login to re-authenticate.' Otherwise just log 'All OpenAI tokens OK' to workspace/logs/token-health.log with a timestamp."
       },
       "state": {
         "scheduleErrorCount": 4,
@@ -1379,13 +1378,13 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 300,
-        "message": "Generate daily disk space monitoring report with largest directories and alerts. Run: python3 /Users/redinside/.openclaw/scripts/simple_disk_check.py"
+        "message": "Generate daily disk space monitoring report with largest directories and alerts. Run: python3 ../scripts/simple_disk_check.py"
       },
       "delivery": {
         "mode": "announce",
         "channel": "telegram",
-        "to": "1012034994",
-        "bestEffort": true
+        "bestEffort": true,
+        "target": "1012034994"
       },
       "state": {
         "nextRunAtMs": 1771941600000
@@ -1424,7 +1423,7 @@
       "name": "ZEN COO Team Coordination Check",
       "enabled": true,
       "createdAtMs": 1771895567713,
-      "updatedAtMs": 1771895567713,
+      "updatedAtMs": 1771902817614,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1443,7 +1442,13 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771902767713
+        "nextRunAtMs": 1771909967787,
+        "lastRunAtMs": 1771902767787,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 49827,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 0
       }
     },
     {
@@ -1534,7 +1539,7 @@
       "name": "RED Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897377295,
-      "updatedAtMs": 1771897377295,
+      "updatedAtMs": 1771904612860,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1553,7 +1558,14 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771904577295
+        "nextRunAtMs": 1771911777347,
+        "lastRunAtMs": 1771904577347,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 35513,
+        "lastDelivered": true,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 0
       }
     },
     {
@@ -1562,7 +1574,7 @@
       "name": "ZEN Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897390213,
-      "updatedAtMs": 1771897390213,
+      "updatedAtMs": 1771904637200,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1581,7 +1593,13 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771904590213
+        "nextRunAtMs": 1771911812920,
+        "lastRunAtMs": 1771904612920,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 24280,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 0
       }
     },
     {
@@ -1590,7 +1608,7 @@
       "name": "ENG Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897391560,
-      "updatedAtMs": 1771897391560,
+      "updatedAtMs": 1771904691396,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1609,7 +1627,13 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771904591560
+        "nextRunAtMs": 1771911837200,
+        "lastRunAtMs": 1771904637200,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 54196,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 0
       }
     },
     {
@@ -1618,7 +1642,7 @@
       "name": "RESEARCH Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897392835,
-      "updatedAtMs": 1771897392835,
+      "updatedAtMs": 1771904732185,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1637,7 +1661,13 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771904592835
+        "nextRunAtMs": 1771911891396,
+        "lastRunAtMs": 1771904691396,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 40789,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 0
       }
     },
     {
@@ -1646,7 +1676,7 @@
       "name": "FINANCE Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897394350,
-      "updatedAtMs": 1771897394350,
+      "updatedAtMs": 1771904776132,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1665,7 +1695,13 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771904594350
+        "nextRunAtMs": 1771911932185,
+        "lastRunAtMs": 1771904732185,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 43947,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 0
       }
     },
     {
@@ -1674,7 +1710,7 @@
       "name": "OPS Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897395722,
-      "updatedAtMs": 1771897395722,
+      "updatedAtMs": 1771904824671,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1693,7 +1729,13 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771904595722
+        "nextRunAtMs": 1771911976132,
+        "lastRunAtMs": 1771904776132,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 48539,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 0
       }
     },
     {
@@ -1702,7 +1744,7 @@
       "name": "INFOSEC Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897397121,
-      "updatedAtMs": 1771897397121,
+      "updatedAtMs": 1771904882509,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1721,7 +1763,13 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771904597121
+        "nextRunAtMs": 1771912024671,
+        "lastRunAtMs": 1771904824671,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 57838,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 0
       }
     },
     {
@@ -1730,7 +1778,7 @@
       "name": "HATAKE Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897398357,
-      "updatedAtMs": 1771897398357,
+      "updatedAtMs": 1771904944367,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1749,7 +1797,100 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771904598357
+        "nextRunAtMs": 1771912082509,
+        "lastRunAtMs": 1771904882509,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 61858,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 0
+      }
+    },
+    {
+      "id": "ci-event-logger-0001",
+      "agentId": "ops",
+      "name": "CI Event Logger (cron → ci-log.jsonl)",
+      "enabled": true,
+      "createdAtMs": 1771907000000,
+      "updatedAtMs": 1771907000000,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 600000,
+        "anchorMs": 1771907000000
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "thinking": "off",
+        "timeoutSeconds": 120,
+        "message": "Run: python3 workspace/scripts/ci_event_logger.py\n\nIf output is NO_REPLY: return NO_REPLY. Otherwise return output verbatim.\nDo not send any messages."
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "last",
+        "bestEffort": true
+      },
+      "state": {
+        "nextRunAtMs": 1771907000000
+      }
+    },
+    {
+      "id": "health-snapshot-ticket-0001",
+      "agentId": "ops",
+      "name": "Self-Healing Guardrail: Health Snapshot → Tickets",
+      "enabled": true,
+      "createdAtMs": 1771907005000,
+      "updatedAtMs": 1771907005000,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 1800000,
+        "anchorMs": 1771907005000
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "thinking": "off",
+        "timeoutSeconds": 120,
+        "message": "Run: python3 workspace/scripts/health_snapshot_ticket.py\n\nIf output is NO_REPLY: return NO_REPLY. Otherwise return output verbatim.\nDo not send any messages."
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "last",
+        "bestEffort": true
+      },
+      "state": {
+        "nextRunAtMs": 1771907005000
+      }
+    },
+    {
+      "id": "ci-weekly-summarizer-0001",
+      "agentId": "ops",
+      "name": "CI Weekly Summarizer (roll → LEARNINGS.md)",
+      "enabled": true,
+      "createdAtMs": 1771907010000,
+      "updatedAtMs": 1771907010000,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 7 * * 1",
+        "tz": "America/Toronto"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "thinking": "off",
+        "timeoutSeconds": 180,
+        "message": "Run: python3 workspace/scripts/weekly_ci_summarizer.py\n\nIf output is NO_REPLY: return NO_REPLY. Otherwise return output verbatim.\nDo not send any messages."
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "last",
+        "bestEffort": true
+      },
+      "state": {
+        "nextRunAtMs": 1772452800000
       }
     }
   ]
