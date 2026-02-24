@@ -38,6 +38,13 @@ Args: { "agentId": "eng", "message": "Write a Python script that..." }
 
 ## What Goes Here
 
+## Messaging transport (IMPORTANT)
+- Only **Telegram** and **Slack** channels are enabled/OK on current host.
+- Prefer `message` tool for reliable delivery.
+  - Slack: `message(action="send", channel="slack", target="channel:<id>", message="...")`
+  - Telegram: `message(action="send", channel="telegram", target="telegram:<userId>", message="...")` (or via configured delivery targets)
+- If `sessions_send` times out, use `message` with explicit channel/target.
+
 Things like:
 
 - Camera names and locations

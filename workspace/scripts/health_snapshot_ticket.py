@@ -103,8 +103,26 @@ def extract_signatures(window_start: datetime) -> List[str]:
 
 
 def ticket_exists(tickets_text: str, signature: str) -> bool:
-    # Simple substring check; signature is normalized.
-    return signature in _normalize_sig(tickets_text)
+    """Check if an OPEN ticket with this signature already exists."""
+    # Extract all OPEN tickets and their summaries
+    pattern = r"### (TICKET-\d{8}-\d{3})\n.*?- \*\*Status:\*\* (OPEN|IN_PROGRESS|BLOCKED).*?- \*\*Summary:\*\* ([^\n]+)"
+    for match in re.finditer(pattern, tickets_text, re.DOTALL):
+        ticket_id, status, summary = match.groups()
+        if status in ("OPEN", "IN_PROGRESS", "BLOCKED"):
+            norm_summary = _normalize_sig(summary)
+            # Check if this signature is similar (same pattern, allowing for count variations)
+            if _signatures_match(norm_summary, signature):
+                return True
+    return False
+
+
+def _signatures_match(existing: str, new: str) -> bool:
+    """Check if two signatures represent the same recurring pattern."""
+    # Strip the count suffix (e.g., "(45x)" or "(27x)") for comparison
+    existing_clean = re.sub(r"\(\d+x\):\s*", "", existing)
+    new_clean = re.sub(r"\(\d+x\):\s*", "", new)
+    # If the core pattern matches (ignoring count), it's a duplicate
+    return existing_clean == new_clean or (len(existing_clean) > 50 and existing_clean in new_clean) or (len(new_clean) > 50 and new_clean in existing_clean)
 
 
 def next_ticket_id(tickets_text: str, now: datetime) -> str:
@@ -193,6 +211,7 @@ def main() -> int:
     opened: List[str] = []
     for sig, n in candidates[:5]:
         if ticket_exists(tickets_text, sig):
+            # Ticket already exists for this pattern; skip to avoid duplicates
             continue
         tid = next_ticket_id(tickets_text, now)
         examples = [s for s in sigs if s == sig]

@@ -32,6 +32,20 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 
 ## Active Tickets
 
+### TICKET-20260224-074
+- **Status:** BLOCKED
+- **Priority:** P1
+- **Created:** 2026-02-24T13:01:00Z
+- **SLA Deadline:** 2026-02-24T15:01:00Z (2 hours)
+- **Reporter:** main (cron: Gmail Unread Summary)
+- **Assignee:** OPS
+- **Summary:** Gmail unread digest cron failing: gog Gmail OAuth token invalid_grant (expired/revoked)
+- **Details:** Cron step `gog gmail search "in:inbox is:unread" --account anorag.saxena@gmail.com --json --max 15` failed with: `oauth2: "invalid_grant" "Token has been expired or revoked."` This prevents fetching unread inbox threads and sending the digest.
+- **Root Cause:** Google OAuth refresh token for this `gog` account appears expired/revoked (likely requires re-auth).
+- **Resolution:** Pending manual re-auth of `gog` Gmail access for `anorag.saxena@gmail.com` (interactive OAuth). After re-auth, rerun the search command to verify.
+- **Learnings:** 
+- **Resolved At:** 
+
 ### TICKET-20260224-071
 - **Status:** RESOLVED
 - **Priority:** P0
@@ -47,14 +61,22 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Resolved At:** 2026-02-24T12:28:00Z
 
 ### TICKET-20260224-072
-- **Status:** OPEN
+- **Status:** IN_PROGRESS
 - **Priority:** P1
 - **Created:** 2026-02-24T12:28:00Z
 - **SLA Deadline:** 2026-02-24T14:28:00Z (2 hours)
 - **Reporter:** OPS
-- **Assignee:** INFOSEC
+- **Assignee:** INFOSEC, OPS
 - **Summary:** Exec approvals still overly broad for agents "*" (shells + /usr/bin/* allow bypass for many commands)
-- **Details:** After removing the `**` wildcard, `exec-approvals.json` still contains broad patterns under `agents["*"]` (e.g. `/bin/zsh`, `/bin/bash`, `/usr/bin/*`, `/usr/local/bin/*`, `/opt/homebrew/bin/*`). This likely still weakens maker/checker for many commands. Need INFOSEC decision on desired posture and a tightened per-agent allowlist.
+- **Details:** After removing the `**` wildcard, `exec-approvals.json` still contained broad patterns under `agents["*"]` (e.g. `/bin/zsh`, `/bin/bash`, `/usr/bin/*`, `/usr/local/bin/*`, `/opt/homebrew/bin/*`). This weakened maker/checker for many commands.
+- **Resolution (Stage A - COMPLETE 13:05Z):**
+  - Removed all 6 broad patterns from `agents["*"]` (shells + directory globs).
+  - `agents["*"]` now empty → deny-by-default restored.
+  - Backup taken before change.
+- **Next (Stage B - pending OPS input):**
+  - Add per-agent minimal allowlists for `ops`, `eng`, `infosec` with specific binaries only (no shells/globs).
+  - RED authorized Stage A to preserve SLA; Stage B requires OPS enumeration of actual needed binaries.
+  - ETA for Stage B: pending OPS response on which binaries each agent truly needs.
 - **Root Cause:** Legacy troubleshooting approvals were never scoped back down.
 - **Resolution:** 
 - **Learnings:** Treat exec allowlists as policy code: minimal scope, reviewed, and rotated.
@@ -370,8 +392,8 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Priority:** P2
 - **Created:** 2026-02-24T00:11:30Z
 - **SLA Deadline:** 2026-02-24T08:11:30Z (8 hours) — **BREACHED**
-- **Re-scope / New Target:** 2026-02-24T12:30:00Z (apply DNS mitigation + verify; no SSRF relax)
-- **Current ETA (INFOSEC):** 2026-02-24T12:30:00Z for mitigation decision + verification; may slip if RED approval required for sudo/tailscale changes
+- **Re-scope / New Target:** 2026-02-24T13:30:00Z (execute manual sudo flush + tailscaled restart; if still broken adjust Tailscale DNS override/split-DNS; verify; no SSRF relax)
+- **Current ETA (INFOSEC):** 2026-02-24T13:30:00Z (10–20 min once a human is at terminal + has Tailscale DNS access)
 - **Reporter:** OPS (cron)
 - **Assignee:** INFOSEC
 - **Summary:** Potential DNS/SSRF false positive: url-fetch blocked for microsoft.com as "resolves to private/internal/special-use IP"
@@ -399,8 +421,9 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
     3) Temporary workaround: set system DNS to 1.1.1.1 / 9.9.9.9 and confirm queries no longer route via utun5
   - **Verification criteria:** `dig @8.8.8.8 www.microsoft.com` returns public IP (not 198.18/15) AND `web_fetch https://www.microsoft.com` succeeds without SSRF block.
   - **Status (11:55Z):** INFOSEC attempted to execute sudo commands via `exec` with pty=true, but sudo password prompt cannot be satisfied by agent. RED must execute manually in terminal.
-  - **Status update (11:58Z):** RED has **not** run the sudo mitigation yet (waiting on manual password entry). DNS remains broken; `dig @8.8.8.8 www.microsoft.com +short` still returns **198.18.8.77**.
-  - **Immediate next step (manual terminal, 2–3 min):**
+  - **Status update (12:58Z):** Manual sudo mitigation still **not executed yet** (waiting on human at terminal for password entry). DNS remains broken; last check: `dig @8.8.8.8 www.microsoft.com +short` → **198.18.8.77**.
+
+  - **Preferred next action (INFOSEC, 12:55Z) — manual terminal w/ sudo:**
     ```bash
     sudo dscacheutil -flushcache
     sudo killall -HUP mDNSResponder
@@ -408,11 +431,16 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
     sleep 2
     dig @8.8.8.8 www.microsoft.com +short
     dig @1.1.1.1 www.microsoft.com +short
+    dig www.microsoft.com +short
     ```
-  - **Alternate mitigation path if still broken after sudo flush/restart:** Change Tailscale Admin Console → DNS:
-    - disable “Override local DNS” temporarily, OR
-    - adjust split-DNS so only tailnet domains use MagicDNS; public domains use normal resolvers.
-  - INFOSEC alert sent to RED (09:23Z); remediation steps provided (11:55Z); awaiting RED manual execution + dig outputs.
+
+  - If `@8.8.8.8` **still** returns `198.18.8.77`, fix at source: **Tailscale Admin Console → DNS**
+    - disable **Override local DNS** temporarily, OR
+    - adjust **split-DNS/MagicDNS** so only tailnet domains use Tailscale DNS; public domains use normal resolvers.
+
+  - **Re-verify:** `web_fetch` a previously blocked microsoft.com URL should succeed without SSRF block.
+  - **ETA (INFOSEC):** **10–20 minutes** once someone is at the terminal + (if needed) has access to Tailscale DNS settings.
+  - INFOSEC alert sent to RED (09:23Z); remediation steps provided (11:55Z); updated sequence/ETA captured (12:55Z); awaiting RED manual execution + outputs.
 - **Learnings:** SSRF controls correctly blocked a special-use (198.18/15) resolution; the actionable fix is DNS/routing hygiene, not relaxing the SSRF guard.
 - **Resolved At:**
 
@@ -609,6 +637,8 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Learnings:**
 - **Resolved At:**
 - **Blocker:** Requires confirmation on other dev machines/CI build contexts (npm global list + lockfile grep + persistence/service checks). No evidence on Mac mini, but coverage incomplete.
+- **Coordination (INFOSEC 12:55Z):** OPS should coordinate evidence collection (distributed/procedural). INFOSEC will do close/rotate decision once evidence is attached.
+- **ETA (INFOSEC):** Same day if evidence is collected quickly; otherwise 24–48h depending on CI access/number of machines. Once evidence is in, INFOSEC can decide in <30 min.
 - **Next Steps (needs HUMAN/CI access):**
   Run the following on **each dev machine** and **each CI runner/self-hosted runner** that runs Node/npm installs, then paste outputs into this ticket.
 
@@ -1738,18 +1768,51 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Resolved At:** 
 
 ### TICKET-20260224-066
-- **Status:** OPEN
+- **Status:** RESOLVED
 - **Priority:** P0
 - **Created:** 2026-02-24T12:00:00Z
 - **SLA Deadline:** 2026-02-24T12:30:00Z (30 min)
 - **Reporter:** INFOSEC (heartbeat)
 - **Assignee:** RED, OPS
 - **Summary:** CRITICAL: `exec-approvals.json` allows global `exec` for all agents (disables maker/checker)
-- **Details:** Found during META SELF-CHECK (06:56 AM ET). `exec-approvals.json` contains an entry allowing `agents "*"` with `pattern: "**"`. This effectively disables the maker/checker workflow for ALL `exec` commands across ALL agents, meaning any agent can execute any shell command without explicit approval. This is a **P0 vulnerability**.
-- **Root Cause:** Overly permissive `exec-approvals.json` configuration.
-- **Resolution:**
-  1. **IMMEDIATELY** remove or significantly tighten the `exec-approvals.json` entry that grants global `**` permissions.
-  2. Scope `exec` permissions per-agent and per-command using more granular allowlist entries.
-  - INFOSEC attempted to alert RED (12:00Z) and OPS (12:00Z) via `sessions_send`, but both attempts timed out. This highlights a communication reliability issue for critical alerts.
-- **Learnings:** Global `exec` allowlists are dangerous. Communication channels for P0 alerts need to be robust.
-- **Resolved At:**
+- **Details:** Found during META SELF-CHECK (06:56 AM ET). `exec-approvals.json` contained an entry allowing `agents "*"` with `pattern: "**"`. This effectively disabled maker/checker for ALL `exec` commands.
+- **Root Cause:** Overly permissive `exec-approvals.json` configuration (wildcard approval created during earlier troubleshooting).
+- **Resolution:** OPS backed up `/Users/redinside/.openclaw/exec-approvals.json` and removed the catastrophic wildcard entry (`pattern: "**"`) from `agents["*"]`. Verified the file no longer contains `"pattern": "**"`.
+- **Learnings:** Never grant global exec wildcards. Keep approvals per-agent and minimal; treat remaining broad `agents["*"]` patterns (/usr/bin/*, shells, homebrew) as follow-up hardening.
+- **Resolved At:** 2026-02-24T12:29:00Z
+
+### TICKET-20260224-073
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T12:33:57+00:00
+- **SLA Deadline:** 2026-02-24T20:33:57+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (51x): unknown (no summary)
+- **Details:** Detected 51 occurrences in the last window. Examples:
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-075
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T13:07:30+00:00
+- **SLA Deadline:** 2026-02-24T21:07:30+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (51x): unknown (no summary)
+- **Details:** Detected 51 occurrences in the last window. Examples:
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 

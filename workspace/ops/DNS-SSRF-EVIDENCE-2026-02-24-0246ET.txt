@@ -1,0 +1,38 @@
+Captured: 2026-02-24T07:46:25Z
+
+## scutil --dns (lines containing utun5 or 100.64.0.2)
+4:  nameserver[0] : 100.64.0.2
+5:  if_index : 23 (utun5)
+11:  nameserver[0] : 100.64.0.2
+12:  if_index : 23 (utun5)
+76:  nameserver[0] : 100.64.0.2
+77:  if_index : 23 (utun5)
+
+## dig www.microsoft.com @1.1.1.1
+
+; <<>> DiG 9.10.6 <<>> +time=2 +tries=1 www.microsoft.com @1.1.1.1
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 43533
+;; flags: qr rd ra; QUERY: 1, ANSWER: 4, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;www.microsoft.com.		IN	A
+
+;; ANSWER SECTION:
+www.microsoft.com.	3581	IN	CNAME	www.microsoft.com-c-3.edgekey.net.
+www.microsoft.com-c-3.edgekey.net. 881 IN CNAME	www.microsoft.com-c-3.edgekey.net.globalredir.akadns.net.
+www.microsoft.com-c-3.edgekey.net.globalredir.akadns.net. 881 IN CNAME e13678.dscb.akamaiedge.net.
+e13678.dscb.akamaiedge.net. 18	IN	A	23.53.170.101
+
+;; Query time: 24 msec
+;; SERVER: 1.1.1.1#53(1.1.1.1)
+;; WHEN: Tue Feb 24 02:46:25 EST 2026
+;; MSG SIZE  rcvd: 213
+
+
+## python socket.gethostbyname
+www.microsoft.com 198.18.8.77
+microsoft.com 198.18.8.77
