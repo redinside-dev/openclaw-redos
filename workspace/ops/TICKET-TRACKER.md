@@ -32,6 +32,20 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 
 ## Active Tickets
 
+### TICKET-20260224-012
+- **Status:** IN_PROGRESS
+- **Priority:** P2
+- **Created:** 2026-02-24T02:46:00Z
+- **SLA Deadline:** 2026-02-24T10:46:00Z (8 hours)
+- **Reporter:** OPS (cron)
+- **Assignee:** OPS
+- **Summary:** OPS Task ETA Monitor can't find task-registry.json (ENOENT) due to relative path/cwd mismatch
+- **Details:** Cron run reported: `workspace/ops/task-registry.json` not found at expected path (ENOENT), so no ETA evaluation or alerts were possible.
+- **Root Cause:** Likely isolated cron runs with a different working directory; `workspace/...` relative path doesn’t resolve to `/Users/redinside/.openclaw/workspace/...`.
+- **Resolution:** Updating the cron job payload to use an absolute path `/Users/redinside/.openclaw/workspace/ops/task-registry.json`. Need to verify next run succeeds.
+- **Learnings:** Prefer absolute paths in cron payloads, or ensure cron runner sets a stable cwd.
+- **Resolved At:**
+
 ### TICKET-20260224-011
 - **Status:** OPEN
 - **Priority:** P2
