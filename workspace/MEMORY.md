@@ -4,6 +4,19 @@
 
 ---
 
+## ⚠️ TWO SEPARATE REPOS — Never Confuse These
+
+| | OpenClaw Framework | ENG Infrastructure POC |
+|---|---|---|
+| **Local path** | `/Users/redinside/.openclaw` | `/Users/redinside/Development/Codebase/projects/RedTeam/github/redteam-coding-factory` |
+| **GitHub** | `github.com/redinside-dev/openclaw-redos` | `github.com/anuragg-saxenaa/redteam-coding-factory` |
+| **What** | Dashboard, SOUL.md, cron, skills, config — the runtime framework | Autonomous coding factory POC — worktrees, CI loop, PR automation |
+| **Who commits** | Cascade + agents enhancing OpenClaw | ENG agent + Cascade building the POC |
+
+**Rule:** Framework changes → `.openclaw` repo. ENG POC work → `redteam-coding-factory` repo. Never mix.
+
+---
+
 ## Current State (as of 2026-02-24)
 
 | Component | Status |
