@@ -13,9 +13,12 @@ Install, configure, health-check, and troubleshoot 9Router — the local proxy t
 - Exposes `/health` for health checks
 
 Provider fallback order within 9Router:
-1. Gemini OAuth (free tier, ~1000 req/day)
-2. Codex (ChatGPT Plus subscription)
-3. iFlow / Qwen / Kiro (genuinely free, no account)
+1. **cx/** — Codex (ChatGPT Plus subscription): gpt-5.3-codex, gpt-5.2-codex, gpt-5.2, gpt-5.1-codex-max, gpt-5.1-codex-mini
+2. **cu/** — Cursor Pro subscription: claude-4.5-opus, claude-4.5-sonnet, claude-4.5-haiku
+3. **gc/** — Google OAuth (FREE ~1000/day): gemini-3-pro-preview, gemini-3-flash-preview, gemini-2.5-pro, gemini-2.5-flash, gemini-2.5-flash-lite
+4. **kr/** — Kiro (FREE, no account): claude-sonnet-4.5, claude-haiku-4.5
+5. **if/** — iFlow (FREE, no account): qwen3-coder-plus, kimi-k2, kimi-k2-thinking, kimi-k2.5, deepseek-r1, deepseek-v3.2-chat, minimax-m2.1, minimax-m2.5, glm-5, glm-4.7
+6. **openrouter/** — OpenRouter (best-available routing): auto
 
 ## Start / Stop / Status
 
@@ -66,21 +69,27 @@ npx 9router@latest setup
 # Sign in with OpenAI account
 ```
 
-### iFlow (genuinely free, no account)
+### iFlow (FREE — no account required)
 ```bash
 9router auth add iflow
 # No authentication required — always available
+# Models: qwen3-coder-plus, kimi-k2, kimi-k2-thinking, kimi-k2.5, deepseek-r1, deepseek-v3.2-chat, minimax-m2.1, minimax-m2.5, glm-5, glm-4.7
+# Use aliases: qwen-coder, kimi, kimi-think, deepseek, deepseek-chat, glm5
 ```
 
-### Qwen (Alibaba Cloud — free tier)
-```bash
-9router auth add qwen
-# Requires Alibaba Cloud account (free tier is generous)
-```
-
-### Kiro (free)
+### Kiro (FREE — no account required)
 ```bash
 9router auth add kiro
+# Models: claude-sonnet-4.5, claude-haiku-4.5
+# Use aliases: kiro-sonnet, kiro-haiku
+```
+
+### OpenRouter (routes to best available model)
+```bash
+9router auth add openrouter
+# Requires OpenRouter account (free tier available)
+# Use alias: openrouter
+# Model ID: openrouter/auto
 ```
 
 ## Adding a New CCS Profile
