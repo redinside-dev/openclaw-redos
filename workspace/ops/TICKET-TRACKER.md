@@ -32,6 +32,35 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 
 ## Active Tickets
 
+### TICKET-20260224-071
+- **Status:** RESOLVED
+- **Priority:** P0
+- **Created:** 2026-02-24T12:10:00Z
+- **SLA Deadline:** 2026-02-24T12:40:00Z (30 min)
+- **Reporter:** OPS (meta self-check)
+- **Assignee:** OPS
+- **Summary:** P0: exec approvals misconfigured — global `agents:"*"` allowlist contained `pattern:"**"` (any command w/o approval)
+- **Details:** `/Users/redinside/.openclaw/exec-approvals.json` contained an `agents["*"]` allowlist entry with `pattern: "**"`, effectively allowing any agent to execute any shell command without explicit maker/checker approval.
+- **Root Cause:** Overly-broad exec approval wildcard entry created during earlier troubleshooting.
+- **Resolution:** Immediate mitigation applied: backed up `exec-approvals.json` and removed the catastrophic global wildcard entry `pattern:"**"`. Verified file JSON validity and confirmed `"pattern": "**"` no longer present.
+- **Learnings:** Never grant global exec wildcards. Prefer per-agent, per-command allowlists; treat approvals store as security-critical config.
+- **Resolved At:** 2026-02-24T12:28:00Z
+
+### TICKET-20260224-072
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-02-24T12:28:00Z
+- **SLA Deadline:** 2026-02-24T14:28:00Z (2 hours)
+- **Reporter:** OPS
+- **Assignee:** INFOSEC
+- **Summary:** Exec approvals still overly broad for agents "*" (shells + /usr/bin/* allow bypass for many commands)
+- **Details:** After removing the `**` wildcard, `exec-approvals.json` still contains broad patterns under `agents["*"]` (e.g. `/bin/zsh`, `/bin/bash`, `/usr/bin/*`, `/usr/local/bin/*`, `/opt/homebrew/bin/*`). This likely still weakens maker/checker for many commands. Need INFOSEC decision on desired posture and a tightened per-agent allowlist.
+- **Root Cause:** Legacy troubleshooting approvals were never scoped back down.
+- **Resolution:** 
+- **Learnings:** Treat exec allowlists as policy code: minimal scope, reviewed, and rotated.
+- **Resolved At:** 
+
+
 ### TICKET-20260224-022
 - **Status:** RESOLVED
 - **Priority:** P3
@@ -370,7 +399,8 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
     3) Temporary workaround: set system DNS to 1.1.1.1 / 9.9.9.9 and confirm queries no longer route via utun5
   - **Verification criteria:** `dig @8.8.8.8 www.microsoft.com` returns public IP (not 198.18/15) AND `web_fetch https://www.microsoft.com` succeeds without SSRF block.
   - **Status (11:55Z):** INFOSEC attempted to execute sudo commands via `exec` with pty=true, but sudo password prompt cannot be satisfied by agent. RED must execute manually in terminal.
-  - **Exact commands to run (copy-paste into terminal with sudo access):**
+  - **Status update (11:58Z):** RED has **not** run the sudo mitigation yet (waiting on manual password entry). DNS remains broken; `dig @8.8.8.8 www.microsoft.com +short` still returns **198.18.8.77**.
+  - **Immediate next step (manual terminal, 2–3 min):**
     ```bash
     sudo dscacheutil -flushcache
     sudo killall -HUP mDNSResponder
@@ -379,7 +409,10 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
     dig @8.8.8.8 www.microsoft.com +short
     dig @1.1.1.1 www.microsoft.com +short
     ```
-  - INFOSEC alert sent to RED (09:23Z); remediation steps provided (11:55Z); awaiting RED manual execution.
+  - **Alternate mitigation path if still broken after sudo flush/restart:** Change Tailscale Admin Console → DNS:
+    - disable “Override local DNS” temporarily, OR
+    - adjust split-DNS so only tailnet domains use MagicDNS; public domains use normal resolvers.
+  - INFOSEC alert sent to RED (09:23Z); remediation steps provided (11:55Z); awaiting RED manual execution + dig outputs.
 - **Learnings:** SSRF controls correctly blocked a special-use (198.18/15) resolution; the actionable fix is DNS/routing hygiene, not relaxing the SSRF guard.
 - **Resolved At:**
 
@@ -1009,18 +1042,25 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Resolved At:** 
 
 ### TICKET-20260224-035
-- **Status:** IN_PROGRESS
+- **Status:** RESOLVED
 - **Priority:** P2
 - **Created:** 2026-02-24T05:38:00Z
 - **SLA Deadline:** 2026-02-24T13:38:00Z (8 hours)
 - **Reporter:** OPS (cron)
 - **Assignee:** ENG
 - **Summary:** Config reload failing: unrecognized keys in agents.defaults and session.maintenance
-- **Details:** `gateway.err.log` (2026-02-24T05:32-05:33Z) shows 3x: `[reload] config reload skipped (invalid config): agents.defaults: Unrecognized keys: "session", "tools", session.maintenance: Unrecognized key: "resetArchiveRetention"`. Config changes are being rejected, meaning any recent openclaw.json edits are NOT taking effect. Identified as key pattern in self-improvement review (2026-02-24).
-- **Root Cause:** openclaw.json contains keys not recognized by current gateway version (`agents.defaults.session`, `agents.defaults.tools`, `session.maintenance.resetArchiveRetention`). Likely schema mismatch from manual config edits or version upgrade.
-- **Resolution:** Needs ENG to remove/rename unrecognized keys from openclaw.json and restart gateway to apply pending config changes.
-- **Learnings:** Validate openclaw.json against `openclaw doctor` before committing config edits; unrecognized keys silently block ALL config reloads.
-- **Resolved At:**
+- **Details:** `gateway.err.log` (2026-02-24T05:32-05:33Z) shows 3x: `[reload] config reload skipped (invalid config): agents.defaults: Unrecognized keys: "session", "tools", session.maintenance: Unrecognized key: "resetArchiveRetention"`. Config changes were being rejected, meaning recent openclaw.json edits were NOT taking effect.
+- **Root Cause:** openclaw.json contained keys not recognized by the current gateway version: `agents.defaults.session`, `agents.defaults.tools`, `session.maintenance.resetArchiveRetention`.
+- **Resolution:** Removed the unrecognized keys from `/Users/redinside/.openclaw/openclaw.json`:
+  - removed `agents.defaults.session`
+  - removed `agents.defaults.tools`
+  - removed `session.maintenance.resetArchiveRetention`
+  Validation:
+  - `openclaw doctor` now runs successfully (no invalid-config errors)
+  - grep confirms 0 occurrences of those keys in openclaw.json
+  Note: `openclaw.json` is gitignored (local secret-bearing config), so the fix is applied to the live file but not committed.
+- **Learnings:** Always run `openclaw doctor` after config edits; unrecognized keys can block ALL config reloads.
+- **Resolved At:** 2026-02-24T12:29:00Z
 
  RESOLVED
 - **Priority:** P2
@@ -1660,3 +1700,56 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Resolution:** 
 - **Learnings:** 
 - **Resolved At:** 
+
+### TICKET-20260224-049
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T12:03:20+00:00
+- **SLA Deadline:** 2026-02-24T20:03:20+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (50x): unknown (no summary)
+- **Details:** Detected 50 occurrences in the last window. Examples:
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-050
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T12:03:20+00:00
+- **SLA Deadline:** 2026-02-24T20:03:20+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (4x): <ts>-05:00 [tools] read failed: moltbot-sandbox-fs: 1: syntax error: ";" unexpected
+- **Details:** Detected 4 occurrences in the last window. Examples:
+  - <ts>-05:00 [tools] read failed: moltbot-sandbox-fs: 1: syntax error: ";" unexpected
+  - <ts>-05:00 [tools] read failed: moltbot-sandbox-fs: 1: syntax error: ";" unexpected
+  - <ts>-05:00 [tools] read failed: moltbot-sandbox-fs: 1: syntax error: ";" unexpected
+  - <ts>-05:00 [tools] read failed: moltbot-sandbox-fs: 1: syntax error: ";" unexpected
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-066
+- **Status:** OPEN
+- **Priority:** P0
+- **Created:** 2026-02-24T12:00:00Z
+- **SLA Deadline:** 2026-02-24T12:30:00Z (30 min)
+- **Reporter:** INFOSEC (heartbeat)
+- **Assignee:** RED, OPS
+- **Summary:** CRITICAL: `exec-approvals.json` allows global `exec` for all agents (disables maker/checker)
+- **Details:** Found during META SELF-CHECK (06:56 AM ET). `exec-approvals.json` contains an entry allowing `agents "*"` with `pattern: "**"`. This effectively disables the maker/checker workflow for ALL `exec` commands across ALL agents, meaning any agent can execute any shell command without explicit approval. This is a **P0 vulnerability**.
+- **Root Cause:** Overly permissive `exec-approvals.json` configuration.
+- **Resolution:**
+  1. **IMMEDIATELY** remove or significantly tighten the `exec-approvals.json` entry that grants global `**` permissions.
+  2. Scope `exec` permissions per-agent and per-command using more granular allowlist entries.
+  - INFOSEC attempted to alert RED (12:00Z) and OPS (12:00Z) via `sessions_send`, but both attempts timed out. This highlights a communication reliability issue for critical alerts.
+- **Learnings:** Global `exec` allowlists are dangerous. Communication channels for P0 alerts need to be robust.
+- **Resolved At:**
