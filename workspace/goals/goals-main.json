@@ -1,0 +1,44 @@
+{
+  "agentId": "main",
+  "updatedAt": "2026-02-24T05:00:00Z",
+  "goals": [
+    {
+      "id": "goal-main-001",
+      "title": "Make every agent genuinely autonomous — no Anurag prompting needed",
+      "why": "The system should run itself. If Anurag has to ask for anything, I have failed.",
+      "priority": "P1",
+      "status": "in_progress",
+      "progress": "Enabled agentToAgent, added SOUL.md mandates, added proactive crons. Next: verify agents are actually using sessions_send and maintaining goal stacks.",
+      "nextAction": "Check a2a-delegations.jsonl after morning pulse. If empty, escalate to each agent directly.",
+      "createdAt": "2026-02-24T05:00:00Z",
+      "targetDate": "2026-03-03T00:00:00Z",
+      "blockers": []
+    },
+    {
+      "id": "goal-main-002",
+      "title": "Run weekly skill audit — ensure all 30 skills are actively used",
+      "why": "Unused skills are wasted capability. competitive-intelligence sat unused for weeks. Never again.",
+      "priority": "P1",
+      "status": "in_progress",
+      "progress": "competitive-intelligence enabled. CEO-DIRECTIVE-20260224 issued. Awaiting skill audit report from agents.",
+      "nextAction": "Follow up with each agent on skill adoption by 2026-02-25.",
+      "createdAt": "2026-02-24T05:00:00Z",
+      "targetDate": "2026-02-25T04:47:00Z",
+      "blockers": []
+    },
+    {
+      "id": "goal-main-003",
+      "title": "Build visible team culture — agents should feel like a real team",
+      "why": "Anurag should see agents talking to each other, helping each other, celebrating wins. Not silent workers.",
+      "priority": "P2",
+      "status": "in_progress",
+      "progress": "A2A peer messaging enabled. Morning pulse updated to use sessions_send. Need to see actual conversations in Slack.",
+      "nextAction": "After first morning pulse with sessions_send, review Slack #all-redos for quality of team interaction.",
+      "createdAt": "2026-02-24T05:00:00Z",
+      "targetDate": "2026-03-01T00:00:00Z",
+      "blockers": []
+    }
+  ],
+  "completedGoals": [],
+  "abandonedGoals": []
+}

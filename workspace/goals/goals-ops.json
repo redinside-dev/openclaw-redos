@@ -1,0 +1,44 @@
+{
+  "agentId": "ops",
+  "updatedAt": "2026-02-24T05:00:00Z",
+  "goals": [
+    {
+      "id": "goal-ops-001",
+      "title": "Achieve zero silent failures — every cron run is visible and verified",
+      "why": "Silent failures are the worst kind. If a cron fails and nobody knows, the system is lying about its health.",
+      "priority": "P1",
+      "status": "in_progress",
+      "progress": "Health JSONL writer running. Some crons still failing silently due to path issues (TICKET-20260224-013).",
+      "nextAction": "Fix relative path issues in cron monitors. Verify health.jsonl is updating every 15 min.",
+      "createdAt": "2026-02-24T05:00:00Z",
+      "targetDate": "2026-03-01T00:00:00Z",
+      "blockers": []
+    },
+    {
+      "id": "goal-ops-002",
+      "title": "Make A2A delegation log the source of truth for team activity",
+      "why": "If a2a-delegations.jsonl is populated and accurate, Anurag can see the team working without asking anyone.",
+      "priority": "P1",
+      "status": "in_progress",
+      "progress": "Log file exists but empty. SOUL.md now mandates logging. Need to verify compliance.",
+      "nextAction": "Monitor a2a-delegations.jsonl daily. Alert RED if empty by 6pm.",
+      "createdAt": "2026-02-24T05:00:00Z",
+      "targetDate": "2026-02-28T00:00:00Z",
+      "blockers": []
+    },
+    {
+      "id": "goal-ops-003",
+      "title": "Close all P2 tickets within SLA",
+      "why": "P2 tickets at 8h SLA. If they're open longer, the system is not self-healing.",
+      "priority": "P2",
+      "status": "in_progress",
+      "progress": "Multiple open tickets. Need to triage and assign.",
+      "nextAction": "Read TICKET-TRACKER.md, identify all P2 tickets past SLA, escalate or fix.",
+      "createdAt": "2026-02-24T05:00:00Z",
+      "targetDate": "2026-03-01T00:00:00Z",
+      "blockers": []
+    }
+  ],
+  "completedGoals": [],
+  "abandonedGoals": []
+}

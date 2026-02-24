@@ -1,0 +1,44 @@
+{
+  "agentId": "eng",
+  "updatedAt": "2026-02-24T05:00:00Z",
+  "goals": [
+    {
+      "id": "goal-eng-001",
+      "title": "Complete coding factory Phase 1 POC",
+      "why": "This proves autonomous engineering is real. A system that writes, tests, and ships code without a human is the future.",
+      "priority": "P1",
+      "status": "in_progress",
+      "progress": "Repo bootstrapped. Phase 1 steps defined. Nothing implemented yet.",
+      "nextAction": "Implement task intake + git worktree isolation (Step 1 of Phase 1).",
+      "createdAt": "2026-02-24T05:00:00Z",
+      "targetDate": "2026-03-07T00:00:00Z",
+      "blockers": []
+    },
+    {
+      "id": "goal-eng-002",
+      "title": "Reduce open P2/P3 tickets to zero",
+      "why": "Open tickets are technical debt. Every unresolved ticket is a system that isn't working properly.",
+      "priority": "P2",
+      "status": "in_progress",
+      "progress": "Multiple open tickets in TICKET-TRACKER.md. Need to triage and close.",
+      "nextAction": "Read TICKET-TRACKER.md, pick oldest P2 ticket, fix it.",
+      "createdAt": "2026-02-24T05:00:00Z",
+      "targetDate": "2026-03-01T00:00:00Z",
+      "blockers": []
+    },
+    {
+      "id": "goal-eng-003",
+      "title": "Stay current on AI coding agent landscape",
+      "why": "If I don't know what Devin, SWE-agent, and OpenHands are doing, I can't build something better.",
+      "priority": "P2",
+      "status": "in_progress",
+      "progress": "Daily R&D cron set up. First research session pending.",
+      "nextAction": "Run first R&D research session. Write findings to workspace/research/eng-rd-YYYY-MM-DD.md.",
+      "createdAt": "2026-02-24T05:00:00Z",
+      "targetDate": "2026-03-31T00:00:00Z",
+      "blockers": []
+    }
+  ],
+  "completedGoals": [],
+  "abandonedGoals": []
+}
