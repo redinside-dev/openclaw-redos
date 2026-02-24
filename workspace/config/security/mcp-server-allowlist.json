@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "updatedAt": "2026-02-24",
+  "policy": {
+    "default": "deny",
+    "notes": "Allowlist of MCP servers that agents may connect to. Prefer local/loopback only. For remote MCP, pin exact host+port and document auth + expected capabilities."
+  },
+  "allow": [
+    {
+      "name": "local-filesystem",
+      "host": "127.0.0.1",
+      "port": 0,
+      "transport": "stdio",
+      "pin": {
+        "type": "sha256",
+        "value": "TBD"
+      },
+      "reason": "Local-only tools; must be reviewed and pinned before enabling"
+    }
+  ]
+}

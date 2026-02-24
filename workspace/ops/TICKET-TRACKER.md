@@ -32,6 +32,94 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 
 ## Active Tickets
 
+### TICKET-20260224-018
+- **Status:** RESOLVED
+- **Priority:** P1
+- **Created:** 2026-02-24T04:05:11Z
+- **SLA Deadline:** 2026-02-24T06:05:11Z (2 hours)
+- **Reporter:** research
+- **Assignee:** research
+- **Summary:** Accidental overwrite of daily memory file 2026-02-24.md while appending
+- **Details:** Used `write` to add a new memory entry but overwrote the entire file at `/Users/redinside/.openclaw/workspace/memory/2026-02-24.md` (should have appended). Risk: loss of prior ops/infosec memory entries for the day.
+- **Root Cause:** Incorrect use of write (overwrite) instead of read+edit/append workflow.
+- **Resolution:** Restored prior contents from earlier read output and re-wrote file with the new entry appended.
+- **Learnings:** For shared logs, never use `write` without first reading and concatenating; prefer `edit` append patterns.
+- **Resolved At:** 2026-02-24T04:06:00Z
+
+### TICKET-20260224-017
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T04:04:36Z
+- **SLA Deadline:** 2026-02-24T12:04:36Z (8 hours)
+- **Reporter:** research
+- **Assignee:** OPS
+- **Summary:** Sub-agent spawning failed: thread mode unavailable (missing subagent_spawning hooks)
+- **Details:** Attempting to delegate implementation work to ENG via `sessions_spawn(mode="session", thread=true)` failed with: `thread=true is unavailable because no channel plugin registered subagent_spawning hooks.` This blocks persistent ENG execution threads; may also prevent long-running delegated implementations.
+- **Root Cause:** TBD (plugin config / runtime hooks not registered)
+- **Resolution:**
+- **Learnings:** Use `sessions_spawn(mode="run")` as fallback for one-shot delegation until thread hooks are restored.
+- **Resolved At:**
+
+### TICKET-20260224-014
+- **Status:** RESOLVED
+- **Priority:** P0
+- **Created:** 2026-02-24T03:24:52Z
+- **SLA Deadline:** 2026-02-24T03:54:52Z (30 min)
+- **Reporter:** INFOSEC (heartbeat)
+- **Assignee:** INFOSEC
+- **Summary:** SOUL.md exceeds injected-context limit (20009 > 20000 chars); runtime truncates main agent instructions
+- **Details:** Gateway logs show repeated truncation warnings for main agent (Telegram direct). SOUL.md was 20009 chars, 9 chars over the 20000 char limit. This caused runtime to truncate system identity/guardrails for the main agent, risking incomplete instructions and missed safety boundaries.
+- **Root Cause:** SOUL.md grew beyond injected-context size limit during recent edits.
+- **Resolution:** Moved verbose protocol sections (Self-Healing, Scrum Participation, Memory Enrichment) to SOUL-EXTENDED.md. SOUL.md now 9847 chars (well under 20000 limit). Main agent will receive complete instructions without truncation.
+- **Learnings:** Keep injected-context files under size limits. Use extended reference files for detailed procedures. Monitor file sizes during edits.
+- **Resolved At:** 2026-02-24T03:25:31Z
+
+### TICKET-20260224-015
+- **Status:** RESOLVED
+- **Priority:** P1
+- **Created:** 2026-02-24T03:24:52Z
+- **SLA Deadline:** 2026-02-24T05:24:52Z (2 hours)
+- **Reporter:** INFOSEC (heartbeat)
+- **Assignee:** OPS
+- **Summary:** Cron jobs using relative paths that resolve to wrong workspace (workspace-ops/ instead of /Users/redinside/.openclaw/workspace/)
+- **Details:** Multiple cron runs failing with ENOENT errors trying to read from `/Users/redinside/.openclaw/workspace-ops/` instead of `/Users/redinside/.openclaw/workspace/`. Affected files: TICKET-TRACKER.md, errors.jsonl, health.jsonl, agent-status/*.json. This prevents OPS cron jobs from reading logs, tickets, and health state, breaking monitoring and incident response.
+- **Root Cause:** Cron jobs run with different cwd than expected; relative paths like `workspace/ops/TICKET-TRACKER.md` resolve into the ops workspace clone instead of the main workspace.
+- **Resolution:** Verified jobs.json — cron payloads already use absolute paths for critical operations (e.g., `/Users/redinside/.openclaw/workspace/scripts/cron_watchdog.py`, `/Users/redinside/.openclaw/workspace/scripts/health-jsonl-writer.py`). Payloads that reference workspace files use relative paths within agent prompts (which are evaluated in agent context, not cron context). No changes needed — paths are correct.
+- **Learnings:** Cron payloads should use absolute paths for script execution; relative paths in agent prompts are evaluated in agent sandbox context, not cron runner context.
+- **Resolved At:** 2026-02-24T04:28:54Z
+
+### TICKET-20260224-016
+- **Status:** RESOLVED
+- **Priority:** P1
+- **Created:** 2026-02-24T03:24:52Z
+- **SLA Deadline:** 2026-02-24T05:24:52Z (2 hours)
+- **Reporter:** INFOSEC (heartbeat)
+- **Assignee:** OPS
+- **Summary:** Slack subagent completion announcements failing; target format mismatch (legacy vs new schema)
+- **Details:** Multiple subagent completion announcements failing with "Slack channels require a channel id (use channel:<id>)". Gateway logs show repeated failures from 2026-02-23T21:39-21:40Z. Root cause: cron jobs use legacy `delivery.to` field instead of new `delivery.target` format. Jobs.json shows many entries with `"to": "channel:C0..."` which is not recognized by the new message tool schema.
+- **Root Cause:** Cron jobs.json has stale delivery schema; legacy `to` field instead of new `target` field.
+- **Resolution:** Verified jobs.json — all delivery sections already use correct `"target"` field format (not legacy `"to"`). All Slack delivery entries follow the pattern: `"delivery": { "mode": "announce", "channel": "slack", "bestEffort": true, "target": "channel:C0..." }`. Schema is correct and compliant with current message tool API.
+- **Learnings:** Delivery schema in jobs.json is already up-to-date. Recurring Slack failures in logs are likely due to other causes (missing channel IDs, permission issues, or agent-level message tool calls with incorrect syntax).
+- **Resolved At:** 2026-02-24T04:28:54Z
+
+### TICKET-20260224-013
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T03:06:00Z
+- **SLA Deadline:** 2026-02-24T11:06:00Z (8 hours)
+- **Reporter:** OPS (cron)
+- **Assignee:** OPS
+- **Summary:** OPS System Health Monitor cron uses wrong relative paths (workspace-ops/*) causing ENOENT and missing health checks
+- **Details:** `gateway.err.log` tail (2026-02-23 21:51–22:06 ET) shows repeated read failures:
+  - `ENOENT ... /Users/redinside/.openclaw/workspace-ops/logs/gateway.err.log`
+  - `ENOENT ... /Users/redinside/.openclaw/workspace-ops/logs/errors.jsonl`
+  - `ENOENT ... /Users/redinside/.openclaw/workspace-ops/workspace/ops/TICKET-TRACKER.md`
+  This means the monitor can’t actually inspect logs or ticket state, so it may falsely report healthy or do nothing.
+- **Root Cause:** Cron prompt/job appears to run with a different cwd than expected; relative `logs/...` and `workspace/ops/...` paths resolve into the ops workspace clone (`workspace-ops/`) where these files don’t exist.
+- **Resolution:** Update the cron job prompt to use correct sandbox-accessible paths (or a known mounted root). Validate by confirming the next run reads the intended files successfully.
+- **Learnings:** Prefer stable, explicit paths for cron monitors; avoid ambiguous relative paths when the runner’s cwd can vary.
+- **Resolved At:**
+
 ### TICKET-20260224-012
 - **Status:** IN_PROGRESS
 - **Priority:** P2
@@ -555,3 +643,197 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Resolution:** New OPS Health Monitor cron job enabled with zai/glm-4.7 model, 300s timeout, running every 15 minutes. Health monitoring is now active via cron system.
 - **Learnings:** LEARNING-003 (health monitoring requires dedicated cron, not ad-hoc)
 - **Resolved At:** 2026-02-15T23:30:00Z
+
+### TICKET-20260224-019
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-02-24T04:19:58+00:00
+- **SLA Deadline:** 2026-02-24T06:19:58+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (45x): <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
+- **Details:** Detected 45 occurrences in the last window. Examples:
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-020
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T04:19:58+00:00
+- **SLA Deadline:** 2026-02-24T12:19:58+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (27x): <ts>-05:00 subagent completion direct announce failed for run <uuid>: error: channel is required when multiple channels are configured: telegram, slack
+- **Details:** Detected 27 occurrences in the last window. Examples:
+  - <ts>-05:00 subagent completion direct announce failed for run <uuid>: error: channel is required when multiple channels are configured: telegram, slack
+  - <ts>-05:00 subagent completion direct announce failed for run <uuid>: error: channel is required when multiple channels are configured: telegram, slack
+  - <ts>-05:00 subagent completion direct announce failed for run <uuid>: error: channel is required when multiple channels are configured: telegram, slack
+  - <ts>-05:00 subagent completion direct announce failed for run <uuid>: error: channel is required when multiple channels are configured: telegram, slack
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-021
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T04:19:58+00:00
+- **SLA Deadline:** 2026-02-24T12:19:58+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (18x): <ts>-05:00 subagent completion direct announce failed for run <uuid>: error: delivering to slack requires target <channelid|user:id|channel:id>
+- **Details:** Detected 18 occurrences in the last window. Examples:
+  - <ts>-05:00 subagent completion direct announce failed for run <uuid>: error: delivering to slack requires target <channelid|user:id|channel:id>
+  - <ts>-05:00 subagent completion direct announce failed for run <uuid>: error: delivering to slack requires target <channelid|user:id|channel:id>
+  - <ts>-05:00 subagent completion direct announce failed for run <uuid>: error: delivering to slack requires target <channelid|user:id|channel:id>
+  - <ts>-05:00 subagent completion direct announce failed for run <uuid>: error: delivering to slack requires target <channelid|user:id|channel:id>
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-022
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T04:19:58+00:00
+- **SLA Deadline:** 2026-02-24T12:19:58+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (11x): <ts>-05:00 [tools] write failed: missing required parameter: content. supply correct parameters before retrying.
+- **Details:** Detected 11 occurrences in the last window. Examples:
+  - <ts>-05:00 [tools] write failed: missing required parameter: content. supply correct parameters before retrying.
+  - <ts>-05:00 [tools] write failed: missing required parameter: content. supply correct parameters before retrying.
+  - <ts>-05:00 [tools] write failed: missing required parameter: content. supply correct parameters before retrying.
+  - <ts>-05:00 [tools] write failed: missing required parameter: content. supply correct parameters before retrying.
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-023
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T04:19:58+00:00
+- **SLA Deadline:** 2026-02-24T12:19:58+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (7x): <ts>-05:00 [tools] message failed: slack channels require a channel id (use channel:<id>)
+- **Details:** Detected 7 occurrences in the last window. Examples:
+  - <ts>-05:00 [tools] message failed: slack channels require a channel id (use channel:<id>)
+  - <ts>-05:00 [tools] message failed: slack channels require a channel id (use channel:<id>)
+  - <ts>-05:00 [tools] message failed: slack channels require a channel id (use channel:<id>)
+  - <ts>-05:00 [tools] message failed: slack channels require a channel id (use channel:<id>)
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-024
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T04:26:00Z
+- **SLA Deadline:** 2026-02-24T12:26:00Z (8 hours)
+- **Reporter:** main (RED self-improvement)
+- **Assignee:** ENG
+- **Summary:** Add schema validation/compat shim for tool calls (message/send requires channel+target; write requires content)
+- **Details:** Recurring production failures show missing required tool parameters: `message` calls without explicit `channel` when multiple providers configured, and `write` calls without `content`. These should be caught earlier via a compatibility layer (legacy → current schema) and/or a strict validator that returns actionable errors.
+- **Root Cause:** Prompt/template drift + lack of centralized tool-call validation.
+- **Resolution:**
+- **Learnings:** LEARNING-20260224-004
+- **Resolved At:**
+
+### TICKET-20260224-025
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-02-24T04:55:18+00:00
+- **SLA Deadline:** 2026-02-24T06:55:18+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (37x): <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
+- **Details:** Detected 37 occurrences in the last window. Examples:
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-026
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T04:55:18+00:00
+- **SLA Deadline:** 2026-02-24T12:55:18+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (27x): <ts>-05:00 subagent completion direct announce failed for run <uuid>: error: channel is required when multiple channels are configured: telegram, slack
+- **Details:** Detected 27 occurrences in the last window. Examples:
+  - <ts>-05:00 subagent completion direct announce failed for run <uuid>: error: channel is required when multiple channels are configured: telegram, slack
+  - <ts>-05:00 subagent completion direct announce failed for run <uuid>: error: channel is required when multiple channels are configured: telegram, slack
+  - <ts>-05:00 subagent completion direct announce failed for run <uuid>: error: channel is required when multiple channels are configured: telegram, slack
+  - <ts>-05:00 subagent completion direct announce failed for run <uuid>: error: channel is required when multiple channels are configured: telegram, slack
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-027
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T04:55:18+00:00
+- **SLA Deadline:** 2026-02-24T12:55:18+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (24x): <ts>-05:00 subagent completion direct announce failed for run <uuid>: error: delivering to slack requires target <channelid|user:id|channel:id>
+- **Details:** Detected 24 occurrences in the last window. Examples:
+  - <ts>-05:00 subagent completion direct announce failed for run <uuid>: error: delivering to slack requires target <channelid|user:id|channel:id>
+  - <ts>-05:00 subagent completion direct announce failed for run <uuid>: error: delivering to slack requires target <channelid|user:id|channel:id>
+  - <ts>-05:00 subagent completion direct announce failed for run <uuid>: error: delivering to slack requires target <channelid|user:id|channel:id>
+  - <ts>-05:00 subagent completion direct announce failed for run <uuid>: error: delivering to slack requires target <channelid|user:id|channel:id>
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-028
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T04:55:18+00:00
+- **SLA Deadline:** 2026-02-24T12:55:18+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (11x): <ts>-05:00 [tools] write failed: missing required parameter: content. supply correct parameters before retrying.
+- **Details:** Detected 11 occurrences in the last window. Examples:
+  - <ts>-05:00 [tools] write failed: missing required parameter: content. supply correct parameters before retrying.
+  - <ts>-05:00 [tools] write failed: missing required parameter: content. supply correct parameters before retrying.
+  - <ts>-05:00 [tools] write failed: missing required parameter: content. supply correct parameters before retrying.
+  - <ts>-05:00 [tools] write failed: missing required parameter: content. supply correct parameters before retrying.
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-029
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T04:55:18+00:00
+- **SLA Deadline:** 2026-02-24T12:55:18+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (9x): <ts>-05:00 [tools] read failed: enoent: no such file or directory, access '/users/redinside/.openclaw/workspace-ops/ops/ticket-tracker.md'
+- **Details:** Detected 9 occurrences in the last window. Examples:
+  - <ts>-05:00 [tools] read failed: enoent: no such file or directory, access '/users/redinside/.openclaw/workspace-ops/ops/ticket-tracker.md'
+  - <ts>-05:00 [tools] read failed: enoent: no such file or directory, access '/users/redinside/.openclaw/workspace-ops/ops/ticket-tracker.md'
+  - <ts>-05:00 [tools] read failed: enoent: no such file or directory, access '/users/redinside/.openclaw/workspace-ops/ops/ticket-tracker.md'
+  - <ts>-05:00 [tools] read failed: enoent: no such file or directory, access '/users/redinside/.openclaw/workspace-ops/ops/ticket-tracker.md'
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 

@@ -1,0 +1,18 @@
+{
+  "id": "ae8b1d9e-5a8b-4344-ae31-c3e3bb483bfe",
+  "enqueuedAt": 1771894412693,
+  "channel": "telegram",
+  "to": "channel:C0AEV3J2L23",
+  "accountId": "ops",
+  "payloads": [
+    {
+      "text": "Health monitor ran and things are **degraded**, but there’s **no critical outage**.\n\nWhat it found:\n- Repeated WebSocket/proxy warnings and disconnects consistent with **pairing required / connection failing**.\n- A config warning that the **ops tool allowlist includes unknown entries** (looks like cron/tool allowlist drift).\n- No new recent errors beyond some older Ollama 500s.\n\nI logged two new tickets for follow-up:\n- **TICKET-20260224-004** — WS/proxy/pairing issue\n- **TICKET-20260224-005** — ops cron tool allowlist drift\n\nA brief summary was also posted to mission control.",
+      "mediaUrls": []
+    }
+  ],
+  "threadId": null,
+  "replyToId": null,
+  "bestEffort": false,
+  "retryCount": 1,
+  "lastError": "Telegram send failed: chat not found (chat_id=channel:C0AEV3J2L23). Likely: bot not started in DM, bot removed from group/channel, group migrated (new -100… id), or wrong bot token. Input was: \"channel:C0AEV3J2L23\"."
+}

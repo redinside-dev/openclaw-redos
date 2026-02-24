@@ -452,6 +452,54 @@ Contains `deviceId`, `publicKeyPem`, `privateKeyPem`. The device ID is derived a
 
 ## 8. Authentication & Security
 
+### Security overview
+
+- **Gateway token:** All three locations must match (§8 below). 256-bit token; bind to localhost in production.
+- **Approval gates:** High-risk actions (deploy, payments, destructive file ops, prod DB) require explicit human approval. See `workspace/SOUL.md` § Approval gates and `workspace/skills/tool-governance/SKILL.md`.
+- **Sandbox:** Agents using small Ollama models (hatake, finance) have sandbox + web tools denied. See Production Readiness Checklist (§12).
+- **Budget guardrails:** Spending limits and approval-above-threshold in SOUL; cost-tracker writes to `workspace/logs/cost-events.jsonl`.
+- **n8n credential isolation:** For sensitive third-party APIs, route through n8n so agents never see credentials. See "n8n credential isolation" in §16.
+- **Skill audit:** Review each skill for no hardcoded secrets, minimal permissions, and safe exec patterns. See "Skill security audit" below.
+
+### Skill security audit
+
+Before enabling or trusting a skill, verify: (1) no hardcoded API keys or secrets, (2) minimal tool/permission scope, (3) no unsafe shell/exec patterns (e.g. arbitrary user input in exec). Update the "Review status" when done.
+
+| Skill | Review status |
+|-------|----------------|
+| a2a-transparency | Pending |
+| agent-autonomy-kit | Pending |
+| ai-humanizer | Pending |
+| anurag-briefs | Pending |
+| cloud-code-bridge | Pending |
+| clawdhub | Pending |
+| competitive-intelligence | Pending |
+| cost-tracker | Pending |
+| eng-coding | Pending |
+| enhanced-tools | Pending |
+| exa-mcp | Pending |
+| hatake-parser | Pending |
+| holdings-analyzer | Pending |
+| mission-control-telegram | Pending |
+| model-usage | Pending |
+| mcp-context7 | Pending |
+| prompt-engineering | Pending |
+| proactive-agent-1-2-4 | Pending |
+| reflect-learn | Pending |
+| research | Pending |
+| retry-cascade | Pending |
+| self-healing-protocol | Pending |
+| smart-router | Pending |
+| status-reporter | Pending |
+| summarize | Pending |
+| task-runner | Pending |
+| tool-governance | Pending |
+| web-search | Pending |
+| x-mirror | Pending |
+| 9router-setup | Pending |
+
+(Total: 30 skills. Run from `workspace/skills/*/SKILL.md`; add new rows here when skills are added.)
+
 ### How the Gateway Token Works
 
 ```
@@ -697,6 +745,10 @@ tail -f ~/.openclaw/logs/gateway.log
 tail -f ~/.openclaw/logs/gateway.err.log
 ```
 
+### Verify cost and routing logs (data-driven improvement)
+
+Cost-tracker and smart-router skills require agents to append to `workspace/logs/cost-events.jsonl` and `workspace/logs/routing-decisions.jsonl` respectively. Periodically verify these files exist and have recent lines (e.g. `wc -l workspace/logs/cost-events.jsonl` and `tail -1 workspace/logs/routing-decisions.jsonl`). If empty, agents may not be following the MANDATORY write instructions in those skills; reinforce in SOUL or agent prompts.
+
 ### Check All Systems
 
 ```bash
@@ -774,6 +826,46 @@ openclaw devices list
 # Revoke a device
 openclaw devices revoke <deviceId>
 ```
+
+### Start Mission Control dashboard (launchd)
+
+To run the dashboard on port 19000 and auto-start on reboot:
+
+```bash
+# One-time: install plist (replace YOUR_USERNAME in the plist with your macOS username)
+cp ~/.openclaw/ai.openclaw.dashboard.plist.example ~/Library/LaunchAgents/ai.openclaw.dashboard.plist
+# Edit the plist: replace all /Users/YOUR_USERNAME with your home path, then:
+launchctl load ~/Library/LaunchAgents/ai.openclaw.dashboard.plist
+
+# Unload (stop)
+launchctl unload ~/Library/LaunchAgents/ai.openclaw.dashboard.plist
+```
+
+Dashboard logs: `~/.openclaw/logs/dashboard.log`, `dashboard.err.log`.
+
+### Merge feature/lean-a2a-reset and Slack bootstrap (procedure)
+
+When bringing the lean-a2a-reset work into main and finishing team channels:
+
+1. **Merge branch:** `git checkout main && git merge feature/lean-a2a-reset` (resolve conflicts if any). See §20 for what the branch contains (cron fixes, SOUL rewrite, slack-channels.json stub, dashboard Team tab, A2A delegation from routing-decisions.jsonl).
+2. **Slack bootstrap (if not already done):** Ensure per-agent Slack channels exist (#redos-red, #redos-zen, #redos-eng, #redos-research, #redos-finance, #redos-ops, #redos-infosec). Send RED a Telegram message: "Create Slack channels #redos-red through #redos-infosec and write each channel ID to workspace/config/slack-channels.json with keys red, zen, eng, research, finance, ops, infosec." If `workspace/config/slack-channels.json` already has `_status: "live"` and all keys, bootstrap is done.
+3. **Morning verification:** After merge, confirm 7/7 standup crons fire, scrum post runs, and CEO Daily Summary delivers as expected (check cron last run times and delivery queue).
+
+### Production Readiness Checklist (run at each release)
+
+Before treating the deployment as production-ready, verify:
+
+| Check | How to verify |
+|-------|----------------|
+| **Gateway token in three places** | `openclaw.json` → `gateway.auth.token`; plist → `OPENCLAW_GATEWAY_TOKEN`; shell → `echo $OPENCLAW_GATEWAY_TOKEN`. All three must match. See §8. |
+| **Bind to localhost only** | Gateway listens on `127.0.0.1:18789` (not `0.0.0.0`). Use SSH tunnel or reverse proxy for remote access. |
+| **Control UI in production** | If exposing gateway remotely, disable or restrict Control UI (http://127.0.0.1:18789/) per OpenClaw prod guidance. |
+| **Non-root user** | Gateway and dashboard run as a dedicated non-root user (e.g. Mac user account, not root). |
+| **Audit logging** | Gateway and app logs are written (e.g. `~/.openclaw/logs/gateway.log`, `gateway.err.log`). Retain and rotate as needed. |
+| **Sandbox for small models** | Agents using `ollama/qwen2.5-coder:7b` or `ollama/llama3.1:8b` have `sandbox.mode: "all"` and `tools.deny` including `group:web`/`browser` where appropriate (see openclaw.json hatake/finance). |
+| **Approval gates** | SOUL.md § Approval gates and tool-governance skill define high-risk actions requiring human approval; agents must not execute those without explicit yes. |
+
+After any config or token change, restart the gateway and run `openclaw status` (and `openclaw status --deep` if available).
 
 ---
 
@@ -1023,11 +1115,11 @@ security: Security-related change
 | # | Task | Priority | Notes |
 |---|---|---|---|
 | 1 | **Implement RedOS MCP servers** | HIGH | Build custom MCP servers on top of OpenClaw (not a parallel gateway). Skeleton exists at `~/openclaw-smart/` with 5 MCP servers planned |
-| 2 | **Security: sandbox small models** | HIGH | `openclaw status` shows CRITICAL: `ollama/qwen2.5-coder:7b` and `ollama/llama3.1:8b` need sandboxing enabled OR web tools disabled. Fix: `agents.defaults.sandbox.mode = "all"` and `tools.deny = ["group:web","browser"]` |
+| 2 | **Security: sandbox small models** | DONE (2026-02-24) | Per-agent sandbox applied: `hatake` and `finance` have `sandbox: { mode: "all", scope: "agent" }` and `tools.deny: ["group:web", "browser"]` in openclaw.json. Run `openclaw status` to confirm no CRITICAL. |
 | 3 | **XAI API key** | MEDIUM | `XAI_API_KEY` is still set to placeholder `<YOUR_XAI_KEY>` — update if xAI (Grok) access needed |
 | 4 | **Test Telegram bots end-to-end** | MEDIUM | Verify all 8 bots respond correctly after the token fix |
 | 5 | **Automate device-auth sync on rotate** | LOW | `devices rotate` should auto-sync `device-auth.json` |
-| 6 | **Put dashboard in launchd** | LOW | Dashboard process (port 19000) is started manually; add a LaunchAgent plist so it auto-starts on reboot |
+| 6 | **Put dashboard in launchd** | DONE (2026-02-24) | Use `ai.openclaw.dashboard.plist.example`: copy to `~/Library/LaunchAgents/ai.openclaw.dashboard.plist`, replace YOUR_USERNAME, then `launchctl load ~/Library/LaunchAgents/ai.openclaw.dashboard.plist`. See plist comments. |
 | 7 | **Verify Slack socket-mode channel replies live** | LOW | CLI deliver confirmed working; verify real socket-mode events (actual Slack messages) also trigger replies correctly |
 | 8 | **Cloudflare named tunnel for dashboard** | LOW | Quick tunnel URL changes on every restart; set up a named Cloudflare tunnel for stable URL |
 
@@ -1038,6 +1130,27 @@ security: Security-related change
 - **Add new local models**: `gpt-oss:20b`, `minicpm`, `glm-4.7-flash` are available in Ollama — register them in `openclaw.json` Ollama provider
 - **Heartbeat for HATAKE**: Currently disabled (`heartbeat: disabled`) — can enable for keepalive
 - **Node service**: LaunchAgent not installed — consider for distributed/remote agent hosting
+
+### n8n credential isolation (recommended for sensitive APIs)
+
+For high-risk or third-party API calls (payments, CRM, email, social, internal tools), **do not** give agents direct API keys or credentials. Instead:
+
+1. **Route through n8n (or similar):** Run n8n workflows that hold credentials; expose a webhook or HTTP endpoint that the agent can call with a minimal payload (e.g. "send this to Slack", "create calendar event").
+2. **Agent only sends intent:** The agent calls the webhook with task parameters; n8n executes the real API call using stored credentials. The agent never sees tokens or secrets.
+3. **Audit:** All sensitive actions go through n8n; lock and log workflow executions. Review skill source before enabling any skill that calls external webhooks.
+
+Reference: Community best practice (awesome-openclaw-usecases, clawdocs): "Delegate API calls to n8n workflows via webhooks — the agent never touches credentials."
+
+### DevOps autopilot (3AM error autopilot) — outline
+
+Optional integration to match community "3AM error autopilot" use case (GitHub Actions / Sentry → diagnostic summary and optional auto-PR):
+
+1. **Incoming webhook:** Expose an HTTP endpoint (e.g. on Mission Control or a small Express server) that accepts GitHub Actions workflow failure or Sentry event payloads. Validate secret/token; write payload to `workspace/ops/incoming-webhooks/{source}-{id}.json` (or queue).
+2. **OPS consumer:** Cron or event-triggered job: OPS agent reads latest webhook payload(s), fetches logs (e.g. `gh run view`, Sentry/Loki API), parses errors, generates a short diagnostic summary (root cause, suggested fix, links to PR/run).
+3. **Delivery:** Send summary to the developer (Slack DM, Telegram, or email) with direct links to the failing run/issue. Optionally: OPS spawns ENG with "create a fix PR for this failure" and ENG opens a draft PR.
+4. **Security:** Webhook endpoint must validate signature (GitHub `X-Hub-Signature-256`, Sentry auth). Do not expose raw credentials in prompts; use env or vault for API keys.
+
+Reference: clawdocs.org "20 real use cases" — 3AM Error Auto-Pilot (GitHub Actions + Sentry + Loki → diagnostic → Slack/Telegram).
 
 ---
 

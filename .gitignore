@@ -212,6 +212,25 @@ dashboard/data/
 dashboard/*.jsonl
 
 # ==========================================
+# SLACK CONFIG & TEST FILES (contain tokens)
+# ==========================================
+config/slack.json
+config/slack*.json
+workspace/slack*.json
+workspace/slack*.py
+workspace/test_slack*.py
+workspace/test_slack*.json
+workspace/slack_activation_evidence.json
+workspace/slack_activation_test.py
+workspace/slack_config_test.py
+workspace/slack_connection_test.json
+workspace/slack_success_evidence.json
+workspace/slack_test_message.py
+workspace/test_slack.py
+workspace/test_slack_connection.py
+workspace/integration_test_results.json
+
+# ==========================================
 # SAFE TO COMMIT (These are OK)
 # ==========================================
 # .env.example - Template file

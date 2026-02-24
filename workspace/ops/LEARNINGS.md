@@ -20,6 +20,16 @@ repeating mistakes and to build institutional knowledge.
 
 ## Learnings
 
+### LEARNING-20260224-007
+- **Date:** 2026-02-24T03:06:00Z
+- **Source Ticket:** TICKET-20260224-013
+- **Agent:** OPS
+- **Category:** workflow
+- **Summary:** Cron monitors should not rely on relative paths; runner cwd differs (e.g., workspace-ops/) causing silent ENOENT and missed checks
+- **Details:** System health monitor attempted to read `logs/gateway.err.log`, `logs/errors.jsonl`, and `workspace/ops/TICKET-TRACKER.md` via relative paths. In cron context, these resolved under `/Users/redinside/.openclaw/workspace-ops/*` and failed with ENOENT, preventing monitoring.
+- **Prevention:** Use a single canonical path strategy for cron: either (a) sandbox-relative paths guaranteed by mounts, or (b) a dedicated in-sandbox digest file written by the gateway/host that cron can always read.
+- **Applied To:** Ticket opened (TICKET-20260224-013)
+
 ### LEARNING-20260224-006
 - **Date:** 2026-02-24T01:54:00Z
 - **Source Ticket:** TICKET-20260224-009
@@ -460,5 +470,17 @@ repeating mistakes and to build institutional knowledge.
 - **Prevention:**
   1) Add a gateway-side compatibility shim mapping `{action:"sendMessage", to:"channel:C0..."}` → `{action:"send", channel:"slack", target:"channel:C0..."}`.
   2) Add a prompt/template linter in CI that rejects legacy Slack fields (`sendMessage`, `to=`).
+- **Applied To:** LEARNINGS.md (this entry); ticket opened
+
+### LEARNING-20260224-004
+- **Date:** 2026-02-24T04:25:00Z
+- **Source Ticket:** TICKET-20260224-020 / TICKET-20260224-022 (patterns)
+- **Agent:** main (RED self-improvement)
+- **Category:** tool
+- **Summary:** When multiple channel plugins are configured, `message.send` must include `channel` (provider) + `target`; also validate required tool params (`write.content`) before calling tools
+- **Details:** Recent recurring failures include: (1) subagent completion announce failing with `channel is required when multiple channels are configured: telegram, slack` and (2) tool calls failing with `write failed: missing required parameter: content`. Both are *schema/validation* issues: the caller is omitting required fields.
+- **Prevention:**
+  1) Update all announcement/prompt templates to always specify `message(action="send", channel="slack", target="channel:<id>")` (or `channel="telegram"`, etc.). Never rely on implicit channel selection.
+  2) Add a lightweight prompt linter (or gateway-side tool wrapper) that rejects tool calls missing required fields and emits a single actionable error message (e.g., "write requires content" / "message.send requires channel+target").
 - **Applied To:** LEARNINGS.md (this entry); ticket opened
 

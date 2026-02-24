@@ -1,0 +1,31 @@
+{
+  "agent": "infosec",
+  "ts_local": "2026-02-23 22:47:46 EST",
+  "ts_utc": "2026-02-24T03:47:46Z",
+  "cron_id": "6ecfa329-52e3-4a09-8330-2d175a374c00",
+  "self_check": {
+    "exec_ok": true,
+    "read_ok": true,
+    "write_ok": true,
+    "rw_probe_path": ".pi/infosec_exec_rw_check.txt",
+    "notes": [
+      "ripgrep (rg) not installed; secret scans use grep fallback"
+    ]
+  },
+  "task_queue": {
+    "active_subagents": 0,
+    "recent_subagents_24h": 0,
+    "other_sessions_active_24h": [
+      "Cron: INFOSEC Meta Self-Check"
+    ]
+  },
+  "security_audit": {
+    "ran": true,
+    "audit_log": "security/audit_log/cron_meta_audit_2026-02-24T034746Z.md",
+    "findings_summary": [
+      "No key material / .env files detected (maxdepth 5).",
+      "No plaintext secret matches found outside audit logs (heuristic grep scan; truncated to 120 hits; none returned).",
+      "Listening ports enumerated; see audit log for details."
+    ]
+  }
+}

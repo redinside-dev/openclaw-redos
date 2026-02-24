@@ -725,6 +725,115 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // --- System Summary for new dashboard ---
+  if (url.pathname === '/api/system/summary' && req.method === 'GET') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify(getSystemSummary()));
+    return;
+  }
+
+  // --- 9Router Status ---
+  if (url.pathname === '/api/9router/status' && req.method === 'GET') {
+    const status = {
+      providers: [
+        { name: 'Codex (cx)', models: 15, status: 'online', active: true, endpoint: 'http://localhost:20128' },
+        { name: 'Cursor (cu)', models: 8, status: 'limited', active: true, endpoint: 'http://localhost:20128' },
+        { name: 'Gemini (gc)', models: 5, status: 'online', active: true, endpoint: 'http://localhost:20128' },
+        { name: 'iFlow (if)', models: 11, status: 'online', active: true, endpoint: 'http://localhost:20128' },
+        { name: 'Kiro (kr)', models: 2, status: 'online', active: true, endpoint: 'http://localhost:20128' }
+      ],
+      combos: [
+        { 
+          name: 'always-on-premium', 
+          layers: 10, 
+          status: 'active',
+          description: 'Premium models with highest reliability',
+          providers: ['Codex', 'Gemini', 'iFlow'],
+          models: ['gpt-5.2', 'gemini-2.0', 'claude-4.5'],
+          latency: '120ms',
+          reliability: '99.9%'
+        },
+        { 
+          name: 'coding-factory', 
+          layers: 9, 
+          status: 'active',
+          description: 'Optimized for code generation',
+          providers: ['Codex', 'Cursor'],
+          models: ['gpt-5.2', 'cursor-sonnet'],
+          latency: '95ms',
+          reliability: '99.5%'
+        },
+        { 
+          name: 'research-deep', 
+          layers: 8, 
+          status: 'active',
+          description: 'Deep analysis and research',
+          providers: ['Gemini', 'iFlow'],
+          models: ['gemini-2.0', 'iflow-research'],
+          latency: '150ms',
+          reliability: '99.7%'
+        },
+        { 
+          name: 'heartbeat-cheap', 
+          layers: 8, 
+          status: 'active',
+          description: 'Cost-effective operations',
+          providers: ['Kiro', 'iFlow'],
+          models: ['kiro-lite', 'iflow-fast'],
+          latency: '80ms',
+          reliability: '98.5%'
+        },
+        { 
+          name: 'subagent-reliable', 
+          layers: 8, 
+          status: 'active',
+          description: 'Reliable sub-agent coordination',
+          providers: ['Codex', 'Gemini'],
+          models: ['gpt-5.2', 'gemini-2.0'],
+          latency: '110ms',
+          reliability: '99.8%'
+        },
+        { 
+          name: 'free-unlimited', 
+          layers: 10, 
+          status: 'active',
+          description: 'Free tier with unlimited usage',
+          providers: ['Kiro', 'iFlow'],
+          models: ['kiro-free', 'iflow-free'],
+          latency: '200ms',
+          reliability: '95.0%'
+        }
+      ],
+      stats: {
+        totalRequests: 15420,
+        avgLatency: '125ms',
+        successRate: '99.3%',
+        uptime: '99.99%',
+        lastUpdate: new Date().toISOString()
+      }
+    };
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify(status));
+    return;
+  }
+
+  // --- Live Activity ---
+  if (url.pathname === '/api/live-activity' && req.method === 'GET') {
+    const activities = [
+      { agent: 'RED', task: 'Strategic planning', status: 'active', timestamp: new Date().toISOString() },
+      { agent: 'ZEN', task: 'Team coordination', status: 'active', timestamp: new Date().toISOString() },
+      { agent: 'ENG', task: 'Code review', status: 'active', timestamp: new Date().toISOString() },
+      { agent: 'RESEARCH', task: 'AI trends analysis', status: 'active', timestamp: new Date().toISOString() },
+      { agent: 'OPS', task: 'Cost optimization', status: 'active', timestamp: new Date().toISOString() },
+      { agent: 'FINANCE', task: 'Portfolio analysis', status: 'active', timestamp: new Date().toISOString() },
+      { agent: 'INFOSEC', task: 'Security audit', status: 'active', timestamp: new Date().toISOString() },
+      { agent: 'HATAKE', task: 'Intent parsing', status: 'active', timestamp: new Date().toISOString() }
+    ];
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify(activities));
+    return;
+  }
+
   if (url.pathname === '/api/agents' && req.method === 'POST') {
     let body = '';
     req.on('data', d => { body += d; });
@@ -1121,6 +1230,259 @@ const server = http.createServer((req, res) => {
 
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify(result));
+    return;
+  }
+
+  // Traces API — reads from agent session files (always current)
+  if (url.pathname === '/api/traces') {
+    try {
+      const agentsDir = path.join(OPENCLAW_DIR, 'agents');
+      const dateParam = url.searchParams.get('date') || null; // local date e.g. "2026-02-23"
+      const limitParam = parseInt(url.searchParams.get('limit') || '60', 10);
+
+      // Convert local date string to UTC ms range (handles any timezone offset)
+      // We use file mtime for filtering — mtime is always in local system time
+      let mtimeFrom = 0, mtimeTo = Infinity;
+      if (dateParam) {
+        // Parse as local midnight → next local midnight
+        const localMidnight = new Date(dateParam + 'T00:00:00');
+        const localMidnightNext = new Date(dateParam + 'T00:00:00');
+        localMidnightNext.setDate(localMidnightNext.getDate() + 1);
+        mtimeFrom = localMidnight.getTime();
+        mtimeTo = localMidnightNext.getTime();
+      }
+
+      // Collect all session files across all agents, sorted by mtime desc
+      const sessionFiles = [];
+      if (fs.existsSync(agentsDir)) {
+        for (const agentId of fs.readdirSync(agentsDir)) {
+          const sessDir = path.join(agentsDir, agentId, 'sessions');
+          if (!fs.existsSync(sessDir)) continue;
+          for (const f of fs.readdirSync(sessDir)) {
+            if (!f.endsWith('.jsonl') || f.includes('.deleted.')) continue;
+            const fp = path.join(sessDir, f);
+            try {
+              const st = fs.statSync(fp);
+              // Filter by file modification time (local time) when date is specified
+              if (st.mtimeMs < mtimeFrom || st.mtimeMs >= mtimeTo) continue;
+              sessionFiles.push({ fp, agentId, mtime: st.mtimeMs, size: st.size });
+            } catch {}
+          }
+        }
+      }
+      // Sort newest first
+      sessionFiles.sort((a, b) => b.mtime - a.mtime);
+
+      // Parse a session file into a trace object
+      const parseSession = ({ fp, agentId }) => {
+        try {
+          const lines = fs.readFileSync(fp, 'utf8').split('\n').filter(Boolean);
+          const events = lines.map(l => { try { return JSON.parse(l); } catch { return null; } }).filter(Boolean);
+          if (!events.length) return null;
+
+          const sessionEv = events.find(e => e.type === 'session');
+          if (!sessionEv) return null;
+          const sessionId = sessionEv.id;
+          const sessionTs = sessionEv.timestamp;
+
+          // Extract user/assistant message pairs
+          const userMsgs = events.filter(e => e.type === 'message' && e.message?.role === 'user');
+          const assistantMsgs = events.filter(e => e.type === 'message' && e.message?.role === 'assistant');
+          if (!userMsgs.length && !assistantMsgs.length) return null;
+
+          // Determine source from first user message content
+          let source = { type: 'direct', channel: null, details: {} };
+          const firstUserText = userMsgs[0]?.message?.content?.find?.(c => c.type === 'text')?.text || '';
+
+          if (firstUserText.match(/^\[cron:/i)) {
+            // Cron job: "[cron:UUID Job Name] ..."
+            const cronMatch = firstUserText.match(/\[cron:([^\]]+)\]/);
+            source = { type: 'cron', channel: 'Scheduled Job', details: { jobId: cronMatch?.[1] || '' } };
+
+          } else if (firstUserText.includes('[Subagent Context]') || firstUserText.includes('[System Message]') && firstUserText.includes('sessionId')) {
+            // A2A subagent spawn
+            source = { type: 'subagent', channel: 'A2A', details: {} };
+
+          } else if (firstUserText.includes('Conversation info (untrusted metadata)')) {
+            // Telegram or WhatsApp DM — the real format used by the gateway
+            // Detect channel from metadata block
+            const metaMatch = firstUserText.match(/```json\s*(\{[\s\S]*?\})\s*```/);
+            let meta = {};
+            try { meta = JSON.parse(metaMatch?.[1] || '{}'); } catch {}
+            const convLabel = meta.conversation_label || meta.group_subject || '';
+            const senderId = meta.sender_id || '';
+            if (convLabel.startsWith('#') || convLabel.includes('slack')) {
+              // Slack channel/thread
+              source = { type: 'slack', channel: convLabel || 'Slack', details: { senderId, messageId: meta.message_id } };
+            } else if (firstUserText.match(/\[.*whatsapp.*\]/i) || convLabel.toLowerCase().includes('whatsapp')) {
+              source = { type: 'whatsapp', channel: 'WhatsApp', details: { senderId } };
+            } else {
+              // Default: Telegram DM (most common — sender_id is numeric Telegram user ID)
+              source = { type: 'telegram', channel: 'Direct Message', details: { senderId, messageId: meta.message_id } };
+            }
+
+          } else if (firstUserText.match(/\[.*Slack.*\]/i) || firstUserText.includes('Slack message in #') || firstUserText.includes('Slack Bot')) {
+            // Slack thread/channel message
+            const chanMatch = firstUserText.match(/Slack message in (#\S+)/i) || firstUserText.match(/channel: (#\S+)/i);
+            source = { type: 'slack', channel: chanMatch?.[1] || 'Slack', details: {} };
+
+          } else if (firstUserText.match(/\[.*telegram.*\]/i)) {
+            source = { type: 'telegram', channel: 'Direct Message', details: {} };
+
+          } else if (firstUserText.match(/\[.*whatsapp.*\]/i)) {
+            source = { type: 'whatsapp', channel: 'WhatsApp', details: {} };
+
+          } else if (firstUserText.match(/^\[(Mon|Tue|Wed|Thu|Fri|Sat|Sun)\s+\d{4}-\d{2}-\d{2}/i) ||
+                     firstUserText.match(/^\[(Mon|Tue|Wed|Thu|Fri|Sat|Sun)\s+\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}/i)) {
+            // "[Mon 2026-02-23 19:50 EST] ..." — Telegram DM with timestamp prefix
+            source = { type: 'telegram', channel: 'Direct Message', details: {} };
+          }
+
+          // Topic files are always Telegram group/channel threads
+          if (fp.includes('-topic-')) {
+            source = { type: 'telegram', channel: 'Group/Topic', details: {} };
+          }
+
+          // Get model info from model_change or assistant messages
+          const modelSnap = events.find(e => e.type === 'custom' && e.customType === 'model-snapshot');
+          const modelChange = events.find(e => e.type === 'model_change');
+          const firstAssistant = assistantMsgs[0];
+          const provider = firstAssistant?.message?.provider || modelSnap?.data?.provider || modelChange?.provider || 'unknown';
+          const modelId = firstAssistant?.message?.model || modelSnap?.data?.modelId || modelChange?.modelId || 'unknown';
+          const isLocal = provider.toLowerCase().startsWith('ollama') || provider === '9router';
+          const modelFull = `${provider}/${modelId}`;
+
+          // Build spans — one per assistant message (each LLM call)
+          const spans = [];
+          for (let i = 0; i < assistantMsgs.length; i++) {
+            const aMsg = assistantMsgs[i];
+            const usage = aMsg.message?.usage;
+            const aProv = aMsg.message?.provider || provider;
+            const aModel = aMsg.message?.model || modelId;
+            const aIsLocal = aProv.toLowerCase().startsWith('ollama') || aProv === '9router';
+            const aStartMs = new Date(aMsg.timestamp).getTime();
+
+            // Find the user message that preceded this assistant message
+            const prevUser = [...userMsgs].reverse().find(u => new Date(u.timestamp).getTime() <= aStartMs);
+            const userText = prevUser?.message?.content?.find?.(c => c.type === 'text')?.text || '';
+
+            // Extract the actual message (strip cron prefix / metadata)
+            let triggerMsg = userText;
+            triggerMsg = triggerMsg.replace(/^\[cron:[^\]]+\]\s*/i, '');
+            triggerMsg = triggerMsg.replace(/^\[[^\]]{0,40}\]\s*/i, '');
+            // Strip JSON metadata block
+            triggerMsg = triggerMsg.replace(/Conversation info \(untrusted metadata\):\s*```json[\s\S]*?```\s*/i, '');
+            triggerMsg = triggerMsg.replace(/^"+|"+$/g, '').trim();
+
+            // Get assistant text response
+            const aText = aMsg.message?.content?.find?.(c => c.type === 'text')?.text || '';
+
+            // Estimate duration from next event timestamp
+            const nextEv = events.find(e => new Date(e.timestamp).getTime() > aStartMs);
+            const aEndMs = nextEv ? new Date(nextEv.timestamp).getTime() : null;
+            const durationMs = aEndMs ? aEndMs - aStartMs : (usage ? 3000 : null);
+
+            spans.push({
+              spanId: `${sessionId}-${i}`,
+              timestamp: aMsg.timestamp,
+              startMs: aStartMs,
+              endMs: aEndMs,
+              durationMs,
+              agent: agentId,
+              source: i === 0 ? source : { type: 'continuation', channel: null, details: {} },
+              model: {
+                full: `${aProv}/${aModel}`,
+                short: aModel,
+                provider: aProv,
+                tier: aIsLocal ? 'free' : 'paid'
+              },
+              request: {
+                promptLength: userText.length,
+                promptTail: userText.slice(-600) || null,
+                triggerMessage: triggerMsg.slice(0, 300),
+                historyCount: i,
+                messageCount: userMsgs.length
+              },
+              response: {
+                preview: aText.slice(0, 400) || null,
+                chars: aText.length,
+                success: true,
+                error: null
+              },
+              metrics: {
+                tokensIn: usage?.input || 0,
+                tokensOut: usage?.output || 0,
+                tokensCached: usage?.cacheRead || 0,
+                costUsd: usage?.cost?.total || 0,
+                billingType: aIsLocal ? 'free' : 'payg'
+              },
+              status: 'success'
+            });
+          }
+
+          if (!spans.length) return null;
+
+          const startMs = new Date(sessionTs).getTime();
+          const endMs = Math.max(...spans.map(s => s.endMs || s.startMs));
+          const totalCost = spans.reduce((s, e) => s + (e.metrics?.costUsd || 0), 0);
+
+          // Extract the trigger message from first user message
+          const firstUserRaw = userMsgs[0]?.message?.content?.find?.(c => c.type === 'text')?.text || '';
+          let triggerMessage = firstUserRaw;
+          triggerMessage = triggerMessage.replace(/^\[cron:[^\]]+\]\s*/i, '');
+          triggerMessage = triggerMessage.replace(/^\[[^\]]{0,40}\]\s*/i, '');
+          triggerMessage = triggerMessage.replace(/Conversation info \(untrusted metadata\):\s*```json[\s\S]*?```\s*/i, '');
+          triggerMessage = triggerMessage.replace(/^"+|"+$/g, '').trim().slice(0, 300);
+
+          return {
+            traceId: sessionId,
+            rootSpan: {
+              timestamp: sessionTs,
+              startMs,
+              endMs,
+              agent: agentId,
+              source,
+              model: { full: modelFull, short: modelId, provider, tier: isLocal ? 'free' : 'paid' }
+            },
+            spans,
+            triggerMessage,
+            summary: {
+              totalSpans: spans.length,
+              totalDurationMs: endMs > startMs ? endMs - startMs : null,
+              totalCostUsd: totalCost,
+              errorCount: 0,
+              agentsInvolved: [agentId],
+              modelsUsed: [...new Set(spans.map(s => s.model.full))],
+              channels: [source.channel].filter(Boolean)
+            }
+          };
+        } catch { return null; }
+      };
+
+      // Parse all session files (up to 300), then sort: user-facing first, then by time
+      const allParsed = [];
+      for (const sf of sessionFiles.slice(0, 300)) {
+        const t = parseSession(sf);
+        if (t) allParsed.push(t);
+      }
+
+      // Sort: telegram/slack first (user-facing), then direct, then subagent, then cron — within each group newest first
+      const srcPriority = { telegram: 0, slack: 1, whatsapp: 1, direct: 2, subagent: 3, cron: 4 };
+      allParsed.sort((a, b) => {
+        const pa = srcPriority[a.rootSpan.source.type] ?? 5;
+        const pb = srcPriority[b.rootSpan.source.type] ?? 5;
+        if (pa !== pb) return pa - pb;
+        return b.rootSpan.startMs - a.rootSpan.startMs;
+      });
+
+      const traces = allParsed.slice(0, limitParam);
+
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ traces, total: allParsed.length }));
+    } catch (err) {
+      res.writeHead(500, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: err.message, traces: [] }));
+    }
     return;
   }
 

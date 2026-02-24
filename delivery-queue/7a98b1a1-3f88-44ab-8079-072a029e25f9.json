@@ -1,0 +1,18 @@
+{
+  "id": "7a98b1a1-3f88-44ab-8079-072a029e25f9",
+  "enqueuedAt": 1771892929137,
+  "channel": "telegram",
+  "to": "channel:C0AEV3J2L23",
+  "accountId": "default",
+  "payloads": [
+    {
+      "text": "**Research daily (2026-02-23)**\n\n**Key signals (AI platforms)**\n- OpenAI “Operator” is being reported as rolling out more broadly (Plus/Team), pushing autonomous web tasking further mainstream:  \n  https://champaignmagazine.com/2026/02/22/ai-by-ai-weekly-top-5-february-16-22-2026/\n- Anthropic Claude Sonnet 4.6 is showing up in roundups as a meaningful agent/workflow update (computer-use + long-context beta mentioned):  \n  https://champaignmagazine.com/2026/02/22/ai-by-ai-weekly-top-5-february-16-22-2026/\n- Google Gemini 3.1 Pro preview is being positioned around agentic multi-step workflows:  \n  https://jonathanberthold.com/blog/the-builders-ai-roundup-february-2026/\n\n**OpenClaw / MCP ecosystem**\n- MCP positioning keeps expanding into enterprise tooling. Concrete example: Google’s “Developer Knowledge API” plus an MCP Server (public preview):  \n  https://developers.googleblog.com/introducing-the-developer-knowledge-api-and-mcp-server/\n- More MCP-server announcements in ops/security tooling (example: Virtana MCP Server for full-stack visibility):  \n  https://www.helpnetsecurity.com/2026/02/19/virtana-mcp-server/\n\n**Security note**\n- The “Clinejection” incident is a strong reminder that agent-connected tooling can bridge untrusted text into CI / caching / publishing paths (prompt injection → pipeline poisoning → malicious publish):  \n  https://snyk.io/blog/cline-supply-chain-attack-prompt-injection-github-actions/\n\n**Recommended actions (practical)**\n- Add a simple “tooling guardrail” checklist for OpenClaw skills: **never run package-manager commands (npm/pip/brew) based on model-supplied text**; require explicit confirmation and show the exact command first.\n- Pin + audit dependencies: enforce lockfiles, prefer `npm ci`, and add a quick dependency-diff review step before upgrading any skill/tool deps—especially those with install scripts.\n\n—  \nProvider+Model: openai-codex/gpt-5.2",
+      "mediaUrls": []
+    }
+  ],
+  "threadId": null,
+  "replyToId": null,
+  "bestEffort": false,
+  "retryCount": 1,
+  "lastError": "Telegram send failed: chat not found (chat_id=channel:C0AEV3J2L23). Likely: bot not started in DM, bot removed from group/channel, group migrated (new -100… id), or wrong bot token. Input was: \"channel:C0AEV3J2L23\"."
+}

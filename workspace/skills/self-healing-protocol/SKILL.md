@@ -104,7 +104,9 @@ MANDATORY after every resolution:
    - **Details:** {what happened and how it was fixed}
    - **Prevention:** {how to prevent recurrence}
    - **Applied To:** {what was changed}
+   - **Avoid next time:** {one line: mistake learned / what to avoid next time}
    ```
+   The "Avoid next time" line is MANDATORY: one concrete thing to avoid or do differently so we learn from mistakes.
 
 3. **Notify OPS** via `sessions_send(agentId="ops", message="Resolved TICKET-{ref}: {summary}")` so the Scrum Master can update tracking.
 

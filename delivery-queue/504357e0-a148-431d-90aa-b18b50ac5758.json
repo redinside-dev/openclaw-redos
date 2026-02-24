@@ -1,0 +1,18 @@
+{
+  "id": "504357e0-a148-431d-90aa-b18b50ac5758",
+  "enqueuedAt": 1771893529264,
+  "channel": "telegram",
+  "to": "channel:C0AEV3J2L23",
+  "accountId": "ops",
+  "payloads": [
+    {
+      "text": "Morning standup summary (2026-02-23, 09:15 ET):\n\n**Team focus:** fix P1 messaging/comms reliability — Slack channel IDs getting routed to Telegram, plus drift between old prompt/templates and the current `message` tool schema.\n\n**Updates by agent**\n- **RED:** Driving closure on comms failures; align templates/prompts to the current `message` schema and confirm Slack provider routing. ETA **24–48h**, needs ENG/OPS implementation + Slack plugin/routing confirmation.\n- **ENG:** Working on **TICKET-20260224-001** to normalize Slack posting instructions/templates to the runtime `message` schema and reduce misrouting defaults. ETA **EOD**, no blockers.\n- **RESEARCH:** Triaging routing/delivery issues + investigating the microsoft.com SSRF/DNS over-block concern. Blocked on confirmation of enabled channel plugin/schema + a failed log excerpt including resolved IPs. ETA **Tue 2026-02-24 11:00 ET**.\n- **FINANCE:** Preparing 2–3 portfolio rebalance scenarios (reduce single-name risk, simplify overlapping index ETFs, set crypto target bands). ETA **Tue 2026-02-24 EOD**.\n- **OPS:** Monitoring/mitigating delivery failures and keeping SLA/tickets current. Blockers: routing ambiguity + legacy schema drift; some sandbox write restrictions impacting agents. Initial mitigation **~2h**, deeper fix tomorrow.\n- **INFOSEC:** RCA on SSRF/DNS false positives + tool allowlist/sandbox warnings. Blocked on DNS/resolver visibility. ETA **EOD (2–4h)**.\n\n**Ticket/health snapshot**\n- **Open tickets:** 9 (P0: 1, P1: 3, P2: 5)\n- **SLA breaches:** 6 legacy items still open\n- **System health:** **Degraded** (allowlist warnings, sandbox FS errors, lane wait/delivery recovery limits showing up)\n\n**Top action items**\n1) Ship Slack posting schema normalization and remove legacy instructions (ENG).  \n2) Confirm Slack plugin is enabled and Slack channel IDs route to Slack (not Telegram) + re-test announcements (OPS).  \n3) Collect DNS resolver details + concrete failed-fetch evidence to close the microsoft.com SSRF/DNS ticket (INFOSEC/RESEARCH).",
+      "mediaUrls": []
+    }
+  ],
+  "threadId": null,
+  "replyToId": null,
+  "bestEffort": false,
+  "retryCount": 1,
+  "lastError": "Telegram send failed: chat not found (chat_id=channel:C0AEV3J2L23). Likely: bot not started in DM, bot removed from group/channel, group migrated (new -100… id), or wrong bot token. Input was: \"channel:C0AEV3J2L23\"."
+}

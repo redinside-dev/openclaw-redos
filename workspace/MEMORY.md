@@ -4,22 +4,22 @@
 
 ---
 
-## Current State (as of 2026-02-18)
+## Current State (as of 2026-02-24)
 
 | Component | Status |
 |-----------|--------|
-| OpenClaw CLI | v2026.2.15 |
+| OpenClaw CLI | v2026.2.22-2 |
 | Native gateway | Running — launchd `ai.openclaw.gateway`, port 18789 |
-| Dashboard | Port 19000, basic auth (red / redos2026) — started manually via `node dashboard/server.js`; SSE real-time sync active |
-| Dashboard tunnel | Cloudflare quick tunnel — URL in `workspace/DASHBOARD_URL.txt` |
-| Telegram | 7/7 accounts OK |
-| WhatsApp | Linked +16476092313, DM isolation `per-channel-peer` |
+| Dashboard | Port 19000, launchd `ai.openclaw.dashboard` — Mission Control UI |
+| Dashboard API | `/api/traces` reads live session files (`agents/*/sessions/*.jsonl`) — NOT stale logs |
+| Telegram | Active — source detection fixed (3 formats: `Conversation info`, `[Day Date TZ]`, `[telegram]`) |
+| WhatsApp | Linked +16476092313 |
 | Agents | 8 active: main / allrounder / hatake / eng / research / finance / ops / infosec |
-| Sessions | Cleared 2026-02-17 — fresh start |
-| Skills | 22 registered, all enabled |
-| Cron jobs | Enabled — all use agent default model (no PAYG hard-coding) |
-| Sandbox | mode: off — tools.deny active: `group:web`, `browser` |
-| LLM Analytics plugin | Active — writing `workspace/logs/cost-events.jsonl` + `routing-decisions.jsonl` + `llm-analytics.jsonl` |
+| Skills | 30 registered, all enabled — `competitive-intelligence` enabled 2026-02-24 |
+| Cron jobs | 20+ active — see `cron/jobs.json` |
+| 9Router | Running :20128 — primary model routing layer |
+| A2A | 37 subagent sessions/day but `a2a-delegations.jsonl` was empty — SOUL.md now mandates logging |
+| Architecture doc | `/Users/redinside/Development/Codebase/projects/RedTeam/docs/ARCHITECTURE.md` |
 
 ---
 

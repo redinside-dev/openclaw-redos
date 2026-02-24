@@ -277,7 +277,7 @@
       "name": "Implementation Status Updates (temp, every 10 min)",
       "enabled": true,
       "createdAtMs": 1770410925180,
-      "updatedAtMs": 1771906205104,
+      "updatedAtMs": 1771909814374,
       "schedule": {
         "kind": "cron",
         "expr": "*/10 * * * *",
@@ -298,11 +298,11 @@
         "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "lastRunAtMs": 1771906200079,
+        "lastRunAtMs": 1771909800047,
         "lastStatus": "ok",
-        "lastDurationMs": 5025,
+        "lastDurationMs": 14327,
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1771906800000,
+        "nextRunAtMs": 1771910400000,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "unknown"
       }
@@ -481,7 +481,7 @@
       "name": "Cron Watchdog (alert on missed/failing jobs)",
       "enabled": true,
       "createdAtMs": 1770618629260,
-      "updatedAtMs": 1771905016274,
+      "updatedAtMs": 1771907171088,
       "schedule": {
         "kind": "cron",
         "expr": "*/10 8-22 * * *",
@@ -491,7 +491,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "Cron Watchdog (automated)\n\nRun the watchdog script:\npython3 workspace/scripts/cron_watchdog.py\n\nIf it prints NO_ALERT: return NO_REPLY.\nIf it prints anything else: return that output verbatim (Telegram alert).\n\nDo not take any other actions.",
+        "message": "Cron Watchdog (automated)\n\nRun the watchdog script:\npython3 /Users/redinside/.openclaw/workspace/scripts/cron_watchdog.py\n\nIf it prints NO_ALERT: return NO_REPLY.\nIf it prints anything else: return that output verbatim (Telegram alert).",
         "timeoutSeconds": 300
       },
       "delivery": {
@@ -758,7 +758,7 @@
       "name": "OPS SLA Enforcement Check",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771905302363,
+      "updatedAtMs": 1771908908412,
       "schedule": {
         "kind": "every",
         "everyMs": 1800000,
@@ -779,14 +779,14 @@
         "target": "channel:C0AEV3J2L23"
       },
       "state": {
-        "nextRunAtMs": 1771907065279,
-        "lastRunAtMs": 1771905265279,
+        "nextRunAtMs": 1771910682703,
+        "lastRunAtMs": 1771908882703,
         "lastStatus": "ok",
-        "lastDurationMs": 37084,
+        "lastDurationMs": 25709,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
-        "lastDelivered": true,
-        "lastDeliveryStatus": "delivered"
+        "lastDelivered": false,
+        "lastDeliveryStatus": "not-delivered"
       }
     },
     {
@@ -795,7 +795,7 @@
       "name": "OPS System Health Monitor",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771906072268,
+      "updatedAtMs": 1771909742633,
       "schedule": {
         "kind": "every",
         "everyMs": 900000,
@@ -817,10 +817,10 @@
       },
       "state": {
         "lastStatus": "ok",
-        "lastRunAtMs": 1771906057818,
-        "lastDurationMs": 14450,
+        "lastRunAtMs": 1771909688910,
+        "lastDurationMs": 53723,
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1771906957818,
+        "nextRunAtMs": 1771910588910,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "unknown"
       }
@@ -831,7 +831,7 @@
       "name": "RED Self-Improvement Reflection",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771734224372,
+      "updatedAtMs": 1771906988763,
       "schedule": {
         "kind": "every",
         "everyMs": 21600000,
@@ -841,7 +841,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "You are RED (CEO). Run the self-improvement reflection cycle.\n\nSTEPS:\n1. Read workspace/ops/LEARNINGS.md — review recent learnings.\n2. Read workspace/ops/TICKET-TRACKER.md — review resolved tickets from last 24h.\n3. Read logs/errors.jsonl (last 20 entries) — look for patterns.\n4. Read workspace/logs/routing-decisions.jsonl (last 30 entries) — check routing quality and agent performance.\n5. Read each agent status file explicitly (avoid directory listing / shell):\n   - workspace/ops/agent-status/main.json\n   - workspace/ops/agent-status/allrounder.json (if present)\n   - workspace/ops/agent-status/eng.json\n   - workspace/ops/agent-status/research.json\n   - workspace/ops/agent-status/finance.json\n   - workspace/ops/agent-status/ops.json\n   - workspace/ops/agent-status/infosec.json\n   (Skip missing files gracefully.)\n\nANALYZE:\n- Are there recurring errors? → Propose a permanent fix (update config, skill, or LEARNINGS.md)\n- Are there model routing issues? → Suggest fallback chain adjustments\n- Are there patterns in user corrections? → Propose behavior updates\n- Which agents are performing well? Which need support?\n- What should the team focus on tomorrow?\n\nACTIONS:\n- If you identify an improvement, apply it (update LEARNINGS.md, SKILL.md, or config as needed)\n- Use sessions_spawn (NOT sessions_send) to notify relevant agents:\n  sessions_spawn(agentId=\"ops\", task=\"Self-improvement review complete. Please update TICKET-TRACKER.md if any items resolved: {summary}\")\n- Create a ticket in TICKET-TRACKER.md for any systemic issue found\n\nPOST TO SLACK:\nAfter your analysis, post your improvement directives to #redos-mission-control using the message tool:\n```\n👑 *RED (CEO) — Daily Improvement Directives*\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📊 *Patterns observed:* <what you found>\n🔧 *Actions taken:* <what you fixed>\n📋 *Directives for the team:*\n• ENG: <directive if any>\n• RESEARCH: <directive if any>\n• OPS: <directive if any>\n• INFOSEC: <directive if any>\n```\nUse the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AEV3MDEDD\"\n\nOUTPUT: Brief summary of what was reviewed and any actions taken.",
+        "message": "You are RED (CEO). Run the self-improvement reflection cycle.\n\nSTEPS:\n1. Read workspace/ops/LEARNINGS.md — review recent learnings.\n2. Read workspace/ops/TICKET-TRACKER.md — review resolved tickets from last 24h.\n3. Read logs/errors.jsonl (last 20 entries) — look for patterns.\n4. Read workspace/logs/routing-decisions.jsonl (last 30 entries) — check routing quality and agent performance.\n5. Read each agent status file explicitly (avoid directory listing / shell):\n   - workspace/ops/agent-status/main.json\n   - workspace/ops/agent-status/allrounder.json (if present)\n   - workspace/ops/agent-status/eng.json\n   - workspace/ops/agent-status/research.json\n   - workspace/ops/agent-status/finance.json\n   - workspace/ops/agent-status/ops.json\n   - workspace/ops/agent-status/infosec.json\n   (Skip missing files gracefully.)\n\n6. MANDATORY — Daily improvement log: Write to workspace/ops/daily-improvements/YYYY-MM-DD.md (use today's date). Create the daily-improvements directory if it does not exist. The file MUST contain:\n   ## Today's improvements\n   - (bullet list: what we learned, what we fixed, what got better today)\n   ## Tomorrow's focus\n   - (bullet list: what the team should focus on tomorrow)\n   If nothing to report, still write the file with at least \"No new improvements today\" and one tomorrow focus item.\n\nANALYZE:\n- Are there recurring errors? → Propose a permanent fix (update config, skill, or LEARNINGS.md)\n- Are there model routing issues? → Suggest fallback chain adjustments\n- Are there patterns in user corrections? → Propose behavior updates\n- Which agents are performing well? Which need support?\n- What should the team focus on tomorrow?\n\nACTIONS:\n- If you identify an improvement, apply it (update LEARNINGS.md, SKILL.md, or config as needed)\n- Use sessions_spawn (NOT sessions_send) to notify relevant agents:\n  sessions_spawn(agentId=\"ops\", task=\"Self-improvement review complete. Please update TICKET-TRACKER.md if any items resolved: {summary}\")\n- Create a ticket in TICKET-TRACKER.md for any systemic issue found\n\nPOST TO SLACK:\nAfter your analysis, post your improvement directives to #redos-mission-control using the message tool:\n```\n👑 *RED (CEO) — Daily Improvement Directives*\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📊 *Patterns observed:* <what you found>\n🔧 *Actions taken:* <what you fixed>\n📋 *Directives for the team:*\n• ENG: <directive if any>\n• RESEARCH: <directive if any>\n• OPS: <directive if any>\n• INFOSEC: <directive if any>\n```\nUse the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AEV3MDEDD\"\n\nOUTPUT: Brief summary of what was reviewed and any actions taken.",
         "thinking": "low",
         "timeoutSeconds": 300
       },
@@ -852,11 +852,13 @@
         "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "nextRunAtMs": 1771906895024,
-        "lastRunAtMs": 1771734095053,
+        "nextRunAtMs": 1771928495060,
+        "lastRunAtMs": 1771906895060,
         "lastStatus": "ok",
-        "lastDurationMs": 129319,
-        "consecutiveErrors": 0
+        "lastDurationMs": 93703,
+        "consecutiveErrors": 0,
+        "lastRunStatus": "ok",
+        "lastDeliveryStatus": "unknown"
       }
     },
     {
@@ -865,7 +867,7 @@
       "name": "OPS Ticket Auto-Diagnose & Fix",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771903357539,
+      "updatedAtMs": 1771907082468,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -886,14 +888,13 @@
         "target": "channel:C0AEV3J2L23"
       },
       "state": {
-        "nextRunAtMs": 1771906895063,
-        "lastRunAtMs": 1771903295063,
+        "nextRunAtMs": 1771910650957,
+        "lastRunAtMs": 1771907050957,
         "lastStatus": "ok",
-        "lastDurationMs": 62476,
+        "lastDurationMs": 31511,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
-        "lastDelivered": true,
-        "lastDeliveryStatus": "delivered"
+        "lastDeliveryStatus": "unknown"
       }
     },
     {
@@ -1113,7 +1114,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "You are RED (CEO). Run the morning team pulse — gather a brief status from each team member and post it to Slack so the whole team can see each other.\n\nSTEPS:\n1. Read workspace/ops/agent-status/ — collect everyone's standup JSON files.\n2. Spawn each agent to get their 1-sentence morning focus:\n   - sessions_spawn(agentId=\"allrounder\", task=\"Good morning ZEN. In 1 sentence: what's your main focus today?\")\n   - sessions_spawn(agentId=\"eng\", task=\"Good morning ENG. In 1 sentence: what's your main focus today?\")\n   - sessions_spawn(agentId=\"research\", task=\"Good morning RESEARCH. In 1 sentence: what's your main focus today?\")\n   - sessions_spawn(agentId=\"finance\", task=\"Good morning FINANCE. In 1 sentence: what's your main focus today?\")\n   - sessions_spawn(agentId=\"ops\", task=\"Good morning OPS. In 1 sentence: what's your main focus today?\")\n   - sessions_spawn(agentId=\"infosec\", task=\"Good morning INFOSEC. In 1 sentence: what's your main focus today?\")\n3. Post the team greeting to #all-redos:\n   ```\n   👑 *Good morning, team! — <date>*\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n   Here's what everyone is working on today:\n   \n   👑 RED: <your own focus>\n   🌐 ZEN: <ZEN's response>\n   💻 ENG: <ENG's response>\n   🔬 RESEARCH: <RESEARCH's response>\n   💰 FINANCE: <FINANCE's response>\n   ⚙️ OPS: <OPS's response>\n   🔒 INFOSEC: <INFOSEC's response>\n   \n   Let's have a great day! 🚀\n   ```\n   Use the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AG4AY6VME\" ",
+        "message": "You are RED (CEO). Run the morning team pulse — gather a brief status from each team member and post it to Slack so the whole team can see each other.\n\nSTEPS:\n1. Read workspace/ops/agent-status/ — collect everyone's standup JSON files.\n\n2. BEFORE each sessions_spawn, append to workspace/logs/a2a-delegations.jsonl (one JSON line per spawn, use write/append tool):\n   {\"type\":\"dispatch\",\"ts\":\"<ISO timestamp>\",\"spawner\":\"main\",\"subagent\":\"<agentId>\",\"task\":\"Morning pulse: what is your main focus today?\"}\n\n3. Spawn each agent to get their 1-sentence morning focus:\n   - sessions_spawn(agentId=\"allrounder\", task=\"Good morning ZEN. In 1 sentence: what's your main focus today? Reply in 1 sentence only.\")\n   - sessions_spawn(agentId=\"eng\", task=\"Good morning ENG. In 1 sentence: what's your main focus today? Reply in 1 sentence only.\")\n   - sessions_spawn(agentId=\"research\", task=\"Good morning RESEARCH. In 1 sentence: what's your main focus today? Reply in 1 sentence only.\")\n   - sessions_spawn(agentId=\"finance\", task=\"Good morning FINANCE. In 1 sentence: what's your main focus today? Reply in 1 sentence only.\")\n   - sessions_spawn(agentId=\"ops\", task=\"Good morning OPS. In 1 sentence: what's your main focus today? Reply in 1 sentence only.\")\n   - sessions_spawn(agentId=\"infosec\", task=\"Good morning INFOSEC. In 1 sentence: what's your main focus today? Reply in 1 sentence only.\")\n\n4. AFTER each result, append to workspace/logs/a2a-delegations.jsonl:\n   {\"type\":\"result\",\"ts\":\"<ISO timestamp>\",\"spawner\":\"main\",\"subagent\":\"<agentId>\",\"task\":\"Morning pulse\",\"result_preview\":\"<first 100 chars of response>\"}\n\n5. Post the team greeting to #all-redos:\n   ```\n   👑 *Good morning, team! — <date>*\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n   Here's what everyone is working on today:\n   \n   👑 RED: <your own focus>\n   🌐 ZEN: <ZEN's response>\n   💻 ENG: <ENG's response>\n   🔬 RESEARCH: <RESEARCH's response>\n   💰 FINANCE: <FINANCE's response>\n   ⚙️ OPS: <OPS's response>\n   🔒 INFOSEC: <INFOSEC's response>\n   \n   Let's have a great day! 🚀\n   ```\n   Use the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AG4AY6VME\" ",
         "model": "anthropic/claude-opus-4-6",
         "thinking": "low",
         "timeoutSeconds": 300
@@ -1138,7 +1139,7 @@
       "name": "OPS Task ETA Monitor",
       "enabled": true,
       "createdAtMs": 1771544316316,
-      "updatedAtMs": 1771904956108,
+      "updatedAtMs": 1771908551830,
       "schedule": {
         "kind": "every",
         "everyMs": 1800000,
@@ -1150,7 +1151,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 240,
-        "message": "You are OPS (Orchestrator). Run task ETA monitoring.\n\nSTEPS:\n1. Read workspace/ops/task-registry.json\n2. If no tasks or all completed: do nothing silently.\n3. For each task with status \"in_progress\" and an eta field:\n   a. If current time > eta: mark the task as overdue\n   b. Post a warning to Slack #redos-ops: \"⏰ *Task ETA Breach* — TASK-{id}: {title} was due {eta}. Assignee: {assignee}\"\n      Use the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AEV3MDEDD\"\n   c. Notify the parent agent via sessions_spawn if requestedBy is set:\n      sessions_spawn(agentId=\"{requestedBy}\", task=\"OPS alert: Task {id} ({title}) assigned to {assignee} has passed its ETA of {eta}. Please check status.\")\n4. Update task-registry.json with any status changes.\n\nBe silent if all tasks are on track."
+        "message": "You are OPS (Orchestrator). Run task ETA monitoring.\n\nSTEPS:\n1. Read /Users/redinside/.openclaw/workspace/ops/task-registry.json\n2. If no tasks or all completed: do nothing silently.\n3. For each task with status \"in_progress\" and an eta field:\n   a. If current time > eta: mark the task as overdue\n   b. Post a warning to Slack #redos-ops: \"⏰ *Task ETA Breach* — TASK-{id}: {title} was due {eta}. Assignee: {assignee}\"\n      Use the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AEV3MDEDD\"\n   c. Notify the parent agent via sessions_spawn if requestedBy is set:\n      sessions_spawn(agentId=\"{requestedBy}\", task=\"OPS alert: Task {id} ({title}) assigned to {assignee} has passed its ETA of {eta}. Please check status.\")\n4. Update task-registry.json with any status changes.\n\nBe silent if all tasks are on track."
       },
       "delivery": {
         "mode": "announce",
@@ -1159,14 +1160,13 @@
         "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "nextRunAtMs": 1771906744589,
-        "lastRunAtMs": 1771904944589,
+        "nextRunAtMs": 1771910344681,
+        "lastRunAtMs": 1771908544681,
         "lastStatus": "ok",
-        "lastDurationMs": 11519,
+        "lastDurationMs": 7149,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
-        "lastDelivered": false,
-        "lastDeliveryStatus": "not-delivered"
+        "lastDeliveryStatus": "unknown"
       }
     },
     {
@@ -1175,7 +1175,7 @@
       "name": "9Router Quota Sync",
       "enabled": true,
       "createdAtMs": 1771576000000,
-      "updatedAtMs": 1771905453628,
+      "updatedAtMs": 1771909007464,
       "schedule": {
         "kind": "every",
         "everyMs": 1800000,
@@ -1197,10 +1197,10 @@
         "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "nextRunAtMs": 1771907200240,
-        "lastRunAtMs": 1771905400240,
+        "nextRunAtMs": 1771910800315,
+        "lastRunAtMs": 1771909000315,
         "lastStatus": "ok",
-        "lastDurationMs": 53388,
+        "lastDurationMs": 7149,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDelivered": false,
@@ -1213,7 +1213,7 @@
       "name": "OPS Idle Agent Audit",
       "enabled": true,
       "createdAtMs": 1771544316316,
-      "updatedAtMs": 1771904400251,
+      "updatedAtMs": 1771907964878,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -1234,14 +1234,13 @@
         "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "nextRunAtMs": 1771907916445,
-        "lastRunAtMs": 1771904316445,
+        "nextRunAtMs": 1771911536675,
+        "lastRunAtMs": 1771907936675,
         "lastStatus": "ok",
-        "lastDurationMs": 83806,
+        "lastDurationMs": 28203,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
-        "lastDelivered": true,
-        "lastDeliveryStatus": "delivered"
+        "lastDeliveryStatus": "unknown"
       }
     },
     {
@@ -1268,16 +1267,16 @@
         "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "nextRunAtMs": 1771909414116,
-        "lastRunAtMs": 1771905814116,
+        "nextRunAtMs": 1771913014164,
+        "lastRunAtMs": 1771909414164,
         "lastStatus": "ok",
-        "lastDurationMs": 19015,
+        "lastDurationMs": 7700,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDelivered": false,
         "lastDeliveryStatus": "not-delivered"
       },
-      "updatedAtMs": 1771905833131
+      "updatedAtMs": 1771909421864
     },
     {
       "id": "hatake-daily-briefing-0001",
@@ -1312,7 +1311,7 @@
       "name": "Health JSONL Writer",
       "enabled": true,
       "createdAtMs": 1771695150814,
-      "updatedAtMs": 1771906003763,
+      "updatedAtMs": 1771909479527,
       "schedule": {
         "kind": "every",
         "everyMs": 900000,
@@ -1325,7 +1324,7 @@
         "thinking": "off",
         "timeoutSeconds": 90,
         "model": "openai-codex/gpt-5.2",
-        "message": "You are OPS. Run the health JSONL writer script:\\n\\npython3 workspace/scripts/health-jsonl-writer.py\\n\\nDo not send messages. Script handles all logic silently."
+        "message": "You are OPS. Run the health JSONL writer script using its absolute path:\\n\\npython3 /Users/redinside/.openclaw/workspace/scripts/health-jsonl-writer.py\\n\\nDo not send messages. Script handles all logic silently."
       },
       "delivery": {
         "mode": "announce",
@@ -1334,10 +1333,10 @@
         "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "nextRunAtMs": 1771906756140,
-        "lastRunAtMs": 1771905856140,
+        "nextRunAtMs": 1771910356300,
+        "lastRunAtMs": 1771909456300,
         "lastStatus": "ok",
-        "lastDurationMs": 19669,
+        "lastDurationMs": 23227,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "unknown"
@@ -1812,7 +1811,7 @@
       "name": "CI Event Logger (cron → ci-log.jsonl)",
       "enabled": true,
       "createdAtMs": 1771907000000,
-      "updatedAtMs": 1771907000000,
+      "updatedAtMs": 1771909511859,
       "schedule": {
         "kind": "every",
         "everyMs": 600000,
@@ -1824,7 +1823,7 @@
         "kind": "agentTurn",
         "thinking": "off",
         "timeoutSeconds": 120,
-        "message": "Run: python3 workspace/scripts/ci_event_logger.py\n\nIf output is NO_REPLY: return NO_REPLY. Otherwise return output verbatim.\nDo not send any messages."
+        "message": "Run: python3 /Users/redinside/.openclaw/workspace/scripts/ci_event_logger.py\n\nIf output is NO_REPLY: return NO_REPLY. Otherwise return output verbatim.\nDo not send any messages."
       },
       "delivery": {
         "mode": "announce",
@@ -1832,7 +1831,13 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771907000000
+        "nextRunAtMs": 1771910108471,
+        "lastRunAtMs": 1771909508471,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 3388,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 0
       }
     },
     {
@@ -1841,7 +1846,7 @@
       "name": "Self-Healing Guardrail: Health Snapshot → Tickets",
       "enabled": true,
       "createdAtMs": 1771907005000,
-      "updatedAtMs": 1771907005000,
+      "updatedAtMs": 1771908923387,
       "schedule": {
         "kind": "every",
         "everyMs": 1800000,
@@ -1853,7 +1858,7 @@
         "kind": "agentTurn",
         "thinking": "off",
         "timeoutSeconds": 120,
-        "message": "Run: python3 workspace/scripts/health_snapshot_ticket.py\n\nIf output is NO_REPLY: return NO_REPLY. Otherwise return output verbatim.\nDo not send any messages."
+        "message": "Run: python3 /Users/redinside/.openclaw/workspace/scripts/health_snapshot_ticket.py\n\nIf output is NO_REPLY: return NO_REPLY. Otherwise return output verbatim.\nDo not send any messages."
       },
       "delivery": {
         "mode": "announce",
@@ -1861,7 +1866,13 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771907005000
+        "nextRunAtMs": 1771910716584,
+        "lastRunAtMs": 1771908916584,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 6803,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 0
       }
     },
     {
@@ -1870,7 +1881,7 @@
       "name": "CI Weekly Summarizer (roll → LEARNINGS.md)",
       "enabled": true,
       "createdAtMs": 1771907010000,
-      "updatedAtMs": 1771907010000,
+      "updatedAtMs": 1771907172962,
       "schedule": {
         "kind": "cron",
         "expr": "0 7 * * 1",
@@ -1882,7 +1893,7 @@
         "kind": "agentTurn",
         "thinking": "off",
         "timeoutSeconds": 180,
-        "message": "Run: python3 workspace/scripts/weekly_ci_summarizer.py\n\nIf output is NO_REPLY: return NO_REPLY. Otherwise return output verbatim.\nDo not send any messages."
+        "message": "Run: python3 /Users/redinside/.openclaw/workspace/scripts/weekly_ci_summarizer.py\n\nIf output is NO_REPLY: return NO_REPLY. Otherwise return output verbatim.\nDo not send any messages."
       },
       "delivery": {
         "mode": "announce",
@@ -1891,6 +1902,96 @@
       },
       "state": {
         "nextRunAtMs": 1772452800000
+      }
+    },
+    {
+      "id": "a2a-daily-proactive-0001",
+      "agentId": "main",
+      "name": "RED Daily A2A Proactive Delegation",
+      "enabled": true,
+      "createdAtMs": 1771910000000,
+      "updatedAtMs": 1771910000000,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 10 * * 1-5",
+        "tz": "America/Toronto"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "thinking": "low",
+        "timeoutSeconds": 600,
+        "message": "RED Daily A2A Proactive Delegation (automated)\n\nYou are RED (CEO). This cron runs every weekday at 10am ET. Your job: proactively delegate meaningful work to your team WITHOUT waiting for Anurag to ask.\n\nSTEPS:\n1. Read workspace/ops/TICKET-TRACKER.md — find open tickets.\n2. Read workspace/ops/LEARNINGS.md — check recent learnings.\n3. Read workspace/logs/a2a-delegations.jsonl — check if agents have been talking today.\n\nTHEN delegate at least 2 tasks across different agents:\n\nFor each delegation:\na) Append to workspace/logs/a2a-delegations.jsonl:\n   {\"type\":\"dispatch\",\"ts\":\"<ISO>\",\"spawner\":\"main\",\"subagent\":\"<agentId>\",\"task\":\"<one-line summary>\"}\nb) Post to Slack #redos-mission-control (channel:C0AEV3MDEDD):\n   🔀 *👑 RED (CEO)* → *<emoji> <AgentName>*\n   *Task:* <one-line summary>\nc) Use sessions_spawn to actually delegate the task.\n\nGOOD delegation examples (pick based on what's actually needed):\n- Ask RESEARCH to search for something relevant to current work\n- Ask ENG to review or fix an open ticket\n- Ask OPS to run a health check and report findings\n- Ask INFOSEC to review any recent config changes\n- Ask FINANCE to check budget status\n\nAfter all delegations, post a summary to Slack #redos-mission-control:\n👑 *RED (CEO) — Daily Delegation Summary*\n- Delegated to: <list agents>\n- Tasks: <list tasks>\n- Expected results by: EOD\n\nRules:\n- Do NOT delegate trivial tasks. Each task must produce a real output.\n- Do NOT skip this cron. If nothing obvious needs doing, find something useful.\n- End with: Provider: <provider> | Model: <model>"
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack",
+        "bestEffort": true,
+        "target": "channel:C0AEV3MDEDD"
+      },
+      "state": {
+        "nextRunAtMs": 1771944000000
+      }
+    },
+    {
+      "id": "a2a-health-monitor-0001",
+      "agentId": "ops",
+      "name": "A2A Communication Health Monitor",
+      "enabled": true,
+      "createdAtMs": 1771910000000,
+      "updatedAtMs": 1771910000000,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 18 * * 1-5",
+        "tz": "America/Toronto"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "thinking": "low",
+        "timeoutSeconds": 120,
+        "message": "A2A Communication Health Monitor (automated)\n\nYou are OPS. Check if agents are actually talking to each other today.\n\nSTEPS:\n1. Read workspace/logs/a2a-delegations.jsonl\n2. Count entries from today (match today's date in the 'ts' field)\n3. Read workspace/ops/task-registry.json — count tasks completed today\n\nEVALUATE:\n- If a2a-delegations.jsonl has 0 entries today: ALERT — agents are not communicating\n- If a2a-delegations.jsonl has <3 entries today: WARN — low A2A activity\n- If a2a-delegations.jsonl has >=3 entries today: OK\n\nIF ALERT or WARN:\n- Send Telegram DM to user id 1012034994:\n  '⚠️ A2A Alert: Agents have not been talking to each other today.\\nDelegations logged: <count>\\nThis means autonomous collaboration is not working.\\nRED should run the daily delegation cron or check SOUL.md A2A rules.'\n- Use sessions_spawn to notify RED (agentId=\"main\"):\n  'A2A health check failed: only <N> delegations logged today. Please run proactive delegation now and check SOUL.md A2A rules.'\n\nIF OK:\n- Post to Slack #redos-scrum (channel:C0AEV3J2L23):\n  '⚙️ *OPS A2A Check*: ✅ <N> agent delegations logged today. Team is communicating.'\n\nEnd with: Provider: <provider> | Model: <model>"
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack",
+        "bestEffort": true,
+        "target": "channel:C0AEV3J2L23"
+      },
+      "state": {
+        "nextRunAtMs": 1771970400000
+      }
+    },
+    {
+      "id": "ci-weekly-research-0001",
+      "agentId": "research",
+      "name": "Weekly Competitive Intelligence (AI Tools)",
+      "enabled": true,
+      "createdAtMs": 1771908000000,
+      "updatedAtMs": 1771908000000,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 9 * * 1",
+        "tz": "America/Toronto"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "thinking": "low",
+        "timeoutSeconds": 600,
+        "message": "Weekly Competitive Intelligence Report (automated)\n\nRead workspace/skills/competitive-intelligence/SKILL.md for full instructions.\n\nYour task this week:\n1. Use web_search to scan for recent system prompt leaks and AI tool updates from: Cursor, v0, Perplexity, Devin AI, GitHub Copilot, Windsurf, and any other leading AI coding/agent tools.\n   Search queries to use:\n   - \"Cursor AI system prompt 2026\"\n   - \"v0 Vercel system prompt\"\n   - \"Devin AI agent prompt\"\n   - \"AI agent tool governance patterns 2026\"\n   - \"OpenClaw competitor agent framework\"\n2. Identify 3-5 patterns or techniques they use that OpenClaw does NOT currently have.\n3. For each gap: rate it (High/Medium/Low impact) and suggest which OpenClaw agent or skill should adopt it.\n4. Write the full report to: workspace/competitive-intel/reports/YYYY-MM-DD-weekly.md (create dir if needed).\n5. Post a summary to Slack #redos-mission-control (channel:C0AEV3MDEDD):\n   Title: \"🔍 Weekly Competitive Intel — <date>\"\n   - Top 3 findings (1 line each)\n   - Top 1 quick win for ENG to implement\n   - Top 1 security pattern for INFOSEC to review\n6. Use sessions_spawn to notify RED (agentId=\"main\") with the summary so CEO can act on it.\n\nRules:\n- Only use publicly available information.\n- Be specific: name the tool, describe the pattern, explain why it matters for OpenClaw.\n- End Slack post with: Provider: <provider> | Model: <model>"
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack",
+        "bestEffort": true,
+        "target": "channel:C0AEV3MDEDD"
+      },
+      "state": {
+        "nextRunAtMs": 1772200800000
       }
     }
   ]
