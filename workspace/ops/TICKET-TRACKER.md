@@ -32,6 +32,213 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 
 ## Active Tickets
 
+### TICKET-20260224-009
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T01:54:00Z
+- **SLA Deadline:** 2026-02-24T09:54:00Z (8 hours)
+- **Reporter:** OPS (cron)
+- **Assignee:** OPS
+- **Summary:** Slack message delivery fails due to invalid/missing `target` (expects `channel:<id>`)
+- **Details:** `gateway.err.log` tail (2026-02-23 ~20:39–20:40 ET) shows:
+  - `[tools] message failed: Slack channels require a channel id (use channel:<id>)`
+  - `Subagent completion direct announce failed ... Error: Delivering to Slack requires target <channelId|user:ID|channel:ID>`
+  - `[tools] message failed: Action send requires a target.`
+  Impact: mission-control posts / subagent completion announcements to Slack can fail when prompts/templates omit `target` or pass an invalid channel identifier.
+- **Root Cause:** TBD (template/schema drift; prompts using legacy fields or passing channel names instead of `channel:<id>`).
+- **Resolution:**
+- **Learnings:** (pending) — enforce `message(action="send", channel="slack", target="channel:<id>")` in all prompts; consider compatibility shim.
+- **Resolved At:**
+
+### TICKET-20260224-008
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T01:24:31Z
+- **SLA Deadline:** 2026-02-24T09:24:31Z (8 hours)
+- **Reporter:** OPS (cron)
+- **Assignee:** OPS
+- **Summary:** Delivery recovery queue deferring entries; restart-required config changes accumulating
+- **Details:** `gateway.err.log` (2026-02-24T01:24Z) shows:
+  - `[reload] config change requires gateway restart (gateway.trustedProxies) — deferring until ...`
+  - `[delivery-recovery] Recovery time budget exceeded — 24 entries deferred to next restart`
+  Impact: delivery recovery/backlog can persist until a gateway restart; config changes may not take effect promptly.
+- **Root Cause:** TBD (restart-required config changes queued while active operations continue; recovery loop has a time budget and defers work).
+- **Resolution:**
+- **Learnings:** (pending) — ensure controlled restart windows after restart-required config edits; monitor/alert on delivery-recovery deferrals.
+- **Resolved At:**
+
+### TICKET-20260224-007
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-02-24T01:07:00Z
+- **SLA Deadline:** 2026-02-24T03:07:00Z (2 hours)
+- **Reporter:** OPS (cron)
+- **Assignee:** OPS
+- **Summary:** Cron lane failures: API rate limiting + LLM timeout causing health-jsonl-writer to fail
+- **Details:** `gateway.err.log` last lines (2026-02-24T01:02–01:07Z) show:
+  - repeated `[agent/embedded] ... isError=true error=⚠️ API rate limit reached. Please try again later.`
+  - `Profile anthropic:default timed out. Trying next account...`
+  - `lane task error: lane=cron ... error="FailoverError: LLM request timed out."`
+  - specific failure: `lane=session:agent:ops:cron:health-jsonl-writer-0001 ... timed out`.
+  - additional symptom: job run produced empty stdin for the parser (no JSON captured), so no write occurred and `logs/health.jsonl` remained unchanged.
+  Impact: monitoring/cron workflows can stop updating `logs/health.jsonl` and other scheduled ops tasks may be delayed/fail.
+- **Root Cause:** TBD (provider/API rate limiting and/or insufficient timeout/bad fallback chain for cron lane; potential Anthropic profile latency).
+- **Resolution:**
+- **Learnings:** (pending) — add rate-limit backoff and ensure cron tasks use reliable hosted model + adequate timeout.
+- **Resolved At:**
+
+### TICKET-20260224-004
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T00:52:40Z
+- **SLA Deadline:** 2026-02-24T08:52:40Z (8 hours)
+- **Reporter:** OPS (cron)
+- **Assignee:** OPS
+- **Summary:** Gateway WS clients behind proxy not treated as local; repeated `pairing required` / connect failures
+- **Details:** `gateway.err.log` last lines show repeated:
+  - `[ws] Proxy headers detected from untrusted address... Configure gateway.trustedProxies...`
+  - `closed before connect ... code=1008 reason=pairing required` (and one `code=4008 reason=connect failed`)
+  Context: origin/host `https://redinsides-mac-mini.tailaf4882.ts.net` with forwarded IP `100.102.157.96` (Tailscale).
+  Impact: local web UI / WS connections may fail and subagent/local client features can degrade.
+- **Root Cause:** TBD (gateway not configured to trust reverse-proxy/Tailscale forwarded headers, so requests aren’t recognized as local and require pairing).
+- **Resolution:**
+- **Learnings:** (pending) — add trustedProxies guidance + verify pairing flow behind proxy.
+- **Resolved At:**
+
+### TICKET-20260224-005
+- **Status:** OPEN
+- **Priority:** P3
+- **Created:** 2026-02-24T00:52:40Z
+- **SLA Deadline:** 2026-02-26T00:52:40Z (48 hours)
+- **Reporter:** OPS (cron)
+- **Assignee:** OPS
+- **Summary:** ops cron tool allowlist contains unknown entries; allowlist won’t match any tool
+- **Details:** `gateway.err.log` shows: `[tools] agents.ops.tools.allow allowlist contains unknown entries (cron). These entries won't match any tool unless the plugin is enabled.`
+  Impact: cron runs may silently miss intended tool permissions, leading to confusing “tool not allowed” or misbehavior.
+- **Root Cause:** TBD (stale tool names in ops agent/cron allowlist; plugin not enabled; schema drift).
+- **Resolution:**
+- **Learnings:** (pending) — keep allowlist in sync with runtime tool names.
+- **Resolved At:**
+
+### TICKET-20260224-006
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T00:52:27Z
+- **SLA Deadline:** 2026-02-24T08:52:27Z (8 hours)
+- **Reporter:** OPS (cron)
+- **Assignee:** OPS
+- **Summary:** Cron reminder delivery failed: `sessions_send` to `main` failed
+- **Details:** Cron emitted warning: `⚠️ 📨 Session Send: main failed` (2026-02-23 19:52 EST / 2026-02-24 00:52Z). Similar historical errors in `gateway.log` show `Either sessionKey or label is required`, suggesting the cron is calling `sessions_send` with only `agentId=main` (invalid) rather than a `sessionKey` or `label`.
+- **Root Cause:** TBD
+- **Resolution:**
+- **Learnings:**
+- **Resolved At:**
+
+### TICKET-20260224-003
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-02-24T00:48:00Z
+- **SLA Deadline:** 2026-02-24T02:48:00Z (2 hours)
+- **Reporter:** OPS
+- **Assignee:** OPS
+- **Summary:** Cross-context Slack posting blocked when bound to Telegram channel
+- **Details:** Attempted `message(action="send", channel="slack", target="C0AGFA9417T", ...)` from a Telegram-bound session. Tool returned: `Cross-context messaging denied: action=send target provider "slack" while bound to "telegram".` This prevents fulfilling instructions to post status updates into Slack from within Telegram sessions.
+- **Root Cause:** TBD (likely runtime policy restricting cross-provider sends from a session bound to a different provider; missing multi-provider routing permission or misconfigured channel binding).
+- **Resolution:**
+- **Learnings:**
+- **Resolved At:**
+
+### TICKET-20260223-001
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-02-24T00:11:30Z
+- **SLA Deadline:** 2026-02-24T02:11:30Z (2 hours)
+- **Reporter:** OPS (cron)
+- **Assignee:** OPS
+- **Summary:** Mission Control / announce delivery failing: Telegram `sendMessage` to `channel:C0...` returns 400 chat not found
+- **Details:** `gateway.err.log` (2026-02-24 ~00:11Z) shows:
+  - `[telegram] message failed ... (400: Bad Request: chat not found)`
+  - Followed by: `Subagent completion direct announce failed ... chat_id=channel:C0AEV3J2L23`.
+  This indicates a Slack-style channel id (`channel:C0...`) is being routed through the Telegram plugin, which expects a numeric Telegram chat_id. Impact: subagent completion announcements + mission-control posts can fail.
+- **Root Cause:** TBD (likely channel routing mismatch: target IDs formatted for Slack but sent via Telegram provider; or Slack plugin disabled while prompts still target Slack).
+- **Resolution:**
+- **Learnings:**
+- **Resolved At:**
+
+### TICKET-20260223-002
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T00:11:30Z
+- **SLA Deadline:** 2026-02-24T08:11:30Z (8 hours)
+- **Reporter:** OPS (cron)
+- **Assignee:** INFOSEC
+- **Summary:** Potential DNS/SSRF false positive: url-fetch blocked for microsoft.com as "resolves to private/internal/special-use IP"
+- **Details:** `gateway.err.log` (2026-02-24 ~00:08Z) shows `[security] blocked URL fetch (url-fetch) target=https://www.microsoft.com/... reason=Blocked: resolves to private/internal/special-use IP address` and subsequent `web_fetch failed`.
+  This could be (a) a security control over-blocking due to resolver behavior, or (b) a genuine DNS hijack/misresolution to private IPs.
+- **Root Cause:** TBD.
+- **Resolution:**
+- **Learnings:**
+- **Resolved At:**
+
+### TICKET-20260224-001
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-02-24T00:20:00Z
+- **SLA Deadline:** 2026-02-24T02:20:00Z (2 hours)
+- **Reporter:** main (RED self-improvement)
+- **Assignee:** ENG
+- **Summary:** Normalize Slack message tool schema (legacy `sendMessage/to` still appears in prompts/templates)
+- **Details:** Some prompts/templates still instruct `message(action="sendMessage", to="channel:C0...")` while the runtime tool schema is `message(action="send", channel="slack", target="channel:C0...")`. This mismatch contributes to false “posted” claims and mis-deliveries (see also TICKET-20260223-001).
+- **Root Cause:** Template drift across versions; no compatibility layer.
+- **Resolution:**
+- **Learnings:** LEARNING-20260224-001
+- **Resolved At:**
+
+### TICKET-20260224-002
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-02-24T00:35:46Z
+- **SLA Deadline:** 2026-02-24T02:35:46Z (2 hours)
+- **Reporter:** OPS (cron)
+- **Assignee:** OPS
+- **Summary:** OPS Health Monitor cron fails due to sandbox path restrictions (absolute paths + read-only /workspace)
+- **Details:** `gateway.err.log` (2026-02-24 ~00:35Z) shows the health-monitor run failing tool calls:
+  - `[tools] write failed: Sandbox path is read-only; cannot create directories: /workspace/memory`
+  - `[tools] read failed: Path escapes sandbox root (~/.openclaw/sandboxes/agent-ops-...): /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md` (and similar for LEARNINGS.md, errors.jsonl, health.jsonl)
+  This indicates the cron prompt is using host-absolute paths and/or targets directories not writable inside the sandbox, so the monitor can’t read logs or open tickets reliably.
+- **Root Cause:** TBD (cron/agent tool sandbox root differs from host paths; /workspace mount is read-only or missing expected dirs).
+- **Resolution:**
+- **Learnings:** LEARNING-20260224-002
+- **Resolved At:**
+
+### TICKET-20260222-003
+- **Status:** RESOLVED
+- **Priority:** P2
+- **Created:** 2026-02-22T10:25:00Z
+- **SLA Deadline:** 2026-02-22T18:25:00Z (8 hours)
+- **Reporter:** main (RED self-improvement)
+- **Assignee:** OPS
+- **Summary:** CEO reflection/cron workflows fragile because `exec` requires approval; move to read/offset or precomputed digests
+- **Details:** The daily self-improvement cycle (and similar cron jobs) tries to run `tail`/`ls`/`find` via `exec` for log review and agent-status directory reads. In this runtime those `exec` calls require interactive approval, so cron runs can stall or partially complete. We can still read JSONL via `read`, but need a systematic pattern.
+- **Root Cause:** Runtime policy requires approval for shell execution in this session.
+- **Resolution:** Updated the cron job "RED Self-Improvement Reflection" to avoid directory reads by explicitly reading known agent-status JSON files (skip missing). This removes the `ls`/directory dependency that was breaking the reflection step.
+- **Learnings:** LEARNING-20260222-003
+- **Resolved At:** 2026-02-22T10:30:00Z
+
+### TICKET-20260222-002
+- **Status:** RESOLVED
+- **Priority:** P2
+- **Created:** 2026-02-22T10:06:00Z
+- **SLA Deadline:** 2026-02-22T18:06:00Z (8 hours)
+- **Reporter:** OPS (cron)
+- **Assignee:** OPS
+- **Summary:** WhatsApp channel logged out + gateway local connect failing with "pairing required"
+- **Details:** `gateway.err.log` (2026-02-22 ~10:01–10:03Z) shows repeated WhatsApp channel exits (ETIMEDOUT then 401 Unauthorized) followed by: "WhatsApp session logged out. Run: openclaw channels login". Also shows gateway local WS connect failing with code 1008 reason "pairing required" (subagent completion announce failed). This likely means WhatsApp messaging is currently down until re-auth, and node/gateway pairing state may be preventing some internal connections.
+- **Root Cause:** WhatsApp session expired/logged out (401 Unauthorized + explicit "channels login" log line). Continuing to run the WhatsApp plugin creates noisy retries and can interfere with delivery/announce flows.
+- **Resolution:** Disabled the WhatsApp plugin in openclaw.json (plugins.entries.whatsapp.enabled=false and removed from plugins.allow) to stop repeated failures until a manual re-login is performed.
+- **Learnings:** LEARNING-20260222-004
+- **Resolved At:** 2026-02-22T10:30:00Z
+
 ### TICKET-20260220-001
 - **Status:** BLOCKED
 - **Priority:** P1

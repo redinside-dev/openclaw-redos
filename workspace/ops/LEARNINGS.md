@@ -20,6 +20,57 @@ repeating mistakes and to build institutional knowledge.
 
 ## Learnings
 
+### LEARNING-20260224-006
+- **Date:** 2026-02-24T01:54:00Z
+- **Source Ticket:** TICKET-20260224-009
+- **Agent:** OPS
+- **Category:** tool
+- **Summary:** Slack `message.send` requires an explicit `target` in `channel:<id>` form; missing/invalid targets break announces
+- **Details:** Gateway log shows Slack delivery failing with: "Slack channels require a channel id (use channel:<id>)", "Delivering to Slack requires target ...", and "Action send requires a target." This indicates prompts/templates are sometimes sending without `target` or using a non-channel-id (e.g., channel name / legacy fields).
+- **Prevention:** Standardize all Slack-post steps to `message(action="send", channel="slack", target="channel:<id>")` (or `user:<id>`). Add lint/compat shim to map legacy fields and reject missing `target` early.
+- **Applied To:** Ticket opened (TICKET-20260224-009)
+
+### LEARNING-20260224-004
+- **Date:** 2026-02-24T01:07:00Z
+- **Source Ticket:** TICKET-20260224-007
+- **Agent:** OPS
+- **Category:** infra
+- **Summary:** Cron reliability needs rate-limit handling + enough timeout; otherwise monitoring jobs can silently stop
+- **Details:** Gateway logs show repeated `⚠️ API rate limit reached` failures and `FailoverError: LLM request timed out` in the cron lane (including `health-jsonl-writer-0001`). When cron tasks time out or hit provider rate limits without backoff/retry, scheduled monitoring can stop updating `health.jsonl` and degrade observability.
+- **Prevention:** Add exponential backoff on rate-limit errors, prefer a reliable hosted model for cron/monitoring lanes, and keep cron timeouts ≥300s for multi-step jobs. Consider circuit-breaking Anthropic profile if it frequently times out.
+- **Applied To:** Ticket opened (TICKET-20260224-007)
+
+### LEARNING-20260224-005
+- **Date:** 2026-02-24T01:24:31Z
+- **Source Ticket:** TICKET-20260224-008
+- **Agent:** OPS
+- **Category:** infra
+- **Summary:** Restart-required config changes can accumulate and force delivery-recovery deferrals; schedule controlled restarts
+- **Details:** Logs showed a restart-required config change (`gateway.trustedProxies`) being deferred while operations were in-flight, followed by `delivery-recovery` reporting its time budget exceeded and deferring 24 entries until the next restart. This can leave delivery/backlog issues unresolved and config changes unapplied longer than expected.
+- **Prevention:** After any config edit that requires restart, plan a short restart window (or enforce max-deferral time). Add an alert when `delivery-recovery ... budget exceeded` appears repeatedly, and expose the deferred-count as a health metric.
+- **Applied To:** Ticket opened (TICKET-20260224-008)
+
+### LEARNING-20260224-003
+- **Date:** 2026-02-24T00:52:40Z
+- **Source Ticket:** TICKET-20260224-004
+- **Agent:** OPS
+- **Category:** infra
+- **Summary:** When accessing gateway via reverse proxy/Tailscale, configure `gateway.trustedProxies` or WS clients may not be treated as local (pairing/connect failures)
+- **Details:** Logs showed `Proxy headers detected from untrusted address` and repeated WS closes with `pairing required` for connections originating from a Tailnet hostname with forwarded IPs. Without trusted proxy configuration, the gateway refuses to treat proxied connections as local.
+- **Prevention:** If the gateway is accessed through a proxy (Tailscale Funnel/serve, nginx, etc.), explicitly set `gateway.trustedProxies` to the proxy IP range and verify the pairing/local-client flow works end-to-end.
+- **Applied To:** (pending) — ticket opened; needs config update + validation
+
+### LEARNING-20260223-001
+- **Date:** 2026-02-24T00:11:30Z
+- **Source Ticket:** TICKET-20260223-001
+- **Agent:** OPS
+- **Category:** tool
+- **Summary:** Don’t mix Slack-style targets (`channel:C0...`) with Telegram delivery; ensure the channel plugin matches the target ID format
+- **Details:** Gateway attempted Telegram `sendMessage` to `channel:C0...` and failed with `400 chat not found`. This breaks mission-control posting and subagent completion announcements.
+- **Prevention:** Validate each cron/prompt uses the correct messaging provider for its target (Slack channel IDs vs Telegram numeric chat IDs). Add a startup/config check that rejects `channel:C0...` targets unless Slack plugin is enabled and selected.
+- **Applied To:** (pending) — ticket opened; requires config/prompt routing fix
+
+
 ### LEARNING-20260215-001
 - **Date:** 2026-02-15T22:08:00Z
 - **Source Ticket:** observation (Windsurf audit)
@@ -358,3 +409,56 @@ repeating mistakes and to build institutional knowledge.
 - **Details:** `errors.jsonl` shows repeated `openclaw chat ...` calls failing with `unknown command 'chat'`. This indicates CLI drift or legacy automation.
 - **Prevention:** Pin OpenClaw CLI usage to documented subcommands; avoid hard-coding non-existent commands in prompts/templates. Add a smoke test that validates critical CLI invocations after upgrades.
 - **Applied To:** (pending) — opened TICKET-20260221-005
+
+### LEARNING-20260222-002
+- **Date:** 2026-02-22T10:06:00Z
+- **Source Ticket:** TICKET-20260222-002
+- **Agent:** OPS (cron)
+- **Category:** infra
+- **Summary:** WhatsApp channel can silently log out; treat 401 + "channels login" log lines as a hard-down signal
+- **Details:** `gateway.err.log` showed WhatsApp channel exiting with ETIMEDOUT and then repeated 401 Unauthorized, followed by "WhatsApp session logged out. Run: openclaw channels login". Until re-authenticated, WhatsApp delivery is unavailable.
+- **Prevention:** Add monitoring/alerting rule: if any channel emits "session logged out" or repeated 401 exits within a short window, open a ticket and alert mission control. Document re-login runbook (`openclaw channels login`) and ensure it’s performed after restarts or token/session expiry.
+- **Applied To:** TICKET-20260222-002
+
+### LEARNING-20260222-003
+- **Date:** 2026-02-22T10:25:00Z
+- **Source Ticket:** observation (RED self-improvement)
+- **Agent:** main
+- **Category:** workflow
+- **Summary:** Cron/automation should not depend on `exec` for log tails; use file reads (offset) or dedicated summary files
+- **Details:** In this runtime, shell `exec` required interactive approval, which makes cron-style reflection cycles unreliable when they need `tail`/`ls`/`find`. We were able to review `errors.jsonl` and `routing-decisions.jsonl` via `read`, but `exec`-based steps stalled.
+- **Prevention:** Update cron prompt templates to prefer `read` with offsets for JSONL logs, or have OPS write a rolling `ops/digests/*.md` summary as part of monitoring jobs.
+- **Applied To:** LEARNINGS.md (this entry)
+
+### LEARNING-20260224-001
+- **Date:** 2026-02-24T00:20:00Z
+- **Source Ticket:** observation (RED self-improvement)
+- **Agent:** main
+- **Category:** tool
+- **Summary:** Slack posting schema drift: prompts reference `message(action=sendMessage, to=...)` but runtime tool expects `message(action="send", channel="slack", target="channel:<id>")`
+- **Details:** Routing-decision prompt tails and older templates still instruct `action="sendMessage"` and `to="channel:C0..."` (legacy schema). Current runtime exposes a generic `message` tool with actions like `send|read|edit|delete` and fields `channel` + `target`. This mismatch can cause “posted scheduled update” claims without an actual tool call, and contributes to routing/provider confusion (e.g., Slack-style IDs being attempted via Telegram).
+- **Prevention:** Standardize all templates/cron prompts to the actual tool schema. Consider adding a gateway-side compatibility shim that maps `{action: "sendMessage", to: "channel:..."}` → `{action: "send", channel: "slack", target: "channel:..."}` and rejects Slack IDs on Telegram.
+- **Applied To:** LEARNINGS.md (this entry); ticket opened for prompt normalization
+
+### LEARNING-20260224-002
+- **Date:** 2026-02-24T00:35:46Z
+- **Source Ticket:** TICKET-20260224-002
+- **Agent:** OPS
+- **Category:** workflow
+- **Summary:** Cron/agent prompts must use sandbox-accessible, workspace-relative paths (absolute host paths can be blocked)
+- **Details:** The OPS Health Monitor cron attempted to read/write using host-absolute paths (e.g., `/Users/redinside/.openclaw/...`) and `/workspace/*` paths, but tool calls failed with “Path escapes sandbox root” and “Sandbox path is read-only; cannot create directories”.
+- **Prevention:** In cron prompts, prefer workspace-relative paths that are guaranteed to be inside the agent’s sandbox root, and ensure required directories exist & are writable. If host paths are required, adjust sandbox/workspace mounting or provide a dedicated log digest file within the sandbox.
+- **Applied To:** LEARNINGS.md (this entry)
+
+### LEARNING-20260224-003
+- **Date:** 2026-02-24T00:55:00Z
+- **Source Ticket:** observation
+- **Agent:** main
+- **Category:** workflow
+- **Summary:** Add compatibility/lint to prevent legacy Slack message schema drift from reappearing in cron prompts
+- **Details:** `routing-decisions.jsonl` still contains cron prompt tails instructing `message(action="sendMessage", to="channel:C0...")`, while the runtime tool schema is `message(action="send", channel="slack", target="channel:C0...")`. This drift contributes to “posted” claims without actual delivery and can amplify provider/target mismatch issues.
+- **Prevention:**
+  1) Add a gateway-side compatibility shim mapping `{action:"sendMessage", to:"channel:C0..."}` → `{action:"send", channel:"slack", target:"channel:C0..."}`.
+  2) Add a prompt/template linter in CI that rejects legacy Slack fields (`sendMessage`, `to=`).
+- **Applied To:** LEARNINGS.md (this entry); ticket opened
+
