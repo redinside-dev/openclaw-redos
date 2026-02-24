@@ -1,41 +1,57 @@
 {
   "agent": "ops",
   "meta_check": {
-    "timestamp": "2026-02-23T22:46:00-05:00",
-    "timezone": "EST",
+    "timestamp": "2026-02-24T06:56:15-05:00",
+    "timezone": "America/Toronto",
     "exec": "ok",
     "read": "ok",
     "write": "ok",
     "notes": [
-      "Verified exec by running shell commands.",
-      "Verified write by writing/reading /tmp/openclaw_write_test.txt.",
-      "Verified read by reading ops/agent-status/ops.json."
+      "Verified exec via shell: wrote+read tmp/ops_meta_exec_test.txt.",
+      "Verified write via tool: wrote tmp/ops_meta_rw_test.txt.",
+      "Verified read via tool: read tmp/ops_meta_rw_test.txt.",
+      "Checked ops/agent-status/*.json meta_check presence for: allrounder, eng, finance, infosec, research."
     ]
   },
   "agent_status_dir": {
     "path": "ops/agent-status",
     "files_present": [
-      "ops.json"
-    ],
-    "files_missing_expected": [
       "allrounder.json",
       "eng.json",
       "finance.json",
       "infosec.json",
-      "research.json",
+      "ops.json",
+      "research.json"
+    ],
+    "meta_check_missing": [],
+    "nonstandard_missing": [
       "hatake.json"
     ]
   },
+  "agents": {
+    "allrounder": {
+      "meta_check_timestamp": "2026-02-23T22:47:33.978550-05:00",
+      "status": "present"
+    },
+    "eng": {
+      "meta_check_timestamp": "2026-02-23T22:47:10-05:00",
+      "status": "present"
+    },
+    "finance": {
+      "meta_check_timestamp": "2026-02-23T22:47:15-05:00",
+      "status": "present"
+    },
+    "infosec": {
+      "meta_check_timestamp": "2026-02-23T22:47:24-05:00",
+      "status": "present"
+    },
+    "research": {
+      "meta_check_timestamp": "2026-02-23T22:48:03-05:00",
+      "status": "present"
+    }
+  },
   "actions": {
-    "spawned_meta_checks": [
-      "allrounder",
-      "eng",
-      "finance",
-      "infosec",
-      "research"
-    ],
-    "not_spawned_due_to_limit": [
-      "hatake"
-    ]
+    "spawned_agents": [],
+    "reason": "No required agent meta check missing."
   }
 }

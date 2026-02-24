@@ -1,6 +1,6 @@
 {
   "agentId": "ops",
-  "updatedAt": "2026-02-24T05:00:00Z",
+  "updatedAt": "2026-02-24T12:55:00Z",
   "goals": [
     {
       "id": "goal-ops-001",
@@ -8,8 +8,8 @@
       "why": "Silent failures are the worst kind. If a cron fails and nobody knows, the system is lying about its health.",
       "priority": "P1",
       "status": "in_progress",
-      "progress": "Health JSONL writer running. Some crons still failing silently due to path issues (TICKET-20260224-013).",
-      "nextAction": "Fix relative path issues in cron monitors. Verify health.jsonl is updating every 15 min.",
+      "progress": "Health writer appears to be running, but health signal paths are inconsistent: workspace/logs/health.jsonl is stale while ~/.openclaw/logs/health.jsonl is historical. Risk of false reporting until canonical path is enforced.",
+      "nextAction": "Decide canonical health.jsonl location (recommend: /Users/redinside/.openclaw/workspace/logs/health.jsonl) and point writer + monitors there; keep legacy path via symlink/redirect if needed.",
       "createdAt": "2026-02-24T05:00:00Z",
       "targetDate": "2026-03-01T00:00:00Z",
       "blockers": []
@@ -20,8 +20,8 @@
       "why": "If a2a-delegations.jsonl is populated and accurate, Anurag can see the team working without asking anyone.",
       "priority": "P1",
       "status": "in_progress",
-      "progress": "Log file exists but empty. SOUL.md now mandates logging. Need to verify compliance.",
-      "nextAction": "Monitor a2a-delegations.jsonl daily. Alert RED if empty by 6pm.",
+      "progress": "a2a-delegations.jsonl is actively populated today with dispatch/result/compliance events across agents; remaining work is to ensure OPS also logs new escalations consistently.",
+      "nextAction": "Append OPS inner-loop escalations + replies into a2a-delegations.jsonl each cycle; add a simple daily check that the file advanced within the last 6h.",
       "createdAt": "2026-02-24T05:00:00Z",
       "targetDate": "2026-02-28T00:00:00Z",
       "blockers": []
@@ -32,11 +32,14 @@
       "why": "P2 tickets at 8h SLA. If they're open longer, the system is not self-healing.",
       "priority": "P2",
       "status": "in_progress",
-      "progress": "Multiple open tickets. Need to triage and assign.",
-      "nextAction": "Read TICKET-TRACKER.md, identify all P2 tickets past SLA, escalate or fix.",
+      "progress": "Two P2 items remain SLA-breached and require human/action gating: TICKET-20260223-002 (DNS/Tailscale) + TICKET-20260221-001 (cline IOC attestations).",
+      "nextAction": "Coordinate with INFOSEC + RED: execute DNS flush/Tailscale DNS fix and capture verification outputs; coordinate attestations collection for cline IOC from other hosts/CI.",
       "createdAt": "2026-02-24T05:00:00Z",
       "targetDate": "2026-03-01T00:00:00Z",
-      "blockers": []
+      "blockers": [
+        "Manual sudo required for DNS/Tailscale remediation",
+        "CI/other-host access needed for IOC attestations"
+      ]
     }
   ],
   "completedGoals": [],

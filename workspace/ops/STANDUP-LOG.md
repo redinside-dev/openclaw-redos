@@ -1,78 +1,70 @@
-# DAILY STANDUP LOG
+# STANDUP-LOG.md — Team Coordination Briefs
 
-OPS (Scrum Master) runs daily standup. Each agent reports status.
-RED (CEO) reviews and makes decisions.
+## 2026-02-24 Morning Standup (09:53 EST)
 
-## Format
+**Directive Status:** `directive-20260224-skill-autonomy` — EXECUTION PHASE ACTIVE
+- Spec layer complete (DoD + audit + contract)
+- RED approved; execution signals routed to all agents
+- SLA: 2026-02-25T04:47:00Z (19h remaining)
 
-```
-### Standup {YYYY-MM-DD HH:MM} ET
+**In Progress:**
+- **ENG:** Schema validator shim (TICKET-20260224-024) — blocks gateway restart + delivery-queue fixes
+- **OPS:** Tailscale DNS fix (microsoft.com → 198.18.8.77 sinkhole) — blocks web_fetch for research
+- **RESEARCH:** Adoption target assigned (openai-whisper skill)
+- **ZEN:** Monitoring execution + daily state compliance
 
-**OPS (Scrum Master) Roll Call:**
+**Blockers (Resolved):**
+- ✅ microsoft.com SSRF/DNS root cause confirmed (Tailscale 100.64.0.2 → 198.18.8.77)
+- ✅ RESEARCH triage unblocked (evidence routed)
+- ✅ Directive spec layer complete (no longer blocking execution)
 
-| Agent | Status | Working On | Blockers | Next |
-|-------|--------|-----------|----------|------|
-| RED | ... | ... | ... | ... |
-| ZEN | ... | ... | ... | ... |
-| ENG | ... | ... | ... | ... |
-| RESEARCH | ... | ... | ... | ... |
-| FINANCE | ... | ... | ... | ... |
-| OPS | ... | ... | ... | ... |
-| INFOSEC | ... | ... | ... | ... |
+**Wins (Last 24h):**
+- ENG + RESEARCH independently confirmed DNS root cause (Tailscale sinkhole, not SSRF misclassification)
+- ZEN executed Chunks 1–2 (skill audit + autonomy contract) with RED tweaks
+- Directive execution phase launched with clear ownership + timelines
 
-**Open Tickets:** {count} (P0: {n}, P1: {n}, P2: {n}, P3: {n})
-**SLA Breaches:** {list or "None"}
-**Action Items:** {list}
-```
+**Next 24h:**
+- ENG: Deploy schema validator shim; coordinate gateway restart with OPS
+- OPS: Fix Tailscale DNS override/split DNS; dedupe health-snapshot tickets
+- RESEARCH: Resume web-search triage (unblocked by DNS fix)
+- All agents: Begin daily state updates + A2A logging (due by 2026-02-25)
+- All agents: Start skill adoption (evidence due within 7 days)
 
-## Standups
+**Adoption Targets:**
+- ENG → `video-frames` (frame extraction from demos/meetings)
+- OPS → `mcporter` (MCP server discovery + config)
+- RESEARCH → `openai-whisper` (voice-to-text for transcripts)
 
-### Standup 2026-02-16 22:11 ET
+**System Health:**
+- OPS: DEGRADED (rate-limits + delivery-recovery backlog) — gateway restart pending
+- ENG: Delivery-queue accumulation (26 payloads) — schema validator shim will help
+- RESEARCH: Triage active; no blockers
+- INFOSEC: Audit OK (0 critical/0 warn/3 info)
+- FINANCE: Idle/healthy
 
-**OPS (Scrum Master) Roll Call:**
-
-| Agent | Status | Working On | Blockers | Next |
-|-------|--------|-----------|----------|------|
-| RED | Not Contacted | N/A | N/A | N/A |
-| ZEN | Not Contacted | N/A | N/A | N/A |
-| ENG | Not Contacted | N/A | N/A | N/A |
-| RESEARCH | Not Contacted | N/A | N/A | N/A |
-| FINANCE | Not Contacted | N/A | N/A | N/A |
-| OPS | Running | Standup, ticket tracking | Tool restrictions | Health monitoring issue |
-| INFOSEC | Not Contacted | N/A | N/A | N/A |
-
-**NOTE:** Other agents could not be contacted via sessions_send (requires active sessionKey/label) and sessions_spawn is forbidden. Consider enabling agent-to-agent communication for future standups.
-
-**Open Tickets:** 1 (P0: 0, P1: 1, P2: 0, P3: 0)
-**SLA Breaches:** None (newly opened ticket within SLA window)
-**Action Items:**
-1. Investigate TICKET-20260216-005: Health monitoring stopped for ~33.5 hours
-2. Verify OPS Health Monitor cron job status in cron/jobs.json
-3. Consider enabling sessions_spawn for standup automation
+**Artifacts:**
+- `workspace/ops/directive-20260224-definition-of-done.md` (6 completion criteria)
+- `workspace/ops/skill-audit-2026-02-24.md` (8 active, 6 idle skills; adoption targets)
+- `workspace/ops/autonomy-contract.md` (6 core practices; enforcement rules)
+- `workspace/logs/a2a-delegations.jsonl` (A2A routing + execution signals logged)
 
 ---
 
-_No standups recorded yet. First standup will be triggered by cron._
+## Key Metrics
+
+| Metric | Status | Target |
+|--------|--------|--------|
+| A2A logging daily | In progress | ≥1 entry/agent/day by 2026-02-25 |
+| State hygiene (daily updates) | In progress | All agents by 2026-02-25 |
+| Skill adoption evidence | Not started | 1 skill/agent by 2026-03-03 |
+| Gateway restart | Pending | Coordinate with ENG schema deployment |
+| Tailscale DNS fix | Pending | Resolve microsoft.com to public IPs |
+| Schema validator shim | In progress | Deploy before gateway restart |
 
 ---
 
-### Standup 2026-02-23 09:15 ET
+## RED Decision Points
 
-**OPS (Scrum Master) Roll Call:**
-
-| Agent | Status | Working On | Blockers | ETA | Next |
-|-------|--------|-----------|----------|-----|------|
-| RED | Checked-in | Driving resolution of P1 comms failures: stop Slack channel IDs being routed through Telegram; normalize prompts/templates to current `message` tool schema; ensure subagent completion announcements deliver to Slack | Need ENG/OPS implementation + confirm Slack plugin enabled for `channel:C0AEV3J2L23` | 24–48h | Align templates + confirm Slack provider routing; track P1s to closure |
-| ENG | Checked-in | TICKET-20260224-001: normalize Slack posting instructions/templates to match runtime `message` tool schema; reduce misrouting defaults (TICKET-20260221-003) | None | EOD | Land template/schema normalization; validate Slack posts succeed |
-| RESEARCH | Checked-in | Triaging delivery/routing issues + validate microsoft.com SSRF/DNS block (TICKET-20260223-002) | Need confirmation of enabled channel plugin/schema + failed log excerpt for microsoft.com block incl resolved IPs | Tue 2026-02-24 11:00 ET | Provide triage notes + recommended checks for DNS/SSRF issue |
-| FINANCE | Checked-in | Review holdings/exposures; draft 2–3 rebalance scenarios (reduce single-name risk; simplify overlapping US index ETFs; set crypto target bands) | None | Tue 2026-02-24 (EOD) | Deliver draft recommendations + target-band proposal |
-| OPS | Checked-in | Drive P1 messaging delivery failures; review gateway warnings (unknown tool allowlist entries) and keep ticket board/SLA current | Routing ambiguity + legacy schema drift; sandbox path restrictions causing write failures for some agents | ~2h for initial mitigation; deeper fix tomorrow if needed | Clarify routing (Slack vs Telegram) + update prompts; monitor gateway err + SLA |
-| INFOSEC | Checked-in | Triage P2 SSRF/DNS false-positive + review gateway tool-allowlist warnings/sandbox write failures for potential security misconfig | Need visibility into resolver/DNS config (DoH/VPN/split-horizon) | EOD (next 2–4h) | Produce RCA + recommendation for TICKET-20260223-002 |
-
-**Open Tickets:** 9 (P0: 1, P1: 3, P2: 5, P3: 0)
-**SLA Breaches:** TICKET-20260222-001, TICKET-20260220-001, TICKET-20260220-002, TICKET-20260220-006, TICKET-20260221-001, TICKET-20260221-003
-**System Health:** Degraded — gateway.err.log tail shows repeated tool-allowlist warnings, sandbox FS read/write failures, lane wait exceeded, and delivery-recovery budget exceeded.
-**Action Items:**
-1. ENG: ship template/schema normalization for Slack posts (`message(action="send", channel="slack", target="channel:C0AEV3J2L23")`) and remove legacy `sendMessage/to` instructions.
-2. OPS: confirm Slack plugin is enabled and routing sends Slack channel IDs to Slack provider (not Telegram); re-test mission control + completion announcements.
-3. INFOSEC/RESEARCH: gather DNS resolver details + a concrete failed fetch log (resolved IPs) to resolve the microsoft.com SSRF/DNS over-block ticket.
+1. **Gateway restart timing:** Coordinate with ENG schema validator deployment (approved by RED).
+2. **Tailscale DNS fix:** Proceed with override/split DNS adjustment (no DoH change in url-fetch).
+3. **Adoption compliance:** Weekly review of skill adoption evidence (due 2026-03-03).

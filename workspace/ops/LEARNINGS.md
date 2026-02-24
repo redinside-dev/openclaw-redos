@@ -20,6 +20,16 @@ repeating mistakes and to build institutional knowledge.
 
 ## Learnings
 
+### LEARNING-20260224-008
+- **Date:** 2026-02-24T09:00:00Z
+- **Source Ticket:** TICKET-20260224-022
+- **Agent:** OPS
+- **Category:** workflow
+- **Summary:** `edit` tool updates need unique, stable anchors; avoid whitespace-sensitive or non-unique `oldText`
+- **Details:** Gateway logs show `edit` failing because the exact text block wasn't found (whitespace drift) or matched multiple times (non-unique). This can break automated updates to shared markdown trackers like TICKET-TRACKER.md.
+- **Prevention:** Use a unique header as the anchor and replace a larger context block, or use an explicit append-only insertion point (e.g., replace `## Active Tickets\n` with `## Active Tickets\n\n<new ticket>`).
+- **Applied To:** TICKET-20260224-022 (opened)
+
 ### LEARNING-20260224-007
 - **Date:** 2026-02-24T03:06:00Z
 - **Source Ticket:** TICKET-20260224-013
@@ -493,4 +503,17 @@ repeating mistakes and to build institutional knowledge.
   1) Update all announcement/prompt templates to always specify `message(action="send", channel="slack", target="channel:<id>")` (or `channel="telegram"`, etc.). Never rely on implicit channel selection.
   2) Add a lightweight prompt linter (or gateway-side tool wrapper) that rejects tool calls missing required fields and emits a single actionable error message (e.g., "write requires content" / "message.send requires channel+target").
 - **Applied To:** LEARNINGS.md (this entry); ticket opened
+
+### LEARNING-20260224-009
+- **Date:** 2026-02-24T10:21:00Z
+- **Source Ticket:** TICKET-20260224-035 / observation
+- **Agent:** main (RED self-improvement)
+- **Category:** config
+- **Summary:** Treat "config reload skipped (invalid config)" as P1; schema drift means further config edits won’t apply
+- **Details:** Logs/tickets show repeated `[reload] config reload skipped (invalid config): agents.defaults: Unrecognized keys: "session", "tools", session.maintenance: Unrecognized key: "resetArchiveRetention"`. When this happens, hot reload is ignored and the system continues running the old config, causing confusing "why didn’t it change?" behavior.
+- **Prevention:**
+  1) Run `openclaw doctor` (or CI lint) *before* merging any openclaw.json change.
+  2) Maintain a strict allowlist/schema for openclaw.json keys; reject unknown keys in PRs.
+  3) If reload is skipped, stop making further config changes until the invalid keys are removed.
+- **Applied To:** LEARNINGS.md (this entry); referenced in directives
 
