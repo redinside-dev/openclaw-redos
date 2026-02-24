@@ -126,10 +126,11 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
   - `lane task error: lane=cron ... error="FailoverError: LLM request timed out."`
   - specific failure: `lane=session:agent:ops:cron:health-jsonl-writer-0001 ... timed out`.
   - additional symptom: job run produced empty stdin for the parser (no JSON captured), so no write occurred and `logs/health.jsonl` remained unchanged.
+  - additional symptom: another run captured `openclaw status --json` successfully but the JSON parse/append step exited non-zero (exit code 3), so it intentionally made no changes to `logs/health.jsonl`.
   Impact: monitoring/cron workflows can stop updating `logs/health.jsonl` and other scheduled ops tasks may be delayed/fail.
 - **Root Cause:** TBD (provider/API rate limiting and/or insufficient timeout/bad fallback chain for cron lane; potential Anthropic profile latency).
 - **Resolution:**
-- **Learnings:** (pending) — add rate-limit backoff and ensure cron tasks use reliable hosted model + adequate timeout.
+- **Learnings:** (pending) — add rate-limit backoff and ensure cron tasks use reliable hosted model + adequate timeout; ensure JSON parsing step is resilient and logs raw capture when parsing fails.
 - **Resolved At:**
 
 ### TICKET-20260224-004
