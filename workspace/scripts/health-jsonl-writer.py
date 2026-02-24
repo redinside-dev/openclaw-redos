@@ -36,24 +36,35 @@ def run_status_json():
         return None
 
 
-def extract_gateway_info(status_json):
-    """Extract gateway reachability and latency from status JSON."""
+def extract_health_info(status_json):
+    """Extract health metrics from status JSON."""
     try:
-        # Look for gateway info in the status output
-        gateway_section = status_json.get("gateway", {})
-        if isinstance(gateway_section, dict):
-            reachable = gateway_section.get("reachable", False)
-            latency = gateway_section.get("connectLatencyMs")
-            version = gateway_section.get("version")
-            return {
-                "reachable": bool(reachable),
-                "connectLatencyMs": latency,
-                "version": version,
+        health = {}
+        
+        # Session health
+        sessions = status_json.get("sessions", {})
+        if isinstance(sessions, dict):
+            health["sessions"] = {
+                "count": sessions.get("count", 0),
+                "recent_count": len(sessions.get("recent", [])),
             }
-    except Exception:
-        pass
-    
-    return {"reachable": False, "connectLatencyMs": None, "version": None}
+        
+        # Channel health
+        channels = status_json.get("channelSummary", [])
+        health["channels_configured"] = len([c for c in channels if "configured" in c])
+        
+        # Heartbeat agents
+        heartbeat = status_json.get("heartbeat", {})
+        agents = heartbeat.get("agents", [])
+        health["agents_enabled"] = len([a for a in agents if a.get("enabled")])
+        health["agents_total"] = len(agents)
+        
+        # Queued events
+        health["queued_system_events"] = len(status_json.get("queuedSystemEvents", []))
+        
+        return health
+    except Exception as e:
+        return {"error": str(e)}
 
 
 def main():
@@ -62,15 +73,13 @@ def main():
         # Silent fail per job instructions
         return
     
-    gateway_info = extract_gateway_info(status_json)
+    health_info = extract_health_info(status_json)
     
     # Build health record
     now_utc = datetime.now(timezone.utc).isoformat()
     record = {
         "timestamp": now_utc,
-        "checks": {
-            "gateway": gateway_info
-        }
+        "health": health_info
     }
     
     # Append to health.jsonl
