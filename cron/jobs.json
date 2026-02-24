@@ -277,7 +277,7 @@
       "name": "Implementation Status Updates (temp, every 10 min)",
       "enabled": true,
       "createdAtMs": 1770410925180,
-      "updatedAtMs": 1771900216808,
+      "updatedAtMs": 1771900807223,
       "schedule": {
         "kind": "cron",
         "expr": "*/10 * * * *",
@@ -298,11 +298,11 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1771900200042,
+        "lastRunAtMs": 1771900800022,
         "lastStatus": "ok",
-        "lastDurationMs": 16766,
+        "lastDurationMs": 7201,
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1771900800000,
+        "nextRunAtMs": 1771901400000,
         "lastRunStatus": "ok",
         "lastDelivered": true,
         "lastDeliveryStatus": "delivered"
@@ -482,7 +482,7 @@
       "name": "Cron Watchdog (alert on missed/failing jobs)",
       "enabled": true,
       "createdAtMs": 1770618629260,
-      "updatedAtMs": 1771900281695,
+      "updatedAtMs": 1771900810271,
       "schedule": {
         "kind": "cron",
         "expr": "*/10 8-22 * * *",
@@ -502,11 +502,11 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1771900216808,
+        "lastRunAtMs": 1771900807223,
         "lastStatus": "ok",
-        "lastDurationMs": 64887,
+        "lastDurationMs": 3048,
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1771900800000,
+        "nextRunAtMs": 1771901400000,
         "lastRunStatus": "ok",
         "lastDelivered": false,
         "lastDeliveryStatus": "not-delivered"
@@ -796,7 +796,7 @@
       "name": "OPS System Health Monitor",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771899276413,
+      "updatedAtMs": 1771900646796,
       "schedule": {
         "kind": "every",
         "everyMs": 900000,
@@ -817,14 +817,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastStatus": "error",
-        "lastRunAtMs": 1771898976299,
-        "lastDurationMs": 300114,
-        "consecutiveErrors": 1,
-        "nextRunAtMs": 1771900595024,
-        "lastRunStatus": "error",
-        "lastDeliveryStatus": "unknown",
-        "lastError": "cron: job execution timed out"
+        "lastStatus": "ok",
+        "lastRunAtMs": 1771900595071,
+        "lastDurationMs": 51725,
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1771901495071,
+        "lastRunStatus": "ok",
+        "lastDeliveryStatus": "delivered",
+        "lastDelivered": true
       }
     },
     {
@@ -1034,7 +1034,7 @@
       "name": "INFOSEC ← ENG: Security Review of Updates",
       "enabled": true,
       "createdAtMs": 1771380089656,
-      "updatedAtMs": 1771529709867,
+      "updatedAtMs": 1771900344489,
       "schedule": {
         "kind": "cron",
         "expr": "30 14 * * 2,4",
@@ -1045,8 +1045,8 @@
       "payload": {
         "kind": "agentTurn",
         "message": "You are INFOSEC (Security Officer). Review ENG's recent work for security implications.\n\nSTEPS:\n1. Use the message tool to read recent messages from #openclaw-optimization:\n   action=\"readMessages\", channelId=\"C0AF4KB4TUK\", limit=30\n2. Read logs/gateway.err.log (last 30 lines) for security events.\n3. Review any code changes, config updates, or new integrations ENG has posted.\n4. Check workspace/ops/LEARNINGS.md for known security patterns.\n5. For each security concern found:\n   a. Post a security advisory to #openclaw-optimization with severity level\n   b. Create a ticket in TICKET-TRACKER.md if P1/P2\n6. Post security review summary to #openclaw-optimization:\n   ```\n   🔒 *INFOSEC Security Review — <date>*\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n   Reviewed ENG updates. Security assessment:\n   *Status:* ✅ CLEAR / ⚠️ ADVISORIES / 🔴 CRITICAL\n   <findings and recommendations>\n   ```\n   Use the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AF4KB4TUK\" ",
-        "thinking": "low",
-        "timeoutSeconds": 360
+        "thinking": "off",
+        "timeoutSeconds": 600
       },
       "delivery": {
         "mode": "announce",
@@ -1149,7 +1149,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 240,
-        "message": "You are OPS (Orchestrator). Run task ETA monitoring.\n\nSTEPS:\n1. Read workspace/ops/task-registry.json\n2. If no tasks or all completed: do nothing silently.\n3. For each task with status \"in_progress\" and an eta field:\n   a. If current time > eta: mark the task as overdue\n   b. Post a warning to Slack #redos-ops: \"⏰ *Task ETA Breach* — TASK-{id}: {title} was due {eta}. Assignee: {assignee}\"\n      Use the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AEV3MDEDD\"\n   c. Notify the parent agent via sessions_spawn if requestedBy is set:\n      sessions_spawn(agentId=\"{requestedBy}\", task=\"OPS alert: Task {id} ({title}) assigned to {assignee} has passed its ETA of {eta}. Please check status.\")\n4. Update task-registry.json with any status changes.\n\nBe silent if all tasks are on track."
+        "message": "You are OPS (Orchestrator). Run task ETA monitoring.\n\nSTEPS:\n1. Read /Users/redinside/.openclaw/workspace/ops/task-registry.json\n2. If no tasks or all completed: do nothing silently.\n3. For each task with status \"in_progress\" and an eta field:\n   a. If current time > eta: mark the task as overdue\n   b. Post a warning to Slack #redos-ops: \"⏰ *Task ETA Breach* — TASK-{id}: {title} was due {eta}. Assignee: {assignee}\"\n      Use the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AEV3MDEDD\"\n   c. Notify the parent agent via sessions_spawn if requestedBy is set:\n      sessions_spawn(agentId=\"{requestedBy}\", task=\"OPS alert: Task {id} ({title}) assigned to {assignee} has passed its ETA of {eta}. Please check status.\")\n4. Update task-registry.json with any status changes.\n\nBe silent if all tasks are on track."
       },
       "delivery": {
         "mode": "announce",
@@ -1165,7 +1165,8 @@
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDelivered": false,
-        "lastDeliveryStatus": "not-delivered"
+        "lastDeliveryStatus": "not-delivered",
+        "runningAtMs": 1771901105486
       }
     },
     {
@@ -1212,7 +1213,7 @@
       "name": "OPS Idle Agent Audit",
       "enabled": true,
       "createdAtMs": 1771544316316,
-      "updatedAtMs": 1771897176162,
+      "updatedAtMs": 1771900791299,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -1233,10 +1234,10 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771900716354,
-        "lastRunAtMs": 1771897116354,
+        "nextRunAtMs": 1771904316398,
+        "lastRunAtMs": 1771900716398,
         "lastStatus": "ok",
-        "lastDurationMs": 59808,
+        "lastDurationMs": 74901,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDelivered": true,
@@ -1311,7 +1312,7 @@
       "name": "Health JSONL Writer",
       "enabled": true,
       "createdAtMs": 1771695150814,
-      "updatedAtMs": 1771899491727,
+      "updatedAtMs": 1771900378401,
       "schedule": {
         "kind": "every",
         "everyMs": 900000,
@@ -1333,10 +1334,10 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771900350897,
-        "lastRunAtMs": 1771899450897,
+        "nextRunAtMs": 1771901250931,
+        "lastRunAtMs": 1771900350931,
         "lastStatus": "ok",
-        "lastDurationMs": 40830,
+        "lastDurationMs": 27470,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
