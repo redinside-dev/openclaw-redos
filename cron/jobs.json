@@ -787,7 +787,8 @@
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDelivered": false,
-        "lastDeliveryStatus": "not-delivered"
+        "lastDeliveryStatus": "not-delivered",
+        "runningAtMs": 1771910948854
       }
     },
     {
@@ -868,7 +869,7 @@
       "name": "OPS Ticket Auto-Diagnose & Fix",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771907082468,
+      "updatedAtMs": 1771910948770,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -889,14 +890,13 @@
         "target": "channel:C0AEV3J2L23"
       },
       "state": {
-        "nextRunAtMs": 1771910650957,
-        "lastRunAtMs": 1771907050957,
+        "nextRunAtMs": 1771914251029,
+        "lastRunAtMs": 1771910651029,
         "lastStatus": "ok",
-        "lastDurationMs": 31511,
+        "lastDurationMs": 297741,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
-        "lastDeliveryStatus": "unknown",
-        "runningAtMs": 1771910651020
+        "lastDeliveryStatus": "unknown"
       }
     },
     {
@@ -1206,7 +1206,8 @@
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDelivered": false,
-        "lastDeliveryStatus": "not-delivered"
+        "lastDeliveryStatus": "not-delivered",
+        "runningAtMs": 1771910948854
       }
     },
     {
@@ -1839,7 +1840,8 @@
         "lastStatus": "ok",
         "lastDurationMs": 8211,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 0
+        "consecutiveErrors": 0,
+        "runningAtMs": 1771910948854
       }
     },
     {
@@ -1874,7 +1876,8 @@
         "lastStatus": "ok",
         "lastDurationMs": 6803,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 0
+        "consecutiveErrors": 0,
+        "runningAtMs": 1771910948854
       }
     },
     {
@@ -2067,7 +2070,8 @@
       "schedule": {
         "kind": "cron",
         "expr": "0 */2 * * *",
-        "tz": "America/Toronto"
+        "tz": "America/Toronto",
+        "staggerMs": 300000
       },
       "sessionTarget": "isolated",
       "wakeMode": "now",
@@ -2175,6 +2179,126 @@
       },
       "state": {
         "nextRunAtMs": 1771944300000
+      }
+    },
+    {
+      "id": "inner-loop-eng-0001",
+      "agentId": "eng",
+      "name": "ENG Inner Loop — Self-Directed Cognitive Cycle",
+      "enabled": true,
+      "createdAtMs": 1771912000000,
+      "updatedAtMs": 1771912000000,
+      "schedule": {
+        "kind": "cron",
+        "expr": "30 1,5,9,13,17,21 * * *",
+        "tz": "America/Toronto"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "thinking": "low",
+        "timeoutSeconds": 600,
+        "message": "You are ENG. Run your inner cognitive loop.\n\nSTEP 1 — READ STATE:\n- Read workspace/goals/goals-eng.json\n- Read workspace/memory/state-eng.json\n- Read workspace/memory/working-eng.json (create if missing)\n- Read workspace/ops/TICKET-TRACKER.md\n- Check latest commits: git -C /Users/redinside/Development/Codebase/projects/RedTeam/github/redteam-coding-factory log --oneline -3 2>/dev/null\n\nSTEP 2 — ORIENT:\n- What is the next concrete thing I can build right now?\n- Is there a ticket assigned to me I haven't looked at?\n- Is there a curiosity from my state file worth exploring?\n- Does INFOSEC need to review anything I'm building?\n\nSTEP 3 — ACT (pick ONE, do it fully):\nGood proactive ENG actions:\n- Implement the next Phase 1 step in the coding factory (check goals-eng.json for current step)\n- Fix an open ticket from TICKET-TRACKER.md\n- Explore a technical curiosity via web_search\n- sessions_send INFOSEC to get a security review before deploying anything\n- sessions_send RESEARCH to ask for findings relevant to what you're building\n- Commit and push any completed work to the coding factory repo\n\nSTEP 4 — REFLECT + UPDATE STATE:\n- Append to workspace/memory/YYYY-MM-DD.md\n- Update workspace/memory/state-eng.json (new curiosities? resolved concerns?)\n- Update workspace/goals/goals-eng.json (progress made?)\n- Update workspace/memory/working-eng.json with current focus\n- Log A2A interactions to logs/a2a-delegations.jsonl\n- Post progress to Slack #redos-eng (channel:C0AFW1B0QUB)\n\nBuild something. Don't just plan."
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack",
+        "bestEffort": true,
+        "target": "channel:C0AFW1B0QUB"
+      },
+      "state": {
+        "nextRunAtMs": 1771938600000
+      }
+    },
+    {
+      "id": "inner-loop-allrounder-0001",
+      "agentId": "allrounder",
+      "name": "ZEN Inner Loop — Self-Directed Cognitive Cycle",
+      "enabled": true,
+      "createdAtMs": 1771912000000,
+      "updatedAtMs": 1771912000000,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 */3 * * *",
+        "tz": "America/Toronto"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "thinking": "low",
+        "timeoutSeconds": 600,
+        "message": "You are ZEN (COO). Run your inner cognitive loop.\n\nSTEP 1 — READ STATE:\n- Read workspace/goals/goals-allrounder.json\n- Read workspace/memory/state-allrounder.json\n- Read workspace/memory/working-allrounder.json (create if missing)\n- Read all workspace/ops/agent-status/*.json files\n- Read workspace/memory/YYYY-MM-DD.md\n\nSTEP 2 — ORIENT:\n- What is the team working on right now?\n- Is there information flowing between agents that should be flowing?\n- Is there a current event or news item the team should know about?\n- Is there an agent who seems stuck or silent?\n\nSTEP 3 — ACT (pick ONE, do it fully):\nGood proactive ZEN actions:\n- Run web_search on a topic relevant to the team's current work and share findings\n- Synthesize today's agent activity into a brief and post to #redos-mission-control\n- sessions_send an agent who seems stuck or silent to check in\n- sessions_send RED with a synthesis of what the team is doing\n- Search for OpenClaw updates or new features: web_search('OpenClaw AI agent new features 2026')\n- Route a piece of information from one agent to another who needs it\n\nSTEP 4 — REFLECT + UPDATE STATE:\n- Append to workspace/memory/YYYY-MM-DD.md\n- Update workspace/memory/state-allrounder.json\n- Update workspace/goals/goals-allrounder.json\n- Update workspace/memory/working-allrounder.json\n- Log A2A interactions to logs/a2a-delegations.jsonl\n\nYou are the connective tissue. Make information flow."
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack",
+        "bestEffort": true,
+        "target": "channel:C0AEV3MDEDD"
+      },
+      "state": {
+        "nextRunAtMs": 1771938000000
+      }
+    },
+    {
+      "id": "inner-loop-finance-0001",
+      "agentId": "finance",
+      "name": "FINANCE Inner Loop — Self-Directed Cognitive Cycle",
+      "enabled": true,
+      "createdAtMs": 1771912000000,
+      "updatedAtMs": 1771912000000,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 8,14,20 * * *",
+        "tz": "America/Toronto"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "thinking": "low",
+        "timeoutSeconds": 600,
+        "message": "You are FINANCE. Run your inner cognitive loop.\n\nSTEP 1 — READ STATE:\n- Read workspace/goals/goals-finance.json\n- Read workspace/memory/state-finance.json\n- Read workspace/memory/working-finance.json (create if missing)\n- Read workspace/tmp/provider-quota.json if it exists\n\nSTEP 2 — ORIENT:\n- What is the current model spend today?\n- Are there any cost anomalies I should flag?\n- Has RED received a cost report recently?\n- Are we using expensive models where cheap ones would work?\n\nSTEP 3 — ACT (pick ONE, do it fully):\nGood proactive FINANCE actions:\n- Check provider-quota.json and calculate today's estimated spend\n- If spend looks anomalous: sessions_send RED immediately with alert\n- If no cost report this week: generate one and post to #redos-mission-control\n- Identify the top 3 most expensive cron jobs and recommend cheaper model alternatives\n- sessions_send RED with a brief cost update: 'FINANCE here — today's spend is X, on track/anomaly'\n- Check if free-unlimited model route is being used as fallback appropriately\n\nSTEP 4 — REFLECT + UPDATE STATE:\n- Append to workspace/memory/YYYY-MM-DD.md\n- Update workspace/memory/state-finance.json\n- Update workspace/goals/goals-finance.json\n- Update workspace/memory/working-finance.json\n- Log A2A interactions to logs/a2a-delegations.jsonl\n\nCost visibility is your core value. Produce it."
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack",
+        "bestEffort": true,
+        "target": "channel:C0AEV3MDEDD"
+      },
+      "state": {
+        "nextRunAtMs": 1771948800000
+      }
+    },
+    {
+      "id": "inner-loop-hatake-0001",
+      "agentId": "hatake",
+      "name": "HATAKE Inner Loop — Self-Directed Cognitive Cycle",
+      "enabled": true,
+      "createdAtMs": 1771912000000,
+      "updatedAtMs": 1771912000000,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 10,16,22 * * *",
+        "tz": "America/Toronto"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "thinking": "low",
+        "timeoutSeconds": 600,
+        "message": "You are HATAKE (Marketing & Competitive Intelligence). Run your inner cognitive loop.\n\nSTEP 1 — READ STATE:\n- Read workspace/goals/goals-hatake.json\n- Read workspace/memory/state-hatake.json\n- Read workspace/memory/working-hatake.json (create if missing)\n- Read workspace/skills/competitive-intelligence/SKILL.md\n\nSTEP 2 — ORIENT:\n- What competitors have shipped something in the last 48h?\n- What is the most important competitive signal right now?\n- What does the team need to know that I haven't told them yet?\n- Has competitive-intelligence run this week?\n\nSTEP 3 — ACT (pick ONE, do it fully):\nGood proactive HATAKE actions:\n- Run web_search on competitor updates: 'Cursor AI new feature site:cursor.com OR twitter.com', 'Devin AI update 2026', 'v0 Vercel new feature', 'Windsurf Codeium update'\n- If significant competitor news found: sessions_send RED (sessionKey='agent:main:main') AND sessions_send RESEARCH (sessionKey='agent:research:main') with the finding\n- Run competitive-intelligence skill if it hasn't run this week\n- Write a 1-paragraph competitive brief to workspace/research/competitive-YYYY-MM-DD.md\n- Post competitive update to Slack #redos-mission-control (channel:C0AEV3MDEDD)\n- Draft or update the RedOS marketing narrative in workspace/research/redos-narrative.md\n\nSTEP 4 — REFLECT + UPDATE STATE:\n- Append to workspace/memory/YYYY-MM-DD.md\n- Update workspace/memory/state-hatake.json\n- Update workspace/goals/goals-hatake.json\n- Update workspace/memory/working-hatake.json\n- Log A2A interactions to logs/a2a-delegations.jsonl\n\nYou are the team's eyes on the outside world. Look, find, share."
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack",
+        "bestEffort": true,
+        "target": "channel:C0AEV3MDEDD"
+      },
+      "state": {
+        "nextRunAtMs": 1771956000000
       }
     }
   ]
