@@ -17,3 +17,10 @@ After acting:
 - Update `memory/working-eng.json`
 - Update `memory/state-eng.json`
 - Log any A2A to `../workspace/logs/a2a-delegations.jsonl`
+
+## Proactive Health Scan (every heartbeat)
+Read `../workspace/skills/self-healing-auto/SKILL.md` — run Level 1 checks:
+- `memory/working-eng.json` exists and valid JSON? If not → auto-create.
+- `goals/goals-eng.json` exists? If not → auto-create.
+- Last cron for agentId=eng succeeded? Check `../cron/jobs.json`.
+Auto-fix any failures before acting.

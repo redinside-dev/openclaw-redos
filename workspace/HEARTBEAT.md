@@ -20,3 +20,11 @@ After acting:
 - Update `memory/state-main.json` (new curiosities? resolved concerns?)
 - Update `goals/goals-main.json` if progress made
 - Log any A2A to `logs/a2a-delegations.jsonl`
+
+## Proactive Health Scan (every heartbeat, before acting)
+Read `skills/self-healing-auto/SKILL.md` and run the proactive health scan:
+- Does `memory/working-main.json` exist and parse as valid JSON? If not → auto-create.
+- Does `goals/goals-main.json` exist? If not → auto-create.
+- Is `logs/a2a-delegations.jsonl` writable? If not → auto-create.
+- Did my last cron run succeed? Check `../cron/jobs.json` for agentId=main.
+Auto-fix any Level 1 failures before proceeding.

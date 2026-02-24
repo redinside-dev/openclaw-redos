@@ -19,3 +19,10 @@ After acting:
 - Update `memory/working-allrounder.json`
 - Update `memory/state-allrounder.json`
 - Log any A2A to `../workspace/logs/a2a-delegations.jsonl`
+
+## Proactive Health Scan (every heartbeat)
+Read `../workspace/skills/self-healing-auto/SKILL.md` — run Level 1 checks:
+- `memory/working-allrounder.json` exists and valid JSON? If not → auto-create.
+- `goals/goals-allrounder.json` exists? If not → auto-create.
+- Any agent silent for 24h in `../workspace/ops/agent-status/`? → sessions_send them.
+Auto-fix any failures before acting.

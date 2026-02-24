@@ -18,3 +18,10 @@ After acting:
 - Update `memory/working-infosec.json`
 - Update `memory/state-infosec.json`
 - Log any A2A to `../workspace/logs/a2a-delegations.jsonl`
+
+## Proactive Health Scan (every heartbeat)
+Read `../workspace/skills/self-healing-auto/SKILL.md` — run Level 1 checks:
+- `memory/working-infosec.json` exists and valid JSON? If not → auto-create.
+- `goals/goals-infosec.json` exists? If not → auto-create.
+- Any security-tagged tickets OPEN in `../workspace/ops/TICKET-TRACKER.md`? → act on them.
+Auto-fix any failures before acting.
