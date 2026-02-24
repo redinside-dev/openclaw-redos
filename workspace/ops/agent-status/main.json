@@ -1,11 +1,15 @@
 {
-  "agent": "main",
-  "date": "2026-02-22",
-  "updatedAt": "2026-02-22T04:27:26.308631",
-  "sprintGoal": "Autonomous main operations",
-  "workingOn": "Active main tasks and coordination",
-  "completedYesterday": "Completed main responsibilities",
-  "eta": "Continuous operation",
-  "blockers": "None",
-  "status": "active"
+  "agentId": "main",
+  "ts": "2026-02-24T04:39:30Z",
+  "localTime": "2026-02-23T23:39:30-05:00",
+  "status": "idle",
+  "standup": {
+    "note": "No standup submitted today (no queue items / no assigned tasks).",
+    "yesterday": [],
+    "today": [
+      "Remain on-call for OPS pings",
+      "If time: chip away at open cron/Slack reliability tickets (path drift, schema mismatch)"
+    ],
+    "blockers": []
+  }
 }

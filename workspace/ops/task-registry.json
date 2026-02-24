@@ -1,4 +1,15 @@
 {
   "_comment": "OPS-managed task registry. Updated by agents when accepting delegated tasks. OPS monitors ETAs every 30 min.",
-  "tasks": []
+  "tasks": [
+    {
+      "id": "directive-20260224-skill-autonomy",
+      "createdAt": "2026-02-24T04:47:00Z",
+      "priority": "P1",
+      "assignee": "main",
+      "status": "PENDING",
+      "title": "Execute CEO-DIRECTIVE-20260224: Autonomous Skill Adoption + Git Commit",
+      "description": "Read workspace/ops/CEO-DIRECTIVE-20260224.md and execute ALL actions including: skill audit, delegate to all agents, run competitive-intelligence immediately, update self-improvement cycle, AND initialize git repo at /Users/redinside/Development/Codebase/projects/RedTeam and commit all changes. Report completion to #redos-mission-control within 24h.",
+      "slaDeadline": "2026-02-25T04:47:00Z"
+    }
+  ]
 }

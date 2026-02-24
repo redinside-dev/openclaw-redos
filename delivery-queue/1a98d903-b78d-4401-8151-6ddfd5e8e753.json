@@ -1,0 +1,14 @@
+{
+  "id": "1a98d903-b78d-4401-8151-6ddfd5e8e753",
+  "enqueuedAt": 1771892830554,
+  "channel": "telegram",
+  "to": "heartbeat",
+  "payloads": [
+    {
+      "text": "Reminder: I can generate your **ENG DAILY (2026-02-23)** summary, but I need approval to run a few local shell commands to inspect repo health (e.g., `ls`, `git status`, `git log`, and optionally tests).\n\nReply **“approve”** (or set limits like **“only git status + git log”** / **“no tests”**). After that I’ll produce:\n\nENG DAILY (2026-02-23)\n- Yesterday shipped:\n- Today focus:\n- Risks/Blockers:\n- Asks:\n\nProvider+model: openai-codex/gpt-5.2",
+      "mediaUrls": []
+    }
+  ],
+  "retryCount": 1,
+  "lastError": "Telegram send failed: chat not found (chat_id=@heartbeat). Likely: bot not started in DM, bot removed from group/channel, group migrated (new -100… id), or wrong bot token. Input was: \"heartbeat\"."
+}

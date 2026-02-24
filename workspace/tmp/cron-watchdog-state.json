@@ -1,48 +1,120 @@
 {
   "lastAlert": {
+    "085332ff-3e0f-4d5e-b619-e0133d74c387": {
+      "sig": "MISS: **Trading Window Brief (4:00pm ET)** (`085332ff-3e0f-4d5e-b619-e0133d74c387`)\n- nextRun was: 2026-02-23 16:00:00\n- lastRun: 2026-02-09 16:00:00 (status=ok)",
+      "ts": 1771892963844
+    },
+    "0e518762-ba06-462b-aae1-78d201befbd0": {
+      "sig": "MISS: **OPS Scrum Master \u2014 Morning Standup** (`0e518762-ba06-462b-aae1-78d201befbd0`)\n- nextRun was: 2026-02-23 09:15:00\n- lastRun: 2026-02-20 09:15:47 (status=ok)",
+      "ts": 1771892963844
+    },
     "103d1e7b-f629-4875-8ea2-6e3b8c52fe2f": {
       "sig": "MISS: **POC Check-in: Ollama Smart Routing (Research)** (`103d1e7b-f629-4875-8ea2-6e3b8c52fe2f`)\n- nextRun was: 2026-02-10 08:28:30\n- lastRun: 2026-02-10 07:58:44 (status=error)",
       "ts": 1770731166185
     },
+    "14c3b159-749f-4855-8a36-39964a865aaf": {
+      "sig": "MISS: **RED Daily Brief (Telegram)** (`14c3b159-749f-4855-8a36-39964a865aaf`)\n- nextRun was: 2026-02-22 09:00:00\n- lastRun: 2026-02-21 09:00:00 (status=ok)",
+      "ts": 1771892963844
+    },
     "173f38b8-9f45-4236-b468-d6b8826c0ff0": {
       "sig": "FAIL: **Market Leads (Alpha Vantage, 4x/day)** (`173f38b8-9f45-4236-b468-d6b8826c0ff0`)\n- lastRun: 2026-02-09 15:01:37 (status=error)",
-      "ts": 1770731166185
+      "ts": 1771901421152
     },
     "199a722c-5a9f-4df0-a7d6-71f8039ee187": {
-      "sig": "MISS: **Trading Window Brief (8am-4pm ET)** (`199a722c-5a9f-4df0-a7d6-71f8039ee187`)\n- nextRun was: 2026-02-10 08:30:00\n- lastRun: 2026-02-09 15:30:00 (status=ok)",
-      "ts": 1770731166185
+      "sig": "MISS: **Trading Window Brief (8am-4pm ET)** (`199a722c-5a9f-4df0-a7d6-71f8039ee187`)\n- nextRun was: 2026-02-23 08:00:00\n- lastRun: 2026-02-10 09:00:00 (status=ok)",
+      "ts": 1771892963844
+    },
+    "1d58e865-f463-4e2e-aa4f-daec90bdc5de": {
+      "sig": "FAIL: **RESEARCH Proactive Knowledge Update** (`1d58e865-f463-4e2e-aa4f-daec90bdc5de`)\n- lastRun: 2026-02-22 01:21:35 (status=error)",
+      "ts": 1771901421152
     },
     "2db6929c-c97e-445b-a907-b2a8a6895337": {
       "sig": "FAIL: **Gmail Unread Summary** (`2db6929c-c97e-445b-a907-b2a8a6895337`)\n- lastRun: 2026-02-09 12:32:24 (status=error)",
       "ts": 1770658837087
     },
     "2ef34ad2-e703-415d-8ad9-08a5acdfa1ca": {
-      "sig": "MISS: **GitHub Repo Updates (2 repos, 4x/day)** (`2ef34ad2-e703-415d-8ad9-08a5acdfa1ca`)\n- nextRun was: 2026-02-09 12:00:00\n- lastRun: 2026-02-09 10:01:28 (status=ok)",
-      "ts": 1770656930953
+      "sig": "MISS: **GitHub Repo Updates (2 repos, 4x/day)** (`2ef34ad2-e703-415d-8ad9-08a5acdfa1ca`)\n- nextRun was: 2026-02-23 10:00:00\n- lastRun: 2026-02-20 19:00:00 (status=ok)",
+      "ts": 1771892963844
+    },
+    "35169d6a-7eef-471a-8848-7a446228e01e": {
+      "sig": "MISS: **Implementation Status Updates (temp, every 10 min)** (`35169d6a-7eef-471a-8848-7a446228e01e`)\n- nextRun was: 2026-02-22 05:30:00\n- lastRun: 2026-02-22 05:20:00 (status=ok)",
+      "ts": 1771892963844
     },
     "45337086-6c37-4c11-97bc-92d824e3c71f": {
-      "sig": "FAIL: **Daily AI + OpenClaw Trends Brief (Telegram DM)** (`45337086-6c37-4c11-97bc-92d824e3c71f`)\n- lastRun: 2026-02-09 20:30:00 (status=error)",
-      "ts": 1770731166185
+      "sig": "FAIL: **Daily AI + OpenClaw Trends Brief (Telegram DM)** (`45337086-6c37-4c11-97bc-92d824e3c71f`)\n- lastRun: 2026-02-21 20:30:00 (status=error)",
+      "ts": 1771894214260
     },
     "58248a42-7459-4341-9065-be5acc73f61e": {
-      "sig": "FAIL: **QQQ Profit/Stop Watch (intraday)** (`58248a42-7459-4341-9065-be5acc73f61e`)\n- lastRun: 2026-02-09 14:48:00 (status=error)",
-      "ts": 1770666649089
+      "sig": "MISS: **QQQ Profit/Stop Watch (intraday)** (`58248a42-7459-4341-9065-be5acc73f61e`)\n- nextRun was: 2026-02-23 12:00:00\n- lastRun: 2026-02-09 15:58:00 (status=ok)",
+      "ts": 1771892963844
+    },
+    "59cbd270-fa3a-436e-a654-a5621b54c864": {
+      "sig": "MISS: **RESEARCH Daily Proactive (Mode P)** (`59cbd270-fa3a-436e-a654-a5621b54c864`)\n- nextRun was: 2026-02-23 09:15:00\n- lastRun: 2026-02-10 09:15:56 (status=ok)",
+      "ts": 1771892963844
+    },
+    "69c261e4-53e0-495a-9d9b-4c22413e8f26": {
+      "sig": "MISS: **Daily Portfolio Review (Pre-Market)** (`69c261e4-53e0-495a-9d9b-4c22413e8f26`)\n- nextRun was: 2026-02-23 08:45:00\n- lastRun: 2026-02-20 04:31:24 (status=ok)",
+      "ts": 1771892963844
+    },
+    "6e4089e6-ae0e-412a-86a1-8323c5497dd9": {
+      "sig": "MISS: **ENG Daily Proactive (Mode P)** (`6e4089e6-ae0e-412a-86a1-8323c5497dd9`)\n- nextRun was: 2026-02-23 09:05:00\n- lastRun: 2026-02-10 09:05:00 (status=ok)",
+      "ts": 1771892963844
+    },
+    "72729a38-d841-4eb4-a645-0a74289ab90a": {
+      "sig": "MISS: **OPS Ticket Auto-Diagnose & Fix** (`72729a38-d841-4eb4-a645-0a74289ab90a`)\n- nextRun was: 2026-02-22 05:21:35\n- lastRun: 2026-02-22 04:22:07 (status=ok)",
+      "ts": 1771892963844
+    },
+    "76777b7a-c553-4669-9673-2bcdb5640481": {
+      "sig": "FAIL: **OPS System Health Monitor** (`76777b7a-c553-4669-9673-2bcdb5640481`)\n- lastRun: 2026-02-23 21:09:36 (status=error)",
+      "ts": 1771899297564
     },
     "7d1f3378-1f52-48ee-a2d9-9c4aaf8f5c88": {
-      "sig": "FAIL: **Gmail Unread Summary (Telegram)** (`7d1f3378-1f52-48ee-a2d9-9c4aaf8f5c88`)\n- lastRun: 2026-02-10 08:38:12 (status=error)",
-      "ts": 1770731404143
+      "sig": "MISS: **Gmail Unread Summary (Telegram)** (`7d1f3378-1f52-48ee-a2d9-9c4aaf8f5c88`)\n- nextRun was: 2026-02-23 08:00:00\n- lastRun: 2026-02-20 18:46:10 (status=ok)",
+      "ts": 1771892963844
+    },
+    "7ee66e0d-1b71-4a3a-903c-c1adf807e5d1": {
+      "sig": "MISS: **FINANCE Daily Proactive (Mode P)** (`7ee66e0d-1b71-4a3a-903c-c1adf807e5d1`)\n- nextRun was: 2026-02-23 09:20:00\n- lastRun: 2026-02-10 09:20:00 (status=ok)",
+      "ts": 1771892963844
     },
     "9eb88a89-e9cf-4a22-9bc0-17de230218e4": {
       "sig": "FAIL: **Gmail Unread Summary (Telegram)** (`9eb88a89-e9cf-4a22-9bc0-17de230218e4`)\n- lastRun: 2026-02-09 20:45:43 (status=error)",
       "ts": 1770690907755
     },
+    "9router-quota-sync-0001": {
+      "sig": "MISS: **9Router Quota Sync** (`9router-quota-sync-0001`)\n- nextRun was: 2026-02-22 05:26:40\n- lastRun: 2026-02-22 04:58:48 (status=ok)",
+      "ts": 1771892963844
+    },
+    "a2a-eng-reads-research-0001": {
+      "sig": "MISS: **ENG \u2190 RESEARCH: Read & Apply Learnings** (`a2a-eng-reads-research-0001`)\n- nextRun was: 2026-02-23 10:45:00\n- lastRun: 2026-02-20 10:45:08 (status=ok)",
+      "ts": 1771892963844
+    },
+    "a2a-infosec-reviews-eng-0001": {
+      "sig": "FAIL: **INFOSEC \u2190 ENG: Security Review of Updates** (`a2a-infosec-reviews-eng-0001`)\n- lastRun: 2026-02-19 14:32:09 (status=error)",
+      "ts": 1771900320789
+    },
+    "a2a-red-morning-team-pulse-0001": {
+      "sig": "MISS: **RED Morning Team Pulse (Slack A2A)** (`a2a-red-morning-team-pulse-0001`)\n- nextRun was: 2026-02-23 09:30:00\n- lastRun: 2026-02-20 09:34:17 (status=ok)",
+      "ts": 1771892963844
+    },
+    "a5bdd899-6a7c-4dbf-bae8-b35378650ad6": {
+      "sig": "MISS: **RED CEO Daily Summary to Anurag** (`a5bdd899-6a7c-4dbf-bae8-b35378650ad6`)\n- nextRun was: 2026-02-23 18:00:00\n- lastRun: 2026-02-20 18:00:15 (status=ok)",
+      "ts": 1771892963844
+    },
+    "b6e593c0-f9d2-4eb3-8dbf-449c37b65127": {
+      "sig": "MISS: **OPS SLA Enforcement Check** (`b6e593c0-f9d2-4eb3-8dbf-449c37b65127`)\n- nextRun was: 2026-02-22 05:21:35\n- lastRun: 2026-02-22 04:51:35 (status=ok)",
+      "ts": 1771892963844
+    },
+    "bde6d3d8-c404-4a75-8875-66d7a27f0697": {
+      "sig": "MISS: **RED Self-Improvement Reflection** (`bde6d3d8-c404-4a75-8875-66d7a27f0697`)\n- nextRun was: 2026-02-22 05:21:35\n- lastRun: 2026-02-21 23:21:35 (status=ok)",
+      "ts": 1771892963844
+    },
     "c8481b2a-45c9-47bf-9161-8e72fa387098": {
-      "sig": "FAIL: **System Health Watch (OpenClaw)** (`c8481b2a-45c9-47bf-9161-8e72fa387098`)\n- lastRun: 2026-02-10 08:42:07 (status=error)",
-      "ts": 1770731404143
+      "sig": "MISS: **System Health Watch (OpenClaw)** (`c8481b2a-45c9-47bf-9161-8e72fa387098`)\n- nextRun was: 2026-02-23 08:00:00\n- lastRun: 2026-02-10 09:00:55 (status=ok)",
+      "ts": 1771892963844
     },
     "cbffd7e1-8647-441e-af8c-33362e455f89": {
-      "sig": "MISS: **Cron Watchdog (alert on missed/failing jobs)** (`cbffd7e1-8647-441e-af8c-33362e455f89`)\n- nextRun was: 2026-02-10 08:30:00\n- lastRun: 2026-02-09 21:40:00 (status=ok)",
-      "ts": 1770731166185
+      "sig": "MISS: **Cron Watchdog (alert on missed/failing jobs)** (`cbffd7e1-8647-441e-af8c-33362e455f89`)\n- nextRun was: 2026-02-22 08:00:00\n- lastRun: 2026-02-10 09:30:00 (status=ok)",
+      "ts": 1771892963844
     },
     "d0390e79-2afe-4b26-a2c5-b2780ac152ef": {
       "sig": "FAIL: **Gmail Unread Summary (Telegram)** (`d0390e79-2afe-4b26-a2c5-b2780ac152ef`)\n- lastRun: 2026-02-09 21:30:52 (status=error)",
@@ -52,9 +124,61 @@
       "sig": "FAIL: **Gmail Unread Summary (Telegram)** (`d60deb95-55d3-4aad-92ff-2c06a2105f61`)\n- lastRun: 2026-02-09 21:15:40 (status=error)",
       "ts": 1770690907755
     },
+    "e7e58107-e9ed-413c-90be-db9f3e8cc343": {
+      "sig": "MISS: **OPS Daily Proactive (Mode P)** (`e7e58107-e9ed-413c-90be-db9f3e8cc343`)\n- nextRun was: 2026-02-23 09:10:00\n- lastRun: 2026-02-10 09:10:00 (status=ok)",
+      "ts": 1771892963844
+    },
     "f6d1caba-ecbb-4546-bbba-24aa5fe7ef1c": {
       "sig": "FAIL: **Gmail Unread Summary (Telegram)** (`f6d1caba-ecbb-4546-bbba-24aa5fe7ef1c`)\n- lastRun: 2026-02-09 20:15:51 (status=error)",
       "ts": 1770690907755
+    },
+    "hatake-daily-briefing-0001": {
+      "sig": "MISS: **HATAKE Daily Intent Briefing** (`hatake-daily-briefing-0001`)\n- nextRun was: 2026-02-22 09:00:00\n- lastRun: \u2014 (status=\u2014)",
+      "ts": 1771892963844
+    },
+    "health-jsonl-writer-0001": {
+      "sig": "FAIL: **Health JSONL Writer** (`health-jsonl-writer-0001`)\n- lastRun: 2026-02-23 20:17:30 (status=error)",
+      "ts": 1771896011928
+    },
+    "heartbeat-task-router-0001": {
+      "sig": "MISS: **HEARTBEAT Task Router** (`heartbeat-task-router-0001`)\n- nextRun was: 2026-02-22 06:02:36\n- lastRun: 2026-02-22 05:02:40 (status=ok)",
+      "ts": 1771892963844
+    },
+    "ops-disk-monitor-daily-2026-02-22": {
+      "sig": "MISS: **Daily Disk Space Monitor (Telegram)** (`ops-disk-monitor-daily-2026-02-22`)\n- nextRun was: 2026-02-22 09:00:00\n- lastRun: \u2014 (status=\u2014)",
+      "ts": 1771892963844
+    },
+    "ops-idle-agent-audit-0001": {
+      "sig": "MISS: **OPS Idle Agent Audit** (`ops-idle-agent-audit-0001`)\n- nextRun was: 2026-02-22 05:38:36\n- lastRun: 2026-02-22 04:38:40 (status=ok)",
+      "ts": 1771892963844
+    },
+    "ops-task-eta-monitor-0001": {
+      "sig": "MISS: **OPS Task ETA Monitor** (`ops-task-eta-monitor-0001`)\n- nextRun was: 2026-02-22 05:38:36\n- lastRun: 2026-02-22 05:08:36 (status=ok)",
+      "ts": 1771892963844
+    },
+    "sa-eng-checkin-0001": {
+      "sig": "MISS: **ENG Morning Check-in (standup)** (`sa-eng-checkin-0001`)\n- nextRun was: 2026-02-23 09:05:00\n- lastRun: 2026-02-20 09:05:31 (status=ok)",
+      "ts": 1771892963844
+    },
+    "sa-finance-checkin-0001": {
+      "sig": "MISS: **FINANCE Morning Check-in (standup)** (`sa-finance-checkin-0001`)\n- nextRun was: 2026-02-23 09:05:00\n- lastRun: 2026-02-20 09:08:16 (status=ok)",
+      "ts": 1771892963844
+    },
+    "sa-infosec-checkin-0001": {
+      "sig": "MISS: **INFOSEC Morning Check-in (standup)** (`sa-infosec-checkin-0001`)\n- nextRun was: 2026-02-23 09:05:00\n- lastRun: 2026-02-20 09:13:20 (status=ok)",
+      "ts": 1771892963844
+    },
+    "sa-main-checkin-0001": {
+      "sig": "MISS: **RED Morning Check-in (standup)** (`sa-main-checkin-0001`)\n- nextRun was: 2026-02-23 09:05:00\n- lastRun: 2026-02-20 09:05:00 (status=ok)",
+      "ts": 1771892963844
+    },
+    "sa-ops-checkin-0001": {
+      "sig": "MISS: **OPS Morning Check-in (standup)** (`sa-ops-checkin-0001`)\n- nextRun was: 2026-02-23 09:05:00\n- lastRun: 2026-02-20 09:10:29 (status=ok)",
+      "ts": 1771892963844
+    },
+    "sa-research-checkin-0001": {
+      "sig": "MISS: **RESEARCH Morning Check-in (standup)** (`sa-research-checkin-0001`)\n- nextRun was: 2026-02-23 09:05:00\n- lastRun: 2026-02-20 09:07:46 (status=ok)",
+      "ts": 1771892963844
     }
   }
 }

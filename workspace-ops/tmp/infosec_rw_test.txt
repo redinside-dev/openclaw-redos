@@ -1,0 +1,2 @@
+infosec meta self-check
+write/read OK

@@ -1,0 +1,14 @@
+{
+  "id": "6d78b513-df7d-45cf-8591-9abf48a40e07",
+  "enqueuedAt": 1771892939936,
+  "channel": "telegram",
+  "to": "heartbeat",
+  "payloads": [
+    {
+      "text": "RESEARCH DAILY (2026-02-23)\n\n- **Signals**\n  - OpenAI “Operator” reportedly rolling out more broadly to Plus/Team (consumer-facing autonomous web tasking moving mainstream):  \n    https://champaignmagazine.com/2026/02/22/ai-by-ai-weekly-top-5-february-16-22-2026/\n  - Anthropic Claude Sonnet 4.6 (agentic “computer-use”, long-context beta) highlighted in weekly roundups:  \n    https://champaignmagazine.com/2026/02/22/ai-by-ai-weekly-top-5-february-16-22-2026/\n  - Google Gemini 3.1 Pro preview positioned around agentic multi-step workflows:  \n    https://jonathanberthold.com/blog/the-builders-ai-roundup-february-2026/\n\n- **OpenClaw / MCP**\n  - Google announced “Developer Knowledge API” + an MCP Server (public preview):  \n    https://developers.googleblog.com/introducing-the-developer-knowledge-api-and-mcp-server/\n  - MCP Server pattern showing up in security/ops tooling too (example: Virtana MCP Server):  \n    https://www.helpnetsecurity.com/2026/02/19/virtana-mcp-server/\n\n- **Security**\n  - “Clinejection” supply-chain incident (prompt injection → CI/cache poisoning → malicious publish) is a strong reminder that agent-connected tooling can bridge untrusted text into real code execution/publishing paths:  \n    https://snyk.io/blog/cline-supply-chain-attack-prompt-injection-github-actions/\n\n- **Recommended actions**\n  - Add a lightweight **tooling guardrail checklist** for OpenClaw skills: don’t run package-manager commands (npm/pip/brew) from model-supplied text; require explicit confirmation and show the exact command first.\n  - **Pin + audit:** enforce lockfiles, prefer `npm ci`, and add a dependency-diff review step before updating any skill/tool deps (especially those with install scripts).\n\nProvider+model: openai-codex/gpt-5.2",
+      "mediaUrls": []
+    }
+  ],
+  "retryCount": 1,
+  "lastError": "Telegram send failed: chat not found (chat_id=@heartbeat). Likely: bot not started in DM, bot removed from group/channel, group migrated (new -100… id), or wrong bot token. Input was: \"heartbeat\"."
+}

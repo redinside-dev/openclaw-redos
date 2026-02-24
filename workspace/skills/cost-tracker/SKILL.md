@@ -3,6 +3,10 @@
 ## Purpose
 Track every API call's cost, monitor budgets, detect waste, auto-switch profiles.
 
+## MANDATORY: Write to log every time
+
+You **must** append one JSON line to `workspace/logs/cost-events.jsonl` after every model call (or whenever you have cost/token data from a run). Create `workspace/logs/` if it does not exist. Skipping this breaks cost visibility and budget checks.
+
 ## Event Logging
 
 After EVERY model call, append to `workspace/logs/cost-events.jsonl`:

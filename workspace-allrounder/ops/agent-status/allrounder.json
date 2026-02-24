@@ -1,0 +1,39 @@
+{
+  "agent": "allrounder",
+  "timestamp": "2026-02-23T22:43:42-05:00",
+  "timezone": "America/Toronto",
+  "metaSelfCheck": {
+    "web_search": {
+      "ok": true,
+      "testQuery": "Toronto weather forecast tomorrow",
+      "citationsCount": 8
+    },
+    "exec": {
+      "ok": true,
+      "testCommand": "echo 'exec_ok' && uname -a && date",
+      "host": "Darwin arm64"
+    },
+    "read": {
+      "ok": true,
+      "testPath": "AGENTS.md"
+    },
+    "write": {
+      "ok": true,
+      "testPath": "ops/agent-status/allrounder.json"
+    }
+  },
+  "queue": {
+    "activeSessionsLast12h": 1,
+    "notes": "Only this cron self-check session observed; no other active sub-agent sessions in the last 12h."
+  },
+  "state": {
+    "idle": true,
+    "bottlenecks": [
+      "No queued work detected; next useful step is to pull current priorities from main session / project tracker."
+    ],
+    "nextActions": [
+      "If desired, ask main for top 1-3 priorities to execute or delegate.",
+      "Optionally run a workspace scan (git status / pending TODOs) when a project is identified."
+    ]
+  }
+}

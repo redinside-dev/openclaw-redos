@@ -1,0 +1,29 @@
+{
+  "agent": "eng",
+  "meta_check": {
+    "timestamp": "2026-02-23T22:47:10-05:00",
+    "timezone": "EST",
+    "exec": "ok",
+    "read": "ok",
+    "write": "ok",
+    "notes": [
+      "Verified exec by running shell commands (ls/date).",
+      "Verified write by writing/reading tmp/eng_write_test.txt in workspace-ops.",
+      "Verified read by reading ops/agent-status/ops.json."
+    ]
+  },
+  "agent_status_dir": {
+    "path": "ops/agent-status",
+    "files_present": [
+      "ops.json",
+      "eng.json"
+    ],
+    "files_missing_expected": [
+      "allrounder.json",
+      "finance.json",
+      "infosec.json",
+      "research.json",
+      "hatake.json"
+    ]
+  }
+}

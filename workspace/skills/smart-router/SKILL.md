@@ -3,6 +3,10 @@
 ## Purpose
 Select the optimal model for each task based on requirements, available resources, cost, and quality. Runs AFTER HATAKE parses, BEFORE dispatching to agents.
 
+## MANDATORY: Log every routing decision
+
+You **must** append one JSON line to `workspace/logs/routing-decisions.jsonl` for every routing decision you make. Create `workspace/logs/` if it does not exist. Skipping this breaks routing audits and the Mission Control Team tab.
+
 ## Input
 - HATAKE brief (JSON)
 - Active routing profile (from workspace/config/routing-profiles.json)

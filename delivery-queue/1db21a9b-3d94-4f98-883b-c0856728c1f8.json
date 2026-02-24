@@ -1,0 +1,18 @@
+{
+  "id": "1db21a9b-3d94-4f98-883b-c0856728c1f8",
+  "enqueuedAt": 1771891869846,
+  "channel": "telegram",
+  "to": "channel:C0AEV3J2L23",
+  "accountId": "ops",
+  "payloads": [
+    {
+      "text": "The “OPS SLA Enforcement Check” ran successfully, but it couldn’t deliver its update to the `main` session (the session message send failed).  \n\nIf you want, I can rerun the delivery step now or paste the check’s output here directly—tell me which you prefer.",
+      "mediaUrls": []
+    }
+  ],
+  "threadId": null,
+  "replyToId": null,
+  "bestEffort": false,
+  "retryCount": 1,
+  "lastError": "Telegram send failed: chat not found (chat_id=channel:C0AEV3J2L23). Likely: bot not started in DM, bot removed from group/channel, group migrated (new -100… id), or wrong bot token. Input was: \"channel:C0AEV3J2L23\"."
+}

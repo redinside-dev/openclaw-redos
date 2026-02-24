@@ -1,0 +1,41 @@
+{
+  "agent": "ops",
+  "meta_check": {
+    "timestamp": "2026-02-23T22:46:00-05:00",
+    "timezone": "EST",
+    "exec": "ok",
+    "read": "ok",
+    "write": "ok",
+    "notes": [
+      "Verified exec by running shell commands.",
+      "Verified write by writing/reading /tmp/openclaw_write_test.txt.",
+      "Verified read by reading ops/agent-status/ops.json."
+    ]
+  },
+  "agent_status_dir": {
+    "path": "ops/agent-status",
+    "files_present": [
+      "ops.json"
+    ],
+    "files_missing_expected": [
+      "allrounder.json",
+      "eng.json",
+      "finance.json",
+      "infosec.json",
+      "research.json",
+      "hatake.json"
+    ]
+  },
+  "actions": {
+    "spawned_meta_checks": [
+      "allrounder",
+      "eng",
+      "finance",
+      "infosec",
+      "research"
+    ],
+    "not_spawned_due_to_limit": [
+      "hatake"
+    ]
+  }
+}

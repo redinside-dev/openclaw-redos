@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RedOS Mission Control - Next Generation</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Bebas+Neue&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://unpkg.com/@observablehq/plot"></script>
+<style>
+:root {
+  --space-900: #0a0e1a;
+  --space-800: #151932;
+  --space-700: #1e2645;
+  --space-600: #2a3558;
+  --neon-cyan: #00d4ff;
+  --neon-green: #00ff88;
+  --neon-yellow: #ffaa00;
+  --neon-red: #ff3366;
+  --neon-blue: #00aaff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--space-900);
+  color: #e8ecf4;
+  overflow-x: hidden;
+}
+
+/* Glassmorphism */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+}
+
+.glass-dark {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+}
+
+/* Neon effects */
+.neon-glow-cyan {
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.5), 0 0 40px rgba(0, 212, 255, 0.3);
+}
+
+.neon-glow-green {
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.5), 0 0 40px rgba(0, 255, 136, 0.3);
+}
+
+.neon-glow-red {
+  box-shadow: 0 0 20px rgba(255, 51, 102, 0.5), 0 0 40px rgba(255, 51, 102, 0.3);
+}
+
+/* Animations */
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.float-animation {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--space-800);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--space-600);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--space-500);
+}
+
+/* Agent cards */
+.agent-card {
+  @apply glass-dark p-6 border-l-4 transition-all duration-300 hover:scale-105 cursor-pointer;
+}
+
+.agent-card.active {
+  border-left-color: var(--neon-cyan);
+  @apply neon-glow-cyan;
+}
+
+.agent-card.ceo {
+  border-left-color: #f0a500;
+}
+
+.agent-card.coo {
+  border-left-color: var(--neon-blue);
+}
+
+.agent-card.eng {
+  border-left-color: var(--neon-green);
+}
+
+.agent-card.research {
+  border-left-color: var(--neon-yellow);
+}
+
+.agent-card.finance {
+  border-left-color: #00ff88;
+}
+
+.agent-card.ops {
+  border-left-color: var(--neon-cyan);
+}
+
+.agent-card.infosec {
+  border-left-color: var(--neon-red);
+}
+
+.agent-card.hatake {
+  border-left-color: var(--neon-purple);
+}
+
+/* Pipeline visualization */
+.pipeline-node {
+  @apply glass p-4 text-center transition-all duration-300;
+}
+
+.pipeline-node.active {
+  @apply neon-glow-cyan border border-cyan-500;
+}
+
+/* Status indicators */
+.status-online {
+  color: var(--neon-green);
+  @apply animate-pulse;
+}
+
+.status-offline {
+  color: var(--neon-red);
+}
+
+.status-warning {
+  color: var(--neon-yellow);
+}
+
+/* Tab navigation */
+.tab-nav {
+  @apply px-6 py-3 text-sm font-medium transition-all duration-200 border-b-2 border-transparent;
+}
+
+.tab-nav.active {
+  color: var(--neon-cyan);
+  border-bottom-color: var(--neon-cyan);
+}
+
+.tab-nav:hover {
+  color: var(--neon-cyan);
+}
+
+/* Metric cards */
+.metric-card {
+  @apply glass p-6 text-center;
+}
+
+.metric-value {
+  font-family: 'JetBrains Mono', monospace;
+  @apply text-3xl font-bold;
+}
+
+.metric-label {
+  @apply text-xs text-gray-400 uppercase tracking-wider mt-2;
+}
+
+/* Hierarchy tree */
+.hierarchy-line {
+  background: linear-gradient(to bottom, var(--neon-cyan), transparent);
+  width: 2px;
+  height: 40px;
+}
+
+/* Charts container */
+.chart-container {
+  @apply glass p-6;
+  height: 300px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .agent-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Header Mission Control -->
+<header class="glass sticky top-0 z-50 px-6 py-4 border-b border-white/10">
+  <div class="flex items-center justify-between">
+    <div class="flex items-center space-x-4">
+      <div class="w-3 h-3 bg-green-500 rounded-full pulse-glow"></div>
+      <h1 class="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+        RedOS Mission Control
+      </h1>
+      <span class="text-xs text-gray-400">Next Generation</span>
+    </div>
+    <div class="flex items-center space-x-6">
+      <div class="text-sm text-gray-400">
+        <span id="system-time">--:--:--</span>
+      </div>
+      <div class="text-sm">
+        <span class="text-gray-400">Status:</span>
+        <span class="text-green-500 font-medium ml-1">OPERATIONAL</span>
+      </div>
+      <button onclick="refreshData()" class="px-4 py-2 glass hover:bg-white/10 transition-colors">
+        <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Tab Navigation -->
+<nav class="glass sticky top-16 z-40 px-6 py-2 border-b border-white/10">
+  <div class="flex space-x-1 overflow-x-auto">
+    <button class="tab-nav active" data-tab="overview">Overview</button>
+    <button class="tab-nav" data-tab="agents">Agents</button>
+    <button class="tab-nav" data-tab="hierarchy">Hierarchy</button>
+    <button class="tab-nav" data-tab="pipeline">Pipeline</button>
+    <button class="tab-nav" data-tab="9router">9Router</button>
+    <button class="tab-nav" data-tab="analytics">Analytics</button>
+    <button class="tab-nav" data-tab="costs">Costs</button>
+    <button class="tab-nav" data-tab="cron">Cron Jobs</button>
+    <button class="tab-nav" data-tab="tickets">Tickets</button>
+    <button class="tab-nav" data-tab="logs">Logs</button>
+  </div>
+</nav>
+
+<!-- Main Content -->
+<main class="p-6 max-w-7xl mx-auto">
+
+<!-- Overview Tab -->
+<div id="overview" class="tab-content">
+  <!-- System Metrics -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <div class="metric-card">
+      <div class="metric-value text-cyan-400">8</div>
+      <div class="metric-label">Active Agents</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value text-green-400">53</div>
+      <div class="metric-label">Cron Jobs</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value text-yellow-400">44</div>
+      <div class="metric-label">Models</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value text-purple-400">100%</div>
+      <div class="metric-label">Uptime</div>
+    </div>
+  </div>
+
+  <!-- Real-time Activity -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+    <div class="glass p-6">
+      <h3 class="text-lg font-semibold mb-4 text-cyan-400">Live Agent Activity</h3>
+      <div id="live-activity" class="space-y-3">
+        <!-- Dynamically populated -->
+      </div>
+    </div>
+    <div class="glass p-6">
+      <h3 class="text-lg font-semibold mb-4 text-cyan-400">System Performance</h3>
+      <canvas id="performance-chart"></canvas>
+    </div>
+  </div>
+
+  <!-- Recent Requests -->
+  <div class="glass p-6">
+    <h3 class="text-lg font-semibold mb-4 text-cyan-400">Recent Requests</h3>
+    <div id="recent-requests" class="overflow-x-auto">
+      <!-- Dynamically populated -->
+    </div>
+  </div>
+</div>
+
+<!-- Agents Tab -->
+<div id="agents" class="tab-content hidden">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="agent-grid">
+    <!-- Dynamically populated -->
+  </div>
+</div>
+
+<!-- Hierarchy Tab -->
+<div id="hierarchy" class="tab-content hidden">
+  <div class="glass p-8">
+    <h3 class="text-xl font-semibold mb-6 text-cyan-400">Agent Hierarchy & Communication Flow</h3>
+    <div id="hierarchy-tree" class="flex flex-col items-center space-y-8">
+      <!-- Dynamically populated -->
+    </div>
+  </div>
+</div>
+
+<!-- Pipeline Tab -->
+<div id="pipeline" class="tab-content hidden">
+  <div class="glass p-6">
+    <h3 class="text-xl font-semibold mb-6 text-cyan-400">Real-Time Request Pipeline</h3>
+    <div id="pipeline-flow" class="space-y-4">
+      <!-- Dynamically populated -->
+    </div>
+  </div>
+</div>
+
+<!-- 9Router Tab -->
+<div id="9router" class="tab-content hidden">
+  <div class="glass p-6">
+    <h3 class="text-xl font-semibold mb-6 text-cyan-400">9Router Model Routing</h3>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div>
+        <h4 class="text-lg font-medium mb-4">Provider Status</h4>
+        <div id="provider-status" class="space-y-3">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+      <div>
+        <h4 class="text-lg font-medium mb-4">Combo Performance</h4>
+        <canvas id="combo-chart"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Analytics Tab -->
+<div id="analytics" class="tab-content hidden">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div class="glass p-6">
+      <h3 class="text-lg font-semibold mb-4 text-cyan-400">Token Usage Trends</h3>
+      <canvas id="token-trends"></canvas>
+    </div>
+    <div class="glass p-6">
+      <h3 class="text-lg font-semibold mb-4 text-cyan-400">Response Times</h3>
+      <canvas id="response-times"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- Costs Tab -->
+<div id="costs" class="tab-content hidden">
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+    <div class="metric-card">
+      <div class="metric-value text-yellow-400">$0.00</div>
+      <div class="metric-label">Today's Cost</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value text-green-400">$0.00</div>
+      <div class="metric-label">Weekly Average</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value text-cyan-400">$0.00</div>
+      <div class="metric-label">Monthly Projection</div>
+    </div>
+  </div>
+  <div class="glass p-6">
+    <h3 class="text-lg font-semibold mb-4 text-cyan-400">Cost Breakdown</h3>
+    <canvas id="cost-breakdown"></canvas>
+  </div>
+</div>
+
+<!-- Cron Jobs Tab -->
+<div id="cron" class="tab-content hidden">
+  <div class="glass p-6">
+    <h3 class="text-lg font-semibold mb-4 text-cyan-400">Active Cron Jobs</h3>
+    <div id="cron-jobs" class="overflow-x-auto">
+      <!-- Dynamically populated -->
+    </div>
+  </div>
+</div>
+
+<!-- Tickets Tab -->
+<div id="tickets" class="tab-content hidden">
+  <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-6">
+    <div class="metric-card">
+      <div class="metric-value text-red-400">0</div>
+      <div class="metric-label">P0 Critical</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value text-yellow-400">0</div>
+      <div class="metric-label">P1 High</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value text-blue-400">0</div>
+      <div class="metric-label">P2 Medium</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value text-gray-400">0</div>
+      <div class="metric-label">P3 Low</div>
+    </div>
+  </div>
+  <div class="glass p-6">
+    <h3 class="text-lg font-semibold mb-4 text-cyan-400">Active Tickets</h3>
+    <div id="ticket-list" class="space-y-3">
+      <!-- Dynamically populated -->
+    </div>
+  </div>
+</div>
+
+<!-- Logs Tab -->
+<div id="logs" class="tab-content hidden">
+  <div class="glass p-6">
+    <h3 class="text-lg font-semibold mb-4 text-cyan-400">System Logs</h3>
+    <div id="log-viewer" class="font-mono text-sm bg-black/30 p-4 rounded-lg max-h-96 overflow-y-auto">
+      <!-- Dynamically populated -->
+    </div>
+  </div>
+</div>
+
+</main>
+
+<script>
+// Global state
+let agents = [];
+let currentTab = 'overview';
+let charts = {};
+
+// Initialize
+document.addEventListener('DOMContentLoaded', function() {
+  initializeTabs();
+  loadSystemData();
+  startRealTimeUpdates();
+  lucide.createIcons();
+});
+
+// Tab navigation
+function initializeTabs() {
+  document.querySelectorAll('.tab-nav').forEach(tab => {
+    tab.addEventListener('click', function() {
+      const tabName = this.dataset.tab;
+      switchTab(tabName);
+    });
+  });
+}
+
+function switchTab(tabName) {
+  // Update nav
+  document.querySelectorAll('.tab-nav').forEach(t => t.classList.remove('active'));
+  document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+  
+  // Update content
+  document.querySelectorAll('.tab-content').forEach(content => {
+    content.classList.add('hidden');
+  });
+  document.getElementById(tabName).classList.remove('hidden');
+  
+  currentTab = tabName;
+  loadTabData(tabName);
+}
+
+// Data loading
+async function loadSystemData() {
+  try {
+    const [agentsRes, summaryRes, activityRes] = await Promise.all([
+      fetch('/api/agents'),
+      fetch('/api/system/summary'),
+      fetch('/api/live-activity')
+    ]);
+    
+    agents = await agentsRes.json();
+    const summary = await summaryRes.json();
+    const activity = await activityRes.json();
+    
+    updateAgentCards();
+    updateHierarchy();
+    updateOverview(summary, activity);
+  } catch (error) {
+    console.error('Failed to load system data:', error);
+  }
+}
+
+async function loadTabData(tab) {
+  switch(tab) {
+    case 'agents':
+      updateAgentCards();
+      break;
+    case 'hierarchy':
+      updateHierarchy();
+      break;
+    case 'pipeline':
+      updatePipeline();
+      break;
+    case '9router':
+      update9Router();
+      break;
+    case 'analytics':
+      updateAnalytics();
+      break;
+    case 'costs':
+      updateCosts();
+      break;
+    case 'cron':
+      updateCronJobs();
+      break;
+    case 'tickets':
+      updateTickets();
+      break;
+    case 'logs':
+      updateLogs();
+      break;
+  }
+}
+
+// Update functions
+function updateAgentCards() {
+  const grid = document.getElementById('agent-grid');
+  if (!grid) return;
+  
+  grid.innerHTML = agents.map(agent => `
+    <div class="agent-card ${getAgentClass(agent.id)}" onclick="showAgentDetails('${agent.id}')">
+      <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center">
+            <span class="text-white font-bold">${getAgentEmoji(agent.id)}</span>
+          </div>
+          <div>
+            <h4 class="font-semibold">${agent.name}</h4>
+            <p class="text-xs text-gray-400">${getAgentRole(agent.id)}</p>
+          </div>
+        </div>
+        <div class="status-online">
+          <i data-lucide="activity" class="w-4 h-4"></i>
+        </div>
+      </div>
+      <div class="space-y-2 text-sm">
+        <div class="flex justify-between">
+          <span class="text-gray-400">Model:</span>
+          <span class="font-mono text-xs">${getModelAlias(agent.model.primary)}</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-gray-400">Status:</span>
+          <span class="text-green-400">Active</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-gray-400">Tasks:</span>
+          <span>0</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+  
+  lucide.createIcons();
+}
+
+function updateHierarchy() {
+  const tree = document.getElementById('hierarchy-tree');
+  if (!tree) return;
+  
+  // CEO at top
+  const ceo = agents.find(a => a.id === 'main');
+  const others = agents.filter(a => a.id !== 'main');
+  
+  tree.innerHTML = `
+    <div class="flex flex-col items-center">
+      <div class="agent-card ceo">
+        <div class="text-center">
+          <div class="text-2xl mb-2">👑</div>
+          <h4 class="font-bold text-lg">${ceo?.name || 'RED (CEO)'}</h4>
+          <p class="text-sm text-gray-400">Chief Executive Officer</p>
+          <div class="mt-2 text-xs font-mono text-cyan-400">${getModelAlias(ceo?.model?.primary)}</div>
+        </div>
+      </div>
+      <div class="hierarchy-line"></div>
+    </div>
+    <div class="flex flex-wrap justify-center gap-8">
+      ${others.map(agent => `
+        <div class="flex flex-col items-center">
+          <div class="agent-card ${getAgentClass(agent.id)}">
+            <div class="text-center">
+              <div class="text-2xl mb-2">${getAgentEmoji(agent.id)}</div>
+              <h4 class="font-bold">${agent.name}</h4>
+              <p class="text-sm text-gray-400">${getAgentRole(agent.id)}</p>
+              <div class="mt-2 text-xs font-mono text-cyan-400">${getModelAlias(agent.model?.primary)}</div>
+            </div>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function updatePipeline() {
+  const flow = document.getElementById('pipeline-flow');
+  if (!flow) return;
+  
+  flow.innerHTML = `
+    <div class="space-y-4">
+      <div class="pipeline-node active">
+        <div class="text-cyan-400 font-semibold">Request In</div>
+        <div class="text-sm text-gray-400">User Input / Trigger</div>
+      </div>
+      <div class="flex justify-center">
+        <i data-lucide="arrow-down" class="w-6 h-6 text-cyan-400"></i>
+      </div>
+      <div class="pipeline-node">
+        <div class="text-cyan-400 font-semibold">HATAKE Parser</div>
+        <div class="text-sm text-gray-400">Intent Analysis</div>
+      </div>
+      <div class="flex justify-center">
+        <i data-lucide="arrow-down" class="w-6 h-6 text-cyan-400"></i>
+      </div>
+      <div class="pipeline-node">
+        <div class="text-cyan-400 font-semibold">9Router</div>
+        <div class="text-sm text-gray-400">Model Selection & Routing</div>
+      </div>
+      <div class="flex justify-center">
+        <i data-lucide="arrow-down" class="w-6 h-6 text-cyan-400"></i>
+      </div>
+      <div class="pipeline-node">
+        <div class="text-cyan-400 font-semibold">Agent Execution</div>
+        <div class="text-sm text-gray-400">Task Processing</div>
+      </div>
+    </div>
+  `;
+  
+  lucide.createIcons();
+}
+
+async function update9Router() {
+  try {
+    const response = await fetch('/api/9router/status');
+    const data = await response.json();
+    
+    const status = document.getElementById('provider-status');
+    if (!status) return;
+    
+    status.innerHTML = data.providers.map(provider => {
+      const colorClass = provider.status === 'online' ? 'text-green-400' : 
+                         provider.status === 'limited' ? 'text-yellow-400' : 
+                         'text-red-400';
+      return `
+        <div class="glass p-4 flex items-center justify-between">
+          <div>
+            <div class="font-medium">${provider.name}</div>
+            <div class="text-sm text-gray-400">${provider.models} models</div>
+          </div>
+          <div class="${colorClass} font-medium">${provider.status}</div>
+        </div>
+      `;
+    }).join('');
+  } catch (error) {
+    console.error('Failed to load 9Router status:', error);
+  }
+}
+
+function updateOverview(summary, activity) {
+  // Update metrics
+  const metrics = document.querySelectorAll('.metric-value');
+  if (metrics[0]) metrics[0].textContent = summary.summary?.agentCount || 8;
+  if (metrics[1]) metrics[1].textContent = summary.summary?.cronEnabled || 53;
+  if (metrics[2]) metrics[2].textContent = '44'; // Models from 9Router
+  
+  // Update live activity
+  const liveActivity = document.getElementById('live-activity');
+  if (liveActivity && activity) {
+    liveActivity.innerHTML = activity.map(act => `
+      <div class="flex items-center justify-between p-3 glass rounded">
+        <div class="flex items-center space-x-3">
+          <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+          <span class="font-medium">${act.agent}</span>
+          <span class="text-sm text-gray-400">${act.task}</span>
+        </div>
+        <span class="text-xs text-green-400">${act.status}</span>
+      </div>
+    `).join('');
+  }
+}
+
+// Helper functions
+function getAgentClass(id) {
+  const classes = {
+    'main': 'ceo',
+    'allrounder': 'coo',
+    'eng': 'eng',
+    'research': 'research',
+    'finance': 'finance',
+    'ops': 'ops',
+    'infosec': 'infosec',
+    'hatake': 'hatake'
+  };
+  return classes[id] || '';
+}
+
+function getAgentEmoji(id) {
+  const emojis = {
+    'main': '👑',
+    'allrounder': '🌐',
+    'eng': '💻',
+    'research': '🔬',
+    'finance': '💰',
+    'ops': '⚙️',
+    'infosec': '🔒',
+    'hatake': '🎯'
+  };
+  return emojis[id] || '🤖';
+}
+
+function getAgentRole(id) {
+  const roles = {
+    'main': 'CEO / Chief Executive',
+    'allrounder': 'COO / Chief Strategy Officer',
+    'eng': 'Engineering Lead',
+    'research': 'Research & Analysis',
+    'finance': 'Financial Analyst',
+    'ops': 'Operations Manager',
+    'infosec': 'Security Officer',
+    'hatake': 'Intent Parser & Marketing'
+  };
+  return roles[id] || 'Agent';
+}
+
+function getModelAlias(model) {
+  if (!model) return 'unknown';
+  const aliases = {
+    'openai-codex/gpt-5.2': 'gpt-5.2',
+    '9router/always-on-premium': 'premium',
+    '9router/coding-factory': 'coding',
+    '9router/research-deep': 'research',
+    '9router/free-unlimited': 'free',
+    'anthropic/claude-opus-4-6': 'claude-opus'
+  };
+  return aliases[model] || model.split('/').pop();
+}
+
+// Real-time updates
+function startRealTimeUpdates() {
+  setInterval(() => {
+    document.getElementById('system-time').textContent = new Date().toLocaleTimeString();
+  }, 1000);
+  
+  setInterval(() => {
+    if (currentTab === 'overview') {
+      updateLiveActivity();
+    }
+  }, 5000);
+}
+
+function updateLiveActivity() {
+  const activity = document.getElementById('live-activity');
+  if (!activity) return;
+  
+  // Simulated live data
+  const activities = [
+    { agent: 'ENG', task: 'Reviewing GitHub PR', status: 'active' },
+    { agent: 'RESEARCH', task: 'Scanning AI trends', status: 'active' },
+    { agent: 'OPS', task: 'Monitoring costs', status: 'active' },
+    { agent: 'ZEN', task: 'Coordinating team', status: 'active' }
+  ];
+  
+  activity.innerHTML = activities.map(act => `
+    <div class="flex items-center justify-between p-3 glass rounded">
+      <div class="flex items-center space-x-3">
+        <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+        <span class="font-medium">${act.agent}</span>
+        <span class="text-sm text-gray-400">${act.task}</span>
+      </div>
+      <span class="text-xs text-green-400">${act.status}</span>
+    </div>
+  `).join('');
+}
+
+function refreshData() {
+  loadSystemData();
+  loadTabData(currentTab);
+}
+
+function showAgentDetails(agentId) {
+  // TODO: Implement agent details modal
+  console.log('Show details for:', agentId);
+}
+
+// Placeholder functions for other tabs
+function updateAnalytics() {
+  // Initialize charts
+  if (!charts.tokenTrends) {
+    const ctx = document.getElementById('token-trends');
+    if (ctx) {
+      charts.tokenTrends = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00'],
+          datasets: [{
+            label: 'Tokens Used',
+            data: [1200, 1900, 3000, 5000, 2000, 3000],
+            borderColor: 'rgb(0, 212, 255)',
+            backgroundColor: 'rgba(0, 212, 255, 0.1)',
+            tension: 0.4
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              labels: { color: '#e8ecf4' }
+            }
+          },
+          scales: {
+            y: {
+              ticks: { color: '#8b95a8' },
+              grid: { color: 'rgba(255, 255, 255, 0.1)' }
+            },
+            x: {
+              ticks: { color: '#8b95a8' },
+              grid: { color: 'rgba(255, 255, 255, 0.1)' }
+            }
+          }
+        }
+      });
+    }
+  }
+}
+
+function updateCosts() {
+  // TODO: Implement cost tracking
+}
+
+function updateCronJobs() {
+  // TODO: Implement cron job display
+}
+
+function updateTickets() {
+  // TODO: Implement ticket display
+}
+
+function updateLogs() {
+  const viewer = document.getElementById('log-viewer');
+  if (!viewer) return;
+  
+  const logs = [
+    '[2026-02-24 02:30:15] INFO: Gateway started on port 18789',
+    '[2026-02-24 02:30:16] INFO: Dashboard started on port 19000',
+    '[2026-02-24 02:30:17] INFO: 9Router proxy connected',
+    '[2026-02-24 02:30:18] INFO: All 8 agents initialized',
+    '[2026-02-24 02:30:20] INFO: 53 cron jobs scheduled',
+    '[2026-02-24 02:31:00] INFO: RED agent heartbeat',
+    '[2026-02-24 02:31:30] INFO: ZEN agent heartbeat',
+    '[2026-02-24 02:32:00] INFO: ENG agent heartbeat'
+  ];
+  
+  viewer.innerHTML = logs.join('\n');
+  viewer.scrollTop = viewer.scrollHeight;
+}
+</script>
+
+</body>
+</html>

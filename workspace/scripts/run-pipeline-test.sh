@@ -93,6 +93,7 @@ check "ollama-health.sh exists" "[ -f '$WORKSPACE/scripts/ollama-health.sh' ]"
 check "ollama-health.sh is executable" "[ -x '$WORKSPACE/scripts/ollama-health.sh' ]"
 check "disk-watchdog.sh exists" "[ -f '$WORKSPACE/scripts/disk-watchdog.sh' ]"
 check "backup-to-cloud.sh exists" "[ -f '$WORKSPACE/scripts/backup-to-cloud.sh' ]"
+check "Slack schema drift lint passes" "python3 '$WORKSPACE/scripts/lint_slack_schema.py'"
 echo ""
 
 # ── 5. LOG FILES ──────────────────────────────────────────────

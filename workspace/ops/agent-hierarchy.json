@@ -1,11 +1,11 @@
 {
   "parentMap": {
     "allrounder": "main",
-    "hatake": "allrounder",
     "eng": "main",
     "research": "main",
-    "finance": "main",
     "ops": "main",
+    "hatake": "main",
+    "finance": "main",
     "infosec": "main"
   },
   "roles": {

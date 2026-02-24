@@ -1,0 +1,29 @@
+{
+  "agent": "finance",
+  "meta_check": {
+    "timestamp": "2026-02-23T22:47:15-05:00",
+    "timezone": "EST",
+    "exec": "ok",
+    "read": "ok",
+    "write": "ok",
+    "notes": [
+      "Verified exec by running shell commands in /Users/redinside/.openclaw/workspace-ops.",
+      "Verified write by creating and deleting ops/agent-status/.finance_write_test.txt via shell.",
+      "Verified read by reading ops/agent-status/ops.json and listing ops/agent-status directory."
+    ]
+  },
+  "agent_status_dir": {
+    "path": "ops/agent-status",
+    "files_present": [
+      "ops.json",
+      "eng.json",
+      "finance.json"
+    ],
+    "files_missing_expected": [
+      "allrounder.json",
+      "infosec.json",
+      "research.json",
+      "hatake.json"
+    ]
+  }
+}

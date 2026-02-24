@@ -1,0 +1,22 @@
+{
+  "id": "5ce12fcc-e9e9-4d24-8e62-8f757fe9c0d6",
+  "enqueuedAt": 1771893346256,
+  "channel": "telegram",
+  "to": "channel:C0AEV3J2L23",
+  "accountId": "ops",
+  "payloads": [
+    {
+      "text": "The “OPS SLA Enforcement Check” ran successfully, but when it tried to send its follow-up to the `main` session, that delivery failed.\n\nIf you want, I can retry the handoff to `main` (or you can tell me what output you expected this check to deliver, and I’ll summarize/report it here).",
+      "mediaUrls": []
+    },
+    {
+      "text": "⚠️ ✍️ Write: `to memory/2026-02-24.md (173 chars)` failed",
+      "mediaUrls": []
+    }
+  ],
+  "threadId": null,
+  "replyToId": null,
+  "bestEffort": false,
+  "retryCount": 1,
+  "lastError": "Telegram send failed: chat not found (chat_id=channel:C0AEV3J2L23). Likely: bot not started in DM, bot removed from group/channel, group migrated (new -100… id), or wrong bot token. Input was: \"channel:C0AEV3J2L23\"."
+}

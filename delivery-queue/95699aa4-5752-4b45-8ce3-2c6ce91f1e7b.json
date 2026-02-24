@@ -1,0 +1,18 @@
+{
+  "id": "95699aa4-5752-4b45-8ce3-2c6ce91f1e7b",
+  "enqueuedAt": 1771895477711,
+  "channel": "telegram",
+  "to": "channel:C0AEV3J2L23",
+  "accountId": "ops",
+  "payloads": [
+    {
+      "text": "Cron watchdog flagged one job that needs attention:\n\n- **Health JSONL Writer** (`health-jsonl-writer-0001`) — **last run errored** (around 8:02 PM).\n\nNext step: I can check the cron scheduler state and tail the logs to see why it failed, then restart/repair that job if needed.",
+      "mediaUrls": []
+    }
+  ],
+  "threadId": null,
+  "replyToId": null,
+  "bestEffort": false,
+  "retryCount": 1,
+  "lastError": "Telegram send failed: chat not found (chat_id=channel:C0AEV3J2L23). Likely: bot not started in DM, bot removed from group/channel, group migrated (new -100… id), or wrong bot token. Input was: \"channel:C0AEV3J2L23\"."
+}

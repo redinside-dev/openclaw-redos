@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>ai.openclaw.dashboard</string>
+
+    <key>Comment</key>
+    <string>Mission Control Dashboard (port 19000)</string>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>KeepAlive</key>
+    <true/>
+    <key>WorkingDirectory</key>
+    <string>/Users/YOUR_USERNAME/.openclaw</string>
+    <key>ProgramArguments</key>
+    <array>
+      <string>/opt/homebrew/bin/node</string>
+      <string>dashboard/server.js</string>
+    </array>
+
+    <key>StandardOutPath</key>
+    <string>/Users/YOUR_USERNAME/.openclaw/logs/dashboard.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/YOUR_USERNAME/.openclaw/logs/dashboard.err.log</string>
+    <key>EnvironmentVariables</key>
+    <dict>
+      <key>HOME</key>
+      <string>/Users/YOUR_USERNAME</string>
+      <key>PATH</key>
+      <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+    </dict>
+  </dict>
+</plist>
+
+<!--
+SETUP INSTRUCTIONS:
+1. Copy this file to ~/Library/LaunchAgents/ai.openclaw.dashboard.plist
+   cp ai.openclaw.dashboard.plist.example ~/Library/LaunchAgents/ai.openclaw.dashboard.plist
+2. Replace YOUR_USERNAME with your macOS username in all three paths
+3. Load: launchctl load ~/Library/LaunchAgents/ai.openclaw.dashboard.plist
+4. Verify: curl -s -o /dev/null -w "%{http_code}" http://localhost:19000/
+   (200 = OK; auth may be required: use DASHBOARD_USER/DASHBOARD_PASS from .env)
+-->

@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "updatedAt": "2026-02-24",
+  "policy": {
+    "default": "deny",
+    "notes": "Agents must consult this allowlist before using web_fetch or any tool that retrieves external URLs. If a URL is not allowed, request human approval and/or add a ticket with rationale."
+  },
+  "allow": [
+    {
+      "domain": "github.com",
+      "reason": "Upstream releases, changelogs, issues"
+    },
+    {
+      "domain": "raw.githubusercontent.com",
+      "reason": "Fetch raw files for review"
+    },
+    {
+      "domain": "api.github.com",
+      "reason": "GitHub API docs/examples"
+    },
+    {
+      "domain": "openai.com",
+      "reason": "Provider documentation"
+    },
+    {
+      "domain": "docs.anthropic.com",
+      "reason": "Provider documentation"
+    },
+    {
+      "domain": "nodejs.org",
+      "reason": "Runtime docs"
+    }
+  ],
+  "deny": [
+    {
+      "domain": "pastebin.com",
+      "reason": "High risk of secret exfil / untrusted snippets"
+    },
+    {
+      "domain": "*.onion",
+      "reason": "Unbounded risk; requires explicit approval"
+    }
+  ]
+}

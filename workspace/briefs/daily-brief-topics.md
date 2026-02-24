@@ -4,8 +4,9 @@ Edit this file to control what shows up in your daily brief.
 
 ## Topics
 
+- Weather (today’s conditions + high/low; one line)
+- Today’s schedule (calendar) + when to leave for first 1–2 events (traffic-aware)
 - System health (OpenClaw gateway/channels/cron)
-- Today’s schedule (calendar)
 - Top tech + AI headlines (with links)
 - Markets (stocks only; no crypto)
 
