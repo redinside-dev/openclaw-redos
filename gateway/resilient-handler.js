@@ -9,6 +9,7 @@ import { TaskAnalyzer } from '../smart-router/analyzer.js';
 import { smartRouterV2 } from '../smart-router/selector-v2.js';
 import { errorHandler } from '../resilience/error-handler.js';
 import { costMonitor } from '../cost-monitor/monitor.js';
+import ToolCallMiddleware from './tool-call-middleware.js';
 import { exec } from 'child_process';
 import { promisify } from 'util';
 import fetch from 'node-fetch';
@@ -128,8 +129,8 @@ export class ResilientHandler {
       selectedModel.cost
     );
 
-    // 6. Return response
-    return {
+    // 6. Build response
+    const responseObj = {
       content: response,
       model: {
         provider: selectedModel.provider,
@@ -141,6 +142,15 @@ export class ResilientHandler {
       tokens: estimatedTokens,
       attempt: attempt
     };
+
+    // 7. Apply tool-call middleware (validate + normalize message/write tool calls)
+    const validatedResponse = ToolCallMiddleware.wrapAgentResponse(responseObj);
+    
+    if (validatedResponse.validationError) {
+      console.warn(`[ResilientHandler] Tool validation error: ${validatedResponse.validationError}`);
+    }
+
+    return validatedResponse;
   }
 
   /**
