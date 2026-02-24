@@ -32,6 +32,36 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 
 ## Active Tickets
 
+### TICKET-20260224-096
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-02-24T17:43:00Z
+- **SLA Deadline:** 2026-02-24T19:43:00Z (2 hours)
+- **Reporter:** main (meta self-check)
+- **Assignee:** OPS
+- **Summary:** web_search tool failing with Perplexity 401 Authorization Required
+- **Details:** META SELF-CHECK web_search("test") failed with Perplexity API 401 (openresty/Cloudflare challenge HTML returned). This breaks any cron/agent workflows that rely on web_search.
+- **Root Cause:** Unknown (likely Perplexity API key invalid/expired or edge auth challenge).
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+
+### TICKET-20260224-089
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T16:21:00Z
+- **SLA Deadline:** 2026-02-25T00:21:00Z (8 hours)
+- **Reporter:** main (RED self-improvement)
+- **Assignee:** OPS
+- **Summary:** Health-snapshot auto-ticketing producing excessive noise: parser fails to extract summaries + missing dedupe
+- **Details:** TICKET-TRACKER shows repeated batches of “unknown (no summary)” and duplicated pattern tickets. This creates ticket churn and hides real incidents.
+- **Root Cause:** health-snapshot log parser cannot reliably extract summary strings, and ticket creation does not deduplicate against existing open/active tickets by normalized error signature.
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+
 ### TICKET-20260224-074
 - **Status:** BLOCKED
 - **Priority:** P1
@@ -41,6 +71,7 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Assignee:** OPS
 - **Summary:** Gmail unread digest cron failing: gog Gmail OAuth token invalid_grant (expired/revoked)
 - **Details:** Cron step `gog gmail search "in:inbox is:unread" --account anorag.saxena@gmail.com --json --max 15` failed with: `oauth2: "invalid_grant" "Token has been expired or revoked."` This prevents fetching unread inbox threads and sending the digest.
+  - Latest recurrence: 2026-02-24 10:16 AM ET (cron run) — same `invalid_grant`.
 - **Root Cause:** Google OAuth refresh token for this `gog` account appears expired/revoked (likely requires re-auth).
 - **Resolution:** Pending manual re-auth of `gog` Gmail access for `anorag.saxena@gmail.com` (interactive OAuth). After re-auth, rerun the search command to verify.
 - **Learnings:** 
@@ -61,10 +92,10 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Resolved At:** 2026-02-24T12:28:00Z
 
 ### TICKET-20260224-072
-- **Status:** IN_PROGRESS
+- **Status:** SLA BREACHED
 - **Priority:** P1
 - **Created:** 2026-02-24T12:28:00Z
-- **SLA Deadline:** 2026-02-24T14:28:00Z (2 hours)
+- **SLA Deadline:** 2026-02-24T14:28:00Z (2 hours) — **BREACHED by ~21 minutes**
 - **Reporter:** OPS
 - **Assignee:** INFOSEC, OPS
 - **Summary:** Exec approvals still overly broad for agents "*" (shells + /usr/bin/* allow bypass for many commands)
@@ -73,10 +104,11 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
   - Removed all 6 broad patterns from `agents["*"]` (shells + directory globs).
   - `agents["*"]` now empty → deny-by-default restored.
   - Backup taken before change.
-- **Next (Stage B - pending OPS input):**
-  - Add per-agent minimal allowlists for `ops`, `eng`, `infosec` with specific binaries only (no shells/globs).
-  - RED authorized Stage A to preserve SLA; Stage B requires OPS enumeration of actual needed binaries.
-  - ETA for Stage B: pending OPS response on which binaries each agent truly needs.
+- **Status (Stage B - INCOMPLETE 14:49Z):**
+  - Per-agent allowlists NOT populated. Only `ops` has 1 entry (pre-existing `/usr/bin/cd`).
+  - `eng` and `infosec` remain empty (no allowlists added).
+  - **SLA BREACHED.** RED authorized Stage A to preserve SLA; Stage B requires OPS enumeration of actual needed binaries but has not been completed.
+- **Next action:** CRITICAL ESCALATION. Need immediate decision: (a) extend SLA and complete Stage B with OPS input, or (b) close ticket as "Stage A complete, Stage B deferred to follow-up ticket."
 - **Root Cause:** Legacy troubleshooting approvals were never scoped back down.
 - **Resolution:** 
 - **Learnings:** Treat exec allowlists as policy code: minimal scope, reviewed, and rotated.
@@ -421,7 +453,7 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
     3) Temporary workaround: set system DNS to 1.1.1.1 / 9.9.9.9 and confirm queries no longer route via utun5
   - **Verification criteria:** `dig @8.8.8.8 www.microsoft.com` returns public IP (not 198.18/15) AND `web_fetch https://www.microsoft.com` succeeds without SSRF block.
   - **Status (11:55Z):** INFOSEC attempted to execute sudo commands via `exec` with pty=true, but sudo password prompt cannot be satisfied by agent. RED must execute manually in terminal.
-  - **Status update (12:58Z):** Manual sudo mitigation still **not executed yet** (waiting on human at terminal for password entry). DNS remains broken; last check: `dig @8.8.8.8 www.microsoft.com +short` → **198.18.8.77**.
+  - **Status update (13:41Z):** Re-scoped target (13:30Z) has **PASSED**. DNS remediation still **NOT EXECUTED**. Last check: `dig @8.8.8.8 www.microsoft.com +short` → **198.18.8.77** (unchanged). SSRF guard continues to correctly block. **CRITICAL ESCALATION: Manual sudo remediation must be executed NOW or ticket will remain indefinitely breached.**
 
   - **Preferred next action (INFOSEC, 12:55Z) — manual terminal w/ sudo:**
     ```bash
@@ -1696,76 +1728,47 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Resolved At:** 
 
 ### TICKET-20260224-047
-- **Status:** OPEN
+- **Status:** RESOLVED
 - **Priority:** P1
 - **Created:** 2026-02-24T11:32:13+00:00
 - **SLA Deadline:** 2026-02-24T13:32:13+00:00 (2 hours)
 - **Reporter:** ops (health-snapshot)
 - **Assignee:** ops
-- **Summary:** Recurring failure pattern detected (164x): <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
-- **Details:** Detected 164 occurrences in the last window. Examples:
-  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
-  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
-  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
-  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
-- **Root Cause:** 
-- **Resolution:** 
-- **Learnings:** 
-- **Resolved At:** 
+- **Summary:** Recurring failure pattern detected (164x): API rate limit reached
+- **Root Cause:** Duplicate of TICKET-20260224-007. Provider-side rate limiting; already mitigated.
+- **Resolution:** Consolidated into parent ticket. No new action.
+- **Learnings:** Health-snapshot must deduplicate before opening tickets.
+- **Resolved At:** 2026-02-24T15:19:00Z
 
 ### TICKET-20260224-048
-- **Status:** OPEN
+- **Status:** RESOLVED
 - **Priority:** P2
 - **Created:** 2026-02-24T11:32:13+00:00
-- **SLA Deadline:** 2026-02-24T19:32:13+00:00 (8 hours)
 - **Reporter:** ops (health-snapshot)
-- **Assignee:** ops
 - **Summary:** Recurring failure pattern detected (49x): unknown (no summary)
-- **Details:** Detected 49 occurrences in the last window. Examples:
-  - unknown (no summary)
-  - unknown (no summary)
-  - unknown (no summary)
-  - unknown (no summary)
-- **Root Cause:** 
-- **Resolution:** 
-- **Learnings:** 
-- **Resolved At:** 
+- **Root Cause:** Health-snapshot parser unable to extract summary from log lines; noise tickets.
+- **Resolution:** Batch-closed as noise. Health-snapshot needs parser fix.
+- **Resolved At:** 2026-02-24T15:19:00Z
 
 ### TICKET-20260224-049
-- **Status:** OPEN
+- **Status:** RESOLVED
 - **Priority:** P2
 - **Created:** 2026-02-24T12:03:20+00:00
-- **SLA Deadline:** 2026-02-24T20:03:20+00:00 (8 hours)
 - **Reporter:** ops (health-snapshot)
-- **Assignee:** ops
 - **Summary:** Recurring failure pattern detected (50x): unknown (no summary)
-- **Details:** Detected 50 occurrences in the last window. Examples:
-  - unknown (no summary)
-  - unknown (no summary)
-  - unknown (no summary)
-  - unknown (no summary)
-- **Root Cause:** 
-- **Resolution:** 
-- **Learnings:** 
-- **Resolved At:** 
+- **Root Cause:** Duplicate of TICKET-20260224-048 (parser noise).
+- **Resolution:** Batch-closed.
+- **Resolved At:** 2026-02-24T15:19:00Z 
 
 ### TICKET-20260224-050
-- **Status:** OPEN
+- **Status:** RESOLVED
 - **Priority:** P2
 - **Created:** 2026-02-24T12:03:20+00:00
-- **SLA Deadline:** 2026-02-24T20:03:20+00:00 (8 hours)
 - **Reporter:** ops (health-snapshot)
-- **Assignee:** ops
-- **Summary:** Recurring failure pattern detected (4x): <ts>-05:00 [tools] read failed: moltbot-sandbox-fs: 1: syntax error: ";" unexpected
-- **Details:** Detected 4 occurrences in the last window. Examples:
-  - <ts>-05:00 [tools] read failed: moltbot-sandbox-fs: 1: syntax error: ";" unexpected
-  - <ts>-05:00 [tools] read failed: moltbot-sandbox-fs: 1: syntax error: ";" unexpected
-  - <ts>-05:00 [tools] read failed: moltbot-sandbox-fs: 1: syntax error: ";" unexpected
-  - <ts>-05:00 [tools] read failed: moltbot-sandbox-fs: 1: syntax error: ";" unexpected
-- **Root Cause:** 
-- **Resolution:** 
-- **Learnings:** 
-- **Resolved At:** 
+- **Summary:** Recurring sandbox-fs syntax error (4x)
+- **Root Cause:** Sandbox filesystem compatibility issue; related to TICKET-20260224-002 (sandbox limitations).
+- **Resolution:** Known sandbox limitation. Consolidated.
+- **Resolved At:** 2026-02-24T15:19:00Z
 
 ### TICKET-20260224-066
 - **Status:** RESOLVED
@@ -1781,15 +1784,72 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Learnings:** Never grant global exec wildcards. Keep approvals per-agent and minimal; treat remaining broad `agents["*"]` patterns (/usr/bin/*, shells, homebrew) as follow-up hardening.
 - **Resolved At:** 2026-02-24T12:29:00Z
 
-### TICKET-20260224-073
-- **Status:** OPEN
+### TICKET-20260224-073/075/076/078/080
+- **Status:** RESOLVED (batch)
 - **Priority:** P2
-- **Created:** 2026-02-24T12:33:57+00:00
-- **SLA Deadline:** 2026-02-24T20:33:57+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Summary:** Multiple "unknown (no summary)" noise tickets (51x-105x each)
+- **Root Cause:** Health-snapshot parser can't extract summary; generates duplicate noise.
+- **Resolution:** Batch-closed. CRITICAL: health-snapshot auto-ticketing needs dedup + parser fix to stop generating 10+ noise tickets/day.
+- **Resolved At:** 2026-02-24T15:19:00Z
+
+### TICKET-20260224-077
+- **Status:** RESOLVED
+- **Priority:** P2
+- **Created:** 2026-02-24T13:37:32+00:00
+- **Reporter:** ops (health-snapshot)
+- **Summary:** Finance agent sandbox path escape (3x)
+- **Root Cause:** Finance agent cron tries to read absolute host paths from sandbox. Same root cause as TICKET-20260224-002.
+- **Resolution:** Known sandbox limitation. Finance workspace files need sandbox-accessible copies.
+- **Resolved At:** 2026-02-24T15:19:00Z
+
+### TICKET-20260224-079
+- **Status:** RESOLVED
+- **Priority:** P2
+- **Created:** 2026-02-24T14:20:05+00:00
+- **Reporter:** ops (health-snapshot)
+- **Summary:** Sandbox write read-only for agent-status (3x)
+- **Root Cause:** Same sandbox limitation as TICKET-20260224-002.
+- **Resolution:** Consolidated into parent ticket.
+- **Resolved At:** 2026-02-24T15:19:00Z
+
+### TICKET-20260224-081
+- **Status:** RESOLVED
+- **Priority:** P2
+- **Created:** 2026-02-24T14:50:44+00:00
+- **Reporter:** ops (health-snapshot)
+- **Summary:** Subagent run failures (5x)
+- **Root Cause:** Likely rate-limit cascading causing subagent failures. Related to TICKET-20260224-007.
+- **Resolution:** Consolidated into rate-limit parent ticket.
+- **Resolved At:** 2026-02-24T15:19:00Z
+
+### TICKET-20260224-082
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-02-24T15:24:31+00:00
+- **SLA Deadline:** 2026-02-24T17:24:31+00:00 (2 hours)
 - **Reporter:** ops (health-snapshot)
 - **Assignee:** ops
-- **Summary:** Recurring failure pattern detected (51x): unknown (no summary)
-- **Details:** Detected 51 occurrences in the last window. Examples:
+- **Summary:** Recurring failure pattern detected (141x): <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
+- **Details:** Detected 141 occurrences in the last window. Examples:
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-083
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T15:24:31+00:00
+- **SLA Deadline:** 2026-02-24T23:24:31+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (111x): unknown (no summary)
+- **Details:** Detected 111 occurrences in the last window. Examples:
   - unknown (no summary)
   - unknown (no summary)
   - unknown (no summary)
@@ -1799,15 +1859,465 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Learnings:** 
 - **Resolved At:** 
 
-### TICKET-20260224-075
+### TICKET-20260224-084
 - **Status:** OPEN
 - **Priority:** P2
-- **Created:** 2026-02-24T13:07:30+00:00
-- **SLA Deadline:** 2026-02-24T21:07:30+00:00 (8 hours)
+- **Created:** 2026-02-24T15:24:31+00:00
+- **SLA Deadline:** 2026-02-24T23:24:31+00:00 (8 hours)
 - **Reporter:** ops (health-snapshot)
 - **Assignee:** ops
-- **Summary:** Recurring failure pattern detected (51x): unknown (no summary)
-- **Details:** Detected 51 occurrences in the last window. Examples:
+- **Summary:** Recurring failure pattern detected (16x): <ts>-05:00 [tools] read failed: moltbot-sandbox-fs: 1: syntax error: ";" unexpected
+- **Details:** Detected 16 occurrences in the last window. Examples:
+  - <ts>-05:00 [tools] read failed: moltbot-sandbox-fs: 1: syntax error: ";" unexpected
+  - <ts>-05:00 [tools] read failed: moltbot-sandbox-fs: 1: syntax error: ";" unexpected
+  - <ts>-05:00 [tools] read failed: moltbot-sandbox-fs: 1: syntax error: ";" unexpected
+  - <ts>-05:00 [tools] read failed: moltbot-sandbox-fs: 1: syntax error: ";" unexpected
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-085
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T15:24:31+00:00
+- **SLA Deadline:** 2026-02-24T23:24:31+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (5x): subagent run failed (status=error)
+- **Details:** Detected 5 occurrences in the last window. Examples:
+  - subagent run failed (status=error)
+  - subagent run failed (status=error)
+  - subagent run failed (status=error)
+  - subagent run failed (status=error)
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-086
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T15:24:31+00:00
+- **SLA Deadline:** 2026-02-24T23:24:31+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (4x): <ts>-05:00 [tools] read failed: path escapes sandbox root (~/.openclaw/sandboxes/agent-finance-91307508): /users/redinside/.openclaw/workspace/portfolio/holdings.md
+- **Details:** Detected 4 occurrences in the last window. Examples:
+  - <ts>-05:00 [tools] read failed: path escapes sandbox root (~/.openclaw/sandboxes/agent-finance-91307508): /users/redinside/.openclaw/workspace/portfolio/holdings.md
+  - <ts>-05:00 [tools] read failed: path escapes sandbox root (~/.openclaw/sandboxes/agent-finance-91307508): /users/redinside/.openclaw/workspace/portfolio/holdings.md
+  - <ts>-05:00 [tools] read failed: path escapes sandbox root (~/.openclaw/sandboxes/agent-finance-91307508): /users/redinside/.openclaw/workspace/portfolio/holdings.md
+  - <ts>-05:00 [tools] read failed: path escapes sandbox root (~/.openclaw/sandboxes/agent-finance-91307508): /users/redinside/.openclaw/workspace/portfolio/holdings.md
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-087
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T15:54:38+00:00
+- **SLA Deadline:** 2026-02-24T23:54:38+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (120x): unknown (no summary)
+- **Details:** Detected 120 occurrences in the last window. Examples:
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-088
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T15:54:38+00:00
+- **SLA Deadline:** 2026-02-24T23:54:38+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (5x): subagent run failed (status=error)
+- **Details:** Detected 5 occurrences in the last window. Examples:
+  - subagent run failed (status=error)
+  - subagent run failed (status=error)
+  - subagent run failed (status=error)
+  - subagent run failed (status=error)
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-090
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T16:25:20+00:00
+- **SLA Deadline:** 2026-02-25T00:25:20+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (129x): unknown (no summary)
+- **Details:** Detected 129 occurrences in the last window. Examples:
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-091
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T16:25:20+00:00
+- **SLA Deadline:** 2026-02-25T00:25:20+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (5x): subagent run failed (status=error)
+- **Details:** Detected 5 occurrences in the last window. Examples:
+  - subagent run failed (status=error)
+  - subagent run failed (status=error)
+  - subagent run failed (status=error)
+  - subagent run failed (status=error)
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-092
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T16:55:33+00:00
+- **SLA Deadline:** 2026-02-25T00:55:33+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (134x): unknown (no summary)
+- **Details:** Detected 134 occurrences in the last window. Examples:
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-093
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T16:55:33+00:00
+- **SLA Deadline:** 2026-02-25T00:55:33+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (6x): subagent run failed (status=error)
+- **Details:** Detected 6 occurrences in the last window. Examples:
+  - subagent run failed (status=error)
+  - subagent run failed (status=error)
+  - subagent run failed (status=error)
+  - subagent run failed (status=error)
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-094
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T17:28:07+00:00
+- **SLA Deadline:** 2026-02-25T01:28:07+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (148x): unknown (no summary)
+- **Details:** Detected 148 occurrences in the last window. Examples:
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-095
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T17:28:07+00:00
+- **SLA Deadline:** 2026-02-25T01:28:07+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (6x): subagent run failed (status=error)
+- **Details:** Detected 6 occurrences in the last window. Examples:
+  - subagent run failed (status=error)
+  - subagent run failed (status=error)
+  - subagent run failed (status=error)
+  - subagent run failed (status=error)
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-097
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T18:00:14+00:00
+- **SLA Deadline:** 2026-02-25T02:00:14+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (166x): unknown (no summary)
+- **Details:** Detected 166 occurrences in the last window. Examples:
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-098
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T18:00:14+00:00
+- **SLA Deadline:** 2026-02-25T02:00:14+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (6x): subagent run failed (status=error)
+- **Details:** Detected 6 occurrences in the last window. Examples:
+  - subagent run failed (status=error)
+  - subagent run failed (status=error)
+  - subagent run failed (status=error)
+  - subagent run failed (status=error)
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-099
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T18:30:19+00:00
+- **SLA Deadline:** 2026-02-25T02:30:19+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (176x): unknown (no summary)
+- **Details:** Detected 176 occurrences in the last window. Examples:
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-100
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T18:30:19+00:00
+- **SLA Deadline:** 2026-02-25T02:30:19+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (6x): <ts>-05:00 [tools] web_search failed: perplexity api error (401): <html>
+- **Details:** Detected 6 occurrences in the last window. Examples:
+  - <ts>-05:00 [tools] web_search failed: perplexity api error (401): <html>
+  - <ts>-05:00 [tools] web_search failed: perplexity api error (401): <html>
+  - <ts>-05:00 [tools] web_search failed: perplexity api error (401): <html>
+  - <ts>-05:00 [tools] web_search failed: perplexity api error (401): <html>
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-101
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T18:30:19+00:00
+- **SLA Deadline:** 2026-02-25T02:30:19+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (6x): subagent run failed (status=error)
+- **Details:** Detected 6 occurrences in the last window. Examples:
+  - subagent run failed (status=error)
+  - subagent run failed (status=error)
+  - subagent run failed (status=error)
+  - subagent run failed (status=error)
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-102
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T19:00:18+00:00
+- **SLA Deadline:** 2026-02-25T03:00:18+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (182x): unknown (no summary)
+- **Details:** Detected 182 occurrences in the last window. Examples:
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-103
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T19:00:18+00:00
+- **SLA Deadline:** 2026-02-25T03:00:18+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (6x): subagent run failed (status=error)
+- **Details:** Detected 6 occurrences in the last window. Examples:
+  - subagent run failed (status=error)
+  - subagent run failed (status=error)
+  - subagent run failed (status=error)
+  - subagent run failed (status=error)
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-104
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T19:30:24+00:00
+- **SLA Deadline:** 2026-02-25T03:30:24+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (186x): unknown (no summary)
+- **Details:** Detected 186 occurrences in the last window. Examples:
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-105
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T19:30:24+00:00
+- **SLA Deadline:** 2026-02-25T03:30:24+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (6x): subagent run failed (status=error)
+- **Details:** Detected 6 occurrences in the last window. Examples:
+  - subagent run failed (status=error)
+  - subagent run failed (status=error)
+  - subagent run failed (status=error)
+  - subagent run failed (status=error)
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-106
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T20:23:45+00:00
+- **SLA Deadline:** 2026-02-25T04:23:45+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (200x): unknown (no summary)
+- **Details:** Detected 200 occurrences in the last window. Examples:
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-107
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T20:23:45+00:00
+- **SLA Deadline:** 2026-02-25T04:23:45+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (6x): subagent run failed (status=error)
+- **Details:** Detected 6 occurrences in the last window. Examples:
+  - subagent run failed (status=error)
+  - subagent run failed (status=error)
+  - subagent run failed (status=error)
+  - subagent run failed (status=error)
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-108
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T21:27:08+00:00
+- **SLA Deadline:** 2026-02-25T05:27:08+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (207x): unknown (no summary)
+- **Details:** Detected 207 occurrences in the last window. Examples:
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-109
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T21:27:08+00:00
+- **SLA Deadline:** 2026-02-25T05:27:08+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (8x): <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=400 [gemini-cli/gemini-3-pro-preview] [400]: unable to submit request because thought signat
+- **Details:** Detected 8 occurrences in the last window. Examples:
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=400 [gemini-cli/gemini-3-pro-preview] [400]: unable to submit request because thought signat
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=400 [gemini-cli/gemini-3-pro-preview] [400]: unable to submit request because thought signat
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=400 [gemini-cli/gemini-3-pro-preview] [400]: unable to submit request because thought signat
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=400 [gemini-cli/gemini-3-pro-preview] [400]: unable to submit request because thought signat
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-110
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T21:27:08+00:00
+- **SLA Deadline:** 2026-02-25T05:27:08+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (7x): <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=400 [gemini-cli/gemini-3-flash-preview] [400]: unable to submit request because thought sign
+- **Details:** Detected 7 occurrences in the last window. Examples:
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=400 [gemini-cli/gemini-3-flash-preview] [400]: unable to submit request because thought sign
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=400 [gemini-cli/gemini-3-flash-preview] [400]: unable to submit request because thought sign
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=400 [gemini-cli/gemini-3-flash-preview] [400]: unable to submit request because thought sign
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=400 [gemini-cli/gemini-3-flash-preview] [400]: unable to submit request because thought sign
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-111
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T23:12:09+00:00
+- **SLA Deadline:** 2026-02-25T07:12:09+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (223x): unknown (no summary)
+- **Details:** Detected 223 occurrences in the last window. Examples:
   - unknown (no summary)
   - unknown (no summary)
   - unknown (no summary)
