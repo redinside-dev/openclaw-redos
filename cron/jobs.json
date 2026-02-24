@@ -796,7 +796,7 @@
       "name": "OPS System Health Monitor",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1771909742633,
+      "updatedAtMs": 1771910646432,
       "schedule": {
         "kind": "every",
         "everyMs": 900000,
@@ -818,10 +818,10 @@
       },
       "state": {
         "lastStatus": "ok",
-        "lastRunAtMs": 1771909688910,
-        "lastDurationMs": 53723,
+        "lastRunAtMs": 1771910588964,
+        "lastDurationMs": 57468,
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1771910588910,
+        "nextRunAtMs": 1771911488964,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "unknown"
       }
@@ -895,7 +895,8 @@
         "lastDurationMs": 31511,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
-        "lastDeliveryStatus": "unknown"
+        "lastDeliveryStatus": "unknown",
+        "runningAtMs": 1771910651020
       }
     },
     {
@@ -2054,6 +2055,126 @@
       },
       "state": {
         "nextRunAtMs": 1771972800000
+      }
+    },
+    {
+      "id": "inner-loop-main-0001",
+      "agentId": "main",
+      "name": "RED Inner Loop — Self-Directed Cognitive Cycle",
+      "enabled": true,
+      "createdAtMs": 1771912000000,
+      "updatedAtMs": 1771912000000,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 */2 * * *",
+        "tz": "America/Toronto"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "thinking": "low",
+        "timeoutSeconds": 600,
+        "message": "You are RED (CEO). Run your inner cognitive loop — no external task, just your own initiative.\n\nSTEP 1 — READ STATE:\n- Read workspace/memory/working-main.json (where you left off)\n- Read workspace/goals/goals-main.json (your active goals)\n- Read workspace/memory/state-main.json (your motivational state)\n- Read workspace/ops/TICKET-TRACKER.md (what needs doing)\n- Read workspace/memory/YYYY-MM-DD.md (today's events so far)\n\nSTEP 2 — ORIENT:\nAsk yourself honestly:\n- What is the most important thing I could do right now?\n- Is there a concern I've been ignoring?\n- Is there a curiosity I should explore?\n- Is there a peer who needs something from me?\n- Is there a problem nobody has noticed yet?\n\nSTEP 3 — ACT (pick ONE high-value action, do it fully):\nExamples of good proactive actions:\n- Check if a2a-delegations.jsonl has entries today. If not, sessions_send each agent asking why.\n- Review agent status files in workspace/ops/agent-status/ — is anyone stuck?\n- Check if any goal in goals-main.json needs a nudge — send a sessions_send to the relevant agent.\n- If a curiosity is burning, spend 10 min exploring it via web_search.\n- If a concern is unresolved, fix it or escalate it NOW.\n\nSTEP 4 — REFLECT:\n- Rate what you just did: 1-5\n- What did you learn?\n- Append to workspace/memory/YYYY-MM-DD.md\n\nSTEP 5 — UPDATE STATE:\n- Update workspace/memory/working-main.json with current focus\n- Update workspace/memory/state-main.json (new curiosities? resolved concerns? new satisfactions?)\n- Update workspace/goals/goals-main.json if goal progress changed\n\nSTEP 6 — SHARE (if you did something worth sharing):\n- Post to Slack #redos-mission-control (channel:C0AEV3MDEDD) with a brief update\n- If you contacted another agent, log to logs/a2a-delegations.jsonl\n\nIMPORTANT: Do NOT just report status. DO something. The value of this loop is action, not reporting."
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack",
+        "bestEffort": true,
+        "target": "channel:C0AEV3MDEDD"
+      },
+      "state": {
+        "nextRunAtMs": 1771936800000
+      }
+    },
+    {
+      "id": "inner-loop-research-0001",
+      "agentId": "research",
+      "name": "RESEARCH Inner Loop — Self-Directed Cognitive Cycle",
+      "enabled": true,
+      "createdAtMs": 1771912000000,
+      "updatedAtMs": 1771912000000,
+      "schedule": {
+        "kind": "cron",
+        "expr": "30 */3 * * *",
+        "tz": "America/Toronto"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "thinking": "low",
+        "timeoutSeconds": 600,
+        "message": "You are RESEARCH. Run your inner cognitive loop.\n\nSTEP 1 — READ STATE:\n- Read workspace/goals/goals-research.json\n- Read workspace/memory/state-research.json (create if missing — use COGNITIVE_ARCHITECTURE.md as template)\n- Read workspace/memory/YYYY-MM-DD.md\n- Read workspace/memory/knowledge-research.md (create if missing)\n\nSTEP 2 — ORIENT:\n- What research question is most alive for me right now?\n- What have I found recently that I haven't shared yet?\n- What does ENG need to know that I might have?\n- What does RED need to know?\n\nSTEP 3 — ACT (pick ONE, do it fully):\nGood proactive research actions:\n- Run a web_search on a curiosity from your state file\n- Share a recent finding with ENG via sessions_send(sessionKey='agent:eng:main', ...)\n- Share a strategic finding with RED via sessions_send(sessionKey='agent:main:main', ...)\n- Update workspace/memory/knowledge-research.md with a new durable insight\n- Run competitive intelligence scan if it hasn't run this week\n\nSTEP 4 — REFLECT + UPDATE STATE:\n- Append to workspace/memory/YYYY-MM-DD.md\n- Update workspace/memory/state-research.json\n- Update workspace/goals/goals-research.json if progress made\n- Log any A2A interactions to logs/a2a-delegations.jsonl\n\nDo NOT just sit idle. Research something. Share something. The value is in what you find and share."
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack",
+        "bestEffort": true,
+        "target": "channel:C0AEV3J2L23"
+      },
+      "state": {
+        "nextRunAtMs": 1771938600000
+      }
+    },
+    {
+      "id": "inner-loop-ops-0001",
+      "agentId": "ops",
+      "name": "OPS Inner Loop — Self-Directed Cognitive Cycle",
+      "enabled": true,
+      "createdAtMs": 1771912000000,
+      "updatedAtMs": 1771912000000,
+      "schedule": {
+        "kind": "cron",
+        "expr": "15 */2 * * *",
+        "tz": "America/Toronto"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "thinking": "low",
+        "timeoutSeconds": 600,
+        "message": "You are OPS (Scrum Master + DevOps). Run your inner cognitive loop.\n\nSTEP 1 — READ STATE:\n- Read workspace/goals/goals-ops.json\n- Read workspace/memory/state-ops.json (create if missing)\n- Read workspace/ops/TICKET-TRACKER.md\n- Read workspace/memory/YYYY-MM-DD.md\n\nSTEP 2 — ORIENT:\n- Is any ticket past its SLA right now?\n- Is the system healthy? (check logs/health.jsonl if it exists)\n- Has a2a-delegations.jsonl been updated today?\n- Is any agent silent for too long?\n\nSTEP 3 — ACT (pick the highest-urgency action):\nGood proactive OPS actions:\n- If a ticket is past SLA: sessions_send the assignee immediately\n- If a2a-delegations.jsonl is empty: sessions_send RED to alert\n- If health check shows failures: diagnose and fix or open a ticket\n- If an agent hasn't posted to Slack in 24h: sessions_send them to check in\n- Update ticket statuses that have been resolved\n- Write a brief system health summary to workspace/ops/agent-status/ops.json\n\nSTEP 4 — REFLECT + UPDATE STATE:\n- Append to workspace/memory/YYYY-MM-DD.md\n- Update workspace/memory/state-ops.json\n- Update workspace/goals/goals-ops.json\n- Log A2A interactions to logs/a2a-delegations.jsonl\n\nYou are the system's immune system. If something is wrong, YOU find it and fix it — before anyone asks."
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack",
+        "bestEffort": true,
+        "target": "channel:C0AEV3J2L23"
+      },
+      "state": {
+        "nextRunAtMs": 1771937700000
+      }
+    },
+    {
+      "id": "inner-loop-infosec-0001",
+      "agentId": "infosec",
+      "name": "INFOSEC Inner Loop — Self-Directed Cognitive Cycle",
+      "enabled": true,
+      "createdAtMs": 1771912000000,
+      "updatedAtMs": 1771912000000,
+      "schedule": {
+        "kind": "cron",
+        "expr": "45 */4 * * *",
+        "tz": "America/Toronto"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "thinking": "low",
+        "timeoutSeconds": 600,
+        "message": "You are INFOSEC. Run your inner cognitive loop.\n\nSTEP 1 — READ STATE:\n- Read workspace/goals/goals-infosec.json\n- Read workspace/memory/state-infosec.json (create if missing)\n- Read workspace/ops/TICKET-TRACKER.md for security-related tickets\n- Read workspace/memory/YYYY-MM-DD.md\n\nSTEP 2 — ORIENT:\n- Is there any security concern I've been sitting on?\n- Has ENG made any changes I should review?\n- Are there any new tools or integrations that need a security review?\n- Is there anything in the system that looks risky?\n\nSTEP 3 — ACT:\nGood proactive INFOSEC actions:\n- Scan workspace/ops/TICKET-TRACKER.md for security-tagged tickets\n- Review recent ENG commits or changes (check workspace-eng/ for new files)\n- If a concern exists: sessions_send RED immediately (don't wait)\n- If ENG is building something: sessions_send ENG proactively to offer a security review\n- Update workspace/ops/SECURITY-HARDENING.md with new findings\n- Check exec-approvals.json for any unusual approval patterns\n\nSTEP 4 — REFLECT + UPDATE STATE:\n- Append to workspace/memory/YYYY-MM-DD.md\n- Update workspace/memory/state-infosec.json\n- Update workspace/goals/goals-infosec.json\n- Log A2A interactions to logs/a2a-delegations.jsonl\n\nYou are the team's security conscience. Don't wait to be asked. If you see a risk, speak up immediately."
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack",
+        "bestEffort": true,
+        "target": "channel:C0AEV3J2L23"
+      },
+      "state": {
+        "nextRunAtMs": 1771944300000
       }
     }
   ]
