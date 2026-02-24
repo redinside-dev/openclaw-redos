@@ -3,7 +3,7 @@
 # Usage: lobster run eng-coding-factory.lobster --input '{"task":"<description>","repo":"/path/to/repo"}'
 
 exec --json --shell 'echo "{\"step\":\"intake\",\"task\":\"$TASK\",\"repo\":\"$REPO\",\"timestamp\":\"$(date -u +%Y-%m-%dT%H:%M:%SZ)\"}"'
-| exec --stdin json --shell 'jq -r "\"Task received: \" + .task'
+| exec --stdin json --shell 'jq -r "\"Task received: \" + .task"'
 | exec --stdin json --shell '
   REPO=$(echo $STDIN | jq -r .repo)
   TASK=$(echo $STDIN | jq -r .task)
