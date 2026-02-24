@@ -1221,7 +1221,7 @@
       "name": "OPS Idle Agent Audit",
       "enabled": true,
       "createdAtMs": 1771544316316,
-      "updatedAtMs": 1771911567869,
+      "updatedAtMs": 1771915163564,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -1242,10 +1242,10 @@
         "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "nextRunAtMs": 1771915136715,
-        "lastRunAtMs": 1771911536715,
+        "nextRunAtMs": 1771918736726,
+        "lastRunAtMs": 1771915136726,
         "lastStatus": "ok",
-        "lastDurationMs": 31154,
+        "lastDurationMs": 26838,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "unknown"
