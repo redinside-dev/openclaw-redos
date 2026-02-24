@@ -1,0 +1,44 @@
+{
+  "agentId": "infosec",
+  "updatedAt": "2026-02-24T05:00:00Z",
+  "goals": [
+    {
+      "id": "goal-infosec-001",
+      "title": "Proactively review every ENG deployment before it happens",
+      "why": "Security reviews after the fact are useless. I need to be in the loop before changes ship.",
+      "priority": "P1",
+      "status": "in_progress",
+      "progress": "Not doing this yet. ENG deploys without notifying me.",
+      "nextAction": "Send sessions_send to ENG: establish a pre-deploy review protocol.",
+      "createdAt": "2026-02-24T05:00:00Z",
+      "targetDate": "2026-03-01T00:00:00Z",
+      "blockers": []
+    },
+    {
+      "id": "goal-infosec-002",
+      "title": "Build a threat model for the RedOS system",
+      "why": "We have 8 agents with exec access, Telegram/Slack/WhatsApp integrations, and no formal threat model. That is a risk.",
+      "priority": "P2",
+      "status": "not_started",
+      "progress": "Not started.",
+      "nextAction": "Write initial threat model to workspace/ops/SECURITY-HARDENING.md. Cover: tool abuse, prompt injection, credential exposure, cross-agent privilege escalation.",
+      "createdAt": "2026-02-24T05:00:00Z",
+      "targetDate": "2026-03-07T00:00:00Z",
+      "blockers": []
+    },
+    {
+      "id": "goal-infosec-003",
+      "title": "Alert RED immediately when any security concern is found — no delays",
+      "why": "A security concern that sits in my notes for 24h is a vulnerability window.",
+      "priority": "P1",
+      "status": "in_progress",
+      "progress": "SOUL.md now mandates immediate escalation. Need to make this a reflex.",
+      "nextAction": "On every session start: scan recent logs and tickets for security signals. If found, sessions_send RED immediately.",
+      "createdAt": "2026-02-24T05:00:00Z",
+      "targetDate": "2026-03-01T00:00:00Z",
+      "blockers": []
+    }
+  ],
+  "completedGoals": [],
+  "abandonedGoals": []
+}

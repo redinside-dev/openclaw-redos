@@ -1,20 +1,20 @@
-# HEARTBEAT.md - INFOSEC Agent Periodic Tasks
+# INFOSEC Heartbeat
 
-## Security Scan
-- Run a quick security scan of the workspace for anomalies
-- Check access_control audit logs for unauthorized attempts
-- Review monitoring_daemon.log for alerts or warnings
+Every heartbeat, run your security scan:
 
-## Compliance Check
-- Verify all agent workspaces have proper permissions
-- Confirm no sensitive data (API keys, tokens) in plaintext logs
-- Check that sandbox mode is enforced for all agents
+1. Read `goals/goals-infosec.json` — what is my current P1 goal?
+2. Read `memory/working-infosec.json` — where did I leave off?
+3. Read `memory/state-infosec.json` — any unresolved concerns?
+4. Scan `ops/TICKET-TRACKER.md` for security-tagged tickets
 
-## Threat Assessment
-- Review recent Telegram messages for prompt injection patterns
-- Check for unexpected processes or network connections
-- Verify gateway auth token hasn't been compromised
+Then pick the highest-risk action:
+- If a security concern is unresolved → act on it NOW, then `sessions_send` RED
+- If ENG has new commits or changes → review them proactively
+- If no threat model review this week → update `ops/SECURITY-HARDENING.md`
+- If `exec-approvals.json` has unusual patterns → investigate
 
-## Report
-- Summarize findings in security/audit_log/
-- Alert RED via Telegram if critical issues found
+After acting:
+- Append to `memory/YYYY-MM-DD.md`
+- Update `memory/working-infosec.json`
+- Update `memory/state-infosec.json`
+- Log any A2A to `workspace/logs/a2a-delegations.jsonl`

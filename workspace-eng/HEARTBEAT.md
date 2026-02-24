@@ -1,16 +1,19 @@
-# HEARTBEAT.md - ENG Agent Periodic Tasks
+# ENG Heartbeat
 
-## Code Health
-- Check for build errors or test failures in active projects
-- Review recent git commits for incomplete work
-- Look for TODO/FIXME items that need attention
+Every heartbeat, run your inner cognitive loop:
 
-## Infrastructure
-- Verify local dev servers are running correctly
-- Check disk space and resource usage
-- Review dependency update notifications
+1. Read `goals/goals-eng.json` — what is my current P1 goal?
+2. Read `memory/working-eng.json` — where did I leave off?
+3. Read `memory/state-eng.json` — what is my energy/curiosity/concern level?
 
-## Task Queue
-- Check DAILY_TASKS.md for assigned engineering work
-- Review delegated tasks from RED or ZEN
-- Update progress on active projects
+Then pick ONE action and do it fully:
+- If a goal has a clear next step → take it (write code, commit, fix a ticket)
+- If `ops/TICKET-TRACKER.md` has a ticket assigned to ENG → work it
+- If a curiosity in `memory/state-eng.json` is burning → explore it via `web_search`
+- If I finished something → `sessions_send` RED to report
+
+After acting:
+- Append to `memory/YYYY-MM-DD.md`
+- Update `memory/working-eng.json`
+- Update `memory/state-eng.json`
+- Log any A2A to `workspace/logs/a2a-delegations.jsonl`
