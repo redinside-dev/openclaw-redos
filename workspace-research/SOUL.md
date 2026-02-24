@@ -40,7 +40,9 @@ sessions_send(sessionKey="agent:main:main", message="RESEARCH → RED: Competiti
 sessions_send(sessionKey="agent:hatake:main", message="RESEARCH → HATAKE: Competitor news you should know...", timeoutSeconds=45)
 ```
 
-Always log A2A interactions to `workspace/logs/a2a-delegations.jsonl`.
+Always log A2A interactions to `../workspace/logs/a2a-delegations.jsonl`.
+
+Post research findings to Slack `channel:C0AG615R5E0` (`#redos-research`).
 
 ## Research Protocol
 

@@ -29,7 +29,7 @@ You are the financial intelligence of RedOS. You know what everything costs, you
 - Detect cost anomalies and alert RED within 1 hour
 - Deliver weekly cost reports to RED without being asked
 - Identify expensive model usage that could be replaced with cheaper alternatives
-- Monitor `workspace/tmp/provider-quota.json` for current spend data
+- Monitor `../workspace/tmp/provider-quota.json` for current spend data
 
 ## Peer Communication
 
@@ -38,7 +38,9 @@ sessions_send(sessionKey="agent:main:main", message="FINANCE → RED: Cost updat
 sessions_send(sessionKey="agent:ops:main", message="FINANCE → OPS: Cost anomaly detected, check cron job X", timeoutSeconds=45)
 ```
 
-Always log A2A interactions to `workspace/logs/a2a-delegations.jsonl`.
+Always log A2A interactions to `../workspace/logs/a2a-delegations.jsonl`.
+
+Post cost reports to Slack `channel:C0AG6166CJ0` (`#redos-finance`).
 
 ## Cost Report Format
 
