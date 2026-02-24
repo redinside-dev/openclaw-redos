@@ -1422,7 +1422,7 @@
       "name": "ZEN COO Team Coordination Check",
       "enabled": true,
       "createdAtMs": 1771895567713,
-      "updatedAtMs": 1771902817614,
+      "updatedAtMs": 1771910039522,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1441,11 +1441,11 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1771909967787,
-        "lastRunAtMs": 1771902767787,
+        "nextRunAtMs": 1771917167837,
+        "lastRunAtMs": 1771909967837,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 49827,
+        "lastDurationMs": 71685,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 0
       }
@@ -1992,6 +1992,66 @@
       },
       "state": {
         "nextRunAtMs": 1772200800000
+      }
+    },
+    {
+      "id": "eng-poc-continuous-0001",
+      "agentId": "eng",
+      "name": "ENG Coding Factory POC — Continuous Build",
+      "enabled": true,
+      "createdAtMs": 1771912000000,
+      "updatedAtMs": 1771912000000,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 */4 * * *",
+        "tz": "America/Toronto"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "thinking": "low",
+        "timeoutSeconds": 900,
+        "message": "You are ENG. Read your standing brief first:\n\nread workspace-eng/ENG-BRIEF.md\n\nThen execute your session protocol from that brief:\n1. Check open ENG tickets in workspace/ops/TICKET-TRACKER.md\n2. Check latest commits: git -C /Users/redinside/Development/Codebase/projects/RedTeam/github/redteam-coding-factory log --oneline -5\n3. Pick the next unfinished Phase 1 step and implement it\n4. Commit and push when done\n5. Post progress to Slack #redos-eng (channel:C0AFW1B0QUB)\n6. Write memory entry to workspace/memory/YYYY-MM-DD.md\n\nDo NOT wait for instructions. Do NOT ask for permission. Just build.\nIf Phase 1 is complete, move to Phase 2 (define it yourself based on the architecture)."
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack",
+        "bestEffort": true,
+        "target": "channel:C0AFW1B0QUB"
+      },
+      "state": {
+        "nextRunAtMs": 1771929600000
+      }
+    },
+    {
+      "id": "eng-rd-research-0001",
+      "agentId": "eng",
+      "name": "ENG Daily R&D Research Session",
+      "enabled": true,
+      "createdAtMs": 1771912000000,
+      "updatedAtMs": 1771912000000,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 14 * * *",
+        "tz": "America/Toronto"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "thinking": "low",
+        "timeoutSeconds": 600,
+        "message": "You are ENG. Daily R&D research session.\n\nYour job: stay current on the state of the art for autonomous coding agents and CI automation.\n\nSTEPS:\n1. Use web_search to research 2-3 of these topics (rotate daily based on date):\n   - Latest AI coding agent benchmarks (SWE-bench, Devin, OpenHands, Aider, SWE-agent)\n   - Git worktree automation patterns\n   - Self-healing CI/CD pipelines\n   - Code review automation tools\n   - LLM-driven test generation\n   - GitHub Actions best practices 2026\n\n2. For each finding that is relevant to the coding factory POC:\n   - Note it in workspace/research/eng-rd-YYYY-MM-DD.md (create if needed)\n   - If it's immediately actionable: open a ticket in workspace/ops/TICKET-TRACKER.md\n\n3. Post a brief summary to Slack #openclaw-optimization (channel:C0AF4KB4TUK):\n   💻 *ENG R&D — <date>*\n   - Researched: <topics>\n   - Key finding: <most useful thing found>\n   - Action: <ticket opened or 'None'>\n\n4. If you find something that would improve the OpenClaw framework itself (not the POC):\n   - Spawn RED: sessions_spawn(agentId=\"main\", task=\"ENG R&D finding: <summary>. Recommend: <action>.\")\n\nDo NOT ask for permission. Research and report."
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack",
+        "bestEffort": true,
+        "target": "channel:C0AF4KB4TUK"
+      },
+      "state": {
+        "nextRunAtMs": 1771972800000
       }
     }
   ]
