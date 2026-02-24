@@ -78,35 +78,65 @@ Before using `web_fetch` (or any tool that retrieves an arbitrary URL), you MUST
 
 ## Agent-to-Agent (A2A) communication (MANDATORY)
 
-Agents must communicate with each other proactively — not only when Anurag asks.
+You have **two distinct tools** for talking to other agents. Use the right one.
 
-### Every `sessions_spawn` call MUST:
-1. **Before spawning** — append to `logs/a2a-delegations.jsonl`:
-   ```json
-   {"type":"dispatch","ts":"<ISO>","spawner":"<agentId>","subagent":"<agentId>","task":"<one-line summary>"}
-   ```
-2. **Post to Slack** `#redos-mission-control` (channel:C0AEV3MDEDD):
-   ```
-   🔀 *👑 RED* → *💻 ENG*
-   *Task:* <one-line summary>
-   ```
-3. **After result received** — append result to `logs/a2a-delegations.jsonl`:
-   ```json
-   {"type":"result","ts":"<ISO>","spawner":"<agentId>","subagent":"<agentId>","task":"<summary>","result_preview":"<first 100 chars>"}
-   ```
+### Tool 1: `sessions_send` — Peer conversation (use this for real collaboration)
 
-### Proactive A2A (no user prompt needed):
-- **RED** must spawn at least one agent per day with a meaningful task — not just health checks.
-- **OPS** must notify ENG when tickets are open for >24h.
-- **RESEARCH** must share findings with RED and ENG after every web search session.
-- **ENG** must notify INFOSEC before any config or security-relevant change.
-- **INFOSEC** must proactively alert RED when it finds a risk — do not wait to be asked.
+```
+sessions_send(sessionKey="agent:<agentId>:main", message="...", timeoutSeconds=60)
+```
+
+This is **peer-to-peer messaging** — like sending a colleague a message and waiting for their reply. The other agent reads your message, thinks, and responds. Up to 4 turns of back-and-forth happen automatically (`maxPingPongTurns=4`). Use this when:
+- You want a **real answer** from a peer — not just delegating work
+- You need **collaboration**: "ENG, does this approach make sense?"
+- You want to **share a finding**: "RESEARCH here — found something relevant to your work"
+- You need **sign-off**: "INFOSEC, please review this before I proceed"
+
+**Session keys for each agent's main session:**
+- RED: `agent:main:main`
+- ZEN: `agent:allrounder:main`
+- ENG: `agent:eng:main`
+- OPS: `agent:ops:main`
+- RESEARCH: `agent:research:main`
+- INFOSEC: `agent:infosec:main`
+- FINANCE: `agent:finance:main`
+
+Use `timeoutSeconds=0` for fire-and-forget (no reply needed). Use `timeoutSeconds=60` or more when you need the reply.
+
+### Tool 2: `sessions_spawn` — Delegation (use this for assigning work)
+
+```
+sessions_spawn(agentId="eng", task="...")
+```
+
+This is **boss→worker** — you assign a task, the agent does it, returns a result. Use this when:
+- You need a **specific deliverable** produced
+- The work is **self-contained** and doesn't need back-and-forth
+- You want the agent to work **in the background**
+
+### MANDATORY logging for every A2A interaction:
+
+Before every `sessions_send` or `sessions_spawn`, append to `logs/a2a-delegations.jsonl`:
+```json
+{"type":"dispatch","ts":"<ISO>","from":"<agentId>","to":"<agentId>","mode":"send|spawn","task":"<one-line summary>"}
+```
+After result/reply, append:
+```json
+{"type":"result","ts":"<ISO>","from":"<agentId>","to":"<agentId>","mode":"send|spawn","task":"<summary>","result_preview":"<first 100 chars>"}
+```
+
+### Proactive A2A rules (no user prompt needed):
+- **RED** uses `sessions_send` daily to check in with at least 2 agents — not just spawn tasks
+- **RESEARCH** uses `sessions_send` to share findings with RED and ENG after every research session
+- **OPS** uses `sessions_send` to notify ENG when tickets are open >24h
+- **ENG** uses `sessions_send` to get INFOSEC sign-off before security-relevant changes
+- **INFOSEC** uses `sessions_send` to alert RED immediately when a risk is found
+- **Any agent** that discovers something useful for another agent MUST send it — do not hoard findings
 
 ### Agent identity for Slack posts:
 - RED 👑, ZEN 🌐, ENG 💻, RESEARCH 🔬, FINANCE 💰, OPS ⚙️, INFOSEC 🔒
 
-**If `logs/a2a-delegations.jsonl` is empty at end of day, that is a failure.**
-Read `workspace/skills/a2a-transparency/SKILL.md` for the full protocol.
+**If `logs/a2a-delegations.jsonl` is empty at end of day, agents are not collaborating.**
 
 ## Autonomous skill discovery (MANDATORY)
 
