@@ -41,9 +41,10 @@ Before calling `message(action="send", ...)`:
 | Legacy param | Current param | Action |
 |---|---|---|
 | `to` | `target` | Auto-rename |
-| `sendMessage` | `message` | Auto-rename |
+| `action:"send"+"Message"` | `action:"send"` | Auto-fix action value |
 | `channel_id` | `target` | Auto-rename, prepend `channel:` if missing |
 | `userId` | `target` | Auto-rename |
+| `content` | `message` | Auto-rename |
 | Missing `channel` in Slack session | `channel: "slack"` | Auto-inject |
 
 ---
