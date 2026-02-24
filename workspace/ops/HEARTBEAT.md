@@ -90,11 +90,11 @@
 - **Created:** 2026-02-21T00:00:00Z
 - **Description:**
   TICKET-20260220-002: errors.jsonl shows repeated 400 errors:
-  - Perplexity: `llama-3.1-sonar-small-128k-online` (invalid model ID)
+  - Perplexity: use valid Sonar models only: `sonar`, `sonar-pro`, `sonar-reasoning` (Perplexity API). Avoid legacy ids like `llama-3.1-sonar-small-128k-online`.
   - Zhipu: error code 1211 (model does not exist)
   Steps:
   1. web_search "perplexity sonar models 2026 valid model ids"
-  2. web_search "zhipu glm-4 valid model ids api 2026"
+  2. web_search "z.ai glm-4.7 valid model ids api" (we use ZAI provider, not legacy Zhipu)
   3. Identify correct replacement model IDs
   4. Read `workspace/config/model-registry.json` and identify entries with wrong IDs
   5. Write findings to `workspace/tmp/model-id-fixes-YYYY-MM-DD.md`

@@ -418,18 +418,21 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Notes:** This is the core limitation preventing hands-off AI team automation. Consider alternative frameworks if full automation is required. Current workaround: Use AI team for planning and coordination, manual execution for system commands.
 
 ### TICKET-20260220-002
-- **Status:** IN_PROGRESS
+- **Status:** RESOLVED
 - **Priority:** P2
 - **Created:** 2026-02-20T04:30:00Z
 - **SLA Deadline:** 2026-02-20T12:30:00Z (8 hours)
 - **Reporter:** main (RED self-improvement)
 - **Assignee:** ENG
 - **Summary:** Provider/model misconfiguration: Perplexity invalid model id and Zhipu "model does not exist" errors
-- **Details:** `errors.jsonl` shows repeated 400 invalid_model for Perplexity (`llama-3.1-sonar-small-128k-online`) and Zhipu error code 1211 (model不存在). These are configuration-level issues (bad model IDs) and should be removed/updated to valid model names.
-- **Root Cause:** TBD - stale model IDs in model registry / provider config.
+- **Details:** `errors.jsonl` showed repeated 400 invalid_model for Perplexity (`llama-3.1-sonar-small-128k-online`) and Zhipu error code 1211 (model不存在). These are configuration-level issues (bad model IDs) and should be removed/updated to valid model names.
+- **Root Cause:** Stale/legacy model IDs referenced in docs/prompts; provider naming drift (Zhipu vs ZAI).
 - **Resolution:**
-- **Learnings:**
-- **Resolved At:**
+  - Standardized ZAI provider models in `openclaw.json` (added `glm-4.7` + `glm-4.7-flashx` alongside existing models).
+  - Updated OPS heartbeat documentation to reference valid Perplexity Sonar models (`sonar`, `sonar-pro`, `sonar-reasoning`) and explicitly avoid legacy IDs like `llama-3.1-sonar-small-128k-online`.
+  - Updated OPS heartbeat doc language to match ZAI provider (not legacy “zhipu”).
+- **Learnings:** Keep model IDs centralized + lint docs/prompts for legacy IDs; naming drift causes misleading troubleshooting.
+- **Resolved At:** 2026-02-24T07:34:39Z
 
 ### TICKET-20260220-003
 - **Status:** RESOLVED
@@ -528,18 +531,18 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Resolved At:** 2026-02-21T18:29:23Z
 
 ### TICKET-20260221-003
-- **Status:** IN_PROGRESS
+- **Status:** RESOLVED
 - **Priority:** P2
 - **Created:** 2026-02-21T10:25:00Z
 - **SLA Deadline:** 2026-02-21T18:25:00Z (8 hours)
 - **Reporter:** main (RED self-improvement)
 - **Assignee:** ENG
 - **Summary:** Heartbeat/default routing uses Ollama for multiple always-on agents; causes 5xx + reliability regressions
-- **Details:** `routing-decisions.jsonl` shows finance/ops/infosec/eng heartbeats selecting `ollama/llama3.1:8b` repeatedly, while `errors.jsonl` contains `OLLAMA Internal Server Error` spikes. For always-on agents, especially OPS/INFOSEC, heartbeats and light work should prefer a stable hosted model (e.g., openai-codex/gpt-5.2) with Ollama as last-resort only.
-- **Root Cause:** Likely per-agent model config drift or router weighting preferring local model for "cheap" requests.
-- **Resolution:**
-- **Learnings:**
-- **Resolved At:**
+- **Details:** `routing-decisions.jsonl` showed finance/ops/infosec/eng heartbeats selecting `ollama/llama3.1:8b` repeatedly, while `errors.jsonl` contained `OLLAMA Internal Server Error` spikes. For always-on agents, especially OPS/INFOSEC, heartbeats and light work should prefer a stable hosted model.
+- **Root Cause:** Finance heartbeat runs were consistently selecting Ollama despite hosted models being available; likely fallback-chain / provider availability mismatch for finance.
+- **Resolution:** Updated `openclaw.json` FINANCE agent model routing: primary → `zai/glm-4.7`, fallbacks → `openai-codex/gpt-5.2`, `anthropic/claude-opus-4-6` to avoid Ollama selection on heartbeats.
+- **Learnings:** Always-on agents should explicitly pin to hosted models for heartbeats; leaving finance to “auto” can silently drift to local Ollama.
+- **Resolved At:** 2026-02-24T07:34:39Z
 
 ### TICKET-20260221-004
 - **Status:** RESOLVED
@@ -1121,6 +1124,96 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
   - <ts>-05:00 delivery failed (telegram to telegram:1012034994): error: unknown channel: telegram
   - <ts>-05:00 delivery failed (telegram to telegram:1012034994): error: unknown channel: telegram
   - <ts>-05:00 delivery failed (telegram to telegram:1012034994): error: unknown channel: telegram
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-046
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-02-24T07:34:54+00:00
+- **SLA Deadline:** 2026-02-24T09:34:54+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (42x): <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
+- **Details:** Detected 42 occurrences in the last window. Examples:
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-047
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T07:34:54+00:00
+- **SLA Deadline:** 2026-02-24T15:34:54+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (8x): <ts> [agent/embedded] embedded run agent end: runid=announce:v1:agent:main:cron:<uuid>:<uuid>:<uuid> iserror=t
+- **Details:** Detected 8 occurrences in the last window. Examples:
+  - <ts> [agent/embedded] embedded run agent end: runid=announce:v1:agent:main:cron:<uuid>:<uuid>:<uuid> iserror=t
+  - <ts> [agent/embedded] embedded run agent end: runid=announce:v1:agent:main:cron:<uuid>:<uuid>:<uuid> iserror=t
+  - <ts> [agent/embedded] embedded run agent end: runid=announce:v1:agent:main:cron:<uuid>:<uuid>:<uuid> iserror=t
+  - <ts> [agent/embedded] embedded run agent end: runid=announce:v1:agent:main:cron:<uuid>:<uuid>:<uuid> iserror=t
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-048
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T07:34:54+00:00
+- **SLA Deadline:** 2026-02-24T15:34:54+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (7x): <ts>-05:00 gateway failed to start: error: invalid config: hooks.token must not match gateway auth token. set a distinct hooks.token for hook ingress.
+- **Details:** Detected 7 occurrences in the last window. Examples:
+  - <ts>-05:00 gateway failed to start: error: invalid config: hooks.token must not match gateway auth token. set a distinct hooks.token for hook ingress.
+  - <ts>-05:00 gateway failed to start: error: invalid config: hooks.token must not match gateway auth token. set a distinct hooks.token for hook ingress.
+  - <ts>-05:00 gateway failed to start: error: invalid config: hooks.token must not match gateway auth token. set a distinct hooks.token for hook ingress.
+  - <ts>-05:00 gateway failed to start: error: invalid config: hooks.token must not match gateway auth token. set a distinct hooks.token for hook ingress.
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-049
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T07:34:54+00:00
+- **SLA Deadline:** 2026-02-24T15:34:54+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (6x): <ts>-05:00 delivery failed (telegram to telegram:1012034994): error: unknown channel: telegram
+- **Details:** Detected 6 occurrences in the last window. Examples:
+  - <ts>-05:00 delivery failed (telegram to telegram:1012034994): error: unknown channel: telegram
+  - <ts>-05:00 delivery failed (telegram to telegram:1012034994): error: unknown channel: telegram
+  - <ts>-05:00 delivery failed (telegram to telegram:1012034994): error: unknown channel: telegram
+  - <ts>-05:00 delivery failed (telegram to telegram:1012034994): error: unknown channel: telegram
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-050
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T07:34:54+00:00
+- **SLA Deadline:** 2026-02-24T15:34:54+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (6x): <ts>-05:00 subagent completion direct announce failed for run <uuid>:<uuid>: error: outbound not configured for channel: telegram
+- **Details:** Detected 6 occurrences in the last window. Examples:
+  - <ts>-05:00 subagent completion direct announce failed for run <uuid>:<uuid>: error: outbound not configured for channel: telegram
+  - <ts>-05:00 subagent completion direct announce failed for run <uuid>:<uuid>: error: outbound not configured for channel: telegram
+  - <ts>-05:00 subagent completion direct announce failed for run <uuid>:<uuid>: error: outbound not configured for channel: telegram
+  - <ts>-05:00 subagent completion direct announce failed for run <uuid>:<uuid>: error: outbound not configured for channel: telegram
 - **Root Cause:** 
 - **Resolution:** 
 - **Learnings:** 
