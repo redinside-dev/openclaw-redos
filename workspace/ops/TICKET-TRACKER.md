@@ -513,10 +513,11 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Resolved At:** 2026-02-24T06:58:00Z
 
 ### TICKET-20260221-001
-- **Status:** BLOCKED
+- **Status:** BLOCKED (SLA BREACHED — needs human/CI access)
 - **Priority:** P2
 - **Created:** 2026-02-21T04:30:00Z
-- **SLA Deadline:** 2026-02-21T12:30:00Z (8 hours)
+- **SLA Deadline:** 2026-02-21T12:30:00Z (8 hours) — **BREACHED**
+- **Re-scope / New Target:** 2026-02-25T17:00:00Z (collect CI/dev evidence + decide close vs rotate)
 - **Reporter:** main (RED self-improvement)
 - **Assignee:** INFOSEC
 - **Summary:** Supply-chain IOC: audit for cline@2.3.0 postinstall installing openclaw@latest globally
@@ -533,6 +534,27 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Learnings:**
 - **Resolved At:**
 - **Blocker:** Requires confirmation on other dev machines/CI build contexts (npm global list + lockfile grep + persistence/service checks). No evidence on Mac mini, but coverage incomplete.
+- **Next Steps (needs HUMAN/CI access):**
+  Run the following on **each dev machine** and **each CI runner/self-hosted runner** that runs Node/npm installs, then paste outputs into this ticket.
+
+  **A) Global packages (evidence):**
+  - `npm -g ls --depth=0 | egrep -i 'cline|openclaw' || true`
+
+  **B) Lockfile sweep (repo roots):**
+  - `grep -RIn --exclude-dir node_modules --exclude-dir .git "cline" package-lock.json pnpm-lock.yaml yarn.lock 2>/dev/null || true`
+
+  **C) NPM install logs (best-effort):**
+  - `ls -lt ~/.npm/_logs/ | head -20`
+  - `grep -RIn "cline@2\.3\.0" ~/.npm/_logs/ 2>/dev/null || true`
+
+  **D) Persistence/process check:**
+  - macOS: `ls -la ~/Library/LaunchAgents | egrep -i 'openclaw|cline|node' || true`
+  - Linux: `systemctl --user list-units --type=service | egrep -i 'openclaw|cline|node' || true`
+  - `ps aux | egrep -i 'cline|openclaw' | grep -v egrep || true`
+
+  **Decision rule:**
+  - If any `cline@2.3.0` evidence appears or provenance is unexplained → escalate to RED and rotate relevant tokens.
+  - If all environments are clean → mark RESOLVED and attach the evidence snippets.
 
 ### TICKET-20260221-002
 - **Status:** RESOLVED
@@ -776,10 +798,11 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Root Cause:** Prompt/template drift + lack of centralized tool-call validation.
 - **Resolution:** (in progress)
   - Short-term: keep updating prompt templates/docs to match current tool schema (message: `action=send`, `channel`, `target`, `message`; write: require `content`).
-  - Implementation plan:
-    1) Add a small validator/compat layer that inspects tool-call payloads before dispatch and either (a) auto-fixes legacy fields (`sendMessage`→`send`, `to`→`target`, `content`→`message`) or (b) fails fast with a specific, actionable error.
-    2) Cover the two highest-impact cases first: `message` missing `channel` when multiple channels configured; `write` missing `content`.
-    3) Add a repo-level linter (pre-commit / cron) to grep for legacy schema in prompts/templates.
+  - Implemented: added a repo-level drift linter `workspace/scripts/lint_tool_schema_drift.py` to catch the highest-impact legacy patterns (`sendMessage`, `to`, `content`, and “Use slack tool” phrasing) in prompts/templates.
+  - Next:
+    1) Wire the linter into CI/cron and make it fail builds if new drift is introduced.
+    2) Add a small runtime validator/compat layer that inspects tool-call payloads before dispatch and either (a) auto-fixes legacy fields (`sendMessage`→`send`, `to`→`target`, `content`→`message`) or (b) fails fast with a specific, actionable error.
+    3) Cover the two highest-impact runtime cases first: `message` missing `channel` when multiple channels configured; `write` missing `content`.
 - **Learnings:** LEARNING-20260224-004
 - **Resolved At:**
 
@@ -1323,6 +1346,96 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
   - <ts>-05:00 [tools] write failed: sandbox path is read-only; cannot create directories: /workspace/ops/agent-status
   - <ts>-05:00 [tools] write failed: sandbox path is read-only; cannot create directories: /workspace/ops/agent-status
   - <ts>-05:00 [tools] write failed: sandbox path is read-only; cannot create directories: /workspace/ops/agent-status
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-056
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-02-24T08:31:58+00:00
+- **SLA Deadline:** 2026-02-24T10:31:58+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (26x): <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
+- **Details:** Detected 26 occurrences in the last window. Examples:
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-057
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T08:31:58+00:00
+- **SLA Deadline:** 2026-02-24T16:31:58+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (8x): <ts>-05:00 [tools] read failed: moltbot-sandbox-fs: 1: syntax error: ";" unexpected
+- **Details:** Detected 8 occurrences in the last window. Examples:
+  - <ts>-05:00 [tools] read failed: moltbot-sandbox-fs: 1: syntax error: ";" unexpected
+  - <ts>-05:00 [tools] read failed: moltbot-sandbox-fs: 1: syntax error: ";" unexpected
+  - <ts>-05:00 [tools] read failed: moltbot-sandbox-fs: 1: syntax error: ";" unexpected
+  - <ts>-05:00 [tools] read failed: moltbot-sandbox-fs: 1: syntax error: ";" unexpected
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-058
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T08:31:58+00:00
+- **SLA Deadline:** 2026-02-24T16:31:58+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (7x): <ts>-05:00 gateway failed to start: error: invalid config: hooks.token must not match gateway auth token. set a distinct hooks.token for hook ingress.
+- **Details:** Detected 7 occurrences in the last window. Examples:
+  - <ts>-05:00 gateway failed to start: error: invalid config: hooks.token must not match gateway auth token. set a distinct hooks.token for hook ingress.
+  - <ts>-05:00 gateway failed to start: error: invalid config: hooks.token must not match gateway auth token. set a distinct hooks.token for hook ingress.
+  - <ts>-05:00 gateway failed to start: error: invalid config: hooks.token must not match gateway auth token. set a distinct hooks.token for hook ingress.
+  - <ts>-05:00 gateway failed to start: error: invalid config: hooks.token must not match gateway auth token. set a distinct hooks.token for hook ingress.
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-059
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T08:31:58+00:00
+- **SLA Deadline:** 2026-02-24T16:31:58+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (6x): unknown (no summary)
+- **Details:** Detected 6 occurrences in the last window. Examples:
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-060
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T08:31:58+00:00
+- **SLA Deadline:** 2026-02-24T16:31:58+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (5x): <ts>-05:00 [tools] edit failed: could not find the exact text in /users/redinside/.openclaw/workspace/ops/ticket-tracker.md. the old text must match exactly including all whitespace and newlines.
+- **Details:** Detected 5 occurrences in the last window. Examples:
+  - <ts>-05:00 [tools] edit failed: could not find the exact text in /users/redinside/.openclaw/workspace/ops/ticket-tracker.md. the old text must match exactly including all whitespace and newlines.
+  - <ts>-05:00 [tools] edit failed: could not find the exact text in /users/redinside/.openclaw/workspace/ops/ticket-tracker.md. the old text must match exactly including all whitespace and newlines.
+  - <ts>-05:00 [tools] edit failed: could not find the exact text in /users/redinside/.openclaw/workspace/ops/ticket-tracker.md. the old text must match exactly including all whitespace and newlines.
+  - <ts>-05:00 [tools] edit failed: could not find the exact text in /users/redinside/.openclaw/workspace/ops/ticket-tracker.md. the old text must match exactly including all whitespace and newlines.
 - **Root Cause:** 
 - **Resolution:** 
 - **Learnings:** 
