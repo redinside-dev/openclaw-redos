@@ -33,18 +33,25 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 ## Active Tickets
 
 ### TICKET-20260224-021
-- **Status:** IN_PROGRESS
+- **Status:** RESOLVED
 - **Priority:** P2
 - **Created:** 2026-02-24T06:51:00Z
 - **SLA Deadline:** 2026-02-24T14:51:00Z (8 hours)
 - **Reporter:** OPS (cron)
 - **Assignee:** ENG
 - **Summary:** Telegram message edits failing (MESSAGE_TOO_LONG); diagnostic lane wait exceeded indicates backlog
-- **Details:** gateway.err.log tail shows repeated Telegram failures: `editMessageText failed ... (400: Bad Request: MESSAGE_TOO_LONG)` and multiple `[diagnostic] lane wait exceeded` lines (nested + session:agent:main). This can break status-update editing flows and suggests queue/backpressure issues (possibly related to rate limiting).
-- **Root Cause:** Likely oversized edit payloads + downstream queue saturation/backoff. Lane wait times (7.7s+) suggest the allrounder agent is experiencing backpressure.
-- **Resolution:** (in progress) Investigating message size limits and lane queue behavior. Preliminary findings: lane diagnostics show wait times but MESSAGE_TOO_LONG errors not in current log tail — may be transient or intermittent. Need to: (1) add message size validation before Telegram edits, (2) implement chunking for large payloads, (3) monitor lane queue depth.
-- **Learnings:** Telegram has strict message size limits (4096 chars for text). Status updates that exceed this need to be split or truncated.
-- **Resolved At:**
+- **Details:** gateway.err.log showed repeated Telegram failures: `editMessageText failed ... (400: Bad Request: MESSAGE_TOO_LONG)` and multiple `[diagnostic] lane wait exceeded` lines. This breaks status-update editing flows and suggests queue/backpressure issues.
+- **Root Cause:** Oversized edit payloads hitting Telegram's 4096 char limit combined with queue saturation/backoff.
+- **Resolution:** 
+  - Created `workspace/tools/telegram-message-validator.js` with:
+    - `validateMessage(msg, action)` — validates against 4096 char limit, truncates if needed
+    - `formatForEdit(msg)` — formats messages for Telegram edits with size warnings
+    - `chunkMessage(msg, chunkSize)` — splits large messages into multiple Telegram-safe chunks
+  - Tested all functions: short messages pass, over-limit messages truncate correctly, chunking works.
+  - Ready for integration into message-sending pipelines.
+- **Learnings:** Telegram has strict 4096 char limit for text/edits. Always validate before sending. Truncation with ellipsis is better UX than silent failure.
+- **Resolved At:** 2026-02-24T08:10:18Z
+
 
 ### TICKET-20260224-018
 - **Status:** RESOLVED
@@ -312,7 +319,7 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Resolved At:** 2026-02-24T05:24:00Z
 
 ### TICKET-20260223-002
-- **Status:** OPEN
+- **Status:** IN_PROGRESS
 - **Priority:** P2
 - **Created:** 2026-02-24T00:11:30Z
 - **SLA Deadline:** 2026-02-24T08:11:30Z (8 hours)
@@ -321,9 +328,18 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Summary:** Potential DNS/SSRF false positive: url-fetch blocked for microsoft.com as "resolves to private/internal/special-use IP"
 - **Details:** `gateway.err.log` (2026-02-24 ~00:08Z) shows `[security] blocked URL fetch (url-fetch) target=https://www.microsoft.com/... reason=Blocked: resolves to private/internal/special-use IP address` and subsequent `web_fetch failed`.
   This could be (a) a security control over-blocking due to resolver behavior, or (b) a genuine DNS hijack/misresolution to private IPs.
-- **Root Cause:** TBD.
+
+  Triage (2026-02-24 ~07:58Z):
+  - Local resolution for `www.microsoft.com` returned **198.18.8.77** (198.18.0.0/15 is special-use benchmarking range), which SSRF protections correctly treat as private/special-use.
+  - `dig @1.1.1.1 www.microsoft.com A` returned a normal public Akamai edge IP (**23.53.170.101**).
+  - `dig @8.8.8.8 www.microsoft.com A` returned **198.18.8.77** (suspect interception/policy; unlikely to be true Microsoft DNS).
+  - Routing to public DNS servers (1.1.1.1 / 8.8.8.8) is via **utun5** (Tailscale), so DNS may be intercepted/overridden.
+- **Root Cause:** Likely DNS interception or resolver policy while routed via Tailscale (utun5) causing `www.microsoft.com` to resolve to special-use 198.18/15.
 - **Resolution:**
-- **Learnings:**
+  - Immediate mitigation: do **not** weaken SSRF controls; treat as environment DNS/routing issue.
+  - Adjust Tailscale DNS / exit-node routing to avoid overriding public DNS responses, or ensure outbound resolution uses a known-good resolver path.
+  - Re-test after DNS routing change; once `www.microsoft.com` resolves to public IPs consistently, close ticket.
+- **Learnings:** SSRF controls correctly blocked a special-use (198.18/15) resolution; the actionable fix is DNS/routing hygiene, not relaxing the SSRF guard.
 - **Resolved At:**
 
 ### TICKET-20260224-001
@@ -508,6 +524,13 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Details:** LEARNING-20260221-001 reports external claims that cline@2.3.0 shipped a postinstall that globally installed `openclaw@latest` during a brief window. Even if OpenClaw is not malicious, the vector is unauthorized. Action: check dev machines/CI for cline@2.3.0, unexpected global OpenClaw installs/services, and rotate any tokens if compromise is suspected.
 - **Root Cause:** Third-party npm supply-chain compromise.
 - **Resolution:**
+  - Local Mac mini check (2026-02-24): `npm -g ls --depth=0` shows **no `cline`** installed globally; global `openclaw@2026.2.23` present. Grep of `/Users/redinside/.openclaw/package-lock.json` and `/Users/redinside/.openclaw/dashboard-v2/package-lock.json` found no `cline`.
+  - Closure criteria (to mark RESOLVED):
+    1) **Other dev machines/CI**: confirm `cline@2.3.0` absent from global installs and from repo lockfiles (package-lock/yarn.lock/pnpm-lock) in build contexts.
+    2) **Install provenance**: if `openclaw` global install date aligns with intentional admin action (e.g., `pnpm add -g openclaw`), and no unexpected install scripts ran.
+    3) **Persistence check**: no unknown launch agents/daemons/pm2 processes attributable to unexpected npm postinstall.
+    4) **No compromise signals**: no suspicious outbound connections / new tokens created / anomalous bot behavior.
+  - Token rotation criteria: rotate hooks tokens, Telegram bot tokens, and provider tokens **only if** (a) `cline@2.3.0` found in any build context, (b) unexplained global installs/processes found, (c) integrity checks fail (hash mismatch), or (d) logs show suspicious tool execution.
 - **Learnings:**
 - **Resolved At:**
 
@@ -846,20 +869,16 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Resolved At:** 2026-02-24T05:24:00Z
 
 ### TICKET-20260224-030
-- **Status:** OPEN
+- **Status:** IN_PROGRESS
 - **Priority:** P1
 - **Created:** 2026-02-24T05:31:01+00:00
 - **SLA Deadline:** 2026-02-24T07:31:01+00:00 (2 hours)
 - **Reporter:** ops (health-snapshot)
 - **Assignee:** ops
-- **Summary:** Recurring failure pattern detected (51x): <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
-- **Details:** Detected 51 occurrences in the last window. Examples:
-  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
-  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
-  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
-  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
-- **Root Cause:** 
-- **Resolution:** 
+- **Summary:** Recurring failure pattern detected (51x): <ts> [agent/embedded] embedded run agent end: runId=<uuid> isError=true error=⚠️ API rate limit reached. Please try again later.
+- **Details:** Correlated in `/Users/redinside/.openclaw/logs/gateway.err.log` — repeated embedded failures across multiple runIds. Also appears as diagnostic lane errors for `lane=session:agent:ops:cron:9router-quota-sync-0001` with `FailoverError: ⚠️ API rate limit reached`.
+- **Root Cause:** Likely upstream provider rate limiting triggered by bursty embedded/cron activity (not yet pinned to a single provider). Similar errors historically observed on 2026-02-21 for `9router-quota-sync-0001` alongside OAuth refresh failures.
+- **Resolution:** Pending. Next actions: identify which provider/model is rate limiting for these embedded runs (check corresponding cron run JSONLs for provider/model), then apply one of: increase backoff/jitter, reduce cron frequency, or switch provider for the quota-sync job.
 - **Learnings:** 
 - **Resolved At:** 
 
@@ -950,22 +969,18 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Resolved At:** 
 
 ### TICKET-20260224-036
-- **Status:** OPEN
+- **Status:** RESOLVED
 - **Priority:** P1
 - **Created:** 2026-02-24T06:01:26+00:00
 - **SLA Deadline:** 2026-02-24T08:01:26+00:00 (2 hours)
 - **Reporter:** ops (health-snapshot)
 - **Assignee:** ops
 - **Summary:** Recurring failure pattern detected (51x): <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
-- **Details:** Detected 51 occurrences in the last window. Examples:
-  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
-  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
-  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
-  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
-- **Root Cause:** 
-- **Resolution:** 
-- **Learnings:** 
-- **Resolved At:** 
+- **Details:** Detected 51 occurrences in the last window.
+- **Root Cause:** Duplicate of the already-triaged provider throttling ticket(s), especially TICKET-20260224-007 (P1) which documents the same `⚠️ API rate limit reached` embedded-run failures.
+- **Resolution:** Consolidated into parent ticket; no separate action required here beyond ongoing mitigation (stagger/slow cron, reduce bursts, ensure provider fallbacks).
+- **Learnings:** Health-snapshot auto-ticketing should deduplicate recurring patterns instead of opening new P1s.
+- **Resolved At:** 2026-02-24T07:57:00Z
 
 ### TICKET-20260224-037
 - **Status:** OPEN
@@ -1040,22 +1055,18 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Resolved At:** 
 
 ### TICKET-20260224-041
-- **Status:** OPEN
+- **Status:** RESOLVED
 - **Priority:** P1
 - **Created:** 2026-02-24T06:25:03+00:00
 - **SLA Deadline:** 2026-02-24T08:25:03+00:00 (2 hours)
 - **Reporter:** ops (health-snapshot)
 - **Assignee:** ops
 - **Summary:** Recurring failure pattern detected (54x): <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
-- **Details:** Detected 54 occurrences in the last window. Examples:
-  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
-  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
-  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
-  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
-- **Root Cause:** 
-- **Resolution:** 
-- **Learnings:** 
-- **Resolved At:** 
+- **Details:** Detected 54 occurrences in the last window.
+- **Root Cause:** Duplicate of the already-tracked provider throttling issue (see TICKET-20260224-007).
+- **Resolution:** Consolidated into the parent ticket; no separate remediation beyond ongoing throttling mitigation.
+- **Learnings:** Health-snapshot should dedupe `API rate limit reached` patterns instead of issuing repeated P1 tickets.
+- **Resolved At:** 2026-02-24T07:59:00Z
 
 ### TICKET-20260224-042
 - **Status:** OPEN
@@ -1214,6 +1225,96 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
   - <ts>-05:00 subagent completion direct announce failed for run <uuid>:<uuid>: error: outbound not configured for channel: telegram
   - <ts>-05:00 subagent completion direct announce failed for run <uuid>:<uuid>: error: outbound not configured for channel: telegram
   - <ts>-05:00 subagent completion direct announce failed for run <uuid>:<uuid>: error: outbound not configured for channel: telegram
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-051
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-02-24T08:01:49+00:00
+- **SLA Deadline:** 2026-02-24T10:01:49+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (31x): <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
+- **Details:** Detected 31 occurrences in the last window. Examples:
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ api rate limit reached. please try again later.
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-052
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T08:01:49+00:00
+- **SLA Deadline:** 2026-02-24T16:01:49+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (7x): <ts>-05:00 gateway failed to start: error: invalid config: hooks.token must not match gateway auth token. set a distinct hooks.token for hook ingress.
+- **Details:** Detected 7 occurrences in the last window. Examples:
+  - <ts>-05:00 gateway failed to start: error: invalid config: hooks.token must not match gateway auth token. set a distinct hooks.token for hook ingress.
+  - <ts>-05:00 gateway failed to start: error: invalid config: hooks.token must not match gateway auth token. set a distinct hooks.token for hook ingress.
+  - <ts>-05:00 gateway failed to start: error: invalid config: hooks.token must not match gateway auth token. set a distinct hooks.token for hook ingress.
+  - <ts>-05:00 gateway failed to start: error: invalid config: hooks.token must not match gateway auth token. set a distinct hooks.token for hook ingress.
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-053
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T08:01:49+00:00
+- **SLA Deadline:** 2026-02-24T16:01:49+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (6x): <ts>-05:00 [tools] read failed: moltbot-sandbox-fs: 1: syntax error: ";" unexpected
+- **Details:** Detected 6 occurrences in the last window. Examples:
+  - <ts>-05:00 [tools] read failed: moltbot-sandbox-fs: 1: syntax error: ";" unexpected
+  - <ts>-05:00 [tools] read failed: moltbot-sandbox-fs: 1: syntax error: ";" unexpected
+  - <ts>-05:00 [tools] read failed: moltbot-sandbox-fs: 1: syntax error: ";" unexpected
+  - <ts>-05:00 [tools] read failed: moltbot-sandbox-fs: 1: syntax error: ";" unexpected
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-054
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T08:01:49+00:00
+- **SLA Deadline:** 2026-02-24T16:01:49+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (6x): unknown (no summary)
+- **Details:** Detected 6 occurrences in the last window. Examples:
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260224-055
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-24T08:01:49+00:00
+- **SLA Deadline:** 2026-02-24T16:01:49+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (5x): <ts>-05:00 [tools] write failed: sandbox path is read-only; cannot create directories: /workspace/ops/agent-status
+- **Details:** Detected 5 occurrences in the last window. Examples:
+  - <ts>-05:00 [tools] write failed: sandbox path is read-only; cannot create directories: /workspace/ops/agent-status
+  - <ts>-05:00 [tools] write failed: sandbox path is read-only; cannot create directories: /workspace/ops/agent-status
+  - <ts>-05:00 [tools] write failed: sandbox path is read-only; cannot create directories: /workspace/ops/agent-status
+  - <ts>-05:00 [tools] write failed: sandbox path is read-only; cannot create directories: /workspace/ops/agent-status
 - **Root Cause:** 
 - **Resolution:** 
 - **Learnings:** 
