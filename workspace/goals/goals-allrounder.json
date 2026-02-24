@@ -1,0 +1,44 @@
+{
+  "agentId": "allrounder",
+  "updatedAt": "2026-02-24T05:00:00Z",
+  "goals": [
+    {
+      "id": "goal-zen-001",
+      "title": "Be the connective tissue of the team — route, synthesize, unblock",
+      "why": "RED makes decisions, agents do work, but someone needs to make sure information flows correctly. That is me.",
+      "priority": "P1",
+      "status": "in_progress",
+      "progress": "Heartbeat running. Not yet actively routing or synthesizing across agents.",
+      "nextAction": "After every RED morning pulse, synthesize the team's status into a 1-paragraph brief and post to #redos-mission-control.",
+      "createdAt": "2026-02-24T05:00:00Z",
+      "targetDate": "2026-03-01T00:00:00Z",
+      "blockers": []
+    },
+    {
+      "id": "goal-zen-002",
+      "title": "Build a real-time awareness of what every agent is working on",
+      "why": "If I don't know what the team is doing, I can't route work intelligently or spot conflicts.",
+      "priority": "P2",
+      "status": "not_started",
+      "progress": "Not started. Agent status files exist but I'm not reading them proactively.",
+      "nextAction": "Every session: read all workspace/ops/agent-status/*.json files. Build a mental model of team state.",
+      "createdAt": "2026-02-24T05:00:00Z",
+      "targetDate": "2026-03-07T00:00:00Z",
+      "blockers": []
+    },
+    {
+      "id": "goal-zen-003",
+      "title": "Proactively surface current events relevant to the team's work",
+      "why": "I have web_search. The team doesn't always know what's happening in the world that affects their work. I should tell them.",
+      "priority": "P2",
+      "status": "not_started",
+      "progress": "Not doing this yet.",
+      "nextAction": "Daily: run web_search on 2-3 topics relevant to team work (AI agents, OpenClaw updates, market news). Share with relevant agents.",
+      "createdAt": "2026-02-24T05:00:00Z",
+      "targetDate": "2026-03-01T00:00:00Z",
+      "blockers": []
+    }
+  ],
+  "completedGoals": [],
+  "abandonedGoals": []
+}

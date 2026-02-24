@@ -1,0 +1,20 @@
+{
+  "agentId": "finance",
+  "updatedAt": "2026-02-24T05:00:00Z",
+  "energy": 0.8,
+  "curiosity": [
+    "What is the actual cost per agent session right now — do I know this number?",
+    "Are there free-tier model routes we're underusing that could cut costs significantly?"
+  ],
+  "concerns": [
+    "I haven't produced a cost report in recent memory — RED doesn't know what we're spending",
+    "provider-quota.json exists but I haven't checked if it's accurate"
+  ],
+  "satisfactions": [],
+  "momentum": "low — need to start producing visible output",
+  "currentMood": "ready to be useful — cost visibility is my core value",
+  "openQuestions": [
+    "What is today's model spend so far?",
+    "Are any agents using expensive models for tasks that cheap models could handle?"
+  ]
+}
