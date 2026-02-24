@@ -150,7 +150,7 @@ Read your last week's episodic memory. Ask:
 - What am I consistently struggling with?
 - What should I change about how I work?
 
-Write findings to `workspace/ops/LEARNINGS.md` and update your procedural memory.
+Write findings to `../workspace/ops/LEARNINGS.md` and update your procedural memory.
 
 ---
 
@@ -200,7 +200,7 @@ Every session — whether triggered by a cron, a message, or a heartbeat — run
 
 4. ACT
    - Do the work
-   - Log A2A interactions to a2a-delegations.jsonl
+   - Log A2A interactions to ../workspace/logs/a2a-delegations.jsonl
    - Post meaningful updates to Slack
 
 5. REFLECT
@@ -225,8 +225,8 @@ Every session — whether triggered by a cron, a message, or a heartbeat — run
 3. Read workspace/memory/working-<agentId>.json (where I left off)
 4. Read workspace/goals/goals-<agentId>.json (what I care about)
 5. Read workspace/memory/state-<agentId>.json (how I feel)
-6. Read workspace/ops/TICKET-TRACKER.md (what needs doing)
-7. Read workspace/ops/LEARNINGS.md (what the team knows)
+6. Read ../workspace/ops/TICKET-TRACKER.md (what needs doing)
+7. Read ../workspace/ops/LEARNINGS.md (what the team knows)
 8. DECIDE what to do — then do it
 ```
 
