@@ -339,8 +339,8 @@ repeating mistakes and to build institutional knowledge.
 - **Source Ticket:** TICKET-20260220-005
 - **Agent:** Claude Code (bootstrap session)
 - **Category:** tool
-- **Summary:** OpenClaw LLM tool is `message` not `slack`; use `action="sendMessage"` with `to="channel:C0..."` for Slack
-- **Details:** All cron prompts had "Use slack tool: action='sendMessage'..." — this caused Ollama models to output pseudocode instead of calling the actual tool. The runtime tool is named `message` and supports: `action="sendMessage"` (send to Slack), `action="read"` (read Slack messages), `to="channel:C0XXXXX"` (Slack channel ID format). Fixed in cron/jobs.json (7 occurrences) and SOUL.md.
+- **Summary:** OpenClaw runtime uses the unified `message` tool (not a separate `slack` tool); Slack send schema is `action="send", channel="slack", target="channel:C0...", message="..."`.
+- **Details:** Older cron prompts said “Use slack tool …” and/or referenced legacy fields like `action="sendMessage"` + `to="channel:..."`, which led models to emit pseudocode instead of making a real tool call. The correct runtime schema is `message(action="send", channel="slack", target="channel:C0XXXXX", message="...")`. Fixed by standardizing prompts/templates and adding a linter to catch legacy schema.
 - **Prevention:** Always reference the message tool in prompts, not "slack tool". Test by checking gateway.log for "[slack] delivered reply" entries — these confirm actual tool calls are working.
 - **Applied To:** cron/jobs.json (7 replacements), workspace/SOUL.md (tool list updated)
 
@@ -471,6 +471,16 @@ repeating mistakes and to build institutional knowledge.
   1) Add a gateway-side compatibility shim mapping `{action:"sendMessage", to:"channel:C0..."}` → `{action:"send", channel:"slack", target:"channel:C0..."}`.
   2) Add a prompt/template linter in CI that rejects legacy Slack fields (`sendMessage`, `to=`).
 - **Applied To:** LEARNINGS.md (this entry); ticket opened
+
+### LEARNING-20260224-008
+- **Date:** 2026-02-24T06:51:00Z
+- **Source Ticket:** TICKET-20260224-021
+- **Agent:** OPS
+- **Category:** tool
+- **Summary:** Telegram `editMessageText` has strict length limits; avoid editing long status payloads
+- **Details:** gateway.err.log shows `editMessageText failed ... (400: Bad Request: MESSAGE_TOO_LONG)`. Editing existing Telegram messages for status updates will fail when the edited text exceeds Telegram limits.
+- **Prevention:** Keep Telegram status messages short; truncate/chunk long summaries; prefer sending a new message instead of editing when content may exceed limits.
+- **Applied To:** TICKET-20260224-021 (tracking)
 
 ### LEARNING-20260224-004
 - **Date:** 2026-02-24T04:25:00Z
