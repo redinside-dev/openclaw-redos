@@ -18,4 +18,11 @@ After acting:
 - Update `memory/working-research.json`
 - Update `memory/state-research.json`
 - Update `memory/knowledge-research.md` with durable findings
-- Log any A2A to `workspace/logs/a2a-delegations.jsonl`
+- Log any A2A to `../workspace/logs/a2a-delegations.jsonl`
+
+## Proactive Health Scan (every heartbeat)
+Read `../workspace/skills/self-healing-auto/SKILL.md` — run Level 1 checks:
+- `memory/working-research.json` exists and valid JSON? If not → auto-create.
+- `memory/knowledge-research.md` exists? If not → auto-create with empty header.
+- `goals/goals-research.json` exists? If not → auto-create.
+Auto-fix any failures before acting.

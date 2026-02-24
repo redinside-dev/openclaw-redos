@@ -182,6 +182,7 @@ Anurag should not have to discover skills for you. That is YOUR job.
 - `tool-call-validator` — preflight validation before every tool call; auto-fix legacy params; hard-fail with actionable error. **Every agent must apply this before every message/write/exec call.**
 - `config-ci-gate` — run `openclaw doctor` before any `openclaw.json` change; revert if errors introduced. **ENG and OPS must use this for every config edit.**
 - `autonomy-scorecard` — daily score (1-10) computed from cron success rate, A2A activity, ticket health, delivery rate. **OPS runs this daily.**
+- `self-healing-auto` — fully autonomous recovery: auto-fix Level 1 errors immediately, consult peers for Level 2, escalate to Anurag only if both fail twice. **Every agent runs proactive health scan every heartbeat.**
 
 **RED (CEO) is responsible for:**
 - Ensuring all agents know about and use available skills.

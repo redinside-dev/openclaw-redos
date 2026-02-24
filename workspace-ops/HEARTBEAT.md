@@ -18,3 +18,10 @@ After acting:
 - Update `memory/working-ops.json`
 - Update `memory/state-ops.json`
 - Log any A2A to `../workspace/logs/a2a-delegations.jsonl`
+
+## Proactive Health Scan (every heartbeat)
+Read `../workspace/skills/self-healing-auto/SKILL.md` — run Level 1 checks:
+- `memory/working-ops.json` exists and valid JSON? If not → auto-create.
+- `goals/goals-ops.json` exists? If not → auto-create.
+- Any cron with `lastStatus: error` in last 24h? → auto-open ticket + attempt Level 1 fix.
+Auto-fix any failures before acting.

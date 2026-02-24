@@ -18,3 +18,10 @@ After acting:
 - Update `memory/working-finance.json`
 - Update `memory/state-finance.json`
 - Log any A2A to `../workspace/logs/a2a-delegations.jsonl`
+
+## Proactive Health Scan (every heartbeat)
+Read `../workspace/skills/self-healing-auto/SKILL.md` — run Level 1 checks:
+- `memory/working-finance.json` exists and valid JSON? If not → auto-create.
+- `goals/goals-finance.json` exists? If not → auto-create.
+- `../workspace/tmp/provider-quota.json` readable? If not → note in state file.
+Auto-fix any failures before acting.
