@@ -32,6 +32,20 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 
 ## Active Tickets
 
+### TICKET-20260225-021
+- **Status:** RESOLVED
+- **Priority:** P0
+- **Created:** 2026-02-25T11:00:00Z
+- **SLA Deadline:** 2026-02-25T11:30:00Z (P0 — 30 min)
+- **Reporter:** user (Telegram — no agent response)
+- **Assignee:** cascade (external debug session)
+- **Summary:** All agents silent — 9Router restart wiped auth sessions + invalid provider config blocked reloads
+- **Details:** Three compounding failures: (1) 9Router LaunchAgent crashed due to stale plist path, wiping all OAuth sessions in memory. (2) All 5 openai-codex accounts hit rate_limit simultaneously (675 daily calls, no spreading). (3) A custom `anthropic` provider block was added with invalid `api: "anthropic"` — OpenClaw rejected every config reload for 22 minutes, causing Telegram to go fully silent.
+- **Root Cause:** 9Router v0.2.98 stores OAuth tokens in memory only. Process restart = full auth loss. Combined with missing `openai-codex` direct provider block, fallback chain had no valid providers when 9Router was down.
+- **Resolution:** (1) Removed invalid `anthropic` provider block. (2) Added `openai-codex` direct provider block so 5 ChatGPT accounts work without 9Router. (3) Restored `zai/glm-4-plus` and `ollama/llama3.1:8b` as guaranteed last-resort fallbacks in all 9 agent chains. (4) Added `9router-auth-watchdog-0001` cron job — checks every 30min, sends Telegram DM immediately on auth loss. (5) Removed stale `anthropic/claude-opus-4-6` alias.
+- **Learnings:** LEARNING-20260225-005, LEARNING-20260225-006, LEARNING-20260225-007
+- **Resolved At:** 2026-02-25T12:19:00Z
+
 ### TICKET-20260225-020
 - **Status:** RESOLVED
 - **Priority:** P2
@@ -72,6 +86,22 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Root Cause:** Cannot diagnose without `exec` approval. Gateway logs are stale (Feb 14–15). Need: (1) `openclaw gateway status`, (2) tail of `/Users/redinside/.openclaw/logs/gateway.err.log`, (3) `launchctl list | grep -i tailscale`, (4) `ls -la /var/run/tailscaled.socket`.
 - **Resolution:** Awaiting human approval to run diagnostic commands. Once approved: (A) if tailscaled socket missing → restart tailscaled (requires sudo); (B) if gateway stuck → restart gateway; (C) if provider cooldowns → clear state + restart; (D) if Slack socket dead → restart Slack plugin.
 - **Learnings:** Cron diagnostics require approval-gated `exec` commands; cannot auto-heal infrastructure issues without human sign-off on service restarts.
+- **Update (2026-02-25T09:10:00Z):** Focused triage completed for recurring `400 No credentials for provider: claude`.
+  - **Confirmed references/pins:**
+    1) `/Users/redinside/.openclaw/cron/jobs.json` → `jobs[id="a2a-red-morning-team-pulse-0001"].payload.model = "anthropic/claude-opus-4-6"` (hard pin)
+    2) `/Users/redinside/.openclaw/openclaw.json` → `agents.defaults.model.fallbacks[]` contains `"anthropic/claude-opus-4-6"`
+    3) `/Users/redinside/.openclaw/openclaw.json` → `agents.list[*].model.fallbacks[]` contains `"anthropic/claude-opus-4-6"` for multiple agents (e.g., `main`, `allrounder`, `hatake`)
+    4) `/Users/redinside/.openclaw/openclaw.json` → `agents.defaults.models["anthropic/claude-opus-4-6"]` alias entry (`"opus"`)
+  - **Safest immediate mitigation (security-preserving):**
+    - Do **not** enable new Claude credentials yet.
+    - Re-pin critical cron jobs away from Anthropic provider to known-working routes (`openai-codex/gpt-5.2` or `9router/...`) and remove Anthropic from fallback arrays for lanes where credentials are absent.
+    - Keep maker/checker + deny-by-default exec policy unchanged.
+  - **Verification checklist to prove recovery (cron + ENG messaging):**
+    1) Run `cron run` for `inner-loop-eng-0001` and `a2a-red-morning-team-pulse-0001` after re-pin.
+    2) Confirm `state.lastStatus=ok` and `state.lastError` cleared in `/Users/redinside/.openclaw/cron/jobs.json`.
+    3) Confirm no new `No credentials for provider: claude` entries in latest cron run output.
+    4) Confirm one successful ENG lane delivery in Slack target `channel:C0AFW1B0QUB` (ENG progress post) and one A2A/RED pulse success.
+  - **ETA:** Mitigation patch + verification: 20-30 minutes after required approvals.
 - **Resolved At:** PENDING
 
 
@@ -89,8 +119,8 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
   - `lane wait exceeded` (nested + main lane)
   - loop-detection warnings (`read called 10 times with identical arguments`)
   Impact: cron jobs and some interactive lanes intermittently fail/timeout; monitoring tasks may be delayed or dropped.
-- **Root Cause:** TBD (likely bursty load / provider throttling / insufficient staggering; loop behavior may amplify)
-- **Resolution:** TBD.
+- **Root Cause:** Provider throttling (rate limits) combined with insufficient job staggering; loop detection indicates repetitive read attempts (maybe due to sandbox read failures).
+- **Resolution:** Investigating. Will check logs for patterns, consider staggering cron schedules, and review sandbox read failures.
 - **Learnings:** TBD.
 - **Resolved At:** 
 
