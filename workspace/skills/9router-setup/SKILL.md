@@ -94,13 +94,46 @@ npx 9router@latest setup
 # Use aliases: kiro-sonnet, kiro-haiku
 ```
 
-### OpenRouter (routes to best available model)
+### OpenRouter (routes to best available model + 29 free models)
 ```bash
 9router auth add openrouter
 # Requires OpenRouter account (free tier available)
-# Use alias: openrouter
-# Model ID: openrouter/auto
+# Use alias: openrouter (auto-routing), or-free (best free auto)
+# Model ID: openrouter/auto, openrouter/openrouter/free
 ```
+
+#### All 29 OpenRouter Free Models (as of 2026-02-24)
+| Model ID | Alias | Context | Notes |
+|---|---|---|---|
+| `openrouter/meta-llama/llama-3.3-70b-instruct:free` | `or-llama70b` | 128k | Strong general |
+| `openrouter/openai/gpt-oss-120b:free` | `or-gpt120b` | 131k | OpenAI OSS |
+| `openrouter/openai/gpt-oss-20b:free` | `or-gpt20b` | 131k | OpenAI OSS fast |
+| `openrouter/qwen/qwen3-coder:free` | `or-qwen-coder` | 262k | Best free coder |
+| `openrouter/qwen/qwen3-235b-a22b-thinking-2507` | `or-qwen235b` | 131k | Deep reasoning |
+| `openrouter/qwen/qwen3-vl-235b-a22b-thinking` | `or-qwen235b` | 131k | VL reasoning |
+| `openrouter/qwen/qwen3-vl-30b-a3b-thinking` | `or-qwen235b` | 131k | VL thinking |
+| `openrouter/qwen/qwen3-next-80b-a3b-instruct:free` | `or-qwen235b` | 262k | Instruction |
+| `openrouter/qwen/qwen3-4b:free` | — | 41k | Tiny fast |
+| `openrouter/google/gemma-3-27b-it:free` | `or-gemma27b` | 131k | Google Gemma |
+| `openrouter/google/gemma-3-12b-it:free` | — | 32k | Google Gemma |
+| `openrouter/google/gemma-3-4b-it:free` | — | 32k | Google Gemma mini |
+| `openrouter/google/gemma-3n-e4b-it:free` | — | 8k | Nano |
+| `openrouter/google/gemma-3n-e2b-it:free` | — | 8k | Nano |
+| `openrouter/nousresearch/hermes-3-llama-3.1-405b:free` | `or-hermes405b` | 131k | Reasoning |
+| `openrouter/mistralai/mistral-small-3.1-24b-instruct:free` | `or-mistral24b` | 128k | Mistral |
+| `openrouter/nvidia/nemotron-3-nano-30b-a3b:free` | `or-nemotron30b` | 256k | NVIDIA |
+| `openrouter/nvidia/nemotron-nano-12b-v2-vl:free` | — | 128k | NVIDIA VL |
+| `openrouter/nvidia/nemotron-nano-9b-v2:free` | — | 128k | NVIDIA fast |
+| `openrouter/stepfun/step-3.5-flash:free` | `or-step35` | 256k | Flash |
+| `openrouter/z-ai/glm-4.5-air:free` | `or-glm45` | 131k | GLM |
+| `openrouter/upstage/solar-pro-3:free` | — | 128k | Solar |
+| `openrouter/arcee-ai/trinity-large-preview:free` | — | 131k | Arcee |
+| `openrouter/arcee-ai/trinity-mini:free` | — | 131k | Arcee mini |
+| `openrouter/cognitivecomputations/dolphin-mistral-24b-venice-edition:free` | — | 32k | Dolphin |
+| `openrouter/liquid/lfm-2.5-1.2b-instruct:free` | — | 32k | Liquid |
+| `openrouter/liquid/lfm-2.5-1.2b-thinking:free` | — | 32k | Liquid thinking |
+| `openrouter/meta-llama/llama-3.2-3b-instruct:free` | — | 131k | Llama tiny |
+| `openrouter/openrouter/free` | `or-free` | 200k | Auto best-free |
 
 ## Adding a New CCS Profile
 
