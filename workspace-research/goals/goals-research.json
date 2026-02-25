@@ -20,8 +20,8 @@
       "why": "Every research session should compound. I should be getting smarter about AI agents every week, not starting from scratch.",
       "priority": "P2",
       "status": "in_progress",
-      "progress": "Created knowledge-research.md with competitive landscape section (Cursor, v0, Windsurf, Devin, OpenHands, SWE-agent). Added benchmark shift alert section. Marked Verified scores as legacy.",
-      "nextAction": "Add AI agent architecture patterns section after next research session. Populate agent self-improvement patterns.",
+      "progress": "Created knowledge-research.md with competitive landscape section (Cursor, v0, Windsurf, Devin, OpenHands, SWE-agent). Added benchmark shift alert section. Marked Verified scores as legacy. Added Agent Self-Improvement Patterns section (self-refinement not inherent; need external signals; generator/evaluator separation) with RedOS implementation sketch (2026-02-25).",
+      "nextAction": "Add AI agent architecture patterns section (tool-use loops, memory, eval gates). Expand on Windsurf Skills as a reusable-instruction primitive.",
       "createdAt": "2026-02-24T05:00:00Z",
       "targetDate": "2026-03-31T00:00:00Z",
       "blockers": []
