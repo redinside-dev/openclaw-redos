@@ -20,6 +20,36 @@ repeating mistakes and to build institutional knowledge.
 
 ## Learnings
 
+### LEARNING-20260225-007
+- **Date:** 2026-02-25T12:19:00Z
+- **Source Ticket:** TICKET-20260225-021
+- **Agent:** cascade (external debug session)
+- **Category:** config | infra | model
+- **Summary:** Adding a custom `anthropic` provider block with invalid `api` type blocked ALL config reloads for 22+ minutes, silencing Telegram and all agents
+- **Details:** When `models.providers.anthropic` was added with `"api": "anthropic"`, OpenClaw rejected the config on every hot-reload attempt (`config reload skipped (invalid config): models.providers.anthropic.api: Invalid input`). The only valid api type is `"openai-completions"`. During this 22-minute window, OpenClaw ran on stale config — all agents failed with `400 No credentials for provider: gemini-cli` and Telegram messages got no response. Additionally, `openai-codex` provider was missing from `models.providers`, so 5 direct ChatGPT accounts were invisible to the fallback chain.
+- **Prevention:** (1) Never add a provider block without verifying the exact `api` enum values OpenClaw accepts. (2) After any config edit, watch `logs/gateway.err.log` for `config reload skipped` — if seen within 60s, revert the last edit immediately. (3) Always include `openai-codex` as a provider block so direct Codex accounts work without 9Router.
+- **Applied To:** `openclaw.json` — removed bad `anthropic` block, added valid `openai-codex` block, added `zai` + `ollama` as last-resort fallbacks in all agent chains.
+
+### LEARNING-20260225-006
+- **Date:** 2026-02-25T11:30:00Z
+- **Source Ticket:** TICKET-20260225-021
+- **Agent:** cascade (external debug session)
+- **Category:** infra | model
+- **Summary:** 9Router stores OAuth tokens in memory only — any process restart wipes ALL provider sessions simultaneously
+- **Details:** 9Router v0.2.98 does not persist OAuth tokens to disk. When the LaunchAgent restarted (due to stale plist path `MODULE_NOT_FOUND`), all providers (Gemini, Kiro, iFlow, Codex-via-9Router, Cursor, Claude Code) lost authentication instantly. 675 daily cron calls then cascade-failed within hours. This appeared as "all providers exhausted" but was actually "all providers unauthenticated".
+- **Prevention:** (1) Auth watchdog cron added (`9router-auth-watchdog-0001`) — runs every 30min, sends Telegram DM on credential loss. (2) Always have non-9Router fallbacks: direct `openai-codex` accounts + `zai` + `ollama` so agents never go fully dark. (3) After any Mac restart, re-auth 9Router at `http://127.0.0.1:20128` before agents start running.
+- **Applied To:** `cron/jobs.json` — added auth watchdog job. `openclaw.json` — restored `openai-codex` direct provider.
+
+### LEARNING-20260225-005
+- **Date:** 2026-02-25T11:00:00Z
+- **Source Ticket:** TICKET-20260225-021
+- **Agent:** cascade (external debug session)
+- **Category:** model | config
+- **Summary:** All 5 `openai-codex` accounts hit rate limit simultaneously because they had no cooldown spreading — 675 daily calls concentrated on 5 accounts
+- **Details:** With 68 enabled cron jobs running 675 daily API calls, all routing through `openai-codex` primary, all 5 ChatGPT accounts hit their rate limits within hours. `usageStats` in `auth-profiles.json` showed 8-14 `rate_limit` errors per account, all `cooldownUntil` timestamps clustered within minutes of each other.
+- **Prevention:** Spread primary models across providers (not just `openai-codex`). Keep high-frequency monitoring jobs using `model: "mini"` (9router/cx/gpt-5.1-codex-mini) rather than the primary. Ensure `zai/glm-4-plus` appears early in fallback chain — it has an API key and never needs re-auth.
+- **Applied To:** `openclaw.json` fallback chains updated with `openai-codex/gpt-5.1-mini` as first fallback, `zai` and `ollama` as final safety net.
+
 ### LEARNING-20260225-004
 - **Date:** 2026-02-25T08:32:00Z
 - **Source Ticket:** TICKET-20260225-020
