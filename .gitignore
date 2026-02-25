@@ -132,6 +132,22 @@ workspace/tmp/gmail-unread-*.json
 workspace/tmp/gmail-unread-*.txt
 workspace/DASHBOARD_URL.txt
 
+# Additional runtime scratch / smoke-test artifacts
+exec-approvals.json.bak*
+subagents/runs.json
+workspace-hatake/
+workspace-*/.pi/readwrite-smoketest*.txt
+workspace-*/.tooling-smoke-test.txt
+workspace-*/workspace/tmp/*.json
+workspace-*/ops/agent-status/*.txt
+workspace-*/ops/test_write.txt
+workspace-ops/tmp*.txt
+workspace-ops/tmp/*.txt
+workspace/tmp/.gmail_*.json
+workspace/tmp/*.mck.md
+workspace/tmp/*.html
+workspace/tmp/mckinsey.css
+
 # Node registration state
 node.json
 
