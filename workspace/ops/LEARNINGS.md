@@ -20,6 +20,20 @@ repeating mistakes and to build institutional knowledge.
 
 ## Learnings
 
+### LEARNING-20260224-010
+- **Date:** 2026-02-24T16:21:00Z
+- **Source Ticket:** TICKET-20260224-089
+- **Agent:** main
+- **Category:** workflow
+- **Summary:** Health-snapshot should dedupe by signature and reject “unknown (no summary)” ticket creation unless parser confidence is high
+- **Details:** The health-snapshot auto-ticket stream is creating many duplicates and “unknown (no summary)” entries, which increases operational noise and makes the true incident board unusable.
+- **Prevention:**
+  1) Parse+normalize log lines into a stable signature (e.g., category + errorCode + first N chars).
+  2) Before opening a ticket, check existing OPEN/IN_PROGRESS tickets for the same signature (or a mapping table).
+  3) If a line cannot be parsed into a non-empty summary with confidence, aggregate counts into a single daily digest instead of opening tickets.
+- **Applied To:** LEARNINGS.md + new tracking ticket
+
+
 ### LEARNING-20260224-008
 - **Date:** 2026-02-24T09:00:00Z
 - **Source Ticket:** TICKET-20260224-022

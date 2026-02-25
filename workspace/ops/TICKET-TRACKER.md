@@ -2326,3 +2326,129 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Resolution:** 
 - **Learnings:** 
 - **Resolved At:** 
+
+### TICKET-20260225-001
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-25T00:03:05+00:00
+- **SLA Deadline:** 2026-02-25T08:03:05+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (223x): unknown (no summary)
+- **Details:** Detected 223 occurrences in the last window. Examples:
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260225-002
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-25T00:03:05+00:00
+- **SLA Deadline:** 2026-02-25T08:03:05+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (24x): <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=connection error.
+- **Details:** Detected 24 occurrences in the last window. Examples:
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=connection error.
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=connection error.
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=connection error.
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=connection error.
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260225-003
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-02-25T00:03:05+00:00
+- **SLA Deadline:** 2026-02-25T02:03:05+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (19x): <ts>-05:00 [warn] socket-mode:slackwebsocket:1 a pong wasn't received from the server before the timeout of <ms>!
+- **Details:** Detected 19 occurrences in the last window. Examples:
+  - <ts>-05:00 [warn] socket-mode:slackwebsocket:1 a pong wasn't received from the server before the timeout of <ms>!
+  - <ts>-05:00 [warn] socket-mode:slackwebsocket:1 a pong wasn't received from the server before the timeout of <ms>!
+  - <ts>-05:00 [warn] socket-mode:slackwebsocket:1 a pong wasn't received from the server before the timeout of <ms>!
+  - <ts>-05:00 [warn] socket-mode:slackwebsocket:1 a pong wasn't received from the server before the timeout of <ms>!
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260225-004
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-25T00:32:35+00:00
+- **SLA Deadline:** 2026-02-25T08:32:35+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (218x): unknown (no summary)
+- **Details:** Detected 218 occurrences in the last window. Examples:
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260225-005
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-25T01:04:50+00:00
+- **SLA Deadline:** 2026-02-25T09:04:50+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (203x): unknown (no summary)
+- **Details:** Detected 203 occurrences in the last window. Examples:
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260225-006
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-25T01:34:57+00:00
+- **SLA Deadline:** 2026-02-25T09:34:57+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (191x): unknown (no summary)
+- **Details:** Detected 191 occurrences in the last window. Examples:
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260225-007
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-25T01:34:57+00:00
+- **SLA Deadline:** 2026-02-25T09:34:57+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (16x): <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=400 no credentials for provider: claude
+- **Details:** Detected 16 occurrences in the last window. Examples:
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=400 no credentials for provider: claude
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=400 no credentials for provider: claude
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=400 no credentials for provider: claude
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=400 no credentials for provider: claude
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
