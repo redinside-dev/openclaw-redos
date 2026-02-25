@@ -13,12 +13,13 @@ Install, configure, health-check, and troubleshoot 9Router — the local proxy t
 - Exposes `/health` for health checks
 
 Provider fallback order within 9Router:
-1. **cx/** — Codex (ChatGPT Plus subscription): gpt-5.3-codex, gpt-5.2-codex, gpt-5.2, gpt-5.1-codex-max, gpt-5.1-codex-mini
-2. **cu/** — Cursor Pro subscription: claude-4.5-opus, claude-4.5-sonnet, claude-4.5-haiku
-3. **gc/** — Google OAuth (FREE ~1000/day): gemini-3-pro-preview, gemini-3-flash-preview, gemini-2.5-pro, gemini-2.5-flash, gemini-2.5-flash-lite
-4. **kr/** — Kiro (FREE, no account): claude-sonnet-4.5, claude-haiku-4.5
-5. **if/** — iFlow (FREE, no account): qwen3-coder-plus, kimi-k2, kimi-k2-thinking, kimi-k2.5, deepseek-r1, deepseek-v3.2-chat, minimax-m2.1, minimax-m2.5, glm-5, glm-4.7
-6. **openrouter/** — OpenRouter (best-available routing): auto
+1. **cc/** — Claude Code subscription: claude-sonnet-4-6, claude-opus-4-6, claude-sonnet-4-5-20250929, claude-opus-4-5-20251101, claude-haiku-4-5-20251001
+2. **cx/** — Codex (ChatGPT Plus subscription): gpt-5.3-codex, gpt-5.3-codex-high, gpt-5.3-codex-xhigh, gpt-5.3-codex-spark, gpt-5.2-codex, gpt-5.1, gpt-5.1-codex-max, gpt-5.1-codex-mini, gpt-5-codex
+3. **cu/** — Cursor Pro subscription: claude-4.5-opus, claude-4.5-sonnet, claude-4.5-haiku
+4. **gc/** — Google OAuth (FREE ~1000/day): gemini-3-pro-preview, gemini-3-flash-preview, gemini-2.5-pro, gemini-2.5-flash, gemini-2.5-flash-lite
+5. **kr/** — Kiro (FREE, no account): claude-sonnet-4.5, claude-haiku-4.5
+6. **if/** — iFlow (FREE, no account): qwen3-coder-plus, kimi-k2, kimi-k2-thinking, kimi-k2.5, deepseek-r1, deepseek-v3.2-chat, minimax-m2.1, minimax-m2.5, glm-5, glm-4.7, glm-4.6
+7. **openrouter/** — OpenRouter (best-available routing): auto
 
 ## Start / Stop / Status
 
@@ -62,6 +63,15 @@ npx 9router@latest setup
 # No billing required; free tier is per-account per-day
 ```
 
+### Claude Code (Anthropic subscription)
+```bash
+9router auth add claude-code
+# Requires active Claude Pro/Team/Max subscription
+# Sign in with Anthropic account
+# Models: claude-sonnet-4-6, claude-opus-4-6, claude-sonnet-4-5-20250929, claude-opus-4-5-20251101, claude-haiku-4-5-20251001
+# Use aliases: cc-sonnet, cc-opus, cc-haiku, cc-sonnet45, cc-opus45
+```
+
 ### Codex (ChatGPT Plus subscription)
 ```bash
 9router auth add codex
@@ -73,8 +83,8 @@ npx 9router@latest setup
 ```bash
 9router auth add iflow
 # No authentication required — always available
-# Models: qwen3-coder-plus, kimi-k2, kimi-k2-thinking, kimi-k2.5, deepseek-r1, deepseek-v3.2-chat, minimax-m2.1, minimax-m2.5, glm-5, glm-4.7
-# Use aliases: qwen-coder, kimi, kimi-think, deepseek, deepseek-chat, glm5
+# Models: qwen3-coder-plus, kimi-k2, kimi-k2-thinking, kimi-k2.5, deepseek-r1, deepseek-v3.2-chat, minimax-m2.1, minimax-m2.5, glm-5, glm-4.7, glm-4.6
+# Use aliases: qwen-coder, kimi, kimi-think, deepseek, deepseek-chat, glm5, glm46
 ```
 
 ### Kiro (FREE — no account required)
