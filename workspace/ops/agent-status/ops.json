@@ -1,21 +1,36 @@
 {
-  "agent": "ops",
-  "timestamp": "2026-02-24T12:55:00Z",
-  "status": "degraded",
-  "summary": "Inner-loop: enforced SLA on breached INFOSEC tickets; system stable but degraded (provider throttling/backpressure + DNS/Tailscale resolver incident).",
-  "tickets": {
-    "sla_breaches": ["TICKET-20260223-002", "TICKET-20260221-001"],
-    "open_p1": ["TICKET-20260224-072", "TICKET-20260224-047"],
-    "notes": "INFOSEC provided explicit remediation/ETA for DNS issue; supply-chain IOC remains blocked pending other-host/CI attestations."
+  "agentId": "ops",
+  "updatedAt": "2026-02-25T08:56:00Z",
+  "localTime": "2026-02-25T03:56:00-05:00",
+  "metaSelfCheck": {
+    "read": {"ok": true, "proof": "read(/Users/redinside/.openclaw/workspace-ops/tmp-meta-check.txt)"},
+    "write": {"ok": true, "proof": "write(/Users/redinside/.openclaw/workspace-ops/tmp-meta-check.txt)"},
+    "exec": {"ok": false, "note": "exec/nodes.run could not be exercised in this cron lane: command execution requests are hitting an approval gate (maker/checker)."}
   },
-  "signals": {
-    "a2a_log_updated_today": true,
-    "health_jsonl_workspace_path_stale": true,
-    "health_jsonl_host_path_stale": true
+  "agentStatusFilesChecked": {
+    "path": "/Users/redinside/.openclaw/workspace/ops/agent-status/*.json",
+    "foundAndReadable": ["ops.json", "main.json", "eng.json", "infosec.json", "finance.json", "research.json", "allrounder.json"],
+    "freshnessNotes": {
+      "main.json": "updated 2026-02-25T08:14:00Z (exec blocked by approval gate)",
+      "infosec.json": "updated 2026-02-25T02:48:00-05:00 (exec blocked by approval gate)",
+      "eng.json": "stale (2026-02-23) — no current meta check",
+      "research.json": "stale (2026-02-24) — no current meta check",
+      "allrounder.json": "stale (2026-02-22) — no current meta check",
+      "finance.json": "updated 2026-02-24 (reports exec working in finance lane; file tools sandbox-restricted)"
+    }
   },
-  "nextActions": [
-    "Update TICKET-TRACKER.md to reflect INFOSEC ETA/blocked-on notes for TICKET-20260223-002 and TICKET-20260221-001",
-    "Confirm which health.jsonl is authoritative (workspace/logs vs ~/.openclaw/logs) and align writers/monitors",
-    "Append this cycle's actions to memory/2026-02-24.md and a2a-delegations.jsonl"
+  "actionsTaken": {
+    "spawnedMetaChecks": [
+      {"agentId": "eng", "runMode": "run", "goal": "refresh eng.json with meta self-check"},
+      {"agentId": "research", "runMode": "run", "goal": "refresh research.json with meta self-check"},
+      {"agentId": "allrounder", "runMode": "run", "goal": "refresh allrounder.json with meta self-check"}
+    ]
+  },
+  "overallStatus": "DEGRADED",
+  "primaryIssue": "Command execution is gated by human approval in this cron lane; cannot complete exec smoke-test or run diagnostics without maker/checker approval.",
+  "notes": [
+    "read/write file tools verified OK in workspace-ops.",
+    "Agent status file reads verified OK.",
+    "Await sub-agent meta-check results for eng/research/allrounder; they will update their status files on completion."
   ]
 }

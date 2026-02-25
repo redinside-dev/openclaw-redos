@@ -20,6 +20,47 @@ repeating mistakes and to build institutional knowledge.
 
 ## Learnings
 
+### LEARNING-20260225-004
+- **Date:** 2026-02-25T08:32:00Z
+- **Source Ticket:** TICKET-20260225-020
+- **Agent:** OPS
+- **Category:** security
+- **Summary:** Unblock harmless cron smoke tests by allowlisting exact safe binaries (e.g., `/bin/echo`) for the specific agent, not by widening defaults
+- **Details:** Meta self-check uses `exec echo healthy` as a smoke test. With `exec-approvals.json` in deny-by-default mode, the `main` agent had an empty allowlist so `/bin/echo` required approval, causing the cron smoke test to fail. Fixed by adding a single allowlist entry for `main` with `pattern: "/bin/echo"`.
+- **Prevention:** Keep `defaults.security=allowlist` + `agents["*"]` empty; for recurring automation/smoke tests, allowlist only the exact binary needed (no shells, no globs).
+- **Applied To:** `/Users/redinside/.openclaw/exec-approvals.json`
+
+### LEARNING-20260225-003
+- **Date:** 2026-02-25T04:25:00Z
+- **Source Ticket:** TICKET-20260225-019
+- **Agent:** main
+- **Category:** workflow
+- **Summary:** Standardize a canonical, sandbox-readable errors feed; `workspace/logs/errors.jsonl` can be stale/empty and `exec tail` is approval-gated
+- **Details:** The CEO reflection expects to review `logs/errors.jsonl`, but in practice the workspace copy may be stale (only init line) while real failures are in host logs (`/Users/redinside/.openclaw/logs/*`) and/or `workspace-ops/*`. Cron lanes can’t reliably access host paths and `exec` is approval-gated, so reflection/monitoring misses recurring error patterns.
+- **Prevention:** OPS should produce a small, append-only digest (e.g., `workspace/ops/digests/errors-lastN.jsonl`) written by a trusted host-side script (absolute path in cron payload), and all cron/reflection prompts should read that digest via the `read` tool only.
+- **Applied To:** TICKET-TRACKER.md (new ticket)
+
+### LEARNING-20260225-002
+- **Date:** 2026-02-25T03:53:00Z
+- **Source Ticket:** TICKET-20260225-016
+- **Agent:** OPS
+- **Category:** tool
+- **Summary:** `moltbot-sandbox-fs` syntax errors can cause `read` tool failures inside sandboxed/embedded runs
+- **Details:** gateway.err.log shows `[tools] read failed: moltbot-sandbox-fs: 1: Syntax error: ";" unexpected` during cron/embedded activity. This suggests the sandbox filesystem helper can fail before the actual file read occurs, preventing monitoring jobs from reading logs/tickets.
+- **Prevention:** When sandboxed jobs start failing reads, check for `moltbot-sandbox-fs` errors specifically. Collect the exact failing read parameters (path/offset/limit) to create a minimal reproducer for a fix; avoid paths with unexpected shell metacharacters until root cause is identified.
+- **Applied To:** TICKET-TRACKER.md (new ticket)
+
+
+### LEARNING-20260225-001
+- **Date:** 2026-02-25T03:29:00Z
+- **Source Ticket:** TICKET-20260225-015
+- **Agent:** OPS
+- **Category:** security
+- **Summary:** Exec approvals Stage B: enforce `allowlist` + `ask=on-miss` with per-agent exact-binary allowlists (no shells, no globs)
+- **Details:** Implemented per-agent minimal exec allowlists in `exec-approvals.json` with strict defaults and no `agents["*"]` approvals. Added conservative exact-path allowlists for ops/eng/infosec and removed a stray `/usr/bin/cd` entry.
+- **Prevention:** Treat exec allowlists as security policy code. Never allowlist shells or directory globs; add exact paths only, and keep `agents["*"]` empty.
+- **Applied To:** `/Users/redinside/.openclaw/exec-approvals.json`
+
 ### LEARNING-20260224-010
 - **Date:** 2026-02-24T16:21:00Z
 - **Source Ticket:** TICKET-20260224-089

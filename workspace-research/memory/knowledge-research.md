@@ -88,7 +88,51 @@
 - Implication: Key architectural piece for agent communication; RedOS should evaluate MCP adoption for interoperability.
 
 ## AI Agent Architecture Patterns
-(To be populated with durable findings)
+
+### Pattern: Checklist-based evaluation + feedback granularity is a strong lever for “agent improvement”
+- **RefineBench** (Lee et al., arXiv:2511.22173, Nov 27 2025) evaluates refinement on **1,000 problems / 11 domains** using a **checklist-based** evaluation framework.
+- It explicitly separates:
+  - **Self-refinement** (no guidance; model must self-diagnose)
+  - **Guided refinement** (natural-language feedback derived from unmet checklist items)
+- Key result: frontier models show **low baseline** and **tiny/no gains** in self-refinement (paper reports Gemini 2.5 Pro ~31.3% baseline, +1.8% after 5 turns; GPT-5 ~29.1% baseline; DeepSeek-R1 slightly declines).
+- But with targeted checklist feedback, models can refine to **near-perfect** within ~5 turns (many >70B and proprietary models >90% by turn 5).
+
+**What this means for RedOS**
+- “Self-improvement loops” should be treated as an **evaluation + feedback design problem**, not a prompting trick.
+- If we want agents to improve prompts/skills reliably, we need **explicit checklists/rubrics** and **ground-truth signals** (tests, linters, specs) that can be converted into targeted feedback.
+- Concretely: implement a Skill Optimizer that produces *actionable deltas* (failed checklist items) as feedback to a generator model; don’t rely on “revise your answer” style prompts.
+
+Sources:
+- RefineBench paper (arXiv): https://arxiv.org/abs/2511.22173
+- RefineBench HTML + links (code/dataset): https://arxiv.org/html/2511.22173v1
 
 ## Agent Self-Improvement Patterns
-(To be populated with durable findings)
+
+### 1) Self-Refinement loops are not reliably “inherent” — they often degrade without training
+- Recent work (EVOLVE) reports that, across multiple models and multiple refinement templates, iterative self-refinement can **fail to improve** and may **degrade** output quality unless the model is explicitly trained to refine effectively.
+- Takeaway for RedOS: don’t assume “just add a critique→revise loop” will improve reliability. Treat self-refinement as a capability that needs **measurement + training/conditioning**, not a free win.
+- Source: EVOLVE paper (ArXiv HTML) https://arxiv.org/html/2502.05605v4
+
+### 2) When self-refinement works, the winning pattern is usually: generate diverse candidates → structured critique/fusion → synthesize
+- A recurring motif across surveys/benchmarks is that refinement works best when the model sees **multiple candidates** and is instructed to **diagnose** and **synthesize** rather than merely pick “best-of-N”.
+- Takeaway for RedOS: prefer “candidate set + explicit checklist” over generic “improve your last answer”.
+- Source (overview + links to primary papers): https://www.emergentmind.com/topics/self-refinement
+
+### 3) Guided feedback dominates unguided self-refinement (self-diagnosis is the bottleneck)
+- RefineBench (as summarized by Emergent Mind) suggests LMs can correct well given **explicit checklist-style feedback**, but gain little when asked to self-diagnose what’s wrong.
+- Takeaway for RedOS: if we want agents that improve prompts/skills, we likely need **external signals** (unit tests, rubric checklists, reward model, human spot checks) rather than expecting the agent to notice its own mistakes.
+- Source (summary + citation trail): https://www.emergentmind.com/topics/self-refinement
+
+### 4) Decouple “generator” and “evaluator” to reduce self-bias / reward hacking
+- Surveys note self-bias and reward-hacking failure modes when the same model both generates and evaluates over repeated loops.
+- Takeaway for RedOS: implement self-improvement as a **two-role** system (or two-model system):
+  - Generator proposes prompt/skill changes
+  - Evaluator scores on held-out tasks with strict checks (tests, compile, lint, rubric)
+- Source (summary + citation trail): https://www.emergentmind.com/topics/self-refinement
+
+### Practical RedOS implementation sketch (actionable)
+- Build a “Skill Optimizer” that:
+  1) Samples candidate instruction/skill variants
+  2) Runs them against a fixed evaluation set (e.g., Terminal-Bench-style tasks + unit tests)
+  3) Uses a separate judge model + hard signals (tests) for scoring
+  4) Promotes only improvements with statistically meaningful gains

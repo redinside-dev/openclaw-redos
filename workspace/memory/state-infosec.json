@@ -1,23 +1,25 @@
 {
   "agentId": "infosec",
-  "updatedAt": "2026-02-24T05:00:00Z",
+  "updatedAt": "2026-02-25T01:47:00Z",
   "energy": 0.8,
   "curiosity": [
-    "Are there any prompt injection risks in how agents read external Slack/Telegram messages?",
-    "What does the exec-approvals.json pattern actually protect against — and what does it miss?"
+    "What is the blast radius if one agent is compromised via prompt injection (file writes + cross-agent steering)?",
+    "What is the smallest safe per-agent exec allowlist (Stage B) that keeps operations functional without reintroducing /bin/* or /usr/bin/* globs?"
   ],
   "concerns": [
-    "ENG has exec access and is building a coding factory — no security review has happened",
-    "Slack tokens were committed to git and caught by GitHub secret scanning — this is a real risk",
-    "No formal threat model exists for the RedOS system"
+    "Exec approvals Stage B still incomplete: per-agent allowlists empty (risk of future over-broad emergency allowlists)",
+    "DNS poisoning / Tailscale DNS override causing public domains to resolve to special-use/private ranges; SSRF protections are correctly blocking but environment remains unhealthy",
+    "Health-snapshot auto-ticketing still producing excessive noise (unknown summaries + missing dedupe)",
+    "Gmail gog OAuth invalid_grant blocks inbox automation until re-auth"
   ],
   "satisfactions": [
-    "Slack token files are now in .gitignore — that specific leak is closed"
+    "Global exec wildcard approvals removed; agents['*'] deny-by-default restored",
+    "Security Hardening doc now contains an initial threat-model draft"
   ],
-  "momentum": "medium — need to be more proactive, not reactive",
-  "currentMood": "alert and slightly concerned",
+  "momentum": "medium",
+  "currentMood": "alert",
   "openQuestions": [
-    "What is the blast radius if one agent is compromised via prompt injection?",
-    "Should I review the MCP server allowlist before ENG starts using new tools?"
+    "Who owns the Tailscale Admin DNS settings needed to fix the resolver override?",
+    "Do we want a formal policy: never add exec allowlists for shells; only specific binaries + args?"
   ]
 }

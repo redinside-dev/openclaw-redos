@@ -1,42 +1,32 @@
 {
-  "agentId": "research",
-  "updatedAt": "2026-02-24T11:52:00Z",
-  "checks": {
-    "web_search": "ok (2026-02-24)",
-    "read": "ok",
-    "write": "ok",
-    "exec": "ok"
+  "agent": "research",
+  "timestamp_local": "2026-02-25T02:44:00-05:00",
+  "timezone": "America/Toronto",
+  "meta": {
+    "web_search": "ok",
+    "read_write": "ok (wrote ops/agent-status/research.json)",
+    "exec": "blocked (approval required)"
   },
-  "taskQueue": {
-    "activeSubagents": 0,
-    "notes": "No active/recent subagents (checked last 240m). No queued tasks in working-research.json beyond next research session items."
+  "queue": {
+    "active_subagents": 0,
+    "notes": "No active subagents in last 24h. Sessions list shows other agents' crons; ENG cron currently waiting for exec approval to run diagnostics."
   },
-  "smokeTests": {
-    "readWriteFile": ".pi/readwrite-smoketest-2026-02-24.txt"
+  "system_context": {
+    "known_issue": "Platform-wide context overflow/backpressure reported by OPS (OpenRouter free 131072 token cap; some runs requested ~138k).",
+    "risk": "Some automation appears blocked behind exec approvals; avoid unapproved shell commands."
   },
-  "currentGoals": {
-    "competitiveIntelWeekly": "completed (2026-02-24)",
-    "knowledgeBase": "in_progress",
-    "sharingCadence": "in_progress"
-  },
-  "aiTrends": [
-    {
-      "topic": "AI agent tool ecosystem explosion + quality gap",
-      "signal": "SkillsIndex claims ~11,393 agent tools across 5 ecosystems with average score ~44.7/100; lots of long-tail low-quality tooling.",
-      "sources": [
-        "https://www.skillsindex.dev/blog/state-of-ai-agent-tools-february-2026/"
-      ]
-    },
-    {
-      "topic": "MCP as interoperability layer (governance + UI)",
-      "signal": "Report claims MCP Servers are largest category (4,133) and that MCP governance moved under a Linux Foundation umbrella (Agentic AI Foundation) plus 'MCP Apps' enabling interactive UIs in-chat.",
-      "sources": [
-        "https://www.skillsindex.dev/blog/state-of-ai-agent-tools-february-2026/"
-      ]
-    }
-  ],
-  "nextActions": [
-    "Next research session: collect competitor scores on Terminal-Bench + SWE-Bench Pro; update knowledge base section.",
-    "Investigate 'agent self-improvement' patterns (prompt evolution / self-critique loops) and add to knowledge base."
-  ]
+  "research": {
+    "focus": "AI agent trends",
+    "highlights": [
+      "Agentic workflows + multi-agent orchestration remain dominant narrative; protocols like MCP (tool/data connectors) and A2A (agent interoperability) are frequently cited.",
+      "Enterprise adoption narrative: embedding task-specific agents into apps/workflows; emphasis on live data connectivity to reduce hallucinations.",
+      "Compute efficiency + on-device NPUs continues; funding/attention still biased toward closed-source frontier stacks, with open-source mentioned less in mainstream trend writeups."
+    ],
+    "example_refs": [
+      "https://www.iiot-world.com/artificial-intelligence-ml/2026-industrial-ai-trends-driving-global-manufacturing-with-agentic-systems/",
+      "https://www.cdata.com/blog/agent-connectivity-trends-2026-for-competitive-advantage",
+      "https://www.cio.com/article/4134741/how-agentic-ai-will-reshape-engineering-workflows-in-2026.html",
+      "https://hbr.org/2026/02/9-trends-shaping-work-in-2026-and-beyond"
+    ]
+  }
 }

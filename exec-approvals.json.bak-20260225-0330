@@ -1,0 +1,174 @@
+{
+  "version": 1,
+  "socket": {
+    "path": "/Users/redinside/.openclaw/exec-approvals.sock",
+    "token": "HBubfs7C3HctT_48O6jn_VEEnVZLhzB-"
+  },
+  "defaults": {
+    "security": "allowlist",
+    "ask": "on-miss"
+  },
+  "agents": {
+    "*": {
+      "allowlist": []
+    },
+    "ops": {
+      "allowlist": [
+        {
+          "id": "ops-0001",
+          "pattern": "/opt/homebrew/bin/openclaw",
+          "lastUsedAt": 1771990376845,
+          "lastUsedCommand": "openclaw gateway status",
+          "lastResolvedPath": "/opt/homebrew/bin/openclaw"
+        },
+        {
+          "id": "ops-0002",
+          "pattern": "/usr/bin/tail"
+        },
+        {
+          "id": "ops-0003",
+          "pattern": "/usr/bin/head"
+        },
+        {
+          "id": "ops-0004",
+          "pattern": "/usr/bin/grep"
+        },
+        {
+          "id": "ops-0005",
+          "pattern": "/usr/bin/sed"
+        },
+        {
+          "id": "ops-0006",
+          "pattern": "/usr/bin/awk"
+        },
+        {
+          "id": "ops-0007",
+          "pattern": "/bin/ls"
+        },
+        {
+          "id": "ops-0008",
+          "pattern": "/bin/cat"
+        },
+        {
+          "id": "ops-0009",
+          "pattern": "/usr/bin/dig"
+        },
+        {
+          "id": "ops-0010",
+          "pattern": "/usr/sbin/scutil"
+        }
+      ]
+    },
+    "infosec": {
+      "allowlist": [
+        {
+          "id": "infosec-0001",
+          "pattern": "/usr/bin/dig"
+        },
+        {
+          "id": "infosec-0002",
+          "pattern": "/usr/sbin/scutil"
+        },
+        {
+          "id": "infosec-0003",
+          "pattern": "/usr/bin/grep"
+        },
+        {
+          "id": "infosec-0004",
+          "pattern": "/usr/bin/sed"
+        },
+        {
+          "id": "infosec-0005",
+          "pattern": "/usr/bin/head"
+        },
+        {
+          "id": "infosec-0006",
+          "pattern": "/usr/bin/tail"
+        },
+        {
+          "id": "infosec-0007",
+          "pattern": "/opt/homebrew/bin/openclaw"
+        }
+      ]
+    },
+    "eng": {
+      "allowlist": [
+        {
+          "id": "eng-0001",
+          "pattern": "/usr/bin/git"
+        },
+        {
+          "id": "eng-0002",
+          "pattern": "/opt/homebrew/bin/node"
+        },
+        {
+          "id": "eng-0003",
+          "pattern": "/opt/homebrew/bin/npm"
+        },
+        {
+          "id": "eng-0004",
+          "pattern": "/opt/homebrew/bin/npx"
+        },
+        {
+          "id": "eng-0005",
+          "pattern": "/opt/homebrew/bin/openclaw"
+        },
+        {
+          "id": "eng-0006",
+          "pattern": "/usr/bin/python3"
+        },
+        {
+          "id": "eng-0101",
+          "pattern": "/bin/ls"
+        },
+        {
+          "id": "eng-0102",
+          "pattern": "/bin/cat"
+        },
+        {
+          "id": "eng-0103",
+          "pattern": "/usr/bin/head"
+        },
+        {
+          "id": "eng-0104",
+          "pattern": "/usr/bin/tail"
+        },
+        {
+          "id": "eng-0105",
+          "pattern": "/usr/bin/grep"
+        },
+        {
+          "id": "eng-0106",
+          "pattern": "/usr/bin/sort"
+        },
+        {
+          "id": "eng-0107",
+          "pattern": "/usr/bin/uniq"
+        },
+        {
+          "id": "eng-0108",
+          "pattern": "/usr/bin/wc"
+        },
+        {
+          "id": "eng-0109",
+          "pattern": "/usr/bin/which"
+        }
+      ]
+    },
+    "main": {
+      "allowlist": []
+    },
+    "research": {
+      "allowlist": []
+    },
+    "allrounder": {
+      "allowlist": []
+    },
+    "finance": {
+      "allowlist": []
+    },
+    "hatake": {
+      "allowlist": []
+    }
+  }
+}

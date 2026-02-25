@@ -1,24 +1,21 @@
 {
-  "agentId": "main",
-  "ts": "2026-02-24T11:42:00Z",
-  "localTime": "2026-02-24T06:42:00-05:00",
-  "metaSelfCheck": {
-    "web_search": {"ok": true, "provider": "perplexity", "model": "sonar-pro"},
-    "exec": {"ok": true, "command": "echo healthy", "stdout": "healthy"},
-    "read": {"ok": true, "files": ["ops/LEARNINGS.md", "ops/task-registry.json", "ops/CEO-DIRECTIVE-20260224.md"]}
+  "ts": "2026-02-25T08:14:00Z",
+  "check": "cron:34dec45f-d85c-4a93-a0cd-00b8c1dac7d4 RED Meta Self-Check",
+  "tools": {
+    "web_search": {"ok": true, "note": "web_search('test') succeeded via Perplexity sonar-pro"},
+    "read": {"ok": true, "note": "read ops/LEARNINGS.md + ops/task-registry.json + ops/TICKET-TRACKER.md succeeded"},
+    "exec": {"ok": false, "note": "exec('echo healthy') returned Approval required (blocked by maker/checker gate)"}
   },
-  "taskQueue": {
-    "count": 1,
+  "taskRegistry": {
+    "openTasks": 1,
     "top": {
       "id": "directive-20260224-skill-autonomy",
+      "status": "IN_PROGRESS",
       "priority": "P1",
-      "status": "PENDING",
-      "slaDeadline": "2026-02-25T04:47:00Z"
+      "gitCommitStatus": "PENDING_HUMAN_APPROVAL"
     }
   },
   "notes": [
-    "All required tools responded successfully.",
-    "Next proactive work: execute CEO-DIRECTIVE-20260224 (skill audit + agent delegation + competitive-intel run coordination).",
-    "Git init/commit script includes git push; treat as approval-gated before running."
+    "Logged TICKET-20260225-020 for exec smoke-test gating in cron context."
   ]
 }
