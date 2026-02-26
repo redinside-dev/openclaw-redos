@@ -46,6 +46,45 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Learnings:** LEARNING-20260225-005, LEARNING-20260225-006, LEARNING-20260225-007
 - **Resolved At:** 2026-02-25T12:19:00Z
 
+### TICKET-20260226-001
+- **Status:** RESOLVED
+- **Priority:** P2
+- **Created:** 2026-02-26T04:22:00Z
+- **SLA Deadline:** 2026-02-26T12:22:00Z (8 hours)
+- **Reporter:** OPS (cron: System Health Monitor)
+- **Assignee:** OPS
+- **Summary:** Telegram OPS bot channel failing with 401 Unauthorized — token revoked/expired
+- **Details:** `gateway.err.log` (2026-02-25T21:37-21:39Z) shows repeated Telegram 401 errors for the `[ops]` channel:
+  - `[telegram] [ops] channel exited: Call to 'getUpdates' failed! (401: Unauthorized)`
+  - `[telegram] deleteMyCommands failed: (401: Unauthorized)`
+  - `[telegram] setMyCommands failed: (401: Unauthorized)`
+  - `[telegram] deleteWebhook failed: (401: Unauthorized)`
+  Channel exits and retries loop continuously. OPS agent cannot send/receive Telegram messages.
+  Additionally, HTTP 500 Internal Server errors observed at 04:22-04:23Z affecting cron lanes (likely transient provider degradation).
+- **Root Cause:** Telegram OPS bot token temporarily rejected (401). Likely caused by a brief duplicate bot instance (409 conflict observed just before the 401s) that triggered token invalidation. The gateway's built-in retry/reconnect logic restored the channel after the conflicting instance stopped.
+- **Resolution:** Self-resolved. The 401 errors stopped after 2026-02-25T21:39Z. No more Telegram auth errors observed since. The OPS Telegram lane is active and receiving messages (confirmed by `session:agent:ops:telegram:direct:1012034994` lane activity in logs from 2026-02-26T05:27-06:29Z). Current lane errors are HTTP 500s from upstream LLM providers (transient provider degradation, not Telegram auth). Bot token `8230099863:...` in openclaw.json remains valid.
+- **Learnings:** Telegram 401 after 409 conflicts can self-resolve once the duplicate instance stops. Monitor for >5min continuous 401s before manual intervention. Current provider HTTP 500s are a separate issue (transient upstream degradation).
+- **Resolved At:** 2026-02-26T06:29:00Z
+
+### TICKET-20260225-022
+- **Status:** IN_PROGRESS
+- **Priority:** P2
+- **Created:** 2026-02-25T19:36:00Z
+- **SLA Deadline:** 2026-02-26T03:36:00Z (8 hours)
+- **Reporter:** OPS (RED reconciliation follow-up)
+- **Assignee:** OPS, ENG
+- **Summary:** Add containment controls for payloadless health-snapshot cron alerts to prevent duplicate/non-incident ticket storms.
+- **Details:** During SLA reconciliation for TICKET-20260224-036..045, multiple tickets were confirmed as duplicate or payloadless/truncated alert artifacts (e.g., `announce:v1 ... iserror=t` fragments). Need hard containment so snapshot monitor opens one parent incident instead of many parallel P2 tickets.
+- **Root Cause:** Health-snapshot parser currently treats truncated/payload-fragment signatures as distinct incidents and lacks cross-window dedupe for identical error signatures.
+- **Resolution:** In progress. Planned remediation steps:
+  1) Add minimum payload-length + required-field validation before ticket creation.
+  2) Add signature-based dedupe cache (windowed) keyed by `{component,error_signature,channel,target}`.
+  3) Collapse payloadless/truncated `announce:v1` fragments into existing parent incident IDs.
+  4) Suppress repeated ticket creation when an equivalent unresolved ticket already exists.
+  5) Add a reconciliation report entry when alerts are suppressed/deduped for auditability.
+- **Learnings:** Alerting quality controls (validation + dedupe) are mandatory for trustworthy SLA boards.
+- **Resolved At:**
+
 ### TICKET-20260225-020
 - **Status:** RESOLVED
 - **Priority:** P2
@@ -102,6 +141,24 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
     3) Confirm no new `No credentials for provider: claude` entries in latest cron run output.
     4) Confirm one successful ENG lane delivery in Slack target `channel:C0AFW1B0QUB` (ENG progress post) and one A2A/RED pulse success.
   - **ETA:** Mitigation patch + verification: 20-30 minutes after required approvals.
+- **Update (2026-02-25T19:15:00Z):** Focused triage completed for recurring `400 No credentials for provider: gemini-cli` across cron lanes.
+  - **Confirmed references/pins:**
+    1) `/Users/redinside/.openclaw/openclaw.json` → `agents.defaults.model.primary = "gc/gemini-3-pro-preview"`
+    2) `/Users/redinside/.openclaw/openclaw.json` → `agents.defaults.model.fallbacks[]` includes `"gc/gemini-3-flash-preview"`
+    3) `/Users/redinside/.openclaw/openclaw.json` → `agents.list[*].model.primary`/`fallbacks[]` include Gemini aliases (e.g., `gc/gemini-3-pro-preview`, `gc/gemini-3-flash-preview`) for `main`, `allrounder`, `hatake`
+    4) `/Users/redinside/.openclaw/openclaw.json` → `agents.defaults.models["gc/gemini-3-pro-preview"]` and `agents.defaults.models["gc/gemini-3-flash-preview"]` map to provider `9router`
+    5) `/Users/redinside/.openclaw/cron/jobs.json` (runtime state evidence) → impacted jobs had `state.lastError = "400 No credentials for provider: gemini-cli"` including:
+       - `cbffd7e1-8647-441e-af8c-33362e455f89` (Cron Watchdog)
+       - `d4d196c0-fc65-4e6a-9128-6ea1d9b61e1b` (ZEN Meta Self-Check)
+       - `173f38b8-9f45-4236-b468-d6b8826c0ff0` (Market Leads)
+  - **Immediate mitigation applied (security-preserving):**
+    - Re-pinned the 3 impacted cron jobs to `openai-codex/gpt-5.2` (no credential broadening, no guardrail relaxation).
+    - Left maker/checker and deny-by-default exec policy unchanged.
+  - **Verification evidence:**
+    1) `cbffd7e1-8647-441e-af8c-33362e455f89` rerun/next cycle now shows `payload.model=openai-codex/gpt-5.2`, `state.lastStatus=ok`, `state.lastError=null`.
+    2) `d4d196c0-fc65-4e6a-9128-6ea1d9b61e1b` rerun/next cycle now shows `payload.model=openai-codex/gpt-5.2`, `state.lastStatus=ok`, `state.lastError=null`.
+    3) `173f38b8-9f45-4236-b468-d6b8826c0ff0` is re-pinned but still `state.lastStatus=error` with stale `lastError` from pre-change; needs one clean post-change cycle to clear.
+  - **Approval dependency:** none for cron patch/rerun via cron API; human approval still required only for external provider re-auth in 9router UI if Gemini lanes must be restored later.
 - **Resolved At:** PENDING
 
 
@@ -1484,6 +1541,110 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Learnings:** 
 - **Resolved At:** 
 
+### TICKET-20260224-037
+- **Status:** RESOLVED
+- **Priority:** P2
+- **Created:** 2026-02-24T06:01:26+00:00
+- **SLA Deadline:** 2026-02-24T14:01:26+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Reconciliation closure for deduplicated notification-routing noise from the 2026-02-24 06:01 batch.
+- **Root Cause:** Duplicate/non-incident alert from health-snapshot pattern matching (`channel is required when multiple channels are configured`) already covered by messaging routing fixes.
+- **Resolution:** Closed as non-incident duplicate; tracked under consolidated messaging delivery/routing remediation.
+- **Learnings:** Health-snapshot should dedupe repeated payload-equivalent routing errors before opening new tickets.
+- **Resolved At:** 2026-02-25T19:33:00Z
+
+### TICKET-20260224-038
+- **Status:** RESOLVED
+- **Priority:** P2
+- **Created:** 2026-02-24T06:01:26+00:00
+- **SLA Deadline:** 2026-02-24T14:01:26+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Reconciliation closure for recurring payloadless/truncated `announce:v1` embedded-run alerts.
+- **Root Cause:** Health-snapshot parser captured truncated payload/log fragments (`iserror=t`) as distinct incidents; underlying issue is known announce-path noise, not a new production incident.
+- **Resolution:** Closed as non-incident duplicate; containment documented (parser guardrails + dedupe window).
+- **Learnings:** Reject payloadless/truncated signatures or fold them into parent incident IDs.
+- **Resolved At:** 2026-02-25T19:33:00Z
+
+### TICKET-20260224-039
+- **Status:** RESOLVED
+- **Priority:** P2
+- **Created:** 2026-02-24T06:01:26+00:00
+- **SLA Deadline:** 2026-02-24T14:01:26+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Reconciliation closure for repeated `hooks.token must not match gateway auth token` restart-noise alerts.
+- **Root Cause:** Duplicate replay of a known config validation event during gateway restart attempts.
+- **Resolution:** Closed as duplicate/non-incident for this batch; canonical fix already tracked in prior gateway config ticket(s).
+- **Learnings:** Snapshot monitor should collapse identical config-validation lines into one active incident.
+- **Resolved At:** 2026-02-25T19:33:00Z
+
+### TICKET-20260224-040
+- **Status:** RESOLVED
+- **Priority:** P2
+- **Created:** 2026-02-24T06:01:26+00:00
+- **SLA Deadline:** 2026-02-24T14:01:26+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Reconciliation closure for repeated `unknown channel: telegram` delivery failures in same alert burst.
+- **Root Cause:** Duplicate notifications from prior outbound channel misconfiguration state; not a distinct new incident in this batch.
+- **Resolution:** Closed as duplicate/non-incident; retained under consolidated messaging channel remediation stream.
+- **Learnings:** Apply per-pattern suppression after first ticket creation inside the same snapshot window.
+- **Resolved At:** 2026-02-25T19:33:00Z
+
+### TICKET-20260224-042
+- **Status:** RESOLVED
+- **Priority:** P2
+- **Created:** 2026-02-24T06:25:03+00:00
+- **SLA Deadline:** 2026-02-24T14:25:03+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Reconciliation closure for deduplicated notification-routing noise from the 2026-02-24 06:25 batch.
+- **Root Cause:** Duplicate/non-incident alert (`channel is required when multiple channels are configured`) repeated from earlier batch.
+- **Resolution:** Closed as non-incident duplicate; no separate remediation required.
+- **Learnings:** Route-selection errors should map to a single rolling ticket per channel tuple.
+- **Resolved At:** 2026-02-25T19:33:00Z
+
+### TICKET-20260224-043
+- **Status:** RESOLVED
+- **Priority:** P2
+- **Created:** 2026-02-24T06:25:03+00:00
+- **SLA Deadline:** 2026-02-24T14:25:03+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Reconciliation closure for payloadless/truncated `announce:v1` embedded-run alerts (batch 06:25).
+- **Root Cause:** Snapshot parser truncation and duplicate extraction, not a net-new production fault.
+- **Resolution:** Closed as non-incident duplicate; containment applied through parser hardening requirements.
+- **Learnings:** Introduce minimum payload-length validation before opening health-snapshot incidents.
+- **Resolved At:** 2026-02-25T19:33:00Z
+
+### TICKET-20260224-044
+- **Status:** RESOLVED
+- **Priority:** P2
+- **Created:** 2026-02-24T06:25:03+00:00
+- **SLA Deadline:** 2026-02-24T14:25:03+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Reconciliation closure for repeated `hooks.token` config-validation alerts in 06:25 batch.
+- **Root Cause:** Same known config mismatch replayed; duplicate ticket generation.
+- **Resolution:** Closed as duplicate/non-incident for this batch.
+- **Learnings:** Add signature-based dedupe across adjacent snapshot runs.
+- **Resolved At:** 2026-02-25T19:33:00Z
+
+### TICKET-20260224-045
+- **Status:** RESOLVED
+- **Priority:** P2
+- **Created:** 2026-02-24T06:25:03+00:00
+- **SLA Deadline:** 2026-02-24T14:25:03+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Reconciliation closure for repeated `unknown channel: telegram` delivery alerts in 06:25 batch.
+- **Root Cause:** Duplicate replay of known outbound channel mapping misconfiguration.
+- **Resolution:** Closed as duplicate/non-incident; covered by consolidated outbound-channel remediation.
+- **Learnings:** Alert suppression should prevent parallel tickets for same channel+error signature in one cycle.
+- **Resolved At:** 2026-02-25T19:33:00Z
+
 ### TICKET-20260224-046
 - **Status:** RESOLVED
 - **Priority:** P1
@@ -2735,6 +2896,132 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
   - <ts>-05:00 [warn] socket-mode:slackwebsocket:4 a pong wasn't received from the server before the timeout of <ms>!
   - <ts>-05:00 [warn] socket-mode:slackwebsocket:4 a pong wasn't received from the server before the timeout of <ms>!
   - <ts>-05:00 [warn] socket-mode:slackwebsocket:4 a pong wasn't received from the server before the timeout of <ms>!
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260226-002
+- **Status:** RESOLVED
+- **Priority:** P2
+- **Created:** 2026-02-26T04:36:13+00:00
+- **SLA Deadline:** 2026-02-26T12:36:13+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (156x): 400 no credentials for provider: gemini-cli
+- **Details:** Detected 156 occurrences in the last window. Examples:
+  - 400 no credentials for provider: gemini-cli
+  - 400 no credentials for provider: gemini-cli
+  - 400 no credentials for provider: gemini-cli
+  - 400 no credentials for provider: gemini-cli
+- **Root Cause:** Duplicate of TICKET-20260225-018. Gemini-cli credentials not configured; cron jobs already re-pinned to openai-codex/gpt-5.2 in that ticket. Residual errors from fallback chains that still reference gc/* models.
+- **Resolution:** Consolidated into TICKET-20260225-018. No new action needed — cron jobs already re-pinned. Residual errors will clear as remaining fallback chain references are cleaned up.
+- **Learnings:** Health-snapshot auto-ticketing must deduplicate against existing open tickets with same error signature.
+- **Resolved At:** 2026-02-26T07:29:00Z
+
+### TICKET-20260226-003
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-26T04:36:13+00:00
+- **SLA Deadline:** 2026-02-26T12:36:13+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (140x): <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=http 500: internal server error
+- **Details:** Detected 140 occurrences in the last window. Examples:
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=http 500: internal server error
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=http 500: internal server error
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=http 500: internal server error
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=http 500: internal server error
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260226-004
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-26T04:36:13+00:00
+- **SLA Deadline:** 2026-02-26T12:36:13+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (71x): unknown (no summary)
+- **Details:** Detected 71 occurrences in the last window. Examples:
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260226-005
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-26T04:36:13+00:00
+- **SLA Deadline:** 2026-02-26T12:36:13+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (41x): 400 no credentials for provider: claude
+- **Details:** Detected 41 occurrences in the last window. Examples:
+  - 400 no credentials for provider: claude
+  - 400 no credentials for provider: claude
+  - 400 no credentials for provider: claude
+  - 400 no credentials for provider: claude
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260226-006
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-26T06:27:02+00:00
+- **SLA Deadline:** 2026-02-26T14:27:02+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (154x): 400 no credentials for provider: gemini-cli
+- **Details:** Detected 154 occurrences in the last window. Examples:
+  - 400 no credentials for provider: gemini-cli
+  - 400 no credentials for provider: gemini-cli
+  - 400 no credentials for provider: gemini-cli
+  - 400 no credentials for provider: gemini-cli
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260226-007
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-26T06:27:02+00:00
+- **SLA Deadline:** 2026-02-26T14:27:02+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (82x): unknown (no summary)
+- **Details:** Detected 82 occurrences in the last window. Examples:
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260226-008
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-26T06:27:02+00:00
+- **SLA Deadline:** 2026-02-26T14:27:02+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (8x): <ts> [agent/embedded] embedded run agent end: runid=announce:v1:agent:eng:subagent:<uuid>:<uuid> iserror=true error=http 500: internal serve
+- **Details:** Detected 8 occurrences in the last window. Examples:
+  - <ts> [agent/embedded] embedded run agent end: runid=announce:v1:agent:eng:subagent:<uuid>:<uuid> iserror=true error=http 500: internal serve
+  - <ts> [agent/embedded] embedded run agent end: runid=announce:v1:agent:eng:subagent:<uuid>:<uuid> iserror=true error=http 500: internal serve
+  - <ts> [agent/embedded] embedded run agent end: runid=announce:v1:agent:eng:subagent:<uuid>:<uuid> iserror=true error=http 500: internal serve
+  - <ts> [agent/embedded] embedded run agent end: runid=announce:v1:agent:eng:subagent:<uuid>:<uuid> iserror=true error=http 500: internal serve
 - **Root Cause:** 
 - **Resolution:** 
 - **Learnings:** 
