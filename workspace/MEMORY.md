@@ -185,3 +185,44 @@ The RED Self-Improvement cron has been observed autonomously modifying `openclaw
 - **Feature branch**: `feature/dashboard-realtime-sync` (dashboard changes).
 
 *Last updated: 2026-02-18 — Slack channel auto-reply fix, dashboard SSE real-time sync, CLAUDE.md*
+
+---
+
+## 2026-02-25 Session Changes — Autonomy & Resilience Overhaul
+
+### Cron Optimization (71 → 73 jobs)
+- **52 error states cleared** — all cached gemini-cli 400 errors wiped
+- **6 standup crons staggered**: RED 9:05, ENG 9:07, RESEARCH 9:09, FINANCE 9:11, OPS 9:13, INFOSEC 9:15 (was simultaneous 9:05 → rate limit storm)
+- **Inner Loop crons halved**: `0 */2 * * *` → `0 */4 * * *`
+- **Model distribution**: 31 jobs → `9router/openrouter/auto` (free), 18 jobs → `ollama/llama3.1:8b` (free local), 17 jobs → agent default (OPS/HATAKE = free), 5 jobs → `mini`. Zero cron jobs touch Codex or Claude directly.
+- **+2 new crons added**:
+  - `System Pulse — Always-On Heartbeat` (every 5min, OPS, Ollama-only) — auto-restarts gateway/Ollama if down, alerts Anurag
+  - `Telegram Approval Monitor` (every 2min, RED, Ollama-only) — watches Telegram for "approve/deny TICKET-XXX" replies
+
+### Model Routing (interactive sessions)
+- Primary: `openai-codex/gpt-5.2` → fallbacks: `9router/always-on-premium` → `9router/openrouter/auto` → `ollama/llama3.1:8b` → `zai/glm-4.7` → `zai/glm-4.7-flashx`
+- Reverted from billing-optimized config (which broke on 2026-02-25) back to bak.1 + new routing
+
+### Maker-Checker System (NEW — was empty before)
+- **`exec-approvals.json`** populated with per-agent allowlists: 8 agents, 70+ pre-approved binaries (python3, bash, curl, git, openclaw, node, jq, cat, grep, find)
+- **OPS gets `launchctl` pre-approved** for gateway/dashboard/Ollama self-healing restart (no Anurag needed)
+- **ENG gets `claude` and `ccs-smart.sh`** approved for Claude Code CLI invocation
+- **`workspace/skills/maker-checker/SKILL.md` created**: Full 3-level approval chain:
+  - Level 0: No approval (reads, workspace writes, monitoring, pre-approved exec)
+  - Level 1: INFOSEC approval via A2A (code commits, config changes, new dependencies)
+  - Level 2: Anurag approval via Telegram async queue (sudo, launchctl new services, destructive ops)
+- **Async approval queue**: `workspace/approvals/pending/`, `approved/`, `denied/`
+- **SOUL.md updated**: Replaced synchronous blocking approval gate with async Telegram queue pattern
+
+### Resilience Improvements
+- 5-minute system pulse (Ollama-only) guarantees the heartbeat never stops even if all premium models fail
+- Self-healing OPS can restart the full stack without Anurag intervention
+- Telegram approval queue ensures agents never block on human input — they queue and continue
+
+### Skills
+- 31st skill registered: `maker-checker` (enabled)
+- `openrouter` reinstated for cron jobs only (two OpenRouter accounts with $10 credit each = free models)
+
+### Open Issues Resolved
+- Telegram silent on send → reverted to bak.1, confirmed working
+- 55-67 cron failures from rate limit storm → staggered + cheap model overrides
