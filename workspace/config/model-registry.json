@@ -1,15 +1,190 @@
 {
   "_meta": {
     "name": "AgentOS Model Registry",
-    "version": "3.0",
+    "version": "3.1",
     "description": "All available models, capabilities, pricing. CUSTOMERS: edit this file to configure your AI company.",
-    "updated": "2026-02-20"
+    "updated": "2026-02-27"
   },
 
   "models": [
     {
+      "id": "9router/always-on-premium",
+      "displayName": "9Router Always-On Premium (Best Available Subscription)",
+      "provider": "9router",
+      "type": "api",
+      "tier": 5,
+      "quality": 9,
+      "speed": 7,
+      "contextWindow": 400000,
+      "capabilities": ["general", "code", "reasoning", "planning", "delegation", "architecture", "agentic", "synthesis"],
+      "billing": {
+        "type": "subscription",
+        "perCallCost": 0,
+        "note": "Routes to best available subscription: Codex (ChatGPT Plus), Kiro, Claude Code — all $0"
+      },
+      "invocation": {
+        "method": "api",
+        "baseUrl": "http://localhost:20128/v1",
+        "authTokenEnv": "NINER_ROUTER_KEY"
+      },
+      "maxConcurrent": 5,
+      "status": "available",
+      "bestFor": "main/allrounder primary — CEO/COO conversations, complex decisions, orchestration",
+      "doNotUseFor": "Do NOT hardcode in cron payloads — let agent inherit this from config"
+    },
+    {
+      "id": "9router/coding-factory",
+      "displayName": "9Router Coding Factory (Best Available Coding Model)",
+      "provider": "9router",
+      "type": "api",
+      "tier": 5,
+      "quality": 10,
+      "speed": 6,
+      "contextWindow": 200000,
+      "capabilities": ["code", "refactor", "multi_file", "test", "debug", "architecture", "agentic"],
+      "billing": {
+        "type": "subscription",
+        "perCallCost": 0,
+        "note": "Routes to best available coding subscription: Cursor/Kiro/Claude Code — all $0"
+      },
+      "invocation": {
+        "method": "api",
+        "baseUrl": "http://localhost:20128/v1",
+        "authTokenEnv": "NINER_ROUTER_KEY"
+      },
+      "maxConcurrent": 5,
+      "status": "available",
+      "bestFor": "ENG primary — complex multi-file coding, architecture, debugging, full-stack work",
+      "doNotUseFor": "Non-coding tasks, simple lookups"
+    },
+    {
+      "id": "9router/subagent-reliable",
+      "displayName": "9Router Subagent Reliable (Stable Mid-Tier Model)",
+      "provider": "9router",
+      "type": "api",
+      "tier": 4,
+      "quality": 8,
+      "speed": 7,
+      "contextWindow": 200000,
+      "capabilities": ["general", "code", "analysis", "reasoning", "synthesis", "format"],
+      "billing": {
+        "type": "subscription",
+        "perCallCost": 0,
+        "note": "Routes to reliable mid-tier subscriptions: iFlow, Kiro, Codex"
+      },
+      "invocation": {
+        "method": "api",
+        "baseUrl": "http://localhost:20128/v1",
+        "authTokenEnv": "NINER_ROUTER_KEY"
+      },
+      "maxConcurrent": 5,
+      "status": "available",
+      "bestFor": "finance/infosec primary — reliable responses for analysis, reporting, security review",
+      "doNotUseFor": "Cutting-edge coding tasks (use coding-factory)"
+    },
+    {
+      "id": "9router/heartbeat-cheap",
+      "displayName": "9Router Heartbeat Cheap (Monitoring / Health Checks)",
+      "provider": "9router",
+      "type": "api",
+      "tier": 2,
+      "quality": 5,
+      "speed": 9,
+      "contextWindow": 32768,
+      "capabilities": ["general", "classify", "format", "summarize", "parse"],
+      "billing": {
+        "type": "free",
+        "perCallCost": 0,
+        "note": "Routes to cheapest/free models: Kiro, iFlow, Gemini-Flash"
+      },
+      "invocation": {
+        "method": "api",
+        "baseUrl": "http://localhost:20128/v1",
+        "authTokenEnv": "NINER_ROUTER_KEY"
+      },
+      "maxConcurrent": 10,
+      "status": "available",
+      "bestFor": "OPS fallback, heartbeat pings, classification, keepalive checks",
+      "doNotUseFor": "Complex reasoning, coding, any quality-sensitive user-facing response"
+    },
+    {
+      "id": "9router/free-unlimited",
+      "displayName": "9Router Free Unlimited (Gemini/Kiro/iFlow — $0)",
+      "provider": "9router",
+      "type": "api",
+      "tier": 3,
+      "quality": 7,
+      "speed": 8,
+      "contextWindow": 128000,
+      "capabilities": ["general", "code", "analysis", "reasoning", "web_search", "summarize"],
+      "billing": {
+        "type": "free",
+        "perCallCost": 0,
+        "note": "Routes to OAuth/subscription free providers: Gemini (OAuth), Kiro, iFlow"
+      },
+      "invocation": {
+        "method": "api",
+        "baseUrl": "http://localhost:20128/v1",
+        "authTokenEnv": "NINER_ROUTER_KEY"
+      },
+      "maxConcurrent": 10,
+      "status": "available",
+      "bestFor": "Standup crons, OPS/HATAKE fallback, inner-loop monitoring — free tier",
+      "doNotUseFor": "Tasks requiring predictable latency or specific model features"
+    },
+    {
+      "id": "cc/claude-opus-4-6",
+      "displayName": "Claude Opus 4.6 via 9Router (cc/ prefix)",
+      "provider": "9router",
+      "type": "api",
+      "tier": 5,
+      "quality": 10,
+      "speed": 5,
+      "contextWindow": 200000,
+      "capabilities": ["code", "refactor", "multi_file", "test", "debug", "architecture", "agentic", "reasoning", "research", "synthesis", "long_context"],
+      "billing": {
+        "type": "subscription",
+        "perCallCost": 0,
+        "note": "Routes via 9Router cc/ prefix to Claude Code account (Claude.ai Pro subscription)"
+      },
+      "invocation": {
+        "method": "api",
+        "baseUrl": "http://localhost:20128/v1",
+        "authTokenEnv": "NINER_ROUTER_KEY"
+      },
+      "maxConcurrent": 3,
+      "status": "available",
+      "bestFor": "RESEARCH primary — deep analysis, synthesis, complex reasoning; ENG fallback for hard problems",
+      "doNotUseFor": "Simple tasks (use sonnet), monitoring/heartbeat (use free-unlimited)"
+    },
+    {
+      "id": "cc/claude-sonnet-4-6",
+      "displayName": "Claude Sonnet 4.6 via 9Router (cc/ prefix)",
+      "provider": "9router",
+      "type": "api",
+      "tier": 4,
+      "quality": 9,
+      "speed": 7,
+      "contextWindow": 200000,
+      "capabilities": ["code", "refactor", "multi_file", "test", "debug", "architecture", "agentic", "reasoning"],
+      "billing": {
+        "type": "subscription",
+        "perCallCost": 0,
+        "note": "Routes via 9Router cc/ prefix to Claude Code account"
+      },
+      "invocation": {
+        "method": "api",
+        "baseUrl": "http://localhost:20128/v1",
+        "authTokenEnv": "NINER_ROUTER_KEY"
+      },
+      "maxConcurrent": 5,
+      "status": "available",
+      "bestFor": "Fast coding tasks, code review, ENG secondary model",
+      "doNotUseFor": "Ultra-complex multi-step reasoning (use opus), monitoring"
+    },
+    {
       "id": "claude-code/sonnet-4.5",
-      "displayName": "Claude Code (Big Brain)",
+      "displayName": "Claude Code CLI (Direct Anthropic)",
       "provider": "anthropic",
       "type": "cli",
       "tier": 5,
@@ -31,8 +206,8 @@
       "maxConcurrent": 1,
       "status": "available",
       "quotaSource": "workspace/tmp/provider-quota.json#claude-code",
-      "bestFor": "Complex multi-file coding, refactoring, full-stack apps, debugging hard problems",
-      "doNotUseFor": "Simple formatting, non-code tasks, quick lookups"
+      "bestFor": "Complex multi-file coding via CLI invocation",
+      "doNotUseFor": "API-based agent calls (use cc/claude-opus-4-6 via 9Router instead)"
     },
     {
       "id": "cursor/pro",
@@ -59,35 +234,7 @@
       "status": "available",
       "quotaSource": "workspace/tmp/provider-quota.json#cursor",
       "bestFor": "Primary fallback when Anthropic Claude Pro quota exhausted — Claude Code uses Cursor Pro subscription as backend",
-      "doNotUseFor": "Anthropic Claude Pro is available (use that first)"
-    },
-    {
-      "id": "9router/auto",
-      "displayName": "9Router Auto (Multi-Provider Fallback)",
-      "provider": "9router",
-      "type": "api",
-      "tier": 5,
-      "quality": 9,
-      "speed": 7,
-      "contextWindow": 200000,
-      "capabilities": ["code", "refactor", "multi_file", "test", "debug", "architecture", "agentic"],
-      "billing": {
-        "type": "subscription",
-        "monthlyCost": 0,
-        "perCallCost": 0,
-        "note": "Routes to subscription/free providers: Gemini (OAuth), Codex (ChatGPT Plus), iFlow, Qwen"
-      },
-      "invocation": {
-        "method": "api",
-        "baseUrl": "http://localhost:20128/v1",
-        "authTokenEnv": "NINER_ROUTER_KEY"
-      },
-      "maxConcurrent": 5,
-      "status": "available",
-      "quotaCheck": "http://localhost:20128/api/quota",
-      "quotaSource": "workspace/tmp/provider-quota.json#9router",
-      "bestFor": "Complex coding when Claude Code and Cursor Pro subscriptions are exhausted — seamless fallback via Gemini/Codex/iFlow/Qwen",
-      "doNotUseFor": "Tasks requiring specific Claude API features not available via proxy"
+      "doNotUseFor": "Direct API calls via OpenClaw agent (use 9router/coding-factory which routes through Cursor internally)"
     },
     {
       "id": "openai-codex/gpt-5.2",
@@ -178,7 +325,7 @@
     },
     {
       "id": "zai/glm-4.7",
-      "displayName": "Z.AI GLM-4.7 (Primary PAYG Fallback)",
+      "displayName": "Z.AI GLM-4.7 (Last-Resort PAYG Fallback)",
       "provider": "zai",
       "type": "api",
       "tier": 2,
@@ -193,28 +340,23 @@
       },
       "maxConcurrent": 10,
       "status": "available",
-      "bestFor": "OPS validation, standard tasks, primary Ollama fallback, report formatting",
-      "doNotUseFor": "Tasks requiring cutting-edge reasoning or real-time data"
+      "bestFor": "Last-resort fallback — use only when all subscription providers are down",
+      "doNotUseFor": "Tasks requiring cutting-edge reasoning or real-time data; avoid in crons (PAYG cost)"
     },
     {
       "id": "zai/glm-4.7-flashx",
-      "displayName": "Z.AI GLM Flash (Ultra-Cheap Fallback)",
+      "displayName": "Z.AI GLM Flash (DOES NOT EXIST — DO NOT USE)",
       "provider": "zai",
       "type": "api",
-      "tier": 2,
-      "quality": 5,
-      "speed": 9,
-      "contextWindow": 32768,
-      "capabilities": ["general", "classify", "format", "summarize", "parse"],
-      "billing": {
-        "type": "payg",
-        "per1kInput": 0.0004,
-        "per1kOutput": 0.0006
-      },
-      "maxConcurrent": 20,
-      "status": "available",
-      "bestFor": "Emergency Ollama fallback, classification, simple formatting",
-      "doNotUseFor": "Anything complex, coding, research"
+      "tier": 0,
+      "quality": 0,
+      "speed": 0,
+      "billing": { "type": "payg" },
+      "maxConcurrent": 0,
+      "status": "unavailable",
+      "_note": "This model ID does not exist at the zai provider. Causes hard failures in all 6 agent fallback chains. Use zai/glm-4.7 instead. See LEARNINGS LEARNING-20260215-005.",
+      "bestFor": "N/A",
+      "doNotUseFor": "Everything — this model does not exist"
     },
     {
       "id": "moonshot/kimi-k2.5",
@@ -253,7 +395,7 @@
       "maxConcurrent": 1,
       "constraints": ["no_tools", "single_instance", "local_only"],
       "status": "available",
-      "bestFor": "HATAKE prompt parsing, JSON extraction, simple formatting",
+      "bestFor": "HATAKE intent parsing, JSON extraction, simple formatting",
       "doNotUseFor": "Anything requiring tools, web access, or complex reasoning"
     },
     {
@@ -273,8 +415,8 @@
       "status": "available",
       "testedAt": "2026-02-20",
       "testResult": "OK (58s cold start)",
-      "bestFor": "OPS, FINANCE, INFOSEC standup and monitoring tasks",
-      "doNotUseFor": "Parallel tasks (single instance), tasks needing <10s response"
+      "bestFor": "OPS primary — monitoring, health checks, standup summaries",
+      "doNotUseFor": "Parallel tasks (single instance), tasks needing <10s response; never hardcode in cron payloads"
     },
     {
       "id": "ollama/gpt-oss:20b",
@@ -315,16 +457,19 @@
   ],
 
   "agentModelMap": {
-    "_comment": "Current model assignments per agent. Edit openclaw.json agents.list[].model to change. Run openclaw doctor after any change.",
-    "_updated": "2026-02-20",
-    "main":       { "tier": "gpt",    "primary": "openai-codex/gpt-5.2",   "fallback": "ollama/llama3.1:8b",       "reason": "CEO — high quality required" },
-    "allrounder": { "tier": "gpt",    "primary": "openai-codex/gpt-5.2",   "fallback": "ollama/llama3.1:8b",       "reason": "CSO — high quality required" },
-    "research":   { "tier": "gpt",    "primary": "openai-codex/gpt-5.2",   "fallback": "ollama/llama3.1:8b",       "reason": "Deep research needs reasoning" },
-    "eng":        { "tier": "ollama", "primary": "ollama/llama3.1:8b",     "fallback": "ollama/qwen2.5-coder:7b",  "reason": "Reliable local model (gpt-oss:20b unstable — empty responses)" },
-    "finance":    { "tier": "ollama", "primary": "ollama/llama3.1:8b",     "fallback": "ollama/gpt-oss:20b",       "reason": "Free — sufficient for finance monitoring" },
-    "ops":        { "tier": "ollama", "primary": "ollama/llama3.1:8b",     "fallback": "ollama/qwen2.5-coder:7b",  "reason": "Free — monitoring and health checks" },
-    "infosec":    { "tier": "ollama", "primary": "ollama/llama3.1:8b",     "fallback": "ollama/gpt-oss:20b",       "reason": "Free — security reviews" },
-    "hatake":     { "tier": "ollama", "primary": "ollama/qwen2.5-coder:7b","fallback": "ollama/llama3.1:8b",       "reason": "Fast parser — speed critical" }
+    "_comment": "LIVE agent model assignments — must stay in sync with openclaw.json agents.list[].model. This is the source of truth for smart-router skill capability filtering.",
+    "_updated": "2026-02-27",
+    "_howToChange": "1) Edit openclaw.json agents.list[].model.primary/fallbacks  2) Run: openclaw doctor  3) Restart gateway  4) Update _updated above",
+    "_policy": "9Router is the central proxy — add/swap subscriptions in 9Router UI to change routing without touching code. Ollama (free/local) for OPS+HATAKE. PAYG (zai) is last-resort only. NEVER hardcode model in cron payloads — crons inherit agent model config automatically.",
+    "_bannedModels": ["zai/glm-4.7-flashx (nonexistent)", "9router/openrouter/auto (billing exhausted)", "openrouter/auto (billing exhausted)"],
+    "main":       { "tier": "premium",  "primary": "9router/always-on-premium",  "fallbacks": ["openai-codex/gpt-5.2","9router/subagent-reliable","zai/glm-4.7"], "reason": "CEO orchestrator: always-on-premium = best available subscription. Codex for direct fallback. zai last resort." },
+    "allrounder": { "tier": "premium",  "primary": "9router/always-on-premium",  "fallbacks": ["openai-codex/gpt-5.2","9router/subagent-reliable","zai/glm-4.7"], "reason": "COO/CSO conversations: same tier as main." },
+    "eng":        { "tier": "coding",   "primary": "9router/coding-factory",     "fallbacks": ["cc/claude-opus-4-6","9router/always-on-premium","openai-codex/gpt-5.2"], "reason": "Best coding tools: coding-factory routes to Cursor/Kiro/Claude Code. Opus fallback for hard architecture problems." },
+    "research":   { "tier": "research", "primary": "cc/claude-opus-4-6",         "fallbacks": ["9router/coding-factory","9router/always-on-premium","openai-codex/gpt-5.2"], "reason": "Deep analysis: Claude Opus 4.6 is strongest reasoning model. coding-factory as cost-equivalent backup." },
+    "finance":    { "tier": "reliable", "primary": "9router/subagent-reliable",  "fallbacks": ["openai-codex/gpt-5.2","9router/free-unlimited","zai/glm-4.7"], "reason": "Financial analysis: reliable mid-tier. Codex for portfolio/strategy when needed." },
+    "ops":        { "tier": "local",    "primary": "ollama/llama3.1:8b",         "fallbacks": ["9router/heartbeat-cheap","9router/free-unlimited","zai/glm-4.7"], "reason": "Monitoring: free local model (58s cold start). Heartbeat-cheap fallback keeps ops running even if Ollama is cold." },
+    "infosec":    { "tier": "reliable", "primary": "9router/subagent-reliable",  "fallbacks": ["openai-codex/gpt-5.2","9router/free-unlimited","zai/glm-4.7"], "reason": "Security analysis: reliable responses required. Codex fallback for deep security reviews." },
+    "hatake":     { "tier": "local",    "primary": "ollama/qwen2.5-coder:7b",    "fallbacks": ["9router/free-unlimited","zai/glm-4.7"], "reason": "Intent parsing: qwen2.5-coder:7b best for JSON/intent extraction. Free providers as fallback." }
   },
 
   "howToSwitch": {
@@ -332,18 +477,19 @@
     "steps": [
       "1. Edit /Users/redinside/.openclaw/openclaw.json → agents.list[] → find agent by id → update model.primary and model.fallbacks",
       "2. Run: openclaw doctor  (validates the config)",
-      "3. Restart gateway: launchctl unload ~/Library/LaunchAgents/ai.openclaw.gateway.plist && sleep 1 && launchctl load ~/Library/LaunchAgents/ai.openclaw.gateway.plist",
-      "4. Update agentModelMap above to keep this registry in sync"
+      "3. Restart gateway: bash ~/.openclaw/scripts/redos-restart.sh",
+      "4. Update agentModelMap._updated above to keep this registry in sync"
     ],
-    "example": "To switch ENG from gpt-oss:20b to llama3.1:8b: set primary to 'ollama/llama3.1:8b' in openclaw.json"
+    "routingDesign": "9Router is the central proxy. To add a new provider (e.g. a new Claude account): add it in 9Router UI at http://localhost:20128 → Providers. It immediately becomes available via combo routes (always-on-premium, coding-factory, etc.) — no code change needed.",
+    "example": "To give ENG access to a new Kiro account: add it in 9Router UI. The coding-factory route automatically picks it up."
   },
 
   "providerConfig": {
-    "_instructions": "Add your API keys here. Subscription providers don't need keys (handled by CLI tools).",
+    "_instructions": "Add your API keys here. Subscription providers don't need keys (handled by 9Router).",
     "anthropic": {
-      "method": "cli",
-      "command": "claude",
-      "note": "Uses Claude Code CLI. Must be installed and authenticated."
+      "method": "9router-cc-prefix",
+      "command": "9router cc/ routes (cc/claude-opus-4-6, cc/claude-sonnet-4-6)",
+      "note": "Claude Code account registered in 9Router. Routes via cc/ prefix. Re-auth at http://localhost:20128 → Providers if token expires."
     },
     "openai-codex": {
       "method": "openclaw-native",
@@ -362,24 +508,27 @@
     "zai": {
       "apiKey": "YOUR_ZAI_API_KEY_HERE",
       "baseUrl": "https://api.z.ai/api/paas/v4",
-      "note": "Pay-as-you-go via z.ai (international endpoint). Models: glm-4.7 (standard), glm-4.7-flash (free)."
+      "note": "Pay-as-you-go via z.ai (international endpoint). Models: glm-4.7 (standard). WARNING: glm-4.7-flashx does NOT exist — causes hard failures."
     },
     "ollama": {
       "baseUrl": "http://127.0.0.1:11434",
-      "note": "Local. Free. Must have Ollama running with models pulled."
+      "note": "Local. Free. Must have Ollama running with models pulled. Currently: llama3.1:8b (OPS), qwen2.5-coder:7b (HATAKE)."
     },
     "9router": {
       "baseUrl": "http://localhost:20128/v1",
       "quotaEndpoint": "http://localhost:20128/api/quota",
       "healthEndpoint": "http://localhost:20128/health",
+      "managementUI": "http://localhost:20128",
       "authTokenEnv": "NINER_ROUTER_KEY",
-      "note": "9Router local proxy. Routes to Gemini (OAuth), Codex (ChatGPT Plus sub), iFlow, Qwen. All $0. Must be running on port 20128.",
-      "providers": ["gemini", "codex", "iflow", "qwen"]
-    },
-    "cursor": {
-      "method": "ccs",
-      "command": "ccs cursor",
-      "note": "Cursor Pro subscription accessed via CCS CLIProxy. Gives access to Claude Sonnet/Opus, GPT-4o. Must have CCS installed and Cursor Pro authenticated."
+      "note": "9Router local proxy — central routing hub. Add subscriptions via UI, they become available to ALL agents via combo routes.",
+      "comboRoutes": {
+        "always-on-premium": "Best available subscription (Codex, Kiro, Claude Code, iFlow)",
+        "coding-factory": "Best available coding subscription (Cursor, Kiro, Claude Code)",
+        "subagent-reliable": "Reliable mid-tier (iFlow, Kiro, Codex)",
+        "heartbeat-cheap": "Cheapest available (Kiro, iFlow, Gemini-Flash)",
+        "free-unlimited": "Free OAuth providers (Gemini, Kiro, iFlow)"
+      },
+      "ccPrefix": "cc/ routes to Claude Code account (e.g. cc/claude-opus-4-6)"
     }
   }
 }

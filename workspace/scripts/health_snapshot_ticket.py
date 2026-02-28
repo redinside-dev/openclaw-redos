@@ -204,8 +204,22 @@ def main() -> int:
         return 0
 
     counts = Counter(sigs)
-    # Candidates: recurring and not already tracked
-    candidates: List[Tuple[str, int]] = [(sig, n) for sig, n in counts.items() if n >= args.threshold]
+    # Reject payloadless / unknown / too-short signatures to avoid ticket storms
+    MIN_SIG_LEN = 20
+    BAD_PATTERNS = ("unknown", "no summary", "no summary)", "announce:v1", "iserror=t")
+    def is_valid_sig(s: str) -> bool:
+        if len(s.strip()) < MIN_SIG_LEN:
+            return False
+        lower = s.strip().lower()
+        if any(bad in lower for bad in BAD_PATTERNS):
+            return False
+        return True
+
+    # Candidates: recurring, valid summary, not already tracked
+    candidates: List[Tuple[str, int]] = [
+        (sig, n) for sig, n in counts.items()
+        if n >= args.threshold and is_valid_sig(sig)
+    ]
     candidates.sort(key=lambda x: (-x[1], x[0]))
 
     opened: List[str] = []
