@@ -3407,7 +3407,9 @@
         "bestEffort": true,
         "target": "channel:C0AF4KB4TUK"
       },
-      "state": {}
+      "state": {
+        "nextRunAtMs": 1772320211690
+      }
     }
   ]
 }
