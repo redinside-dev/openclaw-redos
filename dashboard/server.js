@@ -1252,6 +1252,39 @@ const server = http.createServer((req, res) => {
   }
 });
 
+// ── /api/search — semantic memory search ────────────────────────────────────
+if (url.pathname === '/api/search' && req.method === 'GET') {
+  const q = url.searchParams.get('q') || '';
+  const top = parseInt(url.searchParams.get('top') || '5', 10);
+  if (!q) {
+    res.writeHead(400, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ error: 'q param required' }));
+    return;
+  }
+  const { execFile } = await import('node:child_process');
+  execFile(
+    'python3',
+    [path.join(OPENCLAW_DIR, 'workspace', 'scripts', 'memsearch.py'), q, '--top', String(top), '--json'],
+    { timeout: 30000 },
+    (err, stdout, stderr) => {
+      if (err) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: err.message, stderr }));
+        return;
+      }
+      try {
+        const results = JSON.parse(stdout);
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ query: q, results }));
+      } catch {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'parse error', raw: stdout.slice(0, 500) }));
+      }
+    }
+  );
+  return;
+}
+
 server.listen(PORT, '127.0.0.1', () => {
   console.log(`\n  🦞 Mission Control Dashboard`);
   console.log(`  ➜ http://localhost:${PORT}\n`);
