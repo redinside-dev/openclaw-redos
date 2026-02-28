@@ -25,9 +25,29 @@ Before calling `message(action="send", ...)`:
 - `path` MUST be relative to agent workspace root (no `../../` traversal outside workspace)
 - If `content` is empty → **hard-fail**: log error, do NOT write
 
-### Rule 3: `exec` tool
-- Command MUST NOT contain destructive ops (`rm -rf`, `DROP TABLE`, `format`, `mkfs`) without prior approval gate
-- If destructive op detected → **hard-fail**: open approval request, do NOT execute
+### Rule 3: `exec` tool — NATIVE TIER CLASSIFICATION (OpenClaw-native enforcement)
+
+**Enforcement is via OpenClaw sandbox and tools.deny — not custom scripts.**
+
+The gateway enforces hard limits via `openclaw.json`:
+- `infosec` agent: exec is in `tools.deny` — gateway blocks it unconditionally
+- `ops`, `eng`: run in `sandbox.mode: "all"` (Docker) — blast radius is container-limited
+- `main`, `allrounder`: no sandbox but exec is intentional (orchestrators need it)
+
+**Before every exec, classify behaviorally using command-catalog:**
+1. Look up your agent's YAML in `workspace/skills/command-catalog/commands-<agentId>.yaml`
+2. If command matches `deny_patterns`: **STOP** — do not execute, log to audit.jsonl, notify RED
+3. Determine tier from `tier_overrides`:
+   - **L0–L2** (read-only, sandbox exec, health checks): execute immediately
+   - **L3** (infra-limited exec, npm install, crontab): `sessions_send` to INFOSEC (120s timeout → auto-deny)
+   - **L4** (git push, external deploy): write to `workspace/approvals/pending/`, send Telegram to 1012034994, wait
+   - **L5** (sudo, rm -rf, prod DB): same as L4 + 2-minute grace period after approval
+4. After exec: on non-zero exit, trigger rollback per `commands-<agentId>.yaml` rollback field
+
+Log every exec decision to `workspace/logs/audit.jsonl`:
+```json
+{"ts":"<ISO>","agent":"<id>","tool":"exec","command":"<cmd>","tier":"L<n>","decision":"ALLOW|DENY|PENDING"}
+```
 
 ### Rule 4: `sessions_send` / `sessions_spawn`
 - `sessionKey` or `agentId` MUST be a known agent: `main`, `allrounder`, `eng`, `ops`, `research`, `infosec`, `finance`, `hatake`

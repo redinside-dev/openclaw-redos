@@ -1,6 +1,10 @@
 /**
  * Tool Call Interceptor — wraps message/write tool calls with validation + normalization
- * 
+ *
+ * OpenClaw-native only. Schema validation for message and write tools.
+ * Exec enforcement is handled by OpenClaw sandbox (sandbox.mode) and
+ * tools.deny in openclaw.json — not by custom middleware.
+ *
  * Usage in agent prompts/cron jobs:
  *   const toolInterceptor = require('./tool-call-interceptor.cjs');
  *   const safeArgs = toolInterceptor.interceptMessage({ action: 'sendMessage', to: 'telegram:123', message: 'hi' });
@@ -21,11 +25,11 @@ const {
 function interceptMessage(args) {
   const normalized = normalizeMessageArgs(args);
   const error = validateMessageArgs(normalized);
-  
+
   if (error) {
     throw new Error(`[Tool Validation] message: ${error}`);
   }
-  
+
   console.log(`[Tool Interceptor] message validated: action=${normalized.action}, channel=${normalized.channel}, target=${normalized.target}`);
   return normalized;
 }
@@ -37,26 +41,28 @@ function interceptMessage(args) {
 function interceptWrite(args) {
   const normalized = normalizeWriteArgs(args);
   const error = validateWriteArgs(normalized);
-  
+
   if (error) {
     throw new Error(`[Tool Validation] write: ${error}`);
   }
-  
+
   console.log(`[Tool Interceptor] write validated: path=${normalized.path}, content_length=${normalized.content.length}`);
   return normalized;
 }
 
 /**
  * Batch intercept multiple tool calls (for agent responses with multiple tools)
+ * Note: exec calls pass through — enforcement is via OpenClaw sandbox and tools.deny.
  */
-function interceptToolCalls(toolCalls = []) {
+function interceptToolCalls(toolCalls = [], agentId = 'unknown') {
   return toolCalls.map(call => {
     if (call.tool === 'message') {
       return { ...call, args: interceptMessage(call.args) };
     } else if (call.tool === 'write') {
       return { ...call, args: interceptWrite(call.args) };
     }
-    return call; // pass through other tools
+    // exec and other tools: pass through — OpenClaw gateway enforces sandbox/deny natively
+    return call;
   });
 }
 
