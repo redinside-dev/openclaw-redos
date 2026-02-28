@@ -255,6 +255,7 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   <button class="tab" data-p="errors">Errors &amp; Logs</button>
   <button class="tab" data-p="openclaw">OpenClaw</button>
   <button class="tab" data-p="ceo">CEO Controls</button>
+  <button class="tab" data-p="search">Search</button>
 </div>
 
 <div class="main">
@@ -515,6 +516,30 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   </div>
 </div>
 
+<div class="pg" id="pg-search">
+  <div class="sec-t" style="margin-bottom:12px">Workspace Semantic Search</div>
+  <div class="c" style="padding:16px">
+    <div style="display:flex;gap:8px;margin-bottom:16px">
+      <input id="srch-q" type="text" placeholder="Search workspace knowledge…"
+        style="flex:1;padding:8px 12px;background:var(--bg3);border:1px solid var(--border);
+               border-radius:6px;color:var(--text1);font-size:13px;outline:none"
+        onkeydown="if(event.key==='Enter')doSearch()">
+      <select id="srch-top"
+        style="padding:8px;background:var(--bg3);border:1px solid var(--border);
+               border-radius:6px;color:var(--text2);font-size:12px">
+        <option value="5">Top 5</option>
+        <option value="10">Top 10</option>
+        <option value="3">Top 3</option>
+      </select>
+      <button onclick="doSearch()"
+        style="padding:8px 18px;background:var(--blue);color:#fff;border:none;
+               border-radius:6px;font-size:12px;font-weight:600;cursor:pointer">Search</button>
+    </div>
+    <div id="srch-status" style="font-size:11px;color:var(--text3);margin-bottom:12px"></div>
+    <div id="srch-results"></div>
+  </div>
+</div>
+
 </div><!-- /main -->
 
 <!-- Model Override Modal -->
@@ -570,6 +595,35 @@ document.querySelectorAll('.tab').forEach(t=>{
   };
 });
 setInterval(()=>{document.getElementById('clk').textContent=new Date().toLocaleTimeString()},1000);
+
+// ---- Semantic Search ----
+async function doSearch(){
+  const q=(document.getElementById('srch-q').value||'').trim();
+  const top=document.getElementById('srch-top').value;
+  const status=document.getElementById('srch-status');
+  const out=document.getElementById('srch-results');
+  if(!q){status.textContent='Enter a query.';return;}
+  status.textContent='Searching…';
+  out.innerHTML='';
+  try{
+    const r=await fetch('/api/search?q='+encodeURIComponent(q)+'&top='+top);
+    const d=await r.json();
+    if(d.error){status.textContent='Error: '+d.error;return;}
+    const hits=d.results||[];
+    status.textContent=hits.length+' result'+(hits.length!==1?'s':'')+'  •  query: "'+d.query+'"';
+    out.innerHTML=hits.map((h,i)=>`
+      <div style="margin-bottom:14px;border:1px solid var(--border);border-radius:6px;overflow:hidden">
+        <div style="display:flex;justify-content:space-between;align-items:center;
+                    padding:6px 12px;background:var(--bg3);border-bottom:1px solid var(--border)">
+          <span style="font-size:11px;font-weight:600;color:var(--blue)">${h.source}</span>
+          <span style="font-size:10px;color:var(--text3)">rank ${h.rank} &nbsp;·&nbsp; score ${h.score}</span>
+        </div>
+        <pre style="margin:0;padding:10px 12px;font-size:11px;color:var(--text2);
+                    white-space:pre-wrap;word-break:break-word;background:var(--bg2)">${escHtml(h.text)}</pre>
+      </div>`).join('');
+  }catch(e){status.textContent='Request failed: '+e.message;}
+}
+function escHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
 // ---- Helpers ----
 function h(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML}
