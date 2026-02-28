@@ -1,0 +1,131 @@
+name: promotion-gates
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - feature/**
+  workflow_dispatch:
+
+jobs:
+  gate-enforcement:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Unit tests (gate semantics)
+        run: |
+          PYTHONPATH=. python -m unittest workspace/ops/tests/test_promotion_gates.py -v
+
+      - name: Build fail/pass fixtures and run gates
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          Path('workspace/tmp').mkdir(parents=True, exist_ok=True)
+
+          fail_payload = {
+            "baseline": {
+              "id": "baseline-fail",
+              "harness": {"integrity_ok": True},
+              "results": [
+                {"task_id": "crit-1", "pass": True, "critical": True, "runtime_ms": 1000},
+                {"task_id": "n1", "pass": True, "critical": False, "runtime_ms": 1000},
+                {"task_id": "n2", "pass": False, "critical": False, "runtime_ms": 1000}
+              ]
+            },
+            "candidates": [
+              {
+                "id": "candidate-fail-critical",
+                "harness": {"integrity_ok": True, "held_out_isolation_ok": True, "contamination_ok": True},
+                "results": [
+                  {"task_id": "crit-1", "pass": False, "critical": True, "runtime_ms": 1000},
+                  {"task_id": "n1", "pass": True, "critical": False, "runtime_ms": 1000},
+                  {"task_id": "n2", "pass": True, "critical": False, "runtime_ms": 1000}
+                ]
+              }
+            ],
+            "gates": {"bootstrap_samples": 1000, "seed": 7}
+          }
+
+          b = []
+          c = []
+          for i in range(1, 301):
+            tid = f"t{i}"
+            bpass = i % 5 != 0
+            cpass = True if (i % 11 != 0) else bpass
+            b.append({"task_id": tid, "pass": bpass, "critical": False, "runtime_ms": 1000})
+            c.append({"task_id": tid, "pass": cpass, "critical": False, "runtime_ms": 1000})
+          b.append({"task_id": "crit-1", "pass": True, "critical": True, "runtime_ms": 1000})
+          c.append({"task_id": "crit-1", "pass": True, "critical": True, "runtime_ms": 1000})
+
+          pass_payload = {
+            "baseline": {"id": "baseline-pass", "harness": {"integrity_ok": True}, "results": b},
+            "candidates": [
+              {
+                "id": "candidate-pass",
+                "harness": {"integrity_ok": True, "held_out_isolation_ok": True, "contamination_ok": True},
+                "results": c
+              }
+            ],
+            "gates": {"bootstrap_samples": 2000, "seed": 42}
+          }
+
+          Path('workspace/tmp/gates-fail-input.json').write_text(json.dumps(fail_payload), encoding='utf-8')
+          Path('workspace/tmp/gates-pass-input.json').write_text(json.dumps(pass_payload), encoding='utf-8')
+          PY
+
+          set +e
+          python workspace/ops/skill_optimizer/evaluate.py --input workspace/tmp/gates-fail-input.json --output workspace/tmp/gates-fail-report.json --strict
+          FAIL_RC=$?
+          set -e
+          test "$FAIL_RC" -ne 0
+
+          python workspace/ops/skill_optimizer/evaluate.py --input workspace/tmp/gates-pass-input.json --output workspace/tmp/gates-pass-report.json --strict
+          python workspace/ops/skill_optimizer/promote.py --gate-report workspace/tmp/gates-pass-report.json --output workspace/tmp/gates-pass-decision.json
+          python workspace/ops/skill_optimizer/canary.py --decision workspace/tmp/gates-pass-decision.json
+
+      - name: Verify required policy thresholds in CI output
+        run: |
+          python - <<'PY'
+          import json
+          fail = json.load(open('workspace/tmp/gates-fail-report.json'))
+          ps = json.load(open('workspace/tmp/gates-pass-report.json'))
+
+          fc = fail['candidate_reports'][0]
+          pc = ps['candidate_reports'][0]
+
+          # Required policy checks: delta >= +2.0pp, CI lower > 0, zero critical regressions
+          dpp = pc['metrics']['delta_pp']
+          ci_low = pc['metrics']['delta_pp_ci95'][0]
+          crit_gate = next(g for g in pc['gates'] if g['name'] == 'critical_subset_zero_regression')
+
+          assert dpp >= 2.0, f"delta_pp below threshold: {dpp}"
+          assert ci_low > 0.0, f"ci lower bound not > 0: {ci_low}"
+          assert crit_gate['pass'] is True, f"critical gate failed: {crit_gate}"
+
+          fail_crit_gate = next(g for g in fc['gates'] if g['name'] == 'critical_subset_zero_regression')
+          assert fail_crit_gate['pass'] is False, "expected fail fixture critical gate to fail"
+
+          print('PASS_FIXTURE delta_pp=', dpp)
+          print('PASS_FIXTURE ci95_lower=', ci_low)
+          print('PASS_FIXTURE critical_subset_zero_regression=', crit_gate['pass'])
+          print('FAIL_FIXTURE critical_subset_zero_regression=', fail_crit_gate['pass'])
+          PY
+
+      - name: Upload gate evidence artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: promotion-gates-evidence
+          path: |
+            workspace/tmp/gates-fail-report.json
+            workspace/tmp/gates-pass-report.json
+            workspace/tmp/gates-pass-decision.json
