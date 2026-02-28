@@ -25,20 +25,29 @@ Before calling `message(action="send", ...)`:
 - `path` MUST be relative to agent workspace root (no `../../` traversal outside workspace)
 - If `content` is empty → **hard-fail**: log error, do NOT write
 
-### Rule 3: `exec` tool — MANDATORY POLICY GATE
-Before every exec/bash/shell call, run the policy gate CLI:
-```
-exec: node ~/.openclaw/workspace/skills/policy-gate/check-command.cjs --agent <your-agentId> --command "<exact command>"
-```
-Interpret the exit code:
-- **exit 0** (`ALLOW`) → execute the command immediately
-- **exit 2** (`INFOSEC_REVIEW`) → send L3 review to INFOSEC via sessions_send, wait up to 120s, then execute only if approved
-- **exit 3** (`TELEGRAM_APPROVAL`) → send L4/L5 Telegram approval request to 1012034994, wait for approval file in workspace/approvals/approved/, then execute
-- **exit 1** (`HARD_DENY`) → STOP. Do not execute under any circumstances. Log to audit.jsonl, open ticket, notify RED.
+### Rule 3: `exec` tool — NATIVE TIER CLASSIFICATION (OpenClaw-native enforcement)
 
-The gate also writes to `workspace/logs/audit.jsonl` automatically — no separate logging needed.
+**Enforcement is via OpenClaw sandbox and tools.deny — not custom scripts.**
 
-If the gate script itself fails (node not found, file missing): treat as HARD_DENY and alert RED.
+The gateway enforces hard limits via `openclaw.json`:
+- `infosec` agent: exec is in `tools.deny` — gateway blocks it unconditionally
+- `ops`, `eng`: run in `sandbox.mode: "all"` (Docker) — blast radius is container-limited
+- `main`, `allrounder`: no sandbox but exec is intentional (orchestrators need it)
+
+**Before every exec, classify behaviorally using command-catalog:**
+1. Look up your agent's YAML in `workspace/skills/command-catalog/commands-<agentId>.yaml`
+2. If command matches `deny_patterns`: **STOP** — do not execute, log to audit.jsonl, notify RED
+3. Determine tier from `tier_overrides`:
+   - **L0–L2** (read-only, sandbox exec, health checks): execute immediately
+   - **L3** (infra-limited exec, npm install, crontab): `sessions_send` to INFOSEC (120s timeout → auto-deny)
+   - **L4** (git push, external deploy): write to `workspace/approvals/pending/`, send Telegram to 1012034994, wait
+   - **L5** (sudo, rm -rf, prod DB): same as L4 + 2-minute grace period after approval
+4. After exec: on non-zero exit, trigger rollback per `commands-<agentId>.yaml` rollback field
+
+Log every exec decision to `workspace/logs/audit.jsonl`:
+```json
+{"ts":"<ISO>","agent":"<id>","tool":"exec","command":"<cmd>","tier":"L<n>","decision":"ALLOW|DENY|PENDING"}
+```
 
 ### Rule 4: `sessions_send` / `sessions_spawn`
 - `sessionKey` or `agentId` MUST be a known agent: `main`, `allrounder`, `eng`, `ops`, `research`, `infosec`, `finance`, `hatake`
