@@ -1300,10 +1300,10 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
   - <ts>-05:00 subagent completion direct announce failed for run <uuid>: error: channel is required when multiple channels are configured: telegram, slack
   - <ts>-05:00 subagent completion direct announce failed for run <uuid>: error: channel is required when multiple channels are configured: telegram, slack
   - <ts>-05:00 subagent completion direct announce failed for run <uuid>: error: channel is required when multiple channels are configured: telegram, slack
-- **Root Cause:** 
-- **Resolution:** 
-- **Learnings:** 
-- **Resolved At:** 
+- **Root Cause:** Inner-loop cron prompts used workspace/logs/... relative paths; with agent CWD=workspace-ops/, this resolved to workspace-ops/workspace/logs/ (double-workspace) instead of shared workspace/logs/.
+- **Resolution:** Fixed all 8 inner-loop cron prompts — shared workspace paths now use ../workspace/X, personal files use X without prefix. (RED/claude-code 2026-02-28)
+- **Learnings:** SOUL.md correctly uses ../workspace/ but cron prompts did not follow the same convention. Always match SOUL.md path style in cron prompts.
+- **Resolved At:** 2026-02-28T21:15:00Z
 
  RESOLVED
 - **Priority:** P2
@@ -4187,6 +4187,23 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Summary:** Health-snapshot ticket storm containment — implement parent-incident pattern
 - **Details:** Escalated from TICKET-20260225-022. When health-snapshot detects N identical error patterns, it should open 1 parent P2 ticket instead of N parallel tickets. Implement dedup check: before opening ticket, grep TICKET-TRACKER.md for similar Summary; if found and OPEN/IN_PROGRESS, skip.
 - **Root Cause:** health-snapshot-ticket-0001 cron has no dedup logic.
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260228-017
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-28T20:42:01+00:00
+- **SLA Deadline:** 2026-03-01T04:42:01+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (3x): <ts>-05:00 [tools] read failed: enoent: no such file or directory, access '/users/redinside/.openclaw/workspace-ops/workspace/logs/episodes.jsonl'
+- **Details:** Detected 3 occurrences in the last window. Examples:
+  - <ts>-05:00 [tools] read failed: enoent: no such file or directory, access '/users/redinside/.openclaw/workspace-ops/workspace/logs/episodes.jsonl'
+  - <ts>-05:00 [tools] read failed: enoent: no such file or directory, access '/users/redinside/.openclaw/workspace-ops/workspace/logs/episodes.jsonl'
+  - <ts>-05:00 [tools] read failed: enoent: no such file or directory, access '/users/redinside/.openclaw/workspace-ops/workspace/logs/episodes.jsonl'
+- **Root Cause:** 
 - **Resolution:** 
 - **Learnings:** 
 - **Resolved At:** 
