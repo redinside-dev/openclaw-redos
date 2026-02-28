@@ -13,7 +13,9 @@
 #   - OpenClaw node   (launchd: ai.openclaw.node)
 #   - OpenClaw gateway (launchd: ai.openclaw.gateway)
 #   - Dashboard       (launchd: ai.openclaw.dashboard)
-#   - 9Router         (launchd: ai.openclaw.9router, if installed)
+#   - n8n             (launchd: ai.openclaw.n8n)
+#   - 9Router         (launchd: com.9router.autostart)
+#   - Cloudflared     (launchd: com.cloudflare.tunnel.dashboard)
 
 set -euo pipefail
 
@@ -40,7 +42,7 @@ check_status() {
     fail "Ollama         → not responding"
   fi
 
-  # OpenClaw gateway
+  # OpenClaw
   if curl -sf http://127.0.0.1:18789/health > /dev/null 2>&1 || \
      launchctl list ai.openclaw.node > /dev/null 2>&1; then
     ok "OpenClaw node  → http://127.0.0.1:18789 (running)"
@@ -55,15 +57,31 @@ check_status() {
     warn "Dashboard      → http://127.0.0.1:19000 (not responding — may still be starting)"
   fi
 
-  # 9Router — uses /v1/models (Next.js app: /health returns 404)
+  # n8n
+  if curl -sf http://127.0.0.1:5678 > /dev/null 2>&1; then
+    ok "n8n            → http://127.0.0.1:5678 (running)"
+  elif launchctl list ai.openclaw.n8n > /dev/null 2>&1; then
+    warn "n8n            → launchd registered but port 5678 not responding"
+  else
+    warn "n8n            → not running"
+  fi
+
+  # 9Router
   if curl -sf http://127.0.0.1:20128/v1/models > /dev/null 2>&1; then
     ok "9Router        → http://127.0.0.1:20128 (running)"
   elif launchctl list com.9router.autostart > /dev/null 2>&1; then
     warn "9Router        → launchd registered but API not responding on port 20128"
   elif [[ -f "$HOME/Library/LaunchAgents/com.9router.autostart.plist" ]]; then
-    warn "9Router        → plist exists but not loaded (run: launchctl load ~/Library/LaunchAgents/com.9router.autostart.plist)"
+    warn "9Router        → plist exists but not loaded"
   else
-    warn "9Router        → not installed (run setup-eng-tools.sh to add)"
+    warn "9Router        → not installed"
+  fi
+
+  # Cloudflared
+  if launchctl list com.cloudflare.tunnel.dashboard > /dev/null 2>&1; then
+    ok "Cloudflared    → tunnel active (check logs/cloudflared-tunnel.log for URL)"
+  else
+    warn "Cloudflared    → not running"
   fi
 
   echo ""
@@ -99,7 +117,7 @@ launchctl load "$HOME/Library/LaunchAgents/ai.openclaw.node.plist"
 sleep 2
 ok "OpenClaw node restarted"
 
-# 3. OpenClaw gateway (only if plist exists — e.g. after "openclaw doctor --fix" cleanup)
+# 3. OpenClaw gateway
 GATEWAY_PLIST="$HOME/Library/LaunchAgents/ai.openclaw.gateway.plist"
 info "Restarting OpenClaw gateway..."
 if [[ -f "$GATEWAY_PLIST" ]]; then
@@ -112,7 +130,6 @@ if [[ -f "$GATEWAY_PLIST" ]]; then
   ok "OpenClaw gateway restarted"
 else
   warn "Gateway plist not found ($GATEWAY_PLIST). Run: openclaw gateway install"
-  warn "If you start the gateway another way, ensure it is running on port 18789."
 fi
 
 # 4. Dashboard
@@ -124,22 +141,51 @@ fi
 launchctl load "$HOME/Library/LaunchAgents/ai.openclaw.dashboard.plist"
 ok "Dashboard restarted"
 
-# 5. 9Router (if plist exists)
-NINE_ROUTER_PLIST="$HOME/Library/LaunchAgents/ai.openclaw.9router.plist"
+# 5. n8n
+N8N_PLIST="$HOME/Library/LaunchAgents/ai.openclaw.n8n.plist"
+if [[ -f "$N8N_PLIST" ]]; then
+  info "Restarting n8n..."
+  if launchctl list ai.openclaw.n8n > /dev/null 2>&1; then
+    launchctl unload "$N8N_PLIST" 2>/dev/null || true
+    sleep 1
+  fi
+  launchctl load "$N8N_PLIST"
+  ok "n8n restarted"
+else
+  warn "n8n plist not found — skipping"
+fi
+
+# 6. 9Router
+NINE_ROUTER_PLIST="$HOME/Library/LaunchAgents/com.9router.autostart.plist"
 if [[ -f "$NINE_ROUTER_PLIST" ]]; then
   info "Restarting 9Router..."
-  launchctl unload "$NINE_ROUTER_PLIST" 2>/dev/null || true
-  sleep 1
+  if launchctl list com.9router.autostart > /dev/null 2>&1; then
+    launchctl unload "$NINE_ROUTER_PLIST" 2>/dev/null || true
+    sleep 1
+  fi
   launchctl load "$NINE_ROUTER_PLIST"
   ok "9Router restarted"
 else
-  warn "9Router plist not found — skipping (run setup-eng-tools.sh to install)"
+  warn "9Router plist not found — skipping"
 fi
 
-# 6. 9Router post-start: refresh auto-managed tokens FIRST, then watchdog
+# 7. Cloudflared tunnel
+CLOUDFLARED_PLIST="$HOME/Library/LaunchAgents/com.cloudflare.tunnel.dashboard.plist"
+if [[ -f "$CLOUDFLARED_PLIST" ]]; then
+  info "Restarting Cloudflared tunnel..."
+  if launchctl list com.cloudflare.tunnel.dashboard > /dev/null 2>&1; then
+    launchctl unload "$CLOUDFLARED_PLIST" 2>/dev/null || true
+    sleep 1
+  fi
+  launchctl load "$CLOUDFLARED_PLIST"
+  ok "Cloudflared restarted"
+else
+  warn "Cloudflared plist not found — skipping"
+fi
+
+# 8. 9Router post-start: refresh tokens then watchdog
 sleep 3
 if [[ -f "$HOME/.9router/db.json" ]]; then
-  # Refresh Kiro tokens before the watchdog runs so they aren't falsely disabled
   if [[ -f "$HOME/.openclaw/scripts/9router-token-refresh.js" ]]; then
     info "Refreshing 9Router OAuth tokens (Kiro + Cursor)..."
     node "$HOME/.openclaw/scripts/9router-token-refresh.js" --all > /dev/null 2>&1 || true
@@ -154,9 +200,9 @@ if [[ -f "$HOME/.9router/db.json" ]]; then
   fi
 fi
 
-# 7. Final status
+# 9. Final status
 check_status
 
 echo "Done. If any service shows ✗ above, check logs:"
 echo "  tail -f ~/.openclaw/logs/gateway.err.log"
-echo "  tail -f ~/.openclaw/logs/9router.err.log"
+echo "  tail -f ~/.openclaw/logs/boot-sequence.log"
