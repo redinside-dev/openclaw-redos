@@ -653,6 +653,16 @@ repeating mistakes and to build institutional knowledge.
 - **Applied To:** LEARNINGS.md (this entry); referenced in directives
 
 
+### LEARNING-20260228-005
+- **Date:** 2026-02-28T06:25:00Z
+- **Source Ticket:** TICKET-20260226-003, TICKET-20260227-001, TICKET-20260227-002, TICKET-20260227-003, TICKET-20260227-007, TICKET-20260227-009, TICKET-20260227-011, TICKET-20260227-015, TICKET-20260227-017
+- **Agent:** ops (ticket-diagnose-fix)
+- **Category:** model | infra
+- **Summary:** Embedded agent HTTP 500 errors often indicate upstream model provider issues (9Router authentication/rate limits) not system failures
+- **Details:** Multiple tickets show "embedded agent failed before reply" with HTTP 500 errors. Gateway logs reveal these correlate with: (1) "Unknown model" errors (e.g., cc/claude-opus-4-6), (2) API rate limits, (3) upstream provider 500s. These are transient and self-resolve as routing falls back to available models. The pattern indicates model provider reliability issues rather than OpenClaw system failures.
+- **Prevention:** Treat embedded agent HTTP 500 errors as low-severity monitoring noise unless they persist >30 min with no successful fallbacks. Check gateway.err.log for "Unknown model" or rate limit messages to confirm provider-side cause. Routing profile "cost_saver" (allowPayg: false) already minimizes impact by blocking PAYG spend during provider issues.
+- **Applied To:** LEARNINGS.md; ticket resolution patterns updated to deprioritize transient HTTP 500 errors
+
 ### LEARNING-20260227-001
 - **Date:** 2026-02-27T22:21:00Z
 - **Source Ticket:** observation (RED self-improvement cycle)
@@ -672,3 +682,26 @@ repeating mistakes and to build institutional knowledge.
 - **Details:** Repeated errors show `zsh:1: command not found: rg` in operational lanes. Tasks that assume ripgrep can fail before doing any useful work, which compounds monitoring noise.
 - **Prevention:** Add a shared command pattern: `if command -v rg >/dev/null; then rg ...; else grep/find ...; fi` for cron and runbook snippets; include this in prompt templates used by OPS/ENG monitors.
 - **Applied To:** LEARNINGS.md; team directive to ENG/OPS
+
+### LEARNING-20260228-006
+- **Date:** 2026-02-28T05:37:00-05:00
+- **Source Ticket:** TICKET-20260228-010
+- **Agent:** main (RED self-improvement)
+- **Category:** workflow | observability
+- **Summary:** Reflection/monitor jobs are brittle when prompts reference `workspace/...` paths but runtime roots are already at workspace
+- **Details:** This cycle showed repeated ENOENT for `workspace/ops/...` and `workspace/logs/...` while valid files existed at `ops/...` and `logs/...`. In parallel, `logs/errors.jsonl` had only one initialization line and `logs/routing-decisions.jsonl` was stale (last entries around 2026-02-22), reducing signal quality for pattern detection.
+- **Prevention:**
+  1) Standardize cron prompts to use canonical relative paths (`ops/...`, `logs/...`) and never prefix with `workspace/` unless the lane root is verified.
+  2) Add a lightweight preflight in monitor prompts: attempt canonical path, then fallback path, then emit a single ticketed warning if both fail.
+  3) Add a daily freshness check: fail-open alert if `errors.jsonl` or `routing-decisions.jsonl` has no new entries in >12h.
+- **Applied To:** LEARNINGS.md; TICKET-20260228-010 opened
+
+### LEARNING-20260228-007
+- **Date:** 2026-02-28T16:37:00Z
+- **Source Ticket:** observation
+- **Agent:** main (RED)
+- **Category:** workflow | observability
+- **Summary:** Canonical error digest has not been refreshed since 2026-02-25, leaving reflection inputs stale
+- **Details:** The daily reflection looked at `logs/error-digest.md` expecting it to be the single-source-of-truth for recent errors, but the file’s most recent entry is dated 2026-02-25T05:04:56Z. Meanwhile `logs/errors.jsonl` still only contains the init line and gateway logs show continuous handoffs (rate limits, provider credentials, Tailscale, Slack) that never make it into the digest. Without a fresh digest, cron/self-improvement prompts cannot detect current patterns or escalate new issues. The aggregator/health-lane job either stopped running or failed silently, so the summary is stale for multiple days.
+- **Prevention:** Restore and monitor the digest writer: ensure the error aggregator cron runs every 2–4 hours, add a freshness guard (ticket/alert if `error-digest.md` isn’t updated in >12h), and fall back to a lightweight summary placeholder when writes fail so reflections still get a timestamped failure notification instead of old data.
+- **Applied To:** TICKET-20260228-014
