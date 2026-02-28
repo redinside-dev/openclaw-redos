@@ -7,7 +7,7 @@
       "name": "Telegram Approval Monitor (RED checks for approve/deny replies)",
       "enabled": true,
       "createdAtMs": 1772080522100,
-      "updatedAtMs": 1772265616739,
+      "updatedAtMs": 1772265752898,
       "schedule": {
         "kind": "cron",
         "expr": "*/2 * * * *",
@@ -26,15 +26,14 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1772265720000,
-        "lastRunAtMs": 1772265600066,
+        "nextRunAtMs": 1772265840000,
+        "lastRunAtMs": 1772265737023,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 16673,
+        "lastDurationMs": 15875,
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
-        "lastDelivered": false,
-        "runningAtMs": 1772265736973
+        "lastDelivered": false
       }
     },
     {
@@ -55,22 +54,16 @@
         "kind": "agentTurn",
         "model": "ollama/llama3.1:8b",
         "thinking": "off",
-        "timeoutSeconds": 60,
-        "message": "SYSTEM PULSE — run these checks now, in order:\n\n1. curl -s http://127.0.0.1:18789/health | head -c 200\n2. curl -s http://127.0.0.1:11434/api/tags | head -c 100\n3. curl -s http://127.0.0.1:20128/ | head -c 100\n\nIf gateway (18789) is DOWN: immediately run `bash /Users/redinside/.openclaw/scripts/redos-restart.sh` then send Telegram DM to user 1012034994: 'SYSTEM PULSE: Gateway was down - auto-restarted at <time>'\n\nIf Ollama (11434) is DOWN: run `launchctl start homebrew.mxcl.ollama` then send Telegram DM to user 1012034994: 'SYSTEM PULSE: Ollama was down - auto-restarted'\n\nIf Tailscale is DOWN: run `launchctl start com.tailscale.ipn.macos` then send Telegram DM to user 1012034994: 'SYSTEM PULSE: Tailscale was down - auto-restarted at <time>'\\n\\nIf everything is UP: write {\"ts\": \"<ISO now>\", \"status\": \"ok\", \"agent\": \"ops\", \"tailscale\": \"ok\"} to workspace/tmp/pulse-last.json ONLY. Do NOT send messages, do NOT reply. Return NO_REPLY."
+        "timeoutSeconds": 30,
+        "message": "Run pre-approved health check script (Tier L2 — no approval needed):\nexec: bash ~/.openclaw/workspace/scripts/system-pulse.sh\nReturn NO_REPLY."
       },
       "delivery": {
         "mode": "silent",
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1772267285849,
-        "lastRunAtMs": 1772263625775,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 60074,
-        "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 6,
-        "lastError": "cron: job execution timed out"
+        "consecutiveErrors": 0,
+        "lastDelivered": false
       }
     },
     {
@@ -1073,8 +1066,7 @@
         "consecutiveErrors": 2,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772265967723,
-        "lastError": "model not allowed: ollama/llama3.1:8b"
+        "nextRunAtMs": 1772265967723
       }
     },
     {
@@ -1333,7 +1325,7 @@
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
         "nextRunAtMs": 1772266319692,
-        "lastError": "cron: job execution timed out"
+        "runningAtMs": 1772267658839
       }
     },
     {
@@ -1370,8 +1362,7 @@
         "consecutiveErrors": 8,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772266932326,
-        "lastError": "model not allowed: cx/gpt-5.1-codex-mini"
+        "nextRunAtMs": 1772266932326
       }
     },
     {
@@ -1407,7 +1398,8 @@
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772267285849
+        "nextRunAtMs": 1772267285849,
+        "runningAtMs": 1772267658839
       }
     },
     {
@@ -1434,16 +1426,15 @@
         "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "lastRunAtMs": 1772262082183,
+        "lastRunAtMs": 1772265752898,
         "lastStatus": "ok",
-        "lastDurationMs": 194160,
+        "lastDurationMs": 142018,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772265682183,
-        "runningAtMs": 1772265736973
+        "nextRunAtMs": 1772269352898
       },
-      "updatedAtMs": 1772262276343
+      "updatedAtMs": 1772265894916
     },
     {
       "id": "hatake-daily-briefing-0001",
@@ -1514,7 +1505,7 @@
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
         "nextRunAtMs": 1772267649372,
-        "lastError": "cron: job execution timed out"
+        "runningAtMs": 1772267658839
       }
     },
     {
@@ -1700,8 +1691,7 @@
         "lastDurationMs": 300125,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 1,
-        "nextRunAtMs": 1772266388321,
-        "lastError": "Error: cron: job execution timed out"
+        "nextRunAtMs": 1772266388321
       }
     },
     {
@@ -1769,7 +1759,8 @@
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
         "nextRunAtMs": 1772267396983,
-        "lastDelivered": true
+        "lastDelivered": true,
+        "runningAtMs": 1772267658839
       }
     },
     {
@@ -1804,7 +1795,8 @@
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
         "nextRunAtMs": 1772267463484,
-        "lastDelivered": true
+        "lastDelivered": true,
+        "runningAtMs": 1772267658839
       }
     },
     {
@@ -1840,7 +1832,7 @@
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 4,
         "nextRunAtMs": 1772267603838,
-        "lastError": "model not allowed: ollama/llama3.1:8b"
+        "runningAtMs": 1772267658839
       }
     },
     {
@@ -1876,7 +1868,7 @@
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 4,
         "nextRunAtMs": 1772267603863,
-        "lastError": "model not allowed: ollama/llama3.1:8b"
+        "runningAtMs": 1772267658839
       }
     },
     {
@@ -1912,7 +1904,7 @@
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 4,
         "nextRunAtMs": 1772267603865,
-        "lastError": "model not allowed: ollama/llama3.1:8b"
+        "runningAtMs": 1772267658839
       }
     },
     {
@@ -1948,7 +1940,7 @@
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 2,
         "nextRunAtMs": 1772267603890,
-        "lastError": "cron: job execution timed out"
+        "runningAtMs": 1772267658839
       }
     },
     {
@@ -2054,7 +2046,7 @@
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 1,
         "nextRunAtMs": 1772267495140,
-        "lastError": "cron: job execution timed out"
+        "runningAtMs": 1772267658839
       }
     },
     {
@@ -2375,7 +2367,7 @@
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 3,
         "nextRunAtMs": 1772267400000,
-        "lastError": "model not allowed: ollama/llama3.1:8b"
+        "runningAtMs": 1772267658839
       }
     },
     {
@@ -2494,7 +2486,7 @@
       "name": "ZEN Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1772256215383,
+      "updatedAtMs": 1772266049291,
       "schedule": {
         "kind": "cron",
         "expr": "0 */3 * * *",
@@ -2516,14 +2508,13 @@
         "target": "channel:C0AEV3MDEDD"
       },
       "state": {
-        "lastRunAtMs": 1772255796403,
+        "lastRunAtMs": 1772265894916,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 418980,
+        "lastDurationMs": 154375,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1772265725759,
-        "runningAtMs": 1772265736973
+        "nextRunAtMs": 1772276525759
       }
     },
     {
@@ -2671,8 +2662,7 @@
         "nextRunAtMs": 1772265840000,
         "lastStatus": "error",
         "lastDurationMs": 120092,
-        "lastDeliveryStatus": "unknown",
-        "lastError": "cron: job execution timed out"
+        "lastDeliveryStatus": "unknown"
       }
     },
     {
@@ -2721,7 +2711,8 @@
       "schedule": {
         "kind": "cron",
         "expr": "0 * * * *",
-        "tz": "America/Toronto"
+        "tz": "America/Toronto",
+        "staggerMs": 300000
       },
       "sessionTarget": "isolated",
       "wakeMode": "now",
@@ -2738,7 +2729,8 @@
       },
       "state": {
         "consecutiveErrors": 0,
-        "lastDelivered": false
+        "lastDelivered": false,
+        "nextRunAtMs": 1772269456322
       }
     },
     {
@@ -2768,7 +2760,8 @@
       },
       "state": {
         "consecutiveErrors": 0,
-        "lastDelivered": false
+        "lastDelivered": false,
+        "nextRunAtMs": 1772348400000
       }
     },
     {
@@ -2797,7 +2790,8 @@
       },
       "state": {
         "consecutiveErrors": 0,
-        "lastDelivered": false
+        "lastDelivered": false,
+        "nextRunAtMs": 1772460000000
       }
     },
     {
