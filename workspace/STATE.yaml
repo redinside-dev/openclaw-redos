@@ -3,8 +3,8 @@
 # Use atomic writes: write to STATE.yaml.tmp then rename, never partial writes.
 
 version: "1.0"
-last_updated: "2026-02-28T00:00:00Z"
-updated_by: "system"
+last_updated: "2026-02-28T19:00:00Z"
+updated_by: "main"
 
 # ── Sprint / Current Focus ──────────────────────────────────────────────────
 sprint:
@@ -13,10 +13,9 @@ sprint:
   started: "2026-02-28"
   ends: "2026-03-06"
   priority_queue:
-    - "Verify A2A warmup returns alive for all agents"
-    - "Seed episodes.jsonl with real data from inner loops"
-    - "Research→ENG pipeline first run"
-    - "Merge feature/bounded-autonomy-l0-l5 to main"
+    - "Run autonomy-scorecard (9:05am daily) — first run tomorrow"
+    - "Agents claim AUTONOMOUS.md tasks in next inner loop cycle"
+    - "Monitor episodes.jsonl seeder (30min cron, running)"
 
 # ── Per-agent current focus ──────────────────────────────────────────────────
 agents:
@@ -24,58 +23,58 @@ agents:
     focus: "Orchestration + approval monitoring"
     last_task: "system-init"
     status: "idle"
-    last_updated: "2026-02-28T00:00:00Z"
+    last_updated: "2026-02-28T19:00:00Z"
 
   allrounder:
     focus: "Routing + synthesis"
     last_task: "system-init"
     status: "idle"
-    last_updated: "2026-02-28T00:00:00Z"
+    last_updated: "2026-02-28T19:00:00Z"
 
   eng:
     focus: "Code implementation + architecture"
     last_task: "system-init"
     status: "idle"
-    last_updated: "2026-02-28T00:00:00Z"
+    last_updated: "2026-02-28T19:00:00Z"
 
   ops:
     focus: "Health monitoring + ticket management"
     last_task: "system-init"
     status: "idle"
-    last_updated: "2026-02-28T00:00:00Z"
+    last_updated: "2026-02-28T19:00:00Z"
 
   research:
     focus: "Market intelligence + competitive analysis"
     last_task: "system-init"
     status: "idle"
-    last_updated: "2026-02-28T00:00:00Z"
+    last_updated: "2026-02-28T19:00:00Z"
 
   infosec:
     focus: "Security review + L3 approvals"
     last_task: "system-init"
     status: "idle"
-    last_updated: "2026-02-28T00:00:00Z"
+    last_updated: "2026-02-28T19:00:00Z"
 
   finance:
     focus: "Budget tracking + cost reporting"
     last_task: "system-init"
     status: "idle"
-    last_updated: "2026-02-28T00:00:00Z"
+    last_updated: "2026-02-28T19:00:00Z"
 
   hatake:
     focus: "Intent parsing"
     last_task: "system-init"
     status: "idle"
-    last_updated: "2026-02-28T00:00:00Z"
+    last_updated: "2026-02-28T19:00:00Z"
 
 # ── Pipeline state ────────────────────────────────────────────────────────────
 pipelines:
   research_to_eng:
-    status: "pending"           # pending | running | waiting_for_eng | done
-    last_research_topic: null
-    last_research_ts: null
-    eng_task_id: null
-    eng_status: null
+    status: "waiting_for_eng"   # pending | running | waiting_for_eng | done
+    last_research_topic: "Autonomous Coding Agent Patterns + episodes.jsonl seeder"
+    last_research_ts: "2026-02-28T00:00:00Z"
+    eng_task_id: "AUTO-005"
+    eng_status: "brief_delivered"
 
   idea_validator:
     last_checked: null
