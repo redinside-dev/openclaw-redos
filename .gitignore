@@ -101,6 +101,46 @@ identity/device.json
 **/agent/*.bak.*
 
 # ==========================================
+# AGENT RUNTIME STATE — NEVER COMMIT
+# (Written by agents every few minutes — not code)
+# ==========================================
+
+# Per-agent workspace runtime state
+workspace-*/memory/
+workspace-*/ops/agent-status/
+workspace-*/HEARTBEAT.md
+workspace-*/goals/
+workspace-*/tmp/
+workspace-*/TICKET-TRACKER.md
+workspace-*/LEARNINGS.md
+workspace-*/workspace/
+workspace-zen/
+
+# Shared workspace runtime state
+workspace/memory/
+workspace/ops/agent-status/
+workspace/ops/HEARTBEAT.md
+workspace/ops/ci/
+workspace/tmp/
+workspace/goals/
+workspace/approvals/
+workspace/workspace/
+
+# Cron backup files
+cron/*.bak-*
+
+# Delivery queue + sessions
+delivery-queue/
+sessions.json
+
+# Credentials / tokens config
+config/proxy-accounts.json
+
+# Agent ops scratch files and approval docs
+workspace/ops/APPROVAL_BUNDLE-*.md
+workspace-ops/*.txt
+
+# ==========================================
 # RUNTIME STATE — NEVER COMMIT
 # ==========================================
 

@@ -1,8 +1,0 @@
-{
-  "agentId": "infosec",
-  "currentFocus": "P1 exec-approvals (TICKET-20260224-072): SLA BREACHED. Stage A complete; Stage B incomplete (OPS input not provided). Critical escalation needed.",
-  "lastAction": "Updated TICKET-20260224-072 to SLA BREACHED status. Verified Stage B not completed (per-agent allowlists not populated).",
-  "nextAction": "Escalate to RED/OPS: TICKET-20260224-072 SLA breached. Need decision on extending SLA for Stage B or closing as Stage A complete with Stage B deferred.",
-  "updatedAt": "2026-02-24T14:49:48Z",
-  "blockers": ["TICKET-20260224-072 SLA breached; awaiting RED/OPS decision", "TICKET-20260223-002 DNS remediation still pending RED manual execution"]
-}

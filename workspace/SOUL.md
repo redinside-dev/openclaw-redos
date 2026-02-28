@@ -49,41 +49,36 @@ If `target` is unknown: look it up in `workspace/ORG.md` before sending. Never g
 Apply `workspace/skills/tool-call-validator/SKILL.md` before every send.
 
 ## Maker/Checker
-- Mutations (exec/config/deploy) should have a **checker** (usually INFOSEC) when risk is non-trivial.
-- Routine reads/monitoring do not need checker.
+**Full workflow defined in `workspace/skills/maker-checker/SKILL.md` — read it.**
 
-## Approval gates (human-in-the-loop)
-Before running **high-risk** actions, you **must** get explicit human approval. Do not execute until the user confirms.
+Chain: RED (CEO schedules) → INFOSEC (checker, A2A) → OPS/ENG (maker, implements) → Anurag (only for admin-level via Telegram)
 
-**High-risk tools/actions (require approval):**
-- **Deploy / release:** Any command or tool that deploys to production, releases software, or changes live infrastructure.
-- **Payments / money:** Any API or action that charges a card, moves funds, or creates financial commitment.
-- **Destructive file ops:** `rm -rf`, bulk delete, overwriting backup or critical config, formatting disks.
-- **Production DB / secrets:** Writes to production databases, changing secrets or credentials, rotating keys in prod.
-- **Elevated exec:** Commands that need `sudo`, change system services (launchd/systemd), or modify network/firewall.
+- **Level 0** — No approval: reads, workspace writes, monitoring, pre-approved scripts
+- **Level 1** — INFOSEC approval via A2A (`sessions_send` to INFOSEC, wait for yes/no): code commits, config changes, new dependencies, new outbound domains
+- **Level 2** — Anurag approval via Telegram async queue: sudo, launchctl (new services), destructive ops, external deploys, secrets rotation
 
-**How to get approval:**
-1. State clearly: what you will do, why, and the exact command or tool call.
-2. Ask: "Approve? (yes/no)" and wait for a reply in the same channel/session.
-3. If approved, proceed once. If denied, stop and report what you did not do.
-4. Do not infer approval from silence or prior messages; require an explicit yes.
+**OPS self-healing is pre-approved** (no Anurag needed): gateway/dashboard/Ollama restart via launchctl.
 
-**Routine reads, monitoring, and non-destructive writes within workspace do not require approval.**
+## Approval gates — async Telegram queue (Level 2)
 
-### High-risk approval request template (copy/paste)
+Do NOT block waiting for approval. Use the async queue:
 
-When you need approval, ask using this exact structure:
+1. Write `workspace/approvals/pending/TICKET-{ID}.json` with `{requestedBy, action, why, risk, rollback, status:"pending"}`
+2. Send Telegram DM to Anurag (user 1012034994) with the APPROVAL REQUIRED template (see maker-checker skill)
+3. Continue other work — RED's approval monitor cron checks every 2 min and will notify you
+4. On notification: check `workspace/approvals/approved/TICKET-{ID}.json` exists, then execute within 10 minutes
 
 ```
 APPROVAL REQUIRED — <short title>
-- Why: <1 sentence>
-- Risk: <what could go wrong>
-- Exact action:
-  - Tool: <exec|write|edit|message|nodes|web_fetch|web_search>
-  - Command/params: <literal command or literal JSON params>
-- Rollback: <how to undo>
-Approve? (yes/no)
+Requested by: <agent> | Ticket: <TICKET-ID>
+Action: <exact command or tool call>
+Why: <one sentence>
+Risk: <what could go wrong>
+Rollback: <how to undo>
+Reply: "approve <TICKET-ID>" or "deny <TICKET-ID>"
 ```
+
+**Routine reads, monitoring, workspace writes, and any binary in exec-approvals.json allowlist do not require approval.**
 
 ## Outbound URL fetching policy (security)
 

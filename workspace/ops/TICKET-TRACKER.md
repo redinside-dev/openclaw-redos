@@ -3026,3 +3026,843 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Resolution:** 
 - **Learnings:** 
 - **Resolved At:** 
+
+### TICKET-20260226-009
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-26T08:26:46+00:00
+- **SLA Deadline:** 2026-02-26T16:26:46+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (154x): 400 no credentials for provider: gemini-cli
+- **Details:** Detected 154 occurrences in the last window. Examples:
+  - 400 no credentials for provider: gemini-cli
+  - 400 no credentials for provider: gemini-cli
+  - 400 no credentials for provider: gemini-cli
+  - 400 no credentials for provider: gemini-cli
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260226-010
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-26T08:26:46+00:00
+- **SLA Deadline:** 2026-02-26T16:26:46+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (97x): unknown (no summary)
+- **Details:** Detected 97 occurrences in the last window. Examples:
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260226-011
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-26T08:26:46+00:00
+- **SLA Deadline:** 2026-02-26T16:26:46+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (8x): <ts> [agent/embedded] embedded run agent end: runid=announce:v1:agent:ops:cron:<uuid>:<uuid>:<uuid>:1772084552
+- **Details:** Detected 8 occurrences in the last window. Examples:
+  - <ts> [agent/embedded] embedded run agent end: runid=announce:v1:agent:ops:cron:<uuid>:<uuid>:<uuid>:1772084552
+  - <ts> [agent/embedded] embedded run agent end: runid=announce:v1:agent:ops:cron:<uuid>:<uuid>:<uuid>:1772084552
+  - <ts> [agent/embedded] embedded run agent end: runid=announce:v1:agent:ops:cron:<uuid>:<uuid>:<uuid>:1772084552
+  - <ts> [agent/embedded] embedded run agent end: runid=announce:v1:agent:ops:cron:<uuid>:<uuid>:<uuid>:1772084552
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260226-012
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-26T10:27:06+00:00
+- **SLA Deadline:** 2026-02-26T18:27:06+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (154x): 400 no credentials for provider: gemini-cli
+- **Details:** Detected 154 occurrences in the last window. Examples:
+  - 400 no credentials for provider: gemini-cli
+  - 400 no credentials for provider: gemini-cli
+  - 400 no credentials for provider: gemini-cli
+  - 400 no credentials for provider: gemini-cli
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260226-013
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-26T10:27:06+00:00
+- **SLA Deadline:** 2026-02-26T18:27:06+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (115x): unknown (no summary)
+- **Details:** Detected 115 occurrences in the last window. Examples:
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260226-014
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-26T10:27:06+00:00
+- **SLA Deadline:** 2026-02-26T18:27:06+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (34x): <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ 9router (openrouter/auto) returned a billing error — your api key has run out of credits
+- **Details:** Detected 34 occurrences in the last window. Examples:
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ 9router (openrouter/auto) returned a billing error — your api key has run out of credits
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ 9router (openrouter/auto) returned a billing error — your api key has run out of credits
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ 9router (openrouter/auto) returned a billing error — your api key has run out of credits
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ 9router (openrouter/auto) returned a billing error — your api key has run out of credits
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260226-015
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-26T10:27:06+00:00
+- **SLA Deadline:** 2026-02-26T18:27:06+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (23x): <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: ⚠️ 9router (openrouter/openrouter/free) returned a billing error — your api key has run out of
+- **Details:** Detected 23 occurrences in the last window. Examples:
+  - <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: ⚠️ 9router (openrouter/openrouter/free) returned a billing error — your api key has run out of
+  - <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: ⚠️ 9router (openrouter/openrouter/free) returned a billing error — your api key has run out of
+  - <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: ⚠️ 9router (openrouter/openrouter/free) returned a billing error — your api key has run out of
+  - <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: ⚠️ 9router (openrouter/openrouter/free) returned a billing error — your api key has run out of
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260226-016
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-26T12:26:54+00:00
+- **SLA Deadline:** 2026-02-26T20:26:54+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (147x): 400 no credentials for provider: gemini-cli
+- **Details:** Detected 147 occurrences in the last window. Examples:
+  - 400 no credentials for provider: gemini-cli
+  - 400 no credentials for provider: gemini-cli
+  - 400 no credentials for provider: gemini-cli
+  - 400 no credentials for provider: gemini-cli
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260226-017
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-26T12:26:54+00:00
+- **SLA Deadline:** 2026-02-26T20:26:54+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (141x): unknown (no summary)
+- **Details:** Detected 141 occurrences in the last window. Examples:
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260226-018
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-26T12:26:54+00:00
+- **SLA Deadline:** 2026-02-26T20:26:54+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (16x): <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ 9router (openrouter/openrouter/free) returned a billing error — your api key has run out
+- **Details:** Detected 16 occurrences in the last window. Examples:
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ 9router (openrouter/openrouter/free) returned a billing error — your api key has run out
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ 9router (openrouter/openrouter/free) returned a billing error — your api key has run out
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ 9router (openrouter/openrouter/free) returned a billing error — your api key has run out
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=⚠️ 9router (openrouter/openrouter/free) returned a billing error — your api key has run out
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260226-019
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-26T14:26:57+00:00
+- **SLA Deadline:** 2026-02-26T22:26:57+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (179x): unknown (no summary)
+- **Details:** Detected 179 occurrences in the last window. Examples:
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260226-020
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-26T14:26:57+00:00
+- **SLA Deadline:** 2026-02-26T22:26:57+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (87x): 400 no credentials for provider: gemini-cli
+- **Details:** Detected 87 occurrences in the last window. Examples:
+  - 400 no credentials for provider: gemini-cli
+  - 400 no credentials for provider: gemini-cli
+  - 400 no credentials for provider: gemini-cli
+  - 400 no credentials for provider: gemini-cli
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260226-021
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-26T16:26:51+00:00
+- **SLA Deadline:** 2026-02-27T00:26:51+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (247x): unknown (no summary)
+- **Details:** Detected 247 occurrences in the last window. Examples:
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260226-022
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-26T16:26:51+00:00
+- **SLA Deadline:** 2026-02-27T00:26:51+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (50x): 400 no credentials for provider: gemini-cli
+- **Details:** Detected 50 occurrences in the last window. Examples:
+  - 400 no credentials for provider: gemini-cli
+  - 400 no credentials for provider: gemini-cli
+  - 400 no credentials for provider: gemini-cli
+  - 400 no credentials for provider: gemini-cli
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260226-023
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-26T16:26:51+00:00
+- **SLA Deadline:** 2026-02-27T00:26:51+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (18x): <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: ⚠️ 9router (openrouter/openrouter/free) returned a billing error — your api key has run out of
+- **Details:** Detected 18 occurrences in the last window. Examples:
+  - <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: ⚠️ 9router (openrouter/openrouter/free) returned a billing error — your api key has run out of
+  - <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: ⚠️ 9router (openrouter/openrouter/free) returned a billing error — your api key has run out of
+  - <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: ⚠️ 9router (openrouter/openrouter/free) returned a billing error — your api key has run out of
+  - <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: ⚠️ 9router (openrouter/openrouter/free) returned a billing error — your api key has run out of
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260226-024
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-26T18:27:04+00:00
+- **SLA Deadline:** 2026-02-27T02:27:04+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (281x): unknown (no summary)
+- **Details:** Detected 281 occurrences in the last window. Examples:
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260226-025
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-26T18:27:04+00:00
+- **SLA Deadline:** 2026-02-27T02:27:04+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (32x): <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=403 [openrouter/auto] [403]: key limit exceeded (total limit). manage it using https://openr
+- **Details:** Detected 32 occurrences in the last window. Examples:
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=403 [openrouter/auto] [403]: key limit exceeded (total limit). manage it using https://openr
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=403 [openrouter/auto] [403]: key limit exceeded (total limit). manage it using https://openr
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=403 [openrouter/auto] [403]: key limit exceeded (total limit). manage it using https://openr
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=403 [openrouter/auto] [403]: key limit exceeded (total limit). manage it using https://openr
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260226-026
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-26T18:27:04+00:00
+- **SLA Deadline:** 2026-02-27T02:27:04+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (12x): 400 no credentials for provider: gemini-cli
+- **Details:** Detected 12 occurrences in the last window. Examples:
+  - 400 no credentials for provider: gemini-cli
+  - 400 no credentials for provider: gemini-cli
+  - 400 no credentials for provider: gemini-cli
+  - 400 no credentials for provider: gemini-cli
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260226-027
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-26T18:27:04+00:00
+- **SLA Deadline:** 2026-02-27T02:27:04+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (9x): <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using ht
+- **Details:** Detected 9 occurrences in the last window. Examples:
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using ht
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using ht
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using ht
+  - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using ht
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260226-028
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-26T20:27:04+00:00
+- **SLA Deadline:** 2026-02-27T04:27:04+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (319x): unknown (no summary)
+- **Details:** Detected 319 occurrences in the last window. Examples:
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260226-029
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-26T20:27:04+00:00
+- **SLA Deadline:** 2026-02-27T04:27:04+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (16x): <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+- **Details:** Detected 16 occurrences in the last window. Examples:
+  - <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+  - <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+  - <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+  - <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260226-030
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-26T22:26:58+00:00
+- **SLA Deadline:** 2026-02-27T06:26:58+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (353x): unknown (no summary)
+- **Details:** Detected 353 occurrences in the last window. Examples:
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260226-031
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-26T22:26:58+00:00
+- **SLA Deadline:** 2026-02-27T06:26:58+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (10x): <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+- **Details:** Detected 10 occurrences in the last window. Examples:
+  - <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+  - <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+  - <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+  - <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260227-001
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-27T00:26:57+00:00
+- **SLA Deadline:** 2026-02-27T08:26:57+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (386x): unknown (no summary)
+- **Details:** Detected 386 occurrences in the last window. Examples:
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+  - unknown (no summary)
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260227-002
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-27T00:26:57+00:00
+- **SLA Deadline:** 2026-02-27T08:26:57+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (17x): <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+- **Details:** Detected 17 occurrences in the last window. Examples:
+  - <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+  - <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+  - <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+  - <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260227-003
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-27T02:26:57+00:00
+- **SLA Deadline:** 2026-02-27T10:26:57+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (6x): <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+- **Details:** Detected 6 occurrences in the last window. Examples:
+  - <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+  - <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+  - <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+  - <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260227-004
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-27T02:26:57+00:00
+- **SLA Deadline:** 2026-02-27T10:26:57+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (4x): 400 no credentials for provider: openrouter
+- **Details:** Detected 4 occurrences in the last window. Examples:
+  - 400 no credentials for provider: openrouter
+  - 400 no credentials for provider: openrouter
+  - 400 no credentials for provider: openrouter
+  - 400 no credentials for provider: openrouter
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260227-005
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-27T02:26:57+00:00
+- **SLA Deadline:** 2026-02-27T10:26:57+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (3x): <ts> [tailscale] serve failed: command failed: /opt/homebrew/bin/tailscale serve --bg --yes 18789
+- **Details:** Detected 3 occurrences in the last window. Examples:
+  - <ts> [tailscale] serve failed: command failed: /opt/homebrew/bin/tailscale serve --bg --yes 18789
+  - <ts> [tailscale] serve failed: command failed: /opt/homebrew/bin/tailscale serve --bg --yes 18789
+  - <ts> [tailscale] serve failed: command failed: /opt/homebrew/bin/tailscale serve --bg --yes 18789
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260227-006
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-02-27T02:26:57+00:00
+- **SLA Deadline:** 2026-02-27T04:26:57+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (3x): <ts>-05:00 [warn] socket-mode:slackwebsocket:2 a pong wasn't received from the server before the timeout of <ms>!
+- **Details:** Detected 3 occurrences in the last window. Examples:
+  - <ts>-05:00 [warn] socket-mode:slackwebsocket:2 a pong wasn't received from the server before the timeout of <ms>!
+  - <ts>-05:00 [warn] socket-mode:slackwebsocket:2 a pong wasn't received from the server before the timeout of <ms>!
+  - <ts>-05:00 [warn] socket-mode:slackwebsocket:2 a pong wasn't received from the server before the timeout of <ms>!
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260227-007
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-27T04:26:49+00:00
+- **SLA Deadline:** 2026-02-27T12:26:49+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (15x): <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+- **Details:** Detected 15 occurrences in the last window. Examples:
+  - <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+  - <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+  - <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+  - <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260227-008
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-27T04:26:49+00:00
+- **SLA Deadline:** 2026-02-27T12:26:49+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (4x): 400 no credentials for provider: openrouter
+- **Details:** Detected 4 occurrences in the last window. Examples:
+  - 400 no credentials for provider: openrouter
+  - 400 no credentials for provider: openrouter
+  - 400 no credentials for provider: openrouter
+  - 400 no credentials for provider: openrouter
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260227-009
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-27T06:26:58+00:00
+- **SLA Deadline:** 2026-02-27T14:26:58+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (8x): <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+- **Details:** Detected 8 occurrences in the last window. Examples:
+  - <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+  - <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+  - <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+  - <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260227-010
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-27T06:26:58+00:00
+- **SLA Deadline:** 2026-02-27T14:26:58+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (4x): 400 no credentials for provider: openrouter
+- **Details:** Detected 4 occurrences in the last window. Examples:
+  - 400 no credentials for provider: openrouter
+  - 400 no credentials for provider: openrouter
+  - 400 no credentials for provider: openrouter
+  - 400 no credentials for provider: openrouter
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260227-011
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-27T08:26:54+00:00
+- **SLA Deadline:** 2026-02-27T16:26:54+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (9x): <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+- **Details:** Detected 9 occurrences in the last window. Examples:
+  - <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+  - <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+  - <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+  - <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260227-012
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-27T08:26:54+00:00
+- **SLA Deadline:** 2026-02-27T16:26:54+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (5x): <ts>-05:00 [tools] read failed: eisdir: illegal operation on a directory, read
+- **Details:** Detected 5 occurrences in the last window. Examples:
+  - <ts>-05:00 [tools] read failed: eisdir: illegal operation on a directory, read
+  - <ts>-05:00 [tools] read failed: eisdir: illegal operation on a directory, read
+  - <ts>-05:00 [tools] read failed: eisdir: illegal operation on a directory, read
+  - <ts>-05:00 [tools] read failed: eisdir: illegal operation on a directory, read
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260227-013
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-27T08:26:54+00:00
+- **SLA Deadline:** 2026-02-27T16:26:54+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (4x): 400 no credentials for provider: openrouter
+- **Details:** Detected 4 occurrences in the last window. Examples:
+  - 400 no credentials for provider: openrouter
+  - 400 no credentials for provider: openrouter
+  - 400 no credentials for provider: openrouter
+  - 400 no credentials for provider: openrouter
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260227-014
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-02-27T08:26:54+00:00
+- **SLA Deadline:** 2026-02-27T10:26:54+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (3x): <ts>-05:00 [warn] socket-mode:slackwebsocket:3 a pong wasn't received from the server before the timeout of <ms>!
+- **Details:** Detected 3 occurrences in the last window. Examples:
+  - <ts>-05:00 [warn] socket-mode:slackwebsocket:3 a pong wasn't received from the server before the timeout of <ms>!
+  - <ts>-05:00 [warn] socket-mode:slackwebsocket:3 a pong wasn't received from the server before the timeout of <ms>!
+  - <ts>-05:00 [warn] socket-mode:slackwebsocket:3 a pong wasn't received from the server before the timeout of <ms>!
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260227-015
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-27T10:27:08+00:00
+- **SLA Deadline:** 2026-02-27T18:27:08+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (12x): <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+- **Details:** Detected 12 occurrences in the last window. Examples:
+  - <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+  - <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+  - <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+  - <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260227-016
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-27T10:27:08+00:00
+- **SLA Deadline:** 2026-02-27T18:27:08+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (4x): 400 no credentials for provider: openrouter
+- **Details:** Detected 4 occurrences in the last window. Examples:
+  - 400 no credentials for provider: openrouter
+  - 400 no credentials for provider: openrouter
+  - 400 no credentials for provider: openrouter
+  - 400 no credentials for provider: openrouter
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260227-017
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-27T12:27:02+00:00
+- **SLA Deadline:** 2026-02-27T20:27:02+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (17x): <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+- **Details:** Detected 17 occurrences in the last window. Examples:
+  - <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+  - <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+  - <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+  - <ts>-05:00 embedded agent failed before reply: all models failed (2): 9router/openrouter/openrouter/free: 403 [openrouter/openrouter/free] [403]: key limit exceeded (total limit). manage it using https
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260227-018
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-27T12:27:02+00:00
+- **SLA Deadline:** 2026-02-27T20:27:02+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (4x): 400 no credentials for provider: openrouter
+- **Details:** Detected 4 occurrences in the last window. Examples:
+  - 400 no credentials for provider: openrouter
+  - 400 no credentials for provider: openrouter
+  - 400 no credentials for provider: openrouter
+  - 400 no credentials for provider: openrouter
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260227-019
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-27T20:40:01+00:00
+- **SLA Deadline:** 2026-02-28T04:40:01+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (5x): error getting serve config: getting serve config: failed to connect to local tailscale daemon for /localapi/v0/serve-config; not running? error: dial unix /var/run/tailscaled.socket: connect: no such file or directory
+- **Details:** Detected 5 occurrences in the last window. Examples:
+  - error getting serve config: getting serve config: failed to connect to local tailscale daemon for /localapi/v0/serve-config; not running? error: dial unix /var/run/tailscaled.socket: connect: no such file or directory
+  - error getting serve config: getting serve config: failed to connect to local tailscale daemon for /localapi/v0/serve-config; not running? error: dial unix /var/run/tailscaled.socket: connect: no such file or directory
+  - error getting serve config: getting serve config: failed to connect to local tailscale daemon for /localapi/v0/serve-config; not running? error: dial unix /var/run/tailscaled.socket: connect: no such file or directory
+  - error getting serve config: getting serve config: failed to connect to local tailscale daemon for /localapi/v0/serve-config; not running? error: dial unix /var/run/tailscaled.socket: connect: no such file or directory
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260227-020
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-27T20:40:01+00:00
+- **SLA Deadline:** 2026-02-28T04:40:01+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (3x): <ts>-05:00 [tools] exec failed: exec denied: host=gateway security=deny
+- **Details:** Detected 3 occurrences in the last window. Examples:
+  - <ts>-05:00 [tools] exec failed: exec denied: host=gateway security=deny
+  - <ts>-05:00 [tools] exec failed: exec denied: host=gateway security=deny
+  - <ts>-05:00 [tools] exec failed: exec denied: host=gateway security=deny
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260227-021
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-27T20:40:01+00:00
+- **SLA Deadline:** 2026-02-28T04:40:01+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (3x): <ts>-05:00 [tools] exec failed: zsh:1: command not found: rg
+- **Details:** Detected 3 occurrences in the last window. Examples:
+  - <ts>-05:00 [tools] exec failed: zsh:1: command not found: rg
+  - <ts>-05:00 [tools] exec failed: zsh:1: command not found: rg
+  - <ts>-05:00 [tools] exec failed: zsh:1: command not found: rg
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260227-022
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-02-27T22:21:00Z
+- **SLA Deadline:** 2026-02-28T00:21:00Z (2 hours)
+- **Reporter:** main (RED self-improvement)
+- **Assignee:** ops, eng
+- **Summary:** Reflection and health monitoring are using stale/non-canonical logs, reducing signal quality and creating duplicate/noise tickets
+- **Details:** Daily reflection reviewed current sources and found `logs/errors.jsonl` effectively empty and `logs/routing-decisions.jsonl` stale, while active incident volume in TICKET-TRACKER is high. Existing monitors are therefore underpowered for root-cause detection and overproduce repetitive ticket patterns.
+- **Root Cause:** Monitoring prompts still rely on raw lane-local log files instead of a maintained canonical digest path; no freshness guard is enforced before pattern analysis.
+- **Resolution:** Pending. Implement canonical digest pipeline and prompt updates:
+  1) Publish rolling `workspace/logs/routing-digest.jsonl` and keep `workspace/logs/error-digest.md` updated each run.
+  2) Update reflection/health prompts to read digest files first, with freshness checks.
+  3) Add dedupe guard to collapse repeated signature tickets into one parent incident.
+- **Learnings:** Feed into LEARNING-20260227-001 and LEARNING-20260227-002.
+- **Resolved At:** 
+
+### TICKET-20260227-023
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-02-27T22:42:09+00:00
+- **SLA Deadline:** 2026-02-28T00:42:09+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (6x): <ts> [agent/embedded] embedded run timeout: runid=<uuid> sessionid=<uuid> timeoutms=600000
+- **Details:** Detected 6 occurrences in the last window. Examples:
+  - <ts> [agent/embedded] embedded run timeout: runid=<uuid> sessionid=<uuid> timeoutms=600000
+  - <ts> [agent/embedded] embedded run timeout: runid=<uuid> sessionid=<uuid> timeoutms=600000
+  - <ts> [agent/embedded] embedded run timeout: runid=<uuid> sessionid=<uuid> timeoutms=600000
+  - <ts> [agent/embedded] embedded run timeout: runid=<uuid> sessionid=<uuid> timeoutms=600000
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260227-024
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-27T22:42:09+00:00
+- **SLA Deadline:** 2026-02-28T06:42:09+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (4x): error getting serve config: getting serve config: failed to connect to local tailscale daemon for /localapi/v0/serve-config; not running? error: dial unix /var/run/tailscaled.socket: connect: no such file or directory
+- **Details:** Detected 4 occurrences in the last window. Examples:
+  - error getting serve config: getting serve config: failed to connect to local tailscale daemon for /localapi/v0/serve-config; not running? error: dial unix /var/run/tailscaled.socket: connect: no such file or directory
+  - error getting serve config: getting serve config: failed to connect to local tailscale daemon for /localapi/v0/serve-config; not running? error: dial unix /var/run/tailscaled.socket: connect: no such file or directory
+  - error getting serve config: getting serve config: failed to connect to local tailscale daemon for /localapi/v0/serve-config; not running? error: dial unix /var/run/tailscaled.socket: connect: no such file or directory
+  - error getting serve config: getting serve config: failed to connect to local tailscale daemon for /localapi/v0/serve-config; not running? error: dial unix /var/run/tailscaled.socket: connect: no such file or directory
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 

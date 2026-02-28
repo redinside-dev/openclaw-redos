@@ -1,7 +1,0 @@
-{
-  "agentId": "finance",
-  "updatedAt": "2026-02-24T07:46:00Z",
-  "currentFocus": "Portfolio monitoring and holdings data review",
-  "lastAction": "Responded to heartbeat poll with HEARTBEAT_OK",
-  "nextAction": "Generate reports when new holdings/trade analyzer data becomes available"
-}
