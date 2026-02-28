@@ -1,0 +1,37 @@
+name: windsurf-skills-lint
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - feature/**
+  workflow_dispatch:
+
+jobs:
+  windsurf-skills-schema:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run unit tests
+        run: |
+          PYTHONPATH=. python -m unittest workspace/ops/tests/test_windsurf_skill_lint.py -v
+
+      - name: Lint Windsurf SKILL.md metadata schema
+        run: |
+          mkdir -p workspace/tmp
+          python workspace/ops/windsurf_skill_lint.py --root .windsurf/skills --json > workspace/tmp/windsurf-skill-lint-report.json
+          cat workspace/tmp/windsurf-skill-lint-report.json
+
+      - name: Upload lint report
+        uses: actions/upload-artifact@v4
+        with:
+          name: windsurf-skill-lint-report
+          path: workspace/tmp/windsurf-skill-lint-report.json
