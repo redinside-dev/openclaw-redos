@@ -13,21 +13,47 @@ Stripe, etc.) live in n8n. Agents call webhook URLs — credentials stay in n8n.
 - Base URL for webhooks: `http://127.0.0.1:5678/webhook/`
 - Managed by: OPS (restart via launchctl if down)
 
+## n8n auth
+
+- API key: stored at `workspace/config/n8n-api-key.txt` (agents read this for management calls)
+- Dashboard login: `anuragg.saxenaa@gmail.com` / RedOS2026!
+- Public API: `http://127.0.0.1:5678/api/v1/` with header `X-N8N-API-KEY: <key>`
+
 ## How agents call webhooks
 
 ```
-exec: curl -s -X POST http://127.0.0.1:5678/webhook/<workflow-id> \
+exec: curl -s --max-time 15 -X POST http://127.0.0.1:5678/webhook/<path> \
   -H "Content-Type: application/json" \
-  -d '{"action": "<action>", "payload": <json>}'
+  -d '<json payload>'
 ```
 
-Always use `--max-time 15` to avoid hanging on slow workflows.
+Always log the call to `workspace/logs/audit.jsonl` after execution.
 
-## Available workflows (OPS maintains this list)
+## Available workflows
 
-| Workflow ID | Purpose | Input | Output |
-|-------------|---------|-------|--------|
-| (none yet — add as configured in n8n) | | | |
+| Path | n8n ID | Purpose | Input | Output |
+|------|--------|---------|-------|--------|
+| `echo-test` | `SWmkldgx4OypuhOn` | Test — echoes back payload | `{any}` | webhook data + body |
+| `slack-post` | `zIoMz7Ug5oVeZz5T` | Post message to Slack channel | `{channel: "C...", text: "..."}` | `{ok: true, ts: "..."}` |
+| `github-repo-status` | `g7fy6gWny65rhStr` | Fetch latest 3 commits from a GitHub repo | `{repo: "owner/name"}` | array of commit objects |
+
+## Usage examples
+
+```bash
+# Echo test
+curl -s --max-time 15 -X POST http://127.0.0.1:5678/webhook/echo-test \
+  -H "Content-Type: application/json" -d '{"agent":"ops","check":"alive"}'
+
+# Post to Slack #redos-mission-control
+curl -s --max-time 15 -X POST http://127.0.0.1:5678/webhook/slack-post \
+  -H "Content-Type: application/json" \
+  -d '{"channel":"C0AEV3MDEDD","text":"⚙️ *OPS*: message via n8n relay"}'
+
+# GitHub repo status
+curl -s --max-time 15 -X POST http://127.0.0.1:5678/webhook/github-repo-status \
+  -H "Content-Type: application/json" \
+  -d '{"repo":"anuragg-saxenaa/spring-boot-product-api"}'
+```
 
 ## Adding a new workflow
 
