@@ -3866,3 +3866,159 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Resolution:** 
 - **Learnings:** 
 - **Resolved At:** 
+
+### TICKET-20260228-001
+- **Status:** RESOLVED
+- **Priority:** P1
+- **Created:** 2026-02-28T00:47:39+00:00
+- **SLA Deadline:** 2026-02-28T02:47:39+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (7x): [telegram] [ops] channel exited: call to 'deletewebhook' failed! (401: unauthorized)
+- **Details:** OPS Telegram bot 401 errors caused by stale/revoked bot token hardcoded in openclaw.json.
+- **Root Cause:** OPS bot token was revoked (Telegram BotFather reissue). Old token at openclaw.json line ~2213 was not updated when .env was.
+- **Resolution:** Updated openclaw.json botToken + .env TELEGRAM_BOT_TOKEN_OPS to new token `8230099863:AAG8mEFP87szMB9aI0UAo_P3Q1GUzS7bPrE`. Stack restarted. OPS bot reconnected. TICKETS 001-004 are all the same root cause.
+- **Learnings:** openclaw.json botToken is authoritative — gateway does NOT read .env for bot tokens. Always update both. grep -n "botToken" openclaw.json to find all instances.
+- **Resolved At:** 2026-02-28T14:00:00Z
+
+### TICKET-20260228-002
+- **Status:** RESOLVED
+- **Priority:** P1
+- **Created:** 2026-02-28T00:47:39+00:00
+- **SLA Deadline:** 2026-02-28T02:47:39+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (7x): [telegram] command sync failed: grammyerror: call to 'setmycommands' failed! (401: unauthorized)
+- **Root Cause:** Same as TICKET-20260228-001 — stale OPS bot token.
+- **Resolution:** Same as TICKET-20260228-001.
+- **Resolved At:** 2026-02-28T14:00:00Z
+
+### TICKET-20260228-003
+- **Status:** RESOLVED
+- **Priority:** P1
+- **Created:** 2026-02-28T00:47:39+00:00
+- **SLA Deadline:** 2026-02-28T02:47:39+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (7x): [telegram] deletemycommands failed: call to 'deletemycommands' failed! (401: unauthorized)
+- **Root Cause:** Same as TICKET-20260228-001 — stale OPS bot token.
+- **Resolution:** Same as TICKET-20260228-001.
+- **Resolved At:** 2026-02-28T14:00:00Z
+
+### TICKET-20260228-004
+- **Status:** RESOLVED
+- **Priority:** P1
+- **Created:** 2026-02-28T00:47:39+00:00
+- **SLA Deadline:** 2026-02-28T02:47:39+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (7x): [telegram] deletewebhook failed: call to 'deletewebhook' failed! (401: unauthorized)
+- **Root Cause:** Same as TICKET-20260228-001 — stale OPS bot token.
+- **Resolution:** Same as TICKET-20260228-001.
+- **Resolved At:** 2026-02-28T14:00:00Z
+
+### TICKET-20260228-005
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-28T14:00:00Z
+- **SLA Deadline:** 2026-02-28T22:00:00Z (8 hours)
+- **Reporter:** cascade (session wrap-up)
+- **Assignee:** eng
+- **Summary:** Merge feature/dashboard-realtime-sync branch into main
+- **Details:** The `feature/dashboard-realtime-sync` branch contains Dashboard SSE real-time sync improvements (SSE endpoint, fs.watch on openclaw.json, saveAgentModal/deleteAgent loadAll() calls, polling 30s→10s). These are ready but not merged. Steps:
+  1. `cd /Users/redinside/.openclaw`
+  2. `git checkout main && git pull origin main`
+  3. `git merge feature/dashboard-realtime-sync`
+  4. Resolve any conflicts (if any, prefer main's openclaw.json and keep dashboard/server.js changes)
+  5. `git push origin main`
+  6. Update this ticket: set Status RESOLVED, add resolution note
+  7. Notify OPS via A2A that merge is complete so OPS can restart dashboard: `node /Users/redinside/.openclaw/dashboard/server.js`
+- **Root Cause:** Branch was kept separate during development; never formally merged.
+- **Resolution:**
+- **Learnings:**
+- **Resolved At:**
+
+### TICKET-20260228-006
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-28T14:00:00Z
+- **SLA Deadline:** 2026-03-01T14:00:00Z (24 hours)
+- **Reporter:** cascade (session wrap-up)
+- **Assignee:** ops, eng
+- **Summary:** Add Mission Control Dashboard to launchd so it auto-starts on Mac Mini reboot
+- **Details:** Dashboard currently runs manually: `node /Users/redinside/.openclaw/dashboard/server.js`. It dies on reboot and someone has to restart it manually. This is a Level 2 action (new launchd service — requires Anurag approval via Telegram async queue).
+  Steps for ENG:
+  1. Create plist at `~/Library/LaunchAgents/ai.openclaw.dashboard.plist` modeled after existing `ai.openclaw.gateway.plist`
+  2. Program key: `/usr/local/bin/node` args: [`/Users/redinside/.openclaw/dashboard/server.js`]
+  3. WorkingDirectory: `/Users/redinside/.openclaw`
+  4. Set KeepAlive: true, RunAtLoad: true
+  5. Log paths: `~/.openclaw/logs/dashboard.log` and `dashboard.err.log`
+  Steps for OPS (after ENG creates plist):
+  1. Queue Level 2 approval to Anurag: write `workspace/approvals/pending/dashboard-launchd.json` with action details
+  2. Wait for Anurag to reply "approve dashboard-launchd" on Telegram
+  3. On approval: `launchctl load ~/Library/LaunchAgents/ai.openclaw.dashboard.plist`
+  4. Verify: `launchctl list | grep openclaw.dashboard`
+  5. Update this ticket RESOLVED
+- **Root Cause:** Dashboard was built after initial launchd setup and was never added as a managed service.
+- **Resolution:**
+- **Learnings:**
+- **Resolved At:**
+
+### TICKET-20260228-007
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-28T14:00:00Z
+- **SLA Deadline:** 2026-03-01T22:00:00Z (32 hours)
+- **Reporter:** cascade (session wrap-up)
+- **Assignee:** eng
+- **Summary:** Fix undici AbortErrors causing intermittent Telegram polling drops (TICKET-20260216-002)
+- **Details:** Telegram polling session for some bots drops with `undici AbortError`. The gateway retries but it causes brief message gaps. ENG should:
+  1. Read `~/.openclaw/logs/gateway.err.log` — filter for "AbortError" or "undici" to confirm current frequency
+  2. Read `~/.openclaw/logs/gateway.log` — look for associated bot/channel context
+  3. Investigate: AbortErrors usually from fetch timeout or connection reset. Likely fix: increase timeout on Telegram polling fetch, or add exponential backoff on reconnect
+  4. Check `/opt/homebrew/lib/node_modules/openclaw/dist/` for Telegram plugin timeout config (do NOT edit dist/ — identify what's configurable via openclaw.json `channels.telegram.*` settings)
+  5. If configurable via config: update openclaw.json and test. If requires patch: use Level 1 INFOSEC approval, then apply.
+  6. Update this ticket with root cause + resolution
+- **Root Cause:** Unknown — needs investigation
+- **Resolution:**
+- **Learnings:**
+- **Resolved At:**
+
+### TICKET-20260228-008
+- **Status:** OPEN
+- **Priority:** P3
+- **Created:** 2026-02-28T14:00:00Z
+- **SLA Deadline:** 2026-03-02T14:00:00Z (48 hours)
+- **Reporter:** cascade (session wrap-up)
+- **Assignee:** ops
+- **Summary:** Verify Slack socket-mode channel replies are live end-to-end
+- **Details:** CLI delivery (openclaw agent --channel slack) is confirmed working. Real socket-mode event handling (Slack sends events to OpenClaw → agent replies in channel) has not been confirmed live. OPS should:
+  1. Read `workspace/ORG.md` to find Slack channel IDs
+  2. Send a test message to `#general` or `#ops` channel via OPS Slack bot using the `message` tool: `message(action="send", channel="slack", target="channel:<id>", message="OPS socket-mode verification test — please ignore")`
+  3. Confirm the message appears in Slack
+  4. Then trigger a reply by posting "OPS ping test" in the Slack channel from Anurag's account and confirm the bot responds
+  5. If socket-mode is broken: check `~/.openclaw/logs/gateway.err.log` for Slack errors; escalate to ENG if needed
+  6. Update this ticket RESOLVED or escalate with findings
+- **Root Cause:** Not yet verified
+- **Resolution:**
+- **Learnings:**
+- **Resolved At:**
+
+### TICKET-20260228-009
+- **Status:** OPEN
+- **Priority:** P3
+- **Created:** 2026-02-28T14:00:00Z
+- **SLA Deadline:** 2026-03-03T14:00:00Z (72 hours)
+- **Reporter:** cascade (session wrap-up)
+- **Assignee:** ops
+- **Summary:** Add Tailscale auto-restart to System Pulse cron so it recovers after Mac Mini reboot
+- **Details:** Tailscale daemon goes down after reboot. Manual fix: `launchctl start com.tailscale.ipn.macos`. OPS should add a Tailscale health check to the existing System Pulse cron (id: `system-pulse-heartbeat-0001` or similar) OR add a standalone check. Approach:
+  1. Find System Pulse cron in `cron/jobs.json` (search for "pulse" or "heartbeat")
+  2. Add to its prompt: "Also check Tailscale: run `launchctl list com.tailscale.ipn.macos` — if not running, run `launchctl start com.tailscale.ipn.macos` and alert Anurag via Telegram"
+  3. `launchctl` is pre-approved for OPS — no Level 2 needed for existing services (only new .plist installs need approval)
+  4. Run `openclaw doctor` after any cron/jobs.json change, then restart: `bash ~/.openclaw/scripts/redos-restart.sh`
+  5. Update this ticket RESOLVED
+- **Root Cause:** Tailscale launchd entry not set to auto-start; not monitored by System Pulse.
+- **Resolution:**
+- **Learnings:**
+- **Resolved At:**

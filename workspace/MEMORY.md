@@ -25,7 +25,7 @@
 | Native gateway | Running — launchd `ai.openclaw.node` + `ai.openclaw.gateway`, port 18789 |
 | Dashboard | Port 19000, launchd `ai.openclaw.dashboard` — Mission Control UI |
 | Dashboard API | `/api/traces` reads live session files (`agents/*/sessions/*.jsonl`) — NOT stale logs |
-| Telegram | Active — 7 bots, all connected. OPS bot token regenerated 2026-02-28 |
+| Telegram | Active — 8 bots, all connected. OPS bot token regenerated 2026-02-28 |
 | WhatsApp | Linked +16476092313 |
 | Agents | 8 active: main / allrounder / hatake / eng / research / finance / ops / infosec |
 | Skills | 31 registered, all enabled |
@@ -256,3 +256,53 @@ The RED Self-Improvement cron has been observed autonomously modifying `openclaw
 - Tailscale daemon down (minor — internal routing only)
 
 *Last updated: 2026-02-28 — Outage recovery: routing profile fix, Ollama fallbacks, OPS bot token*
+
+---
+
+## 2026-02-28 Session Changes — Git Cleanup & Auto-Refresh Verification
+
+### Git Repo Cleanup
+- **Problem**: 130+ runtime files tracked by git (heartbeat JSONs, agent-status, memory state, tmp files, goals)
+- **Fix**: Added comprehensive `.gitignore` rules covering:
+  - `workspace-*/` (all agent sandboxes — memory, sessions, tmp, ops state)
+  - `workspace/logs/`, `workspace/approvals/`
+  - `telegram/*.json` (update-offset files)
+  - `cron/runs/`, `logs/`
+  - Runtime state files (`*.heartbeat.json`, `agent-status/*.json`, `goals*.json`)
+- **Result**: `git status` now only shows meaningful changes — runtime state silenced permanently
+- **Pushed**: All gitignore + doc changes pushed to `origin/main`; repo is clean
+
+### Auto-Refresh Verification
+- `9router-keepfresh-0001` cron (every 4min, OPS, ollama) → calls `scripts/9router-token-refresh.js`
+- **Claude Pro** auto-refreshes via `/api/providers/{id}/test` in last 5min window — CONFIRMED working
+- **Kiro** refreshes via AWS OIDC automatically — CONFIRMED working
+- **iFlow** `testStatus: error` = known false positive (health endpoint broken, inference fine) — script explicitly skips iFlow + openrouter test
+- No manual re-authentication needed for Claude Pro or Kiro
+
+---
+
+## Pending Items (as of 2026-02-28)
+
+### P1 — Should Do Soon
+| # | Item | Details |
+|---|------|---------|
+| 1 | Merge `feature/dashboard-realtime-sync` → main | Dashboard SSE + real-time sync branch not yet merged |
+| 2 | Add Dashboard to launchd | Currently must start manually after reboot: `node ~/.openclaw/dashboard/server.js` |
+
+### P2 — Important but Not Urgent
+| # | Item | Details |
+|---|------|---------|
+| 3 | Fix undici AbortErrors (TICKET-20260216-002) | Telegram polling drops; ENG fix pending |
+| 4 | Set `SLACK_SIGNING_SECRET` in `.env` | Slack event verification disabled until set |
+| 5 | Confirm Slack socket-mode replies live | CLI deliver confirmed; real socket-mode not yet verified |
+| 6 | Provision 3rd Codex account OAuth tokens | `anurawg.saxena@gmail.com` needs tokens |
+
+### P3 — Low Priority / Nice to Have
+| # | Item | Details |
+|---|------|---------|
+| 7 | Named Cloudflare tunnel | Quick tunnel URL changes on restart — named tunnel would be stable |
+| 8 | Tailscale daemon | Down after reboot — run `launchctl start com.tailscale.ipn.macos` |
+| 9 | Periodic RED self-improvement cron audit | RED can autonomously modify openclaw.json — check monthly |
+| 10 | Verify all 76 cron jobs post-fix | Stale error states should clear on next run — confirm via dashboard |
+
+---
