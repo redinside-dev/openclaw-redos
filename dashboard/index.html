@@ -98,832 +98,6 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
 .pl-trigger{font-weight:700;color:var(--text)}
 .pl-meta{font-size:10px;color:var(--text3);margin-left:auto;display:flex;gap:10px}
 .pl-flow{display:flex;align-items:flex-start;gap:0;overflow-x:auto;padding-bottom:4px}
-
-/* ===== APPLE-STYLE AGENT UI ===== */
-/* Glassmorphism Cards */
-.agent-card {
-  background: rgba(30, 40, 64, 0.6);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  padding: 20px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: grab;
-  position: relative;
-  overflow: hidden;
-}
-.agent-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-}
-.agent-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.2);
-}
-.agent-card:active {
-  cursor: grabbing;
-  transform: scale(0.98);
-}
-.agent-card.dragging {
-  opacity: 0.5;
-  transform: scale(1.02);
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
-}
-.agent-card.drag-over {
-  border-color: var(--blue);
-  box-shadow: 0 0 0 2px rgba(79, 143, 247, 0.3);
-}
-
-/* Agent Header */
-.agent-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 16px;
-}
-.agent-avatar {
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  background: linear-gradient(135deg, var(--blue), var(--purple));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  box-shadow: 0 4px 12px rgba(79, 143, 247, 0.3);
-}
-.agent-avatar.main { background: linear-gradient(135deg, #f59e0b, #ef4444); }
-.agent-avatar.allrounder { background: linear-gradient(135deg, #8b5cf6, #ec4899); }
-.agent-avatar.eng { background: linear-gradient(135deg, #3b82f6, #06b6d4); }
-.agent-avatar.research { background: linear-gradient(135deg, #10b981, #84cc16); }
-.agent-avatar.finance { background: linear-gradient(135deg, #f97316, #eab308); }
-.agent-avatar.ops { background: linear-gradient(135deg, #64748b, #94a3b8); }
-.agent-avatar.infosec { background: linear-gradient(135deg, #dc2626, #991b1b); }
-.agent-avatar.hatake { background: linear-gradient(135deg, #14b8a6, #06b6d4); }
-
-.agent-info {
-  flex: 1;
-  min-width: 0;
-}
-.agent-name {
-  font-size: 17px;
-  font-weight: 600;
-  color: var(--text);
-  margin-bottom: 4px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.agent-role {
-  font-size: 12px;
-  color: var(--text2);
-  cursor: pointer;
-  transition: color 0.2s;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.agent-role:hover {
-  color: var(--blue);
-}
-.agent-role::after {
-  content: 'ℹ';
-  font-size: 10px;
-  opacity: 0.5;
-}
-.agent-status {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--green);
-  box-shadow: 0 0 8px var(--green);
-  animation: pulse 2s ease-in-out infinite;
-}
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
-}
-
-/* Agent Details */
-.agent-details {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.agent-detail-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 12px;
-}
-.agent-detail-label {
-  color: var(--text3);
-}
-.agent-detail-value {
-  color: var(--text);
-  font-weight: 500;
-  font-family: 'SF Mono', Monaco, monospace;
-  font-size: 11px;
-}
-
-/* Agent Actions */
-.agent-actions {
-  display: flex;
-  gap: 8px;
-  margin-top: 16px;
-  padding-top: 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-}
-.agent-btn {
-  flex: 1;
-  padding: 8px 12px;
-  border-radius: 10px;
-  border: none;
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--text2);
-  font-size: 12px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.agent-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: var(--text);
-}
-.agent-btn.primary {
-  background: var(--blue);
-  color: white;
-}
-.agent-btn.primary:hover {
-  background: #3d7fe8;
-  transform: translateY(-1px);
-}
-.agent-btn.danger {
-  background: rgba(239, 68, 68, 0.1);
-  color: var(--red);
-}
-.agent-btn.danger:hover {
-  background: rgba(239, 68, 68, 0.2);
-}
-
-/* Hierarchy Tree - Apple Style */
-.hierarchy-container {
-  background: rgba(15, 21, 35, 0.6);
-  backdrop-filter: blur(20px);
-  border-radius: 20px;
-  padding: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-.hierarchy-title {
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.hierarchy-tree {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-.hierarchy-level {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-.hierarchy-node {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 14px;
-  padding: 12px 20px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-}
-.hierarchy-node:hover {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.15);
-  transform: translateY(-2px);
-}
-.hierarchy-node.active {
-  background: rgba(79, 143, 247, 0.15);
-  border-color: rgba(79, 143, 247, 0.4);
-  box-shadow: 0 0 20px rgba(79, 143, 247, 0.2);
-}
-.hierarchy-node.drag-over {
-  border-color: var(--green);
-  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
-}
-.hierarchy-connector {
-  width: 2px;
-  height: 20px;
-  background: linear-gradient(to bottom, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
-  margin: 0 auto;
-}
-.hierarchy-branch {
-  display: flex;
-  align-items: flex-start;
-  gap: 24px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-/* Agent Grid */
-.agents-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 20px;
-}
-@media (max-width: 768px) {
-  .agents-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* Role Detail Modal */
-.role-modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(10px);
-  z-index: 1000;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-.role-modal-overlay.show {
-  display: flex;
-  opacity: 1;
-}
-.role-modal {
-  background: rgba(30, 40, 64, 0.95);
-  backdrop-filter: blur(30px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 24px;
-  padding: 32px;
-  max-width: 480px;
-  width: 90%;
-  transform: scale(0.9) translateY(20px);
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.role-modal-overlay.show .role-modal {
-  transform: scale(1) translateY(0);
-}
-.role-modal-header {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 20px;
-}
-.role-modal-avatar {
-  width: 64px;
-  height: 64px;
-  border-radius: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 32px;
-}
-.role-modal-title {
-  font-size: 24px;
-  font-weight: 700;
-  margin-bottom: 4px;
-}
-.role-modal-subtitle {
-  font-size: 14px;
-  color: var(--text2);
-}
-.role-modal-content {
-  font-size: 14px;
-  line-height: 1.6;
-  color: var(--text2);
-}
-.role-modal-section {
-  margin-top: 20px;
-  padding-top: 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-}
-.role-modal-section-title {
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: var(--text3);
-  margin-bottom: 12px;
-}
-.role-modal-close {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(255, 255, 255, 0.1);
-  color: var(--text2);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  transition: all 0.2s;
-}
-.role-modal-close:hover {
-  background: rgba(255, 255, 255, 0.2);
-  color: var(--text);
-  transform: rotate(90deg);
-}
-
-/* Drag Preview */
-.drag-preview {
-  position: fixed;
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0.9;
-  transform: rotate(3deg) scale(1.05);
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .agent-card { padding: 16px; }
-  .agent-avatar { width: 40px; height: 40px; font-size: 20px; }
-  .agent-name { font-size: 15px; }
-  .hierarchy-container { padding: 16px; border-radius: 16px; }
-  .role-modal { padding: 24px; }
-}
-
-/* === Dynatrace-Style Distributed Tracing === */
-.trace-stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 12px;
-  margin-bottom: 20px;
-}
-.trace-stat-card {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-  padding: 16px;
-  text-align: center;
-  transition: all 0.2s ease;
-}
-.trace-stat-card:hover {
-  background: rgba(255, 255, 255, 0.05);
-  transform: translateY(-2px);
-}
-.trace-stat-card.success {
-  border-color: rgba(34, 197, 94, 0.3);
-  background: rgba(34, 197, 94, 0.05);
-}
-.trace-stat-card.error {
-  border-color: rgba(239, 68, 68, 0.3);
-  background: rgba(239, 68, 68, 0.05);
-}
-.trace-stat-label {
-  font-size: 11px;
-  color: var(--text3);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 6px;
-}
-.trace-stat-value {
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--text);
-  font-family: 'SF Mono', monospace;
-}
-.trace-stat-card.success .trace-stat-value { color: var(--green); }
-.trace-stat-card.error .trace-stat-value { color: var(--red); }
-
-.trace-btn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 14px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  color: var(--text);
-  font-size: 12px;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.trace-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: var(--blue);
-}
-
-.trace-filters {
-  display: flex;
-  gap: 16px;
-  padding: 16px;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-}
-.trace-filter-group {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.trace-filter-group label {
-  font-size: 10px;
-  color: var(--text3);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-.trace-filter-group select {
-  padding: 8px 12px;
-  background: var(--bg3);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  color: var(--text);
-  font-size: 12px;
-  min-width: 140px;
-  cursor: pointer;
-}
-
-.trace-container {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.trace-empty {
-  padding: 60px 20px;
-  text-align: center;
-  color: var(--text3);
-  font-size: 14px;
-  background: rgba(255, 255, 255, 0.02);
-  border-radius: 12px;
-  border: 1px dashed rgba(255, 255, 255, 0.1);
-}
-
-/* Trace Row */
-.trace-row {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-  padding: 16px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-.trace-row:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.15);
-  transform: translateX(4px);
-}
-.trace-row.error {
-  border-color: rgba(239, 68, 68, 0.3);
-  background: rgba(239, 68, 68, 0.03);
-}
-.trace-row.pending {
-  border-color: rgba(251, 191, 36, 0.3);
-  background: rgba(251, 191, 36, 0.03);
-}
-
-.trace-row-header {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 12px;
-}
-.trace-row-id {
-  font-family: 'SF Mono', monospace;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--cyan);
-}
-.trace-row-time {
-  font-size: 11px;
-  color: var(--text3);
-}
-.trace-row-source {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 10px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 6px;
-  font-size: 11px;
-}
-.trace-row-status {
-  margin-left: auto;
-  padding: 4px 10px;
-  border-radius: 6px;
-  font-size: 10px;
-  font-weight: 600;
-  text-transform: uppercase;
-}
-.trace-row-status.success { background: rgba(34, 197, 94, 0.2); color: var(--green); }
-.trace-row-status.error { background: rgba(239, 68, 68, 0.2); color: var(--red); }
-.trace-row-status.pending { background: rgba(251, 191, 36, 0.2); color: var(--yellow); }
-
-/* Mini Waterfall in Row */
-.trace-mini-waterfall {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 12px;
-  padding-top: 12px;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-}
-.trace-mini-label {
-  font-size: 10px;
-  color: var(--text3);
-  min-width: 60px;
-}
-.trace-mini-timeline {
-  flex: 1;
-  height: 24px;
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 4px;
-  position: relative;
-  overflow: hidden;
-}
-.trace-mini-bar {
-  position: absolute;
-  height: 100%;
-  border-radius: 3px;
-  opacity: 0.8;
-  transition: opacity 0.2s;
-}
-.trace-mini-bar:hover { opacity: 1; }
-.trace-mini-bar.paid { background: linear-gradient(90deg, var(--purple), var(--pink)); }
-.trace-mini-bar.free { background: linear-gradient(90deg, var(--green), var(--cyan)); }
-.trace-mini-bar.error { background: var(--red); }
-
-.trace-mini-info {
-  display: flex;
-  gap: 16px;
-  font-size: 11px;
-  color: var(--text2);
-}
-
-/* Trace Modal */
-.trace-modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(8px);
-  z-index: 10000;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-.trace-modal-overlay.show { display: flex; }
-.trace-modal {
-  background: var(--bg1);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  width: 90vw;
-  max-width: 1200px;
-  max-height: 85vh;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-}
-.trace-modal-close {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  background: none;
-  border: none;
-  color: var(--text3);
-  font-size: 24px;
-  cursor: pointer;
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
-}
-.trace-modal-close:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: var(--text);
-}
-
-.trace-modal-header {
-  padding: 24px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
-.trace-modal-title {
-  font-size: 18px;
-  font-weight: 700;
-  margin-bottom: 4px;
-}
-.trace-modal-subtitle {
-  font-size: 12px;
-  color: var(--text3);
-}
-.trace-modal-badges {
-  display: flex;
-  gap: 8px;
-  margin-top: 12px;
-}
-.trace-badge {
-  padding: 4px 10px;
-  border-radius: 6px;
-  font-size: 10px;
-  font-weight: 600;
-}
-
-/* Waterfall */
-.trace-waterfall {
-  flex: 1;
-  overflow: auto;
-  padding: 20px;
-}
-.waterfall-header {
-  display: grid;
-  grid-template-columns: 200px 80px 1fr;
-  gap: 16px;
-  padding: 12px 16px;
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 8px;
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--text3);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 12px;
-}
-.waterfall-body {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.waterfall-row {
-  display: grid;
-  grid-template-columns: 200px 80px 1fr;
-  gap: 16px;
-  padding: 14px 16px;
-  background: rgba(255, 255, 255, 0.02);
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.15s;
-  border-left: 3px solid transparent;
-}
-.waterfall-row:hover {
-  background: rgba(255, 255, 255, 0.05);
-}
-.waterfall-row.selected {
-  background: rgba(79, 143, 247, 0.1);
-  border-left-color: var(--blue);
-}
-.waterfall-row.error {
-  background: rgba(239, 68, 68, 0.05);
-  border-left-color: var(--red);
-}
-
-.waterfall-service {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.waterfall-service-avatar {
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  background: rgba(255, 255, 255, 0.1);
-}
-.waterfall-service-info {
-  display: flex;
-  flex-direction: column;
-}
-.waterfall-service-name {
-  font-size: 13px;
-  font-weight: 600;
-}
-.waterfall-service-op {
-  font-size: 10px;
-  color: var(--text3);
-}
-.waterfall-duration {
-  font-family: 'SF Mono', monospace;
-  font-size: 12px;
-  color: var(--text2);
-  display: flex;
-  align-items: center;
-}
-.waterfall-timeline {
-  position: relative;
-  height: 28px;
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 4px;
-  overflow: hidden;
-}
-.waterfall-bar {
-  position: absolute;
-  height: 100%;
-  border-radius: 3px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding-right: 8px;
-  font-size: 10px;
-  font-weight: 600;
-  color: #fff;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-}
-.waterfall-bar.paid {
-  background: linear-gradient(90deg, #9333ea, #db2777);
-}
-.waterfall-bar.free {
-  background: linear-gradient(90deg, #16a34a, #0891b2);
-}
-.waterfall-bar.error {
-  background: var(--red);
-}
-
-/* Span Details */
-.span-details {
-  padding: 20px 24px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.01);
-  max-height: 300px;
-  overflow: auto;
-}
-.span-details-header {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--text3);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 16px;
-}
-.span-details-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
-}
-.span-detail-item {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.span-detail-label {
-  font-size: 10px;
-  color: var(--text3);
-  text-transform: uppercase;
-}
-.span-detail-value {
-  font-size: 12px;
-  color: var(--text);
-  font-family: 'SF Mono', monospace;
-}
-.span-detail-value.highlight {
-  color: var(--cyan);
-}
-.span-detail-value.success { color: var(--green); }
-.span-detail-value.error { color: var(--red); }
-
-.span-logs {
-  margin-top: 16px;
-  padding: 12px;
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 8px;
-  font-family: 'SF Mono', monospace;
-  font-size: 11px;
-  line-height: 1.6;
-  max-height: 200px;
-  overflow: auto;
-}
-.span-log-line {
-  padding: 2px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-}
-.span-log-line:last-child { border-bottom: none; }
-.span-log-time { color: var(--text3); margin-right: 8px; }
-.span-log-level { margin-right: 8px; }
-.span-log-level.info { color: var(--blue); }
-.span-log-level.error { color: var(--red); }
-.span-log-level.warn { color: var(--yellow); }
-
 .pl-step{display:flex;flex-direction:column;align-items:center;position:relative}
 .pl-arrow{display:flex;align-items:center;padding:0 4px;color:var(--text3);font-size:16px;margin-top:14px}
 .pl-node{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:8px 10px;text-align:center;min-width:90px;max-width:130px}
@@ -1052,78 +226,6 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
 .tnode-dlabel{font-size:9px;color:var(--text3);margin-bottom:3px;margin-top:8px;text-transform:uppercase;letter-spacing:.5px}
 .tnode-dlabel:first-child{margin-top:0}
 .tnode-pre{font-size:9px;color:var(--text2);background:var(--bg2);padding:6px 8px;border-radius:4px;white-space:pre-wrap;word-break:break-word;max-height:200px;overflow-y:auto;line-height:1.4;font-family:monospace}
-/* Supply Chain Pipeline Graph (sc-*) */
-.sc-pipeline{display:flex;flex-direction:column;padding:10px 0 4px}
-.sc-entry{display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;margin-bottom:0}
-.sc-entry-icon{font-size:22px;flex-shrink:0}
-.sc-entry-info{flex:1;min-width:0}
-.sc-entry-title{font-size:12px;font-weight:700;color:var(--text)}
-.sc-entry-sub{font-size:10px;color:var(--text3);margin-top:1px}
-.sc-entry-msg{font-size:10px;color:var(--cyan);margin-top:4px;white-space:pre-wrap;word-break:break-word;max-height:40px;overflow:hidden}
-.sc-entry-badge{font-size:8px;font-weight:700;padding:2px 7px;border-radius:4px;background:rgba(34,211,238,.15);color:var(--cyan);flex-shrink:0}
-.sc-connector{display:flex;flex-direction:column;align-items:center;height:28px;flex-shrink:0}
-.sc-line{width:2px;flex:1;background:var(--border)}
-.sc-arrow{font-size:9px;color:var(--text3);line-height:1}
-.sc-step{display:flex;flex-direction:column}
-.sc-card{background:var(--bg3);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:border-color .15s;overflow:hidden}
-.sc-card:hover{border-color:var(--blue)}
-.sc-card.sc-paid{border-left:3px solid #f0a500}
-.sc-card.sc-free{border-left:3px solid var(--green)}
-.sc-card.sc-error{border-left:3px solid var(--red)!important;background:rgba(239,68,68,.04)}
-.sc-card.expanded{border-color:var(--cyan)}
-.sc-hdr{display:flex;align-items:center;gap:8px;padding:9px 12px;flex-wrap:wrap}
-.sc-hdr-left{display:flex;align-items:center;gap:8px;flex:1;min-width:0}
-.sc-hdr-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
-.sc-num{font-size:9px;font-weight:700;width:18px;height:18px;border-radius:50%;background:var(--bg5);color:var(--text3);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.sc-emoji{font-size:16px;flex-shrink:0}
-.sc-hdr-info{min-width:0}
-.sc-agent-name{font-size:12px;font-weight:700;color:var(--text)}
-.sc-agent-sub{font-size:9px;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.sc-tier{font-size:8px;padding:2px 5px;border-radius:3px;font-weight:700;flex-shrink:0}
-.sc-tier-paid{background:rgba(240,165,0,.15);color:#f0a500}
-.sc-tier-free{background:rgba(34,197,94,.12);color:var(--green)}
-.sc-tier-err{background:rgba(239,68,68,.15);color:var(--red)}
-.sc-lat{font-size:11px;font-weight:600;color:var(--text);font-family:monospace;flex-shrink:0}
-.sc-cost{font-size:10px;font-family:monospace;color:#f0a500;flex-shrink:0}
-.sc-cost-free{color:var(--green)}
-.sc-chevron{font-size:9px;color:var(--text3);transition:transform .2s;flex-shrink:0}
-.sc-card.expanded .sc-chevron{transform:rotate(90deg);color:var(--cyan)}
-.sc-gantt{padding:0 12px 5px}
-.sc-gantt-bar{position:relative;height:6px;border-radius:3px;background:var(--bg1)}
-.sc-gantt-bar::after{content:'';position:absolute;top:0;left:0;height:100%;border-radius:3px;background:var(--bg5)}
-/* override: the bar itself IS the colored fill */
-.sc-gantt-bar.sc-bar-paid{background:#f0a500}
-.sc-gantt-bar.sc-bar-free{background:var(--green)}
-.sc-gantt-bar.sc-bar-err{background:var(--red)}
-.sc-summary{display:flex;gap:12px;flex-wrap:wrap;padding:0 12px 8px;font-size:10px;color:var(--text3)}
-.sc-summary b{color:var(--text)}
-/* Expanded detail */
-.sc-detail{display:none;padding:10px 12px 12px;border-top:1px solid var(--border);background:var(--bg1)}
-.sc-card.expanded .sc-detail{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
-.sc-block{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:10px 12px}
-.sc-block-req{border-top:2px solid var(--cyan)}
-.sc-block-proc{border-top:2px solid #f0a500}
-.sc-block-resp{border-top:2px solid var(--green)}
-.sc-block-title{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);margin-bottom:8px}
-.sc-block-row{display:flex;align-items:flex-start;gap:6px;margin-bottom:5px;font-size:10px}
-.sc-block-row-full{flex-direction:column;gap:4px}
-.sc-lbl{color:var(--text3);min-width:72px;flex-shrink:0;font-size:9px;padding-top:1px}
-.sc-val{color:var(--text);word-break:break-word}
-.sc-val-ok{color:var(--green)}
-.sc-val-err{color:var(--red)}
-.sc-val-paid{color:#f0a500}
-.sc-val-free{color:var(--green)}
-.sc-mono{font-family:monospace;font-size:9px}
-.sc-msg-box{background:var(--bg3);border-radius:4px;padding:6px 8px;font-size:10px;color:var(--text);line-height:1.5;white-space:pre-wrap;word-break:break-word;max-height:120px;overflow-y:auto;width:100%}
-.sc-msg-req{border-left:2px solid var(--cyan)}
-.sc-msg-resp{border-left:2px solid var(--green)}
-.sc-pre{font-size:9px;color:var(--text2);background:var(--bg3);padding:6px 8px;border-radius:4px;white-space:pre-wrap;word-break:break-word;max-height:160px;overflow-y:auto;line-height:1.4;font-family:monospace;width:100%}
-.sc-pre-err{color:var(--red);border-left:2px solid var(--red)}
-.sc-exit{display:flex;align-items:center;gap:10px;padding:8px 14px;border-radius:8px;font-size:11px;font-weight:600;margin-top:0}
-.sc-exit-ok{background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.25);color:var(--green)}
-.sc-exit-err{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);color:var(--red)}
-.live-dot{color:var(--green);animation:blink 1.2s ease-in-out infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 </style>
 </head>
 <body>
@@ -1141,7 +243,6 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   <button class="tab on" data-p="overview">Overview</button>
   <button class="tab" data-p="agents">Agents</button>
   <button class="tab" data-p="pipeline">Pipeline</button>
-  <button class="tab" data-p="team">Team</button>
   <button class="tab" data-p="standup">Standup</button>
   <button class="tab" data-p="cron">Cron Jobs</button>
   <button class="tab" data-p="tickets">Tickets &amp; SLA</button>
@@ -1149,13 +250,11 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   <button class="tab" data-p="skills">Skills</button>
   <button class="tab" data-p="cost">Cost Estimator</button>
   <button class="tab" data-p="routing">Smart Routing</button>
-  <button class="tab" data-p="9router">9Router Status</button>
   <button class="tab" data-p="prompt">Prompt Eng</button>
   <button class="tab" data-p="caching">Caching</button>
   <button class="tab" data-p="errors">Errors &amp; Logs</button>
   <button class="tab" data-p="openclaw">OpenClaw</button>
   <button class="tab" data-p="ceo">CEO Controls</button>
-  <button class="tab" data-p="analytics">Analytics</button>
 </div>
 
 <div class="main">
@@ -1170,72 +269,23 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   <div class="sec"><div class="sec-t">Agent Roster</div><div class="g g4" id="ov-ag"></div></div>
 </div>
 
-<!-- AGENTS - Apple Style -->
+<!-- AGENTS -->
 <div class="pg" id="pg-agents">
-  <!-- Header -->
-  <div class="sec" style="margin-bottom: 24px">
-    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px">
-      <div>
-        <div style="font-size: 28px; font-weight: 700; margin-bottom: 4px">Agent Organization</div>
-        <div style="font-size: 14px; color: var(--text2)">Drag agents to reorganize hierarchy • Click roles for details</div>
-      </div>
-      <button onclick="openAgentModal(null,null)" class="agent-btn primary" style="flex: none; padding: 12px 24px; font-size: 14px">
-        <span style="margin-right: 8px">+</span> Add Agent
-      </button>
+  <!-- Hierarchy tree -->
+  <div class="sec" style="margin-bottom:16px">
+    <div class="sec-t" style="display:flex;align-items:center;gap:8px">
+      Agent Hierarchy &amp; Communication Flow
+      <span style="margin-left:auto;font-size:10px;color:var(--text3)">click any node to edit</span>
     </div>
+    <div class="c" id="ag-hier" style="overflow-x:auto;padding:20px 12px"></div>
   </div>
-
-  <!-- Hierarchy View -->
-  <div class="hierarchy-container" style="margin-bottom: 32px">
-    <div class="hierarchy-title">
-      <span style="font-size: 24px">🎯</span>
-      Command Hierarchy
-      <span style="margin-left: auto; font-size: 12px; color: var(--text3); font-weight: 400">
-        Drag agents to change reporting structure
-      </span>
-    </div>
-    <div class="hierarchy-tree" id="ag-hierarchy-tree">
-      <!-- Dynamic hierarchy rendered here -->
-    </div>
+  <!-- Agent cards -->
+  <div class="sec-t" style="margin-bottom:6px;display:flex;align-items:center;gap:10px">
+    All Agents
+    <span style="font-weight:400;font-size:11px;color:var(--text3)">— click model to change inline</span>
+    <button onclick="openAgentModal(null,null)" style="margin-left:auto;background:var(--green);color:#000;border:none;padding:4px 12px;border-radius:4px;font-size:11px;font-weight:700;cursor:pointer">+ Add Agent</button>
   </div>
-
-  <!-- Agents Grid -->
-  <div class="sec">
-    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px">
-      <div style="font-size: 20px; font-weight: 600">All Agents</div>
-      <div style="font-size: 12px; color: var(--text3)">
-        <span id="ag-count">0</span> agents active
-      </div>
-    </div>
-    <div class="agents-grid" id="ag-grid">
-      <!-- Dynamic agent cards rendered here -->
-    </div>
-  </div>
-</div>
-
-<!-- Role Detail Modal -->
-<div class="role-modal-overlay" id="role-modal-overlay" onclick="closeRoleModal(event)">
-  <div class="role-modal" onclick="event.stopPropagation()">
-    <button class="role-modal-close" onclick="closeRoleModal()">×</button>
-    <div class="role-modal-header">
-      <div class="role-modal-avatar" id="role-modal-avatar">🤖</div>
-      <div>
-        <div class="role-modal-title" id="role-modal-name">Agent Name</div>
-        <div class="role-modal-subtitle" id="role-modal-role">Role Title</div>
-      </div>
-    </div>
-    <div class="role-modal-content" id="role-modal-description">
-      Role description goes here...
-    </div>
-    <div class="role-modal-section">
-      <div class="role-modal-section-title">Responsibilities</div>
-      <div id="role-modal-responsibilities"></div>
-    </div>
-    <div class="role-modal-section">
-      <div class="role-modal-section-title">Current Configuration</div>
-      <div id="role-modal-config" style="font-family: 'SF Mono', monospace; font-size: 12px; color: var(--cyan)"></div>
-    </div>
-  </div>
+  <div class="g g3" id="ag-grid"></div>
 </div>
 
 <!-- Agent edit/add modal -->
@@ -1294,68 +344,22 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
 
 <!-- PIPELINE -->
 <div class="pg" id="pg-pipeline">
-  <!-- Header -->
-  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:10px">
-    <div>
-      <div style="font-size:18px;font-weight:700;display:flex;align-items:center;gap:8px">
-        <span class="live-dot">&#9679;</span> Request Pipeline
-        <span id="pl-meta" style="font-size:11px;font-weight:400;color:var(--text3)">loading…</span>
-      </div>
-      <div style="font-size:11px;color:var(--text3);margin-top:2px">Complete end-to-end message flow · times in <span id="pl-tz" style="color:var(--cyan)"></span> · click any request to expand</div>
-    </div>
-    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-      <input id="pl-search" type="text" placeholder="🔍 Search messages, agents, models…" oninput="filterPipeline()" style="padding:6px 10px;background:var(--bg3);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:11px;width:220px;outline:none">
-      <input id="pl-date" type="date" onchange="loadPipeline()" style="padding:6px 8px;background:var(--bg3);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:11px;cursor:pointer;outline:none">
-      <select id="pl-filter-src" onchange="filterPipeline()" style="padding:6px 8px;background:var(--bg3);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:11px;cursor:pointer">
-        <option value="">All Sources</option>
-        <option value="telegram">📱 Telegram</option>
-        <option value="slack">💬 Slack</option>
-        <option value="cron">⏰ Cron</option>
-        <option value="subagent">🔀 A2A</option>
-        <option value="direct">🖥 Direct</option>
-      </select>
-      <select id="pl-filter-agent" onchange="filterPipeline()" style="padding:6px 8px;background:var(--bg3);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:11px;cursor:pointer">
-        <option value="">All Agents</option>
-      </select>
-      <button onclick="loadPipeline()" style="padding:6px 10px;background:var(--bg3);border:1px solid var(--border);border-radius:6px;color:var(--text2);font-size:11px;cursor:pointer">↻ Refresh</button>
-    </div>
+  <div class="sec-t" style="display:flex;align-items:center;gap:8px">
+    <span class="live-dot">&#9679;</span> Request Pipeline — Full Traceability
+    <span id="pl-meta" style="font-size:10px;color:var(--text3);margin-left:4px">loading…</span>
+    <span style="margin-left:auto;font-size:10px;color:var(--text3)">&#x21bb; 3s</span>
   </div>
-
-  <!-- Stats bar -->
-  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;padding:10px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;font-size:11px">
-    <div>📨 Shown: <strong id="pl-stat-count">–</strong></div>
+  <!-- Today's summary stats -->
+  <div id="pl-stats" style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px;padding:10px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;font-size:11px">
+    <div>📨 Today's requests: <strong id="pl-stat-count">–</strong></div>
     <div>📱 Telegram: <strong id="pl-stat-tg">–</strong></div>
     <div>⏰ Cron: <strong id="pl-stat-cron">–</strong></div>
     <div>⏱ Avg response: <strong id="pl-stat-lat">–</strong></div>
-    <div>💰 Total cost: <strong id="pl-stat-cost">–</strong></div>
-    <div>☁ Paid hops: <strong id="pl-stat-paid">–</strong></div>
-    <div>🆓 Free hops: <strong id="pl-stat-free">–</strong></div>
-    <div style="margin-left:auto;color:var(--text3)">Data range: <strong id="pl-stat-range">–</strong></div>
+    <div>💰 Today's cost: <strong id="pl-stat-cost">–</strong></div>
+    <div>☁ Paid calls: <strong id="pl-stat-paid">–</strong></div>
+    <div>🆓 Free calls: <strong id="pl-stat-free">–</strong></div>
   </div>
-
   <div id="pl-feed"></div>
-</div>
-
-<!-- TEAM -->
-<div class="pg" id="pg-team">
-  <div class="sec-t" style="display:flex;align-items:center;gap:8px">
-    Company Status
-    <span id="tm-count" style="font-size:10px;color:var(--text3);margin-left:4px"></span>
-    <button onclick="loadTeam()" style="margin-left:auto;background:none;border:1px solid var(--border);color:var(--text2);font-size:10px;padding:2px 8px;border-radius:4px;cursor:pointer">&#x21bb; Refresh</button>
-  </div>
-
-  <!-- Active Agents -->
-  <div class="sec-t" style="font-size:12px;margin-top:0;padding-top:0">Active Agents</div>
-  <div id="tm-agents" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin-bottom:20px"></div>
-
-  <!-- Recent Delegations -->
-  <div class="sec-t" style="font-size:12px;margin-top:10px;padding-top:0">Recent A2A Delegations <span id="tm-today" style="color:var(--text3);font-weight:400;font-size:11px"></span></div>
-  <div class="c" style="overflow-x:auto">
-    <table class="t" id="tm-deleg">
-      <thead><tr><th>Time</th><th>From</th><th>To</th><th>Task</th><th>Duration</th><th>Status</th></tr></thead>
-      <tbody></tbody>
-    </table>
-  </div>
 </div>
 
 <!-- STANDUP -->
@@ -1442,66 +446,6 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   <div class="c"><div class="mono" id="rt-algo"></div></div>
 </div>
 
-<!-- 9ROUTER STATUS -->
-<div class="pg" id="pg-9router">
-  <div class="sec-t">9Router Model Proxy &mdash; Combos Dashboard</div>
-  
-  <!-- System Stats -->
-  <div class="g g4" style="margin-bottom:16px">
-    <div class="c">
-      <div class="c-t">Total Requests</div>
-      <div class="c-v" id="9router-requests" style="color:var(--cyan)">--</div>
-      <div class="c-s">All time</div>
-    </div>
-    <div class="c">
-      <div class="c-t">Avg Latency</div>
-      <div class="c-v" id="9router-latency" style="color:var(--green)">--</div>
-      <div class="c-s">Response time</div>
-    </div>
-    <div class="c">
-      <div class="c-t">Success Rate</div>
-      <div class="c-v" id="9router-success" style="color:var(--blue)">--</div>
-      <div class="c-s">Reliability</div>
-    </div>
-    <div class="c">
-      <div class="c-t">Uptime</div>
-      <div class="c-v" id="9router-uptime" style="color:var(--purple)">--</div>
-      <div class="c-s">Availability</div>
-    </div>
-  </div>
-
-  <!-- Combos Grid -->
-  <div class="sec">
-    <div class="sec-t">Intelligent Routing Combos</div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:16px" id="9router-combos-grid"></div>
-  </div>
-
-  <!-- Providers Section -->
-  <div class="sec">
-    <div class="sec-t">Provider Status</div>
-    <div class="g g2" style="margin-bottom:16px">
-      <div>
-        <div class="sec-t">Active Providers</div>
-        <div class="c" id="9router-providers" style="max-height:300px;overflow-y:auto"></div>
-      </div>
-      <div>
-        <div class="sec-t">Model Distribution</div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px" id="9router-stats"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Real-time Activity -->
-  <div class="sec">
-    <div class="sec-t">Real-time Routing Activity</div>
-    <div class="c">
-      <div style="height:200px;background:rgba(0,20,40,.3);border-radius:8px;padding:12px;display:flex;align-items:center;justify-content:center;color:var(--text3);font-family:monospace;font-size:12px" id="9router-activity">
-        <div>🔄 Real-time routing visualization coming soon...</div>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- PROMPT ENG -->
 <div class="pg" id="pg-prompt">
   <div class="sec-t">Prompt Engineering Pipeline</div>
@@ -1581,25 +525,15 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
     <select id="mdl-agent"></select>
     <label>New Primary Model</label>
     <select id="mdl-model">
-      <optgroup label="9Router Combos">
-        <option value="9router/always-on-premium">9router/always-on-premium (10 layers)</option>
-        <option value="9router/coding-factory">9router/coding-factory (9 layers)</option>
-        <option value="9router/research-deep">9router/research-deep (8 layers)</option>
-        <option value="9router/heartbeat-cheap">9router/heartbeat-cheap (8 layers)</option>
-        <option value="9router/subagent-reliable">9router/subagent-reliable (8 layers)</option>
-        <option value="9router/free-unlimited">9router/free-unlimited (10 layers)</option>
-      </optgroup>
-      <optgroup label="Direct Models">
-        <option value="openai-codex/gpt-5.2">openai-codex/gpt-5.2</option>
-        <option value="claude-code/sonnet-4.5">claude-code/sonnet-4.5</option>
-        <option value="zai/glm-4.7">zai/glm-4.7</option>
-        <option value="perplexity/sonar">perplexity/sonar</option>
-        <option value="perplexity/sonar-pro">perplexity/sonar-pro</option>
-        <option value="perplexity/sonar-reasoning">perplexity/sonar-reasoning</option>
-        <option value="ollama/llama3.1:8b">ollama/llama3.1:8b</option>
-        <option value="ollama/qwen2.5-coder:7b">ollama/qwen2.5-coder:7b</option>
-        <option value="moonshot/kimi-k2.5">moonshot/kimi-k2.5</option>
-      </optgroup>
+      <option value="openai-codex/gpt-5.2">openai-codex/gpt-5.2</option>
+      <option value="claude-code/sonnet-4.5">claude-code/sonnet-4.5</option>
+      <option value="zai/glm-4.7">zai/glm-4.7</option>
+      <option value="perplexity/sonar">perplexity/sonar</option>
+      <option value="perplexity/sonar-pro">perplexity/sonar-pro</option>
+      <option value="perplexity/sonar-reasoning">perplexity/sonar-reasoning</option>
+      <option value="ollama/llama3.1:8b">ollama/llama3.1:8b</option>
+      <option value="ollama/qwen2.5-coder:7b">ollama/qwen2.5-coder:7b</option>
+      <option value="moonshot/kimi-k2.5">moonshot/kimi-k2.5</option>
     </select>
     <div style="font-size:10px;color:var(--text3);margin-bottom:8px">Current model: <strong id="mdl-cur" style="color:var(--cyan)">--</strong></div>
     <div class="modal-btns">
@@ -1615,8 +549,8 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
 <script>
 // ---- State ----
 let D={}, LOADED=false;
-const MODELS_ALL=['openai-codex/gpt-5.2','9router/always-on-premium','9router/coding-factory','9router/research-deep','9router/heartbeat-cheap','9router/subagent-reliable','9router/free-unlimited','claude-code/sonnet-4.5','zai/glm-4.7','perplexity/sonar','perplexity/sonar-pro','perplexity/sonar-reasoning','ollama/llama3.1:8b','ollama/qwen2.5-coder:7b','moonshot/kimi-k2.5'];
-const ROLES={main:'CEO / Chief Executive',allrounder:'COO / Chief Strategy Officer',eng:'Engineering Lead',research:'Research & Analysis',finance:'Financial Analyst',ops:'Operations Manager',infosec:'Security Officer',hatake:'Intent Parser & Marketing'};
+const MODELS_ALL=['openai-codex/gpt-5.2','claude-code/sonnet-4.5','zai/glm-4.7','perplexity/sonar','perplexity/sonar-pro','perplexity/sonar-reasoning','ollama/llama3.1:8b','ollama/qwen2.5-coder:7b','moonshot/kimi-k2.5'];
+const ROLES={main:'CEO / Orchestrator',allrounder:'CSO / Web Research',eng:'Engineering Lead',research:'Deep Research',finance:'Finance & Budget',ops:'Scrum Master / DevOps',infosec:'Security Officer',hatake:'Intent Parser'};
 const EMO={main:'\u{1F451}',allrounder:'\u{1F310}',eng:'\u{1F4BB}',research:'\u{1F52C}',finance:'\u{1F4B0}',ops:'\u{2699}\uFE0F',infosec:'\u{1F512}',hatake:'\u{1F977}'};
 
 // ---- Nav ----
@@ -1663,341 +597,57 @@ function renderOverview(){
   document.getElementById('ov-ag').innerHTML=(D.agents||[]).map(a=>`<div class="ac"><div class="ac-top"><div>${EMO[a.id]||'\u{1F916}'} <span class="ac-n">${h(a.name)}</span></div><span class="p p-g">online</span></div><div class="ac-r">${ROLES[a.id]||a.id}</div><div class="ac-m"><span>Model: <strong style="color:var(--cyan)">${(a.model||'').split('/').pop()}</strong></span><span>Mem: ${a.memoryDb?(a.memoryDb.size/1048576).toFixed(1)+'MB':'--'}</span></div></div>`).join('');
 }
 
-// --- Agent Role Details ---
-const ROLE_DETAILS = {
-  main: {
-    name: 'CEO / Chief Executive',
-    description: 'The supreme leader of the autonomous AI company. Responsible for strategic vision, final decision-making on P0 issues, and orchestrating all other agents.',
-    responsibilities: ['Strategic planning', 'Final decision authority', 'Agent orchestration', 'Vision alignment', 'Crisis management'],
-    avatar: '👑'
-  },
-  allrounder: {
-    name: 'COO / Chief Strategy Officer',
-    description: 'Chief operating officer handling web research, competitive intelligence, and cross-functional coordination between all agents.',
-    responsibilities: ['Web research', 'Competitive analysis', 'Cross-functional coordination', 'Strategy execution', 'Knowledge synthesis'],
-    avatar: '🌐'
-  },
-  eng: {
-    name: 'Engineering Lead',
-    description: 'Lead engineer responsible for code generation, code review, technical architecture, and engineering best practices.',
-    responsibilities: ['Code generation', 'Code review', 'Architecture design', 'Technical standards', 'Engineering mentorship'],
-    avatar: '💻'
-  },
-  research: {
-    name: 'Research & Analysis',
-    description: 'Deep research specialist focused on AI trends analysis, technology research, and comprehensive analytical reports.',
-    responsibilities: ['AI trends analysis', 'Technology research', 'Analytical reports', 'Data synthesis', 'Innovation scouting'],
-    avatar: '🔬'
-  },
-  finance: {
-    name: 'Financial Analyst',
-    description: 'Financial expert handling budget optimization, cost analysis, portfolio management, and financial forecasting.',
-    responsibilities: ['Budget optimization', 'Cost analysis', 'Portfolio management', 'Financial forecasting', 'ROI analysis'],
-    avatar: '💰'
-  },
-  ops: {
-    name: 'Operations Manager',
-    description: 'Operations specialist managing DevOps, infrastructure, deployment pipelines, and system reliability.',
-    responsibilities: ['DevOps management', 'Infrastructure', 'CI/CD pipelines', 'System reliability', 'Operational efficiency'],
-    avatar: '⚙️'
-  },
-  infosec: {
-    name: 'Security Officer',
-    description: 'Security expert responsible for security audits, threat detection, compliance monitoring, and security best practices.',
-    responsibilities: ['Security audits', 'Threat detection', 'Compliance monitoring', 'Security policies', 'Incident response'],
-    avatar: '🔒'
-  },
-  hatake: {
-    name: 'Intent Parser & Marketing',
-    description: 'Natural language processing specialist handling intent parsing, user query analysis, and marketing content generation.',
-    responsibilities: ['Intent parsing', 'Query analysis', 'Marketing content', 'User engagement', 'Communication optimization'],
-    avatar: '🥷'
-  }
-};
-
-let _draggedAgent = null;
-let _dragSource = null;
-
-function showRoleModal(agentId) {
-  const agent = (D.agents || []).find(a => a.id === agentId);
-  if (!agent) return;
-  
-  const roleInfo = ROLE_DETAILS[agent.id] || {
-    name: agent.role || ROLES[agent.id] || agent.id,
-    description: 'Custom agent role',
-    responsibilities: ['Agent-specific tasks'],
-    avatar: EMO[agent.id] || '🤖'
-  };
-  
-  document.getElementById('role-modal-avatar').textContent = roleInfo.avatar;
-  document.getElementById('role-modal-avatar').className = 'role-modal-avatar agent-avatar ' + agent.id;
-  document.getElementById('role-modal-name').textContent = agent.name || agent.identityName || agent.id;
-  document.getElementById('role-modal-role').textContent = roleInfo.name;
-  document.getElementById('role-modal-description').textContent = roleInfo.description;
-  document.getElementById('role-modal-responsibilities').innerHTML = roleInfo.responsibilities.map(r => 
-    `<div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; padding: 8px 12px; background: rgba(255,255,255,0.03); border-radius: 8px; font-size: 13px;">
-      <span style="color: var(--green)">✓</span> ${h(r)}
-    </div>`
-  ).join('');
-  
-  const config = [
-    `ID: ${agent.id}`,
-    `Model: ${agent.model || 'default'}`,
-    `Memory: ${agent.memoryDb ? (agent.memoryDb.size/1048576).toFixed(1) + ' MB' : 'none'}`,
-    `Reports to: ${agent.parentId || 'none'}`,
-    `Status: ${agent.status || 'active'}`
-  ].join(' | ');
-  document.getElementById('role-modal-config').textContent = config;
-  
-  document.getElementById('role-modal-overlay').classList.add('show');
-}
-
-function closeRoleModal(event) {
-  if (!event || event.target.id === 'role-modal-overlay' || event.target.className === 'role-modal-close') {
-    document.getElementById('role-modal-overlay').classList.remove('show');
-  }
-}
-
-// --- Drag and Drop ---
-function handleDragStart(e, agentId, source) {
-  _draggedAgent = agentId;
-  _dragSource = source;
-  e.dataTransfer.effectAllowed = 'move';
-  e.dataTransfer.setData('text/plain', agentId);
-  e.target.classList.add('dragging');
-}
-
-function handleDragEnd(e) {
-  e.target.classList.remove('dragging');
-  document.querySelectorAll('.drag-over').forEach(el => el.classList.remove('drag-over'));
-  _draggedAgent = null;
-  _dragSource = null;
-}
-
-function handleDragOver(e) {
-  e.preventDefault();
-  e.dataTransfer.dropEffect = 'move';
-}
-
-function handleDragEnter(e, targetId) {
-  e.preventDefault();
-  if (_draggedAgent && _draggedAgent !== targetId) {
-    e.currentTarget.classList.add('drag-over');
-  }
-}
-
-function handleDragLeave(e) {
-  e.currentTarget.classList.remove('drag-over');
-}
-
-async function handleDrop(e, targetId) {
-  e.preventDefault();
-  e.currentTarget.classList.remove('drag-over');
-  
-  if (!_draggedAgent || _draggedAgent === targetId) return;
-  
-  // Prevent circular references
-  const agents = D.agents || [];
-  const target = agents.find(a => a.id === targetId);
-  const dragged = agents.find(a => a.id === _draggedAgent);
-  
-  if (!target || !dragged) return;
-  
-  // Check if target is a descendant of dragged
-  let current = target;
-  while (current.parentId) {
-    if (current.parentId === _draggedAgent) {
-      toast('Cannot create circular hierarchy', false);
-      return;
-    }
-    current = agents.find(a => a.id === current.parentId);
-    if (!current) break;
-  }
-  
-  // Update parent via API
-  try {
-    const r = await fetch(`/api/agents/${_draggedAgent}`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ parentId: targetId })
-    });
-    const d = await r.json();
-    if (d.ok) {
-      toast(`${dragged.name} now reports to ${target.name}`, true);
-      await loadAll();
-    } else {
-      toast('Failed to update hierarchy: ' + d.error, false);
-    }
-  } catch (e) {
-    toast('Failed to update hierarchy', false);
-  }
-}
-
-// --- Hierarchy Tree (Apple Style) ---
-function buildHierarchyTree(agents, parentId = null, level = 0) {
-  const children = agents.filter(a => a.parentId === parentId);
-  if (children.length === 0) return '';
-  
-  const isRoot = level === 0;
-  
-  return `
-    <div class="hierarchy-branch" style="margin-left: ${level > 0 ? '24px' : '0'}">
-      ${children.map(agent => {
-        const roleInfo = ROLE_DETAILS[agent.id] || { avatar: EMO[agent.id] || '🤖' };
-        const hasChildren = agents.some(a => a.parentId === agent.id);
-        
-        return `
-          <div style="display: flex; flex-direction: column; align-items: center;">
-            <div 
-              class="hierarchy-node ${agent.isDefault ? 'active' : ''}"
-              draggable="true"
-              ondragstart="handleDragStart(event, '${agent.id}', 'hierarchy')"
-              ondragend="handleDragEnd(event)"
-              ondragover="handleDragOver(event)"
-              ondragenter="handleDragEnter(event, '${agent.id}')"
-              ondragleave="handleDragLeave(event)"
-              ondrop="handleDrop(event, '${agent.id}')"
-              onclick="openAgentModal('${agent.id}', null)"
-            >
-              <span style="font-size: 20px">${roleInfo.avatar}</span>
-              <div>
-                <div style="font-weight: 600; font-size: 13px">${h(agent.name || agent.identityName)}</div>
-                <div style="font-size: 10px; color: var(--text3)">${h(ROLES[agent.id] || agent.role || agent.id)}</div>
-              </div>
-            </div>
-            ${hasChildren ? '<div class="hierarchy-connector"></div>' : ''}
-            ${buildHierarchyTree(agents, agent.id, level + 1)}
-          </div>
-        `;
-      }).join('')}
-    </div>
-  `;
-}
-
-function renderHierarchy() {
-  const agents = D.agents || [];
-  const root = agents.find(a => a.isDefault) || agents[0];
-  
-  if (!root) {
-    document.getElementById('ag-hierarchy-tree').innerHTML = '<div style="color:var(--text3); text-align:center; padding:40px">No agents configured</div>';
-    return;
-  }
-  
-  // Build from root
-  const rootInfo = ROLE_DETAILS[root.id] || { avatar: EMO[root.id] || '🤖' };
-  const treeHtml = `
-    <div style="display: flex; flex-direction: column; align-items: center;">
-      <div 
-        class="hierarchy-node active"
-        draggable="true"
-        ondragstart="handleDragStart(event, '${root.id}', 'hierarchy')"
-        ondragend="handleDragEnd(event)"
-        onclick="openAgentModal('${root.id}', null)"
-      >
-        <span style="font-size: 24px">${rootInfo.avatar}</span>
-        <div>
-          <div style="font-weight: 700; font-size: 14px">${h(root.name || root.identityName)}</div>
-          <div style="font-size: 11px; color: var(--green)">🎯 ${h(ROLES[root.id] || root.role || root.id)}</div>
+// --- Hierarchy tree ---
+function buildTree(agents, rootId) {
+  function nodeHtml(a, isRoot) {
+    const cls=isRoot?'htree-node is-root':(a.id==='allrounder'?'htree-node is-cso':'htree-node');
+    const roleShort=(a.role||ROLES[a.id]||a.id).split('—')[0].trim();
+    const modelShort=(a.model||'').split('/').pop();
+    const children=agents.filter(x=>x.parentId===a.id);
+    const hasChildren=children.length>0;
+    const childrenHtml=hasChildren?`
+      <div class="htree-level" style="--child-count:${children.length}">
+        ${children.map(c=>`<div class="htree-wrap"><div class="htree-vline"></div>${nodeHtml(c,false)}</div>`).join('')}
+      </div>`:'';
+    return`<div style="display:flex;flex-direction:column;align-items:center">
+      <div class="${cls}" onclick="openAgentModal('${a.id}',null)">
+        <div class="htree-emoji">${EMO[a.id]||'\u{1F916}'}</div>
+        <div class="htree-name">${h(a.identityName||a.name)}</div>
+        <div class="htree-role" title="${h(a.role||ROLES[a.id]||'')}">${h(roleShort)}</div>
+        <span class="htree-model">${h(modelShort)}</span>
+        <div class="htree-actions">
+          <button class="htree-btn" onclick="event.stopPropagation();openAgentModal('${a.id}',null)">✏ Edit</button>
+          <button class="htree-btn add" onclick="event.stopPropagation();openAgentModal(null,'${a.id}')">+ Sub</button>
         </div>
       </div>
-      <div class="hierarchy-connector"></div>
-      ${buildHierarchyTree(agents, root.id, 1)}
-    </div>
-  `;
-  
-  document.getElementById('ag-hierarchy-tree').innerHTML = treeHtml;
-}
-
-// --- Agent Cards (Apple Style) ---
-function renderAgents() {
-  renderHierarchy();
-  
-  const agents = D.agents || [];
-  document.getElementById('ag-count').textContent = agents.length;
-  
-  document.getElementById('ag-grid').innerHTML = agents.map(agent => {
-    const roleInfo = ROLE_DETAILS[agent.id] || { 
-      name: agent.role || ROLES[agent.id] || agent.id,
-      avatar: EMO[agent.id] || '🤖'
-    };
-    const modelShort = (agent.model || 'default').split('/').pop();
-    const memorySize = agent.memoryDb ? (agent.memoryDb.size / 1048576).toFixed(1) + ' MB' : 'None';
-    
-    return `
-      <div 
-        class="agent-card ${agent.id}"
-        draggable="true"
-        ondragstart="handleDragStart(event, '${agent.id}', 'grid')"
-        ondragend="handleDragEnd(event)"
-        ondragover="handleDragOver(event)"
-        ondragenter="handleDragEnter(event, '${agent.id}')"
-        ondragleave="handleDragLeave(event)"
-        ondrop="handleDrop(event, '${agent.id}')"
-      >
-        <div class="agent-header">
-          <div class="agent-avatar ${agent.id}">${roleInfo.avatar}</div>
-          <div class="agent-info">
-            <div class="agent-name">${h(agent.name || agent.identityName || agent.id)}</div>
-            <div class="agent-role" onclick="showRoleModal('${agent.id}'); event.stopPropagation();">
-              ${h(roleInfo.name)}
-            </div>
-          </div>
-          <div class="agent-status"></div>
-        </div>
-        
-        <div class="agent-details">
-          <div class="agent-detail-row">
-            <span class="agent-detail-label">Model</span>
-            <span class="agent-detail-value">${h(modelShort)}</span>
-          </div>
-          <div class="agent-detail-row">
-            <span class="agent-detail-label">Memory</span>
-            <span class="agent-detail-value">${memorySize}</span>
-          </div>
-          <div class="agent-detail-row">
-            <span class="agent-detail-label">Reports to</span>
-            <span class="agent-detail-value">${agent.parentId ? h(agent.parentId) : '—'}</span>
-          </div>
-          ${agent.bot ? `
-          <div class="agent-detail-row">
-            <span class="agent-detail-label">Bot Handle</span>
-            <span class="agent-detail-value" style="color: var(--cyan)">@${h(agent.bot)}</span>
-          </div>
-          ` : ''}
-        </div>
-        
-        <div class="agent-actions">
-          <button class="agent-btn" onclick="openAgentModal('${agent.id}', null)">
-            <span>✎</span> Edit
-          </button>
-          <button class="agent-btn" onclick="openAgentModal(null, '${agent.id}')">
-            <span>+</span> Sub-agent
-          </button>
-          ${!agent.isDefault ? `
-          <button class="agent-btn danger" onclick="deleteAgentById('${agent.id}')">
-            <span>🗑</span>
-          </button>
-          ` : ''}
-        </div>
-      </div>
-    `;
-  }).join('');
-}
-
-async function deleteAgentById(id) {
-  if (!confirm(`Remove agent "${id}" from config? This cannot be undone.`)) return;
-  try {
-    const r = await fetch('/api/agents/' + id, { method: 'DELETE' });
-    const d = await r.json();
-    if (d.ok) {
-      toast(`Agent ${id} removed`, true);
-      await loadAll();
-    } else {
-      toast('Delete failed: ' + d.error, false);
-    }
-  } catch (e) {
-    toast('Delete failed: ' + e.message, false);
+      ${hasChildren?`<div class="htree-vline"></div>${childrenHtml}`:''}
+    </div>`;
   }
+  const root=agents.find(a=>a.id===rootId);
+  if(!root) return '<div style="color:var(--text3);padding:20px">No hierarchy data</div>';
+  // Compute horizontal bar width for each level
+  return`<div class="htree">${nodeHtml(root,true)}</div>`;
+}
+
+function renderHierarchy(){
+  const agents=D.agents||[];
+  const root=agents.find(a=>a.isDefault)||agents[0];
+  if(!root){document.getElementById('ag-hier').innerHTML='<div style="color:var(--text3)">No agents</div>';return;}
+  // Fix htree-level ::before width dynamically after render
+  const el=document.getElementById('ag-hier');
+  el.innerHTML=buildTree(agents,root.id);
+  // Draw connecting horizontal bars after layout
+  el.querySelectorAll('.htree-level').forEach(lvl=>{
+    const items=lvl.querySelectorAll(':scope > .htree-wrap');
+    if(items.length<2)return;
+    const first=items[0].getBoundingClientRect();
+    const last=items[items.length-1].getBoundingClientRect();
+    const parent=lvl.getBoundingClientRect();
+    const w=last.left+last.width/2-(first.left+first.width/2);
+    const l=first.left+first.width/2-parent.left;
+    lvl.style.setProperty('--bar-w',w+'px');
+    lvl.style.setProperty('--bar-l',l+'px');
+  });
 }
 
 // --- Agent management modal ---
@@ -2211,32 +861,7 @@ function renderSkills(){
   const tb=document.querySelector('#sk-t tbody');
   const sk=D._skillDetails||[];
   if(!sk.length){tb.innerHTML='<tr><td colspan="5" style="text-align:center;padding:30px;color:var(--text3)">No skills found</td></tr>';return}
-  tb.innerHTML=sk.map((s,i)=>`<tr id="sk-row-${h(s.name)}">
-    <td style="color:var(--text3)">${i+1}</td>
-    <td style="font-weight:600;color:var(--text)">${h(s.name)}</td>
-    <td>${h(s.title)}</td>
-    <td><button onclick="toggleSkill('${h(s.name)}')" id="sk-btn-${h(s.name)}" style="padding:3px 10px;border-radius:20px;border:none;cursor:pointer;font-size:10px;font-weight:700;transition:.15s;background:${s.enabled?'rgba(34,197,94,.18)':'rgba(90,100,120,.2)'};color:${s.enabled?'var(--green)':'var(--text3)'}">${s.enabled?'● enabled':'○ disabled'}</button></td>
-    <td style="font-size:10px;color:var(--text3);max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${h(s.purpose)}">${h(s.purpose||'--')}</td>
-  </tr>`).join('');
-}
-
-async function toggleSkill(name){
-  const btn=document.getElementById('sk-btn-'+name);
-  if(btn){btn.disabled=true;btn.textContent='…';}
-  try{
-    const r=await fetch('/api/skills/'+encodeURIComponent(name)+'/toggle',{method:'POST'});
-    const d=await r.json();
-    if(!d.ok) throw new Error(d.error||'toggle failed');
-    const sk=D._skillDetails||[];
-    const entry=sk.find(s=>s.name===name);
-    if(entry) entry.enabled=d.enabled;
-    renderSkills();
-    showToast((d.enabled?'Enabled':'Disabled')+': '+name,d.enabled?'ok':'');
-  }catch(e){
-    showToast('Toggle failed: '+e.message,'fail');
-    if(btn){btn.disabled=false;}
-    renderSkills();
-  }
+  tb.innerHTML=sk.map((s,i)=>`<tr><td style="color:var(--text3)">${i+1}</td><td style="font-weight:600;color:var(--text)">${h(s.name)}</td><td>${h(s.title)}</td><td>${s.enabled?'<span class="p p-g">enabled</span>':'<span class="p p-x">disabled</span>'}</td><td style="font-size:10px;color:var(--text3);max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${h(s.purpose)}">${h(s.purpose||'--')}</td></tr>`).join('');
 }
 
 function renderCost(){
@@ -2316,116 +941,6 @@ function renderRouting(){
   const r=D._routing||{};
   document.querySelector('#rt-t tbody').innerHTML=(r.routing||[]).map(a=>`<tr><td>${EMO[a.id]||'\u{1F916}'} ${h(a.id)}</td><td style="font-weight:600;color:var(--text)">${h(a.name)}</td><td><span class="p p-b">${h(a.primary)}</span></td><td>${(a.fallbacks||[]).map(f=>'<span class="p p-x" style="margin:1px">'+h(f)+'</span>').join(' \u2192 ')||'<span style="color:var(--text3)">none</span>'}</td></tr>`).join('');
   document.getElementById('rt-algo').textContent=r.skillContent||'Smart router skill not found.';
-}
-
-function render9Router(){
-  const data=D._9router||{};
-  const providers=data.providers||[];
-  const combos=data.combos||[];
-  const stats=data.stats||{};
-  
-  // Update system stats
-  document.getElementById('9router-requests').textContent=stats.totalRequests||'--';
-  document.getElementById('9router-latency').textContent=stats.avgLatency||'--';
-  document.getElementById('9router-success').textContent=stats.successRate||'--';
-  document.getElementById('9router-uptime').textContent=stats.uptime||'--';
-  
-  // Render combos grid
-  const gridEl=document.getElementById('9router-combos-grid');
-  if(gridEl){
-    gridEl.innerHTML=combos.map(c=>{
-      const statusCls=c.status==='active'?'p-g':'p-r';
-      const latencyColor=c.latency && parseInt(c.latency) < 100 ? 'var(--green)' : c.latency && parseInt(c.latency) < 150 ? 'var(--yellow)' : 'var(--red)';
-      const reliabilityColor=c.reliability && parseFloat(c.reliability) > 99 ? 'var(--green)' : c.reliability && parseFloat(c.reliability) > 95 ? 'var(--yellow)' : 'var(--red)';
-      
-      return`<div class="c" style="padding:16px;border:1px solid rgba(100,200,255,.2);border-radius:12px;background:rgba(0,20,40,.3)">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-          <div>
-            <div style="font-weight:700;font-family:monospace;color:var(--cyan)">${h(c.name)}</div>
-            <div style="font-size:11px;color:var(--text3);margin-top:2px">${h(c.description||'')}</div>
-          </div>
-          <span class="p ${statusCls}" style="font-size:10px">${c.layers} layers</span>
-        </div>
-        
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
-          <div>
-            <div style="font-size:10px;color:var(--text3)">Latency</div>
-            <div style="font-weight:600;color:${latencyColor}">${c.latency||'--'}</div>
-          </div>
-          <div>
-            <div style="font-size:10px;color:var(--text3)">Reliability</div>
-            <div style="font-weight:600;color:${reliabilityColor}">${c.reliability||'--'}</div>
-          </div>
-        </div>
-        
-        <div style="margin-bottom:8px">
-          <div style="font-size:10px;color:var(--text3);margin-bottom:4px">Providers</div>
-          <div style="display:flex;gap:4px;flex-wrap:wrap">
-            ${(c.providers||[]).map(p=>`<span class="p p-x" style="font-size:9px">${h(p)}</span>`).join('')}
-          </div>
-        </div>
-        
-        <div>
-          <div style="font-size:10px;color:var(--text3);margin-bottom:4px">Models</div>
-          <div style="display:flex;gap:4px;flex-wrap:wrap">
-            ${(c.models||[]).map(m=>`<span class="p p-b" style="font-size:9px">${h(m.split('/').pop())}</span>`).join('')}
-          </div>
-        </div>
-      </div>`;
-    }).join('');
-  }
-  
-  // Render providers
-  const provEl=document.getElementById('9router-providers');
-  if(provEl){
-    provEl.innerHTML=providers.map(p=>{
-      const statusCls=p.status==='online'?'p-g':p.status==='limited'?'p-y':'p-r';
-      const activeIcon=p.active?'✓':'✗';
-      return`<div class="c" style="margin-bottom:8px;padding:12px;border:1px solid rgba(100,200,255,.1);border-radius:8px">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-          <span style="font-weight:600">${h(p.name)}</span>
-          <span class="p ${statusCls}">${p.status} ${activeIcon}</span>
-        </div>
-        <div style="font-size:10px;color:var(--text3)">
-          ${p.models} models available
-        </div>
-        <div style="font-size:9px;color:var(--text3);margin-top:4px;font-family:monospace">
-          ${p.endpoint||'http://localhost:20128'}
-        </div>
-      </div>`;
-    }).join('');
-  }
-  
-  // Render mini stats
-  const statsEl=document.getElementById('9router-stats');
-  if(statsEl){
-    const totalModels=providers.reduce((s,p)=>s+p.models,0);
-    const activeProviders=providers.filter(p=>p.active).length;
-    const activeCombos=combos.filter(c=>c.status==='active').length;
-    
-    statsEl.innerHTML=[
-      `<div class="c">
-        <div class="c-t">Total Models</div>
-        <div class="c-v" style="color:var(--cyan)">${totalModels}</div>
-        <div class="c-s">Across providers</div>
-      </div>`,
-      `<div class="c">
-        <div class="c-t">Active</div>
-        <div class="c-v" style="color:var(--green)">${activeProviders}/${providers.length}</div>
-        <div class="c-s">Providers online</div>
-      </div>`,
-      `<div class="c">
-        <div class="c-t">Combos</div>
-        <div class="c-v" style="color:var(--blue)">${activeCombos}</div>
-        <div class="c-s">Intelligent routing</div>
-      </div>`,
-      `<div class="c">
-        <div class="c-t">Failover</div>
-        <div class="c-v" style="color:var(--green)">✓</div>
-        <div class="c-s">Auto-switch</div>
-      </div>`
-    ].join('');
-  }
 }
 
 function renderPrompt(){
@@ -2567,7 +1082,6 @@ function renderAll(){
   try{renderCost()}catch(e){console.error('renderCost',e)}
   try{renderLiveFeed()}catch(e){console.error('renderLiveFeed',e)}
   try{renderRouting()}catch(e){console.error('renderRouting',e)}
-  try{render9Router()}catch(e){console.error('render9Router',e)}
   try{renderPrompt()}catch(e){console.error('renderPrompt',e)}
   try{renderCaching()}catch(e){console.error('renderCaching',e)}
   try{renderErrors()}catch(e){console.error('renderErrors',e)}
@@ -2578,7 +1092,7 @@ function renderAll(){
 // ---- Data Loading (fetch for refresh) ----
 async function loadAll(){
   try{
-    const [dashboard,errors,gwErrors,costDetails,routing,caching,prompt,skillDetails,gwLogs,ceoStatus,analytics,routerStatus]=await Promise.all([
+    const [dashboard,errors,gwErrors,costDetails,routing,caching,prompt,skillDetails,gwLogs,ceoStatus,analytics]=await Promise.all([
       fetch('/api/dashboard').then(r=>r.json()),
       fetch('/api/errors').then(r=>r.json()).catch(()=>[]),
       fetch('/api/gateway-errors').then(r=>r.json()).catch(()=>[]),
@@ -2590,9 +1104,8 @@ async function loadAll(){
       fetch('/api/gateway-logs').then(r=>r.json()).catch(()=>[]),
       fetch('/api/ceo/status').then(r=>r.json()).catch(()=>({})),
       fetch('/api/analytics').then(r=>r.json()).catch(()=>({})),
-      fetch('/api/9router/status').then(r=>r.json()).catch(()=>({})),
     ]);
-    D={...dashboard,_errors:errors,_gatewayErrors:gwErrors,_costDetails:costDetails,_routing:routing,_caching:caching,_prompt:prompt,_skillDetails:skillDetails,_gatewayLogs:gwLogs,_ceoStatus:ceoStatus,_analytics:analytics,_9router:routerStatus};
+    D={...dashboard,_errors:errors,_gatewayErrors:gwErrors,_costDetails:costDetails,_routing:routing,_caching:caching,_prompt:prompt,_skillDetails:skillDetails,_gatewayLogs:gwLogs,_ceoStatus:ceoStatus,_analytics:analytics};
     renderAll();
   }catch(err){
     console.error('Fetch refresh failed (using SSR data):',err);
@@ -2636,9 +1149,10 @@ setInterval(refreshCostLive,5000);
   connect();
 })();
 
-// ---- Pipeline — Step-by-Step Supply Chain Graph ----
-let _plAllPipelines = [];
-
+// ---- Pipeline ----
+const TRIGGER_LABELS={telegram:'💬 Telegram',cron:'⏱ Cron',direct:'🖥 Direct',other:'🔗 Request'};
+const CHANNEL_LABELS={DM:' DM','Group':' Group'};
+function fmtLat(ms){if(ms==null)return'…';if(ms<1000)return ms+'ms';if(ms<60000)return(ms/1000).toFixed(1)+'s';return Math.floor(ms/60000)+'m'+(Math.round((ms%60000)/1000))+'s';}
 function fmtMs(ms){
   if(ms==null||ms<0)return '…';
   if(ms<1000)return ms+'ms';
@@ -2647,359 +1161,189 @@ function fmtMs(ms){
 }
 function fmtTok(n){if(!n)return '0';if(n>=1000)return (n/1000).toFixed(1)+'k';return String(n);}
 function fmtCost(c){if(c==null)return null;if(c===0)return '$0';return '$'+c.toFixed(c<0.01?6:4);}
-function fmtTs(iso){
-  if(!iso)return '—';
-  const d=new Date(iso);
-  return d.toLocaleString(undefined,{month:'short',day:'numeric',year:'numeric',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:true});
-}
-function fmtTsShort(iso){
-  if(!iso)return '—';
-  const d=new Date(iso);
-  return d.toLocaleString(undefined,{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit',hour12:true});
+
+// Toggle open/closed state of a tree node header
+function whatDoing(s){
+  if(s.triggerType==='telegram'||s.triggerType==='whatsapp') return 'Handling user message';
+  if(s.triggerType==='cron') return 'Running scheduled job';
+  if(s.triggerType==='subagent') return 'Delegated sub-task';
+  return 'Processing request';
 }
 
-function filterPipeline(){
-  const q=(document.getElementById('pl-search')?.value||'').toLowerCase();
-  const src=document.getElementById('pl-filter-src')?.value||'';
-  const agent=document.getElementById('pl-filter-agent')?.value||'';
-  const filtered=_plAllPipelines.filter(p=>{
-    if(src && p.triggerType!==src) return false;
-    if(agent && !p.steps.some(s=>s.agent===agent)) return false;
-    if(q){
-      const haystack=[
-        p.triggerMessage||'',
-        p.triggerType,
-        p.channel||'',
-        ...p.steps.map(s=>[s.agent,s.model,s.promptTail||'',s.responsePreview||''].join(' '))
-      ].join(' ').toLowerCase();
-      if(!haystack.includes(q)) return false;
-    }
-    return true;
-  });
-  renderPipelineList(filtered);
-}
-
-function renderPipelineList(pipelines){
+function renderPipeline(pipelines){
   const feed=document.getElementById('pl-feed');
+  const meta=document.getElementById('pl-meta');
   if(!feed)return;
   if(!pipelines||!pipelines.length){
-    feed.innerHTML='<div style="padding:40px;text-align:center;color:var(--text3)">No requests match — try clearing filters or waiting for new activity.</div>';
-    document.getElementById('pl-stat-count').textContent='0';
+    feed.innerHTML='<div style="padding:40px;text-align:center;color:var(--text3)">No requests yet — waiting for traffic…</div>';
     return;
   }
 
-  // Populate agent filter
-  const allAgents=[...new Set(pipelines.flatMap(p=>p.steps.map(s=>s.agent)))].sort();
-  const agSel=document.getElementById('pl-filter-agent');
-  if(agSel){
-    const cur=agSel.value;
-    agSel.innerHTML='<option value="">All Agents</option>'+allAgents.map(a=>`<option value="${h(a)}">${EMO[a]||'🤖'} ${h(a)}</option>`).join('');
-    agSel.value=cur;
-  }
+  const today=new Date().toISOString().slice(0,10);
+  const todayPl=pipelines.filter(p=>p.triggeredAt&&p.triggeredAt.startsWith(today));
+  const liveCount=pipelines.filter(p=>p.isLive).length;
+  if(meta)meta.textContent=todayPl.length+' requests today · '+(liveCount?liveCount+' LIVE ●':'all completed');
 
-  // Stats
-  const tgCount=pipelines.filter(p=>p.triggerType==='telegram').length;
-  const cronCount=pipelines.filter(p=>p.triggerType==='cron').length;
-  const lats=pipelines.filter(p=>p.totalLatencyMs>0).map(p=>p.totalLatencyMs);
-  const avgLat=lats.length?lats.reduce((a,b)=>a+b,0)/lats.length:0;
-  const totalCost=pipelines.reduce((s,p)=>s+(p.totalCost||0),0);
-  const allSteps=pipelines.flatMap(p=>p.steps||[]);
-  const paidHops=allSteps.filter(s=>s.tier==='paid').length;
-  const freeHops=allSteps.filter(s=>s.tier==='free').length;
-  const oldest=pipelines[pipelines.length-1]?.triggeredAt;
-  const newest=pipelines[0]?.triggeredAt;
-
-  document.getElementById('pl-stat-count').textContent=pipelines.length;
-  document.getElementById('pl-stat-tg').textContent=tgCount;
-  document.getElementById('pl-stat-cron').textContent=cronCount;
-  document.getElementById('pl-stat-lat').textContent=avgLat?fmtMs(avgLat):'–';
-  document.getElementById('pl-stat-cost').textContent=totalCost>0?fmtCost(totalCost):'$0';
-  document.getElementById('pl-stat-paid').textContent=paidHops;
-  document.getElementById('pl-stat-free').textContent=freeHops;
-  if(oldest&&newest){
-    const o=new Date(oldest),n=new Date(newest);
-    document.getElementById('pl-stat-range').textContent=o.toLocaleDateString()+' → '+n.toLocaleDateString();
-  }
-
-  feed.innerHTML=pipelines.map((p,pi)=>{
+  feed.innerHTML='<div class="req-list">'+pipelines.map((p,pi)=>{
     const rid=p.id||('REQ-'+pi);
-    const srcIcon=p.triggerType==='telegram'?'📱':p.triggerType==='cron'?'⏰':p.triggerType==='whatsapp'?'💬':p.triggerType==='slack'?'💬':p.triggerType==='subagent'?'🔀':'🖥';
-    const srcLabel=p.triggerType==='telegram'?'Telegram '+(p.channel||'DM'):p.triggerType==='cron'?(p.cronJobId||'Cron Job'):p.triggerType==='whatsapp'?'WhatsApp':p.triggerType==='slack'?'Slack '+(p.channel||''):p.triggerType==='subagent'?'A2A Subagent':'Direct';
-    const latStr=p.totalLatencyMs?fmtMs(p.totalLatencyMs):'–';
+    const srcIcon=p.triggerType==='telegram'?'📱':p.triggerType==='cron'?'⏰':p.triggerType==='whatsapp'?'💬':'🖥';
+    const srcLabel=p.triggerType==='telegram'?'Telegram DM':p.triggerType==='cron'?(p.cronJobName||'Cron Job'):p.triggerType==='whatsapp'?'WhatsApp':'Direct';
+    const msgPreview=p.triggerMessage?p.triggerMessage.replace(/\n/g,' ').slice(0,60)+(p.triggerMessage.length>60?'…':''):'—';
     const costStr=p.totalCost>0?`<span style="color:var(--gold,#f0a500)">${fmtCost(p.totalCost)}</span>`:'<span style="color:var(--green)">FREE</span>';
+    const latStr=p.totalLatencyMs?fmtMs(p.totalLatencyMs):'–';
     const liveBadge=p.isLive?'<span class="req-badge live">LIVE</span>':'<span class="req-badge ok">done</span>';
-    const timeStr=fmtTsShort(p.triggeredAt);
-    const errCount=p.steps.filter(s=>s.error).length;
-    const errBadge=errCount?`<span class="req-badge" style="background:rgba(239,68,68,.2);color:var(--red)">⚠ ${errCount} error${errCount>1?'s':''}</span>`:'';
+    const timeStr=p.triggeredAt?new Date(p.triggeredAt).toLocaleTimeString():'';
 
-    // Build the step-by-step supply chain graph
-    const steps=p.steps||[];
-    const pipelineStartMs=new Date(p.triggeredAt).getTime();
-    const totalDur=p.totalLatencyMs||Math.max(...steps.map(s=>s.latencyMs||0),1);
+    const pipelineStartMs=p.triggeredAt?new Date(p.triggeredAt).getTime():0;
+    const totalDur=p.totalLatencyMs||Math.max(...(p.steps||[]).map(s=>s.latencyMs||0),1);
 
-    const stepsHtml=steps.map((s,si)=>{
+    const rootSteps=(p.steps||[]).filter(s=>s.triggerType!=='subagent');
+    const subSteps=(p.steps||[]).filter(s=>s.triggerType==='subagent');
+
+    // Build a single trace node card. All key info always visible; click header to expand full prompt+response.
+    function buildNode(s,nodeKey){
       const isPaid=s.tier==='paid';
-      const hasErr=!!s.error;
-      const modelShort=(s.model||'').split('/').pop().replace(':latest','');
+      const modelShort=(s.model||'').replace('ollama/','').replace('openai-codex/','').replace(':latest','');
       const lat=s.latencyMs!=null?fmtMs(s.latencyMs):'…';
-      const costDisp=s.costUsd>0?fmtCost(s.costUsd):(s.tier==='free'?'FREE':'–');
-      const barOff=s.tsMs?Math.max(0,Math.min(88,Math.round((s.tsMs-pipelineStartMs)/totalDur*100))):0;
-      const barW=s.latencyMs?Math.max(3,Math.min(100-barOff,Math.round(s.latencyMs/totalDur*100))):5;
-      const isLast=si===steps.length-1;
+      const costDisp=s.costUsd>0?fmtCost(s.costUsd):(s.tier==='free'?'<span style="color:var(--green)">$0</span>':'–');
+      // Gantt: offset = % of pipeline elapsed before this step starts, width = % of pipeline this step takes
+      const barOff=pipelineStartMs&&s.tsMs?Math.max(0,Math.min(88,Math.round((s.tsMs-pipelineStartMs)/totalDur*100))):0;
+      const barW=s.latencyMs?Math.max(2,Math.min(100-barOff,Math.round(s.latencyMs/totalDur*100))):4;
+      const hasDetail=!!(s.promptTail||s.responsePreview);
 
-      // Extract the actual user message from promptTail
-      let userMsg='';
-      if(s.promptTail){
-        const m=s.promptTail.match(/\n\n"?(.+)"?\s*$/s);
-        userMsg=m?m[1].trim().replace(/^"+|"+$/g,''):s.promptTail.slice(-200);
-      }
+      // Always-visible token row
+      const tokenLine=`↑ <b>${fmtTok(s.tokensIn)}</b> in &nbsp;·&nbsp; ↓ <b>${fmtTok(s.tokensOut)}</b> out &nbsp;·&nbsp; <b>${fmtTok(s.tokensCached)}</b> cached &nbsp;·&nbsp; <b>${s.historyCount||0}</b> ctx msgs`;
+      // Response snippet (always visible, 2-line preview)
+      const respSnippet=s.responsePreview?`<div class="tnode-resp-snippet">${h(s.responsePreview)}</div>`
+        :'<div style="font-size:10px;color:var(--text3);font-style:italic">No response captured yet</div>';
 
-      const stepKey=`${pi}-${si}`;
-      return`<div class="sc-step" id="sc-${stepKey}">
-  <!-- Connector line above (except first) -->
-  ${si>0?'<div class="sc-connector"><div class="sc-line"></div><div class="sc-arrow">▼</div></div>':''}
-  <!-- Step card -->
-  <div class="sc-card ${isPaid?'sc-paid':'sc-free'} ${hasErr?'sc-error':''}" onclick="toggleStep('sc-${stepKey}')">
-    <!-- Step header: always visible -->
-    <div class="sc-hdr">
-      <div class="sc-hdr-left">
-        <span class="sc-num">${si+1}</span>
-        <span class="sc-emoji">${EMO[s.agent]||'🤖'}</span>
-        <div class="sc-hdr-info">
-          <div class="sc-agent-name">${h((s.agent||'').toUpperCase())}</div>
-          <div class="sc-agent-sub">${srcIcon} ${h(srcLabel)} · ${h(modelShort)}</div>
-        </div>
-      </div>
-      <div class="sc-hdr-right">
-        <span class="sc-tier ${isPaid?'sc-tier-paid':'sc-tier-free'} ${hasErr?'sc-tier-err':''}">${hasErr?'ERROR':isPaid?'PAID':'FREE'}</span>
-        <span class="sc-lat">${lat}</span>
-        <span class="sc-cost ${isPaid?'':'sc-cost-free'}">${costDisp}</span>
-        <span class="sc-chevron">▶</span>
-      </div>
-    </div>
-    <!-- Gantt bar: always visible -->
-    <div class="sc-gantt">
-      <div class="sc-gantt-bar ${isPaid?'sc-bar-paid':'sc-bar-free'} ${hasErr?'sc-bar-err':''}" style="left:${barOff}%;width:${barW}%" title="Starts at +${barOff}% · Takes ${barW}% of total time"></div>
-    </div>
-    <!-- Quick summary: always visible -->
-    <div class="sc-summary">
-      <span>↑ <b>${fmtTok(s.tokensIn)}</b> in</span>
-      <span>↓ <b>${fmtTok(s.tokensOut)}</b> out</span>
-      <span>📦 <b>${fmtTok(s.tokensCached)}</b> cached</span>
-      <span>📜 <b>${s.historyCount||0}</b> ctx msgs</span>
-    </div>
-    <!-- Expanded detail: hidden until clicked -->
-    <div class="sc-detail">
-      <!-- REQUEST block -->
-      <div class="sc-block sc-block-req">
-        <div class="sc-block-title">📥 REQUEST</div>
-        <div class="sc-block-row"><span class="sc-lbl">Source</span><span class="sc-val">${srcIcon} ${h(srcLabel)}</span></div>
-        <div class="sc-block-row"><span class="sc-lbl">Agent</span><span class="sc-val">${EMO[s.agent]||'🤖'} ${h(s.agent)}</span></div>
-        <div class="sc-block-row"><span class="sc-lbl">Model</span><span class="sc-val sc-mono">${h(s.model||'—')}</span></div>
-        <div class="sc-block-row"><span class="sc-lbl">Provider</span><span class="sc-val">${h(s.provider||'—')}</span></div>
-        <div class="sc-block-row"><span class="sc-lbl">Started</span><span class="sc-val sc-mono">${fmtTs(s.ts)}</span></div>
-        <div class="sc-block-row"><span class="sc-lbl">Prompt len</span><span class="sc-val">${s.promptLength||'—'} chars</span></div>
-        <div class="sc-block-row"><span class="sc-lbl">History</span><span class="sc-val">${s.historyCount||0} messages in context</span></div>
-        ${userMsg?`<div class="sc-block-row sc-block-row-full"><span class="sc-lbl">Message</span><div class="sc-msg-box sc-msg-req">${h(userMsg)}</div></div>`:''}
-        ${s.promptTail&&s.promptTail!==userMsg?`<div class="sc-block-row sc-block-row-full"><span class="sc-lbl">Prompt tail</span><pre class="sc-pre">${h(s.promptTail)}</pre></div>`:''}
-      </div>
-      <!-- PROCESSING block -->
-      <div class="sc-block sc-block-proc">
-        <div class="sc-block-title">⚙️ PROCESSING</div>
-        <div class="sc-block-row"><span class="sc-lbl">Duration</span><span class="sc-val sc-mono">${lat}</span></div>
-        <div class="sc-block-row"><span class="sc-lbl">Tokens in</span><span class="sc-val">${(s.tokensIn||0).toLocaleString()}</span></div>
-        <div class="sc-block-row"><span class="sc-lbl">Tokens out</span><span class="sc-val">${(s.tokensOut||0).toLocaleString()}</span></div>
-        <div class="sc-block-row"><span class="sc-lbl">Cached</span><span class="sc-val">${(s.tokensCached||0).toLocaleString()}</span></div>
-        <div class="sc-block-row"><span class="sc-lbl">Cost</span><span class="sc-val sc-mono ${isPaid?'sc-val-paid':'sc-val-free'}">${s.costUsd>0?fmtCost(s.costUsd):'FREE'}</span></div>
-        <div class="sc-block-row"><span class="sc-lbl">Billing</span><span class="sc-val">${h(s.billingType||'—')}</span></div>
-        <div class="sc-block-row"><span class="sc-lbl">Tier</span><span class="sc-val">${isPaid?'☁ Paid (cloud)':'🆓 Free (local)'}</span></div>
-      </div>
-      <!-- RESPONSE block -->
-      <div class="sc-block sc-block-resp">
-        <div class="sc-block-title">📤 RESPONSE</div>
-        <div class="sc-block-row"><span class="sc-lbl">Status</span><span class="sc-val ${hasErr?'sc-val-err':'sc-val-ok'}">${hasErr?'❌ Error':'✓ Success'}</span></div>
-        ${s.responsePreview?`<div class="sc-block-row sc-block-row-full"><span class="sc-lbl">Response</span><div class="sc-msg-box sc-msg-resp">${h(s.responsePreview)}</div></div>`:'<div class="sc-block-row"><span class="sc-lbl">Response</span><span class="sc-val" style="color:var(--text3);font-style:italic">Not captured</span></div>'}
-        ${hasErr?`<div class="sc-block-row sc-block-row-full"><span class="sc-lbl" style="color:var(--red)">Error</span><pre class="sc-pre sc-pre-err">${h(JSON.stringify(s.error,null,2))}</pre></div>`:''}
-        ${!isLast?`<div class="sc-block-row"><span class="sc-lbl">Next hop</span><span class="sc-val">${EMO[steps[si+1]?.agent]||'🤖'} ${h(steps[si+1]?.agent||'—')}</span></div>`:'<div class="sc-block-row"><span class="sc-lbl">Next hop</span><span class="sc-val sc-val-ok">✓ Pipeline complete</span></div>'}
-      </div>
+      // Full detail (shown when node is expanded)
+      const tokenFull=`<div class="tnode-dlabel">Token breakdown</div><div style="font-size:10px;color:var(--text3);font-family:monospace;margin-bottom:4px">↑ ${fmtTok(s.tokensIn)} tokens in &nbsp;·&nbsp; ↓ ${fmtTok(s.tokensOut)} tokens out &nbsp;·&nbsp; ${fmtTok(s.tokensCached)} cached &nbsp;·&nbsp; ${s.historyCount||0} history context messages</div>`;
+      const promptFull=s.promptTail?`<div class="tnode-dlabel">Prompt context (last 600 chars)</div><pre class="tnode-pre">${h(s.promptTail)}</pre>`:'';
+      const respFull=s.responsePreview?`<div class="tnode-dlabel">Full response</div><pre class="tnode-pre">${h(s.responsePreview)}</pre>`:'';
+
+      return`<div class="tnode ${isPaid?'paid-node':'free-node'}" data-id="${nodeKey}">
+  <div class="tnode-hdr" onclick="event.stopPropagation();this.closest('.tnode').classList.toggle('expanded')">
+    <span style="font-size:16px">${EMO[s.agent]||'🤖'}</span>
+    <span class="tnode-agent">${h((s.agent||'').toUpperCase())}</span>
+    <span class="tnode-tier ${isPaid?'paid':'free'}">${isPaid?'PAID':'FREE'}</span>
+    <span class="tnode-model">${h(modelShort)}</span>
+    <span class="tnode-what">${whatDoing(s)}</span>
+    <span class="tnode-lat">${lat}</span>
+    <span class="tnode-cost">${costDisp}</span>
+    ${hasDetail?'<span class="tnode-expand">▼ detail</span>':''}
+  </div>
+  <div class="tnode-gantt">
+    <div class="tnode-gantt-track" title="Start +${barOff}% · Duration ${barW}% of total">
+      <div class="tnode-gantt-bar ${isPaid?'paid-bar':'free-bar'}" style="left:${barOff}%;width:${barW}%"></div>
     </div>
   </div>
+  <div class="tnode-body">
+    <div class="tnode-tokens">${tokenLine}</div>
+    ${respSnippet}
+  </div>
+  ${hasDetail?`<div class="tnode-full">${tokenFull}${promptFull}${respFull}</div>`:''}
 </div>`;
-    }).join('');
+    }
 
+    const rootHtml=rootSteps.map((s,i)=>buildNode(s,`${pi}-r${i}`)).join('');
+    const subHtml=subSteps.length
+      ? `<div class="trace-connector">
+  <div class="trace-vline"></div>
+  <div class="trace-children">${subSteps.map((s,i)=>buildNode(s,`${pi}-s${i}`)).join('')}</div>
+</div>`
+      : '';
+
+    const triggerBox=p.triggerMessage?`<div class="req-trigger-box">${h(p.triggerMessage)}</div>`:'';
+    const totalTok=(p.totalTokensIn||0)+(p.totalTokensOut||0);
+    const summaryRow=`<div class="req-summary">
+  <span>⏱ Total: <strong>${latStr}</strong></span>
+  <span>🤖 <strong>${p.agentCount}</strong> agent${p.agentCount!==1?'s':''}</span>
+  <span>🪙 <strong>${fmtTok(totalTok)}</strong> tokens</span>
+  ${p.paidCost>0?`<span>☁ <strong style="color:var(--gold,#f0a500)">${fmtCost(p.paidCost)}</strong> paid</span>`:''}
+  ${p.totalCost===0?`<span style="color:var(--green)">🆓 free run</span>`:''}
+  ${p.paidModels?.length?`<span style="color:var(--gold,#f0a500)">Paid: ${p.paidModels.map(m=>m.split('/').pop()).join(', ')}</span>`:''}
+  ${p.freeModels?.length?`<span style="color:var(--green)">Free: ${p.freeModels.map(m=>m.split('/').pop()).join(', ')}</span>`:''}
+</div>`;
+
+    // KEY FIX: onclick is ONLY on .req-row-hdr — not on the whole .req-row card.
+    // Clicks inside .req-trace do NOT propagate to toggle the row.
     return`<div class="req-row" data-id="${h(rid)}">
-  <div class="req-row-hdr" onclick="toggleReqRow(this)">
-    <span class="req-id" style="font-size:10px;color:var(--cyan);font-family:monospace">${h(rid.slice(-12))}</span>
+  <div class="req-row-hdr" onclick="this.closest('.req-row').classList.toggle('open')">
+    <span class="req-id">${h(rid)}</span>
     <span class="req-src">${srcIcon} ${h(srcLabel)}</span>
-    <span class="req-msg" title="${h(p.triggerMessage||'')}" style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px;color:var(--text2)">${h((p.triggerMessage||'—').replace(/\n/g,' ').slice(0,80))}</span>
-    <span style="font-size:10px;color:var(--text3);white-space:nowrap">${timeStr}</span>
-    <span class="req-agents" style="font-size:10px;white-space:nowrap">${p.agentCount} hop${p.agentCount!==1?'s':''}</span>
-    <span class="req-lat" style="font-size:10px;font-family:monospace;white-space:nowrap">${latStr}</span>
+    <span class="req-msg" title="${h(p.triggerMessage||'')}">${h(msgPreview)}</span>
+    <span class="req-agents">${p.agentCount} agent${p.agentCount!==1?'s':''}</span>
+    <span class="req-lat">${latStr}</span>
     <span class="req-cost">${costStr}</span>
-    ${errBadge}
     ${liveBadge}
     <span class="req-caret">▶</span>
   </div>
   <div class="req-trace">
-    <div class="sc-pipeline">
-      <!-- Entry point -->
-      <div class="sc-entry">
-        <div class="sc-entry-icon">${srcIcon}</div>
-        <div class="sc-entry-info">
-          <div class="sc-entry-title">${h(srcLabel)}</div>
-          <div class="sc-entry-sub">${timeStr}</div>
-          ${p.triggerMessage?`<div class="sc-entry-msg">${h(p.triggerMessage.replace(/\n/g,' ').slice(0,200))}</div>`:''}
-        </div>
-        <div class="sc-entry-badge">TRIGGER</div>
-      </div>
-      <div class="sc-connector"><div class="sc-line"></div><div class="sc-arrow">▼</div></div>
-      <!-- Steps -->
-      ${stepsHtml}
-      <!-- Exit point -->
-      <div class="sc-connector"><div class="sc-line"></div><div class="sc-arrow">▼</div></div>
-      <div class="sc-exit ${errCount?'sc-exit-err':'sc-exit-ok'}">
-        <span>${errCount?'❌ Completed with errors':'✓ Response delivered'}</span>
-        <span style="margin-left:auto;font-family:monospace;font-size:11px">${latStr} · ${costStr}</span>
-      </div>
+    <div style="font-size:10px;color:var(--text3);margin-top:10px;margin-bottom:4px">${srcIcon} ${h(srcLabel)} &nbsp;·&nbsp; ${timeStr}</div>
+    ${triggerBox}
+    ${summaryRow}
+    <div class="trace-tree">
+      ${rootHtml}
+      ${subHtml}
     </div>
   </div>
 </div>`;
-  }).join('');
+  }).join('')+'</div>';
 }
 
-function toggleReqRow(hdr){
-  const row=hdr.closest('.req-row');
-  row.classList.toggle('open');
-}
-
-function toggleStep(id){
-  const el=document.getElementById(id);
-  if(el) el.querySelector('.sc-card').classList.toggle('expanded');
-}
-
-function renderPipeline(traces){
-  const meta=document.getElementById('pl-meta');
-  if(!traces||!traces.length){
-    document.getElementById('pl-feed').innerHTML='<div style="padding:40px;text-align:center;color:var(--text3)">No requests yet — waiting for traffic…</div>';
-    if(meta)meta.textContent='no data';
-    return;
-  }
-
-  const now=Date.now();
-  _plAllPipelines=traces.map((t,pi)=>{
-    const root=t.rootSpan;
-    const steps=t.spans;
-    const triggerType=root.source?.type||'direct';
-    const channel=root.source?.channel||null;
-    const startMs=root.startMs;
-    const endMs=Math.max(...steps.map(s=>s.endMs||s.startMs));
-    const totalLatencyMs=endMs>startMs?endMs-startMs:null;
-    const totalCost=t.summary.totalCostUsd||0;
-    const paidCost=steps.filter(s=>s.model?.tier==='paid').reduce((s,e)=>s+(e.metrics?.costUsd||0),0);
-    const freeCost=steps.filter(s=>s.model?.tier==='free').reduce((s,e)=>s+(e.metrics?.costUsd||0),0);
-    const paidModels=[...new Set(steps.filter(s=>s.model?.tier==='paid').map(s=>s.model?.full).filter(Boolean))];
-    const freeModels=[...new Set(steps.filter(s=>s.model?.tier==='free').map(s=>s.model?.full).filter(Boolean))];
-    const hasIncomplete=steps.some(s=>!s.endMs);
-    const isLive=hasIncomplete||(now-endMs)<90000;
-    const uniqueAgents=[...new Set(steps.map(s=>s.agent))];
-
-    // Use triggerMessage directly from new session-based API
-    const triggerMessage=t.triggerMessage||null;
-
-    return{
-      id:t.traceId,
-      triggeredAt:new Date(startMs).toISOString(),
-      triggerType,channel,
-      cronJobId:root.source?.details?.jobId,
-      triggerMessage,isLive,
-      steps:steps.map(s=>({
-        ts:new Date(s.startMs).toISOString(),
-        tsMs:s.startMs,endMs:s.endMs,
-        latencyMs:s.durationMs,
-        agent:s.agent,
-        model:s.model?.full,
-        provider:s.model?.provider,
-        tier:s.model?.tier,
-        tokensIn:s.metrics?.tokensIn,
-        tokensOut:s.metrics?.tokensOut,
-        tokensCached:s.metrics?.tokensCached,
-        costUsd:s.metrics?.costUsd,
-        billingType:s.metrics?.billingType,
-        historyCount:s.request?.historyCount,
-        promptLength:s.request?.promptLength,
-        promptTail:s.request?.promptTail,
-        responsePreview:s.response?.preview,
-        completed:!!s.endMs,
-        success:s.status==='success',
-        error:s.response?.error,
-        source:s.source
-      })),
-      totalCost,paidCost,freeCost,
-      totalLatencyMs,
-      agentCount:uniqueAgents.length,
-      paidModels,freeModels,
-      totalTokensIn:steps.reduce((s,e)=>s+(e.metrics?.tokensIn||0),0),
-      totalTokensOut:steps.reduce((s,e)=>s+(e.metrics?.tokensOut||0),0),
-    };
-  }).sort((a,b)=>new Date(b.triggeredAt)-new Date(a.triggeredAt));
-
-  const liveCount=_plAllPipelines.filter(p=>p.isLive).length;
-  if(meta)meta.textContent=_plAllPipelines.length+' requests · '+(liveCount?liveCount+' LIVE ●':'all completed');
-
-  filterPipeline();
+function updatePipelineStats(pipelines){
+  const today=new Date().toISOString().slice(0,10);
+  const todayPl=pipelines.filter(p=>p.triggeredAt&&p.triggeredAt.startsWith(today));
+  const tgPl=todayPl.filter(p=>p.triggerType==='telegram');
+  const cronPl=todayPl.filter(p=>p.triggerType==='cron');
+  const completedLats=todayPl.filter(p=>p.totalLatencyMs>0).map(p=>p.totalLatencyMs);
+  const avgLat=completedLats.length?completedLats.reduce((a,b)=>a+b,0)/completedLats.length:0;
+  const totalCost=todayPl.reduce((s,p)=>s+(p.totalCost||0),0);
+  const allSteps=todayPl.flatMap(p=>p.steps||[]);
+  const paidSteps=allSteps.filter(s=>s.tier==='paid').length;
+  const freeSteps=allSteps.filter(s=>s.tier==='free').length;
+  const $=id=>document.getElementById(id);
+  if($('pl-stat-count'))$('pl-stat-count').textContent=todayPl.length;
+  if($('pl-stat-tg'))$('pl-stat-tg').textContent=tgPl.length;
+  if($('pl-stat-cron'))$('pl-stat-cron').textContent=cronPl.length;
+  if($('pl-stat-lat'))$('pl-stat-lat').textContent=avgLat?fmtMs(avgLat):'–';
+  if($('pl-stat-cost'))$('pl-stat-cost').textContent=totalCost>0?fmtCost(totalCost):'$0';
+  if($('pl-stat-paid'))$('pl-stat-paid').textContent=paidSteps;
+  if($('pl-stat-free'))$('pl-stat-free').textContent=freeSteps;
 }
 
 async function loadPipeline(){
   try{
-    // Show system timezone in header
-    const tzEl=document.getElementById('pl-tz');
-    if(tzEl&&!tzEl.textContent){
-      const tz=Intl.DateTimeFormat().resolvedOptions().timeZone;
-      const abbr=new Date().toLocaleTimeString(undefined,{timeZoneName:'short'}).split(' ').pop();
-      tzEl.textContent=abbr+' ('+tz+')';
-    }
-    // Set today's date as default if not set
-    const datePicker=document.getElementById('pl-date');
-    if(datePicker&&!datePicker.value){
-      const now=new Date();
-      const local=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0');
-      datePicker.value=local;
-    }
-    const dateVal=datePicker?.value||'';
-    // Convert local date to UTC date prefix for API (session timestamps are UTC)
-    // We pass the local date; server will match session timestamps starting with that UTC date
-    // To handle timezone offset, also try the day before/after
-    const url='/api/traces?limit=60'+(dateVal?'&date='+encodeURIComponent(dateVal):'');
-    const data=await fetch(url).then(r=>r.json()).catch(()=>null);
-    if(data&&data.traces){
+    const data=await fetch('/api/pipeline').then(r=>r.json()).catch(()=>null);
+    if(data){
+      // Preserve which rows/nodes are currently open before re-render
       const feed=document.getElementById('pl-feed');
       const openRows=new Set([...feed.querySelectorAll('.req-row.open')].map(el=>el.dataset.id));
-      const openCards=new Set([...feed.querySelectorAll('.sc-card.expanded')].map(el=>el.closest('[id]')?.id));
-      renderPipeline(data.traces);
+      const openNodes=new Set([...feed.querySelectorAll('.tnode.expanded')].map(el=>el.dataset.id));
+      renderPipeline(data);
+      updatePipelineStats(data);
+      // Restore open states after re-render
       for(const el of feed.querySelectorAll('.req-row')){
         if(openRows.has(el.dataset.id)) el.classList.add('open');
       }
-      for(const id of openCards){
-        const el=document.getElementById(id);
-        if(el) el.querySelector('.sc-card')?.classList.add('expanded');
+      for(const el of feed.querySelectorAll('.tnode')){
+        if(openNodes.has(el.dataset.id)) el.classList.add('expanded');
       }
     }
-  }catch(e){console.error('Pipeline load error:',e);}
+  }catch(e){}
 }
-
 loadPipeline();
-setInterval(loadPipeline,5000);
+setInterval(loadPipeline,15000);
 
 // ── STANDUP ──────────────────────────────────────────
 const AGENT_META={
-  main:       {emoji:'👑', name:'RED (CEO)',            label:'RED (CEO)',            alwaysOn:true  },
-  allrounder: {emoji:'🌐', name:'ZEN (CSO)',            label:'ZEN (CSO)',            alwaysOn:true  },
-  ops:        {emoji:'⚙️', name:'OPS (Scrum Master)',   label:'OPS',                  alwaysOn:true  },
-  hatake:     {emoji:'🥷', name:'HATAKE (Parser)',       label:'HATAKE',               alwaysOn:true  },
-  eng:        {emoji:'💻', name:'ENG (Engineering)',    label:'ENG',                  alwaysOn:false },
-  research:   {emoji:'🔬', name:'RESEARCH (Analyst)',   label:'RESEARCH',             alwaysOn:false },
-  finance:    {emoji:'💰', name:'FINANCE (Finance)',    label:'FINANCE',              alwaysOn:false },
-  infosec:    {emoji:'🔒', name:'INFOSEC (Security)',   label:'INFOSEC',              alwaysOn:false },
+  main:{emoji:'👑',label:'RED (CEO)'},
+  eng:{emoji:'💻',label:'ENG'},
+  research:{emoji:'🔬',label:'RESEARCH'},
+  finance:{emoji:'💰',label:'FINANCE'},
+  ops:{emoji:'⚙️',label:'OPS'},
+  infosec:{emoji:'🔒',label:'INFOSEC'}
 };
 
 function timeAgo(isoStr){
@@ -3104,278 +1448,6 @@ async function loadStandup(){
 }
 loadStandup();
 setInterval(loadStandup,30000);
-
-// --- TEAM TAB ---
-function relTime(iso){const s=Math.round((Date.now()-new Date(iso).getTime())/1000);if(s<60)return s+'s ago';if(s<3600)return Math.round(s/60)+'m ago';return Math.round(s/3600)+'h ago';}
-
-function renderTeamAgents(statusData) {
-  const el = document.getElementById('tm-agents');
-  if (!el) return;
-  const today = new Date().toISOString().slice(0,10);
-  el.innerHTML = statusData.map(s => {
-    const meta = AGENT_META[s.agent] || { emoji:'🤖', name:s.agent, alwaysOn:false };
-    const stale = !s.date || s.date !== today;
-    const statusColor = stale ? 'var(--text3)' : 'var(--green)';
-    const badge = meta.alwaysOn ? '<span style="font-size:9px;background:var(--blue);color:#fff;padding:1px 5px;border-radius:8px;margin-left:4px">always-on</span>' : '';
-    return `<div class="c" style="padding:12px">
-      <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px">
-        <span style="font-size:16px">${meta.emoji}</span>
-        <strong style="font-size:12px">${meta.name}</strong>${badge}
-        <span style="margin-left:auto;width:8px;height:8px;border-radius:50%;background:${statusColor};display:inline-block"></span>
-      </div>
-      <div style="font-size:11px;color:var(--text2);margin-bottom:3px">
-        ${stale ? '<span style="color:var(--text3)">No check-in today</span>' : escHtml(s.workingOn || '—')}
-      </div>
-      ${s.blockers && s.blockers !== 'None' ? `<div style="font-size:10px;color:var(--red);margin-top:2px">🚧 ${escHtml(s.blockers)}</div>` : ''}
-      ${s.lastSeenAt ? `<div style="font-size:10px;color:var(--text3);margin-top:4px">Last active: ${relTime(s.lastSeenAt)} · ${s.callsToday||0} calls today</div>` : ''}
-    </div>`;
-  }).join('');
-}
-
-function renderTeamDelegations(a2aData) {
-  const tbody = document.querySelector('#tm-deleg tbody');
-  if (!tbody) return;
-  const today = document.getElementById('tm-today');
-  if (today && a2aData.today) {
-    today.textContent = `${a2aData.today.total} delegations today`;
-  }
-  const deleg = a2aData.delegations || [];
-  if (!deleg.length) {
-    tbody.innerHTML = '<tr><td colspan="6" style="color:var(--text3);text-align:center">No delegations recorded yet. Agents write to workspace/logs/a2a-delegations.jsonl when using sessions_spawn.</td></tr>';
-    return;
-  }
-  tbody.innerHTML = deleg.map(d => {
-    const spawnerMeta = AGENT_META[d.spawner] || { emoji:'🤖' };
-    const subMeta = AGENT_META[d.subagent] || { emoji:'🤖' };
-    const dur = d.durationMs ? (d.durationMs < 60000 ? `${Math.round(d.durationMs/1000)}s` : `${Math.round(d.durationMs/60000)}m${Math.round((d.durationMs%60000)/1000)}s`) : '—';
-    const status = d.completed ? '<span style="color:var(--green)">✅ done</span>' : '<span style="color:var(--text3)">⏳ pending</span>';
-    return `<tr>
-      <td style="white-space:nowrap;color:var(--text3)">${new Date(d.ts).toLocaleTimeString()}</td>
-      <td>${spawnerMeta.emoji} ${d.spawner}</td>
-      <td>${subMeta.emoji} ${d.subagent}</td>
-      <td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${escHtml(d.task||'')}</td>
-      <td style="white-space:nowrap">${dur}</td>
-      <td>${status}</td>
-    </tr>`;
-  }).join('');
-}
-
-async function loadTeam() {
-  try {
-    const count = document.getElementById('tm-count');
-    const [statusData, a2aData] = await Promise.all([
-      fetch('/api/agent-status').then(r=>r.json()).catch(()=>[]),
-      fetch('/api/a2a').then(r=>r.json()).catch(()=>({ today:{total:0}, delegations:[] })),
-    ]);
-    renderTeamAgents(statusData);
-    renderTeamDelegations(a2aData);
-    if (count) count.textContent = 'updated '+new Date().toLocaleTimeString();
-  } catch(e) {}
-}
-loadTeam();
-setInterval(loadTeam, 30000);
-</script>
-
-<!-- ANALYTICS TAB -->
-<div class="pg" id="pg-analytics" style="max-width:1200px;margin:0 auto;padding:16px 20px">
-  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
-    <div style="font-size:13px;font-weight:700">LLM Usage Analytics</div>
-    <span id="an-ts" style="font-size:10px;color:var(--text3)">loading…</span>
-  </div>
-
-  <!-- Stat cards -->
-  <div class="g g4" style="margin-bottom:16px" id="an-cards">
-    <div class="c"><div class="c-t">Calls Today</div><div class="c-v" id="an-calls">—</div><div class="c-s">LLM invocations</div></div>
-    <div class="c"><div class="c-t">Tokens In Today</div><div class="c-v" id="an-tin">—</div><div class="c-s">prompt tokens</div></div>
-    <div class="c"><div class="c-t">Tokens Out Today</div><div class="c-v" id="an-tout">—</div><div class="c-s">completion tokens</div></div>
-    <div class="c"><div class="c-t">Estimated Cost Today</div><div class="c-v" id="an-cost" style="font-size:20px">—</div><div class="c-s">USD (paid models only)</div></div>
-  </div>
-
-  <!-- Charts row 1: token trend + provider split -->
-  <div class="g g2" style="margin-bottom:16px">
-    <div class="c">
-      <div class="c-t" style="margin-bottom:10px">7-Day Token Trend</div>
-      <canvas id="ch-tokens" height="160"></canvas>
-    </div>
-    <div class="c">
-      <div class="c-t" style="margin-bottom:10px">Provider Split (30 days)</div>
-      <canvas id="ch-provider" height="160"></canvas>
-    </div>
-  </div>
-
-  <!-- Charts row 2: per-agent tokens + per-agent avg latency -->
-  <div class="g g2">
-    <div class="c">
-      <div class="c-t" style="margin-bottom:10px">Tokens by Agent (30 days)</div>
-      <canvas id="ch-agents" height="180"></canvas>
-    </div>
-    <div class="c">
-      <div class="c-t" style="margin-bottom:10px">Avg Latency by Agent (30 days)</div>
-      <canvas id="ch-latency" height="180"></canvas>
-    </div>
-  </div>
-</div>
-
-<script>
-(function() {
-  // Chart.js via CDN, loaded on demand when Analytics tab is first opened
-  let chartJsLoaded = false;
-  let analyticsCharts = {};
-
-  function fmtK(n) { return n >= 1000 ? (n/1000).toFixed(1)+'k' : String(n); }
-  function fmtMs(ms) { return ms >= 1000 ? (ms/1000).toFixed(1)+'s' : ms+'ms'; }
-
-  function destroyCharts() {
-    for (const c of Object.values(analyticsCharts)) { try { c.destroy(); } catch {} }
-    analyticsCharts = {};
-  }
-
-  function renderAnalytics(data) {
-    // Stat cards
-    document.getElementById('an-calls').textContent = fmtK(data.todayCallsAnalytics || 0);
-    document.getElementById('an-tin').textContent = fmtK(data.todayTokensIn || 0);
-    document.getElementById('an-tout').textContent = fmtK(data.todayTokensOut || 0);
-    document.getElementById('an-cost').textContent = '$' + (data.dailySpend || 0).toFixed(4);
-    document.getElementById('an-ts').textContent = 'updated ' + new Date().toLocaleTimeString();
-
-    destroyCharts();
-
-    const chartDefaults = {
-      color: '#8b95a8',
-      font: { family: 'Inter, sans-serif', size: 10 },
-    };
-    if (window.Chart) {
-      Chart.defaults.color = chartDefaults.color;
-      Chart.defaults.font = chartDefaults.font;
-    }
-
-    const gridColor = 'rgba(28,36,56,0.8)';
-    const tickColor = '#5a6478';
-
-    // ---- Chart 1: 7-day token trend (stacked bar: in + out) ----
-    const days = (data.days7 || []);
-    const labels7 = days.map(d => d.date.slice(5)); // MM-DD
-    const tokIn = days.map(d => d.tokens_in || 0);
-    const tokOut = days.map(d => d.tokens_out || 0);
-
-    analyticsCharts.tokens = new Chart(document.getElementById('ch-tokens'), {
-      type: 'bar',
-      data: {
-        labels: labels7,
-        datasets: [
-          { label: 'Tokens In', data: tokIn, backgroundColor: 'rgba(79,143,247,0.7)', borderRadius: 3, stack: 'tok' },
-          { label: 'Tokens Out', data: tokOut, backgroundColor: 'rgba(34,211,238,0.5)', borderRadius: 3, stack: 'tok' },
-        ]
-      },
-      options: {
-        responsive: true, maintainAspectRatio: true,
-        plugins: { legend: { labels: { boxWidth: 10, font: { size: 9 } } }, tooltip: { callbacks: { label: ctx => ` ${ctx.dataset.label}: ${fmtK(ctx.raw)}` } } },
-        scales: {
-          x: { stacked: true, grid: { color: gridColor }, ticks: { color: tickColor } },
-          y: { stacked: true, grid: { color: gridColor }, ticks: { color: tickColor, callback: v => fmtK(v) } },
-        }
-      }
-    });
-
-    // ---- Chart 2: Provider split doughnut ----
-    const provData = data.byProviderAll || {};
-    const provLabels = Object.keys(provData);
-    const provCalls = provLabels.map(p => provData[p].calls);
-    const provColors = provLabels.map(p => provData[p].isFree ? 'rgba(34,197,94,0.75)' : 'rgba(234,179,8,0.75)');
-
-    analyticsCharts.provider = new Chart(document.getElementById('ch-provider'), {
-      type: 'doughnut',
-      data: {
-        labels: provLabels,
-        datasets: [{ data: provCalls, backgroundColor: provColors, borderWidth: 1, borderColor: '#0a0e17' }]
-      },
-      options: {
-        responsive: true, maintainAspectRatio: true, cutout: '60%',
-        plugins: { legend: { position: 'right', labels: { boxWidth: 10, font: { size: 9 } } } },
-      }
-    });
-
-    // ---- Chart 3: Per-agent tokens (horizontal bar) ----
-    const agData = data.byAgentAll || {};
-    const agLabels = Object.keys(agData).sort((a,b) => (agData[b].tokens_in + agData[b].tokens_out) - (agData[a].tokens_in + agData[a].tokens_out));
-    const agTokIn = agLabels.map(a => agData[a].tokens_in || 0);
-    const agTokOut = agLabels.map(a => agData[a].tokens_out || 0);
-
-    analyticsCharts.agents = new Chart(document.getElementById('ch-agents'), {
-      type: 'bar',
-      data: {
-        labels: agLabels,
-        datasets: [
-          { label: 'Tokens In', data: agTokIn, backgroundColor: 'rgba(79,143,247,0.7)', borderRadius: 3, stack: 'ag' },
-          { label: 'Tokens Out', data: agTokOut, backgroundColor: 'rgba(167,139,250,0.6)', borderRadius: 3, stack: 'ag' },
-        ]
-      },
-      options: {
-        indexAxis: 'y', responsive: true, maintainAspectRatio: true,
-        plugins: { legend: { labels: { boxWidth: 10, font: { size: 9 } } }, tooltip: { callbacks: { label: ctx => ` ${ctx.dataset.label}: ${fmtK(ctx.raw)}` } } },
-        scales: {
-          x: { stacked: true, grid: { color: gridColor }, ticks: { color: tickColor, callback: v => fmtK(v) } },
-          y: { stacked: true, grid: { color: gridColor }, ticks: { color: tickColor } },
-        }
-      }
-    });
-
-    // ---- Chart 4: Per-agent avg latency ----
-    const latLabels = agLabels.filter(a => agData[a].latency_count > 0);
-    const latVals = latLabels.map(a => Math.round(agData[a].latency_sum / agData[a].latency_count));
-
-    analyticsCharts.latency = new Chart(document.getElementById('ch-latency'), {
-      type: 'bar',
-      data: {
-        labels: latLabels,
-        datasets: [{ label: 'Avg Latency (ms)', data: latVals, backgroundColor: 'rgba(249,115,22,0.65)', borderRadius: 3 }]
-      },
-      options: {
-        indexAxis: 'y', responsive: true, maintainAspectRatio: true,
-        plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ` ${fmtMs(ctx.raw)}` } } },
-        scales: {
-          x: { grid: { color: gridColor }, ticks: { color: tickColor, callback: v => fmtMs(v) } },
-          y: { grid: { color: gridColor }, ticks: { color: tickColor } },
-        }
-      }
-    });
-  }
-
-  async function loadAnalytics() {
-    try {
-      const data = await fetch('/api/analytics').then(r => r.json());
-      renderAnalytics(data);
-    } catch(e) {
-      document.getElementById('an-ts').textContent = 'error: ' + e.message;
-    }
-  }
-
-  function initAnalyticsTab() {
-    if (chartJsLoaded) { loadAnalytics(); return; }
-    const s = document.createElement('script');
-    s.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js';
-    s.onload = () => { chartJsLoaded = true; loadAnalytics(); };
-    s.onerror = () => { document.getElementById('an-ts').textContent = 'Chart.js failed to load (offline?)'; };
-    document.head.appendChild(s);
-  }
-
-  // Hook into tab switching — trigger init when analytics tab is first shown
-  const origSwitchPage = window.switchPage;
-  window._analyticsHooked = false;
-  function hookAnalytics() {
-    if (window._analyticsHooked) return;
-    const tabBar = document.getElementById('tabBar');
-    if (!tabBar) { setTimeout(hookAnalytics, 200); return; }
-    window._analyticsHooked = true;
-    tabBar.addEventListener('click', e => {
-      const btn = e.target.closest('[data-p]');
-      if (btn && btn.dataset.p === 'analytics') {
-        setTimeout(initAnalyticsTab, 50);
-      }
-    });
-  }
-  hookAnalytics();
-})();
 </script>
 </body>
 </html>
