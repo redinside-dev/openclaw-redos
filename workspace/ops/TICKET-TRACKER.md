@@ -3815,7 +3815,7 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Resolved At:** 
 
 ### TICKET-20260227-022
-- **Status:** OPEN
+- **Status:** RESOLVED
 - **Priority:** P1
 - **Created:** 2026-02-27T22:21:00Z
 - **SLA Deadline:** 2026-02-28T00:21:00Z (2 hours)
@@ -3824,12 +3824,12 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Summary:** Reflection and health monitoring are using stale/non-canonical logs, reducing signal quality and creating duplicate/noise tickets
 - **Details:** Daily reflection reviewed current sources and found `logs/errors.jsonl` effectively empty and `logs/routing-decisions.jsonl` stale, while active incident volume in TICKET-TRACKER is high. Existing monitors are therefore underpowered for root-cause detection and overproduce repetitive ticket patterns.
 - **Root Cause:** Monitoring prompts still rely on raw lane-local log files instead of a maintained canonical digest path; no freshness guard is enforced before pattern analysis.
-- **Resolution:** Pending. Implement canonical digest pipeline and prompt updates:
-  1) Publish rolling `workspace/logs/routing-digest.jsonl` and keep `workspace/logs/error-digest.md` updated each run.
-  2) Update reflection/health prompts to read digest files first, with freshness checks.
-  3) Add dedupe guard to collapse repeated signature tickets into one parent incident.
-- **Learnings:** Feed into LEARNING-20260227-001 and LEARNING-20260227-002.
-- **Resolved At:** 
+- **Resolution:** Implemented canonical digest pipeline and prompt updates.
+  1) Added `workspace/scripts/routing-digest-writer.py` and produced rolling `workspace/logs/routing-digest.jsonl`.
+  2) Updated cron prompts in `cron/jobs.json` (OPS health monitor + RED reflection) to read digest files first and enforce freshness checks.
+  3) Strengthened `workspace/scripts/error-digest-writer.py` with freshness and top-class summary output to improve signal quality and reduce duplicate/noise follow-up tickets.
+- **Learnings:** Reinforced LEARNING-20260227-001 and LEARNING-20260227-002; digest-first prompts plus freshness markers are now part of baseline observability hygiene.
+- **Resolved At:** 2026-02-28T21:30:13Z
 
 ### TICKET-20260227-023
 - **Status:** OPEN
