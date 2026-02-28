@@ -1,89 +1,55 @@
-# Project Status - RedOS AI Company
+# RedOS Project Status — Live Board
 
-## 📊 Current Status (2026-02-22)
+**Updated by:** OPS (nightly) + agents (real-time on state changes)
+**RULES:** Agents update their own row only. OPS updates Summary section.
 
-### ✅ Working Components
-- **OpenClaw Framework**: v2026.2.21-2 running properly
-- **8 AI Agents**: All configured and responding
-- **Agent Delegation**: Maker/checker workflow working
-- **Telegram Integration**: All 7 bots functional
-- **Slack Integration**: Working with proper channels
-- **Dashboard**: Running on localhost:19000
-- **Ollama**: Running on localhost:11434
+---
 
-### ⚠️ Limitations Identified
-- **Host Command Execution**: Limited due to OpenClaw security sandboxing
-- **Agent Bridge**: Custom solution not integrated with framework
-- **Manual Execution Required**: Users must execute system commands manually
-- **Elevated Mode**: Configured but agents still sandboxed at execution level
+## Summary (OPS updates nightly)
 
-### 📋 Configuration Summary
-```json
-{
-  "tools.exec.host": "gateway",
-  "tools.sandbox.enabled": false,
-  "tools.elevated.enabled": true,
-  "agents": 8 configured,
-  "channels": Telegram, Slack, WhatsApp
-}
-```
+| Metric | Value | Trend |
+|--------|-------|-------|
+| Autonomy score | TBD | — |
+| A2A success rate | TBD (warmup just fixed) | ↑ |
+| Open tickets | TBD | — |
+| Episodes logged today | 0 | — |
+| Last self-heal | Never triggered | — |
+| Sprint goal | SPRINT-2026-02-28 | Active |
 
-### 🔧 Recent Changes
-- Updated OpenClaw configuration for host execution
-- Disabled sandboxing to allow command execution
-- Added elevated mode configuration
-- Updated agent SOUL.md for current capabilities
-- Removed obsolete agent_bridge custom solutions
+---
 
-### 🗑️ Obsolete Files Removed
-- `/workspace/ops/AGENT_BRIDGE_GUIDE.md`
-- `/workspace/ops/TEST_CASES.md`
-- `/workspace/ops/AGENT_BRIDGE_INTEGRATION.md`
-- `/workspace/ops/RED_AGENT_BRIDGE_GUIDE.md`
-- `/scripts/agent_bridge.py`
-- `/scripts/agent_executor.py`
+## Active Work Items
 
-### 📝 Documentation Updates
-- SOUL.md updated for current system command capabilities
-- README.md reflects current OpenClaw version
-- Project status documented
+| ID | Agent | Task | Status | ETA |
+|----|-------|------|--------|-----|
+| TASK-20260228-001 | ENG | Verify post-sandbox workspace write access | Pending | Next inner loop |
+| TASK-20260228-002 | OPS | Confirm A2A warmup shows "alive" for all agents | In Progress | Next warmup run |
+| TASK-20260228-003 | RESEARCH | First research→ENG pipeline run | Pending | Next research inner loop |
+| TASK-20260228-004 | main | Merge feature/bounded-autonomy-l0-l5 to main | Pending | Human approval |
 
-### 🎯 Next Steps
-1. Accept OpenClaw sandboxing limitations
-2. Use maker/checker workflow for planning
-3. Manual execution for system commands
-4. Consider alternative frameworks for full automation
+---
 
-## 📋 Initial Requirements vs Current State
+## Completed This Sprint
 
-| Requirement | Status | Notes |
-|-------------|--------|-------|
-| AI team delegation | ✅ Working | Maker/checker workflow functional |
-| Host command execution | ⚠️ Limited | Manual execution required |
-| Automated upgrades | ❌ Not working | Security sandboxing prevents |
-| Hands-off operation | ⚠️ Partial | Planning works, execution manual |
-| Security approvals | ✅ Working | Proper approval workflow |
+| ID | Agent | Task | Completed |
+|----|-------|------|-----------|
+| — | main | A2A sessions_send verified (isolated sessionTarget bug fixed) | 2026-02-28 |
+| — | main | L4 Telegram approval loop E2E verified | 2026-02-28 |
+| — | main | episodes.jsonl created, wired into inner loops | 2026-02-28 |
+| — | main | OPS model swapped 8b→free-unlimited | 2026-02-28 |
+| — | main | Inner loop cadence: 4h→90min | 2026-02-28 |
 
-## 🔍 Technical Analysis
+---
 
-### Root Cause
-OpenClaw agents are fundamentally designed to run in a sandboxed environment for security reasons. Direct host command execution goes against the framework's security model.
+## Blocked Items
 
-### Working Solutions
-- Agent delegation and planning ✅
-- Maker/checker workflow ✅
-- Security approvals ✅
-- Multi-agent coordination ✅
+None currently.
 
-### Limitations
-- Direct host command execution ❌
-- Full automation ❌
-- Hands-off system management ❌
+---
 
-## 📊 Recommendation
+## Upcoming (next sprint)
 
-**Accept the current limitations** and work within OpenClaw's security model:
-- Use AI team for planning and coordination
-- Manual execution for system commands
-- Proper approval workflows for safety
-- Consider alternative frameworks if full automation is required
+- Semantic memory search (vector indexing over workspace/*.md)
+- n8n webhook delegation for external API calls
+- Weekly competitive intelligence report (RESEARCH)
+- First autonomy-scorecard output
