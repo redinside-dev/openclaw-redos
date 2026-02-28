@@ -538,90 +538,6 @@ function getCeoStatus() {
   };
 }
 
-function getA2ADelegations() {
-  // Read from framework-native routing-decisions.jsonl (always written, unlike agent-written JSONL)
-  const filePath = path.join(OPENCLAW_DIR, 'workspace', 'logs', 'routing-decisions.jsonl');
-  const lines = readJsonlTail(filePath, 2000);
-
-  const today = new Date().toISOString().slice(0, 10);
-
-  // Build parent map from announce entries:
-  // run_id = "announce:v1:agent:{subagentId}:subagent:{uuid}:..."
-  // The 'agent' field on the announce entry is the PARENT (recipient of the result)
-  const parentMap = {}; // uuid → parentAgent
-  for (const l of lines) {
-    const runId = l.run_id || '';
-    if (runId.startsWith('announce:v1:agent:') && runId.includes(':subagent:')) {
-      const afterAgent = runId.slice('announce:v1:agent:'.length); // "{subagentId}:subagent:{uuid}:..."
-      const subagentUuid = afterAgent.split(':subagent:')[1]?.split(':')[0];
-      if (subagentUuid) parentMap[subagentUuid] = l.agent;
-    }
-  }
-
-  // Group subagent entries by UUID
-  const sessions = {}; // uuid → { entries[], agent }
-  for (const l of lines) {
-    const sk = l.session_key || '';
-    if (!sk.includes(':subagent:')) continue;
-    const uuid = sk.split(':subagent:')[1];
-    if (!uuid) continue;
-    if (!sessions[uuid]) sessions[uuid] = { entries: [], agent: l.agent };
-    sessions[uuid].entries.push(l);
-  }
-
-  // Build delegation records
-  const delegations = [];
-  for (const [uuid, { entries, agent }] of Object.entries(sessions)) {
-    const sorted = entries.sort((a, b) => a.ts < b.ts ? -1 : 1);
-    const first = sorted[0];
-    const last = sorted[sorted.length - 1];
-    const firstMs = new Date(first.ts).getTime();
-    const lastMs = new Date(last.ts).getTime();
-
-    // Extract task hint from [Subagent Task]: marker in prompt_tail
-    let task = '';
-    for (const e of sorted) {
-      const tail = e.prompt_tail || '';
-      const marker = tail.indexOf('[Subagent Task]:');
-      if (marker !== -1) {
-        task = tail.slice(marker + '[Subagent Task]:'.length).trim().slice(0, 120);
-        break;
-      }
-    }
-    if (!task) task = (first.prompt_tail || '').trim().slice(0, 100) || '(no task label)';
-
-    // Spawner = parent from announce map; if not found, use the agent that SENT the announce
-    // We store parent from parentMap[uuid] which = the agent that received the announce (the requester)
-    const spawner = parentMap[uuid] || '?';
-
-    delegations.push({
-      ts: first.ts,
-      spawner,
-      subagent: agent,
-      task,
-      durationMs: lastMs - firstMs,
-      turns: entries.length,
-      completed: uuid in parentMap, // announce was received = completed
-    });
-  }
-
-  delegations.sort((a, b) => new Date(b.ts) - new Date(a.ts));
-
-  // Stats for today
-  const todayDels = delegations.filter(d => d.ts && d.ts.startsWith(today));
-  const bySpawner = {};
-  const bySubagent = {};
-  for (const d of todayDels) {
-    bySpawner[d.spawner] = (bySpawner[d.spawner] || 0) + 1;
-    bySubagent[d.subagent] = (bySubagent[d.subagent] || 0) + 1;
-  }
-
-  return {
-    today: { total: todayDels.length, bySpawner, bySubagent },
-    delegations: delegations.slice(0, 50),
-  };
-}
-
 function getSystemSummary() {
   const agents = getAgents();
   const cronJobs = getCronJobs();
@@ -722,115 +638,6 @@ const server = http.createServer((req, res) => {
   if (url.pathname === '/api/agents' && req.method === 'GET') {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify(getAgents()));
-    return;
-  }
-
-  // --- System Summary for new dashboard ---
-  if (url.pathname === '/api/system/summary' && req.method === 'GET') {
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify(getSystemSummary()));
-    return;
-  }
-
-  // --- 9Router Status ---
-  if (url.pathname === '/api/9router/status' && req.method === 'GET') {
-    const status = {
-      providers: [
-        { name: 'Codex (cx)', models: 15, status: 'online', active: true, endpoint: 'http://localhost:20128' },
-        { name: 'Cursor (cu)', models: 8, status: 'limited', active: true, endpoint: 'http://localhost:20128' },
-        { name: 'Gemini (gc)', models: 5, status: 'online', active: true, endpoint: 'http://localhost:20128' },
-        { name: 'iFlow (if)', models: 11, status: 'online', active: true, endpoint: 'http://localhost:20128' },
-        { name: 'Kiro (kr)', models: 2, status: 'online', active: true, endpoint: 'http://localhost:20128' }
-      ],
-      combos: [
-        { 
-          name: 'always-on-premium', 
-          layers: 10, 
-          status: 'active',
-          description: 'Premium models with highest reliability',
-          providers: ['Codex', 'Gemini', 'iFlow'],
-          models: ['gpt-5.2', 'gemini-2.0', 'claude-4.5'],
-          latency: '120ms',
-          reliability: '99.9%'
-        },
-        { 
-          name: 'coding-factory', 
-          layers: 9, 
-          status: 'active',
-          description: 'Optimized for code generation',
-          providers: ['Codex', 'Cursor'],
-          models: ['gpt-5.2', 'cursor-sonnet'],
-          latency: '95ms',
-          reliability: '99.5%'
-        },
-        { 
-          name: 'research-deep', 
-          layers: 8, 
-          status: 'active',
-          description: 'Deep analysis and research',
-          providers: ['Gemini', 'iFlow'],
-          models: ['gemini-2.0', 'iflow-research'],
-          latency: '150ms',
-          reliability: '99.7%'
-        },
-        { 
-          name: 'heartbeat-cheap', 
-          layers: 8, 
-          status: 'active',
-          description: 'Cost-effective operations',
-          providers: ['Kiro', 'iFlow'],
-          models: ['kiro-lite', 'iflow-fast'],
-          latency: '80ms',
-          reliability: '98.5%'
-        },
-        { 
-          name: 'subagent-reliable', 
-          layers: 8, 
-          status: 'active',
-          description: 'Reliable sub-agent coordination',
-          providers: ['Codex', 'Gemini'],
-          models: ['gpt-5.2', 'gemini-2.0'],
-          latency: '110ms',
-          reliability: '99.8%'
-        },
-        { 
-          name: 'free-unlimited', 
-          layers: 10, 
-          status: 'active',
-          description: 'Free tier with unlimited usage',
-          providers: ['Kiro', 'iFlow'],
-          models: ['kiro-free', 'iflow-free'],
-          latency: '200ms',
-          reliability: '95.0%'
-        }
-      ],
-      stats: {
-        totalRequests: 15420,
-        avgLatency: '125ms',
-        successRate: '99.3%',
-        uptime: '99.99%',
-        lastUpdate: new Date().toISOString()
-      }
-    };
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify(status));
-    return;
-  }
-
-  // --- Live Activity ---
-  if (url.pathname === '/api/live-activity' && req.method === 'GET') {
-    const activities = [
-      { agent: 'RED', task: 'Strategic planning', status: 'active', timestamp: new Date().toISOString() },
-      { agent: 'ZEN', task: 'Team coordination', status: 'active', timestamp: new Date().toISOString() },
-      { agent: 'ENG', task: 'Code review', status: 'active', timestamp: new Date().toISOString() },
-      { agent: 'RESEARCH', task: 'AI trends analysis', status: 'active', timestamp: new Date().toISOString() },
-      { agent: 'OPS', task: 'Cost optimization', status: 'active', timestamp: new Date().toISOString() },
-      { agent: 'FINANCE', task: 'Portfolio analysis', status: 'active', timestamp: new Date().toISOString() },
-      { agent: 'INFOSEC', task: 'Security audit', status: 'active', timestamp: new Date().toISOString() },
-      { agent: 'HATAKE', task: 'Intent parsing', status: 'active', timestamp: new Date().toISOString() }
-    ];
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify(activities));
     return;
   }
 
@@ -1233,259 +1040,6 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  // Traces API — reads from agent session files (always current)
-  if (url.pathname === '/api/traces') {
-    try {
-      const agentsDir = path.join(OPENCLAW_DIR, 'agents');
-      const dateParam = url.searchParams.get('date') || null; // local date e.g. "2026-02-23"
-      const limitParam = parseInt(url.searchParams.get('limit') || '60', 10);
-
-      // Convert local date string to UTC ms range (handles any timezone offset)
-      // We use file mtime for filtering — mtime is always in local system time
-      let mtimeFrom = 0, mtimeTo = Infinity;
-      if (dateParam) {
-        // Parse as local midnight → next local midnight
-        const localMidnight = new Date(dateParam + 'T00:00:00');
-        const localMidnightNext = new Date(dateParam + 'T00:00:00');
-        localMidnightNext.setDate(localMidnightNext.getDate() + 1);
-        mtimeFrom = localMidnight.getTime();
-        mtimeTo = localMidnightNext.getTime();
-      }
-
-      // Collect all session files across all agents, sorted by mtime desc
-      const sessionFiles = [];
-      if (fs.existsSync(agentsDir)) {
-        for (const agentId of fs.readdirSync(agentsDir)) {
-          const sessDir = path.join(agentsDir, agentId, 'sessions');
-          if (!fs.existsSync(sessDir)) continue;
-          for (const f of fs.readdirSync(sessDir)) {
-            if (!f.endsWith('.jsonl') || f.includes('.deleted.')) continue;
-            const fp = path.join(sessDir, f);
-            try {
-              const st = fs.statSync(fp);
-              // Filter by file modification time (local time) when date is specified
-              if (st.mtimeMs < mtimeFrom || st.mtimeMs >= mtimeTo) continue;
-              sessionFiles.push({ fp, agentId, mtime: st.mtimeMs, size: st.size });
-            } catch {}
-          }
-        }
-      }
-      // Sort newest first
-      sessionFiles.sort((a, b) => b.mtime - a.mtime);
-
-      // Parse a session file into a trace object
-      const parseSession = ({ fp, agentId }) => {
-        try {
-          const lines = fs.readFileSync(fp, 'utf8').split('\n').filter(Boolean);
-          const events = lines.map(l => { try { return JSON.parse(l); } catch { return null; } }).filter(Boolean);
-          if (!events.length) return null;
-
-          const sessionEv = events.find(e => e.type === 'session');
-          if (!sessionEv) return null;
-          const sessionId = sessionEv.id;
-          const sessionTs = sessionEv.timestamp;
-
-          // Extract user/assistant message pairs
-          const userMsgs = events.filter(e => e.type === 'message' && e.message?.role === 'user');
-          const assistantMsgs = events.filter(e => e.type === 'message' && e.message?.role === 'assistant');
-          if (!userMsgs.length && !assistantMsgs.length) return null;
-
-          // Determine source from first user message content
-          let source = { type: 'direct', channel: null, details: {} };
-          const firstUserText = userMsgs[0]?.message?.content?.find?.(c => c.type === 'text')?.text || '';
-
-          if (firstUserText.match(/^\[cron:/i)) {
-            // Cron job: "[cron:UUID Job Name] ..."
-            const cronMatch = firstUserText.match(/\[cron:([^\]]+)\]/);
-            source = { type: 'cron', channel: 'Scheduled Job', details: { jobId: cronMatch?.[1] || '' } };
-
-          } else if (firstUserText.includes('[Subagent Context]') || firstUserText.includes('[System Message]') && firstUserText.includes('sessionId')) {
-            // A2A subagent spawn
-            source = { type: 'subagent', channel: 'A2A', details: {} };
-
-          } else if (firstUserText.includes('Conversation info (untrusted metadata)')) {
-            // Telegram or WhatsApp DM — the real format used by the gateway
-            // Detect channel from metadata block
-            const metaMatch = firstUserText.match(/```json\s*(\{[\s\S]*?\})\s*```/);
-            let meta = {};
-            try { meta = JSON.parse(metaMatch?.[1] || '{}'); } catch {}
-            const convLabel = meta.conversation_label || meta.group_subject || '';
-            const senderId = meta.sender_id || '';
-            if (convLabel.startsWith('#') || convLabel.includes('slack')) {
-              // Slack channel/thread
-              source = { type: 'slack', channel: convLabel || 'Slack', details: { senderId, messageId: meta.message_id } };
-            } else if (firstUserText.match(/\[.*whatsapp.*\]/i) || convLabel.toLowerCase().includes('whatsapp')) {
-              source = { type: 'whatsapp', channel: 'WhatsApp', details: { senderId } };
-            } else {
-              // Default: Telegram DM (most common — sender_id is numeric Telegram user ID)
-              source = { type: 'telegram', channel: 'Direct Message', details: { senderId, messageId: meta.message_id } };
-            }
-
-          } else if (firstUserText.match(/\[.*Slack.*\]/i) || firstUserText.includes('Slack message in #') || firstUserText.includes('Slack Bot')) {
-            // Slack thread/channel message
-            const chanMatch = firstUserText.match(/Slack message in (#\S+)/i) || firstUserText.match(/channel: (#\S+)/i);
-            source = { type: 'slack', channel: chanMatch?.[1] || 'Slack', details: {} };
-
-          } else if (firstUserText.match(/\[.*telegram.*\]/i)) {
-            source = { type: 'telegram', channel: 'Direct Message', details: {} };
-
-          } else if (firstUserText.match(/\[.*whatsapp.*\]/i)) {
-            source = { type: 'whatsapp', channel: 'WhatsApp', details: {} };
-
-          } else if (firstUserText.match(/^\[(Mon|Tue|Wed|Thu|Fri|Sat|Sun)\s+\d{4}-\d{2}-\d{2}/i) ||
-                     firstUserText.match(/^\[(Mon|Tue|Wed|Thu|Fri|Sat|Sun)\s+\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}/i)) {
-            // "[Mon 2026-02-23 19:50 EST] ..." — Telegram DM with timestamp prefix
-            source = { type: 'telegram', channel: 'Direct Message', details: {} };
-          }
-
-          // Topic files are always Telegram group/channel threads
-          if (fp.includes('-topic-')) {
-            source = { type: 'telegram', channel: 'Group/Topic', details: {} };
-          }
-
-          // Get model info from model_change or assistant messages
-          const modelSnap = events.find(e => e.type === 'custom' && e.customType === 'model-snapshot');
-          const modelChange = events.find(e => e.type === 'model_change');
-          const firstAssistant = assistantMsgs[0];
-          const provider = firstAssistant?.message?.provider || modelSnap?.data?.provider || modelChange?.provider || 'unknown';
-          const modelId = firstAssistant?.message?.model || modelSnap?.data?.modelId || modelChange?.modelId || 'unknown';
-          const isLocal = provider.toLowerCase().startsWith('ollama') || provider === '9router';
-          const modelFull = `${provider}/${modelId}`;
-
-          // Build spans — one per assistant message (each LLM call)
-          const spans = [];
-          for (let i = 0; i < assistantMsgs.length; i++) {
-            const aMsg = assistantMsgs[i];
-            const usage = aMsg.message?.usage;
-            const aProv = aMsg.message?.provider || provider;
-            const aModel = aMsg.message?.model || modelId;
-            const aIsLocal = aProv.toLowerCase().startsWith('ollama') || aProv === '9router';
-            const aStartMs = new Date(aMsg.timestamp).getTime();
-
-            // Find the user message that preceded this assistant message
-            const prevUser = [...userMsgs].reverse().find(u => new Date(u.timestamp).getTime() <= aStartMs);
-            const userText = prevUser?.message?.content?.find?.(c => c.type === 'text')?.text || '';
-
-            // Extract the actual message (strip cron prefix / metadata)
-            let triggerMsg = userText;
-            triggerMsg = triggerMsg.replace(/^\[cron:[^\]]+\]\s*/i, '');
-            triggerMsg = triggerMsg.replace(/^\[[^\]]{0,40}\]\s*/i, '');
-            // Strip JSON metadata block
-            triggerMsg = triggerMsg.replace(/Conversation info \(untrusted metadata\):\s*```json[\s\S]*?```\s*/i, '');
-            triggerMsg = triggerMsg.replace(/^"+|"+$/g, '').trim();
-
-            // Get assistant text response
-            const aText = aMsg.message?.content?.find?.(c => c.type === 'text')?.text || '';
-
-            // Estimate duration from next event timestamp
-            const nextEv = events.find(e => new Date(e.timestamp).getTime() > aStartMs);
-            const aEndMs = nextEv ? new Date(nextEv.timestamp).getTime() : null;
-            const durationMs = aEndMs ? aEndMs - aStartMs : (usage ? 3000 : null);
-
-            spans.push({
-              spanId: `${sessionId}-${i}`,
-              timestamp: aMsg.timestamp,
-              startMs: aStartMs,
-              endMs: aEndMs,
-              durationMs,
-              agent: agentId,
-              source: i === 0 ? source : { type: 'continuation', channel: null, details: {} },
-              model: {
-                full: `${aProv}/${aModel}`,
-                short: aModel,
-                provider: aProv,
-                tier: aIsLocal ? 'free' : 'paid'
-              },
-              request: {
-                promptLength: userText.length,
-                promptTail: userText.slice(-600) || null,
-                triggerMessage: triggerMsg.slice(0, 300),
-                historyCount: i,
-                messageCount: userMsgs.length
-              },
-              response: {
-                preview: aText.slice(0, 400) || null,
-                chars: aText.length,
-                success: true,
-                error: null
-              },
-              metrics: {
-                tokensIn: usage?.input || 0,
-                tokensOut: usage?.output || 0,
-                tokensCached: usage?.cacheRead || 0,
-                costUsd: usage?.cost?.total || 0,
-                billingType: aIsLocal ? 'free' : 'payg'
-              },
-              status: 'success'
-            });
-          }
-
-          if (!spans.length) return null;
-
-          const startMs = new Date(sessionTs).getTime();
-          const endMs = Math.max(...spans.map(s => s.endMs || s.startMs));
-          const totalCost = spans.reduce((s, e) => s + (e.metrics?.costUsd || 0), 0);
-
-          // Extract the trigger message from first user message
-          const firstUserRaw = userMsgs[0]?.message?.content?.find?.(c => c.type === 'text')?.text || '';
-          let triggerMessage = firstUserRaw;
-          triggerMessage = triggerMessage.replace(/^\[cron:[^\]]+\]\s*/i, '');
-          triggerMessage = triggerMessage.replace(/^\[[^\]]{0,40}\]\s*/i, '');
-          triggerMessage = triggerMessage.replace(/Conversation info \(untrusted metadata\):\s*```json[\s\S]*?```\s*/i, '');
-          triggerMessage = triggerMessage.replace(/^"+|"+$/g, '').trim().slice(0, 300);
-
-          return {
-            traceId: sessionId,
-            rootSpan: {
-              timestamp: sessionTs,
-              startMs,
-              endMs,
-              agent: agentId,
-              source,
-              model: { full: modelFull, short: modelId, provider, tier: isLocal ? 'free' : 'paid' }
-            },
-            spans,
-            triggerMessage,
-            summary: {
-              totalSpans: spans.length,
-              totalDurationMs: endMs > startMs ? endMs - startMs : null,
-              totalCostUsd: totalCost,
-              errorCount: 0,
-              agentsInvolved: [agentId],
-              modelsUsed: [...new Set(spans.map(s => s.model.full))],
-              channels: [source.channel].filter(Boolean)
-            }
-          };
-        } catch { return null; }
-      };
-
-      // Parse all session files (up to 300), then sort: user-facing first, then by time
-      const allParsed = [];
-      for (const sf of sessionFiles.slice(0, 300)) {
-        const t = parseSession(sf);
-        if (t) allParsed.push(t);
-      }
-
-      // Sort: telegram/slack first (user-facing), then direct, then subagent, then cron — within each group newest first
-      const srcPriority = { telegram: 0, slack: 1, whatsapp: 1, direct: 2, subagent: 3, cron: 4 };
-      allParsed.sort((a, b) => {
-        const pa = srcPriority[a.rootSpan.source.type] ?? 5;
-        const pb = srcPriority[b.rootSpan.source.type] ?? 5;
-        if (pa !== pb) return pa - pb;
-        return b.rootSpan.startMs - a.rootSpan.startMs;
-      });
-
-      const traces = allParsed.slice(0, limitParam);
-
-      res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ traces, total: allParsed.length }));
-    } catch (err) {
-      res.writeHead(500, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ error: err.message, traces: [] }));
-    }
-    return;
-  }
-
   if (url.pathname === '/api/cost-details') {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify(getCostDetails()));
@@ -1582,7 +1136,7 @@ const server = http.createServer((req, res) => {
     const routingFile = path.join(logsDir, 'routing-decisions.jsonl');
     const analyticsFile = path.join(logsDir, 'llm-analytics.jsonl');
 
-    const readJsonl = (fp, limit = 5000) => {
+    const readJsonl = (fp, limit = 100) => {
       try {
         if (!fs.existsSync(fp)) return [];
         const lines = fs.readFileSync(fp, 'utf8').split('\n').filter(Boolean);
@@ -1590,9 +1144,9 @@ const server = http.createServer((req, res) => {
       } catch { return []; }
     };
 
-    const costs = readJsonl(costFile, 500);
+    const costs = readJsonl(costFile, 200);
     const routing = readJsonl(routingFile, 200);
-    const allAnalytics = readJsonl(analyticsFile, 5000);
+    const analytics = readJsonl(analyticsFile, 200);
 
     const today = new Date().toISOString().slice(0, 10);
     const todayCosts = costs.filter(c => c.ts && c.ts.startsWith(today));
@@ -1635,114 +1189,18 @@ const server = http.createServer((req, res) => {
       byProvider[provider].cost_usd += cost;
     }
 
-    // --- Time-series from llm-analytics.jsonl (last 30 days) ---
-    const FREE_PROVIDERS = new Set(['ollama']);
-    const byDay = {}; // date -> { calls, tokens_in, tokens_out, cost_usd, free_calls, paid_calls, latency_sum, latency_count }
-    const byAgentAll = {}; // agentId -> { calls, tokens_in, tokens_out, cost_usd, latency_sum, latency_count }
-    const byProviderAll = {}; // provider -> { calls, tokens_in, tokens_out }
-
-    const cutoff = new Date();
-    cutoff.setDate(cutoff.getDate() - 30);
-    const cutoffStr = cutoff.toISOString().slice(0, 10);
-
-    for (const a of allAnalytics) {
-      if (!a.ts) continue;
-      const date = a.ts.slice(0, 10);
-      if (date < cutoffStr) continue;
-
-      const agent = a.agent || 'unknown';
-      const provider = a.provider || (typeof a.model === 'string' && a.model.includes('/') ? a.model.split('/')[0] : 'unknown');
-      const tin = Number(a.tokens_in) || 0;
-      const tout = Number(a.tokens_out) || 0;
-      const costV = Number(a.cost_usd) || 0;
-      const lat = Number(a.latency_ms) || 0;
-      const isFree = FREE_PROVIDERS.has(provider);
-
-      if (!byDay[date]) byDay[date] = { calls: 0, tokens_in: 0, tokens_out: 0, cost_usd: 0, free_calls: 0, paid_calls: 0, latency_sum: 0, latency_count: 0 };
-      byDay[date].calls += 1;
-      byDay[date].tokens_in += tin;
-      byDay[date].tokens_out += tout;
-      byDay[date].cost_usd += costV;
-      if (isFree) byDay[date].free_calls += 1; else byDay[date].paid_calls += 1;
-      if (lat > 0) { byDay[date].latency_sum += lat; byDay[date].latency_count += 1; }
-
-      if (!byAgentAll[agent]) byAgentAll[agent] = { calls: 0, tokens_in: 0, tokens_out: 0, cost_usd: 0, latency_sum: 0, latency_count: 0 };
-      byAgentAll[agent].calls += 1;
-      byAgentAll[agent].tokens_in += tin;
-      byAgentAll[agent].tokens_out += tout;
-      byAgentAll[agent].cost_usd += costV;
-      if (lat > 0) { byAgentAll[agent].latency_sum += lat; byAgentAll[agent].latency_count += 1; }
-
-      if (!byProviderAll[provider]) byProviderAll[provider] = { calls: 0, tokens_in: 0, tokens_out: 0, isFree };
-      byProviderAll[provider].calls += 1;
-      byProviderAll[provider].tokens_in += tin;
-      byProviderAll[provider].tokens_out += tout;
-    }
-
-    // Fill missing days in last 7 days
-    const days7 = [];
-    for (let i = 6; i >= 0; i--) {
-      const d = new Date(); d.setDate(d.getDate() - i);
-      const ds = d.toISOString().slice(0, 10);
-      const entry = byDay[ds] || { calls: 0, tokens_in: 0, tokens_out: 0, cost_usd: 0, free_calls: 0, paid_calls: 0 };
-      days7.push({ date: ds, ...entry });
-    }
-
-    // Today totals from analytics
-    const todayAnalytics = allAnalytics.filter(a => a.ts && a.ts.startsWith(today));
-    const todayTokensIn = todayAnalytics.reduce((s, a) => s + (Number(a.tokens_in) || 0), 0);
-    const todayTokensOut = todayAnalytics.reduce((s, a) => s + (Number(a.tokens_out) || 0), 0);
-    const todayCallsAnalytics = todayAnalytics.length;
-
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({
-      // Today summary (from cost-events)
       dailySpend: Math.round(dailySpend * 10000) / 10000,
       totalCalls,
       totalEntries: costs.length,
       byProvider,
       byModel,
       byAgent,
-      // Today from analytics
-      todayCallsAnalytics,
-      todayTokensIn,
-      todayTokensOut,
-      // Time-series
-      days7,
-      byAgentAll,
-      byProviderAll,
-      // Recent raw
       recentCosts: todayCosts.slice(-20),
       recentRouting: routing.slice(-20),
-      recentAnalytics: allAnalytics.slice(-20),
+      recentAnalytics: analytics.slice(-20),
     }));
-    return;
-  }
-
-  // --- Skill toggle ---
-  if (req.method === 'POST' && url.pathname.startsWith('/api/skills/') && url.pathname.endsWith('/toggle')) {
-    const skillName = url.pathname.split('/api/skills/')[1].replace('/toggle', '');
-    if (!skillName) { res.writeHead(400); res.end(JSON.stringify({ error: 'skill name required' })); return; }
-    try {
-      const configPath = path.join(OPENCLAW_DIR, 'openclaw.json');
-      const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
-      const entries = config.skills?.entries;
-      if (!entries) { res.writeHead(400); res.end(JSON.stringify({ error: 'no skills.entries in config' })); return; }
-      if (!entries[skillName]) entries[skillName] = { enabled: false };
-      entries[skillName].enabled = !entries[skillName].enabled;
-      fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
-      res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ ok: true, skill: skillName, enabled: entries[skillName].enabled }));
-    } catch (e) {
-      res.writeHead(500); res.end(JSON.stringify({ error: e.message }));
-    }
-    return;
-  }
-
-  // --- A2A Delegation Log ---
-  if (url.pathname === '/api/a2a') {
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify(getA2ADelegations()));
     return;
   }
 
@@ -1766,7 +1224,6 @@ const server = http.createServer((req, res) => {
       _skillDetails: getSkillDetails(),
       _gatewayLogs: getGatewayLogTail(50),
       _ceoStatus: getCeoStatus(),
-      _a2a: getA2ADelegations(),
       _controlUiUrl: 'http://127.0.0.1:18789/',
     };
     const htmlTemplate = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf-8');
