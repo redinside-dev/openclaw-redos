@@ -33,7 +33,8 @@
         "lastDurationMs": 19103,
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
-        "lastDelivered": false
+        "lastDelivered": false,
+        "runningAtMs": 1772291827743
       }
     },
     {
@@ -68,7 +69,8 @@
         "lastRunStatus": "error",
         "lastStatus": "error",
         "lastDurationMs": 30067,
-        "lastDeliveryStatus": "unknown"
+        "lastDeliveryStatus": "unknown",
+        "runningAtMs": 1772291827743
       }
     },
     {
@@ -624,7 +626,8 @@
         "consecutiveErrors": 3,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772286630603
+        "nextRunAtMs": 1772286630603,
+        "runningAtMs": 1772291827743
       }
     },
     {
@@ -926,7 +929,8 @@
         "consecutiveErrors": 2,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772288829242
+        "nextRunAtMs": 1772288829242,
+        "runningAtMs": 1772291827743
       }
     },
     {
@@ -962,7 +966,8 @@
         "consecutiveErrors": 4,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772289930604
+        "nextRunAtMs": 1772289930604,
+        "runningAtMs": 1772291827743
       }
     },
     {
@@ -1034,7 +1039,8 @@
         "consecutiveErrors": 3,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772286172392
+        "nextRunAtMs": 1772286172392,
+        "runningAtMs": 1772291827743
       }
     },
     {
@@ -1071,7 +1077,8 @@
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772289907396
+        "nextRunAtMs": 1772289907396,
+        "runningAtMs": 1772291827743
       }
     },
     {
@@ -1143,7 +1150,8 @@
         "consecutiveErrors": 2,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772287200000
+        "nextRunAtMs": 1772287200000,
+        "runningAtMs": 1772291827743
       }
     },
     {
@@ -1366,7 +1374,8 @@
         "consecutiveErrors": 10,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772290169633
+        "nextRunAtMs": 1772290169633,
+        "runningAtMs": 1772291827743
       }
     },
     {
@@ -1402,7 +1411,8 @@
         "consecutiveErrors": 4,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772290230693
+        "nextRunAtMs": 1772290230693,
+        "runningAtMs": 1772291827743
       }
     },
     {
@@ -1435,7 +1445,8 @@
         "consecutiveErrors": 3,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772287356567
+        "nextRunAtMs": 1772287356567,
+        "runningAtMs": 1772291827743
       },
       "updatedAtMs": 1772280390866
     },
@@ -1469,7 +1480,8 @@
         "lastDurationMs": 106244,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1772287200000
+        "nextRunAtMs": 1772287200000,
+        "runningAtMs": 1772291827743
       },
       "updatedAtMs": 1772201609359
     },
@@ -1507,8 +1519,7 @@
         "consecutiveErrors": 8,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772290560884,
-        "runningAtMs": 1772291235696
+        "nextRunAtMs": 1772290560884
       }
     },
     {
@@ -1563,7 +1574,8 @@
         "lastDurationMs": 159625,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1772287200000
+        "nextRunAtMs": 1772287200000,
+        "runningAtMs": 1772291827743
       }
     },
     {
@@ -1625,7 +1637,8 @@
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
         "nextRunAtMs": 1772291567713,
-        "lastDelivered": true
+        "lastDelivered": true,
+        "runningAtMs": 1772291827743
       }
     },
     {
@@ -1659,7 +1672,8 @@
         "lastDurationMs": 300035,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 2,
-        "nextRunAtMs": 1772287200000
+        "nextRunAtMs": 1772287200000,
+        "runningAtMs": 1772291827743
       }
     },
     {
@@ -1693,7 +1707,8 @@
         "lastDurationMs": 300125,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 1,
-        "nextRunAtMs": 1772286048854
+        "nextRunAtMs": 1772286048854,
+        "runningAtMs": 1772291827743
       }
     },
     {
@@ -1938,7 +1953,8 @@
         "lastDurationMs": 300100,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 4,
-        "nextRunAtMs": 1772286393413
+        "nextRunAtMs": 1772286393413,
+        "runningAtMs": 1772291827743
       }
     },
     {
@@ -1973,7 +1989,8 @@
         "lastDurationMs": 39180,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 2,
-        "nextRunAtMs": 1772286693513
+        "nextRunAtMs": 1772286693513,
+        "runningAtMs": 1772291827743
       }
     },
     {
@@ -2007,7 +2024,8 @@
         "lastDurationMs": 300143,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 1,
-        "nextRunAtMs": 1772286732693
+        "nextRunAtMs": 1772286732693,
+        "runningAtMs": 1772291827743
       }
     },
     {
@@ -2043,7 +2061,8 @@
         "lastDurationMs": 120070,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 4,
-        "nextRunAtMs": 1772288600000
+        "nextRunAtMs": 1772288600000,
+        "runningAtMs": 1772291827743
       }
     },
     {
@@ -2079,7 +2098,8 @@
         "lastDurationMs": 120112,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 4,
-        "nextRunAtMs": 1772287032837
+        "nextRunAtMs": 1772287032837,
+        "runningAtMs": 1772291827743
       }
     },
     {
@@ -2361,7 +2381,8 @@
         "lastDurationMs": 59580,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1772289000000
+        "nextRunAtMs": 1772289000000,
+        "runningAtMs": 1772291827743
       }
     },
     {
@@ -2434,7 +2455,8 @@
         "lastDurationMs": 37,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 3,
-        "nextRunAtMs": 1772286300000
+        "nextRunAtMs": 1772286300000,
+        "runningAtMs": 1772291827743
       }
     },
     {
@@ -2470,7 +2492,8 @@
         "lastDurationMs": 181880,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1772289000000
+        "nextRunAtMs": 1772289000000,
+        "runningAtMs": 1772291827743
       }
     },
     {
@@ -2507,7 +2530,8 @@
         "lastDurationMs": 148851,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1772287325759
+        "nextRunAtMs": 1772287325759,
+        "runningAtMs": 1772291827743
       }
     },
     {
@@ -2582,8 +2606,7 @@
         "lastDurationMs": 108517,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1772290800000,
-        "runningAtMs": 1772291235696
+        "nextRunAtMs": 1772290800000
       }
     },
     {
@@ -2620,8 +2643,7 @@
         "lastStatus": "error",
         "lastDurationMs": 120070,
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772290914912,
-        "runningAtMs": 1772291235696
+        "nextRunAtMs": 1772290914912
       }
     },
     {
@@ -2656,7 +2678,8 @@
         "nextRunAtMs": 1772289009345,
         "lastStatus": "error",
         "lastDurationMs": 120089,
-        "lastDeliveryStatus": "unknown"
+        "lastDeliveryStatus": "unknown",
+        "runningAtMs": 1772291827743
       }
     },
     {
@@ -2692,7 +2715,8 @@
         "lastDurationMs": 10003,
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
-        "lastDelivered": false
+        "lastDelivered": false,
+        "runningAtMs": 1772291827743
       }
     },
     {
@@ -2725,8 +2749,7 @@
         "lastRunStatus": "error",
         "lastStatus": "error",
         "lastDurationMs": 240023,
-        "lastDeliveryStatus": "unknown",
-        "runningAtMs": 1772291235696
+        "lastDeliveryStatus": "unknown"
       }
     },
     {
@@ -2762,7 +2785,8 @@
         "lastRunStatus": "error",
         "lastStatus": "error",
         "lastDurationMs": 60128,
-        "lastDeliveryStatus": "unknown"
+        "lastDeliveryStatus": "unknown",
+        "runningAtMs": 1772291827743
       }
     },
     {
@@ -2857,7 +2881,8 @@
         "lastStatus": "error",
         "lastDurationMs": 45056,
         "lastDeliveryStatus": "not-requested",
-        "consecutiveErrors": 2
+        "consecutiveErrors": 2,
+        "runningAtMs": 1772291827743
       }
     },
     {
@@ -2938,7 +2963,8 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1772291700000
+        "nextRunAtMs": 1772291700000,
+        "runningAtMs": 1772291827743
       }
     },
     {
@@ -2966,8 +2992,7 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1772290991208,
-        "runningAtMs": 1772291235696
+        "nextRunAtMs": 1772290991208
       }
     },
     {
@@ -2989,6 +3014,133 @@
         "thinking": "off",
         "timeoutSeconds": 45,
         "message": "CONTEXT OVERFLOW CHECK — run every 3 hours.\n\nexec: openclaw sessions 2>/dev/null | grep -E '([89][0-9]|100)%'\n\nFor any session showing >80% context:\n1. Log to workspace/logs/audit.jsonl: {\"ts\":\"<ISO>\",\"event\":\"context_overflow\",\"session\":\"<key>\",\"pct\":<n>}\n2. If the session belongs to a specialist agent AND is >90%: post warning to #redos-ops Slack channel\n3. Do NOT restart or kill sessions — just log and notify.\n\nReturn: count of sessions flagged."
+      },
+      "delivery": {
+        "mode": "silent",
+        "bestEffort": true
+      },
+      "state": {}
+    },
+    {
+      "id": "research-weekly-digest-0001",
+      "agentId": "research",
+      "name": "Weekly Market Intelligence Digest",
+      "enabled": true,
+      "createdAtMs": 1772291614907,
+      "updatedAtMs": 1772291614907,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 8 * * 1",
+        "tz": "America/Toronto"
+      },
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "thinking": "off",
+        "timeoutSeconds": 300,
+        "message": "WEEKLY MARKET INTELLIGENCE DIGEST — Monday 8am.\n\nRun competitive-intelligence skill: scan Cursor, Perplexity, Devin, v0 for new patterns.\n\n1. web_search for each: \"<tool> new features site:twitter.com OR site:github.com\" — last 7 days\n2. Identify top 3 patterns worth adopting into OpenClaw/RedOS\n3. Write brief to workspace/tmp/research-brief-latest.md (use research-pipeline skill format)\n4. Update workspace/STATE.yaml → pipelines.research_to_eng\n5. sessions_send(sessionKey=\"agent:eng:main\", message=\"[TASK-ID: TASK-{date}-DIG] Weekly research brief ready at workspace/tmp/research-brief-latest.md\", timeoutSeconds=60)\n6. Post summary to #redos-mission-control Slack\n7. Append episode to workspace/logs/episodes.jsonl"
+      },
+      "delivery": {
+        "mode": "silent",
+        "bestEffort": true
+      },
+      "state": {}
+    },
+    {
+      "id": "eng-research-intake-0001",
+      "agentId": "eng",
+      "name": "Research Brief Intake — pick up RESEARCH deliveries",
+      "enabled": true,
+      "createdAtMs": 1772291614907,
+      "updatedAtMs": 1772291614907,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 */4 * * *",
+        "tz": "America/Toronto",
+        "staggerMs": 300000
+      },
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "thinking": "off",
+        "timeoutSeconds": 180,
+        "message": "RESEARCH BRIEF INTAKE.\n\n1. Read workspace/STATE.yaml → check pipelines.research_to_eng.status\n2. If status == \"waiting_for_eng\":\n   a. Read workspace/tmp/research-brief-latest.md\n   b. Run idea-validator skill on the quick win idea\n   c. If reality_signal > 60: implement quick win, post to #redos-mission-control\n   d. If reality_signal <= 60: post \"ENG: brief reviewed, skipping quick win (reality_signal=N)\"\n   e. Update STATE.yaml → pipelines.research_to_eng.status = \"done\" or \"eng_declined\"\n   f. Append to workspace/tasks-log.md\n3. If status != \"waiting_for_eng\": skip — no action needed\n4. Append episode to workspace/logs/episodes.jsonl"
+      },
+      "delivery": {
+        "mode": "silent",
+        "bestEffort": true
+      },
+      "state": {}
+    },
+    {
+      "id": "ops-state-sync-0001",
+      "agentId": "ops",
+      "name": "Nightly State Sync — update STATE.yaml metrics",
+      "enabled": true,
+      "createdAtMs": 1772291614907,
+      "updatedAtMs": 1772291614907,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 23 * * *",
+        "tz": "America/Toronto"
+      },
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "thinking": "off",
+        "timeoutSeconds": 120,
+        "message": "NIGHTLY STATE SYNC.\n\n1. Count lines in workspace/logs/episodes.jsonl → update STATE.yaml metrics.episodes_today\n2. Count OPEN tickets in TICKET-TRACKER.md → update STATE.yaml metrics.tickets_open\n3. Count tickets where SLA breached → update metrics.tickets_breached_sla\n4. Read workspace/logs/a2a-events.jsonl last 24h → compute success rate\n5. Read autonomy-scorecard skill output if available → update metrics.autonomy_score\n6. Write all metrics back to STATE.yaml (update the metrics: block)\n7. Also update PROJECT_STATUS.md Summary table with these values\n8. Post one-line summary to #redos-ops Slack\n9. Append episode to workspace/logs/episodes.jsonl"
+      },
+      "delivery": {
+        "mode": "silent",
+        "bestEffort": true
+      },
+      "state": {}
+    },
+    {
+      "id": "red-task-dispatcher-0001",
+      "agentId": "main",
+      "name": "Task Dispatcher — assign work from GOALS to AUTONOMOUS.md",
+      "enabled": true,
+      "createdAtMs": 1772291614907,
+      "updatedAtMs": 1772291614907,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 */6 * * *",
+        "tz": "America/Toronto",
+        "staggerMs": 300000
+      },
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "thinking": "off",
+        "timeoutSeconds": 60,
+        "message": "TASK DISPATCHER — assign work from GOALS.md to AUTONOMOUS.md queue.\n\n1. Read workspace/GOALS.md — identify any goal with unchecked sub-goals\n2. Read workspace/AUTONOMOUS.md — count PENDING tasks per agent\n3. If any agent has 0 PENDING tasks: create 1-2 new tasks from GOALS and add to AUTONOMOUS.md\n4. Keep AUTONOMOUS.md under 50 lines — if full, only add P0/P1\n5. Post to #redos-mission-control if new tasks added: \"👑 RED: dispatched N new tasks to AUTONOMOUS.md\"\n6. Update workspace/STATE.yaml → sprint.priority_queue if needed"
+      },
+      "delivery": {
+        "mode": "silent",
+        "bestEffort": true
+      },
+      "state": {}
+    },
+    {
+      "id": "ops-memory-integrity-0001",
+      "agentId": "ops",
+      "name": "Memory Integrity Check — verify append-only logs not corrupted",
+      "enabled": true,
+      "createdAtMs": 1772291614907,
+      "updatedAtMs": 1772291614907,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 7 * * *",
+        "tz": "America/Toronto"
+      },
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "thinking": "off",
+        "timeoutSeconds": 45,
+        "message": "MEMORY INTEGRITY CHECK.\n\nVerify append-only files are growing correctly (not being overwritten):\n1. exec: wc -l workspace/logs/episodes.jsonl workspace/logs/a2a-delegations.jsonl workspace/tasks-log.md workspace/ops/LEARNINGS.md\n2. exec: git -C workspace log --oneline -3 2>/dev/null || echo \"no git\"\n3. If any file is SMALLER than yesterday (check git diff): alert RED via sessions_send\n4. If OK: post \"⚙️ OPS: memory integrity OK — files growing normally\" to #redos-ops\n5. Append episode to workspace/logs/episodes.jsonl"
       },
       "delivery": {
         "mode": "silent",

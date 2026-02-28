@@ -1,0 +1,97 @@
+# RedOS Shared State — agents read/write this file for coordination
+# RULES: Only append or update your own section. Never delete other agents' sections.
+# Use atomic writes: write to STATE.yaml.tmp then rename, never partial writes.
+
+version: "1.0"
+last_updated: "2026-02-28T00:00:00Z"
+updated_by: "system"
+
+# ── Sprint / Current Focus ──────────────────────────────────────────────────
+sprint:
+  id: "SPRINT-2026-02-28"
+  goal: "95%+ autonomous operation — A2A verified, self-healing active, pipelines running"
+  started: "2026-02-28"
+  ends: "2026-03-06"
+  priority_queue:
+    - "Verify A2A warmup returns alive for all agents"
+    - "Seed episodes.jsonl with real data from inner loops"
+    - "Research→ENG pipeline first run"
+    - "Merge feature/bounded-autonomy-l0-l5 to main"
+
+# ── Per-agent current focus ──────────────────────────────────────────────────
+agents:
+  main:
+    focus: "Orchestration + approval monitoring"
+    last_task: "system-init"
+    status: "idle"
+    last_updated: "2026-02-28T00:00:00Z"
+
+  allrounder:
+    focus: "Routing + synthesis"
+    last_task: "system-init"
+    status: "idle"
+    last_updated: "2026-02-28T00:00:00Z"
+
+  eng:
+    focus: "Code implementation + architecture"
+    last_task: "system-init"
+    status: "idle"
+    last_updated: "2026-02-28T00:00:00Z"
+
+  ops:
+    focus: "Health monitoring + ticket management"
+    last_task: "system-init"
+    status: "idle"
+    last_updated: "2026-02-28T00:00:00Z"
+
+  research:
+    focus: "Market intelligence + competitive analysis"
+    last_task: "system-init"
+    status: "idle"
+    last_updated: "2026-02-28T00:00:00Z"
+
+  infosec:
+    focus: "Security review + L3 approvals"
+    last_task: "system-init"
+    status: "idle"
+    last_updated: "2026-02-28T00:00:00Z"
+
+  finance:
+    focus: "Budget tracking + cost reporting"
+    last_task: "system-init"
+    status: "idle"
+    last_updated: "2026-02-28T00:00:00Z"
+
+  hatake:
+    focus: "Intent parsing"
+    last_task: "system-init"
+    status: "idle"
+    last_updated: "2026-02-28T00:00:00Z"
+
+# ── Pipeline state ────────────────────────────────────────────────────────────
+pipelines:
+  research_to_eng:
+    status: "pending"           # pending | running | waiting_for_eng | done
+    last_research_topic: null
+    last_research_ts: null
+    eng_task_id: null
+    eng_status: null
+
+  idea_validator:
+    last_checked: null
+    last_idea: null
+    reality_signal: null        # 0-100
+
+# ── Blocking issues ────────────────────────────────────────────────────────────
+blockers:
+  # Format: - {agent, issue, since, ticket}
+  active: []
+
+# ── Metrics snapshot (updated by OPS nightly eval) ────────────────────────────
+metrics:
+  autonomy_score: null          # 1-10, computed by autonomy-scorecard
+  a2a_success_rate: null        # % sessions_send that return non-timeout
+  episodes_today: 0
+  tickets_open: 0
+  tickets_breached_sla: 0
+  last_eval: null
