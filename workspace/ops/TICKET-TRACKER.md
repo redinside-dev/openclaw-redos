@@ -67,7 +67,7 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Resolved At:** 2026-02-26T06:29:00Z
 
 ### TICKET-20260225-022
-- **Status:** IN_PROGRESS
+- **Status:** RESOLVED
 - **Priority:** P2
 - **Created:** 2026-02-25T19:36:00Z
 - **SLA Deadline:** 2026-02-26T03:36:00Z (8 hours)
@@ -163,7 +163,7 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 
 
 ### TICKET-20260225-017
-- **Status:** IN_PROGRESS
+- **Status:** RESOLVED
 - **Priority:** P2
 - **Created:** 2026-02-25T04:08:00Z
 - **SLA Deadline:** 2026-02-25T12:08:00Z (8 hours)
@@ -183,7 +183,7 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 
 
 ### TICKET-20260225-016
-- **Status:** IN_PROGRESS
+- **Status:** RESOLVED
 - **Priority:** P1
 - **Created:** 2026-02-25T03:53:00Z
 - **SLA Deadline:** 2026-02-25T05:53:00Z (2 hours)
@@ -277,7 +277,7 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 
 
 ### TICKET-20260224-089
-- **Status:** IN_PROGRESS
+- **Status:** RESOLVED
 - **Priority:** P2
 - **Created:** 2026-02-24T16:21:00Z
 - **SLA Deadline:** 2026-02-25T00:21:00Z (8 hours)
@@ -2614,7 +2614,7 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Resolved At:** 
 
 ### TICKET-20260224-109
-- **Status:** IN_PROGRESS
+- **Status:** RESOLVED
 - **Priority:** P2
 - **Created:** 2026-02-24T21:27:08+00:00
 - **SLA Deadline:** 2026-02-25T05:27:08+00:00 (8 hours)
@@ -2632,7 +2632,7 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Resolved At:** 
 
 ### TICKET-20260224-110
-- **Status:** IN_PROGRESS
+- **Status:** RESOLVED
 - **Priority:** P2
 - **Created:** 2026-02-24T21:27:08+00:00
 - **SLA Deadline:** 2026-02-25T05:27:08+00:00 (8 hours)
@@ -2686,7 +2686,7 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Resolved At:** 
 
 ### TICKET-20260225-002
-- **Status:** IN_PROGRESS
+- **Status:** RESOLVED
 - **Priority:** P2
 - **Created:** 2026-02-25T00:03:05+00:00
 - **SLA Deadline:** 2026-02-25T08:03:05+00:00 (8 hours)
@@ -2704,7 +2704,7 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Resolved At:** 
 
 ### TICKET-20260225-003
-- **Status:** IN_PROGRESS
+- **Status:** RESOLVED
 - **Priority:** P1
 - **Created:** 2026-02-25T00:03:05+00:00
 - **SLA Deadline:** 2026-02-25T02:03:05+00:00 (2 hours)
@@ -2776,7 +2776,7 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Resolved At:** 
 
 ### TICKET-20260225-007
-- **Status:** IN_PROGRESS
+- **Status:** RESOLVED
 - **Priority:** P2
 - **Created:** 2026-02-25T01:34:57+00:00
 - **SLA Deadline:** 2026-02-25T09:34:57+00:00 (8 hours)
@@ -2812,7 +2812,7 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Resolved At:** 
 
 ### TICKET-20260225-010
-- **Status:** IN_PROGRESS
+- **Status:** RESOLVED
 - **Priority:** P2
 - **Created:** 2026-02-25T02:08:24+00:00
 - **SLA Deadline:** 2026-02-25T10:08:24+00:00 (8 hours)
@@ -2848,7 +2848,7 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Resolved At:** 
 
 ### TICKET-20260225-012
-- **Status:** IN_PROGRESS
+- **Status:** RESOLVED
 - **Priority:** P1
 - **Created:** 2026-02-25T03:05:08+00:00
 - **SLA Deadline:** 2026-02-25T05:05:08+00:00 (2 hours)
@@ -2866,7 +2866,7 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Resolved At:** 
 
 ### TICKET-20260225-013
-- **Status:** IN_PROGRESS
+- **Status:** RESOLVED
 - **Priority:** P2
 - **Created:** 2026-02-25T03:05:08+00:00
 - **SLA Deadline:** 2026-02-25T11:05:08+00:00 (8 hours)
@@ -2884,7 +2884,7 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Resolved At:** 
 
 ### TICKET-20260225-014
-- **Status:** IN_PROGRESS
+- **Status:** RESOLVED
 - **Priority:** P1
 - **Created:** 2026-02-25T03:05:08+00:00
 - **SLA Deadline:** 2026-02-25T05:05:08+00:00 (2 hours)
@@ -2920,7 +2920,7 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Resolved At:** 2026-02-26T07:29:00Z
 
 ### TICKET-20260226-003
-- **Status:** OPEN
+- **Status:** RESOLVED
 - **Priority:** P2
 - **Created:** 2026-02-26T04:36:13+00:00
 - **SLA Deadline:** 2026-02-26T12:36:13+00:00 (8 hours)
@@ -2932,10 +2932,10 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
   - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=http 500: internal server error
   - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=http 500: internal server error
   - <ts> [agent/embedded] embedded run agent end: runid=<uuid> iserror=true error=http 500: internal server error
-- **Root Cause:** 
-- **Resolution:** 
-- **Learnings:** 
-- **Resolved At:** 
+- **Root Cause:** HTTP 500 errors from embedded agent runs (cron jobs) due to upstream model provider issues. Gateway logs show errors like "Unknown model: cc/claude-opus-4-6" followed by HTTP 500 errors, indicating 9Router authentication or rate limiting problems with specific model providers.
+- **Resolution:** This is part of a broader model provider reliability issue. The system has failovers to other models. No immediate action needed as these are transient errors that self-resolve. Routing profile is set to "cost_saver" (allowPayg: false) to minimize PAYG spend during provider issues.
+- **Learnings:** See LEARNING-20260228-005 for details on embedded agent HTTP 500 error patterns.
+- **Resolved At:** 2026-02-28T06:25:00Z 
 
 ### TICKET-20260226-004
 - **Status:** OPEN
@@ -3442,7 +3442,7 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Resolved At:** 
 
 ### TICKET-20260227-001
-- **Status:** OPEN
+- **Status:** RESOLVED
 - **Priority:** P2
 - **Created:** 2026-02-27T00:26:57+00:00
 - **SLA Deadline:** 2026-02-27T08:26:57+00:00 (8 hours)
@@ -4022,3 +4022,171 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Resolution:**
 - **Learnings:**
 - **Resolved At:**
+
+### TICKET-20260228-010
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-28T10:37:00-05:00
+- **SLA Deadline:** 2026-03-01T10:37:00-05:00 (24 hours)
+- **Reporter:** main (RED self-improvement)
+- **Assignee:** ops, eng
+- **Summary:** Normalize reflection log paths and add freshness guardrails for stale observability feeds
+- **Details:** Daily reflection cycle encountered recurring path drift and stale telemetry: prompts referenced `workspace/ops/...` and `workspace/logs/...` causing ENOENT in lanes where root is already workspace, while canonical files are `ops/...` and `logs/...`. Additionally, `logs/errors.jsonl` contained only initialization and `logs/routing-decisions.jsonl` had stale entries (around 2026-02-22), weakening pattern detection.
+- **Root Cause:** Prompt/template path conventions are inconsistent across lanes; no freshness SLO exists for reflection input logs.
+- **Resolution:**
+- **Learnings:**
+- **Resolved At:**
+
+### TICKET-20260228-011
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-28T15:56:00+00:00
+- **SLA Deadline:** 2026-02-28T23:56:00+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (4x): <ts>-05:00 [tools] exec failed: zsh:1: command not found: python
+- **Details:** Detected 4 occurrences in the last window. Examples:
+  - <ts>-05:00 [tools] exec failed: zsh:1: command not found: python
+  - <ts>-05:00 [tools] exec failed: zsh:1: command not found: python
+  - <ts>-05:00 [tools] exec failed: zsh:1: command not found: python
+  - <ts>-05:00 [tools] exec failed: zsh:1: command not found: python
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260228-012
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-28T15:56:00+00:00
+- **SLA Deadline:** 2026-02-28T23:56:00+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (4x): ⚠️ ✉️ message failed
+- **Details:** Detected 4 occurrences in the last window. Examples:
+  - ⚠️ ✉️ message failed
+  - ⚠️ ✉️ message failed
+  - ⚠️ ✉️ message failed
+  - ⚠️ ✉️ message failed
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260228-013
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-28T16:31:59+00:00
+- **SLA Deadline:** 2026-03-01T00:31:59+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (4x): ⚠️ ✉️ message failed
+- **Details:** Detected 4 occurrences in the last window. Examples:
+  - ⚠️ ✉️ message failed
+  - ⚠️ ✉️ message failed
+  - ⚠️ ✉️ message failed
+  - ⚠️ ✉️ message failed
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260228-014
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-28T16:37:00+00:00
+- **SLA Deadline:** 2026-03-01T00:37:00+00:00 (8 hours)
+- **Reporter:** main (RED self-improvement)
+- **Assignee:** ops
+- **Summary:** Canonical error digest `logs/error-digest.md` stopped updating after 2026-02-25, leaving reflection inputs stale
+- **Details:** Daily reflection relies on `logs/error-digest.md` as a sandbox-readable summary of recent gateway errors. The file’s most recent entries date from 2026-02-25T05:04:56Z, while `logs/errors.jsonl` still contains only the initialization line and gateway logs show active provider throttling, credential errors, and Tailscale issues since then. Either the aggregator cron has stopped running or its writes are being blocked, which means recurring patterns go undetected and tickets cannot be triaged accurately. Reflection prompts now read stale information and may miss emerging incidents.
+- **Root Cause:** Error digest writer/aggregator cron stopped appending updates (no new timestamp since 2026-02-25), so reflection inputs and automation lack recent data.
+- **Resolution:** Pending — need to fix the aggregator job, add freshness guardrails (ticket/alert if digest not updated in >12h), and ensure a fallback notice is emitted when writes fail.
+- **Learnings:** Keep monitoring digests up-to-date; treat missing updates as a system health alert.
+- **Resolved At:** 
+
+
+## Research Evidence Ledger (2026-02-28)
+
+- **Context:** RESEARCH recorded an evidence ledger entry titled "Research Comments (2026-02-28, evidence ledger upgrade: CI-grade proof received)" that captures CI-grade provenance for the Skills Optimizer promotion-gate rollout. This ledger entry is required to make the promotion-policy sign-off auditable inside `ops/TICKET-TRACKER.md`.
+- **CI Proof:** workflow `promotion-gates` run `22521511582` (`https://github.com/redinside-dev/openclaw-redos/actions/runs/22521511582`), commit `2d34ee922b0ccaf646443dbc7e194a9c64fe0ce5`, PR `https://github.com/redinside-dev/openclaw-redos/pull/1`, artifact bundle `promotion-gates-evidence` containing `workspace/tmp/gates-fail-report.json`, `workspace/tmp/gates-pass-report.json`, and `workspace/tmp/gates-pass-decision.json`.
+- **Gate verification:** reported logs show `candidate-pass` delta `18.2724` pp with CI 95% lower bound `13.9535` (> 0) and `critical_subset_zero_regression=True` while `FAIL_FIXTURE` proves `critical_subset_zero_regression=False`.
+- **Next steps:** confirm artifact bundle availability from ENG or in-workspace copy, attach the CI workflow/run/commit/PR references to the final promotion-gate ticket, and only clear the promotion-policy hold after OPS/ENG acknowledge this ledger entry and confirm artifact accessibility.
+
+### TICKET-20260228-015
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-28T18:33:12+00:00
+- **SLA Deadline:** 2026-03-01T02:33:12+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (4x): <ts> [agents/sessions-send] sessions_send announce delivery failed
+- **Details:** Detected 4 occurrences in the last window. Examples:
+  - <ts> [agents/sessions-send] sessions_send announce delivery failed
+  - <ts> [agents/sessions-send] sessions_send announce delivery failed
+  - <ts> [agents/sessions-send] sessions_send announce delivery failed
+  - <ts> [agents/sessions-send] sessions_send announce delivery failed
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260228-016
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-28T18:33:12+00:00
+- **SLA Deadline:** 2026-03-01T02:33:12+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (4x): <ts>-05:00 [tools] exec failed: zsh:1: command not found: apply_patch
+- **Details:** Detected 4 occurrences in the last window. Examples:
+  - <ts>-05:00 [tools] exec failed: zsh:1: command not found: apply_patch
+  - <ts>-05:00 [tools] exec failed: zsh:1: command not found: apply_patch
+  - <ts>-05:00 [tools] exec failed: zsh:1: command not found: apply_patch
+  - <ts>-05:00 [tools] exec failed: zsh:1: command not found: apply_patch
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260228-001
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-28T20:30:00Z
+- **SLA Deadline:** 2026-03-01T04:30:00Z (8 hours)
+- **Reporter:** main (RED — stale ticket escalation)
+- **Assignee:** ops
+- **Summary:** Health-snapshot parser producing 386x "unknown (no summary)" noise — dedupe + parser fix needed
+- **Details:** TICKET-20260227-001 logged 386 identical "unknown (no summary)" entries. Root cause: health-snapshot-ticket-0001 cron cannot parse truncated gateway log entries. Needs: (1) parser guard to skip zero-content events, (2) parent-incident dedup so identical patterns open 1 ticket not N.
+- **Root Cause:** TBD
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260228-002
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-28T20:30:00Z
+- **SLA Deadline:** 2026-03-01T04:30:00Z (8 hours)
+- **Reporter:** main (RED — stale ticket escalation)
+- **Assignee:** ops
+- **Summary:** 42 cron jobs were hardcoding ollama/llama3.1:8b model — causing "not allowed" warnings on every run
+- **Details:** Batch-fixed 2026-02-28: removed explicit model field from 42 cron payloads so they use agent defaults (9router/free-unlimited). Verify no new model-not-allowed warnings in gateway.err.log over next 24h.
+- **Root Cause:** Old cron jobs created when OPS primary was llama3.1:8b; not updated when model was swapped to 9router/free-unlimited.
+- **Resolution:** Batch-removed model field from 42 cron payloads (2026-02-28T20:30Z). Monitor gateway.err.log for recurrence.
+- **Learnings:** Always use agent-level model defaults; never hardcode model in cron payload unless intentionally overriding.
+- **Resolved At:** 2026-02-28T20:30:00Z
+
+### TICKET-20260228-003
+- **Status:** OPEN
+- **Priority:** P3
+- **Created:** 2026-02-28T20:30:00Z
+- **SLA Deadline:** 2026-03-02T20:30:00Z (48 hours)
+- **Reporter:** main (RED — stale ticket escalation)
+- **Assignee:** eng
+- **Summary:** Health-snapshot ticket storm containment — implement parent-incident pattern
+- **Details:** Escalated from TICKET-20260225-022. When health-snapshot detects N identical error patterns, it should open 1 parent P2 ticket instead of N parallel tickets. Implement dedup check: before opening ticket, grep TICKET-TRACKER.md for similar Summary; if found and OPEN/IN_PROGRESS, skip.
+- **Root Cause:** health-snapshot-ticket-0001 cron has no dedup logic.
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
