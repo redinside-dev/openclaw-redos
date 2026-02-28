@@ -12,7 +12,7 @@ import re
 import sys
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
-from collections import defaultdict
+from collections import Counter, defaultdict
 
 OPENCLAW_HOME = Path.home() / ".openclaw"
 GATEWAY_ERR = OPENCLAW_HOME / "logs" / "gateway.err.log"
@@ -104,10 +104,15 @@ def write_digest(errors):
 
     # Group by severity then label
     by_sev = defaultdict(lambda: defaultdict(list))
+    label_counts = Counter()
     for e in errors:
         by_sev[e["severity"]][e["label"]].append(e)
+        label_counts[e["label"]] += 1
 
     total = len(errors)
+    freshest = max((e["ts"] for e in errors), default=None)
+    age_min = int((now - freshest).total_seconds() // 60) if freshest else None
+
     lines = [
         "# Canonical Error Digest for Cron + Reflection",
         "",
@@ -124,6 +129,19 @@ def write_digest(errors):
         f"Last updated: {ts_str}",
         "",
     ]
+
+    if freshest is None:
+        lines.append("Freshness: stale (no parseable events in lookback window)")
+    elif age_min > 60:
+        lines.append(f"Freshness: stale (latest event is {age_min} minutes old)")
+    else:
+        lines.append(f"Freshness: healthy (latest event is {age_min} minutes old)")
+    lines.append("")
+
+    if label_counts:
+        top = ", ".join(f"{k}:{v}" for k, v in label_counts.most_common(5))
+        lines.append(f"Top classes: {top}")
+        lines.append("")
 
     if total == 0:
         lines.append("✅ No errors in the last 4 hours.")
