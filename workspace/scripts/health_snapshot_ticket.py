@@ -84,8 +84,16 @@ def extract_signatures(window_start: datetime) -> List[str]:
         if rc:
             sigs.append(_normalize_sig(rc[:200]))
 
-    # 3) gateway.err.log text tail (best-effort)
-    for line in tail_text(GATEWAY_ERR, 300):
+    # 3) gateway.err.log — timestamp-filtered (not just raw tail)
+    TS_RE = re.compile(
+        r"^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2}))"
+    )
+    for line in tail_text(GATEWAY_ERR, 2000):
+        m = TS_RE.match(line)
+        if m:
+            dt = _parse_dt(m.group(1))
+            if dt is None or dt < window_start:
+                continue
         lower = line.lower()
         if any(k in lower for k in ["error", "fail", "exception", "enoent", "timeout", "rate limit", "429"]):
             sigs.append(_normalize_sig(line[:220]))
