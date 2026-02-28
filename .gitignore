@@ -138,7 +138,16 @@ config/proxy-accounts.json
 
 # Agent ops scratch files and approval docs
 workspace/ops/APPROVAL_BUNDLE-*.md
+workspace/ops/task-registry.json
 workspace-ops/*.txt
+workspace-ops/9router-*.md
+workspace-ops/ops/
+workspace-research/ops/
+workspace-eng/.factory-data/
+
+# One-time applied fix/utility scripts
+scripts/apply-ollama-primary-for-main-and-ops.sh
+scripts/cursor-sqlite-read.py
 
 # ==========================================
 # RUNTIME STATE — NEVER COMMIT
