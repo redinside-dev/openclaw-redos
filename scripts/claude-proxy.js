@@ -31,11 +31,13 @@
 
 import http from 'node:http';
 import https from 'node:https';
-import { URL } from 'node:url';
+import { URL, fileURLToPath } from 'node:url';
 import fs from 'node:fs';
 import path from 'node:path';
 import { Transform } from 'node:stream';
 import { execSync } from 'node:child_process';
+
+const SCRIPT_PATH = fileURLToPath(import.meta.url);
 
 const PORT = 19001;
 const ANTHROPIC_BASE = 'https://api.anthropic.com';
@@ -107,6 +109,7 @@ function loadAccounts() {
     try {
       order = fs.readdirSync(CCS_INSTANCES)
         .filter(d => { try { return fs.statSync(path.join(CCS_INSTANCES, d)).isDirectory(); } catch { return false; } });
+      order.sort(); // deterministic order when from filesystem
     } catch {}
   }
   if (!order || order.length === 0) {
@@ -186,6 +189,25 @@ function isExhaustion(status, bodyBuf) {
       msg.includes('hit your limit')
     );
   } catch { return false; }
+}
+
+const SSE_EXHAUSTION_PATTERNS = [
+  'usage limit',
+  'quota_exceeded',
+  'credit_balance_too_low',
+  'billing_error',
+  'out of credits',
+  'maximum usage',
+  "you've hit your limit",
+  "hit your limit",
+  "you've reached your",
+  'plan usage limit',
+  'rate_limit_error',
+];
+
+function sseChunkIsExhaustion(chunk) {
+  const text = chunk.toString('utf8').toLowerCase();
+  return SSE_EXHAUSTION_PATTERNS.some(p => text.includes(p));
 }
 
 function getCyclicSequence() {
@@ -613,15 +635,18 @@ const server = http.createServer(async (req, res) => {
 
   // ── Reload config ─────────────────────────────────────────────────────────
   if (req.url === '/reload') {
-    const prev = accounts.map(a => a.name).join(',');
+    const prevOrder = accounts.map(a => a.name);
+    const currentBackend = forcedStart || accounts[currentTierIdx]?.name;
     accounts = loadAccounts();
     tierStates = {};
-    currentTierIdx = 0;
     forcedStart = null;
-    const curr = accounts.map(a => a.name).join(',');
-    log(`[proxy] Config reloaded: [${prev}] → [${curr}]`);
+    // Preserve current backend: stay on same tier by name so curl /reload doesn't cause a jump
+    const idx = accounts.findIndex(a => a.name === currentBackend);
+    currentTierIdx = idx >= 0 ? idx : 0;
+    const currOrder = accounts.map(a => a.name);
+    log(`[proxy] Config reloaded: [${prevOrder.join(',')}] → [${currOrder.join(',')}], staying on ${accounts[currentTierIdx]?.name || 'none'}`);
     res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ status: 'ok', accounts: accounts.map(a => ({ name: a.name, type: a.type })) }));
+    res.end(JSON.stringify({ status: 'ok', backend: accounts[currentTierIdx]?.name, accounts: accounts.map(a => ({ name: a.name, type: a.type })) }));
     return;
   }
 
@@ -647,14 +672,17 @@ const server = http.createServer(async (req, res) => {
   }
 
   if (req.url === '/reset') {
+    const currentBackend = forcedStart || accounts[currentTierIdx]?.name;
     forcedStart = null;
     tierStates = {};
-    currentTierIdx = 0;
-    // Clear all token caches
+    // Clear token caches so next use re-reads from Keychain
     for (const a of accounts) { if (a.tokenCache) { a.tokenCache.token = null; a.tokenCache.expiry = 0; } }
-    log(`[proxy] Reset — back to ${accounts[0]?.name || 'none'} auto-chain`);
+    // Stay on current backend (don't jump to first) — reset = clear exhausted + unpin only
+    const idx = accounts.findIndex(a => a.name === currentBackend);
+    currentTierIdx = idx >= 0 ? idx : 0;
+    log(`[proxy] Reset — exhausted cleared, staying on ${accounts[currentTierIdx]?.name || 'none'} (use /force?account=X to pin)`);
     res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ status: 'ok', backend: accounts[0]?.name, message: 'Reset — auto cyclic from first account' }));
+    res.end(JSON.stringify({ status: 'ok', backend: accounts[currentTierIdx]?.name, message: 'Reset — exhausted states cleared, same backend' }));
     return;
   }
 
@@ -736,6 +764,54 @@ const server = http.createServer(async (req, res) => {
         return;
       }
 
+      // For 200 SSE responses: inspect stream for body-level exhaustion signals
+      // (Claude subscription quota errors arrive as 200 OK with error event in stream)
+      const isSSE = (proxyRes.headers['content-type'] || '').includes('text/event-stream');
+      if (status === 200 && isSSE) {
+        const exhausted = await new Promise((resolve) => {
+          let headerWritten = false;
+          let detected = false;
+
+          proxyRes.on('data', chunk => {
+            if (detected) return; // already bailing out, discard
+            if (sseChunkIsExhaustion(chunk)) {
+              detected = true;
+              log(`[proxy] ${account.name} SSE exhaustion detected mid-stream — failing over`);
+              // Destroy upstream connection; do NOT write to client yet if nothing sent
+              proxyRes.destroy();
+              resolve(true);
+              return;
+            }
+            if (!headerWritten) {
+              res.writeHead(status, proxyRes.headers);
+              headerWritten = true;
+            }
+            res.write(chunk);
+          });
+
+          proxyRes.on('end', () => {
+            if (!detected) {
+              if (!headerWritten) res.writeHead(status, proxyRes.headers);
+              res.end();
+              resolve(false);
+            }
+          });
+
+          proxyRes.on('error', (e) => {
+            if (!detected) {
+              log(`[proxy] ${account.name} SSE stream error: ${e.message}`);
+              resolve(false);
+            }
+          });
+        });
+
+        if (exhausted) {
+          markExhausted(account.name);
+          continue; // retry with next account
+        }
+        return; // success — response already piped
+      }
+
       pipeResponse(proxyRes, res);
       return; // success
 
@@ -765,6 +841,24 @@ server.on('error', err => {
   log(`[proxy] Server error: ${err.message}`);
   process.exit(1);
 });
+
+// ── Self-watch: restart when script is updated (launchd KeepAlive brings us back) ──
+(function watchSelf() {
+  let restartTimer = null;
+  try {
+    fs.watch(SCRIPT_PATH, (eventType) => {
+      if (eventType !== 'change') return;
+      if (restartTimer) clearTimeout(restartTimer);
+      restartTimer = setTimeout(() => {
+        log(`[proxy] Script updated — exiting for launchd restart (no human intervention)`);
+        process.exit(0);
+      }, 800);
+    });
+    log(`[proxy] Self-watch enabled on ${SCRIPT_PATH} — updates applied automatically`);
+  } catch (e) {
+    log(`[proxy] Self-watch not available: ${e.message}`);
+  }
+})();
 
 // ── Initialize ────────────────────────────────────────────────────────────────
 accounts = loadAccounts();

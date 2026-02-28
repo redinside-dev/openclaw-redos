@@ -1,6 +1,6 @@
 {
   "agentId": "research",
-  "updatedAt": "2026-02-24T08:08:26Z",
+  "updatedAt": "2026-02-28T18:47:21Z",
   "goals": [
     {
       "id": "goal-research-001",
@@ -8,7 +8,7 @@
       "why": "We've been blind to what Cursor, Devin, v0 are doing. Every week without this report is a week we fall behind.",
       "priority": "P1",
       "status": "completed",
-      "progress": "Completed 2026-02-24T07:27Z. Searched Cursor, v0, Devin, OpenHands, Windsurf, SWE-agent. Updated knowledge base. Sent briefs to RED and ENG. Discovered critical benchmark shift (Verified → Pro/Terminal-Bench). Sent urgent alert to RED (delivery: ok).",
+      "progress": "Completed 2026-02-24T07:27Z. Searched Cursor, v0, Devin, OpenHands, Windsurf, SWE-agent. Updated knowledge base. Sent briefs to RED and ENG. Discovered critical benchmark shift (Verified \u2192 Pro/Terminal-Bench). Sent urgent alert to RED (delivery: ok).",
       "nextAction": "Run again next Monday. Use new Terminal-Bench/SWE-Bench Pro template.",
       "createdAt": "2026-02-24T05:00:00Z",
       "targetDate": "2026-02-28T00:00:00Z",
@@ -20,8 +20,8 @@
       "why": "Every research session should compound. I should be getting smarter about AI agents every week, not starting from scratch.",
       "priority": "P2",
       "status": "in_progress",
-      "progress": "Created knowledge-research.md with competitive landscape section (Cursor, v0, Windsurf, Devin, OpenHands, SWE-agent). Added benchmark shift alert section. Marked Verified scores as legacy. Added Agent Self-Improvement Patterns section (self-refinement not inherent; need external signals; generator/evaluator separation) with RedOS implementation sketch (2026-02-25).",
-      "nextAction": "Add AI agent architecture patterns section (tool-use loops, memory, eval gates). Expand on Windsurf Skills as a reusable-instruction primitive.",
+      "progress": "Created knowledge-research.md with competitive landscape section (Cursor, v0, Windsurf, Devin, OpenHands, SWE-agent). Added benchmark shift alert section. Marked Verified scores as legacy. Added Agent Self-Improvement Patterns section (self-refinement not inherent; need external signals; generator/evaluator separation) with RedOS implementation sketch (2026-02-25). Ran a focused 2026-02-28 curiosity spike on Windsurf Skills; validated first-party Windsurf changelog primitives (Git worktrees, multi-cascade panes, dedicated terminal, hooks, enterprise rules/workflows) and flagged that explicit Skills semantics still need first-party confirmation. | 2026-02-28T11:40Z: web_search on first-party Windsurf Skills/versioning docs returned no explicit documentation; evidence points to changelog/docs portal references only. Treat Skills semantics as unverified until docs-page confirmation. | 2026-02-28T15:56Z: web_search surfaced first-party docs candidate `docs.windsurf.com/windsurf/cascade/skills`; upgraded status from \"no indexed docs\" to \"candidate located, awaiting direct page verification\". | 2026-02-28T18:04Z: completed contamination-controls research spike for coding-agent evals; captured durable guardrails (held-out rotation, contamination-adjusted pass@1, bootstrap CI lower-bound gating, memorization probes) in knowledge base. | 2026-02-28T18:47Z: added source-anchored DCR method note (EMNLP 2025) to knowledge base and defined operational use as companion contamination-risk signal for eval gates.",
+      "nextAction": "Run a small internal pilot template for DCR + held-out rerun trigger and hand off concise gate recommendation to ENG/RED.",
       "createdAt": "2026-02-24T05:00:00Z",
       "targetDate": "2026-03-31T00:00:00Z",
       "blockers": []
@@ -32,8 +32,8 @@
       "why": "Research that stays in my workspace is worthless. The value is in what ENG builds from it and what RED decides from it.",
       "priority": "P2",
       "status": "in_progress",
-      "progress": "Sent competitive intelligence briefs to RED and ENG (2026-02-24T07:27Z). Sent urgent benchmark shift alert to RED (2026-02-24T07:56Z, delivery: ok). RED acknowledged with concrete next steps.",
-      "nextAction": "Continue sharing after each research session. Establish reliable A2A delivery mechanism.",
+      "progress": "Sent competitive intelligence briefs to RED and ENG (2026-02-24T07:27Z). Sent urgent benchmark shift alert to RED (2026-02-24T07:56Z, delivery: ok). RED acknowledged with concrete next steps. | 2026-02-28: produced benchmark->eval gate policy brief and attempted delivery to ENG/RED; both sessions_send attempts timed out. | 2026-02-28T18:04Z: produced owner-ready contamination-control guidance locally; pending ENG/RED delivery due intermittent A2A timeouts.",
+      "nextAction": "Send concise contamination-control brief to ENG and RED when sessions_send stability recovers; keep tracker mirror active.",
       "createdAt": "2026-02-24T05:00:00Z",
       "targetDate": "2026-03-01T00:00:00Z",
       "blockers": []
