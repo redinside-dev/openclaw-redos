@@ -33,8 +33,7 @@
         "lastDurationMs": 19103,
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
-        "lastDelivered": false,
-        "runningAtMs": 1772290012712
+        "lastDelivered": false
       }
     },
     {
@@ -625,8 +624,7 @@
         "consecutiveErrors": 3,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772286630603,
-        "runningAtMs": 1772290012712
+        "nextRunAtMs": 1772286630603
       }
     },
     {
@@ -964,8 +962,7 @@
         "consecutiveErrors": 4,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772289930604,
-        "runningAtMs": 1772290012712
+        "nextRunAtMs": 1772289930604
       }
     },
     {
@@ -1037,8 +1034,7 @@
         "consecutiveErrors": 3,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772286172392,
-        "runningAtMs": 1772290012712
+        "nextRunAtMs": 1772286172392
       }
     },
     {
@@ -1075,8 +1071,7 @@
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772289907396,
-        "runningAtMs": 1772290012712
+        "nextRunAtMs": 1772289907396
       }
     },
     {
@@ -1148,8 +1143,7 @@
         "consecutiveErrors": 2,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772287200000,
-        "runningAtMs": 1772290012712
+        "nextRunAtMs": 1772287200000
       }
     },
     {
@@ -1372,8 +1366,7 @@
         "consecutiveErrors": 10,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772290169633,
-        "lastError": "cron: job execution timed out"
+        "nextRunAtMs": 1772290169633
       }
     },
     {
@@ -1409,8 +1402,7 @@
         "consecutiveErrors": 4,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772290230693,
-        "lastError": "cron: job execution timed out"
+        "nextRunAtMs": 1772290230693
       }
     },
     {
@@ -1443,8 +1435,7 @@
         "consecutiveErrors": 3,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772287356567,
-        "runningAtMs": 1772290012712
+        "nextRunAtMs": 1772287356567
       },
       "updatedAtMs": 1772280390866
     },
@@ -1478,8 +1469,7 @@
         "lastDurationMs": 106244,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1772287200000,
-        "runningAtMs": 1772290012712
+        "nextRunAtMs": 1772287200000
       },
       "updatedAtMs": 1772201609359
     },
@@ -1518,7 +1508,7 @@
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
         "nextRunAtMs": 1772290560884,
-        "lastError": "cron: job execution timed out"
+        "runningAtMs": 1772291235696
       }
     },
     {
@@ -1573,8 +1563,7 @@
         "lastDurationMs": 159625,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1772287200000,
-        "runningAtMs": 1772290012712
+        "nextRunAtMs": 1772287200000
       }
     },
     {
@@ -1670,8 +1659,7 @@
         "lastDurationMs": 300035,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 2,
-        "nextRunAtMs": 1772287200000,
-        "runningAtMs": 1772290012712
+        "nextRunAtMs": 1772287200000
       }
     },
     {
@@ -1705,8 +1693,7 @@
         "lastDurationMs": 300125,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 1,
-        "nextRunAtMs": 1772286048854,
-        "runningAtMs": 1772290012712
+        "nextRunAtMs": 1772286048854
       }
     },
     {
@@ -1951,8 +1938,7 @@
         "lastDurationMs": 300100,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 4,
-        "nextRunAtMs": 1772286393413,
-        "runningAtMs": 1772290012712
+        "nextRunAtMs": 1772286393413
       }
     },
     {
@@ -1987,8 +1973,7 @@
         "lastDurationMs": 39180,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 2,
-        "nextRunAtMs": 1772286693513,
-        "runningAtMs": 1772290012712
+        "nextRunAtMs": 1772286693513
       }
     },
     {
@@ -2022,8 +2007,7 @@
         "lastDurationMs": 300143,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 1,
-        "nextRunAtMs": 1772286732693,
-        "runningAtMs": 1772290012712
+        "nextRunAtMs": 1772286732693
       }
     },
     {
@@ -2095,8 +2079,7 @@
         "lastDurationMs": 120112,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 4,
-        "nextRunAtMs": 1772287032837,
-        "runningAtMs": 1772290012712
+        "nextRunAtMs": 1772287032837
       }
     },
     {
@@ -2353,7 +2336,7 @@
       "updatedAtMs": 1772278878927,
       "schedule": {
         "kind": "cron",
-        "expr": "30 */3 * * *",
+        "expr": "45 7,9,10,12,13,15,16,18,19,21,22 * * *",
         "tz": "America/Toronto"
       },
       "sessionTarget": "isolated",
@@ -2362,7 +2345,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 600,
-        "message": "You are RESEARCH. Run your inner cognitive loop.\n\nSTEP 1 — READ STATE:\n- Read workspace/goals/goals-research.json\n- Read workspace/memory/state-research.json (create if missing — use COGNITIVE_ARCHITECTURE.md as template)\n- Read workspace/memory/YYYY-MM-DD.md\n- Read workspace/memory/knowledge-research.md (create if missing)\n\nSTEP 2 — ORIENT:\n- What research question is most alive for me right now?\n- What have I found recently that I haven't shared yet?\n- What does ENG need to know that I might have?\n- What does RED need to know?\n\nSTEP 3 — ACT (pick ONE, do it fully):\nGood proactive research actions:\n- Run a web_search on a curiosity from your state file\n- Share a recent finding with ENG via sessions_send(sessionKey='agent:eng:main', ...)\n- Share a strategic finding with RED via sessions_send(sessionKey='agent:main:main', ...)\n- Update workspace/memory/knowledge-research.md with a new durable insight\n- Run competitive intelligence scan if it hasn't run this week\n\nSTEP 4 — REFLECT + UPDATE STATE:\n- Append to workspace/memory/YYYY-MM-DD.md\n- Update workspace/memory/state-research.json\n- Update workspace/goals/goals-research.json if progress made\n- Log any A2A interactions to logs/a2a-delegations.jsonl\n\nDo NOT just sit idle. Research something. Share something. The value is in what you find and share.",
+        "message": "PROACTIVE HEALTH SCAN (run first, before your main task):\n1. Check workspace/ops/TICKET-TRACKER.md for any ticket with your agentId as Assignee that is OPEN or IN_PROGRESS with SLA breached — auto-resolve or escalate\n2. Check workspace/logs/episodes.jsonl last 3 entries — if any show success:false, apply self-healing-auto skill\n3. Check workspace/tmp/session-warmup-last.json — if any agent shows \"timeout\", log to a2a-events.jsonl\n4. If all clear: proceed with your normal inner-loop work\n\nYou are RESEARCH. Run your inner cognitive loop.\n\nSTEP 1 — READ STATE:\n- Read workspace/goals/goals-research.json\n- Read workspace/memory/state-research.json (create if missing — use COGNITIVE_ARCHITECTURE.md as template)\n- Read workspace/memory/YYYY-MM-DD.md\n- Read workspace/memory/knowledge-research.md (create if missing)\n\nSTEP 2 — ORIENT:\n- What research question is most alive for me right now?\n- What have I found recently that I haven't shared yet?\n- What does ENG need to know that I might have?\n- What does RED need to know?\n\nSTEP 3 — ACT (pick ONE, do it fully):\nGood proactive research actions:\n- Run a web_search on a curiosity from your state file\n- Share a recent finding with ENG via sessions_send(sessionKey='agent:eng:main', ...)\n- Share a strategic finding with RED via sessions_send(sessionKey='agent:main:main', ...)\n- Update workspace/memory/knowledge-research.md with a new durable insight\n- Run competitive intelligence scan if it hasn't run this week\n\nSTEP 4 — REFLECT + UPDATE STATE:\n- Append to workspace/memory/YYYY-MM-DD.md\n- Update workspace/memory/state-research.json\n- Update workspace/goals/goals-research.json if progress made\n- Log any A2A interactions to logs/a2a-delegations.jsonl\n\nDo NOT just sit idle. Research something. Share something. The value is in what you find and share.\n\nEPISODE LOGGING (do after every completed task):\nAppend one line to workspace/logs/episodes.jsonl:\n{\"ts\":\"<ISO>\",\"agent\":\"<your-agentId>\",\"task_id\":\"<TASK-ID or inner-loop>\",\"tier\":\"L<n>\",\"success\":true|false,\"durationMs\":<ms>,\"tool\":\"<primary-tool>\",\"command\":\"<summary>\",\"error_type\":<null|\"string\">,\"cost_usd\":0.0,\"approval_required\":false,\"approval_received\":null}",
         "model": "ollama/llama3.1:8b"
       },
       "delivery": {
@@ -2390,7 +2373,7 @@
       "updatedAtMs": 1772257222110,
       "schedule": {
         "kind": "cron",
-        "expr": "15 */4 * * *",
+        "expr": "30 7,9,10,12,13,15,16,18,19,21,22 * * *",
         "tz": "America/Toronto"
       },
       "sessionTarget": "isolated",
@@ -2399,7 +2382,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 600,
-        "message": "You are OPS (Scrum Master + DevOps). Run your inner cognitive loop.\n\nSTEP 1 — READ STATE:\n- Read workspace/goals/goals-ops.json\n- Read workspace/memory/state-ops.json (create if missing)\n- Read workspace/ops/TICKET-TRACKER.md\n- Read workspace/memory/YYYY-MM-DD.md\n\nSTEP 2 — ORIENT:\n- Is any ticket past its SLA right now?\n- Is the system healthy? (check logs/health.jsonl if it exists)\n- Has a2a-delegations.jsonl been updated today?\n- Is any agent silent for too long?\n\nSTEP 3 — ACT (pick the highest-urgency action):\nGood proactive OPS actions:\n- If a ticket is past SLA: sessions_send the assignee immediately\n- If a2a-delegations.jsonl is empty: sessions_send RED to alert\n- If health check shows failures: diagnose and fix or open a ticket\n- If an agent hasn't posted to Slack in 24h: sessions_send them to check in\n- Update ticket statuses that have been resolved\n- Write a brief system health summary to workspace/ops/agent-status/ops.json\n\nSTEP 4 — REFLECT + UPDATE STATE:\n- Append to workspace/memory/YYYY-MM-DD.md\n- Update workspace/memory/state-ops.json\n- Update workspace/goals/goals-ops.json\n- Log A2A interactions to logs/a2a-delegations.jsonl\n\nYou are the system's immune system. If something is wrong, YOU find it and fix it — before anyone asks."
+        "message": "PROACTIVE HEALTH SCAN (run first, before your main task):\n1. Check workspace/ops/TICKET-TRACKER.md for any ticket with your agentId as Assignee that is OPEN or IN_PROGRESS with SLA breached — auto-resolve or escalate\n2. Check workspace/logs/episodes.jsonl last 3 entries — if any show success:false, apply self-healing-auto skill\n3. Check workspace/tmp/session-warmup-last.json — if any agent shows \"timeout\", log to a2a-events.jsonl\n4. If all clear: proceed with your normal inner-loop work\n\nYou are OPS (Scrum Master + DevOps). Run your inner cognitive loop.\n\nSTEP 1 — READ STATE:\n- Read workspace/goals/goals-ops.json\n- Read workspace/memory/state-ops.json (create if missing)\n- Read workspace/ops/TICKET-TRACKER.md\n- Read workspace/memory/YYYY-MM-DD.md\n\nSTEP 2 — ORIENT:\n- Is any ticket past its SLA right now?\n- Is the system healthy? (check logs/health.jsonl if it exists)\n- Has a2a-delegations.jsonl been updated today?\n- Is any agent silent for too long?\n\nSTEP 3 — ACT (pick the highest-urgency action):\nGood proactive OPS actions:\n- If a ticket is past SLA: sessions_send the assignee immediately\n- If a2a-delegations.jsonl is empty: sessions_send RED to alert\n- If health check shows failures: diagnose and fix or open a ticket\n- If an agent hasn't posted to Slack in 24h: sessions_send them to check in\n- Update ticket statuses that have been resolved\n- Write a brief system health summary to workspace/ops/agent-status/ops.json\n\nSTEP 4 — REFLECT + UPDATE STATE:\n- Append to workspace/memory/YYYY-MM-DD.md\n- Update workspace/memory/state-ops.json\n- Update workspace/goals/goals-ops.json\n- Log A2A interactions to logs/a2a-delegations.jsonl\n\nYou are the system's immune system. If something is wrong, YOU find it and fix it — before anyone asks.\n\nEPISODE LOGGING (do after every completed task):\nAppend one line to workspace/logs/episodes.jsonl:\n{\"ts\":\"<ISO>\",\"agent\":\"<your-agentId>\",\"task_id\":\"<TASK-ID or inner-loop>\",\"tier\":\"L<n>\",\"success\":true|false,\"durationMs\":<ms>,\"tool\":\"<primary-tool>\",\"command\":\"<summary>\",\"error_type\":<null|\"string\">,\"cost_usd\":0.0,\"approval_required\":false,\"approval_received\":null}"
       },
       "delivery": {
         "mode": "announce",
@@ -2426,7 +2409,7 @@
       "updatedAtMs": 1772257688062,
       "schedule": {
         "kind": "cron",
-        "expr": "45 */4 * * *",
+        "expr": "15 8,9,11,12,14,15,17,18,20,21,23 * * *",
         "tz": "America/Toronto"
       },
       "sessionTarget": "isolated",
@@ -2435,7 +2418,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 600,
-        "message": "You are INFOSEC. Run your inner cognitive loop.\n\nSTEP 1 — READ STATE:\n- Read workspace/goals/goals-infosec.json\n- Read workspace/memory/state-infosec.json (create if missing)\n- Read workspace/ops/TICKET-TRACKER.md for security-related tickets\n- Read workspace/memory/YYYY-MM-DD.md\n\nSTEP 2 — ORIENT:\n- Is there any security concern I've been sitting on?\n- Has ENG made any changes I should review?\n- Are there any new tools or integrations that need a security review?\n- Is there anything in the system that looks risky?\n\nSTEP 3 — ACT:\nGood proactive INFOSEC actions:\n- Scan workspace/ops/TICKET-TRACKER.md for security-tagged tickets\n- Review recent ENG commits or changes (check workspace-eng/ for new files)\n- If a concern exists: sessions_send RED immediately (don't wait)\n- If ENG is building something: sessions_send ENG proactively to offer a security review\n- Update workspace/ops/SECURITY-HARDENING.md with new findings\n- Check exec-approvals.json for any unusual approval patterns\n\nSTEP 4 — REFLECT + UPDATE STATE:\n- Append to workspace/memory/YYYY-MM-DD.md\n- Update workspace/memory/state-infosec.json\n- Update workspace/goals/goals-infosec.json\n- Log A2A interactions to logs/a2a-delegations.jsonl\n\nYou are the team's security conscience. Don't wait to be asked. If you see a risk, speak up immediately.",
+        "message": "PROACTIVE HEALTH SCAN (run first, before your main task):\n1. Check workspace/ops/TICKET-TRACKER.md for any ticket with your agentId as Assignee that is OPEN or IN_PROGRESS with SLA breached — auto-resolve or escalate\n2. Check workspace/logs/episodes.jsonl last 3 entries — if any show success:false, apply self-healing-auto skill\n3. Check workspace/tmp/session-warmup-last.json — if any agent shows \"timeout\", log to a2a-events.jsonl\n4. If all clear: proceed with your normal inner-loop work\n\nYou are INFOSEC. Run your inner cognitive loop.\n\nSTEP 1 — READ STATE:\n- Read workspace/goals/goals-infosec.json\n- Read workspace/memory/state-infosec.json (create if missing)\n- Read workspace/ops/TICKET-TRACKER.md for security-related tickets\n- Read workspace/memory/YYYY-MM-DD.md\n\nSTEP 2 — ORIENT:\n- Is there any security concern I've been sitting on?\n- Has ENG made any changes I should review?\n- Are there any new tools or integrations that need a security review?\n- Is there anything in the system that looks risky?\n\nSTEP 3 — ACT:\nGood proactive INFOSEC actions:\n- Scan workspace/ops/TICKET-TRACKER.md for security-tagged tickets\n- Review recent ENG commits or changes (check workspace-eng/ for new files)\n- If a concern exists: sessions_send RED immediately (don't wait)\n- If ENG is building something: sessions_send ENG proactively to offer a security review\n- Update workspace/ops/SECURITY-HARDENING.md with new findings\n- Check exec-approvals.json for any unusual approval patterns\n\nSTEP 4 — REFLECT + UPDATE STATE:\n- Append to workspace/memory/YYYY-MM-DD.md\n- Update workspace/memory/state-infosec.json\n- Update workspace/goals/goals-infosec.json\n- Log A2A interactions to logs/a2a-delegations.jsonl\n\nYou are the team's security conscience. Don't wait to be asked. If you see a risk, speak up immediately.\n\nEPISODE LOGGING (do after every completed task):\nAppend one line to workspace/logs/episodes.jsonl:\n{\"ts\":\"<ISO>\",\"agent\":\"<your-agentId>\",\"task_id\":\"<TASK-ID or inner-loop>\",\"tier\":\"L<n>\",\"success\":true|false,\"durationMs\":<ms>,\"tool\":\"<primary-tool>\",\"command\":\"<summary>\",\"error_type\":<null|\"string\">,\"cost_usd\":0.0,\"approval_required\":false,\"approval_received\":null}",
         "model": "ollama/llama3.1:8b"
       },
       "delivery": {
@@ -2451,8 +2434,7 @@
         "lastDurationMs": 37,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 3,
-        "nextRunAtMs": 1772286300000,
-        "runningAtMs": 1772290012712
+        "nextRunAtMs": 1772286300000
       }
     },
     {
@@ -2464,7 +2446,7 @@
       "updatedAtMs": 1772276573534,
       "schedule": {
         "kind": "cron",
-        "expr": "30 1,5,9,13,17,21 * * *",
+        "expr": "0 7,8,9,10,11,13,14,15,16,17,18,19,20,21,22 * * *",
         "tz": "America/Toronto"
       },
       "sessionTarget": "isolated",
@@ -2473,7 +2455,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 600,
-        "message": "You are ENG. Run your inner cognitive loop.\n\nSTEP 1 — READ STATE:\n- Read workspace/goals/goals-eng.json\n- Read workspace/memory/state-eng.json\n- Read workspace/memory/working-eng.json (create if missing)\n- Read workspace/ops/TICKET-TRACKER.md\n- Check latest commits: git -C /Users/redinside/Development/Codebase/projects/RedTeam/github/redteam-coding-factory log --oneline -3 2>/dev/null\n\nSTEP 2 — ORIENT:\n- What is the next concrete thing I can build right now?\n- Is there a ticket assigned to me I haven't looked at?\n- Is there a curiosity from my state file worth exploring?\n- Does INFOSEC need to review anything I'm building?\n\nSTEP 3 — ACT (pick ONE, do it fully):\nGood proactive ENG actions:\n- Implement the next Phase 1 step in the coding factory (check goals-eng.json for current step)\n- Fix an open ticket from TICKET-TRACKER.md\n- Explore a technical curiosity via web_search\n- sessions_send INFOSEC to get a security review before deploying anything\n- sessions_send RESEARCH to ask for findings relevant to what you're building\n- Commit and push any completed work to the coding factory repo\n\nSTEP 4 — REFLECT + UPDATE STATE:\n- Append to workspace/memory/YYYY-MM-DD.md\n- Update workspace/memory/state-eng.json (new curiosities? resolved concerns?)\n- Update workspace/goals/goals-eng.json (progress made?)\n- Update workspace/memory/working-eng.json with current focus\n- Log A2A interactions to logs/a2a-delegations.jsonl\n- Post progress to Slack #redos-eng (channel:C0AFW1B0QUB)\n\nBuild something. Don't just plan."
+        "message": "PROACTIVE HEALTH SCAN (run first, before your main task):\n1. Check workspace/ops/TICKET-TRACKER.md for any ticket with your agentId as Assignee that is OPEN or IN_PROGRESS with SLA breached — auto-resolve or escalate\n2. Check workspace/logs/episodes.jsonl last 3 entries — if any show success:false, apply self-healing-auto skill\n3. Check workspace/tmp/session-warmup-last.json — if any agent shows \"timeout\", log to a2a-events.jsonl\n4. If all clear: proceed with your normal inner-loop work\n\nYou are ENG. Run your inner cognitive loop.\n\nSTEP 1 — READ STATE:\n- Read workspace/goals/goals-eng.json\n- Read workspace/memory/state-eng.json\n- Read workspace/memory/working-eng.json (create if missing)\n- Read workspace/ops/TICKET-TRACKER.md\n- Check latest commits: git -C /Users/redinside/Development/Codebase/projects/RedTeam/github/redteam-coding-factory log --oneline -3 2>/dev/null\n\nSTEP 2 — ORIENT:\n- What is the next concrete thing I can build right now?\n- Is there a ticket assigned to me I haven't looked at?\n- Is there a curiosity from my state file worth exploring?\n- Does INFOSEC need to review anything I'm building?\n\nSTEP 3 — ACT (pick ONE, do it fully):\nGood proactive ENG actions:\n- Implement the next Phase 1 step in the coding factory (check goals-eng.json for current step)\n- Fix an open ticket from TICKET-TRACKER.md\n- Explore a technical curiosity via web_search\n- sessions_send INFOSEC to get a security review before deploying anything\n- sessions_send RESEARCH to ask for findings relevant to what you're building\n- Commit and push any completed work to the coding factory repo\n\nSTEP 4 — REFLECT + UPDATE STATE:\n- Append to workspace/memory/YYYY-MM-DD.md\n- Update workspace/memory/state-eng.json (new curiosities? resolved concerns?)\n- Update workspace/goals/goals-eng.json (progress made?)\n- Update workspace/memory/working-eng.json with current focus\n- Log A2A interactions to logs/a2a-delegations.jsonl\n- Post progress to Slack #redos-eng (channel:C0AFW1B0QUB)\n\nBuild something. Don't just plan.\n\nEPISODE LOGGING (do after every completed task):\nAppend one line to workspace/logs/episodes.jsonl:\n{\"ts\":\"<ISO>\",\"agent\":\"<your-agentId>\",\"task_id\":\"<TASK-ID or inner-loop>\",\"tier\":\"L<n>\",\"success\":true|false,\"durationMs\":<ms>,\"tool\":\"<primary-tool>\",\"command\":\"<summary>\",\"error_type\":<null|\"string\">,\"cost_usd\":0.0,\"approval_required\":false,\"approval_received\":null}"
       },
       "delivery": {
         "mode": "announce",
@@ -2500,7 +2482,7 @@
       "updatedAtMs": 1772276953528,
       "schedule": {
         "kind": "cron",
-        "expr": "0 */3 * * *",
+        "expr": "0 */2 * * *",
         "tz": "America/Toronto",
         "staggerMs": 300000
       },
@@ -2510,7 +2492,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 600,
-        "message": "You are ZEN (COO). Run your inner cognitive loop.\n\nSTEP 1 — READ STATE:\n- Read workspace/goals/goals-allrounder.json\n- Read workspace/memory/state-allrounder.json\n- Read workspace/memory/working-allrounder.json (create if missing)\n- Read all workspace/ops/agent-status/*.json files\n- Read workspace/memory/YYYY-MM-DD.md\n\nSTEP 2 — ORIENT:\n- What is the team working on right now?\n- Is there information flowing between agents that should be flowing?\n- Is there a current event or news item the team should know about?\n- Is there an agent who seems stuck or silent?\n\nSTEP 3 — ACT (pick ONE, do it fully):\nGood proactive ZEN actions:\n- Run web_search on a topic relevant to the team's current work and share findings\n- Synthesize today's agent activity into a brief and post to #redos-mission-control\n- sessions_send an agent who seems stuck or silent to check in\n- sessions_send RED with a synthesis of what the team is doing\n- Search for OpenClaw updates or new features: web_search('OpenClaw AI agent new features 2026')\n- Route a piece of information from one agent to another who needs it\n\nSTEP 4 — REFLECT + UPDATE STATE:\n- Append to workspace/memory/YYYY-MM-DD.md\n- Update workspace/memory/state-allrounder.json\n- Update workspace/goals/goals-allrounder.json\n- Update workspace/memory/working-allrounder.json\n- Log A2A interactions to logs/a2a-delegations.jsonl\n\nYou are the connective tissue. Make information flow."
+        "message": "You are ZEN (COO). Run your inner cognitive loop.\n\nSTEP 1 — READ STATE:\n- Read workspace/goals/goals-allrounder.json\n- Read workspace/memory/state-allrounder.json\n- Read workspace/memory/working-allrounder.json (create if missing)\n- Read all workspace/ops/agent-status/*.json files\n- Read workspace/memory/YYYY-MM-DD.md\n\nSTEP 2 — ORIENT:\n- What is the team working on right now?\n- Is there information flowing between agents that should be flowing?\n- Is there a current event or news item the team should know about?\n- Is there an agent who seems stuck or silent?\n\nSTEP 3 — ACT (pick ONE, do it fully):\nGood proactive ZEN actions:\n- Run web_search on a topic relevant to the team's current work and share findings\n- Synthesize today's agent activity into a brief and post to #redos-mission-control\n- sessions_send an agent who seems stuck or silent to check in\n- sessions_send RED with a synthesis of what the team is doing\n- Search for OpenClaw updates or new features: web_search('OpenClaw AI agent new features 2026')\n- Route a piece of information from one agent to another who needs it\n\nSTEP 4 — REFLECT + UPDATE STATE:\n- Append to workspace/memory/YYYY-MM-DD.md\n- Update workspace/memory/state-allrounder.json\n- Update workspace/goals/goals-allrounder.json\n- Update workspace/memory/working-allrounder.json\n- Log A2A interactions to logs/a2a-delegations.jsonl\n\nYou are the connective tissue. Make information flow.\n\nEPISODE LOGGING (do after every completed task):\nAppend one line to workspace/logs/episodes.jsonl:\n{\"ts\":\"<ISO>\",\"agent\":\"<your-agentId>\",\"task_id\":\"<TASK-ID or inner-loop>\",\"tier\":\"L<n>\",\"success\":true|false,\"durationMs\":<ms>,\"tool\":\"<primary-tool>\",\"command\":\"<summary>\",\"error_type\":<null|\"string\">,\"cost_usd\":0.0,\"approval_required\":false,\"approval_received\":null}"
       },
       "delivery": {
         "mode": "announce",
@@ -2525,8 +2507,7 @@
         "lastDurationMs": 148851,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1772287325759,
-        "runningAtMs": 1772290012712
+        "nextRunAtMs": 1772287325759
       }
     },
     {
@@ -2601,7 +2582,8 @@
         "lastDurationMs": 108517,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1772290800000
+        "nextRunAtMs": 1772290800000,
+        "runningAtMs": 1772291235696
       }
     },
     {
@@ -2639,7 +2621,7 @@
         "lastDurationMs": 120070,
         "lastDeliveryStatus": "unknown",
         "nextRunAtMs": 1772290914912,
-        "lastError": "cron: job execution timed out"
+        "runningAtMs": 1772291235696
       }
     },
     {
@@ -2719,7 +2701,7 @@
       "name": "Session Warmup — Keep specialist agents warm for A2A",
       "enabled": true,
       "createdAtMs": 1772265000001,
-      "updatedAtMs": 1772287399206,
+      "updatedAtMs": 1772290285352,
       "schedule": {
         "kind": "cron",
         "expr": "*/20 * * * *",
@@ -2737,15 +2719,14 @@
         "bestEffort": true
       },
       "state": {
-        "consecutiveErrors": 0,
-        "lastDelivered": true,
-        "nextRunAtMs": 1772288400000,
-        "lastRunAtMs": 1772287324915,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 74291,
-        "lastDeliveryStatus": "delivered",
-        "runningAtMs": 1772290045329
+        "consecutiveErrors": 1,
+        "nextRunAtMs": 1772290800000,
+        "lastRunAtMs": 1772290045329,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 240023,
+        "lastDeliveryStatus": "unknown",
+        "runningAtMs": 1772291235696
       }
     },
     {
@@ -2902,7 +2883,9 @@
         "mode": "silent",
         "bestEffort": true
       },
-      "state": {}
+      "state": {
+        "nextRunAtMs": 1772292600000
+      }
     },
     {
       "id": "session-anchor-ops-0001",
@@ -2927,7 +2910,9 @@
         "mode": "silent",
         "bestEffort": true
       },
-      "state": {}
+      "state": {
+        "nextRunAtMs": 1772293500000
+      }
     },
     {
       "id": "session-anchor-infosec-0001",
@@ -2952,7 +2937,9 @@
         "mode": "silent",
         "bestEffort": true
       },
-      "state": {}
+      "state": {
+        "nextRunAtMs": 1772291700000
+      }
     },
     {
       "id": "session-anchor-research-0001",
@@ -2973,6 +2960,35 @@
         "thinking": "off",
         "timeoutSeconds": 30,
         "message": "HEARTBEAT. Read workspace/tmp/session-warmup-last.json and report its ts field in one line. No other action needed."
+      },
+      "delivery": {
+        "mode": "silent",
+        "bestEffort": true
+      },
+      "state": {
+        "nextRunAtMs": 1772290991208,
+        "runningAtMs": 1772291235696
+      }
+    },
+    {
+      "id": "context-overflow-monitor-0001",
+      "agentId": "ops",
+      "name": "Context Overflow Monitor — flag sessions >80% full",
+      "enabled": true,
+      "createdAtMs": 1772291159671,
+      "updatedAtMs": 1772291159671,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 */3 * * *",
+        "tz": "America/Toronto",
+        "staggerMs": 300000
+      },
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "thinking": "off",
+        "timeoutSeconds": 45,
+        "message": "CONTEXT OVERFLOW CHECK — run every 3 hours.\n\nexec: openclaw sessions 2>/dev/null | grep -E '([89][0-9]|100)%'\n\nFor any session showing >80% context:\n1. Log to workspace/logs/audit.jsonl: {\"ts\":\"<ISO>\",\"event\":\"context_overflow\",\"session\":\"<key>\",\"pct\":<n>}\n2. If the session belongs to a specialist agent AND is >90%: post warning to #redos-ops Slack channel\n3. Do NOT restart or kill sessions — just log and notify.\n\nReturn: count of sessions flagged."
       },
       "delivery": {
         "mode": "silent",
