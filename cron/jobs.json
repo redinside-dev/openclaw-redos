@@ -7,7 +7,7 @@
       "name": "Telegram Approval Monitor (RED checks for approve/deny replies)",
       "enabled": true,
       "createdAtMs": 1772080522100,
-      "updatedAtMs": 1772265752898,
+      "updatedAtMs": 1772286030520,
       "schedule": {
         "kind": "cron",
         "expr": "*/2 * * * *",
@@ -26,14 +26,15 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1772265840000,
-        "lastRunAtMs": 1772265737023,
+        "nextRunAtMs": 1772286120000,
+        "lastRunAtMs": 1772286011417,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 15875,
+        "lastDurationMs": 19103,
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
-        "lastDelivered": false
+        "lastDelivered": false,
+        "runningAtMs": 1772290012712
       }
     },
     {
@@ -42,7 +43,7 @@
       "name": "System Pulse — Always-On Heartbeat (Ollama only)",
       "enabled": true,
       "createdAtMs": 1772080522100,
-      "updatedAtMs": 1772263685849,
+      "updatedAtMs": 1772285452701,
       "schedule": {
         "kind": "cron",
         "expr": "*/5 * * * *",
@@ -62,8 +63,13 @@
         "bestEffort": true
       },
       "state": {
-        "consecutiveErrors": 0,
-        "lastDelivered": false
+        "consecutiveErrors": 7,
+        "nextRunAtMs": 1772289052701,
+        "lastRunAtMs": 1772285422634,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 30067,
+        "lastDeliveryStatus": "unknown"
       }
     },
     {
@@ -592,7 +598,7 @@
       "name": "Cron Watchdog (alert on missed/failing jobs)",
       "enabled": true,
       "createdAtMs": 1770618629260,
-      "updatedAtMs": 1772236893038,
+      "updatedAtMs": 1772286330603,
       "schedule": {
         "kind": "cron",
         "expr": "*/10 8-22 * * *",
@@ -613,13 +619,14 @@
         "target": "channel:C0AEV3J2L23"
       },
       "state": {
-        "lastRunAtMs": 1772236821160,
-        "lastStatus": "ok",
-        "lastDurationMs": 71878,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
+        "lastRunAtMs": 1772286030520,
+        "lastStatus": "error",
+        "lastDurationMs": 300083,
+        "consecutiveErrors": 3,
+        "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772283600000
+        "nextRunAtMs": 1772286630603,
+        "runningAtMs": 1772290012712
       }
     },
     {
@@ -894,7 +901,7 @@
       "name": "OPS SLA Enforcement Check",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1772258802575,
+      "updatedAtMs": 1772281929339,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -915,13 +922,13 @@
         "target": "channel:C0AEV3J2L23"
       },
       "state": {
-        "lastRunAtMs": 1772258629050,
-        "lastStatus": "ok",
-        "lastDurationMs": 173525,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
+        "lastRunAtMs": 1772281629242,
+        "lastStatus": "error",
+        "lastDurationMs": 300097,
+        "consecutiveErrors": 2,
+        "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772265829050
+        "nextRunAtMs": 1772288829242
       }
     },
     {
@@ -930,7 +937,7 @@
       "name": "OPS System Health Monitor",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1772263466432,
+      "updatedAtMs": 1772286630693,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -951,13 +958,14 @@
         "target": "channel:C0AEV3J2L23"
       },
       "state": {
-        "lastStatus": "ok",
-        "lastRunAtMs": 1772263295071,
-        "lastDurationMs": 171361,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
+        "lastStatus": "error",
+        "lastRunAtMs": 1772286330604,
+        "lastDurationMs": 300089,
+        "consecutiveErrors": 4,
+        "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772266895071
+        "nextRunAtMs": 1772289930604,
+        "runningAtMs": 1772290012712
       }
     },
     {
@@ -966,7 +974,7 @@
       "name": "RED Self-Improvement Reflection",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1772231095315,
+      "updatedAtMs": 1772275207303,
       "schedule": {
         "kind": "every",
         "everyMs": 21600000,
@@ -987,13 +995,13 @@
         "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "lastRunAtMs": 1772230905986,
+        "lastRunAtMs": 1772275029341,
         "lastStatus": "ok",
-        "lastDurationMs": 189329,
+        "lastDurationMs": 177962,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772274095024
+        "nextRunAtMs": 1772296629341
       }
     },
     {
@@ -1002,7 +1010,7 @@
       "name": "OPS Ticket Auto-Diagnose & Fix",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1772263612780,
+      "updatedAtMs": 1772282872517,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -1023,13 +1031,14 @@
         "target": "channel:C0AEV3J2L23"
       },
       "state": {
-        "lastRunAtMs": 1772263466432,
-        "lastStatus": "ok",
-        "lastDurationMs": 146348,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
+        "lastRunAtMs": 1772282572392,
+        "lastStatus": "error",
+        "lastDurationMs": 300125,
+        "consecutiveErrors": 3,
+        "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772267066432
+        "nextRunAtMs": 1772286172392,
+        "runningAtMs": 1772290012712
       }
     },
     {
@@ -1038,7 +1047,7 @@
       "name": "RESEARCH Proactive Knowledge Update",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1772251567725,
+      "updatedAtMs": 1772275769550,
       "schedule": {
         "kind": "every",
         "everyMs": 14400000,
@@ -1060,13 +1069,14 @@
         "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "lastRunAtMs": 1772251567723,
-        "lastStatus": "error",
-        "lastDurationMs": 2,
-        "consecutiveErrors": 2,
-        "lastRunStatus": "error",
+        "lastRunAtMs": 1772275507396,
+        "lastStatus": "ok",
+        "lastDurationMs": 262154,
+        "consecutiveErrors": 0,
+        "lastRunStatus": "ok",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772265967723
+        "nextRunAtMs": 1772289907396,
+        "runningAtMs": 1772290012712
       }
     },
     {
@@ -1139,7 +1149,7 @@
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
         "nextRunAtMs": 1772287200000,
-        "lastError": "Error: cron: job execution timed out"
+        "runningAtMs": 1772290012712
       }
     },
     {
@@ -1297,7 +1307,7 @@
       "name": "OPS Task ETA Monitor",
       "enabled": true,
       "createdAtMs": 1771544316316,
-      "updatedAtMs": 1772259359887,
+      "updatedAtMs": 1772285120375,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1318,14 +1328,14 @@
         "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "lastRunAtMs": 1772259119692,
+        "lastRunAtMs": 1772284910229,
         "lastStatus": "error",
-        "lastDurationMs": 240195,
-        "consecutiveErrors": 1,
+        "lastDurationMs": 210146,
+        "consecutiveErrors": 4,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772266319692,
-        "runningAtMs": 1772267658839
+        "nextRunAtMs": 1772292110229,
+        "lastError": "⚠️ ✍️ Write: `to ./task-registry.json` failed"
       }
     },
     {
@@ -1334,7 +1344,7 @@
       "name": "9Router Quota Sync",
       "enabled": true,
       "createdAtMs": 1771576000000,
-      "updatedAtMs": 1772259732327,
+      "updatedAtMs": 1772283014691,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1356,13 +1366,14 @@
         "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "lastRunAtMs": 1772259732326,
+        "lastRunAtMs": 1772282969633,
         "lastStatus": "error",
-        "lastDurationMs": 1,
-        "consecutiveErrors": 8,
+        "lastDurationMs": 45058,
+        "consecutiveErrors": 10,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772266932326
+        "nextRunAtMs": 1772290169633,
+        "lastError": "cron: job execution timed out"
       }
     },
     {
@@ -1371,7 +1382,7 @@
       "name": "OPS Idle Agent Audit",
       "enabled": true,
       "createdAtMs": 1771544316316,
-      "updatedAtMs": 1772263895140,
+      "updatedAtMs": 1772286870788,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -1392,14 +1403,14 @@
         "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "lastRunAtMs": 1772263685849,
-        "lastStatus": "ok",
-        "lastDurationMs": 209291,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
+        "lastRunAtMs": 1772286630693,
+        "lastStatus": "error",
+        "lastDurationMs": 240095,
+        "consecutiveErrors": 4,
+        "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772267285849,
-        "runningAtMs": 1772267658839
+        "nextRunAtMs": 1772290230693,
+        "lastError": "cron: job execution timed out"
       }
     },
     {
@@ -1426,15 +1437,16 @@
         "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "lastRunAtMs": 1772265752898,
-        "lastStatus": "ok",
-        "lastDurationMs": 142018,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
+        "lastRunAtMs": 1772280090744,
+        "lastStatus": "error",
+        "lastDurationMs": 300122,
+        "consecutiveErrors": 3,
+        "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772269352898
+        "nextRunAtMs": 1772287356567,
+        "runningAtMs": 1772290012712
       },
-      "updatedAtMs": 1772265894916
+      "updatedAtMs": 1772280390866
     },
     {
       "id": "hatake-daily-briefing-0001",
@@ -1466,7 +1478,8 @@
         "lastDurationMs": 106244,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1772287200000
+        "nextRunAtMs": 1772287200000,
+        "runningAtMs": 1772290012712
       },
       "updatedAtMs": 1772201609359
     },
@@ -1476,7 +1489,7 @@
       "name": "Health JSONL Writer",
       "enabled": true,
       "createdAtMs": 1771695150814,
-      "updatedAtMs": 1772264139510,
+      "updatedAtMs": 1772286960884,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -1498,14 +1511,14 @@
         "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "lastRunAtMs": 1772264049372,
+        "lastRunAtMs": 1772286870788,
         "lastStatus": "error",
-        "lastDurationMs": 90138,
-        "consecutiveErrors": 4,
+        "lastDurationMs": 90096,
+        "consecutiveErrors": 8,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772267649372,
-        "runningAtMs": 1772267658839
+        "nextRunAtMs": 1772290560884,
+        "lastError": "cron: job execution timed out"
       }
     },
     {
@@ -1560,7 +1573,8 @@
         "lastDurationMs": 159625,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1772287200000
+        "nextRunAtMs": 1772287200000,
+        "runningAtMs": 1772290012712
       }
     },
     {
@@ -1596,7 +1610,7 @@
       "name": "ZEN COO Team Coordination Check",
       "enabled": true,
       "createdAtMs": 1771895567713,
-      "updatedAtMs": 1772259874133,
+      "updatedAtMs": 1772277363709,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1615,13 +1629,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1772259732327,
+        "lastRunAtMs": 1772277171601,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 141806,
+        "lastDurationMs": 192108,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1772266932327,
+        "nextRunAtMs": 1772291567713,
         "lastDelivered": true
       }
     },
@@ -1657,7 +1671,7 @@
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 2,
         "nextRunAtMs": 1772287200000,
-        "lastError": "Error: cron: job execution timed out"
+        "runningAtMs": 1772290012712
       }
     },
     {
@@ -1691,7 +1705,8 @@
         "lastDurationMs": 300125,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 1,
-        "nextRunAtMs": 1772266388321
+        "nextRunAtMs": 1772286048854,
+        "runningAtMs": 1772290012712
       }
     },
     {
@@ -1700,7 +1715,7 @@
       "name": "OPS Daily OpenClaw Update Check",
       "enabled": true,
       "createdAtMs": 1771897250922,
-      "updatedAtMs": 1772110895452,
+      "updatedAtMs": 1772284280207,
       "schedule": {
         "kind": "cron",
         "expr": "0 8 * * *"
@@ -1718,13 +1733,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1772110850881,
+        "lastRunAtMs": 1772283980088,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 44571,
+        "lastDurationMs": 300119,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 1,
-        "nextRunAtMs": 1772283600000
+        "consecutiveErrors": 2,
+        "nextRunAtMs": 1772370000000,
+        "lastError": "cron: job execution timed out"
       }
     },
     {
@@ -1733,7 +1749,7 @@
       "name": "RED Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897377295,
-      "updatedAtMs": 1772260263484,
+      "updatedAtMs": 1772285788990,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1752,15 +1768,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1772260196983,
+        "lastRunAtMs": 1772285752781,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 66501,
+        "lastDurationMs": 36209,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1772267396983,
-        "lastDelivered": true,
-        "runningAtMs": 1772267658839
+        "nextRunAtMs": 1772292952781,
+        "lastDelivered": true
       }
     },
     {
@@ -1769,7 +1784,7 @@
       "name": "ZEN Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897390213,
-      "updatedAtMs": 1772260403838,
+      "updatedAtMs": 1772285859294,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1788,15 +1803,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1772260263484,
+        "lastRunAtMs": 1772285788990,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 140354,
+        "lastDurationMs": 70304,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1772267463484,
-        "lastDelivered": true,
-        "runningAtMs": 1772267658839
+        "nextRunAtMs": 1772292988990,
+        "lastDelivered": true
       }
     },
     {
@@ -1805,7 +1819,7 @@
       "name": "ENG Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897391560,
-      "updatedAtMs": 1772260403863,
+      "updatedAtMs": 1772286010663,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1825,14 +1839,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1772260403838,
+        "lastRunAtMs": 1772285859294,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 25,
+        "lastDurationMs": 151369,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 4,
-        "nextRunAtMs": 1772267603838,
-        "runningAtMs": 1772267658839
+        "consecutiveErrors": 1,
+        "nextRunAtMs": 1772293059294,
+        "lastError": "⚠️ ✍️ Write: `to smoke-test-write3.txt (20 chars)` failed"
       }
     },
     {
@@ -1841,7 +1855,7 @@
       "name": "RESEARCH Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897392835,
-      "updatedAtMs": 1772260403865,
+      "updatedAtMs": 1772287009304,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1861,14 +1875,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1772260403863,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 2,
+        "lastRunAtMs": 1772286960884,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 48420,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 4,
-        "nextRunAtMs": 1772267603863,
-        "runningAtMs": 1772267658839
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1772294160884
       }
     },
     {
@@ -1877,7 +1890,7 @@
       "name": "FINANCE Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897394350,
-      "updatedAtMs": 1772260403890,
+      "updatedAtMs": 1772287194842,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1897,14 +1910,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1772260403865,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 25,
+        "lastRunAtMs": 1772287009304,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 185538,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 4,
-        "nextRunAtMs": 1772267603865,
-        "runningAtMs": 1772267658839
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1772294209304
       }
     },
     {
@@ -1913,7 +1925,7 @@
       "name": "OPS Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897395722,
-      "updatedAtMs": 1772260704075,
+      "updatedAtMs": 1772279493513,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1933,14 +1945,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1772260403890,
+        "lastRunAtMs": 1772279193413,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 300185,
+        "lastDurationMs": 300100,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 2,
-        "nextRunAtMs": 1772267603890,
-        "runningAtMs": 1772267658839
+        "consecutiveErrors": 4,
+        "nextRunAtMs": 1772286393413,
+        "runningAtMs": 1772290012712
       }
     },
     {
@@ -1949,7 +1961,7 @@
       "name": "INFOSEC Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897397121,
-      "updatedAtMs": 1772262456917,
+      "updatedAtMs": 1772279532693,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1969,13 +1981,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1772262276343,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 180574,
+        "lastRunAtMs": 1772279493513,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 39180,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 0,
-        "nextRunAtMs": 1772269476343
+        "consecutiveErrors": 2,
+        "nextRunAtMs": 1772286693513,
+        "runningAtMs": 1772290012712
       }
     },
     {
@@ -1984,7 +1997,7 @@
       "name": "HATAKE Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897398357,
-      "updatedAtMs": 1772262566230,
+      "updatedAtMs": 1772279832836,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -2003,13 +2016,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1772262456917,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 109313,
+        "lastRunAtMs": 1772279532693,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 300143,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 0,
-        "nextRunAtMs": 1772269656917
+        "consecutiveErrors": 1,
+        "nextRunAtMs": 1772286732693,
+        "runningAtMs": 1772290012712
       }
     },
     {
@@ -2018,7 +2032,7 @@
       "name": "CI Event Logger (cron → ci-log.jsonl)",
       "enabled": true,
       "createdAtMs": 1771907000000,
-      "updatedAtMs": 1772264015246,
+      "updatedAtMs": 1772280601019,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -2039,14 +2053,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1772263895140,
+        "lastRunAtMs": 1772280480949,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 120106,
+        "lastDurationMs": 120070,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 1,
-        "nextRunAtMs": 1772267495140,
-        "runningAtMs": 1772267658839
+        "consecutiveErrors": 4,
+        "nextRunAtMs": 1772288600000
       }
     },
     {
@@ -2055,7 +2068,7 @@
       "name": "Self-Healing Guardrail: Health Snapshot → Tickets",
       "enabled": true,
       "createdAtMs": 1771907005000,
-      "updatedAtMs": 1772262686327,
+      "updatedAtMs": 1772279952949,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -2076,14 +2089,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1772262566230,
+        "lastRunAtMs": 1772279832837,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 120097,
+        "lastDurationMs": 120112,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 2,
-        "nextRunAtMs": 1772269766230,
-        "lastError": "Error: cron: job execution timed out"
+        "consecutiveErrors": 4,
+        "nextRunAtMs": 1772287032837,
+        "runningAtMs": 1772290012712
       }
     },
     {
@@ -2225,7 +2238,7 @@
       "name": "ENG Coding Factory POC — Continuous Build",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1772255640373,
+      "updatedAtMs": 1772272620387,
       "schedule": {
         "kind": "cron",
         "expr": "0 */4 * * *",
@@ -2248,14 +2261,13 @@
         "target": "channel:C0AFW1B0QUB"
       },
       "state": {
-        "lastRunAtMs": 1772255640268,
+        "lastRunAtMs": 1772271720292,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 105,
+        "lastDurationMs": 900095,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 3,
-        "nextRunAtMs": 1772269414472,
-        "lastError": "model not allowed: ollama/llama3.1:8b"
+        "consecutiveErrors": 4,
+        "nextRunAtMs": 1772298214472
       }
     },
     {
@@ -2301,7 +2313,7 @@
       "name": "RED Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1772255796403,
+      "updatedAtMs": 1772272810761,
       "schedule": {
         "kind": "cron",
         "expr": "0 */4 * * *",
@@ -2323,13 +2335,13 @@
         "target": "channel:C0AEV3MDEDD"
       },
       "state": {
-        "lastRunAtMs": 1772255640373,
+        "lastRunAtMs": 1772272620387,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 156030,
+        "lastDurationMs": 190374,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1772269255483
+        "nextRunAtMs": 1772298055483
       }
     },
     {
@@ -2338,7 +2350,7 @@
       "name": "RESEARCH Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1772257610290,
+      "updatedAtMs": 1772278878927,
       "schedule": {
         "kind": "cron",
         "expr": "30 */3 * * *",
@@ -2360,14 +2372,13 @@
         "target": "channel:C0AEV3J2L23"
       },
       "state": {
-        "lastRunAtMs": 1772257610287,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 3,
+        "lastRunAtMs": 1772278819347,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 59580,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 3,
-        "nextRunAtMs": 1772267400000,
-        "runningAtMs": 1772267658839
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1772289000000
       }
     },
     {
@@ -2403,7 +2414,7 @@
         "lastDurationMs": 394179,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1772270100000
+        "nextRunAtMs": 1772298900000
       }
     },
     {
@@ -2440,8 +2451,8 @@
         "lastDurationMs": 37,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 3,
-        "nextRunAtMs": 1772271900000,
-        "lastError": "model not allowed: ollama/llama3.1:8b"
+        "nextRunAtMs": 1772286300000,
+        "runningAtMs": 1772290012712
       }
     },
     {
@@ -2450,7 +2461,7 @@
       "name": "ENG Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1772263258379,
+      "updatedAtMs": 1772276573534,
       "schedule": {
         "kind": "cron",
         "expr": "30 1,5,9,13,17,21 * * *",
@@ -2471,13 +2482,13 @@
         "target": "channel:C0AFW1B0QUB"
       },
       "state": {
-        "lastRunAtMs": 1772262686327,
+        "lastRunAtMs": 1772276391654,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 572052,
+        "lastDurationMs": 181880,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1772274600000
+        "nextRunAtMs": 1772289000000
       }
     },
     {
@@ -2486,7 +2497,7 @@
       "name": "ZEN Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1772266049291,
+      "updatedAtMs": 1772276953528,
       "schedule": {
         "kind": "cron",
         "expr": "0 */3 * * *",
@@ -2508,13 +2519,14 @@
         "target": "channel:C0AEV3MDEDD"
       },
       "state": {
-        "lastRunAtMs": 1772265894916,
+        "lastRunAtMs": 1772276804677,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 154375,
+        "lastDurationMs": 148851,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1772276525759
+        "nextRunAtMs": 1772287325759,
+        "runningAtMs": 1772290012712
       }
     },
     {
@@ -2523,7 +2535,7 @@
       "name": "FINANCE Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1772254459594,
+      "updatedAtMs": 1772284472078,
       "schedule": {
         "kind": "cron",
         "expr": "0 8,14,20 * * *",
@@ -2545,14 +2557,14 @@
         "target": "channel:C0AEV3MDEDD"
       },
       "state": {
-        "lastRunAtMs": 1772254459592,
+        "lastRunAtMs": 1772284280208,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 2,
+        "lastDurationMs": 191870,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 1,
-        "nextRunAtMs": 1772283600000,
-        "lastError": "model not allowed: ollama/llama3.1:8b"
+        "consecutiveErrors": 2,
+        "nextRunAtMs": 1772305200000,
+        "lastError": "⚠️ ✍️ Write: `to workspace/memory/working-finance.json (656 chars)` failed"
       }
     },
     {
@@ -2598,7 +2610,7 @@
       "name": "9Router Auth Watchdog (proactive expiry + auto-name)",
       "enabled": true,
       "createdAtMs": 1772020000000,
-      "updatedAtMs": 1772264920166,
+      "updatedAtMs": 1772287314912,
       "schedule": {
         "kind": "every",
         "everyMs": 1800000,
@@ -2620,13 +2632,13 @@
         "target": "channel:C0AEV3MDEDD"
       },
       "state": {
-        "consecutiveErrors": 13,
-        "lastRunAtMs": 1772264800060,
+        "consecutiveErrors": 17,
+        "lastRunAtMs": 1772287194842,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 120106,
+        "lastDurationMs": 120070,
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772268520166,
+        "nextRunAtMs": 1772290914912,
         "lastError": "cron: job execution timed out"
       }
     },
@@ -2636,7 +2648,7 @@
       "name": "9Router Token Keep-Fresh (every 4min)",
       "enabled": true,
       "createdAtMs": 1772210000000,
-      "updatedAtMs": 1772265736831,
+      "updatedAtMs": 1772285409345,
       "schedule": {
         "kind": "cron",
         "expr": "*/4 * * * *",
@@ -2656,12 +2668,12 @@
         "bestEffort": true
       },
       "state": {
-        "consecutiveErrors": 1,
-        "lastRunAtMs": 1772265616739,
+        "consecutiveErrors": 7,
+        "lastRunAtMs": 1772285289256,
         "lastRunStatus": "error",
-        "nextRunAtMs": 1772265840000,
+        "nextRunAtMs": 1772289009345,
         "lastStatus": "error",
-        "lastDurationMs": 120092,
+        "lastDurationMs": 120089,
         "lastDeliveryStatus": "unknown"
       }
     },
@@ -2672,7 +2684,7 @@
       "name": "Provider Quota Sync (ENG recovery)",
       "enabled": true,
       "createdAtMs": 1772235179082,
-      "updatedAtMs": 1772265073730,
+      "updatedAtMs": 1772287324915,
       "schedule": {
         "kind": "every",
         "everyMs": 900000,
@@ -2691,14 +2703,49 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1772265966452,
-        "lastRunAtMs": 1772265066452,
+        "nextRunAtMs": 1772288214912,
+        "lastRunAtMs": 1772287314912,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 7278,
+        "lastDurationMs": 10003,
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
         "lastDelivered": false
+      }
+    },
+    {
+      "id": "session-warmup-0001",
+      "agentId": "main",
+      "name": "Session Warmup — Keep specialist agents warm for A2A",
+      "enabled": true,
+      "createdAtMs": 1772265000001,
+      "updatedAtMs": 1772287399206,
+      "schedule": {
+        "kind": "cron",
+        "expr": "*/20 * * * *",
+        "tz": "America/Toronto"
+      },
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "thinking": "off",
+        "timeoutSeconds": 240,
+        "message": "SESSION WARMUP — ping each specialist to confirm A2A is live.\n\nRun in order, log results:\n1. sessions_send(sessionKey=\"agent:eng:main\", message=\"PING — one-line status\", timeoutSeconds=45)\n2. sessions_send(sessionKey=\"agent:ops:main\", message=\"PING — one-line status\", timeoutSeconds=90)\n3. sessions_send(sessionKey=\"agent:infosec:main\", message=\"PING — one-line status\", timeoutSeconds=60)\n4. sessions_send(sessionKey=\"agent:research:main\", message=\"PING — one-line status\", timeoutSeconds=45)\n\nWrite results to workspace/tmp/session-warmup-last.json:\n{\"ts\":\"<ISO>\",\"eng\":\"alive|timeout\",\"ops\":\"alive|timeout\",\"infosec\":\"alive|timeout\",\"research\":\"alive|timeout\"}\n\nReturn NO_REPLY."
+      },
+      "delivery": {
+        "mode": "silent",
+        "bestEffort": true
+      },
+      "state": {
+        "consecutiveErrors": 0,
+        "lastDelivered": true,
+        "nextRunAtMs": 1772288400000,
+        "lastRunAtMs": 1772287324915,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 74291,
+        "lastDeliveryStatus": "delivered",
+        "runningAtMs": 1772290045329
       }
     },
     {
@@ -2707,7 +2754,7 @@
       "name": "Hourly Workspace Snapshot (git + config backup)",
       "enabled": true,
       "createdAtMs": 1772265000000,
-      "updatedAtMs": 1772265000000,
+      "updatedAtMs": 1772280832871,
       "schedule": {
         "kind": "cron",
         "expr": "0 * * * *",
@@ -2728,9 +2775,13 @@
         "bestEffort": true
       },
       "state": {
-        "consecutiveErrors": 0,
-        "lastDelivered": false,
-        "nextRunAtMs": 1772269456322
+        "consecutiveErrors": 4,
+        "nextRunAtMs": 1772287456322,
+        "lastRunAtMs": 1772280772743,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 60128,
+        "lastDeliveryStatus": "unknown"
       }
     },
     {
@@ -2801,7 +2852,7 @@
       "name": "Provider Quota Auto Refresh ENG v2",
       "enabled": true,
       "createdAtMs": 1772235265131,
-      "updatedAtMs": 1772265088558,
+      "updatedAtMs": 1772287444262,
       "schedule": {
         "kind": "every",
         "everyMs": 900000,
@@ -2819,15 +2870,115 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1772265973763,
-        "lastRunAtMs": 1772265073763,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 14795,
-        "lastDelivered": false,
-        "lastDeliveryStatus": "not-delivered",
-        "consecutiveErrors": 0
+        "nextRunAtMs": 1772288299206,
+        "lastRunAtMs": 1772287399206,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 45056,
+        "lastDeliveryStatus": "not-requested",
+        "consecutiveErrors": 2
       }
+    },
+    {
+      "id": "session-anchor-eng-0001",
+      "agentId": "eng",
+      "name": "Session Anchor — keep ENG session alive for A2A",
+      "enabled": true,
+      "createdAtMs": 1772289999291,
+      "updatedAtMs": 1772289999291,
+      "schedule": {
+        "kind": "cron",
+        "expr": "30 */1 * * *",
+        "tz": "America/Toronto"
+      },
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "thinking": "off",
+        "timeoutSeconds": 30,
+        "message": "HEARTBEAT. Read workspace/tmp/session-warmup-last.json and report its ts field in one line. No other action needed."
+      },
+      "delivery": {
+        "mode": "silent",
+        "bestEffort": true
+      },
+      "state": {}
+    },
+    {
+      "id": "session-anchor-ops-0001",
+      "agentId": "ops",
+      "name": "Session Anchor — keep OPS session alive for A2A",
+      "enabled": true,
+      "createdAtMs": 1772289999291,
+      "updatedAtMs": 1772289999291,
+      "schedule": {
+        "kind": "cron",
+        "expr": "45 */1 * * *",
+        "tz": "America/Toronto"
+      },
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "thinking": "off",
+        "timeoutSeconds": 30,
+        "message": "HEARTBEAT. Read workspace/tmp/session-warmup-last.json and report its ts field in one line. No other action needed."
+      },
+      "delivery": {
+        "mode": "silent",
+        "bestEffort": true
+      },
+      "state": {}
+    },
+    {
+      "id": "session-anchor-infosec-0001",
+      "agentId": "infosec",
+      "name": "Session Anchor — keep INFOSEC session alive for A2A",
+      "enabled": true,
+      "createdAtMs": 1772289999291,
+      "updatedAtMs": 1772289999291,
+      "schedule": {
+        "kind": "cron",
+        "expr": "15 */2 * * *",
+        "tz": "America/Toronto"
+      },
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "thinking": "off",
+        "timeoutSeconds": 30,
+        "message": "HEARTBEAT. Read workspace/tmp/session-warmup-last.json and report its ts field in one line. No other action needed."
+      },
+      "delivery": {
+        "mode": "silent",
+        "bestEffort": true
+      },
+      "state": {}
+    },
+    {
+      "id": "session-anchor-research-0001",
+      "agentId": "research",
+      "name": "Session Anchor — keep RESEARCH session alive for A2A",
+      "enabled": true,
+      "createdAtMs": 1772289999291,
+      "updatedAtMs": 1772289999291,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 */2 * * *",
+        "tz": "America/Toronto",
+        "staggerMs": 300000
+      },
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "thinking": "off",
+        "timeoutSeconds": 30,
+        "message": "HEARTBEAT. Read workspace/tmp/session-warmup-last.json and report its ts field in one line. No other action needed."
+      },
+      "delivery": {
+        "mode": "silent",
+        "bestEffort": true
+      },
+      "state": {}
     }
   ]
 }
