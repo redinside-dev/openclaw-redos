@@ -23,6 +23,7 @@ alert_telegram() {
 GATEWAY_OK=false
 OLLAMA_OK=false
 ROUTER_OK=false
+N8N_OK=false
 RESTARTED=""
 
 # ── Gateway check ─────────────────────────────────────────────────────────────
@@ -54,6 +55,20 @@ if curl -sf --max-time 3 http://127.0.0.1:20128/ > /dev/null 2>&1; then
   ROUTER_OK=true
 fi
 
+# ── n8n check ─────────────────────────────────────────────────────────────────
+if curl -sf --max-time 3 http://127.0.0.1:5678/healthz > /dev/null 2>&1; then
+  N8N_OK=true
+else
+  echo "{\"ts\":\"$TS\",\"event\":\"n8n_down\",\"action\":\"restart\"}" >> "$LOG"
+  launchctl stop ai.openclaw.n8n 2>/dev/null || true
+  sleep 3
+  launchctl start ai.openclaw.n8n 2>/dev/null || true
+  RESTARTED="${RESTARTED:+$RESTARTED,}n8n"
+  sleep 8
+  curl -sf --max-time 3 http://127.0.0.1:5678/healthz > /dev/null 2>&1 && N8N_OK=true || \
+    alert_telegram "🔴 SYSTEM PULSE: n8n DOWN and failed to restart at $TS"
+fi
+
 # ── Write pulse result ────────────────────────────────────────────────────────
 python3 -c "
 import json
@@ -64,6 +79,7 @@ result = {
   'gateway': $GATEWAY_OK,
   'ollama': $OLLAMA_OK,
   'router': $ROUTER_OK,
+  'n8n': $N8N_OK,
   'restarted': '$RESTARTED' or None
 }
 with open('$PULSE_FILE', 'w') as f:

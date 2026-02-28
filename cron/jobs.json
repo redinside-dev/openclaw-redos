@@ -33,8 +33,7 @@
         "lastDurationMs": 19103,
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
-        "lastDelivered": false,
-        "runningAtMs": 1772291827743
+        "lastDelivered": false
       }
     },
     {
@@ -69,8 +68,7 @@
         "lastRunStatus": "error",
         "lastStatus": "error",
         "lastDurationMs": 30067,
-        "lastDeliveryStatus": "unknown",
-        "runningAtMs": 1772291827743
+        "lastDeliveryStatus": "unknown"
       }
     },
     {
@@ -626,8 +624,7 @@
         "consecutiveErrors": 3,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772286630603,
-        "runningAtMs": 1772291827743
+        "nextRunAtMs": 1772286630603
       }
     },
     {
@@ -929,8 +926,7 @@
         "consecutiveErrors": 2,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772288829242,
-        "runningAtMs": 1772291827743
+        "nextRunAtMs": 1772288829242
       }
     },
     {
@@ -966,8 +962,7 @@
         "consecutiveErrors": 4,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772289930604,
-        "runningAtMs": 1772291827743
+        "nextRunAtMs": 1772289930604
       }
     },
     {
@@ -1039,8 +1034,7 @@
         "consecutiveErrors": 3,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772286172392,
-        "runningAtMs": 1772291827743
+        "nextRunAtMs": 1772286172392
       }
     },
     {
@@ -1077,8 +1071,7 @@
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772289907396,
-        "runningAtMs": 1772291827743
+        "nextRunAtMs": 1772289907396
       }
     },
     {
@@ -1150,8 +1143,7 @@
         "consecutiveErrors": 2,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772287200000,
-        "runningAtMs": 1772291827743
+        "nextRunAtMs": 1772287200000
       }
     },
     {
@@ -1337,7 +1329,7 @@
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
         "nextRunAtMs": 1772292110229,
-        "lastError": "⚠️ ✍️ Write: `to ./task-registry.json` failed"
+        "runningAtMs": 1772294308838
       }
     },
     {
@@ -1374,8 +1366,7 @@
         "consecutiveErrors": 10,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772290169633,
-        "runningAtMs": 1772291827743
+        "nextRunAtMs": 1772290169633
       }
     },
     {
@@ -1411,8 +1402,7 @@
         "consecutiveErrors": 4,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772290230693,
-        "runningAtMs": 1772291827743
+        "nextRunAtMs": 1772290230693
       }
     },
     {
@@ -1445,8 +1435,7 @@
         "consecutiveErrors": 3,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772287356567,
-        "runningAtMs": 1772291827743
+        "nextRunAtMs": 1772287356567
       },
       "updatedAtMs": 1772280390866
     },
@@ -1480,8 +1469,7 @@
         "lastDurationMs": 106244,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1772287200000,
-        "runningAtMs": 1772291827743
+        "nextRunAtMs": 1772287200000
       },
       "updatedAtMs": 1772201609359
     },
@@ -1519,7 +1507,8 @@
         "consecutiveErrors": 8,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772290560884
+        "nextRunAtMs": 1772290560884,
+        "runningAtMs": 1772294308838
       }
     },
     {
@@ -1574,8 +1563,7 @@
         "lastDurationMs": 159625,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1772287200000,
-        "runningAtMs": 1772291827743
+        "nextRunAtMs": 1772287200000
       }
     },
     {
@@ -1637,8 +1625,7 @@
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
         "nextRunAtMs": 1772291567713,
-        "lastDelivered": true,
-        "runningAtMs": 1772291827743
+        "lastDelivered": true
       }
     },
     {
@@ -1672,8 +1659,7 @@
         "lastDurationMs": 300035,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 2,
-        "nextRunAtMs": 1772287200000,
-        "runningAtMs": 1772291827743
+        "nextRunAtMs": 1772287200000
       }
     },
     {
@@ -1707,8 +1693,7 @@
         "lastDurationMs": 300125,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 1,
-        "nextRunAtMs": 1772286048854,
-        "runningAtMs": 1772291827743
+        "nextRunAtMs": 1772286048854
       }
     },
     {
@@ -1777,7 +1762,8 @@
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
         "nextRunAtMs": 1772292952781,
-        "lastDelivered": true
+        "lastDelivered": true,
+        "runningAtMs": 1772294308838
       }
     },
     {
@@ -1812,7 +1798,8 @@
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
         "nextRunAtMs": 1772292988990,
-        "lastDelivered": true
+        "lastDelivered": true,
+        "runningAtMs": 1772294308838
       }
     },
     {
@@ -1848,7 +1835,7 @@
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 1,
         "nextRunAtMs": 1772293059294,
-        "lastError": "⚠️ ✍️ Write: `to smoke-test-write3.txt (20 chars)` failed"
+        "runningAtMs": 1772294308838
       }
     },
     {
@@ -1883,7 +1870,8 @@
         "lastDurationMs": 48420,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1772294160884
+        "nextRunAtMs": 1772294160884,
+        "runningAtMs": 1772294308838
       }
     },
     {
@@ -1918,7 +1906,8 @@
         "lastDurationMs": 185538,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1772294209304
+        "nextRunAtMs": 1772294209304,
+        "runningAtMs": 1772294308838
       }
     },
     {
@@ -1953,8 +1942,7 @@
         "lastDurationMs": 300100,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 4,
-        "nextRunAtMs": 1772286393413,
-        "runningAtMs": 1772291827743
+        "nextRunAtMs": 1772286393413
       }
     },
     {
@@ -1989,8 +1977,7 @@
         "lastDurationMs": 39180,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 2,
-        "nextRunAtMs": 1772286693513,
-        "runningAtMs": 1772291827743
+        "nextRunAtMs": 1772286693513
       }
     },
     {
@@ -2024,8 +2011,7 @@
         "lastDurationMs": 300143,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 1,
-        "nextRunAtMs": 1772286732693,
-        "runningAtMs": 1772291827743
+        "nextRunAtMs": 1772286732693
       }
     },
     {
@@ -2061,8 +2047,7 @@
         "lastDurationMs": 120070,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 4,
-        "nextRunAtMs": 1772288600000,
-        "runningAtMs": 1772291827743
+        "nextRunAtMs": 1772288600000
       }
     },
     {
@@ -2098,8 +2083,7 @@
         "lastDurationMs": 120112,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 4,
-        "nextRunAtMs": 1772287032837,
-        "runningAtMs": 1772291827743
+        "nextRunAtMs": 1772287032837
       }
     },
     {
@@ -2381,8 +2365,7 @@
         "lastDurationMs": 59580,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1772289000000,
-        "runningAtMs": 1772291827743
+        "nextRunAtMs": 1772289000000
       }
     },
     {
@@ -2455,8 +2438,7 @@
         "lastDurationMs": 37,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 3,
-        "nextRunAtMs": 1772286300000,
-        "runningAtMs": 1772291827743
+        "nextRunAtMs": 1772286300000
       }
     },
     {
@@ -2492,8 +2474,7 @@
         "lastDurationMs": 181880,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1772289000000,
-        "runningAtMs": 1772291827743
+        "nextRunAtMs": 1772289000000
       }
     },
     {
@@ -2530,8 +2511,7 @@
         "lastDurationMs": 148851,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1772287325759,
-        "runningAtMs": 1772291827743
+        "nextRunAtMs": 1772287325759
       }
     },
     {
@@ -2606,7 +2586,8 @@
         "lastDurationMs": 108517,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1772290800000
+        "nextRunAtMs": 1772290800000,
+        "runningAtMs": 1772294308838
       }
     },
     {
@@ -2643,7 +2624,8 @@
         "lastStatus": "error",
         "lastDurationMs": 120070,
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772290914912
+        "nextRunAtMs": 1772290914912,
+        "runningAtMs": 1772294308838
       }
     },
     {
@@ -2678,8 +2660,7 @@
         "nextRunAtMs": 1772289009345,
         "lastStatus": "error",
         "lastDurationMs": 120089,
-        "lastDeliveryStatus": "unknown",
-        "runningAtMs": 1772291827743
+        "lastDeliveryStatus": "unknown"
       }
     },
     {
@@ -2715,8 +2696,7 @@
         "lastDurationMs": 10003,
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
-        "lastDelivered": false,
-        "runningAtMs": 1772291827743
+        "lastDelivered": false
       }
     },
     {
@@ -2749,7 +2729,8 @@
         "lastRunStatus": "error",
         "lastStatus": "error",
         "lastDurationMs": 240023,
-        "lastDeliveryStatus": "unknown"
+        "lastDeliveryStatus": "unknown",
+        "runningAtMs": 1772294308838
       }
     },
     {
@@ -2785,8 +2766,7 @@
         "lastRunStatus": "error",
         "lastStatus": "error",
         "lastDurationMs": 60128,
-        "lastDeliveryStatus": "unknown",
-        "runningAtMs": 1772291827743
+        "lastDeliveryStatus": "unknown"
       }
     },
     {
@@ -2881,8 +2861,7 @@
         "lastStatus": "error",
         "lastDurationMs": 45056,
         "lastDeliveryStatus": "not-requested",
-        "consecutiveErrors": 2,
-        "runningAtMs": 1772291827743
+        "consecutiveErrors": 2
       }
     },
     {
@@ -2909,7 +2888,8 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1772292600000
+        "nextRunAtMs": 1772292600000,
+        "runningAtMs": 1772294308838
       }
     },
     {
@@ -2936,7 +2916,8 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1772293500000
+        "nextRunAtMs": 1772293500000,
+        "runningAtMs": 1772294308838
       }
     },
     {
@@ -2963,8 +2944,7 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1772291700000,
-        "runningAtMs": 1772291827743
+        "nextRunAtMs": 1772291700000
       }
     },
     {
@@ -2992,7 +2972,8 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1772290991208
+        "nextRunAtMs": 1772290991208,
+        "runningAtMs": 1772294308838
       }
     },
     {
@@ -3141,6 +3122,81 @@
         "thinking": "off",
         "timeoutSeconds": 45,
         "message": "MEMORY INTEGRITY CHECK.\n\nVerify append-only files are growing correctly (not being overwritten):\n1. exec: wc -l workspace/logs/episodes.jsonl workspace/logs/a2a-delegations.jsonl workspace/tasks-log.md workspace/ops/LEARNINGS.md\n2. exec: git -C workspace log --oneline -3 2>/dev/null || echo \"no git\"\n3. If any file is SMALLER than yesterday (check git diff): alert RED via sessions_send\n4. If OK: post \"⚙️ OPS: memory integrity OK — files growing normally\" to #redos-ops\n5. Append episode to workspace/logs/episodes.jsonl"
+      },
+      "delivery": {
+        "mode": "silent",
+        "bestEffort": true
+      },
+      "state": {}
+    },
+    {
+      "id": "research-market-factory-0001",
+      "agentId": "research",
+      "name": "Market Research + Product Factory — weekly pain point mining",
+      "enabled": true,
+      "createdAtMs": 1772292376509,
+      "updatedAtMs": 1772292376509,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 9 * * 3",
+        "tz": "America/Toronto"
+      },
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "thinking": "off",
+        "timeoutSeconds": 300,
+        "message": "MARKET RESEARCH + PRODUCT FACTORY — Wednesday 9am.\n\nMine the last 7 days for developer/AI pain points:\n\n1. web_search: \"site:reddit.com/r/MachineLearning OR site:reddit.com/r/LocalLLaMA frustrating OR broken OR wish\" last week\n2. web_search: \"site:news.ycombinator.com Ask HN: why is X so hard\" last week\n3. web_search: \"\"I wish\" OR \"why doesn't\" OpenClaw OR claude-code OR cursor OR AI agent\" last week\n\nFor each search:\n- Extract top 5 pain points as bullet points\n- Score each: frequency (1-5) + severity (1-5) + addressable_by_openclaw (1-5)\n\nRank all pain points by total score. Top 3 become MVP briefs.\n\nFor each top-3 pain point, write one MVP brief to workspace/tmp/mvp-brief-<slug>.md:\n```\n# MVP Brief — <slug>\nPain point: <one sentence>\nTarget user: <who suffers>\nOpenClaw solution: <how an agent/skill solves it>\nBuild effort: <hours>\nImpact: high|medium|low\n```\n\nWrite summary to workspace/tmp/market-factory-latest.md with all pain points ranked.\nPost to #redos-mission-control: \"🔬 RESEARCH: Market factory done — top pain point: <X> (score N/15)\"\nsessions_send(sessionKey=\"agent:main:main\", message=\"[TASK-ID: TASK-{date}-MKT] Market research done. Top 3 MVPs in workspace/tmp/mvp-brief-*.md\", timeoutSeconds=60)\nUpdate workspace/STATE.yaml agents.research.last_task = \"market-factory\"\nAppend episode to workspace/logs/episodes.jsonl"
+      },
+      "delivery": {
+        "mode": "silent",
+        "bestEffort": true
+      },
+      "state": {}
+    },
+    {
+      "id": "content-factory-stage1-0001",
+      "agentId": "research",
+      "name": "Content Factory Stage 1 — topic research (Fri 2pm)",
+      "enabled": true,
+      "createdAtMs": 1772292376509,
+      "updatedAtMs": 1772292376509,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 14 * * 5",
+        "tz": "America/Toronto"
+      },
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "thinking": "off",
+        "timeoutSeconds": 180,
+        "message": "CONTENT FACTORY — STAGE 1: Topic Research (Friday 2pm).\n\n1. Read workspace/STATE.yaml → sprint.goal for this week's focus area\n2. web_search the top trending topic in that area (last 7 days)\n3. Gather 3-5 key facts/insights with source URLs\n4. Write topic brief to workspace/tmp/content-brief-latest.md:\n```\n# Content Brief — <topic> — <date>\nTopic: <title>\nAngle: <unique perspective>\nKey points:\n  - <point 1> (source: <url>)\n  - <point 2>\n  - <point 3>\nTarget length: 400-600 words\n```\n5. Update workspace/STATE.yaml → pipelines.content_factory.status = \"stage2_ready\"\n6. sessions_spawn(agentId=\"allrounder\", task=\"[TASK-ID: TASK-{date}-CF2] CONTENT FACTORY STAGE 2: Read workspace/tmp/content-brief-latest.md and write a 400-500 word piece. Save to workspace/content/draft-<slug>-<date>.md. Then sessions_spawn ENG for stage 3 formatting.\")\n7. Post to #redos-mission-control: \"🔬 RESEARCH → 🌐 ZEN: content pipeline started — topic: <topic>\"\nAppend episode to workspace/logs/episodes.jsonl"
+      },
+      "delivery": {
+        "mode": "silent",
+        "bestEffort": true
+      },
+      "state": {}
+    },
+    {
+      "id": "eng-mvp-intake-0001",
+      "agentId": "eng",
+      "name": "MVP Brief Intake — implement top quick wins from market factory",
+      "enabled": true,
+      "createdAtMs": 1772292376509,
+      "updatedAtMs": 1772292376509,
+      "schedule": {
+        "kind": "cron",
+        "expr": "30 10 * * 4",
+        "tz": "America/Toronto"
+      },
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "thinking": "off",
+        "timeoutSeconds": 300,
+        "message": "MVP BRIEF INTAKE — Thursday 10:30am (day after market factory).\n\n1. exec: ls workspace/tmp/mvp-brief-*.md 2>/dev/null\n2. For each mvp-brief file found:\n   a. Read the brief\n   b. Run idea-validator skill on the idea\n   c. If reality_signal > 65 AND build_effort <= 4h: add to AUTONOMOUS.md as P2 task for ENG\n   d. If reality_signal <= 65: log skip reason to workspace/tasks-log.md\n3. Post to #redos-mission-control: \"💻 ENG: reviewed N MVP briefs — M added to queue (reality_signal > 65)\"\n4. exec: rm workspace/tmp/mvp-brief-*.md  # cleanup after intake\nAppend episode to workspace/logs/episodes.jsonl"
       },
       "delivery": {
         "mode": "silent",
