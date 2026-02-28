@@ -4,7 +4,7 @@
     "switchCommand": "@RedinsideBot routing mode cost_saver"
   },
 
-  "active": "balanced",
+  "active": "cost_saver",
 
   "profiles": {
     "performance": {

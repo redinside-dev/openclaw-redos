@@ -2326,5 +2326,93 @@ All Tier 5 providers are $0 per call:
 
 ---
 
-*Last updated: 2026-02-20 by Claude Code (Sonnet 4.6)*
-*OpenClaw version: 2026.2.19-2 | RedOS version: 3.9.0*
+*Last updated: 2026-02-28 by Claude Code (Sonnet 4.6)*
+*OpenClaw version: 2026.2.24 | RedOS version: 3.10.0*
+
+---
+
+## §22 — Outage Recovery: Cost Containment + Routing Fixes (2026-02-28)
+
+### Problem Summary
+2-day system outage caused by 3 simultaneous root-cause failures. Each masked the others, making diagnosis difficult.
+
+### Root Cause 1: OpenRouter Spending Real Credits
+
+**Symptom:** `FailoverError: 9router (openrouter/auto) billing error — insufficient balance` on every morning standup (25+ cron jobs)
+
+**Root cause:** `openrouter/auto` dynamically selects the "best" model. When all `:free` models hit their daily rate limits overnight, `auto` silently upgraded to paid models (GPT-4, Claude-3) charging per-token. Routing profile was `balanced` with `allowPayg: true`, enabling this silently.
+
+**Fix:**
+```bash
+# workspace/config/routing-profiles.json
+"active": "cost_saver"   # was: "balanced"
+# cost_saver has: "allowPayg": false
+```
+
+**Rule going forward:** Never use `openrouter/auto` in agent primary or fallback chains. Always use explicit `:free` model suffix if openrouter is needed. `cost_saver` profile is the permanent default.
+
+---
+
+### Root Cause 2: "model not allowed: ollama/llama3.1:8b"
+
+**Symptom:** 25+ cron jobs failing with `model not allowed: ollama/llama3.1:8b`
+
+**Root cause:** Cron jobs had explicit `"model": "ollama/llama3.1:8b"` overrides, but 6 agents (main, allrounder, eng, research, finance, infosec) did not have this model in their `model.fallbacks` array in `openclaw.json`. A previous fix script (`fix-model-config-2026-02-27.js`) claimed "FULLY APPLIED" but only updated OPS and HATAKE.
+
+**Fix:** Added `"ollama/llama3.1:8b"` to `model.fallbacks` of all 6 affected agents in `openclaw.json`.
+
+**Verify:** After any model config change:
+```bash
+grep -A8 '"id": "main"' openclaw.json | grep ollama
+openclaw doctor
+```
+
+---
+
+### Root Cause 3: OPS Telegram Bot 401 Unauthorized
+
+**Symptom:** OPS Telegram bot getting persistent `401: Unauthorized`; self-healing + standup crons all failed
+
+**Root cause:** Bot token had been revoked. Three different old tokens existed in different files; only the one in `openclaw.json` line ~2213 is what the gateway uses at runtime. The `.env` token is NOT read by the gateway.
+
+**Fix:**
+1. Get new token from @BotFather
+2. Find botToken in `openclaw.json`: `grep -n "botToken" openclaw.json`
+3. Update the `botToken` field directly in `openclaw.json`
+4. Also update `TELEGRAM_BOT_TOKEN_OPS` in `.env` for consistency
+5. Restart stack: `bash ~/.openclaw/scripts/redos-restart.sh`
+
+**Critical rule:** `openclaw.json` `botToken` is authoritative. `.env` is secondary reference only.
+
+---
+
+### Auto-Refresh Confirmation
+
+**Claude Pro, Kiro, Codex** all auto-refresh without manual intervention:
+- `9router-keepfresh-0001` cron: every 4 min, OPS agent, `ollama/llama3.1:8b`
+- Calls `scripts/9router-token-refresh.js` which tests/refreshes all providers
+- Kiro: refreshes via AWS OIDC directly (no browser needed)
+- Claude/Codex: calls `/api/providers/{id}/test` — 9router refreshes internally in last 5-min window before expiry
+- iFlow: skipped — health endpoint always returns 400 (known broken); inference still works
+
+If keepfresh stops working, check: (1) OPS agent has `ollama/llama3.1:8b` in fallbacks, (2) keepfresh cron `lastStatus` in `cron/jobs.json`.
+
+---
+
+### Files Changed
+
+| File | Change |
+|------|--------|
+| `workspace/config/routing-profiles.json` | `active`: `balanced` → `cost_saver` |
+| `openclaw.json` | Added `ollama/llama3.1:8b` to fallbacks of main, allrounder, eng, research, finance, infosec; updated OPS `botToken` |
+| `.env` | Updated `TELEGRAM_BOT_TOKEN_OPS` |
+| `workspace/MEMORY.md` | Updated current state, routing policy, open issues, added 2026-02-28 session |
+| `workspace/ops/LEARNINGS.md` | Added LEARNING-20260228-001 through -004 |
+
+### System State After Fix
+- 8 agents running, all Telegram bots connected
+- 76 cron jobs (stale error states clear on next scheduled run)
+- Routing: `cost_saver` — PAYG fully blocked, openrouter rate-limited (irrelevant)
+- 9Router: 11/14 providers active; OpenRouter accounts in 429; iFlow false-positive errors (expected)
+- Ollama: 8 models loaded locally
+- Auto-refresh: Claude Pro + Kiro confirmed working

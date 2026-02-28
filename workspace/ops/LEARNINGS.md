@@ -20,6 +20,56 @@ repeating mistakes and to build institutional knowledge.
 
 ## Learnings
 
+### LEARNING-20260228-004
+- **Date:** 2026-02-28T04:00:00Z
+- **Source Ticket:** observation
+- **Agent:** cascade (external debug session)
+- **Category:** infra | model
+- **Summary:** Claude Pro and Kiro auto-refresh is working — no manual intervention needed; iFlow `testStatus: error` is a permanent false positive
+- **Details:** `9router-keepfresh-0001` cron runs every 4min on OPS agent using `ollama/llama3.1:8b`. It calls `scripts/9router-token-refresh.js` which (1) refreshes Kiro via AWS OIDC directly, (2) calls `/api/providers/{id}/test` for Claude/Codex — 9router internally refreshes in the last 5min window before expiry. iFlow always shows `testStatus: error` with `400 Bad Request` on the health-check endpoint; this is a known broken endpoint but inference still works. The refresh script explicitly skips iFlow (`SKIP_TEST_PROVIDERS = new Set(['iflow', 'openrouter'])`).
+- **Prevention:** If Claude Pro requires manual re-auth, check keepfresh cron is running and OPS agent has Ollama in its model chain (required for keepfresh to execute).
+- **Applied To:** workspace/MEMORY.md
+
+### LEARNING-20260228-003
+- **Date:** 2026-02-28T03:30:00Z
+- **Source Ticket:** observation
+- **Agent:** cascade (external debug session)
+- **Category:** config | infra
+- **Summary:** Telegram bot token must be updated in BOTH `openclaw.json` AND `.env` — gateway reads from `openclaw.json` directly; `.env` is secondary
+- **Details:** OPS Telegram bot was giving persistent 401 even after updating `.env`. Root cause: the actual `botToken` field is hardcoded directly in `openclaw.json` under the agent's channel config (not read from `.env`). The `.env` var is only for bootstrap reference. Additionally, three different old tokens existed: one in `.env`, one in an older `.env` backup, and one directly in `openclaw.json` — only the `openclaw.json` one is what the gateway uses at runtime.
+- **Prevention:** After any Telegram bot token rotation: (1) find the agent's `botToken` in `openclaw.json` via `grep -n "botToken" openclaw.json`, (2) update it directly, (3) also update `.env` for consistency, (4) restart the stack. The token in `openclaw.json` is authoritative.
+- **Applied To:** `openclaw.json`, `.env`
+
+### LEARNING-20260228-002
+- **Date:** 2026-02-28T03:00:00Z
+- **Source Ticket:** observation
+- **Agent:** cascade (external debug session)
+- **Category:** config | model
+- **Summary:** Cron job `"model"` override must be a model present in that agent's allowed fallback list in `openclaw.json` — "model not allowed" errors if missing
+- **Details:** 25+ cron jobs had `"model": "ollama/llama3.1:8b"` overrides but agents main, allrounder, eng, research, finance, infosec did not have `ollama/llama3.1:8b` in their `fallbacks` array. Result: `model not allowed: ollama/llama3.1:8b` error on every run. The TOKEN-EXHAUSTION-FIX.md file claimed "FULLY APPLIED" but the fix script only updated OPS and HATAKE, leaving 6 agents unchanged.
+- **Prevention:** After adding any new model to cron overrides, verify that model appears in each affected agent's `model.fallbacks` in `openclaw.json`. Run `openclaw doctor` after changes. When a fix script claims "FULLY APPLIED", verify by grepping the actual config: `grep -A5 '"model"' openclaw.json | grep ollama`.
+- **Applied To:** `openclaw.json` — added `ollama/llama3.1:8b` to fallbacks of main, allrounder, eng, research, finance, infosec
+
+### LEARNING-20260228-001
+- **Date:** 2026-02-28T02:30:00Z
+- **Source Ticket:** observation
+- **Agent:** cascade (external debug session)
+- **Category:** model | config
+- **Summary:** `openrouter/auto` silently picks paid models when free `:free` models hit daily rate limits — exhausts credits invisibly
+- **Details:** OpenRouter's `auto` selector dynamically picks the "best" model. When all `:free` models (llama, qwen, etc.) hit their daily rate limits, `auto` silently upgrades to paid models (GPT-4, Claude, etc.) and charges per-token. With `routing-profiles.json` active set to `balanced` (`allowPayg: true`), every rate-limited free model call was hitting paid fallbacks. Fix: change active profile to `cost_saver` (`allowPayg: false`) which hard-blocks all PAYG model spending.
+- **Prevention:** (1) Never use `openrouter/auto` in agent primary or fallback chains. (2) Keep routing profile active = `cost_saver`. (3) If openrouter is needed, always specify explicit `:free` model suffix (e.g., `openrouter/meta-llama/llama-3.1-8b-instruct:free`). (4) Monitor `workspace/logs/cost-events.jsonl` — unexpected entries from openrouter indicate PAYG is active.
+- **Applied To:** `workspace/config/routing-profiles.json` (active: cost_saver), `workspace/MEMORY.md`
+
+### LEARNING-20260226-001
+- **Date:** 2026-02-26T06:31:00Z
+- **Source Ticket:** TICKET-20260226-001
+- **Agent:** OPS
+- **Category:** infra | workflow
+- **Summary:** Telegram 401s can be transient after 409 getUpdates conflicts; don’t rotate tokens immediately
+- **Details:** gateway.err.log showed OPS Telegram channel exit with `401: Unauthorized` after a likely duplicate polling instance (409 conflict earlier in the sequence). The error burst stopped without config changes, and later logs show the OPS Telegram lane active; subsequent failures were unrelated HTTP 500s from upstream LLM providers.
+- **Prevention:** Only treat Telegram 401 as “token revoked” if it persists continuously for >5 minutes (or recurs over multiple restart cycles). First check for duplicate gateway instances and Telegram 409 conflicts.
+- **Applied To:** workspace/ops/TICKET-TRACKER.md (closed ticket with diagnosis)
+
 ### LEARNING-20260225-007
 - **Date:** 2026-02-25T12:19:00Z
 - **Source Ticket:** TICKET-20260225-021
@@ -602,3 +652,23 @@ repeating mistakes and to build institutional knowledge.
   3) If reload is skipped, stop making further config changes until the invalid keys are removed.
 - **Applied To:** LEARNINGS.md (this entry); referenced in directives
 
+
+### LEARNING-20260227-001
+- **Date:** 2026-02-27T22:21:00Z
+- **Source Ticket:** observation (RED self-improvement cycle)
+- **Agent:** main (RED)
+- **Category:** workflow | infra
+- **Summary:** Reflection inputs are partially stale; canonical digest paths must replace raw log paths in recurring prompts
+- **Details:** This cycle found `logs/errors.jsonl` with only an initialization line and `logs/routing-decisions.jsonl` containing old entries (last around 2026-02-22), while TICKET-TRACKER shows active incidents from 2026-02-27. The mismatch causes weak pattern detection and delayed corrective action in daily reflection jobs.
+- **Prevention:** Standardize all reflection/health prompts to read maintained digest artifacts (for example `workspace/logs/error-digest.md` plus a rolling `routing-digest.jsonl`) instead of raw runtime logs that may be stale or lane-dependent.
+- **Applied To:** LEARNINGS.md; TICKET-20260227-022 opened
+
+### LEARNING-20260227-002
+- **Date:** 2026-02-27T22:21:00Z
+- **Source Ticket:** TICKET-20260227-021 (recurring)
+- **Agent:** main (RED)
+- **Category:** tool | workflow
+- **Summary:** Automation scripts must gracefully fall back when `rg` is unavailable
+- **Details:** Repeated errors show `zsh:1: command not found: rg` in operational lanes. Tasks that assume ripgrep can fail before doing any useful work, which compounds monitoring noise.
+- **Prevention:** Add a shared command pattern: `if command -v rg >/dev/null; then rg ...; else grep/find ...; fi` for cron and runbook snippets; include this in prompt templates used by OPS/ENG monitors.
+- **Applied To:** LEARNINGS.md; team directive to ENG/OPS

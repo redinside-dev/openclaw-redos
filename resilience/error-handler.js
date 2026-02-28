@@ -119,15 +119,17 @@ class ResilientErrorHandler {
    * Classify error type
    */
   classifyError(error) {
-    const message = error.message || String(error);
+    const message = (error.message || String(error)).toLowerCase();
 
-    if (message.includes('ECONNREFUSED')) return 'ECONNREFUSED';
-    if (message.includes('ETIMEDOUT')) return 'ETIMEDOUT';
-    if (message.includes('rate limit')) return 'RATE_LIMIT';
-    if (message.includes('ollama') || message.includes('Ollama')) return 'OLLAMA_ERROR';
-    if (message.includes('parse entities') || message.includes('Markdown')) return 'MARKDOWN_ERROR';
-    if (message.includes('Gateway error')) return 'GATEWAY_ERROR';
-    if (message.includes('credit balance') || message.includes('Anthropic') && message.includes('credit')) return 'ANTHROPIC_CREDIT';
+    if (message.includes('econnrefused')) return 'ECONNREFUSED';
+    if (message.includes('etimedout')) return 'ETIMEDOUT';
+    if (message.includes('rate limit') || message.includes('429') || message.includes('rate_limit')) return 'RATE_LIMIT';
+    if (message.includes('quota') || message.includes('limit exceeded') || message.includes('key limit exceeded')) return 'RATE_LIMIT';
+    if (message.includes('billing') || message.includes('credits') || message.includes('insufficient balance') || message.includes('run out of credits')) return 'ANTHROPIC_CREDIT';
+    if (message.includes('ollama')) return 'OLLAMA_ERROR';
+    if (message.includes('parse entities') || message.includes('markdown')) return 'MARKDOWN_ERROR';
+    if (message.includes('gateway error')) return 'GATEWAY_ERROR';
+    if (message.includes('credit balance') || (message.includes('anthropic') && message.includes('credit'))) return 'ANTHROPIC_CREDIT';
 
     return 'UNKNOWN';
   }

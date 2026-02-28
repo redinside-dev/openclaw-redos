@@ -55,11 +55,13 @@ check_status() {
     warn "Dashboard      → http://127.0.0.1:19000 (not responding — may still be starting)"
   fi
 
-  # 9Router
-  if curl -sf http://127.0.0.1:20128/health > /dev/null 2>&1; then
+  # 9Router — uses /v1/models (Next.js app: /health returns 404)
+  if curl -sf http://127.0.0.1:20128/v1/models > /dev/null 2>&1; then
     ok "9Router        → http://127.0.0.1:20128 (running)"
-  elif [[ -f "$HOME/Library/LaunchAgents/ai.openclaw.9router.plist" ]]; then
-    warn "9Router        → plist installed but not responding"
+  elif launchctl list com.9router.autostart > /dev/null 2>&1; then
+    warn "9Router        → launchd registered but API not responding on port 20128"
+  elif [[ -f "$HOME/Library/LaunchAgents/com.9router.autostart.plist" ]]; then
+    warn "9Router        → plist exists but not loaded (run: launchctl load ~/Library/LaunchAgents/com.9router.autostart.plist)"
   else
     warn "9Router        → not installed (run setup-eng-tools.sh to add)"
   fi
@@ -97,15 +99,21 @@ launchctl load "$HOME/Library/LaunchAgents/ai.openclaw.node.plist"
 sleep 2
 ok "OpenClaw node restarted"
 
-# 3. OpenClaw gateway
+# 3. OpenClaw gateway (only if plist exists — e.g. after "openclaw doctor --fix" cleanup)
+GATEWAY_PLIST="$HOME/Library/LaunchAgents/ai.openclaw.gateway.plist"
 info "Restarting OpenClaw gateway..."
-if launchctl list ai.openclaw.gateway > /dev/null 2>&1; then
-  launchctl unload "$HOME/Library/LaunchAgents/ai.openclaw.gateway.plist" 2>/dev/null || true
-  sleep 1
+if [[ -f "$GATEWAY_PLIST" ]]; then
+  if launchctl list ai.openclaw.gateway > /dev/null 2>&1; then
+    launchctl unload "$GATEWAY_PLIST" 2>/dev/null || true
+    sleep 1
+  fi
+  launchctl load "$GATEWAY_PLIST"
+  sleep 2
+  ok "OpenClaw gateway restarted"
+else
+  warn "Gateway plist not found ($GATEWAY_PLIST). Run: openclaw gateway install"
+  warn "If you start the gateway another way, ensure it is running on port 18789."
 fi
-launchctl load "$HOME/Library/LaunchAgents/ai.openclaw.gateway.plist"
-sleep 2
-ok "OpenClaw gateway restarted"
 
 # 4. Dashboard
 info "Restarting dashboard..."
@@ -128,8 +136,25 @@ else
   warn "9Router plist not found — skipping (run setup-eng-tools.sh to install)"
 fi
 
-# 6. Final status
+# 6. 9Router post-start: refresh auto-managed tokens FIRST, then watchdog
 sleep 3
+if [[ -f "$HOME/.9router/db.json" ]]; then
+  # Refresh Kiro tokens before the watchdog runs so they aren't falsely disabled
+  if [[ -f "$HOME/.openclaw/scripts/9router-token-refresh.js" ]]; then
+    info "Refreshing 9Router OAuth tokens (Kiro + Cursor)..."
+    node "$HOME/.openclaw/scripts/9router-token-refresh.js" --all > /dev/null 2>&1 || true
+  fi
+
+  info "Running 9Router watchdog (normalize names + check expiry)..."
+  ALERT=$(bash "$HOME/.openclaw/scripts/9router-watchdog.sh" --fix 2>/dev/null || true)
+  if [[ -n "$ALERT" ]]; then
+    warn "9Router Auth Alert:"
+    echo "$ALERT" | sed 's/^/   /'
+    warn "Re-authenticate via: http://localhost:20128 → Providers"
+  fi
+fi
+
+# 7. Final status
 check_status
 
 echo "Done. If any service shows ✗ above, check logs:"

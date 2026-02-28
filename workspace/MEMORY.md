@@ -17,21 +17,22 @@
 
 ---
 
-## Current State (as of 2026-02-24)
+## Current State (as of 2026-02-28)
 
 | Component | Status |
 |-----------|--------|
-| OpenClaw CLI | v2026.2.22-2 |
-| Native gateway | Running — launchd `ai.openclaw.gateway`, port 18789 |
+| OpenClaw CLI | v2026.2.24 |
+| Native gateway | Running — launchd `ai.openclaw.node` + `ai.openclaw.gateway`, port 18789 |
 | Dashboard | Port 19000, launchd `ai.openclaw.dashboard` — Mission Control UI |
 | Dashboard API | `/api/traces` reads live session files (`agents/*/sessions/*.jsonl`) — NOT stale logs |
-| Telegram | Active — source detection fixed (3 formats: `Conversation info`, `[Day Date TZ]`, `[telegram]`) |
+| Telegram | Active — 7 bots, all connected. OPS bot token regenerated 2026-02-28 |
 | WhatsApp | Linked +16476092313 |
 | Agents | 8 active: main / allrounder / hatake / eng / research / finance / ops / infosec |
-| Skills | 30 registered, all enabled — `competitive-intelligence` enabled 2026-02-24 |
-| Cron jobs | 20+ active — see `cron/jobs.json` |
-| 9Router | Running :20128 — primary model routing layer |
-| A2A | 37 subagent sessions/day but `a2a-delegations.jsonl` was empty — SOUL.md now mandates logging |
+| Skills | 31 registered, all enabled |
+| Cron jobs | 76 total — see `cron/jobs.json`. Stale error states clear on next run after 2026-02-28 fix |
+| 9Router | Running :20128 — routing profile: `cost_saver` (PAYG blocked) |
+| Routing profile | `cost_saver` — `allowPayg: false`. Blocks openrouter/auto and zai from cron/fallback chains |
+| A2A | Active — `a2a-delegations.jsonl` logging mandated via SOUL.md |
 | Architecture doc | `/Users/redinside/Development/Codebase/projects/RedTeam/docs/ARCHITECTURE.md` |
 
 ---
@@ -52,7 +53,7 @@
 - **Codex account:** `io.anuragsaxena@gmail.com` — Team plan, 1-year subscription
 - **Kimi (moonshot/kimi-k2.5):** NO subscription — do NOT use
 - **ZAI/GLM-4.7:** PAYG — never hard-code in cron or fallback chains
-- **openrouter:** NOT authorized — remove immediately if found in config
+- **openrouter:** Allowed in 9router as free-model source only. **NEVER use `openrouter/auto`** — it silently picks paid models. `cost_saver` profile (`allowPayg: false`) blocks all PAYG spending. Remove any `openrouter/auto` found in agent primary/fallback chains.
 - **Web search:** Perplexity (sonar-pro) via `tools.web.search` — NOT as agent primary model
 - **Coding:** cursor-agent with Claude Sonnet 4.5
 - **Git identity:** `anuragg-saxenaa` / `anuragg.saxenaa@gmail.com`
@@ -142,9 +143,11 @@ All tabs and what they show:
 | Priority | Description |
 |----------|-------------|
 | P3 | TICKET-20260216-002 — undici AbortErrors during Telegram polling, awaiting ENG fix |
+| Low | Tailscale daemon down — `launchctl start com.tailscale.ipn.macos` needed after reboot |
 | Low | Cloudflare quick tunnel URL changes on restart — consider named tunnel |
 | Low | Codex 3rd account (`anurawg.saxena@gmail.com`) needs OAuth tokens |
-| Low | Dashboard process not in launchd — must be started manually after reboot |
+| Low | Dashboard not in launchd — must start manually after reboot: `node ~/.openclaw/dashboard/server.js` |
+| Low | `SLACK_SIGNING_SECRET` placeholder in `.env` — Slack event verification disabled until set |
 | Low | Verify Slack socket-mode channel replies live (CLI deliver confirmed, real socket-mode not yet confirmed) |
 
 ---
@@ -226,3 +229,30 @@ The RED Self-Improvement cron has been observed autonomously modifying `openclaw
 ### Open Issues Resolved
 - Telegram silent on send → reverted to bak.1, confirmed working
 - 55-67 cron failures from rate limit storm → staggered + cheap model overrides
+
+---
+
+## 2026-02-28 Session Changes — Outage Recovery & Cost Containment
+
+### Root Cause: 2-Day System Outage (3 simultaneous failures)
+1. **`openrouter/auto` spending real credits** — routing profile was `balanced` (`allowPayg: true`); auto picked paid models when free `:free` models hit daily rate limits
+2. **OPS Telegram bot 401** — token hardcoded in `openclaw.json` (not just `.env`) was revoked; third different old token found at line 2213
+3. **"model not allowed: ollama/llama3.1:8b"** — 6 agents (main, allrounder, eng, research, finance, infosec) had cron jobs explicitly setting `ollama/llama3.1:8b` but the model wasn't in those agents' allowed fallback list in `openclaw.json`
+
+### Fixes Applied
+- **Routing profile**: `workspace/config/routing-profiles.json` active changed `balanced` → `cost_saver` (`allowPayg: false`). Blocks openrouter/auto and ZAI from all requests.
+- **Ollama fallbacks**: Added `"ollama/llama3.1:8b"` to fallbacks of main, allrounder, eng, research, finance, infosec in `openclaw.json`. Now all 8 agents can use local Ollama.
+- **OPS bot token**: Updated `openclaw.json` botToken (line ~2213) + `.env` `TELEGRAM_BOT_TOKEN_OPS` to `8230099863:AAG8mEFP87szMB9aI0UAo_P3Q1GUzS7bPrE`. Stack restarted, OPS reconnected.
+
+### Auto-Refresh Confirmation
+- `9router-keepfresh-0001` cron (every 4min, OPS, `ollama/llama3.1:8b`) calls `scripts/9router-token-refresh.js`
+- Kiro refreshes via AWS OIDC automatically; Claude Pro/Codex via `/api/providers/{id}/test` — 9router refreshes in last 5min window
+- iFlow `testStatus: error` = known false positive (health endpoint broken, inference works); script explicitly skips iFlow + openrouter test
+- **Claude Pro + Kiro auto-refresh verified working** — no manual intervention needed
+
+### System Health Post-Fix
+- 8 agents running, 76 cron jobs (stale error states clear on next run), 11/14 9router providers active
+- OpenRouter both accounts in 429 (rate limited — irrelevant, cost_saver blocks PAYG)
+- Tailscale daemon down (minor — internal routing only)
+
+*Last updated: 2026-02-28 — Outage recovery: routing profile fix, Ollama fallbacks, OPS bot token*
