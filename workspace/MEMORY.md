@@ -37,18 +37,20 @@
 
 ---
 
-## Routing Policy (CANONICAL — DO NOT CHANGE WITHOUT EXPLICIT REQUEST)
+## Routing Policy (updated 2026-02-28 — DECISION-20260228-004)
 
-| Agent | Bot | Identity | Primary | Fallback |
-|-------|-----|----------|---------|---------|
-| main | @RedinsideBot | RED | openai-codex/gpt-5.2 | ollama/llama3.1:8b |
-| allrounder | @ZenRedBot | ZEN | ollama/llama3.1:8b | openai-codex/gpt-5.2 |
-| hatake | — | HATAKE | ollama/qwen2.5-coder:7b | ollama/llama3.1:8b → gpt-5.2 |
-| eng | — | ENG | ollama/llama3.1:8b | openai-codex/gpt-5.2 |
-| research | — | RESEARCH | openai-codex/gpt-5.2 | ollama/llama3.1:8b |
-| finance | — | FINANCE | ollama/llama3.1:8b | openai-codex/gpt-5.2 |
-| ops | — | OPS | ollama/llama3.1:8b | openai-codex/gpt-5.2 |
-| infosec | @INFOSECRED_BOT | INFOSEC | ollama/llama3.1:8b | openai-codex/gpt-5.2 |
+All agents (except hatake) share the same model chain via `agents.defaults`:
+
+| Agent | Bot | Identity | Primary | Fallback 1 | Fallback 2 |
+|-------|-----|----------|---------|-----------|-----------|
+| main | @RedinsideBot | RED | 9router/free-unlimited | 9router/heartbeat-cheap | openai-codex/gpt-5.2 |
+| allrounder | @ZenRedBot | ZEN | 9router/free-unlimited | 9router/heartbeat-cheap | openai-codex/gpt-5.2 |
+| eng | @ENG_BOT | ENG | 9router/free-unlimited | 9router/heartbeat-cheap | openai-codex/gpt-5.2 |
+| research | @RESEARCH_BOT | RESEARCH | 9router/free-unlimited | 9router/heartbeat-cheap | openai-codex/gpt-5.2 |
+| finance | @FINANCE_BOT | FINANCE | 9router/free-unlimited | 9router/heartbeat-cheap | openai-codex/gpt-5.2 |
+| ops | @OPS_BOT | OPS | 9router/free-unlimited | 9router/heartbeat-cheap | openai-codex/gpt-5.2 |
+| infosec | @INFOSECRED_BOT | INFOSEC | 9router/free-unlimited | 9router/heartbeat-cheap | openai-codex/gpt-5.2 |
+| hatake | — | HATAKE | ollama/qwen2.5-coder:7b | *(none)* | *(none)* |
 
 - **Codex account:** `io.anuragsaxena@gmail.com` — Team plan, 1-year subscription
 - **Kimi (moonshot/kimi-k2.5):** NO subscription — do NOT use
