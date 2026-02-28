@@ -1,0 +1,194 @@
+[
+  {
+    "_comment": "L0 — Read/Observe (auto)",
+    "tier": 0,
+    "tool": "read",
+    "agent": "*"
+  },
+  {
+    "tier": 0,
+    "tool": "search",
+    "agent": "*"
+  },
+  {
+    "tier": 0,
+    "tool": "sessions_list",
+    "agent": "*"
+  },
+  {
+    "tier": 0,
+    "tool": "web_search",
+    "agent": "research"
+  },
+  {
+    "_comment": "L1 — Internal Write (auto)",
+    "tier": 1,
+    "tool": "write",
+    "agent": "*",
+    "pattern": "workspace/"
+  },
+  {
+    "tier": 1,
+    "tool": "message",
+    "agent": "*"
+  },
+  {
+    "tier": 1,
+    "tool": "sessions_send",
+    "agent": "*"
+  },
+  {
+    "_comment": "L2 — Sandbox Exec: pre-approved tests/lint/build",
+    "tier": 2,
+    "tool": "exec",
+    "agent": "eng",
+    "pattern": "npm (test|run (test|lint|build|typecheck))"
+  },
+  {
+    "tier": 2,
+    "tool": "exec",
+    "agent": "eng",
+    "pattern": "pytest"
+  },
+  {
+    "tier": 2,
+    "tool": "exec",
+    "agent": "eng",
+    "pattern": "tsc --noEmit"
+  },
+  {
+    "tier": 2,
+    "tool": "exec",
+    "agent": "eng",
+    "pattern": "git (log|status|diff|show|add|commit)"
+  },
+  {
+    "tier": 2,
+    "tool": "exec",
+    "agent": "ops",
+    "pattern": "launchctl (stop|start) ai\\.openclaw\\."
+  },
+  {
+    "tier": 2,
+    "tool": "exec",
+    "agent": "ops",
+    "pattern": "launchctl (stop|start) homebrew\\.mxcl\\.ollama"
+  },
+  {
+    "tier": 2,
+    "tool": "exec",
+    "agent": "ops",
+    "pattern": "openclaw (status|gateway probe|logs|doctor)"
+  },
+  {
+    "tier": 2,
+    "tool": "exec",
+    "agent": "ops",
+    "pattern": "curl -s --max-time \\d+ http://localhost:\\d+/health"
+  },
+  {
+    "tier": 2,
+    "tool": "exec",
+    "agent": "ops",
+    "pattern": "bash ~/.openclaw/workspace/scripts/(hourly-snapshot|ollama-health|disk-watchdog)\\.sh"
+  },
+  {
+    "_comment": "L3 — Infra-Limited Exec (INFOSEC A2A, 120s timeout)",
+    "tier": 3,
+    "tool": "exec",
+    "agent": "ops",
+    "pattern": "launchctl (stop|start) (?!ai\\.openclaw|homebrew\\.mxcl\\.ollama)"
+  },
+  {
+    "tier": 3,
+    "tool": "exec",
+    "agent": "ops",
+    "pattern": "crontab"
+  },
+  {
+    "tier": 3,
+    "tool": "exec",
+    "agent": "*",
+    "pattern": "npm install"
+  },
+  {
+    "tier": 3,
+    "tool": "exec",
+    "agent": "*",
+    "pattern": "pip install"
+  },
+  {
+    "tier": 3,
+    "tool": "exec",
+    "agent": "eng",
+    "pattern": "git push(?!.*(origin )?main)(?! --force)"
+  },
+  {
+    "_comment": "L4 — Staging/External (Telegram Approve, 10min timeout)",
+    "tier": 4,
+    "tool": "exec",
+    "agent": "eng",
+    "pattern": "git push (origin )?main"
+  },
+  {
+    "tier": 4,
+    "tool": "exec",
+    "agent": "*",
+    "pattern": "npm publish"
+  },
+  {
+    "tier": 4,
+    "tool": "exec",
+    "agent": "*",
+    "pattern": "brew install"
+  },
+  {
+    "_comment": "L5 — Prod/Destructive (Telegram Approve + 2min wait, 30min timeout)",
+    "tier": 5,
+    "tool": "exec",
+    "agent": "*",
+    "pattern": "rm -rf"
+  },
+  {
+    "tier": 5,
+    "tool": "exec",
+    "agent": "*",
+    "pattern": "sudo"
+  },
+  {
+    "tier": 5,
+    "tool": "exec",
+    "agent": "*",
+    "pattern": "git push --force"
+  },
+  {
+    "tier": 5,
+    "tool": "exec",
+    "agent": "*",
+    "pattern": "mkfs"
+  },
+  {
+    "tier": 5,
+    "tool": "exec",
+    "agent": "*",
+    "pattern": "DROP TABLE"
+  },
+  {
+    "_comment": "Default fallback — unknown exec defaults to L2 for eng, L3 for ops",
+    "tier": 2,
+    "tool": "exec",
+    "agent": "eng",
+    "pattern": ".*"
+  },
+  {
+    "tier": 3,
+    "tool": "exec",
+    "agent": "ops",
+    "pattern": ".*"
+  },
+  {
+    "tier": 2,
+    "tool": "*",
+    "agent": "*"
+  }
+]

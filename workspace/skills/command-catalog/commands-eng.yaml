@@ -1,0 +1,59 @@
+version: "1.0"
+agent: eng
+description: "Command classification catalog for ENG agent (Engineering)"
+
+deny_patterns:
+  - "rm -rf"
+  - "sudo"
+  - "git push --force"
+  - "DROP TABLE"
+  - "mkfs"
+  - "curl .* \\| (sh|bash|zsh)"
+  - "wget .* \\| (sh|bash|zsh)"
+
+tier_overrides:
+  L2_auto:
+    - pattern: "npm (test|run (test|lint|build|typecheck|check))"
+      description: "Test and build commands (sandbox)"
+    - pattern: "pytest( .*)?"
+      description: "Python tests (sandbox)"
+    - pattern: "git (add|commit|diff|log|status|show)"
+      description: "Local git operations"
+    - pattern: "node (--version|--help)"
+      description: "Node version check"
+    - pattern: "tsc --noEmit"
+      description: "TypeScript type check (no output)"
+    - pattern: "eslint"
+      description: "Linter (read-only output)"
+    - pattern: "python3? -m (pytest|mypy|flake8)"
+      description: "Python quality tools"
+
+  L3_infosec:
+    - pattern: "git push(?! --force)(?! .* main)"
+      description: "Non-main remote push — INFOSEC review"
+    - pattern: "pip install"
+      description: "Python package install"
+    - pattern: "npm install"
+      description: "Node package install"
+
+  L4_telegram:
+    - pattern: "git push (origin )?main"
+      description: "Push to main branch — Telegram approval required"
+    - pattern: "git push --force"
+      description: "Force push — Telegram approval required (L5 candidate)"
+    - pattern: "npm publish"
+      description: "npm publish — Telegram approval required"
+
+rate_limits:
+  exec_per_minute: 20
+  exec_per_hour: 200
+
+blast_radius:
+  max_files_per_exec: 100
+  max_output_bytes: 2097152  # 2MB
+
+rollback:
+  on_failure: "git -C . stash && echo 'Changes stashed on failure'"
+  notify: "telegram:1012034994"
+
+audit_log: "~/.openclaw/workspace/logs/audit.jsonl"
