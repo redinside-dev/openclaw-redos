@@ -1,0 +1,1 @@
+{"updated":"2026-03-01T18:09:30.728Z","9router_running":true,"providers":{"claude-code":{"available":"unknown"},"cursor":{"available":"unknown"},"gemini":{"available":"unknown"},"codex":{"available":"unknown"},"iflow":{"available":"unknown"},"qwen":{"available":"unknown"}},"note":"9router is up (v1/models OK); quota endpoint not available on this build"}

@@ -755,3 +755,71 @@ repeating mistakes and to build institutional knowledge.
 - **Details:** 9Router's `/api/providers/{id}/test` refreshes OAuth tokens internally only when within 5 minutes of expiry. This creates a fragile 5-minute window that can be missed if the machine is asleep, 9Router is restarting, or the keepfresh cron misses a run. All providers now use direct OAuth token endpoints: Claude → `console.anthropic.com/v1/oauth/token` (JSON body), Codex → `auth.openai.com/oauth/token` (form-encoded). This eliminates the dependency on 9Router being up during the exact refresh window.
 - **Prevention:** When adding new OAuth providers to 9router, always implement direct refresh rather than relying on /test. The token endpoints and client IDs are in 9router's module 2255 (file 7647.js).
 - **Applied To:** `scripts/9router-token-refresh.js` — `claudeRefresh()` and `codexRefresh()` functions
+
+### LEARNING-20260301-006
+- **Date:** 2026-03-01T03:45:00Z
+- **Source Ticket:** TICKET-20260301-011
+- **Agent:** main (RED self-improvement)
+- **Category:** tool | workflow
+- **Summary:** Perplexity web_search is blocked by a persistent 401/Cloudflare challenge; treat as credential issue instead of transient outage
+- **Details:** `web_search("test")` still returns HTTP 401 plus Cloudflare challenge HTML (`openresty/1.27.4`); cron lanes and self-improvement reflections cannot rely on the tool while this persists. The Perplexity API regards the cluster as unauthorized, so retries are failing repeatedly. The issue is recorded in TICKET-20260301-011 (P1) and awaits credential rotation/support confirmation.
+- **Prevention:** Document the credential-rotation workflow so that `web_search` callers escalate immediately when Perplexity returns 401/Cloudflare HTML. Consider a fallback provider or cached search summary for reflection cron jobs so they continue operating while the ticket is open.
+- **Applied To:** `ops/TICKET-TRACKER.md` (TICKET-20260301-011)
+
+### LEARNING-20260301-008
+### LEARNING-20260301-009
+- **Date:** 2026-03-01T10:00:00Z
+- **Source Ticket:** TICKET-20260301-029
+- **Agent:** RED (self-improvement)
+- **Category:** workflow | infra
+- **Summary:** Routing digest has produced zero samples across 5 consecutive windows, so fallback visibility is blind again
+- **Details:**  entries starting at  through  all report  and . Without any data we cannot prove new providers, fallbacks, or failovers actually execute, meaning the HEALTH checks and routing dashboards are blind to repeated /500 bursts. The digest writer is either not receiving routing samples or is failing to ingest them at all.
+- **Prevention:** Teach the digest writer to (1) emit a high-priority warning (and open a ticket) if two windows in a row have zero samples, (2) fall back to tailing / for a lighter summary when the canonical digest dries up, and (3) verify its cron/consumer continues running on startup. Document this expectation so future reflection cycles can quickly detect and escalate a stale digest.
+- **Applied To:** workspace/ops/LEARNINGS.md (this entry) + workspace/ops/TICKET-TRACKER.md (TICKET-20260301-029)
+
+- **Date:** 2026-03-01T07:52:00Z
+- **Source Ticket:** TICKET-20260301-023
+- **Agent:** OPS (cron: System Health Monitor)
+- **Category:** infra
+- **Summary:** HTTP 500 failover bursts need immediate provider correlation + fallback reroute before they block main/cron lanes
+- **Details:** The most recent error digest shows repeated `FailoverError: HTTP 500: Internal Server Error` hits authoring the `main`, `session:agent:finance:main`, and cron lanes, often taking 50–75s before they fail over. Each HTTP 500 is blocking lane progress and generating lane wait warnings. Without knowing which provider is 500ing we just keep retrying the same provider and the failovers still fail.
+- **Prevention:** For each HTTP 500 burst capture the provider/9Router logs for the failing timestamps, reroute critical cron/main requests to a healthy hosted provider while the provider is unstable, and alert the provider to resolve the outage instead of letting the lane spin through repeated retries.
+- **Applied To:** cron/jobs.json (failover reroute guidance), routing-digest alerting
+
+
+### LEARNING-20260301-INC-001
+- **Date:** 2026-03-01T17:00:00Z
+- **Source Ticket:** TICKET-20260301-INC-001
+- **Agent:** RED (CEO) + Claude Code session
+- **Category:** infra | incident-response | autonomy
+- **Summary:** 3.5h total outage — 9router db.json wiped + context overflow on Telegram session + missing incident-response protocol
+- **Timeline:**
+  - ~00:00 UTC: 9router process hung (LaunchD did not restart — only handles crashes, not hangs)
+  - ~10:53 UTC: 9router restarted, db.json wiped (484 bytes) — all 12 provider credentials lost
+  - ~10:53–14:30 UTC: All agents returning "400 No credentials for provider: openai" — no Telegram alerts
+  - ~14:30 UTC: Human escalation by Anurag
+  - ~17:00 UTC: System restored via Claude Code intervention
+- **Root Causes (3):**
+  1. 9router hung process not detected (LaunchD KeepAlive ≠ hang detection)
+  2. db.json wiped on restart with no auto-restore mechanism
+  3. Telegram session (agent:main:telegram:direct:1012034994) accumulated 219,776 tokens — context overflow blocking all responses
+- **Prevention Implemented:**
+  - 9router-health-watchdog.sh: detects hung 9router, restores wiped db.json from rolling backup, kills+restarts via LaunchD (every 2 min)
+  - model-outage-monitor.sh: detects "All models failed" spikes, sends Telegram alert direct (bypasses agents) (every 5 min)
+  - session-overflow-monitor.sh: scans all session files, archives any >50MB, removes stale mapping (every 10 min)
+  - incident-response skill: defines exact A2A steps RED takes when outage reported — no more "I can't coordinate teams"
+  - SOUL.md updated: 9router restart pre-approved for OPS, RED-ZEN co-leadership pattern mandated
+- **Gap that allowed 3.5h downtime:** No Telegram alert fired during the outage — model-outage-monitor was not yet deployed. Now deployed.
+- **Avoid next time:** Deploy monitoring BEFORE the outage, not after. Any new LaunchAgent must also have an accompanying health check.
+- **Mistake learned:** RED's response to "hold a conference with the teams" was wrong — said "I can't coordinate teams". Fixed in SOUL.md and incident-response skill.
+
+### LEARNING-20260301-007
+- **Date:** 2026-03-01T17:56:45Z
+- **Source Ticket:** TICKET-20260301-036
+- **Agent:** OPS
+- **Category:** workflow
+- **Summary:** Health-snapshot auto-ticketing creates duplicate tickets for known issues; needs deduplication against LEARNINGS.md
+- **Details:** Health-snapshot was creating 6+ duplicate tickets per pattern for three known/resolved issues: (1) `rg` command not found (LEARNING-20260227-002), (2) `python` command not found (use python3), (3) workspace/tmp path escapes sandbox (LEARNING-20260228-006). All three patterns were already documented in LEARNINGS.md with resolutions, but the ticket creator doesn't check LEARNINGS before opening tickets, causing operational noise.
+- **Prevention:** Implement signature-based deduplication in health-snapshot: before creating a ticket, query LEARNINGS.md for matching error signatures/patterns. If found, either skip ticket creation or create a single consolidated ticket referencing the existing learning. Consider implementing a hash-based signature system for common error patterns.
+- **Applied To:** TICKET-20260301-036 resolved; recommended ENG implement deduplication logic
+
