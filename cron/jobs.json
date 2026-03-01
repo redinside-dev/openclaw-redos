@@ -7,7 +7,7 @@
       "name": "Telegram Approval Monitor (RED checks for approve/deny replies)",
       "enabled": true,
       "createdAtMs": 1772080522100,
-      "updatedAtMs": 1772335439463,
+      "updatedAtMs": 1772336614777,
       "schedule": {
         "kind": "cron",
         "expr": "*/2 * * * *",
@@ -26,13 +26,13 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1772336339463,
-        "lastRunAtMs": 1772335349378,
+        "nextRunAtMs": 1772340214777,
+        "lastRunAtMs": 1772336524682,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 90085,
+        "lastDurationMs": 90095,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 4,
+        "consecutiveErrors": 5,
         "lastError": "cron: job execution timed out"
       }
     },
@@ -42,7 +42,7 @@
       "name": "System Pulse — Always-On Heartbeat (Ollama only)",
       "enabled": true,
       "createdAtMs": 1772080522100,
-      "updatedAtMs": 1772335576598,
+      "updatedAtMs": 1772336625841,
       "schedule": {
         "kind": "cron",
         "expr": "*/5 * * * *",
@@ -62,13 +62,13 @@
       },
       "state": {
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1772335800000,
-        "lastRunAtMs": 1772335570790,
+        "nextRunAtMs": 1772336700000,
+        "lastRunAtMs": 1772336614777,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 5808,
+        "lastDurationMs": 11064,
         "lastDeliveryStatus": "unknown",
-        "runningAtMs": 1772335998461
+        "runningAtMs": 1772336722868
       }
     },
     {
@@ -587,7 +587,7 @@
       "name": "Cron Watchdog (alert on missed/failing jobs)",
       "enabled": true,
       "createdAtMs": 1770618629260,
-      "updatedAtMs": 1772335470564,
+      "updatedAtMs": 1772336666743,
       "schedule": {
         "kind": "cron",
         "expr": "*/10 8-22 * * *",
@@ -607,14 +607,13 @@
         "target": "channel:C0AEV3J2L23"
       },
       "state": {
-        "lastRunAtMs": 1772335463388,
+        "lastRunAtMs": 1772336625841,
         "lastStatus": "ok",
-        "lastDurationMs": 7176,
+        "lastDurationMs": 40902,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772335800000,
-        "runningAtMs": 1772335998461
+        "nextRunAtMs": 1772337000000
       }
     },
     {
@@ -1109,7 +1108,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "Create Anurag Saxena’s daily brief.\n\nInstructions:\n- Read these workspace files first:\n  - briefs/daily-brief-instructions.md\n  - briefs/daily-brief-topics.md\n- Use web_search/web_fetch when needed for headlines; include direct links.\n- Keep it concise; omit empty sections.\n- No crypto.\n\nDeliver the brief as a Telegram message.",
+        "message": "Create Anurag Saxena’s daily brief.\n\nInstructions:\n- Read these workspace files first:\n  - briefs/daily-brief-instructions.md\n  - briefs/daily-brief-topics.md\n  - workspace/AUTONOMOUS.md\n- Include these sections in the brief:\n  1. **Tasks for today** — list PENDING and IN_PROGRESS items from AUTONOMOUS.md (up to 5)\n  2. **AI-recommended tasks** — 2–3 tasks RED suggests the system can complete today autonomously (from GOALS, STATE.yaml sprint, or unclaimed AUTONOMOUS tasks)\n  3. News/content per daily-brief-instructions and daily-brief-topics\n- Use web_search/web_fetch when needed for headlines; include direct links.\n- Keep it concise; omit empty sections.\n- No crypto.\n\nDeliver the brief as a Telegram message to user 1012034994.",
         "timeoutSeconds": 300
       },
       "delivery": {
@@ -1406,16 +1405,15 @@
         "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "lastRunAtMs": 1772332335538,
+        "lastRunAtMs": 1772336016791,
         "lastStatus": "ok",
-        "lastDurationMs": 5403,
+        "lastDurationMs": 32455,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772335935538,
-        "runningAtMs": 1772335998461
+        "nextRunAtMs": 1772339616791
       },
-      "updatedAtMs": 1772332340941
+      "updatedAtMs": 1772336049246
     },
     {
       "id": "hatake-daily-briefing-0001",
@@ -2327,7 +2325,8 @@
         "lastDurationMs": 146447,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1772336700000
+        "nextRunAtMs": 1772336700000,
+        "runningAtMs": 1772336722868
       }
     },
     {
@@ -2336,7 +2335,7 @@
       "name": "OPS Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1772333085984,
+      "updatedAtMs": 1772336492441,
       "schedule": {
         "kind": "cron",
         "expr": "30 7,9,10,12,13,15,16,18,19,21,22 * * *",
@@ -2357,14 +2356,13 @@
         "target": "channel:C0AEV3J2L23"
       },
       "state": {
-        "lastRunAtMs": 1772332485879,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 600105,
+        "lastRunAtMs": 1772336049246,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 443195,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 4,
-        "nextRunAtMs": 1772335800000,
-        "runningAtMs": 1772335998461
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1772368200000
       }
     },
     {
@@ -2630,7 +2628,7 @@
       "name": "Provider Quota Sync (ENG recovery)",
       "enabled": true,
       "createdAtMs": 1772235179082,
-      "updatedAtMs": 1772335280733,
+      "updatedAtMs": 1772336676664,
       "schedule": {
         "kind": "every",
         "everyMs": 900000,
@@ -2649,11 +2647,11 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1772336169264,
-        "lastRunAtMs": 1772335269264,
+        "nextRunAtMs": 1772337566743,
+        "lastRunAtMs": 1772336666743,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 11469,
+        "lastDurationMs": 9921,
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
         "lastDelivered": false
@@ -2665,7 +2663,7 @@
       "name": "Session Warmup — Keep specialist agents warm for A2A",
       "enabled": true,
       "createdAtMs": 1772265000001,
-      "updatedAtMs": 1772335556948,
+      "updatedAtMs": 1772336695607,
       "schedule": {
         "kind": "cron",
         "expr": "*/20 * * * *",
@@ -2684,14 +2682,14 @@
         "bestEffort": true
       },
       "state": {
-        "consecutiveErrors": 1,
-        "nextRunAtMs": 1772336400000,
-        "lastRunAtMs": 1772335511913,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 45035,
-        "lastDeliveryStatus": "unknown",
-        "lastError": "cron: job execution timed out"
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1772337600000,
+        "lastRunAtMs": 1772336676664,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 18943,
+        "lastDeliveryStatus": "delivered",
+        "lastDelivered": true
       }
     },
     {
@@ -2797,7 +2795,7 @@
       "name": "Provider Quota Auto Refresh ENG v2",
       "enabled": true,
       "createdAtMs": 1772235265131,
-      "updatedAtMs": 1772335321389,
+      "updatedAtMs": 1772336715439,
       "schedule": {
         "kind": "every",
         "everyMs": 900000,
@@ -2815,11 +2813,11 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1772336186812,
-        "lastRunAtMs": 1772335286812,
+        "nextRunAtMs": 1772337595607,
+        "lastRunAtMs": 1772336695607,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 34577,
+        "lastDurationMs": 19832,
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
         "lastDelivered": false
@@ -2831,7 +2829,7 @@
       "name": "Session Anchor — keep ENG session alive for A2A",
       "enabled": true,
       "createdAtMs": 1772289999291,
-      "updatedAtMs": 1772333092483,
+      "updatedAtMs": 1772336498462,
       "schedule": {
         "kind": "cron",
         "expr": "30 */1 * * *",
@@ -2850,14 +2848,13 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1772335800000,
-        "lastRunAtMs": 1772333085984,
+        "nextRunAtMs": 1772339400000,
+        "lastRunAtMs": 1772336492441,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 6499,
+        "lastDurationMs": 6021,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 0,
-        "runningAtMs": 1772335998461
+        "consecutiveErrors": 0
       }
     },
     {
@@ -2891,7 +2888,8 @@
         "lastStatus": "ok",
         "lastDurationMs": 6134,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 0
+        "consecutiveErrors": 0,
+        "runningAtMs": 1772336722868
       }
     },
     {
@@ -3077,7 +3075,7 @@
         "kind": "agentTurn",
         "thinking": "off",
         "timeoutSeconds": 120,
-        "message": "NIGHTLY STATE SYNC.\n\n1. Count lines in ../workspace/logs/episodes.jsonl → update STATE.yaml metrics.episodes_today\n2. Count OPEN tickets in TICKET-TRACKER.md → update STATE.yaml metrics.tickets_open\n3. Count tickets where SLA breached → update metrics.tickets_breached_sla\n4. Read ../workspace/logs/a2a-events.jsonl last 24h → compute success rate\n5. Read autonomy-scorecard skill output if available → update metrics.autonomy_score\n6. Write all metrics back to STATE.yaml (update the metrics: block)\n7. Also update PROJECT_STATUS.md Summary table with these values\n8. Post one-line summary to #redos-ops Slack\n9. Append episode to ../workspace/logs/episodes.jsonl"
+        "message": "NIGHTLY STATE SYNC.\n\n1. Count lines in ../workspace/logs/episodes.jsonl → update STATE.yaml metrics.episodes_today\n2. Count OPEN tickets in TICKET-TRACKER.md → update STATE.yaml metrics.tickets_open\n3. Count tickets where SLA breached → update metrics.tickets_breached_sla\n4. Read ../workspace/logs/a2a-delegations.jsonl last 24h → compute success rate → update metrics.a2a_success_rate\n5. Read latest ../workspace/ops/AUTONOMY-SCORE-*.json (most recent date) → set metrics.autonomy_score from .score, set metrics.last_eval to file date\n6. Write all metrics back to STATE.yaml (update the metrics: block only; use atomic write)\n7. Also update PROJECT_STATUS.md Summary table with these values\n8. Post one-line summary to #redos-ops Slack\n9. Append episode to ../workspace/logs/episodes.jsonl"
       },
       "delivery": {
         "mode": "silent",
@@ -3247,7 +3245,7 @@
         "kind": "agentTurn",
         "thinking": "off",
         "timeoutSeconds": 120,
-        "message": "SEMANTIC MEMORY REINDEX — 3am daily.\n\nexec: python3 ~/.openclaw/workspace/scripts/memsearch.py index\n\nIf the command exits 0: post \"⚙️ OPS: semantic index rebuilt — N files, M chunks\" to #redos-ops\nIf it fails: open a ticket and alert RED via sessions_send\nAppend episode to ../workspace/logs/episodes.jsonl"
+        "message": "SEMANTIC MEMORY REINDEX — 3am daily.\n\nexec: ~/.openclaw/.venv/bin/python3 ~/.openclaw/workspace/scripts/memsearch.py index\n\nIf the command exits 0: post \"⚙️ OPS: semantic index rebuilt — N files, M chunks\" to #redos-ops\nIf it fails: open a ticket and alert RED via sessions_send\nAppend episode to ../workspace/logs/episodes.jsonl"
       },
       "delivery": {
         "mode": "silent",
@@ -3288,12 +3286,39 @@
       }
     },
     {
+      "id": "dashboard-threshold-alerts-0001",
+      "agentId": "ops",
+      "name": "Dashboard threshold alerts — notify if autonomy low or errors high",
+      "enabled": true,
+      "createdAtMs": 1772400000000,
+      "updatedAtMs": 1772400000000,
+      "schedule": {
+        "kind": "cron",
+        "expr": "30 10,16 * * 1-5",
+        "tz": "America/Toronto"
+      },
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "thinking": "off",
+        "timeoutSeconds": 60,
+        "message": "DASHBOARD THRESHOLD ALERTS.\n\n1. Read ../workspace/STATE.yaml — get metrics.autonomy_score and metrics.last_eval.\n2. Read ../logs/gateway.err.log — count lines in last 24h (or last 200 lines if file smaller).\n3. If autonomy_score is set and < 6: send Telegram DM to user 1012034994: \"⚠️ OPS: Autonomy score is {score}/10 (below 6). Check Mission Control and TICKET-TRACKER.\" Also post to Slack #redos-ops (C0AGFA9417T).\n4. If gateway.err.log has > 20 error lines in last 24h: post to #redos-ops: \"⚠️ OPS: High error count in gateway.err.log ({n} lines). Review logs.\" Optionally send Telegram if > 50.\n5. If no alerts needed: do nothing (no post).\n6. Append episode to ../workspace/logs/episodes.jsonl if you took action."
+      },
+      "delivery": {
+        "mode": "silent",
+        "bestEffort": true
+      },
+      "state": {
+        "nextRunAtMs": 1772467800000
+      }
+    },
+    {
       "id": "episodes-seeder-0001",
       "agentId": "ops",
       "name": "Episode Seeder — seed episodes.jsonl from cron state (every 30min)",
       "enabled": true,
       "createdAtMs": 1772306833270,
-      "updatedAtMs": 1772334606291,
+      "updatedAtMs": 1772336507352,
       "schedule": {
         "kind": "cron",
         "expr": "*/30 8-22 * * *",
@@ -3314,13 +3339,12 @@
       "state": {
         "consecutiveErrors": 0,
         "lastDelivered": false,
-        "nextRunAtMs": 1772335800000,
-        "lastRunAtMs": 1772334599219,
+        "nextRunAtMs": 1772370000000,
+        "lastRunAtMs": 1772336498462,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 7072,
-        "lastDeliveryStatus": "not-delivered",
-        "runningAtMs": 1772335998461
+        "lastDurationMs": 8890,
+        "lastDeliveryStatus": "not-delivered"
       }
     },
     {
@@ -3389,7 +3413,7 @@
       "name": "Error Digest Writer (every 2h)",
       "enabled": true,
       "createdAtMs": 1772313011690,
-      "updatedAtMs": 1772329074251,
+      "updatedAtMs": 1772336721656,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -3410,11 +3434,11 @@
         "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "nextRunAtMs": 1772336265062,
-        "lastRunAtMs": 1772329065062,
+        "nextRunAtMs": 1772343915439,
+        "lastRunAtMs": 1772336715439,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 9189,
+        "lastDurationMs": 6217,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 0
       }
@@ -3452,7 +3476,8 @@
         "lastStatus": "ok",
         "lastDurationMs": 6916,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 0
+        "consecutiveErrors": 0,
+        "runningAtMs": 1772336722868
       }
     },
     {
@@ -3462,7 +3487,7 @@
       "name": "Warmup Marker Writer (anchor reliability)",
       "enabled": true,
       "createdAtMs": 1772317261997,
-      "updatedAtMs": 1772335345816,
+      "updatedAtMs": 1772336523551,
       "schedule": {
         "kind": "every",
         "everyMs": 300000,
@@ -3481,16 +3506,16 @@
         "mode": "none"
       },
       "state": {
-        "nextRunAtMs": 1772335624238,
-        "lastRunAtMs": 1772335324238,
+        "nextRunAtMs": 1772336807352,
+        "lastRunAtMs": 1772336507352,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 21578,
+        "lastDurationMs": 16199,
         "lastDeliveryStatus": "not-delivered",
-        "consecutiveErrors": 1,
+        "consecutiveErrors": 2,
         "lastDelivered": false,
         "lastDeliveryError": "⚠️ ✍️ Write: `to ~/.openclaw/workspace/tmp/session-warmup-last.mirror.json (145 chars)` failed",
-        "runningAtMs": 1772335998461
+        "lastError": "⚠️ ✍️ Write: `to ~/.openclaw/workspace/tmp/session-warmup-last.mirror.json (145 chars)` failed"
       }
     }
   ]

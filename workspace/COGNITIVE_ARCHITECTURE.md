@@ -55,6 +55,8 @@ Format:
 [Last verified: date]
 ```
 
+(This is your **personal** semantic memory. For **workspace-wide** search over all files — policies, skills, config — use the **semantic-memory** skill: run `rag_query.py` or `memsearch.py` per workspace/skills/semantic-memory/SKILL.md. Do not guess workspace content; retrieve it first.)
+
 ### Layer 4 — Procedural Memory (how I do things)
 **File:** `workspace/memory/procedures-<agentId>.md`
 **What:** Your personal playbooks — how YOU specifically do recurring tasks.
@@ -227,7 +229,8 @@ Every session — whether triggered by a cron, a message, or a heartbeat — run
 5. Read workspace/memory/state-<agentId>.json (how I feel)
 6. Read workspace/ops/TICKET-TRACKER.md (what needs doing)
 7. Read workspace/ops/LEARNINGS.md (what the team knows)
-8. DECIDE what to do — then do it
+8. For any question about workspace policy, config, or existing features: run rag_query.py (semantic-memory skill) first; do not guess.
+9. DECIDE what to do — then do it
 ```
 
 ---

@@ -125,8 +125,8 @@ Dashboard login: `anuragg.saxenaa@gmail.com`
 
 - **Index:** `~/.openclaw/.memsearch/qdrant/`
 - **Venv:** `~/.openclaw/.venv`
-- **API:** `python3 workspace/memsearch.py "query"`
-- **RAG:** `python3 workspace/rag_query.py "query"`
+- **API:** `~/.openclaw/.venv/bin/python3 workspace/scripts/memsearch.py \"query\"`
+- **RAG:** `~/.openclaw/.venv/bin/python3 workspace/scripts/rag_query.py \"query\"`
 - **Dashboard:** `GET http://127.0.0.1:19000/api/search?q=...&n=5`
 - `qdrant-client` 1.17.0 — use `client.query_points()` (not `client.search` — removed in 1.13+)
 

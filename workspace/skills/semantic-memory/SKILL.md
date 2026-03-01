@@ -12,7 +12,7 @@ in the workspace — retrieve it first.
 
 ### 1. Semantic search — find relevant files/sections
 ```
-exec: python3 ~/.openclaw/workspace/scripts/memsearch.py "your query" --top 5
+exec: ~/.openclaw/.venv/bin/python3 ~/.openclaw/workspace/scripts/memsearch.py "your query" --top 5
 ```
 Returns ranked results with source file + excerpt. Use for:
 - "What did we decide about X?"
@@ -21,14 +21,14 @@ Returns ranked results with source file + excerpt. Use for:
 
 ### 2. RAG context — get formatted context block for your answer
 ```
-exec: python3 ~/.openclaw/workspace/scripts/rag_query.py "your question" --top 4
+exec: ~/.openclaw/.venv/bin/python3 ~/.openclaw/workspace/scripts/rag_query.py "your question" --top 4
 ```
 Returns a formatted context block. Prepend this to your reasoning when answering
 questions that involve workspace knowledge.
 
 ### 3. Rebuild index (OPS runs this daily)
 ```
-exec: python3 ~/.openclaw/workspace/scripts/memsearch.py index
+exec: ~/.openclaw/.venv/bin/python3 ~/.openclaw/workspace/scripts/memsearch.py index
 ```
 
 ---
@@ -48,10 +48,10 @@ exec: python3 ~/.openclaw/workspace/scripts/memsearch.py index
 ## Index coverage
 
 Indexes all `.md`, `.yaml`, `.yml` files in `workspace/` (excluding logs, backups).
-Chunks: 800 chars with 100-char overlap.
-Embeddings: `all-MiniLM-L6-v2` (22MB, local, no API calls).
-Index location: `~/.openclaw/.memsearch/chroma/`
-Re-indexed: daily at 3am by `semantic-memory-reindex-0001` cron.
+Chunks: 600 chars with 80-char overlap.
+Embeddings: `BAAI/bge-small-en-v1.5` (fastembed, local, no API calls).
+Index location: `~/.openclaw/.memsearch/qdrant/`
+Re-indexed: daily at 3am by `semantic-memory-reindex-0001` cron (use `~/.openclaw/.venv/bin/python3` for the script).
 
 ---
 
@@ -59,15 +59,15 @@ Re-indexed: daily at 3am by `semantic-memory-reindex-0001` cron.
 
 ```
 # ENG before implementing a new webhook integration:
-exec: python3 ~/.openclaw/workspace/scripts/memsearch.py "webhook" --top 5
+exec: ~/.openclaw/.venv/bin/python3 ~/.openclaw/workspace/scripts/memsearch.py "webhook" --top 5
 # → Finds n8n-webhooks/SKILL.md, sees pattern already exists, builds on it
 
 # OPS debugging a session timeout:
-exec: python3 ~/.openclaw/workspace/scripts/rag_query.py "sessions_send timeout" --top 3
+exec: ~/.openclaw/.venv/bin/python3 ~/.openclaw/workspace/scripts/rag_query.py "sessions_send timeout" --top 3
 # → Returns SOUL.md timeout values, a2a-verify SKILL.md context
 
 # INFOSEC before approving a change:
-exec: python3 ~/.openclaw/workspace/scripts/rag_query.py "security policy exec commands"
+exec: ~/.openclaw/.venv/bin/python3 ~/.openclaw/workspace/scripts/rag_query.py "security policy exec commands"
 # → Returns command-catalog, maker-checker, tool-call-validator context
 ```
 
