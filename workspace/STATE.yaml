@@ -3,8 +3,8 @@
 # Use atomic writes: write to STATE.yaml.tmp then rename, never partial writes.
 
 version: "1.0"
-last_updated: "2026-02-28T19:00:00Z"
-updated_by: "main"
+last_updated: "2026-03-01T01:34:00Z"
+updated_by: "eng"
 
 # ── Sprint / Current Focus ──────────────────────────────────────────────────
 sprint:
@@ -70,16 +70,16 @@ agents:
 # ── Pipeline state ────────────────────────────────────────────────────────────
 pipelines:
   research_to_eng:
-    status: "waiting_for_eng"   # pending | running | waiting_for_eng | done
+    status: "done"   # pending | running | waiting_for_eng | done
     last_research_topic: "Autonomous Coding Agent Patterns + episodes.jsonl seeder"
     last_research_ts: "2026-02-28T00:00:00Z"
     eng_task_id: "AUTO-005"
-    eng_status: "brief_delivered"
+    eng_status: "quick_win_implemented"
 
   idea_validator:
-    last_checked: null
-    last_idea: null
-    reality_signal: null        # 0-100
+    last_checked: "2026-03-01T01:34:00Z"
+    last_idea: "episodes.jsonl auto-seeder dedupe/idempotency hardening"
+    reality_signal: 80          # 0-100
 
 # ── Blocking issues ────────────────────────────────────────────────────────────
 blockers:

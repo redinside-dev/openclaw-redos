@@ -158,6 +158,17 @@ repeating mistakes and to build institutional knowledge.
 ### LEARNING-20260224-008
 - **Date:** 2026-02-24T09:00:00Z
 - **Source Ticket:** TICKET-20260224-022
+
+### LEARNING-20260228-005
+- **Date:** 2026-02-28T21:45:00Z
+- **Source Ticket:** TICKET-20260228-005
+- **Agent:** RED (CEO)
+- **Category:** workflow | infra
+- **Summary:** Canonical routing digest stopped capturing samples; visibility into fallback selection is now blind
+- **Details:** `workspace/logs/routing-digest.jsonl` at 2026-02-28T21:29:43Z reports a 4-hour window with `sampleSize: 0` and no provider/model/agent data, even though the error digest still shows active failovers (`Unknown model`, HTTP 500, failover). Without any routing samples we cannot prove the fallback chain coverage or detect emergent unknown-model regressions, so the HEALTH check has no instrumentation for routing quality. A new ticket (TICKET-20260228-005) now tracks validating the routing digest writer and its data sources.
+- **Prevention:** Monitor digest writer heartbeat + sample size; if a window reports zero samples while errors persist, escalate immediately and fallback to direct routing logs. Improve writer to log a warning when aggregated sample count stays zero for two consecutive windows so Ops can triage before the digest goes stale.
+- **Applied To:** `TICKET-20260228-005`, `workspace/logs/routing-digest.jsonl`
+
 - **Agent:** OPS
 - **Category:** workflow
 - **Summary:** `edit` tool updates need unique, stable anchors; avoid whitespace-sensitive or non-unique `oldText`
@@ -705,3 +716,12 @@ repeating mistakes and to build institutional knowledge.
 - **Details:** The daily reflection looked at `logs/error-digest.md` expecting it to be the single-source-of-truth for recent errors, but the file’s most recent entry is dated 2026-02-25T05:04:56Z. Meanwhile `logs/errors.jsonl` still only contains the init line and gateway logs show continuous handoffs (rate limits, provider credentials, Tailscale, Slack) that never make it into the digest. Without a fresh digest, cron/self-improvement prompts cannot detect current patterns or escalate new issues. The aggregator/health-lane job either stopped running or failed silently, so the summary is stale for multiple days.
 - **Prevention:** Restore and monitor the digest writer: ensure the error aggregator cron runs every 2–4 hours, add a freshness guard (ticket/alert if `error-digest.md` isn’t updated in >12h), and fall back to a lightweight summary placeholder when writes fail so reflections still get a timestamped failure notification instead of old data.
 - **Applied To:** TICKET-20260228-014
+### LEARNING-20260301-002
+- **Date:** 2026-03-01T03:05:00Z
+- **Source Ticket:** observation
+- **Agent:** RESEARCH
+- **Category:** config | security
+- **Summary:** OpenClaw v2026.2.26 hardens secrets, DM/queue policies, and cron/typing reliability—plan to stay on this release
+- **Details:** The v2026.2.26 changelog lists a full secrets workflow (audit/config/apply snapshots, target-path validation, ref-only auth profiles) plus DM policy enforcement (inherit `dmPolicy: "allowlist"` across Telegram/Discord/Slack/Signal/iMessage/BlueBubbles/WhatsApp), delivery-queue retry backoff, ACP/thread agent tooling, agents/routing CLI helpers, and queue/typing reliability fixes. Gemini OAuth discovery now has robust fallback handling, Microsoft Teams/Google Chat lifecycle flows are stabilized, and temp dirs auto-heal on stricter umasks. These collectively reduce configuration drift, improve security posture, and boost cron/agent reliability.
+- **Prevention:** Keep the gateway updated (>=2026.2.26) via `openclaw d-update` or npm, rerun `openclaw doctor` after upgrades, and re-audit `openclaw.json` sections for the new secrets schema, DM policy inheritance, and delivery queue/backoff settings; use the new ACP/thread CLI helpers when building thread-bound agents.
+- **Applied To:** `openclaw.json`, `workspace/ops/LEARNINGS.md`

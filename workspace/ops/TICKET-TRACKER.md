@@ -66,6 +66,40 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Learnings:** Telegram 401 after 409 conflicts can self-resolve once the duplicate instance stops. Monitor for >5min continuous 401s before manual intervention. Current provider HTTP 500s are a separate issue (transient upstream degradation).
 - **Resolved At:** 2026-02-26T06:29:00Z
 
+### TICKET-20260228-005
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-02-28T22:39:00Z
+- **SLA Deadline:** 2026-03-01T06:39:00Z (8 hours)
+- **Reporter:** main (RED self-reflection)
+- **Assignee:** OPS
+- **Summary:** routing-digest.jsonl window stays empty, leaving routing quality blind
+- **Details:** Latest `workspace/logs/routing-digest.jsonl` (2026-02-28T21:29:43Z) shows a 4h window with `sampleSize: 0`, `latestSourceTs: null`, and no models/providers/agents reported. Without fresh data, we cannot verify fallback coverage or detect switchovers. Cron-watch jobs have otherwise healthy logs (error-digest shows lanes failing, but routing digest never captures them), meaning the aggregator that feeds this digest either stopped writing or is mispointed. This raises risk that fallback-chain regressions/noisy unknown-model errors go unnoticed until user reports them.
+- **Root Cause:** TBD — likely routing digest writer did not run or lost source input for >4h.
+- **Resolution:** TBD.
+- **Learnings:** pending
+- **Resolved At:** 
+
+### TICKET-20260225-022
+- **Status:** RESOLVED
+- **Priority:** P2
+- **Created:** 2026-02-26T04:22:00Z
+- **SLA Deadline:** 2026-02-26T12:22:00Z (8 hours)
+- **Reporter:** OPS (cron: System Health Monitor)
+- **Assignee:** OPS
+- **Summary:** Telegram OPS bot channel failing with 401 Unauthorized — token revoked/expired
+- **Details:** `gateway.err.log` (2026-02-25T21:37-21:39Z) shows repeated Telegram 401 errors for the `[ops]` channel:
+  - `[telegram] [ops] channel exited: Call to 'getUpdates' failed! (401: Unauthorized)`
+  - `[telegram] deleteMyCommands failed: (401: Unauthorized)`
+  - `[telegram] setMyCommands failed: (401: Unauthorized)`
+  - `[telegram] deleteWebhook failed: (401: Unauthorized)`
+  Channel exits and retries loop continuously. OPS agent cannot send/receive Telegram messages.
+  Additionally, HTTP 500 Internal Server errors observed at 04:22-04:23Z affecting cron lanes (likely transient provider degradation).
+- **Root Cause:** Telegram OPS bot token temporarily rejected (401). Likely caused by a brief duplicate bot instance (409 conflict observed just before the 401s) that triggered token invalidation. The gateway's built-in retry/reconnect logic restored the channel after the conflicting instance stopped.
+- **Resolution:** Self-resolved. The 401 errors stopped after 2026-02-25T21:39Z. No more Telegram auth errors observed since. The OPS Telegram lane is active and receiving messages (confirmed by `session:agent:ops:telegram:direct:1012034994` lane activity in logs from 2026-02-26T05:27-06:29Z). Current lane errors are HTTP 500s from upstream LLM providers (transient provider degradation, not Telegram auth). Bot token `8230099863:...` in openclaw.json remains valid.
+- **Learnings:** Telegram 401 after 409 conflicts can self-resolve once the duplicate instance stops. Monitor for >5min continuous 401s before manual intervention. Current provider HTTP 500s are a separate issue (transient upstream degradation).
+- **Resolved At:** 2026-02-26T06:29:00Z
+
 ### TICKET-20260225-022
 - **Status:** RESOLVED
 - **Priority:** P2
@@ -3895,290 +3929,6 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 
 ### TICKET-20260228-003
 - **Status:** RESOLVED
-- **Priority:** P1
-- **Created:** 2026-02-28T00:47:39+00:00
-- **SLA Deadline:** 2026-02-28T02:47:39+00:00 (2 hours)
-- **Reporter:** ops (health-snapshot)
-- **Assignee:** ops
-- **Summary:** Recurring failure pattern detected (7x): [telegram] deletemycommands failed: call to 'deletemycommands' failed! (401: unauthorized)
-- **Root Cause:** Same as TICKET-20260228-001 — stale OPS bot token.
-- **Resolution:** Same as TICKET-20260228-001.
-- **Resolved At:** 2026-02-28T14:00:00Z
-
-### TICKET-20260228-004
-- **Status:** RESOLVED
-- **Priority:** P1
-- **Created:** 2026-02-28T00:47:39+00:00
-- **SLA Deadline:** 2026-02-28T02:47:39+00:00 (2 hours)
-- **Reporter:** ops (health-snapshot)
-- **Assignee:** ops
-- **Summary:** Recurring failure pattern detected (7x): [telegram] deletewebhook failed: call to 'deletewebhook' failed! (401: unauthorized)
-- **Root Cause:** Same as TICKET-20260228-001 — stale OPS bot token.
-- **Resolution:** Same as TICKET-20260228-001.
-- **Resolved At:** 2026-02-28T14:00:00Z
-
-### TICKET-20260228-005
-- **Status:** OPEN
-- **Priority:** P2
-- **Created:** 2026-02-28T14:00:00Z
-- **SLA Deadline:** 2026-02-28T22:00:00Z (8 hours)
-- **Reporter:** cascade (session wrap-up)
-- **Assignee:** eng
-- **Summary:** Merge feature/dashboard-realtime-sync branch into main
-- **Details:** The `feature/dashboard-realtime-sync` branch contains Dashboard SSE real-time sync improvements (SSE endpoint, fs.watch on openclaw.json, saveAgentModal/deleteAgent loadAll() calls, polling 30s→10s). These are ready but not merged. Steps:
-  1. `cd /Users/redinside/.openclaw`
-  2. `git checkout main && git pull origin main`
-  3. `git merge feature/dashboard-realtime-sync`
-  4. Resolve any conflicts (if any, prefer main's openclaw.json and keep dashboard/server.js changes)
-  5. `git push origin main`
-  6. Update this ticket: set Status RESOLVED, add resolution note
-  7. Notify OPS via A2A that merge is complete so OPS can restart dashboard: `node /Users/redinside/.openclaw/dashboard/server.js`
-- **Root Cause:** Branch was kept separate during development; never formally merged.
-- **Resolution:**
-- **Learnings:**
-- **Resolved At:**
-
-### TICKET-20260228-006
-- **Status:** OPEN
-- **Priority:** P2
-- **Created:** 2026-02-28T14:00:00Z
-- **SLA Deadline:** 2026-03-01T14:00:00Z (24 hours)
-- **Reporter:** cascade (session wrap-up)
-- **Assignee:** ops, eng
-- **Summary:** Add Mission Control Dashboard to launchd so it auto-starts on Mac Mini reboot
-- **Details:** Dashboard currently runs manually: `node /Users/redinside/.openclaw/dashboard/server.js`. It dies on reboot and someone has to restart it manually. This is a Level 2 action (new launchd service — requires Anurag approval via Telegram async queue).
-  Steps for ENG:
-  1. Create plist at `~/Library/LaunchAgents/ai.openclaw.dashboard.plist` modeled after existing `ai.openclaw.gateway.plist`
-  2. Program key: `/usr/local/bin/node` args: [`/Users/redinside/.openclaw/dashboard/server.js`]
-  3. WorkingDirectory: `/Users/redinside/.openclaw`
-  4. Set KeepAlive: true, RunAtLoad: true
-  5. Log paths: `~/.openclaw/logs/dashboard.log` and `dashboard.err.log`
-  Steps for OPS (after ENG creates plist):
-  1. Queue Level 2 approval to Anurag: write `workspace/approvals/pending/dashboard-launchd.json` with action details
-  2. Wait for Anurag to reply "approve dashboard-launchd" on Telegram
-  3. On approval: `launchctl load ~/Library/LaunchAgents/ai.openclaw.dashboard.plist`
-  4. Verify: `launchctl list | grep openclaw.dashboard`
-  5. Update this ticket RESOLVED
-- **Root Cause:** Dashboard was built after initial launchd setup and was never added as a managed service.
-- **Resolution:**
-- **Learnings:**
-- **Resolved At:**
-
-### TICKET-20260228-007
-- **Status:** OPEN
-- **Priority:** P2
-- **Created:** 2026-02-28T14:00:00Z
-- **SLA Deadline:** 2026-03-01T22:00:00Z (32 hours)
-- **Reporter:** cascade (session wrap-up)
-- **Assignee:** eng
-- **Summary:** Fix undici AbortErrors causing intermittent Telegram polling drops (TICKET-20260216-002)
-- **Details:** Telegram polling session for some bots drops with `undici AbortError`. The gateway retries but it causes brief message gaps. ENG should:
-  1. Read `~/.openclaw/logs/gateway.err.log` — filter for "AbortError" or "undici" to confirm current frequency
-  2. Read `~/.openclaw/logs/gateway.log` — look for associated bot/channel context
-  3. Investigate: AbortErrors usually from fetch timeout or connection reset. Likely fix: increase timeout on Telegram polling fetch, or add exponential backoff on reconnect
-  4. Check `/opt/homebrew/lib/node_modules/openclaw/dist/` for Telegram plugin timeout config (do NOT edit dist/ — identify what's configurable via openclaw.json `channels.telegram.*` settings)
-  5. If configurable via config: update openclaw.json and test. If requires patch: use Level 1 INFOSEC approval, then apply.
-  6. Update this ticket with root cause + resolution
-- **Root Cause:** Unknown — needs investigation
-- **Resolution:**
-- **Learnings:**
-- **Resolved At:**
-
-### TICKET-20260228-008
-- **Status:** OPEN
-- **Priority:** P3
-- **Created:** 2026-02-28T14:00:00Z
-- **SLA Deadline:** 2026-03-02T14:00:00Z (48 hours)
-- **Reporter:** cascade (session wrap-up)
-- **Assignee:** ops
-- **Summary:** Verify Slack socket-mode channel replies are live end-to-end
-- **Details:** CLI delivery (openclaw agent --channel slack) is confirmed working. Real socket-mode event handling (Slack sends events to OpenClaw → agent replies in channel) has not been confirmed live. OPS should:
-  1. Read `workspace/ORG.md` to find Slack channel IDs
-  2. Send a test message to `#general` or `#ops` channel via OPS Slack bot using the `message` tool: `message(action="send", channel="slack", target="channel:<id>", message="OPS socket-mode verification test — please ignore")`
-  3. Confirm the message appears in Slack
-  4. Then trigger a reply by posting "OPS ping test" in the Slack channel from Anurag's account and confirm the bot responds
-  5. If socket-mode is broken: check `~/.openclaw/logs/gateway.err.log` for Slack errors; escalate to ENG if needed
-  6. Update this ticket RESOLVED or escalate with findings
-- **Root Cause:** Not yet verified
-- **Resolution:**
-- **Learnings:**
-- **Resolved At:**
-
-### TICKET-20260228-009
-- **Status:** OPEN
-- **Priority:** P3
-- **Created:** 2026-02-28T14:00:00Z
-- **SLA Deadline:** 2026-03-03T14:00:00Z (72 hours)
-- **Reporter:** cascade (session wrap-up)
-- **Assignee:** ops
-- **Summary:** Add Tailscale auto-restart to System Pulse cron so it recovers after Mac Mini reboot
-- **Details:** Tailscale daemon goes down after reboot. Manual fix: `launchctl start com.tailscale.ipn.macos`. OPS should add a Tailscale health check to the existing System Pulse cron (id: `system-pulse-heartbeat-0001` or similar) OR add a standalone check. Approach:
-  1. Find System Pulse cron in `cron/jobs.json` (search for "pulse" or "heartbeat")
-  2. Add to its prompt: "Also check Tailscale: run `launchctl list com.tailscale.ipn.macos` — if not running, run `launchctl start com.tailscale.ipn.macos` and alert Anurag via Telegram"
-  3. `launchctl` is pre-approved for OPS — no Level 2 needed for existing services (only new .plist installs need approval)
-  4. Run `openclaw doctor` after any cron/jobs.json change, then restart: `bash ~/.openclaw/scripts/redos-restart.sh`
-  5. Update this ticket RESOLVED
-- **Root Cause:** Tailscale launchd entry not set to auto-start; not monitored by System Pulse.
-- **Resolution:**
-- **Learnings:**
-- **Resolved At:**
-
-### TICKET-20260228-010
-- **Status:** OPEN
-- **Priority:** P2
-- **Created:** 2026-02-28T10:37:00-05:00
-- **SLA Deadline:** 2026-03-01T10:37:00-05:00 (24 hours)
-- **Reporter:** main (RED self-improvement)
-- **Assignee:** ops, eng
-- **Summary:** Normalize reflection log paths and add freshness guardrails for stale observability feeds
-- **Details:** Daily reflection cycle encountered recurring path drift and stale telemetry: prompts referenced `workspace/ops/...` and `workspace/logs/...` causing ENOENT in lanes where root is already workspace, while canonical files are `ops/...` and `logs/...`. Additionally, `logs/errors.jsonl` contained only initialization and `logs/routing-decisions.jsonl` had stale entries (around 2026-02-22), weakening pattern detection.
-- **Root Cause:** Prompt/template path conventions are inconsistent across lanes; no freshness SLO exists for reflection input logs.
-- **Resolution:**
-- **Learnings:**
-- **Resolved At:**
-
-### TICKET-20260228-011
-- **Status:** OPEN
-- **Priority:** P2
-- **Created:** 2026-02-28T15:56:00+00:00
-- **SLA Deadline:** 2026-02-28T23:56:00+00:00 (8 hours)
-- **Reporter:** ops (health-snapshot)
-- **Assignee:** ops
-- **Summary:** Recurring failure pattern detected (4x): <ts>-05:00 [tools] exec failed: zsh:1: command not found: python
-- **Details:** Detected 4 occurrences in the last window. Examples:
-  - <ts>-05:00 [tools] exec failed: zsh:1: command not found: python
-  - <ts>-05:00 [tools] exec failed: zsh:1: command not found: python
-  - <ts>-05:00 [tools] exec failed: zsh:1: command not found: python
-  - <ts>-05:00 [tools] exec failed: zsh:1: command not found: python
-- **Root Cause:** 
-- **Resolution:** 
-- **Learnings:** 
-- **Resolved At:** 
-
-### TICKET-20260228-012
-- **Status:** OPEN
-- **Priority:** P2
-- **Created:** 2026-02-28T15:56:00+00:00
-- **SLA Deadline:** 2026-02-28T23:56:00+00:00 (8 hours)
-- **Reporter:** ops (health-snapshot)
-- **Assignee:** ops
-- **Summary:** Recurring failure pattern detected (4x): ⚠️ ✉️ message failed
-- **Details:** Detected 4 occurrences in the last window. Examples:
-  - ⚠️ ✉️ message failed
-  - ⚠️ ✉️ message failed
-  - ⚠️ ✉️ message failed
-  - ⚠️ ✉️ message failed
-- **Root Cause:** 
-- **Resolution:** 
-- **Learnings:** 
-- **Resolved At:** 
-
-### TICKET-20260228-013
-- **Status:** OPEN
-- **Priority:** P2
-- **Created:** 2026-02-28T16:31:59+00:00
-- **SLA Deadline:** 2026-03-01T00:31:59+00:00 (8 hours)
-- **Reporter:** ops (health-snapshot)
-- **Assignee:** ops
-- **Summary:** Recurring failure pattern detected (4x): ⚠️ ✉️ message failed
-- **Details:** Detected 4 occurrences in the last window. Examples:
-  - ⚠️ ✉️ message failed
-  - ⚠️ ✉️ message failed
-  - ⚠️ ✉️ message failed
-  - ⚠️ ✉️ message failed
-- **Root Cause:** 
-- **Resolution:** 
-- **Learnings:** 
-- **Resolved At:** 
-
-### TICKET-20260228-014
-- **Status:** OPEN
-- **Priority:** P2
-- **Created:** 2026-02-28T16:37:00+00:00
-- **SLA Deadline:** 2026-03-01T00:37:00+00:00 (8 hours)
-- **Reporter:** main (RED self-improvement)
-- **Assignee:** ops
-- **Summary:** Canonical error digest `logs/error-digest.md` stopped updating after 2026-02-25, leaving reflection inputs stale
-- **Details:** Daily reflection relies on `logs/error-digest.md` as a sandbox-readable summary of recent gateway errors. The file’s most recent entries date from 2026-02-25T05:04:56Z, while `logs/errors.jsonl` still contains only the initialization line and gateway logs show active provider throttling, credential errors, and Tailscale issues since then. Either the aggregator cron has stopped running or its writes are being blocked, which means recurring patterns go undetected and tickets cannot be triaged accurately. Reflection prompts now read stale information and may miss emerging incidents.
-- **Root Cause:** Error digest writer/aggregator cron stopped appending updates (no new timestamp since 2026-02-25), so reflection inputs and automation lack recent data.
-- **Resolution:** Pending — need to fix the aggregator job, add freshness guardrails (ticket/alert if digest not updated in >12h), and ensure a fallback notice is emitted when writes fail.
-- **Learnings:** Keep monitoring digests up-to-date; treat missing updates as a system health alert.
-- **Resolved At:** 
-
-
-## Research Evidence Ledger (2026-02-28)
-
-- **Context:** RESEARCH recorded an evidence ledger entry titled "Research Comments (2026-02-28, evidence ledger upgrade: CI-grade proof received)" that captures CI-grade provenance for the Skills Optimizer promotion-gate rollout. This ledger entry is required to make the promotion-policy sign-off auditable inside `ops/TICKET-TRACKER.md`.
-- **CI Proof:** workflow `promotion-gates` run `22521511582` (`https://github.com/redinside-dev/openclaw-redos/actions/runs/22521511582`), commit `2d34ee922b0ccaf646443dbc7e194a9c64fe0ce5`, PR `https://github.com/redinside-dev/openclaw-redos/pull/1`, artifact bundle `promotion-gates-evidence` containing `workspace/tmp/gates-fail-report.json`, `workspace/tmp/gates-pass-report.json`, and `workspace/tmp/gates-pass-decision.json`.
-- **Gate verification:** reported logs show `candidate-pass` delta `18.2724` pp with CI 95% lower bound `13.9535` (> 0) and `critical_subset_zero_regression=True` while `FAIL_FIXTURE` proves `critical_subset_zero_regression=False`.
-- **Next steps:** confirm artifact bundle availability from ENG or in-workspace copy, attach the CI workflow/run/commit/PR references to the final promotion-gate ticket, and only clear the promotion-policy hold after OPS/ENG acknowledge this ledger entry and confirm artifact accessibility.
-
-### TICKET-20260228-015
-- **Status:** OPEN
-- **Priority:** P2
-- **Created:** 2026-02-28T18:33:12+00:00
-- **SLA Deadline:** 2026-03-01T02:33:12+00:00 (8 hours)
-- **Reporter:** ops (health-snapshot)
-- **Assignee:** ops
-- **Summary:** Recurring failure pattern detected (4x): <ts> [agents/sessions-send] sessions_send announce delivery failed
-- **Details:** Detected 4 occurrences in the last window. Examples:
-  - <ts> [agents/sessions-send] sessions_send announce delivery failed
-  - <ts> [agents/sessions-send] sessions_send announce delivery failed
-  - <ts> [agents/sessions-send] sessions_send announce delivery failed
-  - <ts> [agents/sessions-send] sessions_send announce delivery failed
-- **Root Cause:** 
-- **Resolution:** 
-- **Learnings:** 
-- **Resolved At:** 
-
-### TICKET-20260228-016
-- **Status:** OPEN
-- **Priority:** P2
-- **Created:** 2026-02-28T18:33:12+00:00
-- **SLA Deadline:** 2026-03-01T02:33:12+00:00 (8 hours)
-- **Reporter:** ops (health-snapshot)
-- **Assignee:** ops
-- **Summary:** Recurring failure pattern detected (4x): <ts>-05:00 [tools] exec failed: zsh:1: command not found: apply_patch
-- **Details:** Detected 4 occurrences in the last window. Examples:
-  - <ts>-05:00 [tools] exec failed: zsh:1: command not found: apply_patch
-  - <ts>-05:00 [tools] exec failed: zsh:1: command not found: apply_patch
-  - <ts>-05:00 [tools] exec failed: zsh:1: command not found: apply_patch
-  - <ts>-05:00 [tools] exec failed: zsh:1: command not found: apply_patch
-- **Root Cause:** 
-- **Resolution:** 
-- **Learnings:** 
-- **Resolved At:** 
-
-### TICKET-20260228-001
-- **Status:** OPEN
-- **Priority:** P2
-- **Created:** 2026-02-28T20:30:00Z
-- **SLA Deadline:** 2026-03-01T04:30:00Z (8 hours)
-- **Reporter:** main (RED — stale ticket escalation)
-- **Assignee:** ops
-- **Summary:** Health-snapshot parser producing 386x "unknown (no summary)" noise — dedupe + parser fix needed
-- **Details:** TICKET-20260227-001 logged 386 identical "unknown (no summary)" entries. Root cause: health-snapshot-ticket-0001 cron cannot parse truncated gateway log entries. Needs: (1) parser guard to skip zero-content events, (2) parent-incident dedup so identical patterns open 1 ticket not N.
-- **Root Cause:** TBD
-- **Resolution:** 
-- **Learnings:** 
-- **Resolved At:** 
-
-### TICKET-20260228-002
-- **Status:** OPEN
-- **Priority:** P2
-- **Created:** 2026-02-28T20:30:00Z
-- **SLA Deadline:** 2026-03-01T04:30:00Z (8 hours)
-- **Reporter:** main (RED — stale ticket escalation)
-- **Assignee:** ops
-- **Summary:** 42 cron jobs were hardcoding ollama/llama3.1:8b model — causing "not allowed" warnings on every run
-- **Details:** Batch-fixed 2026-02-28: removed explicit model field from 42 cron payloads so they use agent defaults (9router/free-unlimited). Verify no new model-not-allowed warnings in gateway.err.log over next 24h.
-- **Root Cause:** Old cron jobs created when OPS primary was llama3.1:8b; not updated when model was swapped to 9router/free-unlimited.
-- **Resolution:** Batch-removed model field from 42 cron payloads (2026-02-28T20:30Z). Monitor gateway.err.log for recurrence.
-- **Learnings:** Always use agent-level model defaults; never hardcode model in cron payload unless intentionally overriding.
-- **Resolved At:** 2026-02-28T20:30:00Z
-
-### TICKET-20260228-003
-- **Status:** OPEN
 - **Priority:** P3
 - **Created:** 2026-02-28T20:30:00Z
 - **SLA Deadline:** 2026-03-02T20:30:00Z (48 hours)
@@ -4186,10 +3936,10 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Assignee:** eng
 - **Summary:** Health-snapshot ticket storm containment — implement parent-incident pattern
 - **Details:** Escalated from TICKET-20260225-022. When health-snapshot detects N identical error patterns, it should open 1 parent P2 ticket instead of N parallel tickets. Implement dedup check: before opening ticket, grep TICKET-TRACKER.md for similar Summary; if found and OPEN/IN_PROGRESS, skip.
-- **Root Cause:** health-snapshot-ticket-0001 cron has no dedup logic.
-- **Resolution:** 
-- **Learnings:** 
-- **Resolved At:** 
+- **Root Cause:** `ticket_exists()` matched duplicate summaries using a greedy regex over the full Markdown board, which could mis-bind status/summary pairs and miss active duplicates with count churn (`(Nx)`), allowing repeated ticket creation.
+- **Resolution:** Updated `workspace/scripts/health_snapshot_ticket.py` to parse ticket sections deterministically and compare normalized core signatures (stripping recurring-count prefixes). Added `_core_signature()` and rewired duplicate checks so active OPEN/IN_PROGRESS/BLOCKED parent incidents are reused even as occurrence counts change.
+- **Learnings:** For large Markdown trackers, section-based parsing is safer than one-shot multi-line regex for dedupe logic; normalize volatile counters before equality checks.
+- **Resolved At:** 2026-02-28T23:06:36+00:00 
 
 ### TICKET-20260228-017
 - **Status:** OPEN
@@ -4203,6 +3953,96 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
   - <ts>-05:00 [tools] read failed: enoent: no such file or directory, access '/users/redinside/.openclaw/workspace-ops/workspace/logs/episodes.jsonl'
   - <ts>-05:00 [tools] read failed: enoent: no such file or directory, access '/users/redinside/.openclaw/workspace-ops/workspace/logs/episodes.jsonl'
   - <ts>-05:00 [tools] read failed: enoent: no such file or directory, access '/users/redinside/.openclaw/workspace-ops/workspace/logs/episodes.jsonl'
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260301-001
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-01T00:46:04+00:00
+- **SLA Deadline:** 2026-03-01T08:46:04+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (101x): <ts>-05:00 [tools] exec failed: zsh:1: command not found: rg
+- **Details:** Detected 101 occurrences in the last window. Examples:
+  - <ts>-05:00 [tools] exec failed: zsh:1: command not found: rg
+  - <ts>-05:00 [tools] exec failed: zsh:1: command not found: rg
+  - <ts>-05:00 [tools] exec failed: zsh:1: command not found: rg
+  - <ts>-05:00 [tools] exec failed: zsh:1: command not found: rg
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260301-002
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-01T00:46:04+00:00
+- **SLA Deadline:** 2026-03-01T08:46:04+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (42x): <ts>-05:00 [tools] exec failed: zsh:1: command not found: python
+- **Details:** Detected 42 occurrences in the last window. Examples:
+  - <ts>-05:00 [tools] exec failed: zsh:1: command not found: python
+  - <ts>-05:00 [tools] exec failed: zsh:1: command not found: python
+  - <ts>-05:00 [tools] exec failed: zsh:1: command not found: python
+  - <ts>-05:00 [tools] exec failed: zsh:1: command not found: python
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260301-003
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-01T00:46:04+00:00
+- **SLA Deadline:** 2026-03-01T02:46:04+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (36x): <ts> [agent/embedded] embedded run timeout: runid=<uuid> sessionid=<uuid> timeoutms=600000
+- **Details:** Detected 36 occurrences in the last window. Examples:
+  - <ts> [agent/embedded] embedded run timeout: runid=<uuid> sessionid=<uuid> timeoutms=600000
+  - <ts> [agent/embedded] embedded run timeout: runid=<uuid> sessionid=<uuid> timeoutms=600000
+  - <ts> [agent/embedded] embedded run timeout: runid=<uuid> sessionid=<uuid> timeoutms=600000
+  - <ts> [agent/embedded] embedded run timeout: runid=<uuid> sessionid=<uuid> timeoutms=600000
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260301-004
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-01T00:46:04+00:00
+- **SLA Deadline:** 2026-03-01T08:46:04+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (29x): <ts>-05:00 [tools] write failed: path escapes workspace root: /users/redinside/.openclaw/workspace/tmp
+- **Details:** Detected 29 occurrences in the last window. Examples:
+  - <ts>-05:00 [tools] write failed: path escapes workspace root: /users/redinside/.openclaw/workspace/tmp
+  - <ts>-05:00 [tools] write failed: path escapes workspace root: /users/redinside/.openclaw/workspace/tmp
+  - <ts>-05:00 [tools] write failed: path escapes workspace root: /users/redinside/.openclaw/workspace/tmp
+  - <ts>-05:00 [tools] write failed: path escapes workspace root: /users/redinside/.openclaw/workspace/tmp
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260301-005
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-01T00:46:04+00:00
+- **SLA Deadline:** 2026-03-01T08:46:04+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (23x): <ts> [agents/sessions-send] sessions_send announce delivery failed
+- **Details:** Detected 23 occurrences in the last window. Examples:
+  - <ts> [agents/sessions-send] sessions_send announce delivery failed
+  - <ts> [agents/sessions-send] sessions_send announce delivery failed
+  - <ts> [agents/sessions-send] sessions_send announce delivery failed
+  - <ts> [agents/sessions-send] sessions_send announce delivery failed
 - **Root Cause:** 
 - **Resolution:** 
 - **Learnings:** 
