@@ -111,26 +111,40 @@ def extract_signatures(window_start: datetime) -> List[str]:
 
 
 def ticket_exists(tickets_text: str, signature: str) -> bool:
-    """Check if an OPEN ticket with this signature already exists."""
-    # Extract all OPEN tickets and their summaries
-    pattern = r"### (TICKET-\d{8}-\d{3})\n.*?- \*\*Status:\*\* (OPEN|IN_PROGRESS|BLOCKED).*?- \*\*Summary:\*\* ([^\n]+)"
-    for match in re.finditer(pattern, tickets_text, re.DOTALL):
-        ticket_id, status, summary = match.groups()
-        if status in ("OPEN", "IN_PROGRESS", "BLOCKED"):
-            norm_summary = _normalize_sig(summary)
-            # Check if this signature is similar (same pattern, allowing for count variations)
-            if _signatures_match(norm_summary, signature):
-                return True
+    """Check if an active ticket with this signature already exists."""
+    wanted = _core_signature(_normalize_sig(signature))
+    for section in tickets_text.split("\n### ")[1:]:
+        lines = section.splitlines()
+        status = ""
+        summary = ""
+        for line in lines:
+            if line.startswith("- **Status:**"):
+                status = line.split(":", 1)[1].strip()
+            elif line.startswith("- **Summary:**"):
+                summary = line.split(":", 1)[1].strip()
+                break
+        if status not in {"OPEN", "IN_PROGRESS", "BLOCKED"}:
+            continue
+        if _signatures_match(_normalize_sig(summary), wanted):
+            return True
     return False
+
+
+def _core_signature(sig: str) -> str:
+    """Remove volatile recurring-count prefixes for duplicate checks."""
+    return re.sub(r"^recurring failure pattern detected \(\d+x\):\s*", "", sig).strip()
 
 
 def _signatures_match(existing: str, new: str) -> bool:
     """Check if two signatures represent the same recurring pattern."""
-    # Strip the count suffix (e.g., "(45x)" or "(27x)") for comparison
-    existing_clean = re.sub(r"\(\d+x\):\s*", "", existing)
-    new_clean = re.sub(r"\(\d+x\):\s*", "", new)
-    # If the core pattern matches (ignoring count), it's a duplicate
-    return existing_clean == new_clean or (len(existing_clean) > 50 and existing_clean in new_clean) or (len(new_clean) > 50 and new_clean in existing_clean)
+    existing_clean = _core_signature(existing)
+    new_clean = _core_signature(new)
+    # Compare normalized cores and allow contains checks for long signatures.
+    return (
+        existing_clean == new_clean
+        or (len(existing_clean) > 50 and existing_clean in new_clean)
+        or (len(new_clean) > 50 and new_clean in existing_clean)
+    )
 
 
 def next_ticket_id(tickets_text: str, now: datetime) -> str:

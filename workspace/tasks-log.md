@@ -8,3 +8,4 @@ Format: `AUTO-NNN | <agent> | <ISO timestamp> | done|failed | <one-line result>`
 | Task ID | Agent | Timestamp | Status | Result |
 |---------|-------|-----------|--------|--------|
 | BOOTSTRAP | system | 2026-02-28T00:00:00Z | done | tasks-log.md initialized |
+| AUTO-005 | eng | 2026-03-01T01:34:00Z | done | Implemented idempotent episodes seeder state tracking; idea_validator reality_signal=80; research_to_eng marked done |

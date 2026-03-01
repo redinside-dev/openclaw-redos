@@ -37,19 +37,19 @@ jobs:
               "id": "baseline-fail",
               "harness": {"integrity_ok": True},
               "results": [
-                {"task_id": "crit-1", "pass": True, "critical": True, "runtime_ms": 1000},
-                {"task_id": "n1", "pass": True, "critical": False, "runtime_ms": 1000},
-                {"task_id": "n2", "pass": False, "critical": False, "runtime_ms": 1000}
+                {"task_id": "crit-1", "pass": True, "adjusted_pass": True, "critical": True, "runtime_ms": 1000},
+                {"task_id": "n1", "pass": True, "adjusted_pass": True, "critical": False, "runtime_ms": 1000},
+                {"task_id": "n2", "pass": False, "adjusted_pass": False, "critical": False, "runtime_ms": 1000}
               ]
             },
             "candidates": [
               {
                 "id": "candidate-fail-critical",
-                "harness": {"integrity_ok": True, "held_out_isolation_ok": True, "contamination_ok": True},
+                "harness": {"integrity_ok": True, "held_out_isolation_ok": True},
                 "results": [
-                  {"task_id": "crit-1", "pass": False, "critical": True, "runtime_ms": 1000},
-                  {"task_id": "n1", "pass": True, "critical": False, "runtime_ms": 1000},
-                  {"task_id": "n2", "pass": True, "critical": False, "runtime_ms": 1000}
+                  {"task_id": "crit-1", "pass": False, "adjusted_pass": False, "critical": True, "runtime_ms": 1000, "dcr": 0.92},
+                  {"task_id": "n1", "pass": True, "adjusted_pass": True, "critical": False, "runtime_ms": 1000, "dcr": 0.20},
+                  {"task_id": "n2", "pass": True, "adjusted_pass": True, "critical": False, "runtime_ms": 1000, "dcr": 0.40}
                 ]
               }
             ],
@@ -62,17 +62,18 @@ jobs:
             tid = f"t{i}"
             bpass = i % 5 != 0
             cpass = True if (i % 11 != 0) else bpass
-            b.append({"task_id": tid, "pass": bpass, "critical": False, "runtime_ms": 1000})
-            c.append({"task_id": tid, "pass": cpass, "critical": False, "runtime_ms": 1000})
-          b.append({"task_id": "crit-1", "pass": True, "critical": True, "runtime_ms": 1000})
-          c.append({"task_id": "crit-1", "pass": True, "critical": True, "runtime_ms": 1000})
+            b.append({"task_id": tid, "pass": bpass, "adjusted_pass": bpass, "critical": False, "runtime_ms": 1000})
+            c.append({"task_id": tid, "pass": cpass, "adjusted_pass": cpass, "critical": False, "runtime_ms": 1000, "dcr": 0.22})
+
+          b.append({"task_id": "crit-1", "pass": True, "adjusted_pass": True, "critical": True, "runtime_ms": 1000})
+          c.append({"task_id": "crit-1", "pass": True, "adjusted_pass": True, "critical": True, "runtime_ms": 1000, "dcr": 0.10})
 
           pass_payload = {
             "baseline": {"id": "baseline-pass", "harness": {"integrity_ok": True}, "results": b},
             "candidates": [
               {
                 "id": "candidate-pass",
-                "harness": {"integrity_ok": True, "held_out_isolation_ok": True, "contamination_ok": True},
+                "harness": {"integrity_ok": True, "held_out_isolation_ok": True},
                 "results": c
               }
             ],
@@ -84,12 +85,12 @@ jobs:
           PY
 
           set +e
-          python workspace/ops/skill_optimizer/evaluate.py --input workspace/tmp/gates-fail-input.json --output workspace/tmp/gates-fail-report.json --strict
+          python workspace/ops/skill_optimizer/evaluate.py --input workspace/tmp/gates-fail-input.json --output workspace/tmp/gates-fail-report.json --strict --mode enforce
           FAIL_RC=$?
           set -e
           test "$FAIL_RC" -ne 0
 
-          python workspace/ops/skill_optimizer/evaluate.py --input workspace/tmp/gates-pass-input.json --output workspace/tmp/gates-pass-report.json --strict
+          python workspace/ops/skill_optimizer/evaluate.py --input workspace/tmp/gates-pass-input.json --output workspace/tmp/gates-pass-report.json --strict --mode enforce
           python workspace/ops/skill_optimizer/promote.py --gate-report workspace/tmp/gates-pass-report.json --output workspace/tmp/gates-pass-decision.json
           python workspace/ops/skill_optimizer/canary.py --decision workspace/tmp/gates-pass-decision.json
 
@@ -103,22 +104,34 @@ jobs:
           fc = fail['candidate_reports'][0]
           pc = ps['candidate_reports'][0]
 
-          # Required policy checks: delta >= +2.0pp, CI lower > 0, zero critical regressions
-          dpp = pc['metrics']['delta_pp']
-          ci_low = pc['metrics']['delta_pp_ci95'][0]
+          # Required baseline quality checks
+          dpp = pc['raw_pass1_delta_pp']
+          ci_low = pc['raw_delta_ci95'][0]
           crit_gate = next(g for g in pc['gates'] if g['name'] == 'critical_subset_zero_regression')
 
-          assert dpp >= 2.0, f"delta_pp below threshold: {dpp}"
-          assert ci_low > 0.0, f"ci lower bound not > 0: {ci_low}"
+          assert dpp >= 2.0, f"raw delta_pp below threshold: {dpp}"
+          assert ci_low > 0.0, f"raw ci lower bound not > 0: {ci_low}"
           assert crit_gate['pass'] is True, f"critical gate failed: {crit_gate}"
 
-          fail_crit_gate = next(g for g in fc['gates'] if g['name'] == 'critical_subset_zero_regression')
-          assert fail_crit_gate['pass'] is False, "expected fail fixture critical gate to fail"
+          # DCR contamination + adjusted-quality checks
+          contamination_gate = next(g for g in pc['gates'] if g['name'] == 'contamination_thresholds')
+          adjusted_gate = next(g for g in pc['gates'] if g['name'] == 'adjusted_quality')
+          auto_block_gate = next(g for g in pc['gates'] if g['name'] == 'auto_block_conditions')
 
-          print('PASS_FIXTURE delta_pp=', dpp)
-          print('PASS_FIXTURE ci95_lower=', ci_low)
+          assert contamination_gate['pass'] is True, contamination_gate
+          assert adjusted_gate['pass'] is True, adjusted_gate
+          assert auto_block_gate['pass'] is True, auto_block_gate
+
+          fail_auto_block = next(g for g in fc['gates'] if g['name'] == 'auto_block_conditions')
+          assert fail_auto_block['pass'] is False, fail_auto_block
+
+          print('PASS_FIXTURE raw_delta_pp=', dpp)
+          print('PASS_FIXTURE raw_ci95_lower=', ci_low)
           print('PASS_FIXTURE critical_subset_zero_regression=', crit_gate['pass'])
-          print('FAIL_FIXTURE critical_subset_zero_regression=', fail_crit_gate['pass'])
+          print('PASS_FIXTURE contamination_thresholds=', contamination_gate['pass'])
+          print('PASS_FIXTURE adjusted_quality=', adjusted_gate['pass'])
+          print('PASS_FIXTURE auto_block_conditions=', auto_block_gate['pass'])
+          print('FAIL_FIXTURE auto_block_conditions=', fail_auto_block['pass'])
           PY
 
       - name: Upload gate evidence artifacts

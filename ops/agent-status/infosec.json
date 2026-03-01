@@ -1,0 +1,15 @@
+{
+  "meta_selfcheck": {
+    "exec_ok": true,
+    "notes": [
+      "Verified exec/read/write in workspace; persisted this status file in repo ops/agent-status/.",
+      "No ops/task-queue directory present; using delivery-queue/ as the effective task queue."
+    ],
+    "read_ok": true,
+    "task_queue_found": true,
+    "task_queue_path": "delivery-queue/",
+    "timestamp_utc": "2026-02-28T07:07:21.584575+00:00",
+    "write_ok": true
+  },
+  "status": "online"
+}
