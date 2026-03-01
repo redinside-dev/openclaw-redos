@@ -725,3 +725,33 @@ repeating mistakes and to build institutional knowledge.
 - **Details:** The v2026.2.26 changelog lists a full secrets workflow (audit/config/apply snapshots, target-path validation, ref-only auth profiles) plus DM policy enforcement (inherit `dmPolicy: "allowlist"` across Telegram/Discord/Slack/Signal/iMessage/BlueBubbles/WhatsApp), delivery-queue retry backoff, ACP/thread agent tooling, agents/routing CLI helpers, and queue/typing reliability fixes. Gemini OAuth discovery now has robust fallback handling, Microsoft Teams/Google Chat lifecycle flows are stabilized, and temp dirs auto-heal on stricter umasks. These collectively reduce configuration drift, improve security posture, and boost cron/agent reliability.
 - **Prevention:** Keep the gateway updated (>=2026.2.26) via `openclaw d-update` or npm, rerun `openclaw doctor` after upgrades, and re-audit `openclaw.json` sections for the new secrets schema, DM policy inheritance, and delivery queue/backoff settings; use the new ACP/thread CLI helpers when building thread-bound agents.
 - **Applied To:** `openclaw.json`, `workspace/ops/LEARNINGS.md`
+
+### LEARNING-20260301-003
+- **Date:** 2026-03-01T02:00:00-05:00
+- **Source Ticket:** observation (9router debugging)
+- **Agent:** main (RED + Cascade)
+- **Category:** infra | auth | 9router
+- **Summary:** `developer` role (Anthropic-specific) must be mapped to `system` before sending to non-Anthropic providers
+- **Details:** Claude Code uses `developer` role as the new canonical system-level role. 9Router's OpenAI message normalizer (3110.js) had no handling for it, so it passed through unchanged to Qwen, which only accepts `['system','assistant','user','tool','function']`. All Qwen requests returned HTTP 400. Fix: patched 3110.js OpenAI message `.map()` to remap `developer`→`system` before message content cleanup. This is a structural issue that will recur on 9router upgrades — the patch must be reapplied after any `npm update -g 9router`.
+- **Prevention:** After any 9router upgrade, run: `grep -c '"developer"===a.role' /opt/homebrew/lib/node_modules/9router/app/.next/server/chunks/3110.js` — should return 1. If 0, reapply the patch. Add this check to the upgrade runbook.
+- **Applied To:** `3110.js` patch + LEARNINGS.md
+
+### LEARNING-20260301-004
+- **Date:** 2026-03-01T02:00:00-05:00
+- **Source Ticket:** observation (9router iflow debugging)
+- **Agent:** main (RED + Cascade)
+- **Category:** infra | auth | 9router
+- **Summary:** iFlow getUserInfo endpoint uses `?accessToken=` query param, NOT an Authorization Bearer header
+- **Details:** iFlow's `/api/oauth/getUserInfo` requires the access token as a query parameter (`?accessToken=<token>`), not as `Authorization: Bearer <token>`. Using Bearer returns HTTP 400. This matters because after each OAuth token refresh, the `apiKey` field (separate from `accessToken`, used for request signing via HMAC) must be refreshed from getUserInfo. Without this, the `apiKey` in db.json goes stale after the first token rotation, silently breaking all iFlow inference.
+- **Prevention:** Always use `?accessToken=` query param for iFlow getUserInfo calls. Script now handles this automatically in `iflowGetUserInfo()`.
+- **Applied To:** `scripts/9router-token-refresh.js` — `iflowGetUserInfo()` function
+
+### LEARNING-20260301-005
+- **Date:** 2026-03-01T02:00:00-05:00
+- **Source Ticket:** observation
+- **Agent:** main (RED + Cascade)
+- **Category:** infra | auth | 9router
+- **Summary:** Direct token refresh is more robust than relying on 9Router's /test endpoint for Claude and Codex
+- **Details:** 9Router's `/api/providers/{id}/test` refreshes OAuth tokens internally only when within 5 minutes of expiry. This creates a fragile 5-minute window that can be missed if the machine is asleep, 9Router is restarting, or the keepfresh cron misses a run. All providers now use direct OAuth token endpoints: Claude → `console.anthropic.com/v1/oauth/token` (JSON body), Codex → `auth.openai.com/oauth/token` (form-encoded). This eliminates the dependency on 9Router being up during the exact refresh window.
+- **Prevention:** When adding new OAuth providers to 9router, always implement direct refresh rather than relying on /test. The token endpoints and client IDs are in 9router's module 2255 (file 7647.js).
+- **Applied To:** `scripts/9router-token-refresh.js` — `claudeRefresh()` and `codexRefresh()` functions

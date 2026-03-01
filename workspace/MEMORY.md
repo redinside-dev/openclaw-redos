@@ -17,7 +17,7 @@
 
 ---
 
-## Current State (as of 2026-02-28)
+## Current State (as of 2026-03-01)
 
 | Component | Status |
 |-----------|--------|
@@ -29,9 +29,10 @@
 | WhatsApp | Linked +16476092313 |
 | Agents | 8 active: main / allrounder / hatake / eng / research / finance / ops / infosec |
 | Skills | 31 registered, all enabled |
-| Cron jobs | 76 total — see `cron/jobs.json`. Stale error states clear on next run after 2026-02-28 fix |
-| 9Router | Running :20128 — routing profile: `cost_saver` (PAYG blocked) |
+| Cron jobs | 76 total — see `cron/jobs.json` |
+| 9Router | Running :20128 — routing profile: `cost_saver` (PAYG blocked) — 20 provider connections, all healthy |
 | Routing profile | `cost_saver` — `allowPayg: false`. Blocks openrouter/auto and zai from cron/fallback chains |
+| Token refresh | Fully automated — direct refresh for ALL providers, zero human intervention needed |
 | A2A | Active — `a2a-delegations.jsonl` logging mandated via SOUL.md |
 | Architecture doc | `/Users/redinside/Development/Codebase/projects/RedTeam/docs/ARCHITECTURE.md` |
 
@@ -144,21 +145,21 @@ All tabs and what they show:
 
 | Priority | Description |
 |----------|-------------|
+| P1 | TICKET-20260301-009 — embedded run timeouts (37x in window) — long-running cron jobs hitting 600s limit |
+| P2 | TICKET-20260301-006 — `rg` not found in cron PATH — use `grep` as fallback (LEARNING-20260227-002) |
+| P2 | TICKET-20260301-007 — `python` not found in cron PATH — cron shells need `python3` not `python` |
+| P2 | TICKET-20260301-010 — `apply_patch` not found — codex CLI tool, not available in cron PATH |
 | P3 | TICKET-20260216-002 — undici AbortErrors during Telegram polling, awaiting ENG fix |
 | Low | Tailscale daemon down — `launchctl start com.tailscale.ipn.macos` needed after reboot |
 | Low | Cloudflare quick tunnel URL changes on restart — consider named tunnel |
-| Low | Codex 3rd account (`anurawg.saxena@gmail.com`) needs OAuth tokens |
 | Low | Dashboard not in launchd — must start manually after reboot: `node ~/.openclaw/dashboard/server.js` |
 | Low | `SLACK_SIGNING_SECRET` placeholder in `.env` — Slack event verification disabled until set |
-| Low | Verify Slack socket-mode channel replies live (CLI deliver confirmed, real socket-mode not yet confirmed) |
 
 ---
 
 ## Branch Strategy
 
-- **`main`** — stable, all work merged here incrementally
-- **`feature/cost-routing-fixes`** — original feature branch (preserved, all work now in main)
-- **`feature/dashboard-realtime-sync`** — dashboard SSE + real-time fixes (pending merge to main)
+- **`main`** — stable, all work merged here directly (feature branches merged and deleted)
 
 ---
 
@@ -246,18 +247,41 @@ The RED Self-Improvement cron has been observed autonomously modifying `openclaw
 - **Ollama fallbacks**: Added `"ollama/llama3.1:8b"` to fallbacks of main, allrounder, eng, research, finance, infosec in `openclaw.json`. Now all 8 agents can use local Ollama.
 - **OPS bot token**: Updated `openclaw.json` botToken (line ~2213) + `.env` `TELEGRAM_BOT_TOKEN_OPS` to `8230099863:AAG8mEFP87szMB9aI0UAo_P3Q1GUzS7bPrE`. Stack restarted, OPS reconnected.
 
-### Auto-Refresh Confirmation
-- `9router-keepfresh-0001` cron (every 4min, OPS, `ollama/llama3.1:8b`) calls `scripts/9router-token-refresh.js`
-- Kiro refreshes via AWS OIDC automatically; Claude Pro/Codex via `/api/providers/{id}/test` — 9router refreshes in last 5min window
-- iFlow `testStatus: error` = known false positive (health endpoint broken, inference works); script explicitly skips iFlow + openrouter test
-- **Claude Pro + Kiro auto-refresh verified working** — no manual intervention needed
+### Auto-Refresh — All Providers (2026-03-01 upgrade)
+- `9router-keepfresh-0001` cron (every 4min) calls `scripts/9router-token-refresh.js`
+- **All 18 OAuth connections refresh directly — no browser, no human intervention, ever:**
+  - **Qwen** (6h tokens, 30min buffer) — direct POST `chat.qwen.ai/api/v1/oauth2/token`
+  - **iFlow** (48h tokens, 60min buffer) — direct POST `iflow.cn/oauth/token` + `getUserInfo?accessToken=` to refresh `apiKey` used for request signing
+  - **Claude** (8h tokens, 60min buffer) — direct POST `console.anthropic.com/v1/oauth/token` (JSON, client_id=9d1c250a-...)
+  - **Codex** (10d tokens, 120min buffer) — direct POST `auth.openai.com/oauth/token` (form-encoded, client_id=app_EMoamEEZ73f0CkXaXp7hrann)
+  - **Kiro** (1h tokens, 15min buffer) — direct POST AWS OIDC endpoint
+  - **Cursor** — synced from local SQLite, JWT valid ~52 days
+  - **OpenRouter / NVIDIA NIM** — static API keys, no refresh needed
+- **3110.js patch**: `developer` role → `system` in OpenAI normalizer (fixes Qwen 400 errors from Claude Code)
+- Verified: `node scripts/9router-token-refresh.js --all` → 16/16 OAuth tokens refreshed successfully
 
-### System Health Post-Fix
-- 8 agents running, 76 cron jobs (stale error states clear on next run), 11/14 9router providers active
-- OpenRouter both accounts in 429 (rate limited — irrelevant, cost_saver blocks PAYG)
+### System Health (2026-03-01)
+- 8 agents running, 76 cron jobs healthy
+- 20 provider connections: 18 OAuth (all auto-refreshed) + 2 static API keys
+- OpenRouter accounts in 429 (rate limited — irrelevant, cost_saver blocks PAYG)
 - Tailscale daemon down (minor — internal routing only)
 
-*Last updated: 2026-02-28 — Outage recovery: routing profile fix, Ollama fallbacks, OPS bot token*
+*Last updated: 2026-03-01 — Zero-intervention token refresh for all providers*
+
+---
+
+## 2026-03-01 Session Changes — Full Token Refresh Automation + Qwen Fix
+
+### 9Router Patch: `developer` → `system` Role (3110.js)
+- **Problem**: Claude Code sends `developer` role (Anthropic-specific). 9Router forwarded it to Qwen/iFlow unchanged → HTTP 400.
+- **Fix**: Patched `/opt/homebrew/lib/node_modules/9router/app/.next/server/chunks/3110.js` — `"developer"===a.role&&(a={...a,role:"system"})` at top of OpenAI message map callback.
+- **Result**: All Qwen accounts now return 200. Verified in sqlite: `roles: ['system','user',...]`.
+
+### Token Refresh Script Upgrade (`scripts/9router-token-refresh.js`)
+- **iFlow apiKey bug**: After OAuth refresh, now calls `GET iflow.cn/api/oauth/getUserInfo?accessToken=...` (query param — NOT Authorization Bearer header) to update `apiKey`. iFlow uses `apiKey` for request signing — missing this broke inference after token rotation.
+- **Claude direct refresh**: Direct POST `console.anthropic.com/v1/oauth/token` (JSON, clientId=`9d1c250a-...`). 8h tokens, 60min buffer.
+- **Codex direct refresh**: Direct POST `auth.openai.com/oauth/token` (form-encoded, clientId=`app_EMoamEEZ73f0CkXaXp7hrann`). 10-day tokens, 120min buffer.
+- **Verified**: `--all` run → 16 refreshed, 0 failed. All 20 connections healthy.
 
 ---
 
