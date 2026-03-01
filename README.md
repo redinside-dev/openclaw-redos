@@ -47,7 +47,7 @@
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                        USER CHANNELS                            │
-│   Telegram (7 bots)    Slack (11 channels)    CLI               │
+│   Telegram (8 bots)    Slack (11 channels)    CLI               │
 └───────────────────────────────┬─────────────────────────────────┘
                                 │
                                 ▼
@@ -286,6 +286,7 @@ npm update -g openclaw && bash scripts/patch-pairing-reply.sh
 │   ├── skills/                      ← 43 skills
 │   ├── scripts/                     ← seed-episodes.py + ops scripts
 │   ├── ops/                         ← tickets, learnings
+│   ├── docs/                        ← AWESOME-OPENCLAW-USECASES-MAP.md
 │   ├── logs/                        ← a2a-delegations, episodes, audit
 │   ├── costs/                       ← weekly cost reports
 │   ├── tmp/                         ← research briefs, probes
