@@ -1,15 +1,17 @@
 #!/bin/bash
 # Session Overflow Monitor
-# Scans all agent session files, archives any exceeding SIZE_LIMIT_MB
-# Removes stale session mapping from sessions.json to force fresh session
-# LaunchD runs this every 10 minutes
+# Scans all agent session files, warns at 200KB and archives at 500KB
+# Extracts last 30 messages to workspace/memory/archived-sessions/ before archiving
+# LaunchD runs this every 3 minutes
 
-SIZE_LIMIT_MB=50
-SIZE_LIMIT_BYTES=$((SIZE_LIMIT_MB * 1024 * 1024))
+WARN_BYTES=204800      # 200KB — log warning
+ARCHIVE_BYTES=512000   # 500KB — extract context and archive (~57% of overflow point)
 AGENTS_DIR="$HOME/.openclaw/agents"
+ARCHIVE_ROOT="$HOME/.openclaw/workspace/memory/archived-sessions"
 LOG="$HOME/.openclaw/logs/session-overflow-monitor.log"
 TELEGRAM_TOKEN="REDACTED_TELEGRAM_BOT_TOKEN"
 TELEGRAM_CHAT="1012034994"
+NOW=$(date -u +%Y-%m-%dT%H:%M:%SZ)
 
 send_alert() {
   curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage" \
@@ -18,18 +20,101 @@ send_alert() {
     > /dev/null 2>&1
 }
 
+extract_context() {
+  local SESSION_FILE="$1"
+  local AGENT_ID="$2"
+  local ARCHIVE_PATH="$3"
+
+  mkdir -p "$(dirname "$ARCHIVE_PATH")"
+
+  python3 - "$SESSION_FILE" "$ARCHIVE_PATH" "$AGENT_ID" "$NOW" <<'PYEOF'
+import json, sys, os
+
+session_file, archive_path, agent_id, archived_at = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]
+
+try:
+    with open(session_file) as f:
+        lines = f.readlines()[-100:]
+    msgs = []
+    for l in lines:
+        l = l.strip()
+        if l:
+            try:
+                msgs.append(json.loads(l))
+            except Exception:
+                pass
+    # Keep last 30 user/assistant turns
+    turns = [m for m in msgs if m.get('role') in ('user', 'assistant')][-30:]
+    summary = json.dumps({
+        'archived_at': archived_at,
+        'agent': agent_id,
+        'source_file': session_file,
+        'turns': turns
+    }, indent=2)
+    with open(archive_path, 'w') as f:
+        f.write(summary)
+    print(f"Extracted {len(turns)} turns to {archive_path}")
+except Exception as e:
+    print(f"Context extraction error: {e}", file=sys.stderr)
+PYEOF
+}
+
+update_working_memory() {
+  local AGENT_ID="$1"
+  local ARCHIVE_PATH="$2"
+  local SIZE_KB="$3"
+  local WORKING_MEM="$HOME/.openclaw/workspace/memory/working-${AGENT_ID}.json"
+
+  python3 - "$WORKING_MEM" "$ARCHIVE_PATH" "$AGENT_ID" "$NOW" "$SIZE_KB" <<'PYEOF'
+import json, sys, os
+
+working_mem, archive_path, agent_id, ts, size_kb = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5]
+
+note = {
+    "context_archived_at": ts,
+    "context_archive_path": archive_path,
+    "note": f"Session was archived at {size_kb}KB. Read {archive_path} to recover last 30 turns of context."
+}
+
+try:
+    if os.path.exists(working_mem):
+        with open(working_mem) as f:
+            data = json.load(f)
+    else:
+        data = {}
+    data["_session_overflow"] = note
+    with open(working_mem, 'w') as f:
+        json.dump(data, f, indent=2)
+    print(f"Updated working memory for {agent_id}")
+except Exception as e:
+    print(f"Working memory update error: {e}", file=sys.stderr)
+PYEOF
+}
+
 ARCHIVED=0
-ALERT_LINES=""
+WARNED=0
+ARCHIVE_LINES=""
 
 # Find all .jsonl session files across all agents
 while IFS= read -r -d '' SESSION_FILE; do
   FILE_SIZE=$(stat -f%z "$SESSION_FILE" 2>/dev/null || echo "0")
 
-  if [ "$FILE_SIZE" -gt "$SIZE_LIMIT_BYTES" ]; then
-    SIZE_MB=$(echo "scale=1; $FILE_SIZE / 1048576" | bc 2>/dev/null || echo "?")
+  if [ "$FILE_SIZE" -gt "$ARCHIVE_BYTES" ]; then
+    SIZE_KB=$(echo "scale=1; $FILE_SIZE / 1024" | bc 2>/dev/null || echo "?")
     AGENT_DIR=$(dirname "$SESSION_FILE")
     SESSIONS_JSON="$AGENT_DIR/sessions.json"
     SESSION_ID=$(basename "$SESSION_FILE" .jsonl)
+
+    # Determine agent name
+    AGENT_NAME=$(basename "$(dirname "$AGENT_DIR")" 2>/dev/null || echo "unknown")
+
+    # Extract context before archiving
+    ARCHIVE_DIR="${ARCHIVE_ROOT}/${AGENT_NAME}"
+    ARCHIVE_PATH="${ARCHIVE_DIR}/${SESSION_ID}-$(date -u +%Y%m%dT%H%M%S).json"
+    extract_context "$SESSION_FILE" "$AGENT_NAME" "$ARCHIVE_PATH"
+
+    # Update working memory with pointer to archived context
+    update_working_memory "$AGENT_NAME" "$ARCHIVE_PATH" "$SIZE_KB"
 
     # Archive the bloated file
     ARCHIVED_NAME="${SESSION_FILE}.deleted.$(date -u +%Y-%m-%dT%H-%M-%S)Z"
@@ -55,16 +140,26 @@ except Exception as e:
 PYEOF
     fi
 
-    AGENT_NAME=$(basename "$(dirname "$AGENT_DIR")" 2>/dev/null || echo "unknown")
-    echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] ARCHIVED ${SIZE_MB}MB session: ${SESSION_ID} (agent: ${AGENT_NAME})" >> "$LOG"
-    ALERT_LINES="${ALERT_LINES}• ${AGENT_NAME}: ${SIZE_MB}MB session archived\n"
+    echo "[${NOW}] ARCHIVED ${SIZE_KB}KB session: ${SESSION_ID} (agent: ${AGENT_NAME}) → ${ARCHIVE_PATH}" >> "$LOG"
+    ARCHIVE_LINES="${ARCHIVE_LINES}• *${AGENT_NAME}*: ${SIZE_KB}KB archived\n"
     ARCHIVED=$((ARCHIVED + 1))
+
+  elif [ "$FILE_SIZE" -gt "$WARN_BYTES" ]; then
+    SIZE_KB=$(echo "scale=1; $FILE_SIZE / 1024" | bc 2>/dev/null || echo "?")
+    AGENT_DIR=$(dirname "$SESSION_FILE")
+    AGENT_NAME=$(basename "$(dirname "$AGENT_DIR")" 2>/dev/null || echo "unknown")
+    SESSION_ID=$(basename "$SESSION_FILE" .jsonl)
+
+    echo "[${NOW}] WARNING ${SIZE_KB}KB session: ${SESSION_ID} (agent: ${AGENT_NAME}) — approaching limit" >> "$LOG"
+    WARNED=$((WARNED + 1))
   fi
 done < <(find "$AGENTS_DIR" -name "*.jsonl" -not -name "*.deleted.*" -print0 2>/dev/null)
 
+# Log heartbeat
+echo "[${NOW}] scan complete — archived=${ARCHIVED} warned=${WARNED}" >> "$LOG"
+
 if [ "$ARCHIVED" -gt "0" ]; then
-  echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] Archived ${ARCHIVED} bloated session(s)" >> "$LOG"
-  send_alert "🗂️ *Session Overflow Monitor*: Archived ${ARCHIVED} bloated session(s) (>${SIZE_LIMIT_MB}MB each):
-${ALERT_LINES}
-Agents will start fresh sessions automatically. No action needed."
+  send_alert "🗂️ *Session Overflow Monitor*: Archived ${ARCHIVED} session(s) (>500KB):
+${ARCHIVE_LINES}
+Context saved to \`workspace/memory/archived-sessions/\`. Agents will start fresh sessions automatically."
 fi
