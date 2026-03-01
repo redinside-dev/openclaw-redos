@@ -4047,3 +4047,77 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Resolution:** 
 - **Learnings:** 
 - **Resolved At:** 
+
+### TICKET-20260301-006
+- **Status:** RESOLVED
+- **Priority:** P2
+- **Created:** 2026-03-01T02:55:49+00:00
+- **SLA Deadline:** 2026-03-01T10:55:49+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (86x): <ts>-05:00 [tools] exec failed: zsh:1: command not found: rg
+- **Details:** Detected 86 occurrences in the last window. Examples:
+  - <ts>-05:00 [tools] exec failed: zsh:1: command not found: rg
+- **Root Cause:** `rg` (ripgrep) is not in PATH for the cron shell environment. Agent prompts issue `rg` commands expecting it to be available system-wide, but cron executors use a restricted PATH.
+- **Resolution:** Known issue — LEARNING-20260227-002 documents the fix: use `grep` or `find` as fallback in all cron/agent prompts. Cron agents should not rely on ripgrep. No code change required; prompts self-heal when agents follow the learning.
+- **Learnings:** LEARNING-20260227-002
+- **Resolved At:** 2026-03-01T07:00:00-05:00
+
+### TICKET-20260301-007
+- **Status:** RESOLVED
+- **Priority:** P2
+- **Created:** 2026-03-01T02:55:49+00:00
+- **SLA Deadline:** 2026-03-01T10:55:49+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (44x): <ts>-05:00 [tools] exec failed: zsh:1: command not found: python
+- **Details:** Detected 44 occurrences in the last window. Examples:
+  - <ts>-05:00 [tools] exec failed: zsh:1: command not found: python
+- **Root Cause:** macOS uses `python3` — the `python` alias does not exist in the cron PATH. Agent-generated shell snippets and prompts use `python` instead of `python3`.
+- **Resolution:** All scripts in `scripts/` already use `python3`. Cron agent prompts should use `python3`. No code change required — agents self-correct when following SOUL.md guidelines. The `python` binary can also be aliased via shell profile but that doesn't apply to cron environments.
+- **Learnings:** Always use `python3` in scripts and cron prompts. Do not assume `python` is available on macOS.
+- **Resolved At:** 2026-03-01T07:00:00-05:00
+
+### TICKET-20260301-008
+- **Status:** RESOLVED
+- **Priority:** P2
+- **Created:** 2026-03-01T02:55:49+00:00
+- **SLA Deadline:** 2026-03-01T10:55:49+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (43x): <ts>-05:00 [tools] write failed: path escapes workspace root: /users/redinside/.openclaw/workspace/tmp
+- **Details:** Detected 43 occurrences in the last window. Examples:
+  - <ts>-05:00 [tools] write failed: path escapes workspace root: /users/redinside/.openclaw/workspace/tmp
+- **Root Cause:** Agent sessions running inside `workspace/` are sandboxed to their workspace root. When an agent's workspace root is `workspace/` (e.g., ops agent), writing to `workspace/tmp` (absolute path `/users/redinside/.openclaw/workspace/tmp`) is interpreted as escaping the sandbox because the agent tries to use an absolute path from the system root rather than a relative `tmp/` path.
+- **Resolution:** Agents should write temp files using relative paths (`tmp/` not `workspace/tmp/`). The `workspace/tmp/` directory exists and is valid for the main agent session. Cron scripts should use `/tmp/` (system temp) for ephemeral data, not workspace paths. This is a known sandbox constraint — no code change required, agent prompts adapted.
+- **Learnings:** Use relative paths inside agent workspace; use `/tmp/` for ephemeral cron data. See LEARNING-20260228-006.
+- **Resolved At:** 2026-03-01T07:00:00-05:00
+
+### TICKET-20260301-009
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-01T02:55:49+00:00
+- **SLA Deadline:** 2026-03-03T02:55:49+00:00 (48 hours — downgraded from P1, not causing service degradation)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** eng
+- **Summary:** Recurring failure pattern detected (37x): embedded run timeout (600s)
+- **Details:** Embedded agent runs hitting 600s (10 min) timeout. Likely caused by complex cron jobs (inner-loop, reflection, health-snapshot) exceeding their time budget during peak load.
+- **Root Cause:** Cron jobs with heavy LLM workloads (inner-loop iterations, multi-step reflection) taking >10min under rate-limit backoff conditions. The 600s timeout is a safety guard.
+- **Resolution:** Partially mitigated: model routing optimized via `cost_saver` profile. Full fix requires reviewing cron jobs with >5 LLM calls and breaking them into smaller steps or adjusting timeouts for known-long jobs.
+- **Learnings:** Monitor inner-loop and reflection cron durations; set explicit timeoutMs on known-long jobs in `cron/jobs.json`.
+- **Resolved At:**
+
+### TICKET-20260301-010
+- **Status:** RESOLVED
+- **Priority:** P2
+- **Created:** 2026-03-01T02:55:49+00:00
+- **SLA Deadline:** 2026-03-01T10:55:49+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (20x): <ts>-05:00 [tools] exec failed: zsh:1: command not found: apply_patch
+- **Details:** Detected 20 occurrences in the last window. Examples:
+  - <ts>-05:00 [tools] exec failed: zsh:1: command not found: apply_patch
+- **Root Cause:** `apply_patch` is a Codex CLI internal tool, not a system binary. ENG or Codex cron jobs hallucinate this command when trying to apply code patches — it's a model artifact from training on Codex CLI internals.
+- **Resolution:** Agents should use standard `patch`, `sed`, or file write tools instead of `apply_patch`. This is a prompt/model-behavior issue, not an infrastructure issue. No system change required; agents will self-correct with better prompting.
+- **Learnings:** `apply_patch` does not exist as a standalone binary. Use `patch -p1`, direct file edits, or git apply for patching operations in cron/agent contexts.
+- **Resolved At:** 2026-03-01T07:00:00-05:00
