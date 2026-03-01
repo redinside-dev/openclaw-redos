@@ -9,7 +9,7 @@
 > - `workspace/DECISIONS.md` — architectural decision log
 > - `README.md` — system overview
 
-**Last updated:** 2026-03-01
+**Last updated:** 2026-03-01 — feature/awesome-openclaw-usecases merged to main
 
 ---
 

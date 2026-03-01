@@ -28,8 +28,8 @@
 | Telegram | Active — 8 bots, all connected. OPS bot token regenerated 2026-02-28 |
 | WhatsApp | Linked +16476092313 |
 | Agents | 8 active: main / allrounder / hatake / eng / research / finance / ops / infosec |
-| Skills | 31 registered, all enabled |
-| Cron jobs | 76 total — see `cron/jobs.json` |
+| Skills | 43 registered, all enabled |
+| Cron jobs | 104 total — see `cron/jobs.json` |
 | 9Router | Running :20128 — routing profile: `cost_saver` (PAYG blocked) — 20 provider connections, all healthy |
 | Routing profile | `cost_saver` — `allowPayg: false`. Blocks openrouter/auto and zai from cron/fallback chains |
 | Token refresh | Fully automated — direct refresh for ALL providers, zero human intervention needed |
@@ -310,7 +310,7 @@ The RED Self-Improvement cron has been observed autonomously modifying `openclaw
 ## 2026-03-01 Session — Standards, RUNBOOK, New Skills
 
 - OPENCLAW-STANDARDS, RUNBOOK, new skills (habit-tracker, rag-url-ingestion, earnings-tracker).
-- **Awesome-OpenClaw:** AWESOME-OPENCLAW-USECASES-MAP.md; autonomy rule; research; idea-reality-mcp.
+- **Awesome-OC:** AWESOME-OPENCLAW-USECASES-MAP.md; autonomy rule; research; idea-reality-mcp; merged→main.
 
 ---
 
