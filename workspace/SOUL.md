@@ -37,6 +37,26 @@ RED (or the daily brief cron) MUST add at least one **AI-recommended task** from
 - **NEVER say** "I can’t schedule meetings", "I can’t communicate with teams", or "I can’t coordinate". You have sessions_spawn and sessions_send — USE THEM. "Hold a conference with the teams" = sessions_spawn to OPS + INFOSEC + ENG + notify ZEN. See `workspace/skills/incident-response/SKILL.md`.
 - **Session start is mandatory**: if your session has no prior messages, the FIRST thing you do is read SOUL.md → GOALS.md → STATE.yaml → AUTONOMOUS.md (claim a task). If a user message arrives before you complete startup: acknowledge, complete startup in background, then respond fully.
 
+## Context Window Management (MANDATORY)
+
+**70% Rule:** When your session has many tool calls or large file reads, proactively flush.
+Never wait for overflow. Signs you're at 70%: you've read 5+ files, spawned 3+ agents,
+or been in conversation for 30+ minutes.
+
+**Flush procedure (do immediately, no user prompt needed):**
+1. Write key context to `workspace/memory/working-<agentId>.json`
+2. Summarize all large tool outputs in 1 paragraph each (discard originals from context)
+3. Post to your Slack channel: "🧠 <AGENT>: context flush — continuing in next message"
+4. Reply to user: "Archiving context now to maintain responsiveness — back in a moment."
+
+**After context overflow (if it happens anyway):**
+1. Do NOT silently fail. Tell the user: "My session context was reset. Retrieving memory..."
+2. Run RAG query: `~/.openclaw/.venv/bin/python3 ~/.openclaw/workspace/scripts/rag_query.py "recent tasks and decisions" --top 3`
+3. Read `workspace/memory/working-<agentId>.json` to recover state
+4. Resume task from recovered context
+
+**Full policy:** `workspace/skills/context-window-policy/SKILL.md`
+
 ## RED-ZEN Co-Leadership (mandatory for all P0/P1 incidents)
 
 ```

@@ -823,3 +823,32 @@ repeating mistakes and to build institutional knowledge.
 - **Prevention:** Implement signature-based deduplication in health-snapshot: before creating a ticket, query LEARNINGS.md for matching error signatures/patterns. If found, either skip ticket creation or create a single consolidated ticket referencing the existing learning. Consider implementing a hash-based signature system for common error patterns.
 - **Applied To:** TICKET-20260301-036 resolved; recommended ENG implement deduplication logic
 
+
+### LEARNING-20260301-010
+- **Date:** 2026-03-01T00:00:00Z
+- **Source Ticket:** TICKET-context-overflow-hardening
+- **Agent:** external consultant (cascade/claude-code)
+- **Category:** infra | config | workflow
+- **Summary:** Context window overflow caused cascading failures — compaction fired too late (6K tokens left), session monitor threshold was 50MB (overflow happens at ~874KB), no retrieval after reset
+- **Details:**
+  RED and other agents repeatedly overflowed their 131K-token context windows during heavy orchestration tasks (spawning 3+ agents, reading multiple large files). Root causes identified:
+  1. `compaction.memoryFlush.softThresholdTokens` was 6000 — fires at 95%+ capacity, leaving no room for compaction to actually execute
+  2. `session.maintenance.rotateBytes` was "10mb" — sessions overflow at ~874KB, so this never triggered
+  3. `session-overflow-monitor.sh` threshold was 50MB — completely useless, overflow happens at <1MB
+  4. No structured procedure for agents to proactively flush before hitting limits
+  5. No retrieval mechanism after session reset — agents lost all context on overflow
+  When overflow occurred: OpenClaw's internal compaction failed (uses same 131K model), creating a stuck lane queue → blocked Telegram channel → manual human intervention required.
+- **Fix applied:**
+  1. `openclaw.json`: `softThresholdTokens` 6000→40000 (fires at 70% = 40K tokens remaining); `rotateBytes` 10mb→2mb
+  2. `session-overflow-monitor.sh`: threshold 50MB→500KB (archive) + 200KB (warn); LaunchAgent StartInterval 600→180; context extraction saves last 30 turns to `workspace/memory/archived-sessions/<agent>/`; working memory updated with archive pointer
+  3. NEW: `workspace/skills/context-window-policy/SKILL.md` — company-wide 70% rule all agents must follow
+  4. `workspace/SOUL.md`: Added `## Context Window Management (MANDATORY)` section — flush procedure + recovery protocol
+  5. `cron/jobs.json`: 6 new `*/30` heartbeat crons (main, allrounder, eng, ops, research, infosec) that prompt agents to self-flush
+  6. Runbook: `workspace/ops/runbooks/context-overflow-runbook.md`
+- **Prevention:**
+  - Agents must follow the 70% rule: after 5+ file reads, 3+ agent spawns, or 30+ min of conversation → proactively flush to `workspace/memory/working-<agentId>.json`
+  - After session reset: run `rag_query.py "recent tasks and decisions" --top 3` + read `workspace/memory/working-<agentId>.json`
+  - If compaction fires (you see "Context window at 70% capacity" system message): cooperate, write memory, don't fight it
+  - session-overflow-monitor now catches sessions before overflow — but agents should flush BEFORE it triggers
+- **Avoid next time:** Never let context grow past 5 large file reads or 3 agent spawns without writing to working memory. The cost of a 30-second flush is zero; the cost of overflow is a stuck lane and manual reset.
+- **Applied To:** `openclaw.json`, `scripts/session-overflow-monitor.sh`, `workspace/SOUL.md`, `workspace/skills/context-window-policy/SKILL.md`, `cron/jobs.json`, `LaunchAgents/ai.openclaw.session-overflow-monitor.plist`, `workspace/ops/runbooks/context-overflow-runbook.md`
