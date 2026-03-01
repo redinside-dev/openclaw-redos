@@ -5,6 +5,7 @@
 > - `workspace/MEMORY.md` — curated long-term memory
 > - `workspace/RUNBOOK.md` — crons, skills, RAG, dashboard (single reference)
 > - `workspace/ops/OPENCLAW-STANDARDS.md` — Part 3.3 standards checklist
+> - `workspace/docs/AWESOME-OPENCLAW-USECASES-MAP.md` — Use-case vs RedOS mapping; agent handoff
 > - `workspace/DECISIONS.md` — architectural decision log
 > - `README.md` — system overview
 
