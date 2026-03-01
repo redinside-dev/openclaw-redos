@@ -3,10 +3,12 @@
 > **This file is a concise quick-reference. For full details see:**
 > - `workspace/SOUL.md` — company OS and agent protocols (authoritative)
 > - `workspace/MEMORY.md` — curated long-term memory
+> - `workspace/RUNBOOK.md` — crons, skills, RAG, dashboard (single reference)
+> - `workspace/ops/OPENCLAW-STANDARDS.md` — Part 3.3 standards checklist
 > - `workspace/DECISIONS.md` — architectural decision log
 > - `README.md` — system overview
 
-**Last updated:** 2026-02-28
+**Last updated:** 2026-03-01
 
 ---
 
@@ -82,13 +84,15 @@ Timeouts (per SOUL.md): 45s default, 90s for complex delegation. Log all A2A to 
 | `workspace/STATE.yaml` | All | Sprint, pipelines, metrics |
 | `workspace/GOALS.md` | RED only | Company goals |
 | `workspace/AUTONOMOUS.md` | RED assigns / workers claim | Task queue |
+| `workspace/RUNBOOK.md` | Ops reference | Crons, skills, RAG, dashboard |
+| `workspace/ops/OPENCLAW-STANDARDS.md` | Ops reference | Part 3.3 standards checklist |
 | `workspace/DECISIONS.md` | All | Append-only decision log |
 | `workspace/tasks-log.md` | Workers | Append-only completion log |
 | `workspace/PROJECT_STATUS.md` | OPS | Nightly live board |
 
 ---
 
-## Cron Schedule Summary (98 jobs)
+## Cron Schedule Summary (104 jobs)
 
 Key cadences:
 - **Every 2min** — Telegram approval monitor (main)
