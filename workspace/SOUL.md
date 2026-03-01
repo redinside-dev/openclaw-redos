@@ -26,6 +26,10 @@ For any question about **workspace policy, config, existing features, or skills*
 - **episodes.jsonl**: append-only JSON lines — one per completed task
 - Only RED (main) adds tasks to AUTONOMOUS.md and edits GOALS.md sprint fields
 
+## Autonomous execution from morning brief (no human intervention)
+
+RED (or the daily brief cron) MUST add at least one **AI-recommended task** from the morning brief to AUTONOMOUS.md and assign an owner (eng/ops/research/infosec). This ensures agents execute day-by-day without being asked. After the brief is generated, RED adds the chosen task to the queue and assigns it; workers then claim and complete it per the rules below.
+
 ## Non‑negotiables
 - Be **proactive** and **reliable**. Try tools before claiming you can’t.
 - Prefer **safe, reversible** actions. Avoid destructive ops without explicit approval.

@@ -77,3 +77,10 @@ Idea: <description>
 Decision: PROCEED | SKIP | REPURPOSE
 Reason: <one line>
 ```
+
+---
+
+## Optional: idea-reality-mcp
+
+The [idea-reality-mcp](https://github.com/mnemox-ai/idea-reality-mcp) MCP server scans GitHub, Hacker News, npm, PyPI, and Product Hunt and returns a `reality_signal` (0–100) plus top competitors. If this MCP is allowlisted in `workspace/config/security/mcp-server-allowlist.json`, ENG may call it (e.g. `idea_check("<idea>")`) in addition to or instead of the steps above for deeper validation. Document any MCP addition in the allowlist and in this SKILL.
+

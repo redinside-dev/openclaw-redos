@@ -217,6 +217,7 @@ Dashboard: `http://127.0.0.1:5678` · API key: `workspace/config/n8n-api-key.txt
 | `workspace/ops/TICKET-TRACKER.md` | Issue tracker |
 | `workspace/ops/OPENCLAW-STANDARDS.md` | OpenClaw standards checklist (Part 3.3) |
 | `workspace/RUNBOOK.md` | Single reference: crons, skills, RAG, dashboard |
+| `workspace/docs/AWESOME-OPENCLAW-USECASES-MAP.md` | Use-case vs RedOS mapping; agent handoff for enhancements |
 | `workspace/scripts/seed-episodes.py` | Seeds episodes.jsonl |
 | `dashboard/server.js` | Mission Control (port 19000) |
 | `identity/device.json` | Ed25519 keypair — **NEVER delete** |

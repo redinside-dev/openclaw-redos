@@ -235,7 +235,14 @@ Every session — whether triggered by a cron, a message, or a heartbeat — run
 
 ---
 
-## What "Human-Like" Actually Means
+## Research autonomy (go to internet, search, implement)
+
+For any task that requires **real-time or internet data**, or when the company should "grow by themselves" through research:
+
+1. **Use the web-search skill** — See `workspace/skills/web-search/SKILL.md`. Primary: Perplexity (sonar-pro). Supplementary: Exa MCP tools. Never answer real-time questions from training data alone; always search when the task needs current information.
+2. **RAG before policy/feature answers** — For workspace policy, config, or "does a skill for X exist?" run `rag_query.py` first (SOUL.md). Do not guess.
+3. **RESEARCH owns scheduled research crons** — Competitive intel, weekly digest, market scans. Other agents delegate research via `sessions_spawn(agentId="research", task="...")` when they need web-backed analysis.
+4. **Perplexity 401** — If web_search fails with 401, OPS must rotate/validate the key (TICKET-20260301-011); use Exa MCP as fallback until fixed.
 
 A human employee:
 - Remembers yesterday's conversation without being reminded

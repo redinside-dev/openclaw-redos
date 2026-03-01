@@ -309,9 +309,8 @@ The RED Self-Improvement cron has been observed autonomously modifying `openclaw
 
 ## 2026-03-01 Session — Standards, RUNBOOK, New Skills
 
-- **OPENCLAW-STANDARDS.md** — Part 3.3: declarative skills, no model in cron, A2A log, L3/L4/L5 no bypass, secrets n8n/env only.
-- **RUNBOOK.md** (`workspace/`) — crons, skills, RAG, dashboard; refs OPENCLAW-STANDARDS.
-- **New skills:** `habit-tracker`, `rag-url-ingestion`, `earnings-tracker` (symbols: `workspace/config/earnings-symbols.json`). CLAUDE.md: Secrets rule. Stack verified.
+- OPENCLAW-STANDARDS, RUNBOOK, new skills (habit-tracker, rag-url-ingestion, earnings-tracker).
+- **Awesome-OpenClaw:** AWESOME-OPENCLAW-USECASES-MAP.md; autonomy rule; research; idea-reality-mcp.
 
 ---
 

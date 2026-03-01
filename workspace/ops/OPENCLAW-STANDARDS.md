@@ -55,4 +55,16 @@ Ongoing checklist for RedOS. Review when adding crons, skills, or integrations.
 | L3/L4/L5          | maker-checker, telegram-approvals, tool-call-validator |
 | Secrets            | n8n-webhooks, CLAUDE.md, .gitignore |
 
+---
+
+## 6. Self-healing breadth (optional)
+
+For full "self-healing home server" style autonomy (see [awesome-openclaw-usecases/self-healing-home-server](https://github.com/hesamsheikh/awesome-openclaw-usecases/blob/main/usecases/self-healing-home-server.md)):
+
+- **Email triage** — Optional OPS cron: scan inbox (e.g. via n8n or gog CLI), label actionable items, archive noise.
+- **Knowledge extraction** — Process new notes or conversation exports into `workspace/kb/` and trigger RAG reindex so semantic memory stays current.
+- **Daily security audit** — Optional OPS cron: secret scan (e.g. TruffleHog or similar), check for privileged containers, hardcoded secrets in code/configs, overly permissive access. Log findings to `workspace/ops/` or TICKET-TRACKER.
+
+No code change required unless you add these crons; document in RUNBOOK when enabled.
+
 *Last updated: 2026-03-01 — Plan Part 3.3*

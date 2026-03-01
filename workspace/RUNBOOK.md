@@ -30,7 +30,7 @@ openclaw doctor
 | Category | Examples |
 |----------|----------|
 | **Standups** | `sa-*-checkin-0001` (RED, ENG, RESEARCH, FINANCE, OPS, INFOSEC); `0e518762-...` OPS Scrum Master rollup |
-| **Daily summary / brief** | `a5bdd899-...` RED CEO Daily Summary to Anurag (Telegram); `14c3b159-...` RED Daily Brief (9am — includes Tasks for today + AI-recommended tasks) |
+| **Daily summary / brief** | `a5bdd899-...` RED CEO Daily Summary to Anurag (Telegram); `14c3b159-...` RED Daily Brief (9am — includes Tasks for today + AI-recommended tasks). **RED must add at least one AI-recommended task to AUTONOMOUS.md and assign an owner** so agents execute without being asked (see SOUL.md). |
 | **Approvals** | `telegram-approval-monitor-0001` — RED checks pending L4/L5 approvals every 2 min |
 | **Autonomy & state** | `autonomy-scorecard-daily-0001` (9:05am ET M–F) → Slack + AUTONOMY-SCORE-*.json + STATE.yaml; `ops-state-sync-0001` (11pm) → STATE.yaml metrics |
 | **Threshold alerts** | `dashboard-threshold-alerts-0001` (10:30 & 16:30 M–F) — autonomy_score < 6 or high gateway errors → Telegram + #redos-ops |
@@ -105,12 +105,14 @@ openclaw doctor
 | `workspace/SOUL.md` | Operating principles; session start + RAG rule |
 | `workspace/STATE.yaml` | Sprint, per-agent focus, pipelines, metrics |
 | `workspace/AUTONOMOUS.md` | Task queue (RED adds; eng/ops/research/infosec claim) |
+| `workspace/docs/AWESOME-OPENCLAW-USECASES-MAP.md` | Use-case vs RedOS mapping; agent handoff for enhancements |
 | `workspace/ops/TICKET-TRACKER.md` | Open/resolved tickets; SLA |
 | `workspace/ops/LEARNINGS.md` | Post-resolution learnings |
 | `workspace/ops/AUTONOMY-SCORE-*.json` | Daily scorecard output (OPS) |
 | `workspace/ops/OPENCLAW-STANDARDS.md` | OpenClaw standards checklist (Part 3.3) |
 | `workspace/logs/a2a-delegations.jsonl` | A2A dispatch/result log |
 | `workspace/logs/episodes.jsonl` | Completed task episodes |
+| `workspace/logs/project-events.jsonl` | Optional: event-driven progress/blocker/decision log for "why did we decide X" and standup-from-events |
 | `cron/jobs.json` | All cron definitions |
 
 ---
