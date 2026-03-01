@@ -155,6 +155,7 @@ Three files must carry the same `OPENCLAW_GATEWAY_TOKEN`:
 - **Never hardcode `model` in cron payloads** — omit field, use agent defaults
 - **Never use PAYG models** (zai) in crons or fallback chains
 - **L4/L5 actions require Telegram approval** before execution
+- **Secrets:** only in n8n credential store or env; never in skills or committed files
 - After significant changes: update `workspace/MEMORY.md` and commit
 
 ## Git Identity

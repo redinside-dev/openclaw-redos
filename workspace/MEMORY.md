@@ -307,28 +307,32 @@ The RED Self-Improvement cron has been observed autonomously modifying `openclaw
 
 ---
 
-## Pending Items (as of 2026-02-28)
+## 2026-03-01 Session — Standards, RUNBOOK, New Skills
 
-### P1 — Should Do Soon
-| # | Item | Details |
-|---|------|---------|
-| 1 | Merge `feature/dashboard-realtime-sync` → main | Dashboard SSE + real-time sync branch not yet merged |
-| 2 | Add Dashboard to launchd | Currently must start manually after reboot: `node ~/.openclaw/dashboard/server.js` |
+- **OPENCLAW-STANDARDS.md** — Part 3.3: declarative skills, no model in cron, A2A log, L3/L4/L5 no bypass, secrets n8n/env only.
+- **RUNBOOK.md** (`workspace/`) — crons, skills, RAG, dashboard; refs OPENCLAW-STANDARDS.
+- **New skills:** `habit-tracker`, `rag-url-ingestion`, `earnings-tracker` (symbols: `workspace/config/earnings-symbols.json`). CLAUDE.md: Secrets rule. Stack verified.
 
-### P2 — Important but Not Urgent
-| # | Item | Details |
-|---|------|---------|
-| 3 | Fix undici AbortErrors (TICKET-20260216-002) | Telegram polling drops; ENG fix pending |
-| 4 | Set `SLACK_SIGNING_SECRET` in `.env` | Slack event verification disabled until set |
-| 5 | Confirm Slack socket-mode replies live | CLI deliver confirmed; real socket-mode not yet verified |
-| 6 | Provision 3rd Codex account OAuth tokens | `anurawg.saxena@gmail.com` needs tokens |
+---
 
-### P3 — Low Priority / Nice to Have
-| # | Item | Details |
-|---|------|---------|
-| 7 | Named Cloudflare tunnel | Quick tunnel URL changes on restart — named tunnel would be stable |
-| 8 | Tailscale daemon | Down after reboot — run `launchctl start com.tailscale.ipn.macos` |
-| 9 | Periodic RED self-improvement cron audit | RED can autonomously modify openclaw.json — check monthly |
-| 10 | Verify all 76 cron jobs post-fix | Stale error states should clear on next run — confirm via dashboard |
+## Pending Items (as of 2026-03-01)
+
+### P1
+| # | Item |
+|---|------|
+| 1 | Merge `feature/dashboard-realtime-sync` → main |
+| 2 | Add Dashboard to launchd (start manually after reboot) |
+
+### P2
+| # | Item |
+|---|------|
+| 3 | Fix undici AbortErrors (TICKET-20260216-002) |
+| 4 | Set `SLACK_SIGNING_SECRET` in `.env` |
+| 5 | Provision 3rd Codex account OAuth (`anurawg.saxena@gmail.com`) |
+
+### P3
+| # | Item |
+|---|------|
+| 6 | Named Cloudflare tunnel; Tailscale after reboot; monthly RED self-improvement audit |
 
 ---

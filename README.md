@@ -19,7 +19,7 @@
 | **9Router** | `http://localhost:20128` — multi-provider model proxy with auto-failover |
 | **n8n** | `http://localhost:5678` — credential-isolated external integrations · launchd `ai.openclaw.n8n` |
 | **Ollama** | `http://localhost:11434` — local models (hatake only) |
-| **Channels** | Telegram (7 bots) · Slack (11 channels) |
+| **Channels** | Telegram (8 bots) · Slack (11 channels) |
 
 ---
 
@@ -55,7 +55,7 @@
 │            OPENCLAW GATEWAY  (port 18789)                       │
 │            v2026.2.26 · launchd managed                         │
 │                                                                 │
-│  Agent runtime · Skill executor · Cron scheduler (98 jobs)      │
+│  Agent runtime · Skill executor · Cron scheduler (104 jobs)      │
 │  Session memory (SQLite) · A2A delegation · memory-core plugin  │
 └──────────┬──────────────────────┬──────────────────────┬────────┘
            │                      │                      │
@@ -98,7 +98,7 @@
 
 ---
 
-## 24/7 Autonomy (98 Cron Jobs)
+## 24/7 Autonomy (104 Cron Jobs)
 
 Key named cron jobs:
 
@@ -120,7 +120,7 @@ Full list: `cron/jobs.json`
 
 ---
 
-## Skills (43 in `workspace/skills/`)
+## Skills (43+ in `workspace/skills/`)
 
 | Skill | Purpose |
 |---|---|
@@ -130,6 +130,9 @@ Full list: `cron/jobs.json`
 | `autonomy-scorecard` | Daily 1–10 score from cron/A2A/ticket data |
 | `n8n-webhooks` | Credential-isolated external API calls |
 | `semantic-memory` | Qdrant vector search + RAG |
+| `rag-url-ingestion` | Save URL/article → workspace/kb → reindex RAG |
+| `habit-tracker` | Daily habit check-in → habit-log.md |
+| `earnings-tracker` | Weekly earnings via web_search; symbols in workspace/config/earnings-symbols.json |
 | `self-healing-auto` | Autonomous recovery protocols |
 | `research-pipeline` | RESEARCH→ENG automated brief delivery |
 | `idea-validator` | Pre-build reality check (score 0–100) |
@@ -204,7 +207,7 @@ Dashboard: `http://127.0.0.1:5678` · API key: `workspace/config/n8n-api-key.txt
 | File | Purpose |
 |---|---|
 | `openclaw.json` | Master runtime config **(gitignored)** |
-| `cron/jobs.json` | All 98 cron job definitions |
+| `cron/jobs.json` | All 104 cron job definitions |
 | `workspace/SOUL.md` | **Company OS** — injected into every agent session |
 | `workspace/MEMORY.md` | Curated long-term memory |
 | `workspace/GOALS.md` | Active company goals |
@@ -212,6 +215,8 @@ Dashboard: `http://127.0.0.1:5678` · API key: `workspace/config/n8n-api-key.txt
 | `workspace/AUTONOMOUS.md` | Agent task queue |
 | `workspace/skills/` | 43 declarative skills |
 | `workspace/ops/TICKET-TRACKER.md` | Issue tracker |
+| `workspace/ops/OPENCLAW-STANDARDS.md` | OpenClaw standards checklist (Part 3.3) |
+| `workspace/RUNBOOK.md` | Single reference: crons, skills, RAG, dashboard |
 | `workspace/scripts/seed-episodes.py` | Seeds episodes.jsonl |
 | `dashboard/server.js` | Mission Control (port 19000) |
 | `identity/device.json` | Ed25519 keypair — **NEVER delete** |
@@ -267,7 +272,7 @@ npm update -g openclaw && bash scripts/patch-pairing-reply.sh
 ├── CLAUDE.md                        ← Claude Code guidance
 ├── KNOWLEDGEBASE.md                 ← architecture quick reference
 ├── openclaw.json                    ← live config (gitignored)
-├── cron/jobs.json                   ← 98 cron definitions
+├── cron/jobs.json                   ← 104 cron definitions
 ├── extensions/memory-core/          ← memory-core plugin
 ├── workspace/
 │   ├── SOUL.md                      ← Company OS (START HERE)
@@ -291,4 +296,4 @@ npm update -g openclaw && bash scripts/patch-pairing-reply.sh
 
 ---
 
-**Status: ✅ FULLY OPERATIONAL — 98-cron 24/7 autonomous AI company · bounded autonomy L0–L5**
+**Status: ✅ FULLY OPERATIONAL — 104-cron 24/7 autonomous AI company · bounded autonomy L0–L5**

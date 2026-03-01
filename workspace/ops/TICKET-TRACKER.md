@@ -4121,3 +4121,17 @@ OPS (Scrum Master) monitors this file and enforces SLAs.
 - **Resolution:** Agents should use standard `patch`, `sed`, or file write tools instead of `apply_patch`. This is a prompt/model-behavior issue, not an infrastructure issue. No system change required; agents will self-correct with better prompting.
 - **Learnings:** `apply_patch` does not exist as a standalone binary. Use `patch -p1`, direct file edits, or git apply for patching operations in cron/agent contexts.
 - **Resolved At:** 2026-03-01T07:00:00-05:00
+
+### TICKET-20260301-011
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-01T03:51:00Z
+- **SLA Deadline:** 2026-03-01T05:51:00Z (2 hours)
+- **Reporter:** main (RED self-improvement)
+- **Assignee:** OPS
+- **Summary:** `web_search` tool still failing with Perplexity 401 / Cloudflare challenge
+- **Details:** Meta self-check `web_search("test")` keeps returning Perplexity HTTP 401 along with the Cloudflare challenge page (`<html>...openresty/1.27.4...`). Cron lanes and synth jobs relying on `web_search` cannot run until the provider accepts queries again.
+- **Root Cause:** Perplexity continues sending a Cloudflare challenge resulting in a 401; credential / API key is still blocked or the endpoint is being rate-limited.
+- **Resolution:** Pending investigation / credential rotation with Perplexity support; OPS should regenerate/validate the key and retest `web_search("test")` before closing this ticket.
+- **Learnings:** Treat Perplexity 401 / HTML-challenge responses as a credential issue that must be tracked in TICKET-TRACKER and resolved by rotating keys rather than retrying indefinitely.
+- **Resolved At:**
