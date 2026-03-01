@@ -13,11 +13,17 @@ def _failed_gate_names(candidate: dict) -> list[str]:
 
 
 def _auto_block(candidate: dict) -> bool:
+    """Return whether auto-block criteria triggered for a candidate.
+
+    Backward-compat behavior: older gate reports do not include the
+    `auto_block_conditions` gate. In that case, treat auto-block as false and
+    rely on `overall_pass` / failed-gate checks for promotion decisions.
+    """
     gate = next((g for g in candidate.get("gates", []) if g.get("name") == "auto_block_conditions"), None)
     if gate is None:
-        return True
+        return False
     ev = gate.get("evidence", {})
-    return bool(ev.get("auto_block", True))
+    return bool(ev.get("auto_block", False))
 
 
 def main() -> int:
