@@ -1,4 +1,14 @@
 {
-  "lastPreMarket": null,
-  "lastPostMarket": null
+  "holdings": {
+    "notes": "Analyzer rerun on Mar 1 using the same holdings CSV export dated Feb 6; new CSV export needed for fresher holdings.",
+    "path": "workspace/portfolio/last-holdings-report.json",
+    "refreshed_at": "2026-03-01T13:39:27",
+    "source_csv_as_of": "2026-02-06"
+  },
+  "trades": {
+    "notes": "Trades analyzer regenerated from local wealthsimple-trades.csv (mock dataset); needs Wealthsimple Activity/History export for real trades.",
+    "path": "workspace/portfolio/last-trade-report.json",
+    "refreshed_at": "2026-03-01T13:40:01",
+    "source_csv_as_of": "2026-01-29"
+  }
 }
