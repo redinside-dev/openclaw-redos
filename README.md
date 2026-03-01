@@ -162,7 +162,7 @@ Agents share state via files — no message-passing bottlenecks, race-condition 
 | Vector index | `~/.openclaw/.memsearch/qdrant/` |
 | Embedding model | `fastembed BAAI/bge-small-en-v1.5` |
 | Python venv | `~/.openclaw/.venv` |
-| Scripts | `workspace/memsearch.py`, `workspace/rag_query.py` |
+| Scripts | `workspace/scripts/memsearch.py`, `workspace/scripts/rag_query.py` |
 | Dashboard API | `GET http://127.0.0.1:19000/api/search?q=...&n=5` |
 
 ---
