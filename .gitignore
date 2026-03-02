@@ -320,3 +320,4 @@ node_modules/
 logs/
 *.log
 workspace/config/n8n-api-key.txt
+workspace/config/github-webhook-pat.txt
