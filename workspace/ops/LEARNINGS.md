@@ -929,3 +929,29 @@ repeating mistakes and to build institutional knowledge.
   **Current URL:** `bash ~/.openclaw/scripts/tunnel-url.sh` — always shows current session URL.
   **GitHub accounts:** `anuragg-saxenaa` = developer account (gh CLI auth). `redinside-dev` = repo owner. PAT must come from `redinside-dev` since repo webhook admin is scoped to repo owner.
 - **Applied To:** `scripts/start-cloudflared.sh`, `scripts/sync-github-webhook.sh`, `scripts/setup-tunnel-auth.sh`, `scripts/tunnel-url.sh`, `~/Library/LaunchAgents/ai.openclaw.cloudflared.plist`, `~/Library/LaunchAgents/ai.openclaw.tunnel-sync.plist`
+
+---
+
+### LEARNING-20260302-004
+- **Category:** n8n Integration
+- **Title:** n8n httpRequest node — 3 bugs when dispatching to local gateway
+- **Problem:** github-events workflow triggered on every push but all executions errored. Three distinct bugs found in sequence:
+  1. **ECONNREFUSED (IPv6):** `http://localhost:19000` → macOS resolves `localhost` to `::1` (IPv6). Gateway only binds IPv4 (`127.0.0.1`). n8n doesn't do IPv4 fallback. **Fix:** Use `http://127.0.0.1:19000` explicitly.
+  2. **Wrong body field:** `"contentType": "json"` + `"body": "={{ JSON.stringify({...}) }}"` — n8n ignores the `body` field for this contentType. **Fix:** Use `"specifyBody": "json"` + `"jsonBody": "={{ JSON.stringify({...}) }}"` (matching how `slack-post` workflow is configured).
+  3. **Missing method → GET:** No `"method"` field in httpRequest node → n8n defaults to GET. Gateway only handles POST at `/api/chat`. **Fix:** Always set `"method": "POST"` explicitly.
+- **Debug method:** Used `nc -l PORT` listener to capture raw HTTP from n8n — saw `GET /api/chat` instead of expected POST. Also checked n8n SQLite DB (`~/.n8n/.n8n/database.sqlite`, table `execution_data`) for decompressed error messages.
+- **Correct n8n httpRequest template for local POST:**
+  ```json
+  { "method": "POST", "url": "http://127.0.0.1:PORT/path",
+    "sendBody": true, "contentType": "json", "specifyBody": "json",
+    "jsonBody": "={{ JSON.stringify({ key: $json.value }) }}" }
+  ```
+- **Applied To:** `workspace/ops/n8n-workflows/github-events.json`, `error-escalation.json`, `slack-inbound-router.json`, `daily-standup.json`
+- **Verification:** `[api/chat] eng dispatched ok` appears in `logs/dashboard.log` after each push event.
+
+### LEARNING-20260302-005
+- **Category:** n8n Integration
+- **Title:** n8n PUT workflow API — schema validation rejects extra fields
+- **Problem:** `PUT /api/v1/workflows/:id` with fields fetched from GET returns `request/body must NOT have additional properties` for: `active`, `tags`, `_meta`, `createdAt`, `updatedAt`, `shared`, `activeVersion`, `activeVersionId`, `versionCounter`, `triggerCount`, `isArchived`, `versionId`, `description`. Also `settings.binaryMode` is invalid.
+- **Fix:** Strip all those fields before PUT. Minimal valid payload: `{name, nodes, connections, settings (minus binaryMode)}`. Use `POST /api/v1/workflows/:id/activate` and `/deactivate` separately (not via PUT).
+- **Applied To:** All n8n API update scripts going forward.
