@@ -872,3 +872,60 @@ repeating mistakes and to build institutional knowledge.
   - **Feature branch:** `feature/event-driven-mission-control` — merge to main after validation.
 - **Prevention:** Before adding a new cron job, always ask: "Does this need to be a cron, or should it be triggered by an event?" Use `workspace/skills/event-driven-patterns/SKILL.md` classification guide.
 - **Applied To:** `cron/jobs.json`, `workspace/config/routing-profiles.json`, `workspace/config/budget-guardrails.json`, `workspace/skills/n8n-webhooks/SKILL.md`, `workspace/skills/cost-optimization/SKILL.md` (NEW), `workspace/skills/event-driven-patterns/SKILL.md` (NEW), `gateway/server.js`, `dashboard-v2/src/` (full rebuild)
+
+
+### LEARNING-20260302-001
+- **Date:** 2026-03-02T00:00:00Z
+- **Source:** Event-driven migration — n8n webhook registration debugging
+- **Agent:** external consultant (cascade)
+- **Category:** infra | n8n | workflow
+- **Summary:** n8n webhook nodes MUST have a `webhookId` UUID property or they register with composite paths that never resolve at the standard `/webhook/<path>` URL
+- **Details:**
+  When importing n8n workflows via the API or UI, webhook nodes without a `webhookId` property on the node object cause `getNodeWebhookPath()` to generate composite paths in the format `{workflowId}/{encodedNodeName}/{path}` (e.g., `GyjnDmZn38ZJVpN7/cost%20alert%20webhook/cost-alert-escalation`). However, incoming webhook requests arrive at `/webhook/cost-alert-escalation` (simple path). n8n's `findStaticWebhook()` looks up `webhookPath` by exact match — the composite path never matches the simple URL, resulting in permanent 404s even after activation.
+  The `webhook_entity` table was correctly populated but with the wrong paths. Deactivating/reactivating via API did not help because the path generation happens from the workflow node JSON, not the DB entries.
+  Root cause in n8n source (`n8n-workflow/dist/NodeHelpers.js`):
+  ```javascript
+  if (node.webhookId === undefined) {
+    webhookPath = `${workflowId}/${nodeName}/${path}`;  // COMPOSITE — broken
+  } else if (isFullPath === true) {
+    return path;  // SIMPLE — correct
+  }
+  ```
+  The Webhook node type always sets `isFullPath: true`, so adding `webhookId` to the node is the fix.
+- **Fix:** Add `"webhookId": "<uuid>"` at the node level (same level as `id`, `name`, `type`) in every webhook trigger node in the workflow JSON. Then PUT via n8n API + deactivate/reactivate. The `webhook_entity` table will then contain simple paths (e.g., `cost-alert-escalation`) that resolve correctly.
+- **Verification:** `sqlite3 ~/.n8n/.n8n/database.sqlite "SELECT webhookPath FROM webhook_entity;"` — should show simple paths, not composite. `curl -X POST http://localhost:5678/webhook/<path>` — should return workflow response, not 404.
+- **Affected workflows:** All 4 new n8n workflows were missing `webhookId`. Fixed in commit `e10f7cb`.
+- **Applied To:** `workspace/ops/n8n-workflows/*.json` — all webhook trigger nodes now have `webhookId` UUIDs
+
+### LEARNING-20260302-002
+- **Date:** 2026-03-02T00:00:00Z
+- **Source:** Event-driven migration — gateway server confusion
+- **Agent:** external consultant (cascade)
+- **Category:** infra | architecture
+- **Summary:** The LIVE dashboard/gateway server is `dashboard/server.js`, NOT `gateway/server.js`. All API endpoint additions must go to `dashboard/server.js`.
+- **Details:**
+  The launchd plist `ai.openclaw.dashboard` points to `dashboard/server.js` (raw Node.js http module, port 19000). There is also a `gateway/server.js` (Express-based) which is NOT launched by any plist and is therefore NOT running. All edits to `gateway/server.js` are inert in production.
+  New endpoints added to the live server:
+  - `POST /api/chat` — dispatches message to an agent via `openclaw agent --agent <id> --channel slack --message <msg> --json`. Returns `{ok: true, runId, agentId, status: 'dispatched'}` with 202.
+  - `GET /api/mission-control/costs` — cost breakdown by agent+model from `cost-events.jsonl`
+  - `GET /api/mission-control/savings` — estimated savings vs. all-Standard baseline
+  - `GET /api/mission-control/subscriptions` — subscription utilization from `budget-guardrails.json`
+- **Rule:** Before adding any endpoint: confirm which server file launchd is actually running with `ps aux | grep "node.*19000" | grep -v grep` or check the plist at `~/Library/LaunchAgents/ai.openclaw.dashboard.plist`.
+- **Applied To:** `dashboard/server.js` — endpoints added at commit `e10f7cb`
+
+### LEARNING-20260302-003
+- **Date:** 2026-03-02T00:00:00Z
+- **Source:** Event-driven migration — Cloudflare Tunnel automation
+- **Agent:** external consultant (cascade)
+- **Category:** infra | networking | automation
+- **Summary:** Cloudflare quick tunnel URL changes on every restart. Automated solution: launchd wrapper clears log on start, tunnel-sync service waits for URL and updates GitHub webhook via PAT.
+- **Details:**
+  `cloudflared tunnel --url http://localhost:5678` (quick tunnel, no account) gives a new random `*.trycloudflare.com` URL on each restart. Named tunnels (permanent URL) require a Cloudflare account + domain. Without a domain, the solution is to auto-update all webhook registrations after each reboot.
+  **Architecture:**
+  1. `ai.openclaw.cloudflared` plist runs `scripts/start-cloudflared.sh` (truncates log, then starts cloudflared). Log truncation ensures URL extraction always reads the current session.
+  2. `ai.openclaw.tunnel-sync` plist runs `scripts/sync-github-webhook.sh` at load (RunAtLoad=true, KeepAlive=false). Script waits up to 120s for URL to appear in cloudflared.log, then PATCHes the GitHub webhook URL via REST API using a stored PAT.
+  3. PAT stored at `workspace/config/github-webhook-pat.txt` (gitignored). Webhook ID at `workspace/config/github-webhook-id.txt`.
+  **One-time setup:** `bash ~/.openclaw/scripts/setup-tunnel-auth.sh` — creates PAT (from redinside-dev GitHub account, scope: admin:repo_hook), stores it, finds webhook ID, runs initial sync.
+  **Current URL:** `bash ~/.openclaw/scripts/tunnel-url.sh` — always shows current session URL.
+  **GitHub accounts:** `anuragg-saxenaa` = developer account (gh CLI auth). `redinside-dev` = repo owner. PAT must come from `redinside-dev` since repo webhook admin is scoped to repo owner.
+- **Applied To:** `scripts/start-cloudflared.sh`, `scripts/sync-github-webhook.sh`, `scripts/setup-tunnel-auth.sh`, `scripts/tunnel-url.sh`, `~/Library/LaunchAgents/ai.openclaw.cloudflared.plist`, `~/Library/LaunchAgents/ai.openclaw.tunnel-sync.plist`

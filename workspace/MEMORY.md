@@ -17,21 +17,27 @@
 
 ---
 
-## Current State (as of 2026-03-01)
+## Current State (as of 2026-03-02)
 
 | Component | Status |
 |-----------|--------|
 | OpenClaw CLI | v2026.2.24 |
 | Native gateway | Running — launchd `ai.openclaw.node` + `ai.openclaw.gateway`, port 18789 |
-| Dashboard | Port 19000, launchd `ai.openclaw.dashboard` — Mission Control UI |
-| Dashboard API | `/api/traces` reads live session files (`agents/*/sessions/*.jsonl`) — NOT stale logs |
+| Dashboard | Port 19000, launchd `ai.openclaw.dashboard` — Mission Control UI (server: `dashboard/server.js`) |
+| Dashboard API | `/api/traces` reads live session files. `/api/chat`, `/api/mission-control/*` in `dashboard/server.js` |
+| Dashboard v2 | React/TypeScript app at `dashboard-v2/` — 16 tabs + 5 cost charts. `npm run dev` → port 5173 |
 | Telegram | Active — 8 bots, all connected. OPS bot token regenerated 2026-02-28 |
 | WhatsApp | Linked +16476092313 |
 | Agents | 8 active: main / allrounder / hatake / eng / research / finance / ops / infosec |
-| Skills | 43 registered, all enabled |
-| Cron jobs | 104 total — see `cron/jobs.json` |
+| Skills | 43+ registered, all enabled. New: cost-optimization, event-driven-patterns |
+| Cron jobs | **30 enabled / 115 total** — reduced from 110. See `cron/jobs.json` |
+| n8n | Running :5678, launchd `ai.openclaw.n8n`. 9 workflows active (see skills/n8n-webhooks/SKILL.md) |
 | 9Router | Running :20128 — routing profile: `cost_saver` (PAYG blocked) — 20 provider connections, all healthy |
-| Routing profile | `cost_saver` — `allowPayg: false`. Blocks openrouter/auto and zai from cron/fallback chains |
+| Routing profile | `cost_saver` — `allowPayg: false`. 3-tier routing: lightweight/standard/heavy in routing-profiles.json |
+| Prompt caching | Enabled in `gateway/resilient-handler.js` — `cache_control: ephemeral` on system prompt block |
+| Batch API | `"batch": true` payload flag routes to Anthropic Batch API (50% cost reduction for offline jobs) |
+| Cloudflare Tunnel | launchd `ai.openclaw.cloudflared`. Quick tunnel — URL changes on reboot. Auto-sync via `ai.openclaw.tunnel-sync` |
+| GitHub Webhook | Registered on `redinside-dev/openclaw-redos` → n8n `github-events` workflow. Auto-updated on reboot after PAT setup |
 | Token refresh | Fully automated — direct refresh for ALL providers, zero human intervention needed |
 | A2A | Active — `a2a-delegations.jsonl` logging mandated via SOUL.md |
 | Architecture doc | `/Users/redinside/Development/Codebase/projects/RedTeam/docs/ARCHITECTURE.md` |
@@ -329,24 +335,24 @@ The RED Self-Improvement cron has been observed autonomously modifying `openclaw
 
 ---
 
-## Pending Items (as of 2026-03-01)
+## Pending Items (as of 2026-03-02)
 
-### P1
+### P1 — One-time action required
 | # | Item |
 |---|------|
-| 1 | Merge `feature/dashboard-realtime-sync` → main |
-| 2 | Add Dashboard to launchd (start manually after reboot) |
+| 1 | **GitHub PAT setup**: Create PAT from `redinside-dev` account at github.com/settings/tokens (scope: `admin:repo_hook`), then run `bash ~/.openclaw/scripts/setup-tunnel-auth.sh`. After this, every reboot auto-updates the GitHub webhook. |
 
 ### P2
 | # | Item |
 |---|------|
-| 3 | Fix undici AbortErrors (TICKET-20260216-002) |
-| 4 | Set `SLACK_SIGNING_SECRET` in `.env` |
-| 5 | Provision 3rd Codex account OAuth (`anurawg.saxena@gmail.com`) |
+| 2 | Fix undici AbortErrors (TICKET-20260216-002) |
+| 3 | Set `SLACK_SIGNING_SECRET` in `.env` |
+| 4 | Subscription audit: review ChatGPT Pro x2 ($400/mo) utilization. Potential $180-360 savings if downgraded. Due: 2026-04-01 |
 
 ### P3
 | # | Item |
 |---|------|
-| 6 | Named Cloudflare tunnel; Tailscale after reboot; monthly RED self-improvement audit |
+| 5 | Named Cloudflare tunnel (permanent URL, no manual updates after reboot) — requires domain in Cloudflare |
+| 6 | Tailscale daemon after reboot |
 
 ---

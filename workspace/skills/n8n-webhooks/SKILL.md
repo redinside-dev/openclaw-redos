@@ -109,27 +109,25 @@ curl -s --max-time 15 -X POST http://127.0.0.1:5678/webhook/error-escalation \
 
 ---
 
-## Webhook Registration Strategy (for public-facing events)
+## Webhook Registration Strategy (live as of 2026-03-02)
 
-For GitHub/Slack events that originate externally:
+**Cloudflare quick tunnel** is running as launchd `ai.openclaw.cloudflared`. URL changes on reboot but is auto-updated via `ai.openclaw.tunnel-sync`.
 
-1. **Cloudflare Tunnel** (preferred — named, stable URL):
-   ```bash
-   cloudflared tunnel run openclaw-webhook
-   # URL: https://openclaw-webhook.cfargotunnel.com/webhook/*
-   ```
+```bash
+# Check current tunnel URL
+bash ~/.openclaw/scripts/tunnel-url.sh
+```
 
-2. **ngrok** (fallback — URL changes on restart):
-   ```bash
-   ngrok http 5678
-   # URL: https://<random>.ngrok.io/webhook/*
-   ```
+**GitHub webhook** is registered on `redinside-dev/openclaw-redos` → `/webhook/github-events`. Auto-updated on reboot after one-time PAT setup:
+```bash
+bash ~/.openclaw/scripts/setup-tunnel-auth.sh  # one-time only
+```
 
-Register these URLs in:
-- GitHub: Repository Settings → Webhooks → Content-Type: `application/json`
-- Slack: App Settings → Event Subscriptions → Request URL
+**Slack inbound:** Uses OpenClaw native Socket Mode (not n8n webhook). Agents already receive Slack messages natively. The `slack-inbound-router` n8n workflow is available as a supplementary keyword router if needed.
 
-n8n receives the event, validates it, then calls `POST http://localhost:19000/api/chat` to dispatch the agent task. **Secrets never leave n8n.**
+**CRITICAL — n8n webhook import rule:** When importing workflow JSON, every Webhook trigger node MUST have `"webhookId": "<uuid>"` at the node level. Without it, n8n generates composite paths (`workflowId/nodeName/path`) that never resolve at `/webhook/<path>`. See LEARNING-20260302-001.
+
+n8n receives events → calls `POST http://localhost:19000/api/chat` to dispatch agent task. **Secrets never leave n8n.**
 
 ---
 
