@@ -1389,6 +1389,30 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // Dashboard v2 — served at /v2/
+  if (url.pathname.startsWith('/v2/') || url.pathname === '/v2') {
+    const v2Dist = path.join(__dirname, '..', 'dashboard-v2', 'dist');
+    let v2Path = url.pathname === '/v2' ? '/v2/index.html' : url.pathname;
+    v2Path = path.join(v2Dist, v2Path.replace('/v2', ''));
+    const ext = path.extname(v2Path);
+    const contentType = MIME[ext] || (ext ? 'text/plain' : 'text/html');
+    try {
+      const content = fs.readFileSync(v2Path.endsWith(path.sep) || !ext ? path.join(v2Dist, 'index.html') : v2Path);
+      res.writeHead(200, { 'Content-Type': contentType });
+      res.end(content);
+    } catch {
+      // SPA fallback
+      try {
+        const content = fs.readFileSync(path.join(v2Dist, 'index.html'));
+        res.writeHead(200, { 'Content-Type': 'text/html' });
+        res.end(content);
+      } catch {
+        res.writeHead(404); res.end('Not found');
+      }
+    }
+    return;
+  }
+
   // Static files
   let filePath = url.pathname;
   filePath = path.join(__dirname, filePath);
