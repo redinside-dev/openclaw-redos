@@ -6,7 +6,7 @@
 set -euo pipefail
 
 OLLAMA_HOST="${OLLAMA_HOST:-http://127.0.0.1:11434}"
-MODELS="${OLLAMA_WARMUP_MODELS:-llama3.1:8b qwen2.5-coder:7b}"
+MODELS="${OLLAMA_WARMUP_MODELS:-qwen3.5:4b}"
 
 if ! curl -sf --connect-timeout 2 --max-time 5 "$OLLAMA_HOST/api/tags" > /dev/null 2>&1; then
   echo "Ollama not responding at $OLLAMA_HOST — skip warmup."
