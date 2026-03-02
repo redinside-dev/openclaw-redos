@@ -194,4 +194,4 @@ See `workspace/ops/LEARNINGS.md` LEARNING-20260302-004 for full debug notes.
 | `env: node: No such file or directory` in n8n log | Harmless — n8n Python task runner (not used); ignore |
 | `payload.model not allowed` in gateway.err.log | Cron job has hardcoded model — remove `model` field from cron payload |
 | `memory slot plugin not found` doctor WARN | Run: `openclaw plugins install /opt/homebrew/lib/node_modules/openclaw/extensions/memory-core` |
-| Doctor shows `duplicate plugin id` for memory-core | Harmless — local install wins over stock, stock auto-disabled |
+| Doctor shows `duplicate plugin id` for memory-core | **Fix (2026-03-02):** Do NOT use `openclaw plugins install` for memory-core — it creates a duplicate. Instead ensure `plugins.allow` contains `"memory-core"`, remove `plugins.entries.memory-core` and `plugins.installs.memory-core` from openclaw.json, and delete `~/.openclaw/extensions/memory-core/`. The stock plugin in node_modules loads cleanly via `allow`. |

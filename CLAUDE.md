@@ -108,11 +108,11 @@ Defined in: `workspace/skills/maker-checker/SKILL.md`
 
 ### Skills System
 
-Skills are declarative `SKILL.md` files in `workspace/skills/` — no code. OpenClaw applies them during execution. 43 skills total. Enable in `openclaw.json` under `skills.entries`.
+Skills are declarative `SKILL.md` files in `workspace/skills/` — no code. OpenClaw applies them during execution. 65 total skills (31 ready / 34 missing optional deps). Enable in `openclaw.json` under `skills.entries`.
 
 ### Cron Jobs
 
-98 cron definitions in `cron/jobs.json`. **Never hardcode `model` in cron payloads** — omit it and let agent defaults apply. Runs logged to `workspace/logs/`.
+115 cron definitions in `cron/jobs.json` — **30 enabled / 85 disabled**. Reduced from 110 active via event-driven migration (2026-03-02). **Never hardcode `model` in cron payloads** — omit it and let agent defaults apply. Runs logged to `workspace/logs/`.
 
 ### n8n Webhook Delegation
 
@@ -127,7 +127,7 @@ Port 19000 — basic auth `red` / `redos2026`. launchd managed (`ai.openclaw.das
 | File | Purpose |
 |---|---|
 | `openclaw.json` | Master runtime config — **Never commit** |
-| `cron/jobs.json` | All 98 cron job definitions |
+| `cron/jobs.json` | 115 cron definitions (30 enabled / 85 disabled) |
 | `workspace/SOUL.md` | Company OS — injected into every agent session |
 | `workspace/MEMORY.md` | Curated long-term memory |
 | `workspace/GOALS.md` | Active company goals (RED only writes) |
