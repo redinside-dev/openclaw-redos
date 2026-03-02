@@ -852,3 +852,23 @@ repeating mistakes and to build institutional knowledge.
   - session-overflow-monitor now catches sessions before overflow — but agents should flush BEFORE it triggers
 - **Avoid next time:** Never let context grow past 5 large file reads or 3 agent spawns without writing to working memory. The cost of a 30-second flush is zero; the cost of overflow is a stuck lane and manual reset.
 - **Applied To:** `openclaw.json`, `scripts/session-overflow-monitor.sh`, `workspace/SOUL.md`, `workspace/skills/context-window-policy/SKILL.md`, `cron/jobs.json`, `LaunchAgents/ai.openclaw.session-overflow-monitor.plist`, `workspace/ops/runbooks/context-overflow-runbook.md`
+
+### LEARNING-20260301-010
+- **Date:** 2026-03-01T00:00:00Z
+- **Source Ticket:** observation
+- **Agent:** cascade (external planning session)
+- **Category:** infra | workflow | cost
+- **Summary:** Event-driven architecture migration — cron jobs reduced from 110 → 40, n8n as event bus, 3-tier model routing, dashboard-v2 React rebuild
+- **Details:**
+  - **Cron reduction pattern:** 8 inner loops + 8 meta self-checks + 6 standup check-ins + 4 session anchors + 6 context health checks + multiple provider sync duplicates = 72 jobs disabled. Replaced with 4 consolidated jobs: autonomous-task-dispatcher (every 15min), memory-sync-nightly (1:30am), model-health-check (every 30min), session-warmup-consolidated (every 45min).
+  - **Event-driven classification:** 3 buckets: (1) Event-Driven → n8n inbound webhook (GitHub push, Slack message), (2) True Batch → keep as cron (daily portfolio, weekly earnings), (3) Health Check → keep minimal cron (system-pulse, 9router-keepfresh).
+  - **Model routing tiers:** lightweight (Haiku 4.5 $0.0008/1K in) / standard (Sonnet 4.6 $0.003/1K) / heavy (Opus 4.6 $0.015/1K) / local (Ollama free). Target split 50/35/15. Gateway reads `model_tier` from payload or classifies via HATAKE.
+  - **Prompt caching:** Mark system prompt block with `cache_control: {type: "ephemeral"}`. 90% expected hit rate on SOUL.md (~2000 tokens each call). Large savings on input tokens.
+  - **Batch API:** Add `"batch": true` to cron payload for non-real-time jobs. 50% cost reduction. Eligible: nightly sync, weekly reports, content factory.
+  - **dashboard-v2:** Full React/TypeScript rebuild at `dashboard-v2/src/`. All 16 tabs + 5 new cost charts (SpendGauge, ModelPie, CostByAgent, BurnRate, SavingsPanel). Uses d3 + TanStack Query. Dev: `npm run dev` at port 5173. Build: `npm run build` (clean, 435KB).
+  - **New gateway endpoints:** `/api/mission-control/costs`, `/api/mission-control/savings`, `/api/mission-control/subscriptions` (in gateway/server.js).
+  - **New skills:** `workspace/skills/cost-optimization/SKILL.md`, `workspace/skills/event-driven-patterns/SKILL.md`.
+  - **Updated:** `workspace/config/routing-profiles.json` (model_tiers + tier_classifier + prompt_caching + batch_api), `workspace/config/budget-guardrails.json` (per-model caps + subscription utilization), `workspace/skills/n8n-webhooks/SKILL.md` (10+ workflow catalog).
+  - **Feature branch:** `feature/event-driven-mission-control` — merge to main after validation.
+- **Prevention:** Before adding a new cron job, always ask: "Does this need to be a cron, or should it be triggered by an event?" Use `workspace/skills/event-driven-patterns/SKILL.md` classification guide.
+- **Applied To:** `cron/jobs.json`, `workspace/config/routing-profiles.json`, `workspace/config/budget-guardrails.json`, `workspace/skills/n8n-webhooks/SKILL.md`, `workspace/skills/cost-optimization/SKILL.md` (NEW), `workspace/skills/event-driven-patterns/SKILL.md` (NEW), `gateway/server.js`, `dashboard-v2/src/` (full rebuild)

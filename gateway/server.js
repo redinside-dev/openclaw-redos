@@ -757,6 +757,221 @@ app.post('/api/mcp/:mcpName/approve', async (req, res) => {
 });
 
 // ============================================================
+// MISSION CONTROL ENDPOINTS (event-driven architecture v2)
+// ============================================================
+
+import { readFileSync, existsSync } from 'fs';
+import { readFile } from 'fs/promises';
+
+const COST_EVENTS_LOG = path.join(__dirname, '../workspace/logs/cost-events.jsonl');
+const BUDGET_GUARDRAILS = path.join(__dirname, '../workspace/config/budget-guardrails.json');
+
+function parseCostEventsLog(days = 30) {
+  if (!existsSync(COST_EVENTS_LOG)) return [];
+  const cutoff = new Date();
+  cutoff.setDate(cutoff.getDate() - days);
+  const lines = readFileSync(COST_EVENTS_LOG, 'utf8').trim().split('\n').filter(Boolean);
+  const events = [];
+  for (const line of lines) {
+    try {
+      const e = JSON.parse(line);
+      if (new Date(e.ts) >= cutoff) events.push(e);
+    } catch { /* skip malformed */ }
+  }
+  return events;
+}
+
+// GET /api/mission-control/costs — cost breakdown by agent + model
+app.get('/api/mission-control/costs', (req, res) => {
+  try {
+    const days = parseInt(req.query.days) || 30;
+    const events = parseCostEventsLog(days);
+
+    const byAgent = {};
+    const byModel = {};
+    const byTier = { lightweight: 0, standard: 0, heavy: 0, local: 0, other: 0 };
+    const dailyBurn = {};
+    let totalCost = 0;
+    let totalTokensInput = 0;
+    let totalTokensOutput = 0;
+    let totalCachedTokens = 0;
+
+    const AGENTS = ['main', 'allrounder', 'eng', 'research', 'finance', 'ops', 'infosec', 'hatake'];
+
+    for (const e of events) {
+      const cost = e.cost_usd || 0;
+      const agent = e.agent || 'unknown';
+      const model = e.model || 'unknown';
+      const day = (e.ts || '').substring(0, 10);
+
+      totalCost += cost;
+      totalTokensInput += e.tokens?.input || 0;
+      totalTokensOutput += e.tokens?.output || 0;
+      totalCachedTokens += e.tokens?.cache_read || 0;
+
+      if (!byAgent[agent]) byAgent[agent] = { cost: 0, requests: 0, tokens: 0 };
+      byAgent[agent].cost += cost;
+      byAgent[agent].requests += 1;
+      byAgent[agent].tokens += (e.tokens?.total || 0);
+
+      if (!byModel[model]) byModel[model] = { cost: 0, requests: 0 };
+      byModel[model].cost += cost;
+      byModel[model].requests += 1;
+
+      if (day) {
+        if (!dailyBurn[day]) dailyBurn[day] = 0;
+        dailyBurn[day] += cost;
+      }
+
+      // Classify tier from model name
+      const m = model.toLowerCase();
+      if (m.includes('haiku')) byTier.lightweight += cost;
+      else if (m.includes('ollama') || m.includes('qwen') || m.includes('llama')) byTier.local += cost;
+      else if (m.includes('opus')) byTier.heavy += cost;
+      else if (m.includes('sonnet') || m.includes('gpt-5') || m.includes('codex')) byTier.standard += cost;
+      else byTier.other += cost;
+    }
+
+    // Fill missing agents with zeros
+    for (const a of AGENTS) {
+      if (!byAgent[a]) byAgent[a] = { cost: 0, requests: 0, tokens: 0 };
+    }
+
+    // Build sorted daily burn array for chart
+    const dailyBurnArray = Object.entries(dailyBurn)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([date, cost]) => ({ date, cost: parseFloat(cost.toFixed(4)) }));
+
+    const avgDailyCost = dailyBurnArray.length > 0
+      ? totalCost / dailyBurnArray.length
+      : 0;
+
+    res.json({
+      period_days: days,
+      total_cost_usd: parseFloat(totalCost.toFixed(4)),
+      avg_daily_cost_usd: parseFloat(avgDailyCost.toFixed(4)),
+      total_requests: events.length,
+      total_tokens: {
+        input: totalTokensInput,
+        output: totalTokensOutput,
+        cached: totalCachedTokens,
+        cache_hit_rate: totalTokensInput > 0
+          ? parseFloat((totalCachedTokens / (totalTokensInput + totalCachedTokens) * 100).toFixed(1))
+          : 0
+      },
+      by_agent: byAgent,
+      by_model: byModel,
+      by_tier: byTier,
+      daily_burn: dailyBurnArray,
+      generated_at: new Date().toISOString()
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// GET /api/mission-control/savings — estimated savings vs all-Standard baseline
+app.get('/api/mission-control/savings', (req, res) => {
+  try {
+    const days = parseInt(req.query.days) || 30;
+    const events = parseCostEventsLog(days);
+
+    // Baseline: all requests at Sonnet 4.6 rates
+    const SONNET_INPUT_PER_TOKEN = 0.003 / 1000;
+    const SONNET_OUTPUT_PER_TOKEN = 0.015 / 1000;
+    const HAIKU_INPUT_PER_TOKEN = 0.0008 / 1000;
+    const HAIKU_OUTPUT_PER_TOKEN = 0.004 / 1000;
+
+    let actualCost = 0;
+    let baselineCost = 0;
+    let cachedTokens = 0;
+    let totalInputTokens = 0;
+
+    for (const e of events) {
+      actualCost += e.cost_usd || 0;
+      const inputTok = e.tokens?.input || 0;
+      const outputTok = e.tokens?.output || 0;
+      const cached = e.tokens?.cache_read || 0;
+      baselineCost += inputTok * SONNET_INPUT_PER_TOKEN + outputTok * SONNET_OUTPUT_PER_TOKEN;
+      cachedTokens += cached;
+      totalInputTokens += inputTok;
+    }
+
+    const savingsUsd = baselineCost - actualCost;
+    const savingsPct = baselineCost > 0 ? (savingsUsd / baselineCost * 100) : 0;
+    const cacheHitRate = (totalInputTokens + cachedTokens) > 0
+      ? (cachedTokens / (totalInputTokens + cachedTokens) * 100)
+      : 0;
+    const cacheSavingsUsd = cachedTokens * SONNET_INPUT_PER_TOKEN * 0.9; // 90% cheaper cache reads
+
+    // Target score (0-100)
+    const routingSavingsPct = Math.min(savingsPct, 60);
+    const cacheSavingsPct = Math.min(cacheHitRate, 30);
+    const optimizationScore = Math.min(Math.round(routingSavingsPct + cacheSavingsPct), 100);
+
+    res.json({
+      period_days: days,
+      actual_cost_usd: parseFloat(actualCost.toFixed(4)),
+      baseline_cost_usd: parseFloat(baselineCost.toFixed(4)),
+      savings_usd: parseFloat(savingsUsd.toFixed(4)),
+      savings_pct: parseFloat(savingsPct.toFixed(1)),
+      cache_savings_usd: parseFloat(cacheSavingsUsd.toFixed(4)),
+      cache_hit_rate_pct: parseFloat(cacheHitRate.toFixed(1)),
+      optimization_score: optimizationScore,
+      target_savings_pct: 55,
+      target_daily_cost_usd: 1.00,
+      current_daily_cost_usd: parseFloat((actualCost / Math.max(days, 1)).toFixed(4)),
+      generated_at: new Date().toISOString()
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// GET /api/mission-control/subscriptions — subscription utilization
+app.get('/api/mission-control/subscriptions', (req, res) => {
+  try {
+    let guardrails = {};
+    if (existsSync(BUDGET_GUARDRAILS)) {
+      guardrails = JSON.parse(readFileSync(BUDGET_GUARDRAILS, 'utf8'));
+    }
+
+    const fixed = guardrails.fixed_monthly || {};
+    const breakdown = fixed.breakdown || {};
+    const subs = [];
+
+    for (const [key, val] of Object.entries(breakdown)) {
+      if (typeof val === 'object' && val.cost_usd !== undefined) {
+        subs.push({
+          id: key,
+          service: val.service || key,
+          monthly_cost_usd: val.cost_usd,
+          review_action: val.review_action || '',
+          savings_potential_usd: val.savings_potential_usd || 0
+        });
+      } else if (typeof val === 'number') {
+        subs.push({ id: key, service: key, monthly_cost_usd: val });
+      }
+    }
+
+    const totalFixed = subs.reduce((s, sub) => s + sub.monthly_cost_usd, 0);
+    const totalSavingsPotential = subs.reduce((s, sub) => s + (sub.savings_potential_usd || 0), 0);
+
+    res.json({
+      total_fixed_monthly_usd: totalFixed,
+      total_variable_monthly_usd: guardrails.variable_spend?.monthly_limit_usd || 30,
+      subscriptions: subs,
+      subscription_savings_potential_usd: totalSavingsPotential,
+      last_audit: guardrails.fixed_monthly?.subscription_audit?.last_audit || null,
+      next_audit_due: guardrails.fixed_monthly?.subscription_audit?.next_audit_due || null,
+      generated_at: new Date().toISOString()
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ============================================================
 // ULTIMATE ROUTER ENDPOINT
 // ============================================================
 
