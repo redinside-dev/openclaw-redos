@@ -7,7 +7,7 @@
       "name": "Telegram Approval Monitor (RED checks for approve/deny replies)",
       "enabled": true,
       "createdAtMs": 1772080522100,
-      "updatedAtMs": 1772435169867,
+      "updatedAtMs": 1772492892149,
       "schedule": {
         "kind": "cron",
         "expr": "*/2 * * * *",
@@ -26,11 +26,11 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1772435280000,
-        "lastRunAtMs": 1772435160033,
+        "nextRunAtMs": 1772493000000,
+        "lastRunAtMs": 1772492880021,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 9834,
+        "lastDurationMs": 12128,
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
         "lastDelivered": false
@@ -42,7 +42,7 @@
       "name": "System Pulse — Always-On Heartbeat (Ollama only)",
       "enabled": true,
       "createdAtMs": 1772080522100,
-      "updatedAtMs": 1772435105717,
+      "updatedAtMs": 1772492706193,
       "schedule": {
         "kind": "cron",
         "expr": "*/5 * * * *",
@@ -62,11 +62,11 @@
       },
       "state": {
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1772435400000,
-        "lastRunAtMs": 1772435100375,
+        "nextRunAtMs": 1772493000000,
+        "lastRunAtMs": 1772492700025,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 5342,
+        "lastDurationMs": 6168,
         "lastDeliveryStatus": "not-delivered",
         "lastDelivered": false
       }
@@ -77,7 +77,7 @@
       "name": "Daily Portfolio Review (Pre-Market)",
       "enabled": true,
       "createdAtMs": 1770267281600,
-      "updatedAtMs": 1772199963885,
+      "updatedAtMs": 1772488516887,
       "schedule": {
         "kind": "cron",
         "expr": "45 8 * * 1-5",
@@ -92,14 +92,14 @@
         "timeoutSeconds": 600
       },
       "state": {
-        "lastRunAtMs": 1772199963881,
+        "lastRunAtMs": 1772488516551,
         "lastStatus": "error",
-        "lastDurationMs": 4,
-        "consecutiveErrors": 2,
+        "lastDurationMs": 336,
+        "consecutiveErrors": 3,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772459100000,
-        "lastError": "model not allowed: ollama/llama3.1:8b"
+        "nextRunAtMs": 1772545500000,
+        "lastError": "Error: spawn docker ENOENT"
       },
       "delivery": {
         "mode": "announce",
@@ -114,7 +114,7 @@
       "name": "Trading Window Brief (8am-4pm ET)",
       "enabled": true,
       "createdAtMs": 1770392652158,
-      "updatedAtMs": 1772224433518,
+      "updatedAtMs": 1772488517202,
       "schedule": {
         "kind": "cron",
         "expr": "0,30 8-15 * * 1-5",
@@ -135,14 +135,14 @@
         "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "lastRunAtMs": 1772224433416,
+        "lastRunAtMs": 1772488516887,
         "lastStatus": "error",
-        "lastDurationMs": 102,
-        "consecutiveErrors": 3,
+        "lastDurationMs": 315,
+        "consecutiveErrors": 4,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772456400000,
-        "lastError": "model not allowed: ollama/llama3.1:8b"
+        "nextRunAtMs": 1772542800000,
+        "lastError": "Error: spawn docker ENOENT"
       }
     },
     {
@@ -151,7 +151,7 @@
       "name": "Trading Window Brief (4:00pm ET)",
       "enabled": true,
       "createdAtMs": 1770392732884,
-      "updatedAtMs": 1772226365827,
+      "updatedAtMs": 1772488517513,
       "schedule": {
         "kind": "cron",
         "expr": "0 16 * * 1-5",
@@ -172,14 +172,14 @@
         "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "lastRunAtMs": 1772226365826,
+        "lastRunAtMs": 1772488517202,
         "lastStatus": "error",
-        "lastDurationMs": 1,
+        "lastDurationMs": 311,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 2,
-        "nextRunAtMs": 1772485200000,
-        "lastError": "model not allowed: ollama/llama3.1:8b"
+        "consecutiveErrors": 3,
+        "nextRunAtMs": 1772571600000,
+        "lastError": "Error: spawn docker ENOENT"
       }
     },
     {
@@ -188,7 +188,7 @@
       "name": "QQQ Profit/Stop Watch (intraday)",
       "enabled": true,
       "createdAtMs": 1770399961842,
-      "updatedAtMs": 1772228586734,
+      "updatedAtMs": 1772488517822,
       "schedule": {
         "kind": "cron",
         "expr": "*/5 12-15 * * 1-5",
@@ -209,14 +209,14 @@
         "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "lastRunAtMs": 1772228586726,
+        "lastRunAtMs": 1772488517513,
         "lastStatus": "error",
-        "lastDurationMs": 8,
+        "lastDurationMs": 309,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 14,
-        "nextRunAtMs": 1772470800000,
-        "lastError": "model not allowed: ollama/llama3.1:8b"
+        "consecutiveErrors": 15,
+        "nextRunAtMs": 1772557200000,
+        "lastError": "Error: spawn docker ENOENT"
       }
     },
     {
@@ -225,7 +225,7 @@
       "name": "Market Leads (Alpha Vantage, 4x/day)",
       "enabled": true,
       "createdAtMs": 1770408691799,
-      "updatedAtMs": 1772222479510,
+      "updatedAtMs": 1772488518132,
       "schedule": {
         "kind": "cron",
         "expr": "0 10,12,14,15 * * 1-5",
@@ -246,14 +246,14 @@
         "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "lastRunAtMs": 1772222479508,
+        "lastRunAtMs": 1772488517822,
         "lastStatus": "error",
-        "lastDurationMs": 2,
+        "lastDurationMs": 310,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 1,
-        "nextRunAtMs": 1772463600000,
-        "lastError": "model not allowed: ollama/llama3.1:8b"
+        "consecutiveErrors": 2,
+        "nextRunAtMs": 1772550000000,
+        "lastError": "Error: spawn docker ENOENT"
       }
     },
     {
@@ -297,7 +297,7 @@
       "name": "Earnings tracker — upcoming earnings this week (Slack + Telegram)",
       "enabled": true,
       "createdAtMs": 1772420000000,
-      "updatedAtMs": 1772420000000,
+      "updatedAtMs": 1772492422502,
       "schedule": {
         "kind": "cron",
         "expr": "0 7 * * 1",
@@ -316,7 +316,14 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1772492400000
+        "nextRunAtMs": 1773054000000,
+        "lastRunAtMs": 1772492422111,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 391,
+        "lastError": "Error: spawn docker ENOENT",
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 1
       }
     },
     {
@@ -325,7 +332,7 @@
       "name": "Cron Watchdog (alert on missed/failing jobs)",
       "enabled": true,
       "createdAtMs": 1770618629260,
-      "updatedAtMs": 1772423427088,
+      "updatedAtMs": 1772492431610,
       "schedule": {
         "kind": "cron",
         "expr": "*/10 8-22 * * *",
@@ -345,13 +352,13 @@
         "target": "channel:C0AEV3J2L23"
       },
       "state": {
-        "lastRunAtMs": 1772423417466,
+        "lastRunAtMs": 1772492422502,
         "lastStatus": "ok",
-        "lastDurationMs": 9622,
+        "lastDurationMs": 9108,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "not-delivered",
-        "nextRunAtMs": 1772456400000,
+        "nextRunAtMs": 1772493000000,
         "lastDelivered": false
       }
     },
@@ -361,7 +368,7 @@
       "name": "RED CEO Daily Summary to Anurag",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1772234043541,
+      "updatedAtMs": 1772492480527,
       "schedule": {
         "kind": "cron",
         "expr": "0 18 * * 1-5",
@@ -381,14 +388,14 @@
         "target": "1012034994"
       },
       "state": {
-        "lastRunAtMs": 1772234043539,
+        "lastRunAtMs": 1772492431610,
         "lastStatus": "error",
-        "lastDurationMs": 2,
-        "consecutiveErrors": 2,
+        "lastDurationMs": 48917,
+        "consecutiveErrors": 3,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772492400000,
-        "lastError": "model not allowed: ollama/llama3.1:8b"
+        "nextRunAtMs": 1772578800000,
+        "lastError": "No delivery target resolved for channel \"telegram\". Set delivery.to."
       }
     },
     {
@@ -397,7 +404,7 @@
       "name": "RED Daily Brief (Telegram)",
       "enabled": true,
       "createdAtMs": 1771202886122,
-      "updatedAtMs": 1772380511644,
+      "updatedAtMs": 1772488554900,
       "schedule": {
         "kind": "cron",
         "expr": "0 9 * * *",
@@ -416,15 +423,14 @@
         "target": "1012034994"
       },
       "state": {
-        "lastRunAtMs": 1772380496028,
+        "lastRunAtMs": 1772488528686,
         "lastStatus": "error",
-        "lastDurationMs": 15616,
-        "consecutiveErrors": 3,
+        "lastDurationMs": 26214,
+        "consecutiveErrors": 4,
         "lastRunStatus": "error",
-        "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1772460000000,
-        "lastError": "400 No credentials for provider: openai",
-        "lastDelivered": true
+        "lastDeliveryStatus": "unknown",
+        "nextRunAtMs": 1772546400000,
+        "lastError": "No delivery target resolved for channel \"telegram\". Set delivery.to."
       }
     },
     {
@@ -433,7 +439,7 @@
       "name": "Habit check-in — daily prompt (Telegram)",
       "enabled": true,
       "createdAtMs": 1772410000000,
-      "updatedAtMs": 1772373656117,
+      "updatedAtMs": 1772488561878,
       "schedule": {
         "kind": "cron",
         "expr": "0 8 * * *",
@@ -453,14 +459,14 @@
         "target": "1012034994"
       },
       "state": {
-        "nextRunAtMs": 1772456400000,
-        "lastRunAtMs": 1772373594459,
+        "nextRunAtMs": 1772542800000,
+        "lastRunAtMs": 1772488554900,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 61658,
+        "lastDurationMs": 6978,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 1,
-        "lastError": "cron: job execution timed out"
+        "consecutiveErrors": 2,
+        "lastError": "No delivery target resolved for channel \"telegram\". Set delivery.to."
       }
     },
     {
@@ -505,7 +511,7 @@
       "name": "CI Weekly Summarizer (roll → LEARNINGS.md)",
       "enabled": true,
       "createdAtMs": 1771907010000,
-      "updatedAtMs": 1771907172962,
+      "updatedAtMs": 1772488568994,
       "schedule": {
         "kind": "cron",
         "expr": "0 7 * * 1",
@@ -525,7 +531,14 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1772452800000
+        "nextRunAtMs": 1773054000000,
+        "lastRunAtMs": 1772488561878,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 7116,
+        "lastDelivered": false,
+        "lastDeliveryStatus": "not-delivered",
+        "consecutiveErrors": 0
       }
     },
     {
@@ -534,7 +547,7 @@
       "name": "Weekly Competitive Intelligence (AI Tools)",
       "enabled": true,
       "createdAtMs": 1771908000000,
-      "updatedAtMs": 1771908000000,
+      "updatedAtMs": 1772488729746,
       "schedule": {
         "kind": "cron",
         "expr": "0 9 * * 1",
@@ -555,7 +568,13 @@
         "target": "channel:C0AEV3MDEDD"
       },
       "state": {
-        "nextRunAtMs": 1772460000000
+        "nextRunAtMs": 1773061200000,
+        "lastRunAtMs": 1772488568994,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 160752,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 0
       }
     },
     {
@@ -564,7 +583,7 @@
       "name": "9Router Auth Watchdog (proactive expiry + auto-name)",
       "enabled": true,
       "createdAtMs": 1772020000000,
-      "updatedAtMs": 1772433833787,
+      "updatedAtMs": 1772492348533,
       "schedule": {
         "kind": "every",
         "everyMs": 1800000,
@@ -586,12 +605,12 @@
       },
       "state": {
         "consecutiveErrors": 0,
-        "lastRunAtMs": 1772433820239,
+        "lastRunAtMs": 1772492329791,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 13548,
+        "lastDurationMs": 18742,
         "lastDeliveryStatus": "not-delivered",
-        "nextRunAtMs": 1772435620239,
+        "nextRunAtMs": 1772494129791,
         "lastDelivered": false
       }
     },
@@ -601,7 +620,7 @@
       "name": "9Router Token Keep-Fresh (every 4min)",
       "enabled": true,
       "createdAtMs": 1772210000000,
-      "updatedAtMs": 1772435064169,
+      "updatedAtMs": 1772492903388,
       "schedule": {
         "kind": "cron",
         "expr": "*/4 * * * *",
@@ -621,11 +640,11 @@
       },
       "state": {
         "consecutiveErrors": 0,
-        "lastRunAtMs": 1772435051061,
+        "lastRunAtMs": 1772492892149,
         "lastRunStatus": "ok",
-        "nextRunAtMs": 1772435280000,
+        "nextRunAtMs": 1772493120000,
         "lastStatus": "ok",
-        "lastDurationMs": 13108,
+        "lastDurationMs": 11239,
         "lastDeliveryStatus": "not-delivered",
         "lastDelivered": false
       }
@@ -671,7 +690,7 @@
       "name": "Weekly Improvement Proposal (RED, Monday 9am ET)",
       "enabled": true,
       "createdAtMs": 1772265000000,
-      "updatedAtMs": 1772265000000,
+      "updatedAtMs": 1772488799485,
       "schedule": {
         "kind": "cron",
         "expr": "0 9 * * 1",
@@ -691,8 +710,12 @@
       },
       "state": {
         "consecutiveErrors": 0,
-        "lastDelivered": false,
-        "nextRunAtMs": 1772460000000
+        "nextRunAtMs": 1773061200000,
+        "lastRunAtMs": 1772488747050,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 52435,
+        "lastDeliveryStatus": "unknown"
       }
     },
     {
@@ -701,7 +724,7 @@
       "name": "Weekly Market Intelligence Digest",
       "enabled": true,
       "createdAtMs": 1772291614907,
-      "updatedAtMs": 1772291614907,
+      "updatedAtMs": 1772488811264,
       "schedule": {
         "kind": "cron",
         "expr": "0 8 * * 1",
@@ -719,7 +742,13 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1772456400000
+        "nextRunAtMs": 1773057600000,
+        "lastRunAtMs": 1772488799485,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 11779,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 0
       }
     },
     {
@@ -809,7 +838,7 @@
       "name": "FINANCE Weekly Cost Report (Mon 8:45am ET)",
       "enabled": true,
       "createdAtMs": 1772309161535,
-      "updatedAtMs": 1772309161535,
+      "updatedAtMs": 1772488811711,
       "schedule": {
         "kind": "cron",
         "expr": "45 8 * * 1",
@@ -828,9 +857,14 @@
         "bestEffort": true
       },
       "state": {
-        "consecutiveErrors": 0,
-        "lastDelivered": false,
-        "nextRunAtMs": 1772459100000
+        "consecutiveErrors": 1,
+        "nextRunAtMs": 1773060300000,
+        "lastRunAtMs": 1772488811264,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 447,
+        "lastError": "Error: spawn docker ENOENT",
+        "lastDeliveryStatus": "unknown"
       }
     },
     {
@@ -844,7 +878,7 @@
       },
       "enabled": true,
       "payload": {
-        "message": "DISPATCHER: Check AUTONOMOUS.md for pending tasks. Dispatch 1-2 tasks to available agents via A2A. Check agent-status for blockers. Keep dispatches lightweight — prefer event-driven triggers over polling. Log to workspace/logs/dispatch.jsonl.",
+        "message": "DISPATCHER PRE-STEP: Read the last 10 entries from workspace/ops/LEARNINGS.md. These are recent failure learnings — keep them in mind for all dispatches this run.\n\nDISPATCHER: Check workspace/AUTONOMOUS.md for PENDING tasks. Pick 1-2 highest priority PENDING tasks. Dispatch each by: (1) updating the task status to IN_PROGRESS in AUTONOMOUS.md with timestamp, (2) spawning the assigned agent via sessions_spawn with: the task description + 'CONTEXT FROM PAST LEARNINGS: [paste relevant learnings]' prepended. If no PENDING tasks: read workspace/GOALS.md, create 1 new task, add to AUTONOMOUS.md. After dispatching: log to workspace/logs/dispatch.jsonl with taskId, agentId, timestamp. Do NOT ask for approval. Act immediately.",
         "kind": "agentTurn"
       },
       "_meta": {
@@ -852,19 +886,20 @@
         "replaces": "inner-loop-*, meta-self-check-*, a2a-*-proactive, sa-*-checkin"
       },
       "state": {
-        "nextRunAtMs": 1772435700000,
-        "lastRunAtMs": 1772434842697,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 311,
-        "lastDeliveryStatus": "not-delivered",
-        "consecutiveErrors": 0,
-        "lastDelivered": false
+        "nextRunAtMs": 1772496145748,
+        "lastRunAtMs": 1772492493849,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 51899,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 5,
+        "lastError": "No delivery target resolved for channel \"telegram\". Set delivery.to."
       },
       "delivery": {
-        "mode": "announce"
+        "mode": "announce",
+        "channel": "telegram"
       },
-      "updatedAtMs": 1772434843008,
+      "updatedAtMs": 1772492545748,
       "wakeMode": "now"
     },
     {
@@ -878,7 +913,7 @@
       },
       "enabled": true,
       "payload": {
-        "message": "NIGHTLY MEMORY SYNC: 1) Seed episodes.jsonl from routing decisions (last 24h). 2) Compact workspace/memory/*.sqlite if >10MB. 3) Write memory-integrity check to workspace/ops/health-monitor-state.json. 4) Log sync status.",
+        "message": "NIGHTLY MEMORY SYNC: 1) Seed episodes.jsonl from routing decisions (last 24h) — run: python3 ~/.openclaw/workspace/scripts/seed-episodes.py. 2) Index new episodes into search index — run: bash ~/.openclaw/scripts/index-episodes.sh. 3) Rebuild workspace semantic index — run: python3 ~/.openclaw/workspace/scripts/memsearch.py index. 4) Compact workspace/memory/*.sqlite if >10MB. 5) Write memory-integrity check to workspace/ops/health-monitor-state.json. 6) Log sync status to workspace/logs/memory-sync.log. Report episode count and any errors to #redos-ops.",
         "kind": "agentTurn"
       },
       "_meta": {
@@ -896,7 +931,8 @@
         "consecutiveErrors": 1
       },
       "delivery": {
-        "mode": "announce"
+        "mode": "announce",
+        "channel": "telegram"
       },
       "wakeMode": "now",
       "updatedAtMs": 1772433084480
@@ -920,19 +956,20 @@
         "replaces": "c8481b2a-System-Health-Watch, 76777b7a-OPS-Health-Monitor, context-health-check-*"
       },
       "state": {
-        "nextRunAtMs": 1772435798135,
-        "lastRunAtMs": 1772432184534,
+        "nextRunAtMs": 1772496167044,
+        "lastRunAtMs": 1772492545748,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 13601,
+        "lastDurationMs": 21296,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 8,
-        "lastError": "cron announce delivery failed"
+        "consecutiveErrors": 10,
+        "lastError": "No delivery target resolved for channel \"telegram\". Set delivery.to."
       },
       "delivery": {
-        "mode": "announce"
+        "mode": "announce",
+        "channel": "telegram"
       },
-      "updatedAtMs": 1772432198135,
+      "updatedAtMs": 1772492567044,
       "wakeMode": "now"
     },
     {
@@ -954,19 +991,20 @@
         "replaces": "session-warmup-0001, session-anchor-*"
       },
       "state": {
-        "nextRunAtMs": 1772437500000,
-        "lastRunAtMs": 1772434843008,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 69218,
-        "lastDeliveryStatus": "not-delivered",
-        "consecutiveErrors": 0,
-        "lastDelivered": false
+        "nextRunAtMs": 1772495100000,
+        "lastRunAtMs": 1772492491139,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 382,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 3,
+        "lastError": "Error: spawn docker ENOENT"
       },
       "delivery": {
-        "mode": "announce"
+        "mode": "announce",
+        "channel": "telegram"
       },
-      "updatedAtMs": 1772434912226,
+      "updatedAtMs": 1772492491521,
       "wakeMode": "now"
     },
     {
@@ -976,7 +1014,7 @@
       "name": "9Router Token Refresh (Kiro/Claude) + Provider Validation",
       "enabled": true,
       "createdAtMs": 1772409068811,
-      "updatedAtMs": 1772430685639,
+      "updatedAtMs": 1772488870827,
       "schedule": {
         "kind": "every",
         "everyMs": 21600000,
@@ -991,17 +1029,41 @@
         "message": "Run 9Router token refresh + full provider validation.\n\n1) Execute exactly:\nnode /Users/redinside/.openclaw/scripts/9router-token-refresh.js --providers=kiro,claude --all --verify-all 2>&1\n\n2) If command exits 0: return NO_REPLY.\n3) If command exits non-zero: return full output verbatim so it is visible in cron run history.\n\nDo not write files manually; the script handles db.json updates."
       },
       "delivery": {
-        "mode": "announce"
+        "mode": "announce",
+        "channel": "telegram"
       },
       "state": {
-        "nextRunAtMs": 1772452268877,
-        "lastRunAtMs": 1772430668877,
+        "nextRunAtMs": 1772510453749,
+        "lastRunAtMs": 1772488853749,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 16762,
-        "lastError": "Channel is required when multiple channels are configured: telegram, slack Set delivery.channel explicitly or use a main session with a previous channel.",
+        "lastDurationMs": 17078,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 1
+        "consecutiveErrors": 2,
+        "lastError": "Channel is required when multiple channels are configured: telegram, slack Set delivery.channel explicitly or use a main session with a previous channel."
+      }
+    },
+    {
+      "id": "real-autonomy-score-nightly-0001",
+      "name": "Nightly Real Autonomy Score (verified completions / dispatched tasks)",
+      "agentId": "ops",
+      "schedule": {
+        "kind": "cron",
+        "expr": "45 23 * * *",
+        "tz": "America/Toronto"
+      },
+      "enabled": true,
+      "payload": {
+        "message": "AUTONOMY SCORE: Compute real autonomy score from workspace/tasks-log.md. 1) Count rows with status=done or VERIFIED as verified_completions. 2) Count rows with status=done|failed as dispatched_tasks. 3) real_autonomy_score = round(verified_completions / max(dispatched_tasks,1) * 100). 4) Read workspace/STATE.yaml, update real_autonomy_score field (add if missing). 5) Post to Slack #redos-ops: 'Autonomy score: X% ([verified] verified / [dispatched] dispatched)'. Do NOT modify any other STATE.yaml fields.",
+        "kind": "agentTurn"
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "telegram"
+      },
+      "wakeMode": "now",
+      "state": {
+        "nextRunAtMs": 1772513100000
       }
     }
   ]

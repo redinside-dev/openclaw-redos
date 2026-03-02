@@ -200,7 +200,16 @@ if [[ -f "$HOME/.9router/db.json" ]]; then
   fi
 fi
 
-# 9. Final status
+# 9. Autonomous workers
+WORKERS_SCRIPT="$HOME/.openclaw/scripts/start-workers.sh"
+if [[ -f "$WORKERS_SCRIPT" ]]; then
+  info "Starting autonomous workers..."
+  bash "$WORKERS_SCRIPT" || warn "Some workers failed to start — check ~/Library/LaunchAgents/ai.openclaw.worker.*.plist"
+else
+  warn "start-workers.sh not found — skipping workers"
+fi
+
+# 10. Final status
 check_status
 
 echo "Done. If any service shows ✗ above, check logs:"
