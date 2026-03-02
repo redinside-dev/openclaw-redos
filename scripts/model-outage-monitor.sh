@@ -5,7 +5,7 @@
 
 LOG_FILE="$HOME/.openclaw/logs/gateway.err.log"
 STATE_FILE="/tmp/model-outage-alert-sent"
-TELEGRAM_TOKEN="REDACTED_TELEGRAM_BOT_TOKEN"
+TELEGRAM_TOKEN="${TELEGRAM_TOKEN:-$(cat "$HOME/.openclaw/workspace/config/telegram-bot-token.txt" 2>/dev/null)}"
 TELEGRAM_CHAT="1012034994"
 
 send_telegram() {

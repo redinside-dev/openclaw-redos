@@ -9,7 +9,7 @@ ARCHIVE_BYTES=512000   # 500KB — extract context and archive (~57% of overflow
 AGENTS_DIR="$HOME/.openclaw/agents"
 ARCHIVE_ROOT="$HOME/.openclaw/workspace/memory/archived-sessions"
 LOG="$HOME/.openclaw/logs/session-overflow-monitor.log"
-TELEGRAM_TOKEN="REDACTED_TELEGRAM_BOT_TOKEN"
+TELEGRAM_TOKEN="${TELEGRAM_TOKEN:-$(cat "$HOME/.openclaw/workspace/config/telegram-bot-token.txt" 2>/dev/null)}"
 TELEGRAM_CHAT="1012034994"
 NOW=$(date -u +%Y-%m-%dT%H:%M:%SZ)
 

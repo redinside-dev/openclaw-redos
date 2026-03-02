@@ -5,7 +5,7 @@
 
 LOG="$HOME/.openclaw/logs/9router-watchdog.log"
 FAIL_FILE="/tmp/9router-watchdog-fails"
-TELEGRAM_TOKEN="REDACTED_TELEGRAM_BOT_TOKEN"
+TELEGRAM_TOKEN="${TELEGRAM_TOKEN:-$(cat "$HOME/.openclaw/workspace/config/telegram-bot-token.txt" 2>/dev/null)}"
 TELEGRAM_CHAT="1012034994"
 
 send_alert() {
