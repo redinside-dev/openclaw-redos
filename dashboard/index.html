@@ -382,7 +382,7 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
 
 <!-- CRON -->
 <div class="pg" id="pg-cron">
-  <div class="sec-t">All Cron Jobs</div>
+  <div class="sec-t">Cron Jobs <span id="cron-stats" style="font-size:12px;font-weight:400;color:var(--text3);margin-left:8px"></span> <button id="cron-toggle" onclick="window._cronShowAll=!window._cronShowAll;renderCron()" style="margin-left:12px;font-size:10px;padding:3px 10px;background:var(--bg3);border:1px solid var(--border);color:var(--text2);border-radius:4px;cursor:pointer"></button></div>
   <div class="c" style="overflow-x:auto"><table class="t" id="cr-t"><thead><tr><th>Name</th><th>Agent</th><th>Schedule</th><th>Enabled</th><th>Status</th><th>Last Run</th><th>Duration</th><th>Errors</th><th>Model</th></tr></thead><tbody></tbody></table></div>
 </div>
 
@@ -832,8 +832,16 @@ async function setCronModel(id,sel){
 function renderCron(){
   const tb=document.querySelector('#cr-t tbody');
   const jobs=D.cronJobs||[];
-  if(!jobs.length){tb.innerHTML='<tr><td colspan="9" style="text-align:center;padding:30px;color:var(--text3)">No cron jobs configured</td></tr>';return}
-  tb.innerHTML=jobs.map(j=>`<tr style="${j.enabled?'':'opacity:.35'}"><td style="color:var(--text);font-weight:500">${h(j.name||j.id)}</td><td>${EMO[j.agentId]||''} ${h(j.agentId)}</td><td><code style="font-size:9px;color:var(--cyan)">${h(sched(j.schedule))}</code></td><td>${j.enabled?'<span class="p p-g">ON</span>':'<span class="p p-x">OFF</span>'}</td><td>${j.lastStatus?'<span class="p '+pill(j.lastStatus)+'">'+j.lastStatus+'</span>':'<span class="p p-x">--</span>'}</td><td>${j.lastRunAtMs?ago(j.lastRunAtMs):'--'}</td><td>${j.lastDurationMs?(j.lastDurationMs/1000).toFixed(1)+'s':'--'}</td><td>${j.consecutiveErrors>0?'<span style="color:var(--red);font-weight:700">'+j.consecutiveErrors+'</span>':'0'}</td><td>${cronModelSel(j.id,j.model)}</td></tr>`).join('');
+  const enabled=jobs.filter(j=>j.enabled);
+  const disabled=jobs.filter(j=>!j.enabled);
+  const stats=document.getElementById('cron-stats');
+  const toggle=document.getElementById('cron-toggle');
+  if(stats) stats.textContent=`${enabled.length} active · ${disabled.length} disabled`;
+  const showAll=window._cronShowAll||false;
+  if(toggle) toggle.textContent=showAll?'Hide disabled':'Show all ('+jobs.length+')';
+  const display=showAll?jobs:enabled;
+  if(!display.length){tb.innerHTML='<tr><td colspan="9" style="text-align:center;padding:30px;color:var(--text3)">No cron jobs configured</td></tr>';return}
+  tb.innerHTML=display.map(j=>`<tr><td style="color:var(--text);font-weight:500">${h(j.name||j.id)}</td><td>${EMO[j.agentId]||''} ${h(j.agentId)}</td><td><code style="font-size:9px;color:var(--cyan)">${h(sched(j.schedule))}</code></td><td>${j.enabled?'<span class="p p-g">ON</span>':'<span class="p p-x">OFF</span>'}</td><td>${j.lastStatus?'<span class="p '+pill(j.lastStatus)+'">'+j.lastStatus+'</span>':'<span class="p p-x">--</span>'}</td><td>${j.lastRunAtMs?ago(j.lastRunAtMs):'--'}</td><td>${j.lastDurationMs?(j.lastDurationMs/1000).toFixed(1)+'s':'--'}</td><td>${j.consecutiveErrors>0?'<span style="color:var(--red);font-weight:700">'+j.consecutiveErrors+'</span>':'0'}</td><td>${cronModelSel(j.id,j.model)}</td></tr>`).join('');
 }
 
 function slaBadge(t){

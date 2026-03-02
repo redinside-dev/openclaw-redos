@@ -55,7 +55,7 @@
 │            OPENCLAW GATEWAY  (port 18789)                       │
 │            v2026.2.26 · launchd managed                         │
 │                                                                 │
-│  Agent runtime · Skill executor · Cron scheduler (104 jobs)      │
+│  Agent runtime · Skill executor · Cron scheduler (30 active)     │
 │  Session memory (SQLite) · A2A delegation · memory-core plugin  │
 └──────────┬──────────────────────┬──────────────────────┬────────┘
            │                      │                      │
@@ -63,12 +63,12 @@
     ┌────────────┐         ┌────────────┐         ┌──────────────┐
     │  43 SKILLS │         │  9 ROUTER  │         │   n8n :5678  │
     │            │         │  :20128    │         │              │
-    │ maker-chkr │         │ free-unlim │         │ 3 workflows  │
-    │ telegram-  │         │ heartbeat- │         │ slack-post   │
-    │  approvals │         │   cheap    │         │ gh-status    │
-    │ autonomy-  │         │ gpt-5.2 fb │         │ echo-test    │
-    │  scorecard │         │ + Ollama   │         │ credential   │
-    │ n8n-webhks │         │  (hatake)  │         │  isolation   │
+    │ maker-chkr │         │ free-unlim │         │ 8 workflows  │
+    │ telegram-  │         │ heartbeat- │         │ github-evts  │
+    │  approvals │         │   cheap    │         │ slack-router │
+    │ autonomy-  │         │ gpt-5.2 fb │         │ daily-stdup  │
+    │  scorecard │         │ + Ollama   │         │ err-escalate │
+    │ n8n-webhks │         │  (hatake)  │         │ + 4 more     │
     │ + 38 more  │         └────────────┘         └──────────────┘
     └────────────┘
            │
@@ -98,7 +98,10 @@
 
 ---
 
-## 24/7 Autonomy (104 Cron Jobs)
+## 24/7 Autonomy (30 Active Cron Jobs)
+
+**30 active / 85 disabled** (115 total) — reduced from 110 active via event-driven migration (2026-03-02).
+Polling jobs replaced by n8n webhook workflows. Full list: `cron/jobs.json`.
 
 Key named cron jobs:
 
@@ -115,8 +118,6 @@ Key named cron jobs:
 | `finance-weekly-cost-report-0001` | finance | Mon 8:45am ET | Weekly cost report → Slack |
 | `weekly-improvement-proposal-0001` | ops | Mon 9am ET | Self-improvement proposal |
 | `hourly-snapshot-cron-0001` | ops | hourly | Git snapshot + backup |
-
-Full list: `cron/jobs.json`
 
 ---
 
@@ -170,16 +171,23 @@ Agents share state via files — no message-passing bottlenecks, race-condition 
 
 ---
 
-## n8n Webhook Delegation
+## n8n Webhook Delegation (8 Workflows Active)
 
-Credential-isolated external API calls. Agents POST to webhook URLs; credentials never leave n8n.
+Credential-isolated external API calls and event-driven triggers. Agents POST to webhook URLs; credentials never leave n8n.
 
-| Webhook | Purpose | Input |
+| Webhook / Workflow | Purpose | Trigger |
 |---|---|---|
-| `POST /webhook/echo-test` | Health check | `{any}` |
-| `POST /webhook/slack-post` | Post to Slack | `{channel: "C...", text: "..."}` |
-| `POST /webhook/github-repo-status` | Fetch latest commits | `{repo: "owner/name"}` |
+| `POST /webhook/echo-test` | Health check | Agent call |
+| `POST /webhook/slack-post` | Post `{channel, text}` → Slack | Agent call |
+| `POST /webhook/github-repo-status` | Fetch latest commits `{repo}` | Agent call |
+| `POST /webhook/github-events` | GitHub push/PR/issue → dispatch agent | GitHub webhook (Cloudflare tunnel) |
+| `POST /webhook/slack-inbound-router` | Incoming Slack messages → agent | Slack Events API |
+| `POST /webhook/cost-alert-escalation` | Budget threshold breach → escalate | Gateway cost monitor |
+| `POST /webhook/error-escalation` | Critical error → escalate | Gateway error handler |
+| Schedule `0 8 * * 1-5` | Daily standup → 6 agents | n8n cron (8am ET M–F) |
 
+**Cloudflare tunnel:** Auto-synced on each boot via launchd `ai.openclaw.tunnel-sync`.
+Current URL written to `workspace/config/tunnel-url.txt`.
 Dashboard: `http://127.0.0.1:5678` · API key: `workspace/config/n8n-api-key.txt` (gitignored)
 
 ---
@@ -207,7 +215,7 @@ Dashboard: `http://127.0.0.1:5678` · API key: `workspace/config/n8n-api-key.txt
 | File | Purpose |
 |---|---|
 | `openclaw.json` | Master runtime config **(gitignored)** |
-| `cron/jobs.json` | All 104 cron job definitions |
+| `cron/jobs.json` | 115 cron definitions (30 enabled / 85 disabled) |
 | `workspace/SOUL.md` | **Company OS** — injected into every agent session |
 | `workspace/MEMORY.md` | Curated long-term memory |
 | `workspace/GOALS.md` | Active company goals |
@@ -273,7 +281,7 @@ npm update -g openclaw && bash scripts/patch-pairing-reply.sh
 ├── CLAUDE.md                        ← Claude Code guidance
 ├── KNOWLEDGEBASE.md                 ← architecture quick reference
 ├── openclaw.json                    ← live config (gitignored)
-├── cron/jobs.json                   ← 104 cron definitions
+├── cron/jobs.json                   ← 115 cron definitions (30 enabled)
 ├── extensions/memory-core/          ← memory-core plugin
 ├── workspace/
 │   ├── SOUL.md                      ← Company OS (START HERE)
@@ -298,4 +306,5 @@ npm update -g openclaw && bash scripts/patch-pairing-reply.sh
 
 ---
 
-**Status: ✅ FULLY OPERATIONAL — 104-cron 24/7 autonomous AI company · bounded autonomy L0–L5**
+**Status: ✅ FULLY OPERATIONAL — 30 active crons · 8 n8n workflows · event-driven architecture · bounded autonomy L0–L5**
+**Last updated: 2026-03-02**

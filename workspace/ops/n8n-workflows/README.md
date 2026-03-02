@@ -1,72 +1,121 @@
-# n8n Workflow Files — Import Guide
+# n8n Workflow Reference — RedOS
 
-These JSON files are importable into the n8n dashboard. They define the event-driven workflows that replace polling cron jobs.
+**Status:** All 8 workflows active and verified as of 2026-03-02.
+**Instance:** `http://127.0.0.1:5678`
+**API key:** `workspace/config/n8n-api-key.txt`
 
-## How to Import
+---
 
-1. Open n8n dashboard: http://127.0.0.1:5678
-2. Click **Workflows** in the left sidebar
-3. Click **Import from file**
-4. Select the JSON file from this directory
-5. Review and **Activate** the workflow
+## Active Workflows
 
-## Workflows
+| Workflow | ID | Trigger | Purpose |
+|----------|-----|---------|---------|
+| `echo-test` | `SWmkldgx4OypuhOn` | Agent POST | Health check — returns input |
+| `slack-post` | `zIoMz7Ug5oVeZz5T` | Agent POST | Post `{channel, text}` → Slack |
+| `github-repo-status` | `g7fy6gWny65rhStr` | Agent POST | Fetch latest commits `{repo: "owner/name"}` |
+| `github-events` | `RS3wjcMCSrUeaRlR` | GitHub webhook | push/PR/issue → dispatch agent |
+| `slack-inbound-router` | `EInxQVFsBEAcNKS1` | Slack Events API | Route Slack messages → agents |
+| `cost-alert-escalation` | `GyjnDmZn38ZJVpN7` | Gateway cost monitor | Budget breach → escalate to OPS |
+| `error-escalation` | `NdKRqbHyxP7j9ihZ` | Gateway error handler | Critical error → escalate |
+| `daily-standup` | `C0gFamBjnzPGH8Y3` | Schedule 8am ET M–F | Dispatch standup check-ins to 6 agents |
 
-| File | Webhook Path | Type | Replaces |
-|------|-------------|------|---------|
-| `github-events.json` | `/webhook/github-events` | Inbound webhook | GitHub polling cron (4x/day) |
-| `slack-inbound-router.json` | `/webhook/slack-inbound-router` | Inbound webhook | Slack polling crons |
-| `cost-alert-escalation.json` | `/webhook/cost-alert-escalation` | Called by cost-monitor | budget-guardrails thresholds |
-| `error-escalation.json` | `/webhook/error-escalation` | Called by gateway | error-digest-writer cron |
-| `daily-standup.json` | Schedule (8am ET) | Schedule trigger | 6 sa-*-checkin crons |
+---
 
-## Setup After Import
+## Webhook URLs
 
-### github-events + slack-inbound-router (Inbound webhooks)
+| Path | Full URL |
+|------|----------|
+| Echo test | `http://127.0.0.1:5678/webhook/echo-test` |
+| Slack post | `http://127.0.0.1:5678/webhook/slack-post` |
+| GitHub repo status | `http://127.0.0.1:5678/webhook/github-repo-status` |
+| GitHub events | via Cloudflare tunnel (see `workspace/config/tunnel-url.txt`) |
+| Slack inbound | via Cloudflare tunnel |
+| Cost alert | `http://127.0.0.1:5678/webhook/cost-alert-escalation` |
+| Error escalation | `http://127.0.0.1:5678/webhook/error-escalation` |
 
-These require a public URL. Options:
+---
 
-**Option A: Cloudflare Tunnel (recommended — stable URL)**
+## Cloudflare Tunnel (GitHub + Slack inbound)
+
+The `github-events` and `slack-inbound-router` webhooks require a public URL.
+
+**Auto-managed:** launchd `ai.openclaw.tunnel-sync` updates the GitHub webhook on every boot.
+- Current tunnel URL: `cat ~/.openclaw/workspace/config/tunnel-url.txt`
+- GitHub webhook ID: `cat ~/.openclaw/workspace/config/github-webhook-id.txt` (598611413)
+- PAT stored in: `workspace/config/github-webhook-pat.txt` (gitignored)
+
+**Manual check:**
 ```bash
-# Setup (one-time)
-bash ~/.openclaw/scripts/start-webhook-tunnel.sh
-
-# Then register webhook at GitHub:
-# https://github.com/<your-repo>/settings/webhooks
-# Payload URL: https://openclaw-webhooks.cfargotunnel.com/webhook/github-events
-# Content type: application/json
-# Events: Pushes, Pull requests, Issues
-
-# Register at Slack:
-# https://api.slack.com/apps/<app-id>/event-subscriptions
-# Request URL: https://openclaw-webhooks.cfargotunnel.com/webhook/slack-inbound-router
-# Subscribe to: message.channels, app_mention
+bash ~/.openclaw/scripts/tunnel-url.sh
 ```
 
-**Option B: ngrok (dev/testing — URL changes on restart)**
-```bash
-ngrok http 5678
-# Use the ngrok URL as the webhook URL in GitHub/Slack
+---
+
+## Agent→Gateway Dispatch Pattern
+
+When dispatching to the gateway from n8n httpRequest nodes:
+
+```json
+{
+  "method": "POST",
+  "url": "http://127.0.0.1:19000/api/chat",
+  "sendHeaders": true,
+  "headerParameters": {
+    "parameters": [
+      {"name": "Content-Type", "value": "application/json"},
+      {"name": "x-source", "value": "n8n-<workflow-name>"}
+    ]
+  },
+  "sendBody": true,
+  "contentType": "json",
+  "specifyBody": "json",
+  "jsonBody": "={{ JSON.stringify({ agentId: $json.agentId, message: $json.message }) }}"
+}
 ```
 
-### cost-alert-escalation + error-escalation (Called by agents)
+**Critical rules:**
+- Always use `http://127.0.0.1:19000` — never `localhost` (macOS resolves to IPv6 ::1)
+- Always specify `"method": "POST"` — n8n defaults to GET without it
+- For `contentType: "json"`, always use `specifyBody: "json"` + `jsonBody` — not top-level `body`
 
-These don't need a public URL — they're called locally:
+See `workspace/ops/LEARNINGS.md` LEARNING-20260302-004 for full debug history.
+
+---
+
+## Quick Tests
+
 ```bash
-# Test cost alert
+# Echo test
+curl -s -X POST http://127.0.0.1:5678/webhook/echo-test \
+  -H "Content-Type: application/json" -d '{"hello":"world"}'
+
+# Slack post
+curl -s -X POST http://127.0.0.1:5678/webhook/slack-post \
+  -H "Content-Type: application/json" \
+  -d '{"channel":"C0AEV3J2L23","text":"Test from n8n"}'
+
+# Cost alert escalation
 curl -s -X POST http://127.0.0.1:5678/webhook/cost-alert-escalation \
   -H "Content-Type: application/json" \
   -d '{"current_usd":1.70,"limit_usd":2.00,"pct":85,"triggered_by":"test"}'
 
-# Test error escalation
+# Error escalation
 curl -s -X POST http://127.0.0.1:5678/webhook/error-escalation \
   -H "Content-Type: application/json" \
   -d '{"error_type":"gateway_timeout","agent":"eng","count":6,"log_snippet":"TimeoutError..."}'
 ```
 
-### daily-standup (Schedule trigger)
+---
 
-- No external registration needed
-- Just import + activate
-- Configure n8n timezone to America/Toronto in n8n settings
-- Runs automatically at 8am ET weekdays
+## Re-importing Workflows
+
+If a workflow needs to be recreated from the JSON files in this directory:
+1. Open `http://127.0.0.1:5678`
+2. Click **Workflows** → **Import from file**
+3. Select the JSON file
+4. **Critical:** Ensure each webhook trigger node has `"webhookId": "<uuid>"` — without it, n8n registers broken composite paths
+5. Activate the workflow
+
+See `workspace/ops/LEARNINGS.md` LEARNING-20260302-001 for the webhookId requirement.
+
+**Last updated:** 2026-03-02

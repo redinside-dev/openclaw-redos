@@ -9,7 +9,7 @@
 > - `workspace/DECISIONS.md` — architectural decision log
 > - `README.md` — system overview
 
-**Last updated:** 2026-03-01 — feature/awesome-openclaw-usecases merged to main
+**Last updated:** 2026-03-02 — event-driven architecture complete, 30 active crons, 8 n8n workflows, GitHub webhook + Cloudflare tunnel automated
 
 ---
 
@@ -93,7 +93,9 @@ Timeouts (per SOUL.md): 45s default, 90s for complex delegation. Log all A2A to 
 
 ---
 
-## Cron Schedule Summary (104 jobs)
+## Cron Schedule Summary (30 active / 115 total)
+
+**30 active jobs** — reduced from 110 active. Polling jobs replaced by n8n event-driven workflows.
 
 Key cadences:
 - **Every 2min** — Telegram approval monitor (main)
@@ -112,17 +114,30 @@ Do NOT hardcode `model` in cron payloads — omit the field.
 
 ---
 
-## n8n Webhooks
+## n8n Workflows (8 active)
 
 Base URL: `http://127.0.0.1:5678/webhook/`
 API key: `workspace/config/n8n-api-key.txt` (gitignored)
 Dashboard login: `anuragg.saxenaa@gmail.com`
 
-| Path | Workflow ID | Purpose |
-|---|---|---|
-| `echo-test` | `SWmkldgx4OypuhOn` | Echo / health check |
-| `slack-post` | `zIoMz7Ug5oVeZz5T` | Post `{channel, text}` → Slack |
-| `github-repo-status` | `g7fy6gWny65rhStr` | Fetch latest commits `{repo}` |
+| Path / Workflow | ID | Trigger | Purpose |
+|---|---|---|---|
+| `echo-test` | `SWmkldgx4OypuhOn` | Agent POST | Echo / health check |
+| `slack-post` | `zIoMz7Ug5oVeZz5T` | Agent POST | Post `{channel, text}` → Slack |
+| `github-repo-status` | `g7fy6gWny65rhStr` | Agent POST | Fetch latest commits `{repo}` |
+| `github-events` | `RS3wjcMCSrUeaRlR` | GitHub webhook (Cloudflare) | push/PR/issue → dispatch agent |
+| `slack-inbound-router` | `EInxQVFsBEAcNKS1` | Slack Events API | Route Slack messages → agents |
+| `cost-alert-escalation` | `GyjnDmZn38ZJVpN7` | Gateway cost monitor | Budget breach → escalate |
+| `error-escalation` | `NdKRqbHyxP7j9ihZ` | Gateway error handler | Critical error → escalate |
+| `daily-standup` | `C0gFamBjnzPGH8Y3` | Schedule 8am ET M–F | Dispatch standup to 6 agents |
+
+**httpRequest dispatch pattern** (required for agent→gateway calls):
+```json
+{ "method": "POST", "url": "http://127.0.0.1:19000/api/chat",
+  "contentType": "json", "specifyBody": "json",
+  "jsonBody": "={{ JSON.stringify({ agentId: $json.agentId, message: $json.message }) }}" }
+```
+See `workspace/ops/LEARNINGS.md` LEARNING-20260302-004 for full debug notes.
 
 ---
 

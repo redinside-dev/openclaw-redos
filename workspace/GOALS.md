@@ -69,19 +69,19 @@ Sub-goals:
 ### GOAL-005 — Event-Driven Architecture
 **Owner:** OPS
 **Horizon:** Q2 2026
-**Status:** In Progress (started 2026-03-01)
-**KPI:** ≤30 active cron jobs, 80%+ external events via n8n webhooks (not polling)
+**Status:** ✅ COMPLETE (2026-03-02) — merged to main
+**KPI:** ≤30 active cron jobs ✅, 80%+ external events via n8n webhooks ✅
 
 Sub-goals:
-- [x] Cron audit complete — 110 → 40 enabled (72 disabled, 4 consolidated jobs added)
-- [x] n8n workflow catalog documented (10+ workflows in `workspace/skills/n8n-webhooks/SKILL.md`)
+- [x] Cron audit complete — 110 → 30 enabled (85 disabled, 115 total)
+- [x] n8n workflow catalog documented (`workspace/skills/n8n-webhooks/SKILL.md`)
 - [x] Event-driven classification guide created (`workspace/skills/event-driven-patterns/SKILL.md`)
-- [x] Feature branch created: `feature/event-driven-mission-control`
-- [ ] n8n github-events workflow built + GitHub webhook registered
-- [ ] n8n slack-inbound-router workflow built + Slack Events API registered
-- [ ] Cloudflare Tunnel configured for stable webhook URL
-- [ ] Further cron reduction: 40 → ≤30 (eliminate remaining polling patterns)
-- [ ] Validate: `python3 -c "import json; d=json.load(open('cron/jobs.json')); print(sum(1 for j in d['jobs'] if j.get('enabled',True)))"` should show ≤30
+- [x] Feature branch `feature/event-driven-mission-control` → merged to main (PR #2)
+- [x] n8n github-events workflow built + GitHub webhook registered (webhook ID 598611413)
+- [x] n8n slack-inbound-router workflow built
+- [x] Cloudflare Tunnel configured + auto-sync on boot (launchd `ai.openclaw.tunnel-sync`)
+- [x] Cron reduction: 40 → 30 ✅ (KPI met)
+- [x] Validated: `python3 -c "import json; d=json.load(open('cron/jobs.json')); print(sum(1 for j in d['jobs'] if j.get('enabled',True)))"` → 30
 
 ---
 
@@ -89,6 +89,63 @@ Sub-goals:
 
 - **n8n webhook delegation** — ✅ 2026-02-28: 3 live workflows (echo-test, slack-post, github-repo-status), API key auth, credential isolation working
 - **Semantic memory search** — ✅ 2026-02-28: qdrant + fastembed deployed, memsearch.py + rag_query.py, dashboard /api/search
+
+### GOAL-006 — Production Agent Reliability (Varick Agents patterns)
+**Owner:** RED
+**Horizon:** Q1 2026 (Complete by 2026-03-06 23:59 EST - 5 days)
+**Status:** Active (added 2026-03-02)
+**KPI:** A2A timeout rate <5%, blocked tasks auto-resolve <1h, agent completion rate >80%
+**Inspiration:** [Vas @ Varick Agents ($3M ARR)](https://x.com/vasuman/status/2010473638110363839) — production agent patterns
+
+**DEADLINE: 2026-03-06 23:59 EST (end of 5-day autonomous run)**
+
+Sub-goals with deadlines:
+- [ ] **Context Engineering (P1) — DUE: 2026-03-03 23:59 EST (Day 2)**
+  - Structured A2A handoff protocol with retry/fallback
+  - Domain knowledge bases per agent (`workspace/knowledge/{agent}/`)
+  - Cross-task memory chains in episodes.jsonl
+  - **Owner:** ENG + OPS
+  - **Deliverable:** `workspace/docs/a2a-handoff-protocol.md`, knowledge bases for 3+ agents, episodes.jsonl with context chains
+
+- [ ] **Force Resolution Pattern (P1) — DUE: 2026-03-04 23:59 EST (Day 3)**
+  - Watchdog auto-remediation before alerts (upgrade 3 watchdog scripts)
+  - SLA breach auto-escalation with context+suggested fixes
+  - Block-on-failure for dependency chains
+  - **Owner:** OPS + INFOSEC
+  - **Deliverable:** 3 upgraded watchdog scripts with auto-remediation, SLA escalation handler, dependency blocker
+
+- [ ] **Coordination Protocol (P1) — DUE: 2026-03-04 23:59 EST (Day 3)**
+  - Fix sessions_send timeout epidemic (TICKET-20260301-044)
+  - Add retry/fallback for A2A communication
+  - Conflict resolution for parallel work
+  - **Owner:** ENG
+  - **Deliverable:** sessions_send timeout fix deployed, retry logic implemented, conflict resolution protocol documented
+
+- [ ] **Self-Healing Infrastructure (P2) — DUE: 2026-03-05 23:59 EST (Day 4)**
+  - Auto-rotate credentials (Perplexity/GitHub tokens)
+  - Auto-provision missing files/paths (fix INFOSEC blockers)
+  - Health monitors with remediation loops
+  - **Owner:** OPS + ENG
+  - **Deliverable:** Credential rotation cron, file provisioning script, 2+ health monitors with auto-fix
+
+- [ ] **Context Audit (P2) — DUE: 2026-03-06 23:59 EST (Day 5)**
+  - Review all agent SOUL.md for domain knowledge gaps
+  - Add structured context requirements to task templates
+  - Measure context quality (track clarification requests)
+  - **Owner:** RED + ALLROUNDER
+  - **Deliverable:** SOUL.md audit report, updated task templates, context quality dashboard
+
+**Daily Check-ins:** RED reviews progress at 09:00 EST daily, escalates blockers immediately
+**Success Gate:** All P1 items (Days 2-3) must complete before P2 items start
+
+**Key Insights:**
+- Context is the whole game — agents without context are expensive random number generators
+- Design for multiplication not replacement — let 3 people do what used to require 15
+- Catch and resolve, don't report and review — dashboards are where problems go to die
+- Architecture matters more than model selection — solo/parallel/collaborative is a bigger decision than which LLM
+- Ship fast, improve constantly — 3 months max to production, not 12-month timelines
+
+---
 
 ## Icebox (future goals, not active)
 
