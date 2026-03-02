@@ -321,3 +321,4 @@ logs/
 *.log
 workspace/config/n8n-api-key.txt
 workspace/config/github-webhook-pat.txt
+workspace/config/telegram-bot-token.txt
