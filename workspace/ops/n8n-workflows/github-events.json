@@ -1,4 +1,5 @@
 {
+  "id": "RS3wjcMCSrUeaRlR",
   "name": "github-events",
   "nodes": [
     {
@@ -13,17 +14,23 @@
       "webhookId": "9ec7d80d-a4f6-45f2-9b42-a4310753b8b0",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
-      "position": [240, 300]
+      "position": [
+        240,
+        300
+      ]
     },
     {
       "parameters": {
-        "jsCode": "// Parse GitHub event type and build agent message\nconst body = $input.first().json.body || $input.first().json;\nconst event = $input.first().headers?.['x-github-event'] || 'push';\n\nlet agentId = 'eng';\nlet message = '';\n\nif (event === 'push') {\n  const repo = body.repository?.full_name || 'unknown';\n  const branch = body.ref?.replace('refs/heads/', '') || 'unknown';\n  const commits = (body.commits || []).slice(0, 3).map(c => `- ${c.message}`).join('\\n');\n  agentId = 'eng';\n  message = `GITHUB PUSH to ${repo}/${branch}:\\n${commits}\\n\\nReview for any issues, update status in workspace/STATE.yaml if relevant.`;\n} else if (event === 'pull_request') {\n  const pr = body.pull_request || {};\n  const action = body.action || 'opened';\n  const repo = body.repository?.full_name || 'unknown';\n  agentId = 'eng';\n  message = `GITHUB PR #${pr.number} ${action} in ${repo}: \"${pr.title}\"\\nAuthor: ${pr.user?.login}\\nBranch: ${pr.head?.ref} → ${pr.base?.ref}\\n\\nReview for code quality and merge readiness. Coordinate with INFOSEC if security-related.`;\n} else if (event === 'issues') {\n  const issue = body.issue || {};\n  const action = body.action || 'opened';\n  agentId = 'ops';\n  message = `GITHUB ISSUE #${issue.number} ${action}: \"${issue.title}\"\\nBody: ${(issue.body || '').substring(0, 200)}\\n\\nTriage and create ticket in TICKET-TRACKER.md if action required.`;\n}\n\nreturn [{ json: { agentId, message, event, repo: body.repository?.full_name } }];"
+        "jsCode": "// Parse GitHub event type and build agent message\nconst body = $input.first().json.body || $input.first().json;\nconst event = $input.first().headers?.['x-github-event'] || 'push';\n\nlet agentId = 'eng';\nlet message = '';\n\nif (event === 'push') {\n  const repo = body.repository?.full_name || 'unknown';\n  const branch = body.ref?.replace('refs/heads/', '') || 'unknown';\n  const commits = (body.commits || []).slice(0, 3).map(c => `- ${c.message}`).join('\\n');\n  agentId = 'eng';\n  message = `GITHUB PUSH to ${repo}/${branch}:\\n${commits}\\n\\nReview for any issues, update status in workspace/STATE.yaml if relevant.`;\n} else if (event === 'pull_request') {\n  const pr = body.pull_request || {};\n  const action = body.action || 'opened';\n  const repo = body.repository?.full_name || 'unknown';\n  agentId = 'eng';\n  message = `GITHUB PR #${pr.number} ${action} in ${repo}: \"${pr.title}\"\\nAuthor: ${pr.user?.login}\\nBranch: ${pr.head?.ref} \u2192 ${pr.base?.ref}\\n\\nReview for code quality and merge readiness. Coordinate with INFOSEC if security-related.`;\n} else if (event === 'issues') {\n  const issue = body.issue || {};\n  const action = body.action || 'opened';\n  agentId = 'ops';\n  message = `GITHUB ISSUE #${issue.number} ${action}: \"${issue.title}\"\\nBody: ${(issue.body || '').substring(0, 200)}\\n\\nTriage and create ticket in TICKET-TRACKER.md if action required.`;\n}\n\nreturn [{ json: { agentId, message, event, repo: body.repository?.full_name } }];"
       },
       "id": "parse-event",
       "name": "Parse GitHub Event",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [460, 300]
+      "position": [
+        460,
+        300
+      ]
     },
     {
       "parameters": {
@@ -31,19 +38,30 @@
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
-            { "name": "Content-Type", "value": "application/json" },
-            { "name": "x-source", "value": "n8n-github-webhook" }
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "x-source",
+              "value": "n8n-github-webhook"
+            }
           ]
         },
         "sendBody": true,
         "contentType": "json",
-        "body": "={{ JSON.stringify({ agentId: $json.agentId, message: $json.message }) }}"
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ agentId: $json.agentId, message: $json.message }) }}",
+        "method": "POST"
       },
       "id": "call-gateway",
       "name": "Dispatch to Gateway",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [680, 300]
+      "position": [
+        680,
+        300
+      ]
     },
     {
       "parameters": {
@@ -54,28 +72,62 @@
       "name": "Respond OK",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
-      "position": [900, 300]
+      "position": [
+        900,
+        300
+      ]
     }
   ],
   "connections": {
     "GitHub Webhook": {
-      "main": [[ { "node": "Parse GitHub Event", "type": "main", "index": 0 } ]]
+      "main": [
+        [
+          {
+            "node": "Parse GitHub Event",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Parse GitHub Event": {
-      "main": [[ { "node": "Dispatch to Gateway", "type": "main", "index": 0 } ]]
+      "main": [
+        [
+          {
+            "node": "Dispatch to Gateway",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Dispatch to Gateway": {
-      "main": [[ { "node": "Respond OK", "type": "main", "index": 0 } ]]
+      "main": [
+        [
+          {
+            "node": "Respond OK",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
-  "active": false,
-  "settings": { "executionOrder": "v1" },
-  "tags": [{ "name": "event-driven" }],
-  "_meta": {
-    "instanceId": "openclaw-redos",
-    "description": "Receives GitHub webhooks (push/PR/issue) and dispatches to ENG or OPS agent. Import in n8n, activate, then register webhook URL at GitHub repo Settings > Webhooks.",
-    "webhookPath": "github-events",
-    "targetAgents": ["eng", "ops", "infosec"],
-    "replaces": "2ef34ad2 GitHub Repo Updates polling cron (4x/day)"
-  }
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false,
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "tags": [
+    {
+      "updatedAt": "2026-03-02T00:34:35.287Z",
+      "createdAt": "2026-03-02T00:34:35.287Z",
+      "id": "Pd72skzr3C2b95Ap",
+      "name": "event-driven"
+    }
+  ]
 }

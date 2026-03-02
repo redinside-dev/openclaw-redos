@@ -1,4 +1,5 @@
 {
+  "id": "C0gFamBjnzPGH8Y3",
   "name": "daily-standup",
   "nodes": [
     {
@@ -12,21 +13,27 @@
           ]
         }
       },
-      "id": "schedule-trigger",
+      "id": "f3be31f3-98c4-4f46-a6db-5aacd62ec500",
       "name": "Weekday 8am ET",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
-      "position": [240, 300]
+      "position": [
+        0,
+        0
+      ]
     },
     {
       "parameters": {
-        "jsCode": "// Build standup kickoff messages for each agent\nconst agents = [\n  { id: 'main', delay: 0 },\n  { id: 'eng', delay: 2000 },\n  { id: 'research', delay: 4000 },\n  { id: 'finance', delay: 6000 },\n  { id: 'ops', delay: 8000 },\n  { id: 'infosec', delay: 10000 }\n];\n\nconst date = new Date().toLocaleDateString('en-CA');\nconst messages = agents.map(a => ({\n  agentId: a.id,\n  message: `MORNING STANDUP ${date}: Write your status to workspace/ops/agent-status/${a.id}.json with fields: sprintGoal, workingOn, completedYesterday, ETA, blockers. Keep it brief — OPS will compile at 8:15am.`,\n  delay: a.delay\n}));\n\nreturn messages.map(m => ({ json: m }));"
+        "jsCode": "// Build standup kickoff messages for each agent\nconst agents = [\n  { id: 'main', delay: 0 },\n  { id: 'eng', delay: 2000 },\n  { id: 'research', delay: 4000 },\n  { id: 'finance', delay: 6000 },\n  { id: 'ops', delay: 8000 },\n  { id: 'infosec', delay: 10000 }\n];\n\nconst date = new Date().toLocaleDateString('en-CA');\nconst messages = agents.map(a => ({\n  agentId: a.id,\n  message: `MORNING STANDUP ${date}: Write your status to workspace/ops/agent-status/${a.id}.json with fields: sprintGoal, workingOn, completedYesterday, ETA, blockers. Keep it brief \u2014 OPS will compile at 8:15am.`,\n  delay: a.delay\n}));\n\nreturn messages.map(m => ({ json: m }));"
       },
-      "id": "build-checkins",
+      "id": "ed368053-aa1c-4c2a-9e8d-ddaaa0bffc96",
       "name": "Build Agent Check-ins",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [460, 300]
+      "position": [
+        224,
+        0
+      ]
     },
     {
       "parameters": {
@@ -34,30 +41,48 @@
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
-            { "name": "Content-Type", "value": "application/json" },
-            { "name": "x-source", "value": "n8n-daily-standup" }
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "x-source",
+              "value": "n8n-daily-standup"
+            }
           ]
         },
         "sendBody": true,
-        "contentType": "json",
-        "body": "={{ JSON.stringify({ agentId: $json.agentId, message: $json.message }) }}"
+        "bodyParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "options": {},
+        "method": "POST"
       },
-      "id": "dispatch-checkins",
+      "id": "42df0693-f0fb-4ca7-8ed5-27f3ce548af2",
       "name": "Dispatch Check-ins",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [680, 300]
+      "position": [
+        448,
+        0
+      ]
     },
     {
       "parameters": {
         "amount": 15,
         "unit": "minutes"
       },
-      "id": "wait-15min",
+      "id": "e4f23720-6f43-44dc-ae67-4cf2278007cf",
       "name": "Wait 15min",
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
-      "position": [680, 460]
+      "position": [
+        448,
+        160
+      ],
+      "webhookId": "9ef42f26-2aca-4340-b5fa-e1074f7bee81"
     },
     {
       "parameters": {
@@ -65,41 +90,85 @@
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
-            { "name": "Content-Type", "value": "application/json" }
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
           ]
         },
         "sendBody": true,
-        "contentType": "json",
-        "body": "{\"agentId\":\"ops\",\"message\":\"OPS SCRUM MASTER: Read all workspace/ops/agent-status/*.json files. Compile morning standup summary. Post to Slack #redos-standup via n8n slack-post webhook. Append to workspace/ops/STANDUP-LOG.md.\"}"
+        "bodyParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "options": {},
+        "method": "POST"
       },
-      "id": "ops-compile",
+      "id": "6e053f2d-777d-4838-a5df-594e3e0804ca",
       "name": "OPS Compile Standup",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [900, 460]
+      "position": [
+        672,
+        160
+      ]
     }
   ],
   "connections": {
     "Weekday 8am ET": {
-      "main": [[ { "node": "Build Agent Check-ins", "type": "main", "index": 0 } ]]
+      "main": [
+        [
+          {
+            "node": "Build Agent Check-ins",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Build Agent Check-ins": {
       "main": [
-        [ { "node": "Dispatch Check-ins", "type": "main", "index": 0 } ],
-        [ { "node": "Wait 15min", "type": "main", "index": 0 } ]
+        [
+          {
+            "node": "Dispatch Check-ins",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
     "Wait 15min": {
-      "main": [[ { "node": "OPS Compile Standup", "type": "main", "index": 0 } ]]
+      "main": [
+        [
+          {
+            "node": "OPS Compile Standup",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
-  "active": false,
-  "settings": { "executionOrder": "v1" },
-  "tags": [{ "name": "scheduled" }],
-  "_meta": {
-    "description": "Runs weekdays at 8am ET. Dispatches standup check-ins to 6 agents, waits 15min, then OPS compiles the standup summary and posts to Slack.",
-    "schedule": "0 8 * * 1-5 (ET)",
-    "replaces": "sa-main-checkin-0001, sa-eng-checkin-0001, sa-research-checkin-0001, sa-finance-checkin-0001, sa-ops-checkin-0001, sa-infosec-checkin-0001 (all 6 standup check-in crons)",
-    "note": "Timezone: configure n8n to run in America/Toronto timezone"
-  }
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false,
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "staticData": {
+    "node:Weekday 8am ET": {
+      "recurrenceRules": []
+    }
+  },
+  "meta": null,
+  "pinData": {},
+  "tags": [
+    {
+      "updatedAt": "2026-03-02T00:29:41.058Z",
+      "createdAt": "2026-03-02T00:29:41.058Z",
+      "id": "7xObWo1OE91MK9El",
+      "name": "scheduled"
+    }
+  ]
 }
