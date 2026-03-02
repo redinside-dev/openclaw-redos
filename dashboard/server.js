@@ -1270,6 +1270,125 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // ── POST /api/chat — dispatch message to agent via CLI (used by n8n workflows) ──
+  if (url.pathname === '/api/chat' && req.method === 'POST') {
+    let body = '';
+    req.on('data', c => body += c);
+    req.on('end', () => {
+      try {
+        const { agentId, message } = JSON.parse(body);
+        if (!agentId || !message) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: 'agentId and message required' }));
+          return;
+        }
+        const runId = `n8n-${agentId}-${Date.now()}`;
+        // Fire-and-forget: dispatch and return 202 immediately
+        execFile(
+          '/opt/homebrew/bin/openclaw',
+          ['agent', '--agent', agentId, '--channel', 'slack', '--message', message, '--json'],
+          { timeout: 120000 },
+          (err, stdout) => {
+            if (err) console.error(`[api/chat] ${agentId} error:`, err.message);
+            else console.log(`[api/chat] ${agentId} dispatched ok`);
+          }
+        );
+        res.writeHead(202, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: true, runId, agentId, status: 'dispatched' }));
+      } catch (e) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: e.message }));
+      }
+    });
+    return;
+  }
+
+  // ── /api/mission-control/* — cost analytics endpoints ──────────────────────
+  const COST_EVENTS_LOG = path.join(OPENCLAW_DIR, 'workspace/logs/cost-events.jsonl');
+  const BUDGET_GUARDRAILS_PATH = path.join(OPENCLAW_DIR, 'workspace/config/budget-guardrails.json');
+
+  function parseCostEventsLog(days = 30) {
+    if (!fs.existsSync(COST_EVENTS_LOG)) return [];
+    const cutoff = new Date();
+    cutoff.setDate(cutoff.getDate() - days);
+    const lines = fs.readFileSync(COST_EVENTS_LOG, 'utf8').trim().split('\n').filter(Boolean);
+    const events = [];
+    for (const line of lines) {
+      try { const e = JSON.parse(line); if (new Date(e.ts) >= cutoff) events.push(e); } catch { }
+    }
+    return events;
+  }
+
+  if (url.pathname === '/api/mission-control/costs' && req.method === 'GET') {
+    try {
+      const days = parseInt(url.searchParams.get('days') || '30', 10);
+      const events = parseCostEventsLog(days);
+      const byAgent = {}, byModel = {}, byTier = { lightweight: 0, standard: 0, heavy: 0, local: 0, other: 0 }, dailyBurn = {};
+      let totalCost = 0, totalIn = 0, totalOut = 0, totalCached = 0;
+      const AGENTS = ['main', 'allrounder', 'eng', 'research', 'finance', 'ops', 'infosec', 'hatake'];
+      for (const e of events) {
+        const cost = e.cost_usd || 0, agent = e.agent || 'unknown', model = e.model || 'unknown', day = (e.ts || '').substring(0, 10);
+        totalCost += cost; totalIn += e.tokens?.input || 0; totalOut += e.tokens?.output || 0; totalCached += e.tokens?.cache_read || 0;
+        if (!byAgent[agent]) byAgent[agent] = { cost: 0, requests: 0, tokens: 0 };
+        byAgent[agent].cost += cost; byAgent[agent].requests += 1; byAgent[agent].tokens += (e.tokens?.total || 0);
+        if (!byModel[model]) byModel[model] = { cost: 0, requests: 0 };
+        byModel[model].cost += cost; byModel[model].requests += 1;
+        if (day) { if (!dailyBurn[day]) dailyBurn[day] = 0; dailyBurn[day] += cost; }
+        const m = model.toLowerCase();
+        if (m.includes('haiku')) byTier.lightweight += cost;
+        else if (m.includes('ollama') || m.includes('qwen') || m.includes('llama')) byTier.local += cost;
+        else if (m.includes('opus')) byTier.heavy += cost;
+        else if (m.includes('sonnet') || m.includes('gpt-5') || m.includes('codex')) byTier.standard += cost;
+        else byTier.other += cost;
+      }
+      for (const a of AGENTS) { if (!byAgent[a]) byAgent[a] = { cost: 0, requests: 0, tokens: 0 }; }
+      const dailyBurnArray = Object.entries(dailyBurn).sort(([a], [b]) => a.localeCompare(b)).map(([date, cost]) => ({ date, cost: parseFloat(cost.toFixed(4)) }));
+      const avgDailyCost = dailyBurnArray.length > 0 ? totalCost / dailyBurnArray.length : 0;
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ period_days: days, total_cost_usd: parseFloat(totalCost.toFixed(4)), avg_daily_cost_usd: parseFloat(avgDailyCost.toFixed(4)), total_requests: events.length, total_tokens: { input: totalIn, output: totalOut, cached: totalCached, cache_hit_rate: totalIn > 0 ? parseFloat((totalCached / (totalIn + totalCached) * 100).toFixed(1)) : 0 }, by_agent: byAgent, by_model: byModel, by_tier: byTier, daily_burn: dailyBurnArray, generated_at: new Date().toISOString() }));
+    } catch (e) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e.message })); }
+    return;
+  }
+
+  if (url.pathname === '/api/mission-control/savings' && req.method === 'GET') {
+    try {
+      const days = parseInt(url.searchParams.get('days') || '30', 10);
+      const events = parseCostEventsLog(days);
+      const SONNET_IN = 0.003 / 1000, SONNET_OUT = 0.015 / 1000;
+      let actualCost = 0, baselineCost = 0, cachedTokens = 0, totalIn = 0;
+      for (const e of events) {
+        actualCost += e.cost_usd || 0;
+        const inp = e.tokens?.input || 0, out = e.tokens?.output || 0, cached = e.tokens?.cache_read || 0;
+        baselineCost += inp * SONNET_IN + out * SONNET_OUT; cachedTokens += cached; totalIn += inp;
+      }
+      const savingsUsd = baselineCost - actualCost, savingsPct = baselineCost > 0 ? (savingsUsd / baselineCost * 100) : 0;
+      const cacheHitRate = (totalIn + cachedTokens) > 0 ? (cachedTokens / (totalIn + cachedTokens) * 100) : 0;
+      const cacheSavingsUsd = cachedTokens * SONNET_IN * 0.9;
+      const optimizationScore = Math.min(Math.round(Math.min(savingsPct, 60) + Math.min(cacheHitRate, 30)), 100);
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ period_days: days, actual_cost_usd: parseFloat(actualCost.toFixed(4)), baseline_cost_usd: parseFloat(baselineCost.toFixed(4)), savings_usd: parseFloat(savingsUsd.toFixed(4)), savings_pct: parseFloat(savingsPct.toFixed(1)), cache_savings_usd: parseFloat(cacheSavingsUsd.toFixed(4)), cache_hit_rate_pct: parseFloat(cacheHitRate.toFixed(1)), optimization_score: optimizationScore, target_savings_pct: 55, target_daily_cost_usd: 1.00, current_daily_cost_usd: parseFloat((actualCost / Math.max(days, 1)).toFixed(4)), generated_at: new Date().toISOString() }));
+    } catch (e) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e.message })); }
+    return;
+  }
+
+  if (url.pathname === '/api/mission-control/subscriptions' && req.method === 'GET') {
+    try {
+      let guardrails = {};
+      if (fs.existsSync(BUDGET_GUARDRAILS_PATH)) guardrails = JSON.parse(fs.readFileSync(BUDGET_GUARDRAILS_PATH, 'utf8'));
+      const breakdown = guardrails.fixed_monthly?.breakdown || {};
+      const subs = [];
+      for (const [key, val] of Object.entries(breakdown)) {
+        if (typeof val === 'object' && val.cost_usd !== undefined) subs.push({ id: key, service: val.service || key, monthly_cost_usd: val.cost_usd, review_action: val.review_action || '', savings_potential_usd: val.savings_potential_usd || 0 });
+        else if (typeof val === 'number') subs.push({ id: key, service: key, monthly_cost_usd: val });
+      }
+      const totalFixed = subs.reduce((s, sub) => s + sub.monthly_cost_usd, 0);
+      const totalSavings = subs.reduce((s, sub) => s + (sub.savings_potential_usd || 0), 0);
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ total_fixed_monthly_usd: totalFixed, total_variable_monthly_usd: guardrails.variable_spend?.monthly_limit_usd || 30, subscriptions: subs, subscription_savings_potential_usd: totalSavings, last_audit: guardrails.fixed_monthly?.subscription_audit?.last_audit || null, next_audit_due: guardrails.fixed_monthly?.subscription_audit?.next_audit_due || null, generated_at: new Date().toISOString() }));
+    } catch (e) { res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: e.message })); }
+    return;
+  }
+
   // Static files
   let filePath = url.pathname;
   filePath = path.join(__dirname, filePath);

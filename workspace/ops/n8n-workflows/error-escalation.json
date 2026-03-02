@@ -5,11 +5,12 @@
       "parameters": {
         "httpMethod": "POST",
         "path": "error-escalation",
-        "responseMode": "immediatelyAfterFirstNode",
+        "responseMode": "onReceived",
         "options": {}
       },
       "id": "webhook-trigger",
       "name": "Error Escalation Webhook",
+      "webhookId": "c2bd7fe3-9dca-4caf-b0fe-ddfcb2b55110",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [240, 300]

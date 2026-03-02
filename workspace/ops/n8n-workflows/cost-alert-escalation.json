@@ -5,11 +5,12 @@
       "parameters": {
         "httpMethod": "POST",
         "path": "cost-alert-escalation",
-        "responseMode": "immediatelyAfterFirstNode",
+        "responseMode": "onReceived",
         "options": {}
       },
       "id": "webhook-trigger",
       "name": "Cost Alert Webhook",
+      "webhookId": "0db0b1c8-9231-40bb-9767-4ffc8e54e47f",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [240, 300]

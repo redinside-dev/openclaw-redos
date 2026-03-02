@@ -5,11 +5,12 @@
       "parameters": {
         "httpMethod": "POST",
         "path": "github-events",
-        "responseMode": "lastNode",
+        "responseMode": "responseNode",
         "options": {}
       },
       "id": "webhook-trigger",
       "name": "GitHub Webhook",
+      "webhookId": "9ec7d80d-a4f6-45f2-9b42-a4310753b8b0",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [240, 300]
