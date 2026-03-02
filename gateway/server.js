@@ -47,15 +47,92 @@ app.use(express.json());
 // Serve dashboard
 app.use(express.static(path.join(__dirname, '../dashboard')));
 
+// ── Batch API helper ─────────────────────────────────────────────────────────
+const BATCH_RESULTS_LOG = path.join(__dirname, '../workspace/logs/batch-results.jsonl');
+import { appendFileSync } from 'fs';
+
+async function submitAnthropicBatch(agentId, message, apiKey) {
+  const soulPath = path.join(__dirname, '../workspace/SOUL.md');
+  let systemPrompt = '';
+  try { systemPrompt = readFileSync(soulPath, 'utf8'); } catch (_) {}
+
+  const requestBody = {
+    requests: [{
+      custom_id: `batch-${agentId}-${Date.now()}`,
+      params: {
+        model: 'claude-haiku-4-5-20251001', // Always use cheapest for batch
+        max_tokens: 4096,
+        messages: [{ role: 'user', content: message }],
+        ...(systemPrompt ? {
+          system: [{ type: 'text', text: systemPrompt, cache_control: { type: 'ephemeral' } }]
+        } : {})
+      }
+    }]
+  };
+
+  const response = await fetch('https://api.anthropic.com/v1/messages/batches', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': apiKey,
+      'anthropic-version': '2023-06-01',
+      'anthropic-beta': 'message-batches-2024-09-24,prompt-caching-2024-07-31'
+    },
+    body: JSON.stringify(requestBody)
+  });
+
+  if (!response.ok) {
+    const err = await response.text();
+    throw new Error(`Batch API error: ${err}`);
+  }
+
+  const data = await response.json();
+  const batchId = data.id;
+
+  // Log batch submission
+  const logEntry = JSON.stringify({
+    ts: new Date().toISOString(),
+    agentId,
+    batchId,
+    status: 'submitted',
+    message_preview: message.substring(0, 100)
+  }) + '\n';
+  try { appendFileSync(BATCH_RESULTS_LOG, logEntry); } catch (_) {}
+
+  return batchId;
+}
+
 // Chat endpoint
 app.post('/api/chat', async (req, res) => {
-  const { agentId, message } = req.body;
+  const { agentId, message, batch } = req.body;
 
   if (!agentId || !message) {
     return res.status(400).json({
       error: 'Missing required fields',
       required: { agentId: 'string', message: 'string' }
     });
+  }
+
+  // ── Batch API route (fire-and-forget for non-real-time jobs) ────────────────
+  if (batch === true) {
+    const apiKey = process.env.ANTHROPIC_API_KEY;
+    if (!apiKey) {
+      return res.status(400).json({ error: 'Batch API requires ANTHROPIC_API_KEY' });
+    }
+    try {
+      const batchId = await submitAnthropicBatch(agentId, message, apiKey);
+      return res.json({
+        content: `[BATCH] Request submitted. Batch ID: ${batchId}. Results will be written to workspace/logs/batch-results.jsonl when ready (typically <24h).`,
+        batchId,
+        batch: true,
+        model: { provider: 'anthropic', model: 'claude-haiku-4-5-20251001', reason: 'batch-api-50pct-discount' },
+        cost: 0,
+        latency: 0
+      });
+    } catch (batchErr) {
+      console.error('Batch API error:', batchErr.message);
+      // Fall through to real-time handling if batch fails
+    }
   }
 
   try {

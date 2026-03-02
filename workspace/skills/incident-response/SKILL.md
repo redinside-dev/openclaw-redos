@@ -235,3 +235,35 @@ They are a leadership duo: RED sets direction, ZEN operationalizes.
 | "Why were we down for 3.5 hours?" | Open INC ticket, spawn OPS for post-mortem, then synthesize and report |
 | "Make sure this never happens again" | Step 5: add prevention tasks to AUTONOMOUS.md; Step 4: write LEARNINGS |
 | "I don't want to intervene" | Auto-heal via self-healing-auto skill; escalate to Anurag only if 2 attempts fail |
+
+---
+
+## n8n Error-Escalation Trigger (2026-03 Update)
+
+As of the event-driven architecture migration, the **primary incident trigger path** is the n8n `error-escalation` webhook. This fires automatically when the gateway detects >5 errors in a 30-minute window — no cron polling required.
+
+### When error-escalation fires:
+
+1. **n8n posts Slack alert** to #redos-mission-control with error count, type, and log snippet
+2. **OPS agent is dispatched** via gateway `/api/chat` to create a ticket + investigate
+3. **A ticket entry is generated** automatically with severity P2 and 4h SLA
+
+### Manual trigger (agents can call this):
+
+```bash
+exec: curl -s --max-time 15 -X POST http://127.0.0.1:5678/webhook/error-escalation \
+  -H "Content-Type: application/json" \
+  -d '{"error_type":"<type>","agent":"<agentId>","count":<n>,"log_snippet":"<first 300 chars>"}'
+```
+
+### Threshold for triggering:
+- **>5 errors** in 30min window detected by `model-health-check` cron → call error-escalation
+- Any P0/P1 condition identified by an agent → call error-escalation immediately
+- Gateway 504/500 rate >10% in 5min → call error-escalation
+
+### Still use the manual incident protocol (Steps 1-5 above) for:
+- P0 incidents where n8n itself may be down
+- Incidents requiring human Telegram approval
+- Multi-team coordination (RED → ZEN → ENG/OPS/INFOSEC A2A spawns)
+
+**Rule:** If error-escalation fired and the issue is P1+, escalate to full incident protocol.

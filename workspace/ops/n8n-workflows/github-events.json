@@ -1,0 +1,80 @@
+{
+  "name": "github-events",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "github-events",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "GitHub Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse GitHub event type and build agent message\nconst body = $input.first().json.body || $input.first().json;\nconst event = $input.first().headers?.['x-github-event'] || 'push';\n\nlet agentId = 'eng';\nlet message = '';\n\nif (event === 'push') {\n  const repo = body.repository?.full_name || 'unknown';\n  const branch = body.ref?.replace('refs/heads/', '') || 'unknown';\n  const commits = (body.commits || []).slice(0, 3).map(c => `- ${c.message}`).join('\\n');\n  agentId = 'eng';\n  message = `GITHUB PUSH to ${repo}/${branch}:\\n${commits}\\n\\nReview for any issues, update status in workspace/STATE.yaml if relevant.`;\n} else if (event === 'pull_request') {\n  const pr = body.pull_request || {};\n  const action = body.action || 'opened';\n  const repo = body.repository?.full_name || 'unknown';\n  agentId = 'eng';\n  message = `GITHUB PR #${pr.number} ${action} in ${repo}: \"${pr.title}\"\\nAuthor: ${pr.user?.login}\\nBranch: ${pr.head?.ref} → ${pr.base?.ref}\\n\\nReview for code quality and merge readiness. Coordinate with INFOSEC if security-related.`;\n} else if (event === 'issues') {\n  const issue = body.issue || {};\n  const action = body.action || 'opened';\n  agentId = 'ops';\n  message = `GITHUB ISSUE #${issue.number} ${action}: \"${issue.title}\"\\nBody: ${(issue.body || '').substring(0, 200)}\\n\\nTriage and create ticket in TICKET-TRACKER.md if action required.`;\n}\n\nreturn [{ json: { agentId, message, event, repo: body.repository?.full_name } }];"
+      },
+      "id": "parse-event",
+      "name": "Parse GitHub Event",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:19000/api/chat",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Content-Type", "value": "application/json" },
+            { "name": "x-source", "value": "n8n-github-webhook" }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "body": "={{ JSON.stringify({ agentId: $json.agentId, message: $json.message }) }}"
+      },
+      "id": "call-gateway",
+      "name": "Dispatch to Gateway",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ ok: true, dispatched_to: $node['Parse GitHub Event'].json.agentId }) }}"
+      },
+      "id": "respond",
+      "name": "Respond OK",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [900, 300]
+    }
+  ],
+  "connections": {
+    "GitHub Webhook": {
+      "main": [[ { "node": "Parse GitHub Event", "type": "main", "index": 0 } ]]
+    },
+    "Parse GitHub Event": {
+      "main": [[ { "node": "Dispatch to Gateway", "type": "main", "index": 0 } ]]
+    },
+    "Dispatch to Gateway": {
+      "main": [[ { "node": "Respond OK", "type": "main", "index": 0 } ]]
+    }
+  },
+  "active": false,
+  "settings": { "executionOrder": "v1" },
+  "tags": [{ "name": "event-driven" }],
+  "_meta": {
+    "instanceId": "openclaw-redos",
+    "description": "Receives GitHub webhooks (push/PR/issue) and dispatches to ENG or OPS agent. Import in n8n, activate, then register webhook URL at GitHub repo Settings > Webhooks.",
+    "webhookPath": "github-events",
+    "targetAgents": ["eng", "ops", "infosec"],
+    "replaces": "2ef34ad2 GitHub Repo Updates polling cron (4x/day)"
+  }
+}

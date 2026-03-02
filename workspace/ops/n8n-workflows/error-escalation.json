@@ -1,0 +1,80 @@
+{
+  "name": "error-escalation",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "error-escalation",
+        "responseMode": "immediatelyAfterFirstNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Error Escalation Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $input.first().json.body || $input.first().json;\nconst errorType = data.error_type || 'unknown';\nconst agent = data.agent || 'unknown';\nconst count = data.count || 1;\nconst logSnippet = (data.log_snippet || '').substring(0, 300);\nconst ts = new Date().toISOString();\n\n// Build ticket ID\nconst date = ts.substring(0, 10).replace(/-/g, '');\nconst ticketId = `TICKET-${date}-ERR`;\n\n// Build Slack alert\nconst slackText = `🔴 *Error Escalation — ${count} errors detected*\\n\\n*Type:* ${errorType}\\n*Agent:* ${agent}\\n*Ticket:* ${ticketId}\\n*Log:* \\`\\`\\`${logSnippet}\\`\\`\\`\\n\\nOPS: investigate and resolve within SLA.`;\n\n// Build ticket entry for TICKET-TRACKER.md\nconst ticketEntry = `\\n### ${ticketId}\\n- **Date:** ${ts}\\n- **Severity:** P2\\n- **Type:** ${errorType}\\n- **Agent:** ${agent}\\n- **Count:** ${count} errors\\n- **Status:** OPEN\\n- **Log:** ${logSnippet}\\n- **SLA:** 4h`;\n\nreturn [{ json: { slackText, ticketEntry, ticketId, channel: 'C0AEV3MDEDD' } }];"
+      },
+      "id": "build-ticket",
+      "name": "Build Ticket + Alert",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://127.0.0.1:5678/webhook/slack-post",
+        "sendBody": true,
+        "contentType": "json",
+        "body": "={{ JSON.stringify({ channel: $json.channel, text: $json.slackText }) }}"
+      },
+      "id": "post-slack",
+      "name": "Alert Slack",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:19000/api/chat",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "body": "={{ JSON.stringify({ agentId: 'ops', message: 'ERROR ESCALATION: ' + $node['Build Ticket + Alert'].json.ticketEntry + '\\n\\nCreate ticket in TICKET-TRACKER.md and investigate.' }) }}"
+      },
+      "id": "dispatch-ops",
+      "name": "Dispatch to OPS",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [680, 460]
+    }
+  ],
+  "connections": {
+    "Error Escalation Webhook": {
+      "main": [[ { "node": "Build Ticket + Alert", "type": "main", "index": 0 } ]]
+    },
+    "Build Ticket + Alert": {
+      "main": [
+        [ { "node": "Alert Slack", "type": "main", "index": 0 } ],
+        [ { "node": "Dispatch to OPS", "type": "main", "index": 0 } ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": { "executionOrder": "v1" },
+  "tags": [{ "name": "alerting" }],
+  "_meta": {
+    "description": "Called when >5 gateway errors detected in 30min window. Posts Slack alert + creates ticket + dispatches OPS agent to investigate.",
+    "webhookPath": "error-escalation",
+    "caller": "model-health-check cron or gateway error handler",
+    "trigger": "Call when gateway.err.log has >5 new errors in 30min"
+  }
+}
