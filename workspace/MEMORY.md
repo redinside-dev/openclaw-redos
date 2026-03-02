@@ -145,9 +145,24 @@ All agents run periodic inner loops (every 2-4h):
 ## Security & Compliance
 
 ### Secrets Management
-- **Never commit:** API keys, tokens, credentials
-- **Storage:** Environment variables or encrypted config
+- **Never commit:** API keys, tokens, credentials — EVER. Not even temporarily.
+- **Storage:** Gitignored files under `workspace/config/` or `openclaw.json` (gitignored)
 - **Rotation:** Automated credential rotation (GOAL-006 sub-goal)
+
+### Secret Locations (gitignored — never commit these paths)
+| Secret | File |
+|--------|------|
+| Telegram bot token (OPS alerts) | `workspace/config/telegram-bot-token.txt` |
+| n8n API key | `workspace/config/n8n-api-key.txt` |
+| GitHub webhook PAT | `workspace/config/github-webhook-pat.txt` |
+| All Telegram bot tokens (per-agent) | `openclaw.json` → `plugins.telegram.*.botToken` |
+
+### Telegram Bot Token — INCIDENT RESOLVED (2026-03-02)
+- **Incident:** OPS bot token hardcoded in 3 monitoring scripts, committed and pushed to GitHub. GitGuardian detected and alerted.
+- **Affected files:** `scripts/9router-health-watchdog.sh`, `scripts/model-outage-monitor.sh`, `scripts/session-overflow-monitor.sh`
+- **Resolution:** Old token revoked via BotFather. New token saved to `workspace/config/telegram-bot-token.txt` (gitignored). Scripts updated to read from that file. Full git history rewritten via `git-filter-repo`, force-pushed to GitHub.
+- **OPS bot:** `@OPSRED_BOT` (ID: 8230099863) — token rotated, working
+- **Rule:** All scripts that send Telegram alerts MUST read token from `workspace/config/telegram-bot-token.txt` — never hardcode.
 
 ### Sandbox Permissions
 - Agents run in sandboxed environments
@@ -272,6 +287,12 @@ All agents run periodic inner loops (every 2-4h):
 - **Learning:** Before escalating as P1, verify evidence exists in actual system logs
 - **Impact:** False alarm noise hid real infrastructure issue (embedded run timeouts)
 
+### 2026-03-02: Telegram Token Exposed on GitHub — Root Cause & Fix
+- **Incident:** GitGuardian alert — OPS bot token hardcoded in 3 bash scripts, committed to public GitHub repo
+- **Root cause:** Scripts written with token inline instead of reading from gitignored config file
+- **Fix:** Revoked old token, rotated via BotFather, saved new token to `workspace/config/telegram-bot-token.txt` (gitignored), rewrote git history with `git-filter-repo`, force-pushed
+- **Learning:** Bash scripts that need secrets must ALWAYS read from a file or env var — never inline. Before committing any script, grep for token patterns: `grep -r "[0-9]\{8,10\}:[A-Za-z0-9_-]\{35\}" .`
+
 ### 2026-02-28: Context Quality Determines Agent Success
 - **Pattern:** Agents with good context complete tasks, agents without context fail or timeout
 - **Example:** RESEARCH briefs that include full context get implemented, vague requests get ignored
@@ -315,4 +336,4 @@ All agents run periodic inner loops (every 2-4h):
 
 ---
 
-**Last updated:** 2026-03-02 (fixed ports, cron count 30/115, 8 workflows, GitHub webhook verified, P1 cleared)
+**Last updated:** 2026-03-02T09:45Z (security: Telegram token rotated, history scrubbed, telegram-bot-token.txt now gitignored; Ollama switched to brew headless service)
