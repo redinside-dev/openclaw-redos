@@ -40,7 +40,7 @@
     },
     {
       "parameters": {
-        "url": "http://localhost:19000/api/chat",
+        "url": "http://127.0.0.1:19000/api/chat",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
