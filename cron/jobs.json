@@ -7,7 +7,7 @@
       "name": "Telegram Approval Monitor (RED checks for approve/deny replies)",
       "enabled": true,
       "createdAtMs": 1772080522100,
-      "updatedAtMs": 1772492892149,
+      "updatedAtMs": 1772493015579,
       "schedule": {
         "kind": "cron",
         "expr": "*/2 * * * *",
@@ -19,18 +19,18 @@
         "kind": "agentTurn",
         "thinking": "off",
         "timeoutSeconds": 90,
-        "message": "APPROVAL MONITOR — check for pending Telegram approvals:\n\n1. Read all files in workspace/approvals/pending/ (if empty, return NO_REPLY immediately)\n2. Read recent Telegram DMs from Anurag (user 1012034994) — look for messages matching 'approve TICKET-XXXXXXXX' or 'deny TICKET-XXXXXXXX'\n3. For each match:\n   a. Move workspace/approvals/pending/TICKET-ID.json to workspace/approvals/approved/ or denied/ accordingly\n   b. Update the status field in the file to 'approved' or 'denied', add approvedAt timestamp\n   c. sessions_spawn the requesting agent (field 'requestedBy' in the file) with message: 'Approval decision received for TICKET-ID: [approved/denied]. You may now proceed (or stop) with your pending action.'\n4. For any pending approval older than 30 minutes without a decision: send a reminder Telegram DM to 1012034994: '⏰ Pending approval reminder: TICKET-ID — [action summary]. Reply approve TICKET-ID or deny TICKET-ID'\n\nIf no pending approvals and no Telegram replies found: return NO_REPLY."
+        "message": "APPROVAL MONITOR \u2014 check for pending Telegram approvals:\n\n1. Read all files in workspace/approvals/pending/ (if empty, return NO_REPLY immediately)\n2. Read recent Telegram DMs from Anurag (user 1012034994) \u2014 look for messages matching 'approve TICKET-XXXXXXXX' or 'deny TICKET-XXXXXXXX'\n3. For each match:\n   a. Move workspace/approvals/pending/TICKET-ID.json to workspace/approvals/approved/ or denied/ accordingly\n   b. Update the status field in the file to 'approved' or 'denied', add approvedAt timestamp\n   c. sessions_spawn the requesting agent (field 'requestedBy' in the file) with message: 'Approval decision received for TICKET-ID: [approved/denied]. You may now proceed (or stop) with your pending action.'\n4. For any pending approval older than 30 minutes without a decision: send a reminder Telegram DM to 1012034994: '\u23f0 Pending approval reminder: TICKET-ID \u2014 [action summary]. Reply approve TICKET-ID or deny TICKET-ID'\n\nIf no pending approvals and no Telegram replies found: return NO_REPLY."
       },
       "delivery": {
         "mode": "silent",
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1772493000000,
-        "lastRunAtMs": 1772492880021,
+        "nextRunAtMs": 1772493120000,
+        "lastRunAtMs": 1772493000025,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 12128,
+        "lastDurationMs": 15554,
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
         "lastDelivered": false
@@ -39,10 +39,10 @@
     {
       "id": "system-pulse-always-on-0001",
       "agentId": "ops",
-      "name": "System Pulse — Always-On Heartbeat (Ollama only)",
+      "name": "System Pulse \u2014 Always-On Heartbeat (Ollama only)",
       "enabled": true,
       "createdAtMs": 1772080522100,
-      "updatedAtMs": 1772492706193,
+      "updatedAtMs": 1772493020960,
       "schedule": {
         "kind": "cron",
         "expr": "*/5 * * * *",
@@ -54,7 +54,7 @@
         "kind": "agentTurn",
         "thinking": "off",
         "timeoutSeconds": 30,
-        "message": "Run pre-approved health check script (Tier L2 — no approval needed):\nexec: bash ~/.openclaw/workspace/scripts/system-pulse.sh\nReturn NO_REPLY."
+        "message": "Run pre-approved health check script (Tier L2 \u2014 no approval needed):\nexec: bash ~/.openclaw/workspace/scripts/system-pulse.sh\nReturn NO_REPLY."
       },
       "delivery": {
         "mode": "silent",
@@ -62,11 +62,11 @@
       },
       "state": {
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1772493000000,
-        "lastRunAtMs": 1772492700025,
+        "nextRunAtMs": 1772493300000,
+        "lastRunAtMs": 1772493015579,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 6168,
+        "lastDurationMs": 5381,
         "lastDeliveryStatus": "not-delivered",
         "lastDelivered": false
       }
@@ -87,7 +87,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "Daily Portfolio Review – Pre-Market (automated)\n\nYou are operating as an automated portfolio review agent.\n\nInputs:\n- Reference portfolio is in: workspace/portfolio/HOLDINGS.md\n- If HOLDINGS.md is empty or unclear, send ONE Telegram message asking Anurag to update it (no other output).\n\nTasks to execute (mandatory):\n1) Review current holdings and lead on next actions.\n2) Identify which holdings are disfavored under current market conditions.\n3) State what the model portfolio would rotate into.\n4) Suggest new stocks/assets that would replace weaker positions.\n\nOutput requirements:\nA) Telegram delivery (Option 2):\n- Send a SHORT summary to Telegram DM (user id 1012034994) using the message tool.\n- If content is too long, split into 2–3 Telegram messages labeled:\n  \"Portfolio Review (1/3)\", \"(2/3)\", ...\n- Hard limit: keep each Telegram message under ~3500 characters.\n\nB) Full report delivery (email):\n- Write the FULL detailed report to a markdown file under:\n  workspace/portfolio/reports/\n  Filename: portfolio-review-YYYY-MM-DD.md\n- Send the full report by email to: anorag.saxena@gmail.com\n  using the gog CLI via exec tool:\n  gog gmail send --account anorag.saxena@gmail.com --to anorag.saxena@gmail.com --subject \"Daily Portfolio Review (Full) - YYYY-MM-DD\" --body-file <path>\n\nReport structure for the FULL markdown report (strict):\n1) Market Regime Snapshot (risk-on/off/neutral + key macro drivers)\n2) Holdings Review (each holding labeled Favored/Neutral/Disfavored + short rationale)\n3) Model Portfolio Actions (increase/reduce/exit/hold)\n4) New Ideas / Replacements\n5) Risks & Invalidation Points\n\nRules:\n- All actions are framed as a hypothetical professional model portfolio.\n- Be decisive, institutional PM tone. No guarantees.\n- End both Telegram summary and full markdown report with disclosure footer:\n  Provider: <provider_name>\n  Model: <exact_model_identifier>\n",
+        "message": "Daily Portfolio Review \u2013 Pre-Market (automated)\n\nYou are operating as an automated portfolio review agent.\n\nInputs:\n- Reference portfolio is in: workspace/portfolio/HOLDINGS.md\n- If HOLDINGS.md is empty or unclear, send ONE Telegram message asking Anurag to update it (no other output).\n\nTasks to execute (mandatory):\n1) Review current holdings and lead on next actions.\n2) Identify which holdings are disfavored under current market conditions.\n3) State what the model portfolio would rotate into.\n4) Suggest new stocks/assets that would replace weaker positions.\n\nOutput requirements:\nA) Telegram delivery (Option 2):\n- Send a SHORT summary to Telegram DM (user id 1012034994) using the message tool.\n- If content is too long, split into 2\u20133 Telegram messages labeled:\n  \"Portfolio Review (1/3)\", \"(2/3)\", ...\n- Hard limit: keep each Telegram message under ~3500 characters.\n\nB) Full report delivery (email):\n- Write the FULL detailed report to a markdown file under:\n  workspace/portfolio/reports/\n  Filename: portfolio-review-YYYY-MM-DD.md\n- Send the full report by email to: anorag.saxena@gmail.com\n  using the gog CLI via exec tool:\n  gog gmail send --account anorag.saxena@gmail.com --to anorag.saxena@gmail.com --subject \"Daily Portfolio Review (Full) - YYYY-MM-DD\" --body-file <path>\n\nReport structure for the FULL markdown report (strict):\n1) Market Regime Snapshot (risk-on/off/neutral + key macro drivers)\n2) Holdings Review (each holding labeled Favored/Neutral/Disfavored + short rationale)\n3) Model Portfolio Actions (increase/reduce/exit/hold)\n4) New Ideas / Replacements\n5) Risks & Invalidation Points\n\nRules:\n- All actions are framed as a hypothetical professional model portfolio.\n- Be decisive, institutional PM tone. No guarantees.\n- End both Telegram summary and full markdown report with disclosure footer:\n  Provider: <provider_name>\n  Model: <exact_model_identifier>\n",
         "thinking": "low",
         "timeoutSeconds": 600
       },
@@ -126,7 +126,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 300,
-        "message": "Trading Window Brief (Mon–Fri, 8am–4pm ET)\n\nInputs:\n- Holdings: workspace/portfolio/HOLDINGS.md\n- Latest full report: workspace/portfolio/reports/portfolio-review-2026-02-06.md (use as baseline until replaced)\n\nTask:\nCreate a short, non-overwhelming brief for Anurag to support decision-making during market hours.\n\nOutput:\nSend a SINGLE Telegram DM to user id 1012034994, under 2500 characters.\n\nStructure (strict):\n1) Today’s focus (1 sentence)\n2) Do this now (max 3 bullets)\n3) Watchlist / levels (max 5 bullets; symbol + what changes your mind)\n4) New ideas (max 2 ideas; 1 line each)\n\nRules:\n- Plain English. No jargon.\n- No more than 10 total bullets.\n- If there is no strong action today: say \"No action\" and focus on watchlist.\n- End with: Provider: <provider> | Model: <model>"
+        "message": "Trading Window Brief (Mon\u2013Fri, 8am\u20134pm ET)\n\nInputs:\n- Holdings: workspace/portfolio/HOLDINGS.md\n- Latest full report: workspace/portfolio/reports/portfolio-review-2026-02-06.md (use as baseline until replaced)\n\nTask:\nCreate a short, non-overwhelming brief for Anurag to support decision-making during market hours.\n\nOutput:\nSend a SINGLE Telegram DM to user id 1012034994, under 2500 characters.\n\nStructure (strict):\n1) Today\u2019s focus (1 sentence)\n2) Do this now (max 3 bullets)\n3) Watchlist / levels (max 5 bullets; symbol + what changes your mind)\n4) New ideas (max 2 ideas; 1 line each)\n\nRules:\n- Plain English. No jargon.\n- No more than 10 total bullets.\n- If there is no strong action today: say \"No action\" and focus on watchlist.\n- End with: Provider: <provider> | Model: <model>"
       },
       "delivery": {
         "mode": "announce",
@@ -163,7 +163,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 300,
-        "message": "Trading Window Brief (Mon–Fri)\n\nThis is the 4:00pm ET close-time brief.\n\nInputs:\n- Holdings: workspace/portfolio/HOLDINGS.md\n- Latest full report: workspace/portfolio/reports/portfolio-review-2026-02-06.md (use as baseline until replaced)\n\nTask:\nCreate a short, non-overwhelming brief for Anurag.\n\nOutput:\nSend a SINGLE Telegram DM to user id 1012034994, under 2500 characters.\n\nStructure (strict):\n1) Today’s focus (1 sentence)\n2) Do this now (max 3 bullets)\n3) Watchlist / levels (max 5 bullets; symbol + what changes your mind)\n4) New ideas (max 2 ideas; 1 line each)\n\nRules:\n- Plain English. No jargon.\n- No more than 10 total bullets.\n- If there is no strong action today: say \"No action\" and focus on watchlist.\n- End with: Provider: <provider> | Model: <model>"
+        "message": "Trading Window Brief (Mon\u2013Fri)\n\nThis is the 4:00pm ET close-time brief.\n\nInputs:\n- Holdings: workspace/portfolio/HOLDINGS.md\n- Latest full report: workspace/portfolio/reports/portfolio-review-2026-02-06.md (use as baseline until replaced)\n\nTask:\nCreate a short, non-overwhelming brief for Anurag.\n\nOutput:\nSend a SINGLE Telegram DM to user id 1012034994, under 2500 characters.\n\nStructure (strict):\n1) Today\u2019s focus (1 sentence)\n2) Do this now (max 3 bullets)\n3) Watchlist / levels (max 5 bullets; symbol + what changes your mind)\n4) New ideas (max 2 ideas; 1 line each)\n\nRules:\n- Plain English. No jargon.\n- No more than 10 total bullets.\n- If there is no strong action today: say \"No action\" and focus on watchlist.\n- End with: Provider: <provider> | Model: <model>"
       },
       "delivery": {
         "mode": "announce",
@@ -237,7 +237,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 240,
-        "message": "Market Leads (Alpha Vantage) — short Telegram note\n\nGoal:\n- Provide 3–5 actionable intraday leads using Alpha Vantage market data (no execution).\n- Plain English, non-overwhelming.\n\nInputs:\n- Holdings file: workspace/portfolio/HOLDINGS.md\n\nProcess:\n1) Build a candidate list of US-listed tickers from HOLDINGS.md (ignore obvious non-US tickers like *.B, *.TO, and crypto symbols).\n2) Take top 10 candidates by max weight across TFSA+RRSP (approx_weight_pct).\n3) For each candidate, call alphavantage.TOOL_CALL tool_name=GLOBAL_QUOTE with {symbol}.\n4) Rank by absolute changePercent.\n\nOutput:\nSend ONE Telegram DM to user id 1012034994 under 2000 chars:\n- Header: \"Market Leads\"\n- \"Today’s bias\" (1 sentence)\n- \"Top movers to watch\" (3 bullets: symbol + change% + 1-line note)\n- \"Risk / do-not-do\" (1 bullet)\n- If data is stale or missing: say so and do not fabricate.\nEnd with Provider/Model footer.\n\nRules:\n- Not financial advice; no guarantees.\n- No more than 6 bullets total."
+        "message": "Market Leads (Alpha Vantage) \u2014 short Telegram note\n\nGoal:\n- Provide 3\u20135 actionable intraday leads using Alpha Vantage market data (no execution).\n- Plain English, non-overwhelming.\n\nInputs:\n- Holdings file: workspace/portfolio/HOLDINGS.md\n\nProcess:\n1) Build a candidate list of US-listed tickers from HOLDINGS.md (ignore obvious non-US tickers like *.B, *.TO, and crypto symbols).\n2) Take top 10 candidates by max weight across TFSA+RRSP (approx_weight_pct).\n3) For each candidate, call alphavantage.TOOL_CALL tool_name=GLOBAL_QUOTE with {symbol}.\n4) Rank by absolute changePercent.\n\nOutput:\nSend ONE Telegram DM to user id 1012034994 under 2000 chars:\n- Header: \"Market Leads\"\n- \"Today\u2019s bias\" (1 sentence)\n- \"Top movers to watch\" (3 bullets: symbol + change% + 1-line note)\n- \"Risk / do-not-do\" (1 bullet)\n- If data is stale or missing: say so and do not fabricate.\nEnd with Provider/Model footer.\n\nRules:\n- Not financial advice; no guarantees.\n- No more than 6 bullets total."
       },
       "delivery": {
         "mode": "announce",
@@ -294,7 +294,7 @@
     {
       "id": "earnings-tracker-weekly-0001",
       "agentId": "finance",
-      "name": "Earnings tracker — upcoming earnings this week (Slack + Telegram)",
+      "name": "Earnings tracker \u2014 upcoming earnings this week (Slack + Telegram)",
       "enabled": true,
       "createdAtMs": 1772420000000,
       "updatedAtMs": 1772492422502,
@@ -332,7 +332,7 @@
       "name": "Cron Watchdog (alert on missed/failing jobs)",
       "enabled": true,
       "createdAtMs": 1770618629260,
-      "updatedAtMs": 1772492431610,
+      "updatedAtMs": 1772493030241,
       "schedule": {
         "kind": "cron",
         "expr": "*/10 8-22 * * *",
@@ -352,13 +352,13 @@
         "target": "channel:C0AEV3J2L23"
       },
       "state": {
-        "lastRunAtMs": 1772492422502,
+        "lastRunAtMs": 1772493020960,
         "lastStatus": "ok",
-        "lastDurationMs": 9108,
+        "lastDurationMs": 9281,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "not-delivered",
-        "nextRunAtMs": 1772493000000,
+        "nextRunAtMs": 1772493600000,
         "lastDelivered": false
       }
     },
@@ -378,7 +378,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "You are RED (CEO). Compile and send the daily summary to Anurag.\n\nSTEPS:\n1. Read ../workspace/ops/STANDUP-LOG.md — get today's standup.\n2. Read ../workspace/ops/TICKET-TRACKER.md — get ticket summary.\n3. Read ../workspace/ops/LEARNINGS.md — get today's learnings.\n4. Read /Users/redinside/.openclaw/logs/gateway.err.log (last 20 lines) — system health.\n\nCOMPILE a Telegram message to Anurag (user ID: 1012034994) with:\n\n📊 **RedOS Daily Summary — {date}**\n\n**System Health:** {healthy/degraded/issues}\n**Tickets:** {opened today} opened, {resolved today} resolved, {open} still open\n**SLA Breaches:** {count or \"None\"}\n\n**Key Events:**\n- {bullet points of important things that happened}\n\n**Learnings Applied:**\n- {bullet points of self-improvements made}\n\n**Agent Activity:**\n- {which agents were active, what they did}\n\n**Tomorrow's Focus:**\n- {what needs attention}\n\nKeep under 3000 chars. Send via Telegram DM.\n\nAfter sending the Telegram summary, also post to Slack #all-redos (channel:C0AG4AY6VME).\n\nFormat the Slack message as:\n```\n👑 *CEO Daily Summary — <date>*\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📊 *Today's Activity*\n• Calls: <N> | Spend: $<amount>\n• Active agents: <list>\n\n🎯 *Sprint Progress*\n<bullet list of key items from standup>\n\n🎫 *Tickets*\n• <open count> open | <resolved count> resolved today\n• <any SLA breaches>\n\n📚 *Learnings / Decisions*\n<key learnings from today>\n\n🔮 *Tomorrow's Focus*\n<key priorities>\n```\nUse the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AG4AY6VME\" ",
+        "message": "You are RED (CEO). Compile and send the daily summary to Anurag.\n\nSTEPS:\n1. Read ../workspace/ops/STANDUP-LOG.md \u2014 get today's standup.\n2. Read ../workspace/ops/TICKET-TRACKER.md \u2014 get ticket summary.\n3. Read ../workspace/ops/LEARNINGS.md \u2014 get today's learnings.\n4. Read /Users/redinside/.openclaw/logs/gateway.err.log (last 20 lines) \u2014 system health.\n\nCOMPILE a Telegram message to Anurag (user ID: 1012034994) with:\n\n\ud83d\udcca **RedOS Daily Summary \u2014 {date}**\n\n**System Health:** {healthy/degraded/issues}\n**Tickets:** {opened today} opened, {resolved today} resolved, {open} still open\n**SLA Breaches:** {count or \"None\"}\n\n**Key Events:**\n- {bullet points of important things that happened}\n\n**Learnings Applied:**\n- {bullet points of self-improvements made}\n\n**Agent Activity:**\n- {which agents were active, what they did}\n\n**Tomorrow's Focus:**\n- {what needs attention}\n\nKeep under 3000 chars. Send via Telegram DM.\n\nAfter sending the Telegram summary, also post to Slack #all-redos (channel:C0AG4AY6VME).\n\nFormat the Slack message as:\n```\n\ud83d\udc51 *CEO Daily Summary \u2014 <date>*\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n\ud83d\udcca *Today's Activity*\n\u2022 Calls: <N> | Spend: $<amount>\n\u2022 Active agents: <list>\n\n\ud83c\udfaf *Sprint Progress*\n<bullet list of key items from standup>\n\n\ud83c\udfab *Tickets*\n\u2022 <open count> open | <resolved count> resolved today\n\u2022 <any SLA breaches>\n\n\ud83d\udcda *Learnings / Decisions*\n<key learnings from today>\n\n\ud83d\udd2e *Tomorrow's Focus*\n<key priorities>\n```\nUse the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AG4AY6VME\" ",
         "thinking": "low",
         "timeoutSeconds": 300
       },
@@ -414,7 +414,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "Create Anurag Saxena’s daily brief.\n\nInstructions:\n- Read these workspace files first:\n  - briefs/daily-brief-instructions.md\n  - briefs/daily-brief-topics.md\n  - workspace/AUTONOMOUS.md\n- Include these sections in the brief:\n  1. **Tasks for today** — list PENDING and IN_PROGRESS items from AUTONOMOUS.md (up to 5)\n  2. **AI-recommended tasks** — 2–3 tasks RED suggests the system can complete today autonomously (from GOALS, STATE.yaml sprint, or unclaimed AUTONOMOUS tasks)\n  3. News/content per daily-brief-instructions and daily-brief-topics\n- Use web_search/web_fetch when needed for headlines; include direct links.\n- Keep it concise; omit empty sections.\n- No crypto.\n\nDeliver the brief as a Telegram message to user 1012034994.",
+        "message": "Create Anurag Saxena\u2019s daily brief.\n\nInstructions:\n- Read these workspace files first:\n  - briefs/daily-brief-instructions.md\n  - briefs/daily-brief-topics.md\n  - workspace/AUTONOMOUS.md\n- Include these sections in the brief:\n  1. **Tasks for today** \u2014 list PENDING and IN_PROGRESS items from AUTONOMOUS.md (up to 5)\n  2. **AI-recommended tasks** \u2014 2\u20133 tasks RED suggests the system can complete today autonomously (from GOALS, STATE.yaml sprint, or unclaimed AUTONOMOUS tasks)\n  3. News/content per daily-brief-instructions and daily-brief-topics\n- Use web_search/web_fetch when needed for headlines; include direct links.\n- Keep it concise; omit empty sections.\n- No crypto.\n\nDeliver the brief as a Telegram message to user 1012034994.",
         "timeoutSeconds": 300
       },
       "delivery": {
@@ -436,7 +436,7 @@
     {
       "id": "habit-check-in-daily-0001",
       "agentId": "main",
-      "name": "Habit check-in — daily prompt (Telegram)",
+      "name": "Habit check-in \u2014 daily prompt (Telegram)",
       "enabled": true,
       "createdAtMs": 1772410000000,
       "updatedAtMs": 1772488561878,
@@ -472,7 +472,7 @@
     {
       "id": "a2a-friday-retro-0001",
       "agentId": "ops",
-      "name": "OPS Friday Retrospective — Team Peer Learning",
+      "name": "OPS Friday Retrospective \u2014 Team Peer Learning",
       "enabled": true,
       "createdAtMs": 1771380089656,
       "updatedAtMs": 1772226592282,
@@ -485,7 +485,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "You are OPS (Scrum Master). Facilitate the Friday team retrospective.\n\nSTEPS:\n1. Read ../workspace/ops/STANDUP-LOG.md — review the week's standups.\n2. Read ../workspace/ops/LEARNINGS.md — what was learned this week.\n3. Read ../workspace/ops/TICKET-TRACKER.md — tickets resolved this week.\n4. Use the message tool to read #openclaw-optimization messages from this week:\n   message(action=\"read\", channel=\"slack\", target=\"channel:C0AF4KB4TUK\", limit=50)\n\n5. Ask each agent for their retrospective input via sessions_spawn:\n   - sessions_spawn(agentId=\"eng\", task=\"Friday retro: What did you learn this week from your colleagues (RESEARCH, INFOSEC, OPS)? What will you do differently next week? 2-3 sentences max.\")\n   - sessions_spawn(agentId=\"research\", task=\"Friday retro: What was the most valuable insight you shared with the team this week? What did you learn from ENG or INFOSEC? 2-3 sentences max.\")\n   - sessions_spawn(agentId=\"infosec\", task=\"Friday retro: What security improvements happened this week? What do you want the team to focus on next week? 2-3 sentences max.\")\n   - sessions_spawn(agentId=\"finance\", task=\"Friday retro: Any financial/cost insights from this week? What should be watched next week? 2-3 sentences max.\")\n\n6. Compile ALL responses and post to #redos-scrum as the weekly retrospective:\n   ```\n   ⚙️ *Friday Retrospective — Week of <date>*\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n   📊 *Week Summary:* <tickets resolved, calls made, key learnings>\n   \n   💬 *What the team learned from each other:*\n   💻 ENG: <their retro response>\n   🔬 RESEARCH: <their retro response>\n   🔒 INFOSEC: <their retro response>\n   💰 FINANCE: <their retro response>\n   \n   🎯 *Next week focus:* <OPS recommendation>\n   ```\n   Use the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AEV3J2L23\"\n\n7. Append a weekly summary entry to ../workspace/ops/LEARNINGS.md",
+        "message": "You are OPS (Scrum Master). Facilitate the Friday team retrospective.\n\nSTEPS:\n1. Read ../workspace/ops/STANDUP-LOG.md \u2014 review the week's standups.\n2. Read ../workspace/ops/LEARNINGS.md \u2014 what was learned this week.\n3. Read ../workspace/ops/TICKET-TRACKER.md \u2014 tickets resolved this week.\n4. Use the message tool to read #openclaw-optimization messages from this week:\n   message(action=\"read\", channel=\"slack\", target=\"channel:C0AF4KB4TUK\", limit=50)\n\n5. Ask each agent for their retrospective input via sessions_spawn:\n   - sessions_spawn(agentId=\"eng\", task=\"Friday retro: What did you learn this week from your colleagues (RESEARCH, INFOSEC, OPS)? What will you do differently next week? 2-3 sentences max.\")\n   - sessions_spawn(agentId=\"research\", task=\"Friday retro: What was the most valuable insight you shared with the team this week? What did you learn from ENG or INFOSEC? 2-3 sentences max.\")\n   - sessions_spawn(agentId=\"infosec\", task=\"Friday retro: What security improvements happened this week? What do you want the team to focus on next week? 2-3 sentences max.\")\n   - sessions_spawn(agentId=\"finance\", task=\"Friday retro: Any financial/cost insights from this week? What should be watched next week? 2-3 sentences max.\")\n\n6. Compile ALL responses and post to #redos-scrum as the weekly retrospective:\n   ```\n   \u2699\ufe0f *Friday Retrospective \u2014 Week of <date>*\n   \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n   \ud83d\udcca *Week Summary:* <tickets resolved, calls made, key learnings>\n   \n   \ud83d\udcac *What the team learned from each other:*\n   \ud83d\udcbb ENG: <their retro response>\n   \ud83d\udd2c RESEARCH: <their retro response>\n   \ud83d\udd12 INFOSEC: <their retro response>\n   \ud83d\udcb0 FINANCE: <their retro response>\n   \n   \ud83c\udfaf *Next week focus:* <OPS recommendation>\n   ```\n   Use the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AEV3J2L23\"\n\n7. Append a weekly summary entry to ../workspace/ops/LEARNINGS.md",
         "thinking": "low",
         "timeoutSeconds": 300
       },
@@ -508,7 +508,7 @@
     {
       "id": "ci-weekly-summarizer-0001",
       "agentId": "ops",
-      "name": "CI Weekly Summarizer (roll → LEARNINGS.md)",
+      "name": "CI Weekly Summarizer (roll \u2192 LEARNINGS.md)",
       "enabled": true,
       "createdAtMs": 1771907010000,
       "updatedAtMs": 1772488568994,
@@ -559,7 +559,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 600,
-        "message": "Weekly Competitive Intelligence Report (automated)\n\nRead ../workspace/skills/competitive-intelligence/SKILL.md for full instructions.\n\nYour task this week:\n1. Use web_search to scan for recent system prompt leaks and AI tool updates from: Cursor, v0, Perplexity, Devin AI, GitHub Copilot, Windsurf, and any other leading AI coding/agent tools.\n   Search queries to use:\n   - \"Cursor AI system prompt 2026\"\n   - \"v0 Vercel system prompt\"\n   - \"Devin AI agent prompt\"\n   - \"AI agent tool governance patterns 2026\"\n   - \"OpenClaw competitor agent framework\"\n2. Identify 3-5 patterns or techniques they use that OpenClaw does NOT currently have.\n3. For each gap: rate it (High/Medium/Low impact) and suggest which OpenClaw agent or skill should adopt it.\n4. Write the full report to: workspace/competitive-intel/reports/YYYY-MM-DD-weekly.md (create dir if needed).\n5. Post a summary to Slack #redos-mission-control (channel:C0AEV3MDEDD):\n   Title: \"🔍 Weekly Competitive Intel — <date>\"\n   - Top 3 findings (1 line each)\n   - Top 1 quick win for ENG to implement\n   - Top 1 security pattern for INFOSEC to review\n6. Use sessions_spawn to notify RED (agentId=\"main\") with the summary so CEO can act on it.\n\nRules:\n- Only use publicly available information.\n- Be specific: name the tool, describe the pattern, explain why it matters for OpenClaw.\n- End Slack post with: Provider: <provider> | Model: <model>"
+        "message": "Weekly Competitive Intelligence Report (automated)\n\nRead ../workspace/skills/competitive-intelligence/SKILL.md for full instructions.\n\nYour task this week:\n1. Use web_search to scan for recent system prompt leaks and AI tool updates from: Cursor, v0, Perplexity, Devin AI, GitHub Copilot, Windsurf, and any other leading AI coding/agent tools.\n   Search queries to use:\n   - \"Cursor AI system prompt 2026\"\n   - \"v0 Vercel system prompt\"\n   - \"Devin AI agent prompt\"\n   - \"AI agent tool governance patterns 2026\"\n   - \"OpenClaw competitor agent framework\"\n2. Identify 3-5 patterns or techniques they use that OpenClaw does NOT currently have.\n3. For each gap: rate it (High/Medium/Low impact) and suggest which OpenClaw agent or skill should adopt it.\n4. Write the full report to: workspace/competitive-intel/reports/YYYY-MM-DD-weekly.md (create dir if needed).\n5. Post a summary to Slack #redos-mission-control (channel:C0AEV3MDEDD):\n   Title: \"\ud83d\udd0d Weekly Competitive Intel \u2014 <date>\"\n   - Top 3 findings (1 line each)\n   - Top 1 quick win for ENG to implement\n   - Top 1 security pattern for INFOSEC to review\n6. Use sessions_spawn to notify RED (agentId=\"main\") with the summary so CEO can act on it.\n\nRules:\n- Only use publicly available information.\n- Be specific: name the tool, describe the pattern, explain why it matters for OpenClaw.\n- End Slack post with: Provider: <provider> | Model: <model>"
       },
       "delivery": {
         "mode": "announce",
@@ -595,7 +595,7 @@
         "kind": "agentTurn",
         "thinking": "off",
         "timeoutSeconds": 120,
-        "message": "9ROUTER WATCHDOG — script-based check, no reasoning needed.\n\nSTEPS (execute exactly):\n1. Run: bash /Users/redinside/.openclaw/scripts/9router-watchdog.sh --fix 2>/dev/null\n2. Capture full stdout output.\n3. If output is EMPTY: write {\"ts\":\"<ISO-now>\",\"status\":\"ok\"} to ../workspace/tmp/9router-watchdog-last.json. Return NO_REPLY.\n4. If output is NON-EMPTY: \n   a. Send the output as a Telegram DM to user 1012034994 (use message tool, channel telegram).\n   b. Write {\"ts\":\"<ISO-now>\",\"status\":\"alert\",\"msg\":\"<first 200 chars of output>\"} to ../workspace/tmp/9router-watchdog-last.json.\n   c. Return NO_REPLY.\n\nDo NOT add commentary. Do NOT reason about the output. Just run and forward."
+        "message": "9ROUTER WATCHDOG \u2014 script-based check, no reasoning needed.\n\nSTEPS (execute exactly):\n1. Run: bash /Users/redinside/.openclaw/scripts/9router-watchdog.sh --fix 2>/dev/null\n2. Capture full stdout output.\n3. If output is EMPTY: write {\"ts\":\"<ISO-now>\",\"status\":\"ok\"} to ../workspace/tmp/9router-watchdog-last.json. Return NO_REPLY.\n4. If output is NON-EMPTY: \n   a. Send the output as a Telegram DM to user 1012034994 (use message tool, channel telegram).\n   b. Write {\"ts\":\"<ISO-now>\",\"status\":\"alert\",\"msg\":\"<first 200 chars of output>\"} to ../workspace/tmp/9router-watchdog-last.json.\n   c. Return NO_REPLY.\n\nDo NOT add commentary. Do NOT reason about the output. Just run and forward."
       },
       "delivery": {
         "mode": "announce",
@@ -632,7 +632,7 @@
         "kind": "agentTurn",
         "thinking": "off",
         "timeoutSeconds": 120,
-        "message": "9ROUTER KEEPFRESH — scripted, no reasoning.\n\nRun exactly:\n1. Execute: node /Users/redinside/.openclaw/scripts/9router-token-refresh.js 2>&1\n   Capture stdout+stderr and exit code.\n2. If exit code is 0: write {\"ts\":\"<ISO-now>\",\"status\":\"ok\"} to ../workspace/tmp/9router-keepfresh-last.json. Return NO_REPLY.\n3. If exit code is 2 (auth alert):\n   a. Extract the text between '--- ALERT_PAYLOAD ---' and '--- END_PAYLOAD ---' from the output.\n   b. Send that extracted text as a Telegram DM to user 1012034994 with parse_mode=Markdown.\n   c. Write {\"ts\":\"<ISO-now>\",\"status\":\"alert\",\"alerts\":<count>} to ../workspace/tmp/9router-keepfresh-last.json.\n   d. Return NO_REPLY.\n4. If exit code is 1 (script error): write {\"ts\":\"<ISO-now>\",\"status\":\"error\"} to ../workspace/tmp/9router-keepfresh-last.json. Return NO_REPLY.\n\nNo commentary. Do not reason about output. Just run and forward."
+        "message": "9ROUTER KEEPFRESH \u2014 scripted, no reasoning.\n\nRun exactly:\n1. Execute: node /Users/redinside/.openclaw/scripts/9router-token-refresh.js 2>&1\n   Capture stdout+stderr and exit code.\n2. If exit code is 0: write {\"ts\":\"<ISO-now>\",\"status\":\"ok\"} to ../workspace/tmp/9router-keepfresh-last.json. Return NO_REPLY.\n3. If exit code is 2 (auth alert):\n   a. Extract the text between '--- ALERT_PAYLOAD ---' and '--- END_PAYLOAD ---' from the output.\n   b. Send that extracted text as a Telegram DM to user 1012034994 with parse_mode=Markdown.\n   c. Write {\"ts\":\"<ISO-now>\",\"status\":\"alert\",\"alerts\":<count>} to ../workspace/tmp/9router-keepfresh-last.json.\n   d. Return NO_REPLY.\n4. If exit code is 1 (script error): write {\"ts\":\"<ISO-now>\",\"status\":\"error\"} to ../workspace/tmp/9router-keepfresh-last.json. Return NO_REPLY.\n\nNo commentary. Do not reason about output. Just run and forward."
       },
       "delivery": {
         "mode": "silent",
@@ -652,7 +652,7 @@
     {
       "id": "nightly-eval-cron-0001",
       "agentId": "ops",
-      "name": "Nightly Eval — Episode Analysis + Autonomy Scorecard (2am ET)",
+      "name": "Nightly Eval \u2014 Episode Analysis + Autonomy Scorecard (2am ET)",
       "enabled": true,
       "createdAtMs": 1772265000000,
       "updatedAtMs": 1772434842697,
@@ -667,7 +667,7 @@
         "model": "9router/free-unlimited",
         "thinking": "off",
         "timeoutSeconds": 300,
-        "message": "NIGHTLY EVAL — run full self-improvement analysis for the last 24h:\n\n1. Read ../workspace/logs/episodes.jsonl — filter to last 24h entries\n2. Cluster failures by (error_type, tool, agent): count occurrences\n3. Compute failure_rate = (failed episodes / total episodes) * 100\n4. Run autonomy-scorecard skill to compute today's autonomy score\n5. Write daily eval report to workspace/reports/daily-evals-{YYYY-MM-DD}.md with:\n   - Total episodes analyzed, success rate, failure breakdown by cluster\n   - Autonomy scorecard output\n   - Top 3 recurring failure patterns with proposed fixes\n   - Any new deny_pattern recommendations for command-catalog\n6. If failure_rate > 15%: send Telegram DM to 1012034994: '⚠️ OPS NIGHTLY EVAL: Failure rate is {N}% — above 15% threshold. See workspace/reports/daily-evals-{date}.md'\n7. If autonomy_score < 70%: sessions_send to RED with message 'NIGHTLY EVAL: Autonomy score below 70% ({score}%). RED please propose fixes to workspace/goals/improvements.json'\n8. Return NO_REPLY."
+        "message": "NIGHTLY EVAL \u2014 run full self-improvement analysis for the last 24h:\n\n1. Read ../workspace/logs/episodes.jsonl \u2014 filter to last 24h entries\n2. Cluster failures by (error_type, tool, agent): count occurrences\n3. Compute failure_rate = (failed episodes / total episodes) * 100\n4. Run autonomy-scorecard skill to compute today's autonomy score\n5. Write daily eval report to workspace/reports/daily-evals-{YYYY-MM-DD}.md with:\n   - Total episodes analyzed, success rate, failure breakdown by cluster\n   - Autonomy scorecard output\n   - Top 3 recurring failure patterns with proposed fixes\n   - Any new deny_pattern recommendations for command-catalog\n6. If failure_rate > 15%: send Telegram DM to 1012034994: '\u26a0\ufe0f OPS NIGHTLY EVAL: Failure rate is {N}% \u2014 above 15% threshold. See workspace/reports/daily-evals-{date}.md'\n7. If autonomy_score < 70%: sessions_send to RED with message 'NIGHTLY EVAL: Autonomy score below 70% ({score}%). RED please propose fixes to workspace/goals/improvements.json'\n8. Return NO_REPLY."
       },
       "delivery": {
         "mode": "silent",
@@ -702,7 +702,7 @@
         "kind": "agentTurn",
         "thinking": "off",
         "timeoutSeconds": 300,
-        "message": "WEEKLY IMPROVEMENT PROPOSAL — RED reads the last 7 daily-evals reports and drafts improvements:\n\n1. Read all workspace/reports/daily-evals-*.md from the last 7 days\n2. Identify the top 5 recurring failure patterns across the week\n3. Draft workspace/reports/weekly-improvements-{YYYY-MM-DD}.md with:\n   - Summary of week (episodes, success rate, autonomy score trend)\n   - Top 5 failure patterns with root cause analysis\n   - Concrete improvement proposals (skill edits, command-catalog updates, new deny patterns)\n   - Priority order: P0 (blocks autonomy) / P1 (reduces quality) / P2 (nice to have)\n4. sessions_spawn ENG with: 'Review weekly-improvements-{date}.md and implement the P0/P1 proposals. Each change requires INFOSEC L3 review before applying.'\n5. Send Telegram DM to 1012034994: '📊 Weekly improvement proposals ready: workspace/reports/weekly-improvements-{date}.md — {N} proposals ({P0} critical, {P1} important). ENG is implementing.'\n\nReturn NO_REPLY."
+        "message": "WEEKLY IMPROVEMENT PROPOSAL \u2014 RED reads the last 7 daily-evals reports and drafts improvements:\n\n1. Read all workspace/reports/daily-evals-*.md from the last 7 days\n2. Identify the top 5 recurring failure patterns across the week\n3. Draft workspace/reports/weekly-improvements-{YYYY-MM-DD}.md with:\n   - Summary of week (episodes, success rate, autonomy score trend)\n   - Top 5 failure patterns with root cause analysis\n   - Concrete improvement proposals (skill edits, command-catalog updates, new deny patterns)\n   - Priority order: P0 (blocks autonomy) / P1 (reduces quality) / P2 (nice to have)\n4. sessions_spawn ENG with: 'Review weekly-improvements-{date}.md and implement the P0/P1 proposals. Each change requires INFOSEC L3 review before applying.'\n5. Send Telegram DM to 1012034994: '\ud83d\udcca Weekly improvement proposals ready: workspace/reports/weekly-improvements-{date}.md \u2014 {N} proposals ({P0} critical, {P1} important). ENG is implementing.'\n\nReturn NO_REPLY."
       },
       "delivery": {
         "mode": "silent",
@@ -735,7 +735,7 @@
         "kind": "agentTurn",
         "thinking": "off",
         "timeoutSeconds": 300,
-        "message": "WEEKLY MARKET INTELLIGENCE DIGEST — Monday 8am.\n\nRun competitive-intelligence skill: scan Cursor, Perplexity, Devin, v0 for new patterns.\n\n1. web_search for each: \"<tool> new features site:twitter.com OR site:github.com\" — last 7 days\n2. Identify top 3 patterns worth adopting into OpenClaw/RedOS\n3. Write brief to ../workspace/tmp/research-brief-latest.md (use research-pipeline skill format)\n4. Update workspace/STATE.yaml → pipelines.research_to_eng\n5. sessions_send(sessionKey=\"agent:eng:main\", message=\"[TASK-ID: TASK-{date}-DIG] Weekly research brief ready at ../workspace/tmp/research-brief-latest.md\", timeoutSeconds=60)\n6. Post summary to #redos-mission-control Slack\n7. Append episode to ../workspace/logs/episodes.jsonl"
+        "message": "WEEKLY MARKET INTELLIGENCE DIGEST \u2014 Monday 8am.\n\nRun competitive-intelligence skill: scan Cursor, Perplexity, Devin, v0 for new patterns.\n\n1. web_search for each: \"<tool> new features site:twitter.com OR site:github.com\" \u2014 last 7 days\n2. Identify top 3 patterns worth adopting into OpenClaw/RedOS\n3. Write brief to ../workspace/tmp/research-brief-latest.md (use research-pipeline skill format)\n4. Update workspace/STATE.yaml \u2192 pipelines.research_to_eng\n5. sessions_send(sessionKey=\"agent:eng:main\", message=\"[TASK-ID: TASK-{date}-DIG] Weekly research brief ready at ../workspace/tmp/research-brief-latest.md\", timeoutSeconds=60)\n6. Post summary to #redos-mission-control Slack\n7. Append episode to ../workspace/logs/episodes.jsonl"
       },
       "delivery": {
         "mode": "silent",
@@ -754,7 +754,7 @@
     {
       "id": "research-market-factory-0001",
       "agentId": "research",
-      "name": "Market Research + Product Factory — weekly pain point mining",
+      "name": "Market Research + Product Factory \u2014 weekly pain point mining",
       "enabled": true,
       "createdAtMs": 1772292376509,
       "updatedAtMs": 1772292376509,
@@ -768,7 +768,7 @@
         "kind": "agentTurn",
         "thinking": "off",
         "timeoutSeconds": 300,
-        "message": "MARKET RESEARCH + PRODUCT FACTORY — Wednesday 9am.\n\nMine the last 7 days for developer/AI pain points:\n\n1. web_search: \"site:reddit.com/r/MachineLearning OR site:reddit.com/r/LocalLLaMA frustrating OR broken OR wish\" last week\n2. web_search: \"site:news.ycombinator.com Ask HN: why is X so hard\" last week\n3. web_search: \"\"I wish\" OR \"why doesn't\" OpenClaw OR claude-code OR cursor OR AI agent\" last week\n\nFor each search:\n- Extract top 5 pain points as bullet points\n- Score each: frequency (1-5) + severity (1-5) + addressable_by_openclaw (1-5)\n\nRank all pain points by total score. Top 3 become MVP briefs.\n\nFor each top-3 pain point, write one MVP brief to ../workspace/tmp/mvp-brief-<slug>.md:\n```\n# MVP Brief — <slug>\nPain point: <one sentence>\nTarget user: <who suffers>\nOpenClaw solution: <how an agent/skill solves it>\nBuild effort: <hours>\nImpact: high|medium|low\n```\n\nWrite summary to ../workspace/tmp/market-factory-latest.md with all pain points ranked.\nPost to #redos-mission-control: \"🔬 RESEARCH: Market factory done — top pain point: <X> (score N/15)\"\nsessions_send(sessionKey=\"agent:main:main\", message=\"[TASK-ID: TASK-{date}-MKT] Market research done. Top 3 MVPs in ../workspace/tmp/mvp-brief-*.md\", timeoutSeconds=60)\nUpdate workspace/STATE.yaml agents.research.last_task = \"market-factory\"\nAppend episode to ../workspace/logs/episodes.jsonl"
+        "message": "MARKET RESEARCH + PRODUCT FACTORY \u2014 Wednesday 9am.\n\nMine the last 7 days for developer/AI pain points:\n\n1. web_search: \"site:reddit.com/r/MachineLearning OR site:reddit.com/r/LocalLLaMA frustrating OR broken OR wish\" last week\n2. web_search: \"site:news.ycombinator.com Ask HN: why is X so hard\" last week\n3. web_search: \"\"I wish\" OR \"why doesn't\" OpenClaw OR claude-code OR cursor OR AI agent\" last week\n\nFor each search:\n- Extract top 5 pain points as bullet points\n- Score each: frequency (1-5) + severity (1-5) + addressable_by_openclaw (1-5)\n\nRank all pain points by total score. Top 3 become MVP briefs.\n\nFor each top-3 pain point, write one MVP brief to ../workspace/tmp/mvp-brief-<slug>.md:\n```\n# MVP Brief \u2014 <slug>\nPain point: <one sentence>\nTarget user: <who suffers>\nOpenClaw solution: <how an agent/skill solves it>\nBuild effort: <hours>\nImpact: high|medium|low\n```\n\nWrite summary to ../workspace/tmp/market-factory-latest.md with all pain points ranked.\nPost to #redos-mission-control: \"\ud83d\udd2c RESEARCH: Market factory done \u2014 top pain point: <X> (score N/15)\"\nsessions_send(sessionKey=\"agent:main:main\", message=\"[TASK-ID: TASK-{date}-MKT] Market research done. Top 3 MVPs in ../workspace/tmp/mvp-brief-*.md\", timeoutSeconds=60)\nUpdate workspace/STATE.yaml agents.research.last_task = \"market-factory\"\nAppend episode to ../workspace/logs/episodes.jsonl"
       },
       "delivery": {
         "mode": "silent",
@@ -781,7 +781,7 @@
     {
       "id": "content-factory-stage1-0001",
       "agentId": "research",
-      "name": "Content Factory Stage 1 — topic research (Fri 2pm)",
+      "name": "Content Factory Stage 1 \u2014 topic research (Fri 2pm)",
       "enabled": true,
       "createdAtMs": 1772292376509,
       "updatedAtMs": 1772292376509,
@@ -795,7 +795,7 @@
         "kind": "agentTurn",
         "thinking": "off",
         "timeoutSeconds": 180,
-        "message": "CONTENT FACTORY — STAGE 1: Topic Research (Friday 2pm).\n\n1. Read workspace/STATE.yaml → sprint.goal for this week's focus area\n2. web_search the top trending topic in that area (last 7 days)\n3. Gather 3-5 key facts/insights with source URLs\n4. Write topic brief to ../workspace/tmp/content-brief-latest.md:\n```\n# Content Brief — <topic> — <date>\nTopic: <title>\nAngle: <unique perspective>\nKey points:\n  - <point 1> (source: <url>)\n  - <point 2>\n  - <point 3>\nTarget length: 400-600 words\n```\n5. Update workspace/STATE.yaml → pipelines.content_factory.status = \"stage2_ready\"\n6. sessions_spawn(agentId=\"allrounder\", task=\"[TASK-ID: TASK-{date}-CF2] CONTENT FACTORY STAGE 2: Read ../workspace/tmp/content-brief-latest.md and write a 400-500 word piece. Save to workspace/content/draft-<slug>-<date>.md. Then sessions_spawn ENG for stage 3 formatting.\")\n7. Post to #redos-mission-control: \"🔬 RESEARCH → 🌐 ZEN: content pipeline started — topic: <topic>\"\nAppend episode to ../workspace/logs/episodes.jsonl"
+        "message": "CONTENT FACTORY \u2014 STAGE 1: Topic Research (Friday 2pm).\n\n1. Read workspace/STATE.yaml \u2192 sprint.goal for this week's focus area\n2. web_search the top trending topic in that area (last 7 days)\n3. Gather 3-5 key facts/insights with source URLs\n4. Write topic brief to ../workspace/tmp/content-brief-latest.md:\n```\n# Content Brief \u2014 <topic> \u2014 <date>\nTopic: <title>\nAngle: <unique perspective>\nKey points:\n  - <point 1> (source: <url>)\n  - <point 2>\n  - <point 3>\nTarget length: 400-600 words\n```\n5. Update workspace/STATE.yaml \u2192 pipelines.content_factory.status = \"stage2_ready\"\n6. sessions_spawn(agentId=\"allrounder\", task=\"[TASK-ID: TASK-{date}-CF2] CONTENT FACTORY STAGE 2: Read ../workspace/tmp/content-brief-latest.md and write a 400-500 word piece. Save to workspace/content/draft-<slug>-<date>.md. Then sessions_spawn ENG for stage 3 formatting.\")\n7. Post to #redos-mission-control: \"\ud83d\udd2c RESEARCH \u2192 \ud83c\udf10 ZEN: content pipeline started \u2014 topic: <topic>\"\nAppend episode to ../workspace/logs/episodes.jsonl"
       },
       "delivery": {
         "mode": "silent",
@@ -808,7 +808,7 @@
     {
       "id": "eng-mvp-intake-0001",
       "agentId": "eng",
-      "name": "MVP Brief Intake — implement top quick wins from market factory",
+      "name": "MVP Brief Intake \u2014 implement top quick wins from market factory",
       "enabled": true,
       "createdAtMs": 1772292376509,
       "updatedAtMs": 1772292376509,
@@ -822,7 +822,7 @@
         "kind": "agentTurn",
         "thinking": "off",
         "timeoutSeconds": 300,
-        "message": "MVP BRIEF INTAKE — Thursday 10:30am (day after market factory).\n\n1. exec: ls ../workspace/tmp/mvp-brief-*.md 2>/dev/null\n2. For each mvp-brief file found:\n   a. Read the brief\n   b. Run idea-validator skill on the idea\n   c. If reality_signal > 65 AND build_effort <= 4h: add to AUTONOMOUS.md as P2 task for ENG\n   d. If reality_signal <= 65: log skip reason to workspace/tasks-log.md\n3. Post to #redos-mission-control: \"💻 ENG: reviewed N MVP briefs — M added to queue (reality_signal > 65)\"\n4. exec: rm ../workspace/tmp/mvp-brief-*.md  # cleanup after intake\nAppend episode to ../workspace/logs/episodes.jsonl"
+        "message": "MVP BRIEF INTAKE \u2014 Thursday 10:30am (day after market factory).\n\n1. exec: ls ../workspace/tmp/mvp-brief-*.md 2>/dev/null\n2. For each mvp-brief file found:\n   a. Read the brief\n   b. Run idea-validator skill on the idea\n   c. If reality_signal > 65 AND build_effort <= 4h: add to AUTONOMOUS.md as P2 task for ENG\n   d. If reality_signal <= 65: log skip reason to workspace/tasks-log.md\n3. Post to #redos-mission-control: \"\ud83d\udcbb ENG: reviewed N MVP briefs \u2014 M added to queue (reality_signal > 65)\"\n4. exec: rm ../workspace/tmp/mvp-brief-*.md  # cleanup after intake\nAppend episode to ../workspace/logs/episodes.jsonl"
       },
       "delivery": {
         "mode": "silent",
@@ -850,7 +850,7 @@
         "model": "9router/free-unlimited",
         "thinking": "off",
         "timeoutSeconds": 120,
-        "message": "WEEKLY COST REPORT — run every Monday 8:45am ET:\n\n1. Read ../workspace/tmp/provider-quota.json — check active provider counts\n2. Read ../workspace/config/budget-guardrails.json if it exists — check limits\n3. Read ../workspace/logs/a2a-delegations.jsonl — count today's A2A calls and estimate compute volume\n4. Read cron/jobs.json — count enabled crons (proxy for agent activity level)\n5. Compose weekly cost summary:\n   - Active providers: N (list)\n   - Cron jobs running: N enabled / N total\n   - A2A delegations this week: N (from logs)\n   - Budget status: GREEN/YELLOW/RED vs daily $15 target\n   - Recommendations: any PAYG models to cut, any underused crons to disable\n6. Post to Slack channel:C0AEV3MDEDD (#redos-mission-control) with identity header: 💰 *FINANCE (Finance Analyst)*\n7. Write report to workspace/costs/weekly-cost-YYYY-MM-DD.md\n8. Return NO_REPLY."
+        "message": "WEEKLY COST REPORT \u2014 run every Monday 8:45am ET:\n\n1. Read ../workspace/tmp/provider-quota.json \u2014 check active provider counts\n2. Read ../workspace/config/budget-guardrails.json if it exists \u2014 check limits\n3. Read ../workspace/logs/a2a-delegations.jsonl \u2014 count today's A2A calls and estimate compute volume\n4. Read cron/jobs.json \u2014 count enabled crons (proxy for agent activity level)\n5. Compose weekly cost summary:\n   - Active providers: N (list)\n   - Cron jobs running: N enabled / N total\n   - A2A delegations this week: N (from logs)\n   - Budget status: GREEN/YELLOW/RED vs daily $15 target\n   - Recommendations: any PAYG models to cut, any underused crons to disable\n6. Post to Slack channel:C0AEV3MDEDD (#redos-mission-control) with identity header: \ud83d\udcb0 *FINANCE (Finance Analyst)*\n7. Write report to workspace/costs/weekly-cost-YYYY-MM-DD.md\n8. Return NO_REPLY."
       },
       "delivery": {
         "mode": "silent",
@@ -878,7 +878,7 @@
       },
       "enabled": true,
       "payload": {
-        "message": "DISPATCHER PRE-STEP: Read the last 10 entries from workspace/ops/LEARNINGS.md. These are recent failure learnings — keep them in mind for all dispatches this run.\n\nDISPATCHER: Check workspace/AUTONOMOUS.md for PENDING tasks. Pick 1-2 highest priority PENDING tasks. Dispatch each by: (1) updating the task status to IN_PROGRESS in AUTONOMOUS.md with timestamp, (2) spawning the assigned agent via sessions_spawn with: the task description + 'CONTEXT FROM PAST LEARNINGS: [paste relevant learnings]' prepended. If no PENDING tasks: read workspace/GOALS.md, create 1 new task, add to AUTONOMOUS.md. After dispatching: log to workspace/logs/dispatch.jsonl with taskId, agentId, timestamp. Do NOT ask for approval. Act immediately.",
+        "message": "DISPATCHER PRE-STEP: Read the last 10 entries from workspace/ops/LEARNINGS.md. These are recent failure learnings \u2014 keep them in mind for all dispatches this run.\n\nDISPATCHER: Check workspace/AUTONOMOUS.md for PENDING tasks. Pick 1-2 highest priority PENDING tasks. Dispatch each by: (1) updating the task status to IN_PROGRESS in AUTONOMOUS.md with timestamp, (2) spawning the assigned agent via sessions_spawn with: the task description + 'CONTEXT FROM PAST LEARNINGS: [paste relevant learnings]' prepended. If no PENDING tasks: read workspace/GOALS.md, create 1 new task, add to AUTONOMOUS.md. After dispatching: log to workspace/logs/dispatch.jsonl with taskId, agentId, timestamp. Do NOT ask for approval. Act immediately.",
         "kind": "agentTurn"
       },
       "_meta": {
@@ -897,14 +897,16 @@
       },
       "delivery": {
         "mode": "announce",
-        "channel": "telegram"
+        "channel": "telegram",
+        "target": "1012034994",
+        "bestEffort": true
       },
       "updatedAtMs": 1772492545748,
       "wakeMode": "now"
     },
     {
       "id": "memory-sync-nightly-0001",
-      "name": "Nightly Memory Sync (episodes + compact + integrity — consolidated)",
+      "name": "Nightly Memory Sync (episodes + compact + integrity \u2014 consolidated)",
       "agentId": "ops",
       "schedule": {
         "kind": "cron",
@@ -913,7 +915,7 @@
       },
       "enabled": true,
       "payload": {
-        "message": "NIGHTLY MEMORY SYNC: 1) Seed episodes.jsonl from routing decisions (last 24h) — run: python3 ~/.openclaw/workspace/scripts/seed-episodes.py. 2) Index new episodes into search index — run: bash ~/.openclaw/scripts/index-episodes.sh. 3) Rebuild workspace semantic index — run: python3 ~/.openclaw/workspace/scripts/memsearch.py index. 4) Compact workspace/memory/*.sqlite if >10MB. 5) Write memory-integrity check to workspace/ops/health-monitor-state.json. 6) Log sync status to workspace/logs/memory-sync.log. Report episode count and any errors to #redos-ops.",
+        "message": "NIGHTLY MEMORY SYNC: 1) Seed episodes.jsonl from routing decisions (last 24h) \u2014 run: python3 ~/.openclaw/workspace/scripts/seed-episodes.py. 2) Index new episodes into search index \u2014 run: bash ~/.openclaw/scripts/index-episodes.sh. 3) Rebuild workspace semantic index \u2014 run: python3 ~/.openclaw/workspace/scripts/memsearch.py index. 4) Compact workspace/memory/*.sqlite if >10MB. 5) Write memory-integrity check to workspace/ops/health-monitor-state.json. 6) Log sync status to workspace/logs/memory-sync.log. Report episode count and any errors to #redos-ops.",
         "kind": "agentTurn"
       },
       "_meta": {
@@ -932,14 +934,16 @@
       },
       "delivery": {
         "mode": "announce",
-        "channel": "telegram"
+        "channel": "telegram",
+        "target": "1012034994",
+        "bestEffort": true
       },
       "wakeMode": "now",
       "updatedAtMs": 1772433084480
     },
     {
       "id": "model-health-check-0001",
-      "name": "Model Health Check (every 30min — Ollama + 9Router ping, alert on failure)",
+      "name": "Model Health Check (every 30min \u2014 Ollama + 9Router ping, alert on failure)",
       "agentId": "ops",
       "schedule": {
         "kind": "cron",
@@ -948,7 +952,7 @@
       },
       "enabled": true,
       "payload": {
-        "message": "HEALTH CHECK: Ping Ollama (http://127.0.0.1:11434/api/tags) and 9Router (http://127.0.0.1:20128/health). If either down: post to Slack via n8n webhook slack-post. Check gateway.err.log for new errors. Write status to workspace/ops/health-monitor-state.json. Alert only on failure — not every run.",
+        "message": "HEALTH CHECK: Ping Ollama (http://127.0.0.1:11434/api/tags) and 9Router (http://127.0.0.1:20128/health). If either down: post to Slack via n8n webhook slack-post. Check gateway.err.log for new errors. Write status to workspace/ops/health-monitor-state.json. Alert only on failure \u2014 not every run.",
         "kind": "agentTurn"
       },
       "_meta": {
@@ -967,14 +971,16 @@
       },
       "delivery": {
         "mode": "announce",
-        "channel": "telegram"
+        "channel": "telegram",
+        "target": "1012034994",
+        "bestEffort": true
       },
       "updatedAtMs": 1772492567044,
       "wakeMode": "now"
     },
     {
       "id": "session-warmup-consolidated-0001",
-      "name": "Session Warmup — All specialist agents (every 45min)",
+      "name": "Session Warmup \u2014 All specialist agents (every 45min)",
       "agentId": "hatake",
       "schedule": {
         "kind": "cron",
@@ -1002,7 +1008,9 @@
       },
       "delivery": {
         "mode": "announce",
-        "channel": "telegram"
+        "channel": "telegram",
+        "target": "1012034994",
+        "bestEffort": true
       },
       "updatedAtMs": 1772492491521,
       "wakeMode": "now"
@@ -1030,7 +1038,9 @@
       },
       "delivery": {
         "mode": "announce",
-        "channel": "telegram"
+        "channel": "telegram",
+        "target": "1012034994",
+        "bestEffort": true
       },
       "state": {
         "nextRunAtMs": 1772510453749,
@@ -1059,7 +1069,9 @@
       },
       "delivery": {
         "mode": "announce",
-        "channel": "telegram"
+        "channel": "telegram",
+        "target": "1012034994",
+        "bestEffort": true
       },
       "wakeMode": "now",
       "state": {
