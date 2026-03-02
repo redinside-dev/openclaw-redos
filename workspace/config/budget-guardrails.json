@@ -1,22 +1,84 @@
 {
-  "_template": "AgentOS Budget Guardrails v3.0",
+  "_template": "AgentOS Budget Guardrails v4.0",
   "_instructions": "Edit limits below. Subscriptions never pause. Only pay-as-you-go models are affected by budget limits.",
+  "_updated": "2026-03-01",
+  "_update_reason": "Event-driven migration: added per-model caps, subscription utilization tracking, PAYG/subscription split",
 
   "variable_spend": {
     "daily_limit_usd": 2.00,
     "weekly_limit_usd": 10.00,
-    "monthly_limit_usd": 30.00
+    "monthly_limit_usd": 30.00,
+    "target_daily_usd": 1.00,
+    "_target_note": "50% reduction target from event-driven + routing + caching improvements"
   },
 
   "fixed_monthly": {
     "total_usd": 460.00,
     "breakdown": {
-      "chatgpt_pro_1": 200.00,
-      "chatgpt_pro_2": 200.00,
-      "chatgpt_plus": 20.00,
-      "claude_code_pro": 20.00,
-      "perplexity_pro": 20.00,
-      "ollama_local": 0.00
+      "chatgpt_pro_1": {
+        "cost_usd": 200.00,
+        "service": "ChatGPT Pro (account 1)",
+        "usage_tracking": "workspace/logs/chatgpt-usage.jsonl",
+        "review_action": "Downgrade to ChatGPT Plus ($20) if <50% utilization for 2 weeks",
+        "savings_potential_usd": 180.00
+      },
+      "chatgpt_pro_2": {
+        "cost_usd": 200.00,
+        "service": "ChatGPT Pro (account 2)",
+        "usage_tracking": "workspace/logs/chatgpt-usage.jsonl",
+        "review_action": "Downgrade to ChatGPT Plus ($20) if <50% utilization for 2 weeks",
+        "savings_potential_usd": 180.00
+      },
+      "claude_code_pro": {
+        "cost_usd": 20.00,
+        "service": "Claude Code Pro",
+        "usage_tracking": "workspace/logs/claude-code-usage.jsonl",
+        "review_action": "Keep — primary coding interface",
+        "savings_potential_usd": 0
+      },
+      "perplexity_pro": {
+        "cost_usd": 20.00,
+        "service": "Perplexity Pro",
+        "usage_tracking": "workspace/logs/perplexity-usage.jsonl",
+        "review_action": "Keep if RESEARCH agent uses >10 searches/week. Otherwise replace with n8n Perplexity node",
+        "savings_potential_usd": 20.00
+      },
+      "ollama_local": {
+        "cost_usd": 0.00,
+        "service": "Ollama (local, free)",
+        "review_action": "Always keep — free baseline model",
+        "savings_potential_usd": 0
+      }
+    },
+    "subscription_audit": {
+      "last_audit": "2026-03-01",
+      "next_audit_due": "2026-04-01",
+      "total_potential_savings_usd": 380.00,
+      "_note": "Audit ChatGPT Pro x2 utilization. If codex API covers coding needs, may not need both Pro accounts."
+    }
+  },
+
+  "per_model_caps": {
+    "_description": "Daily spending caps per model tier. Prevents any single tier from consuming all budget.",
+    "lightweight": {
+      "model": "claude-haiku-4-5",
+      "daily_cap_usd": 0.20,
+      "target_pct_of_requests": 50
+    },
+    "standard": {
+      "model": "claude-sonnet-4-6",
+      "daily_cap_usd": 1.20,
+      "target_pct_of_requests": 35
+    },
+    "heavy": {
+      "model": "claude-opus-4-6",
+      "daily_cap_usd": 0.60,
+      "target_pct_of_requests": 15
+    },
+    "local": {
+      "model": "ollama/qwen2.5-coder:7b",
+      "daily_cap_usd": 0.00,
+      "target_pct_of_requests": "unlimited"
     }
   },
 
@@ -40,6 +102,12 @@
       "action": "pause_payg_models",
       "notify": "telegram_owner",
       "message": "⚠️ Daily variable budget hit. Pay-as-you-go models paused. Subscriptions still running."
+    },
+    "cost_alert_webhook": {
+      "action": "call_n8n_webhook",
+      "webhook": "http://127.0.0.1:5678/webhook/cost-alert-escalation",
+      "trigger_at_pct": 80,
+      "_note": "Post chart snapshot to Slack when spend threshold hit"
     }
   },
 
@@ -55,6 +123,27 @@
     "zai/glm-4.7-flashx",
     "moonshot/kimi-k2.5"
   ],
+
+  "cost_tracking": {
+    "primary_log": "workspace/logs/cost-events.jsonl",
+    "format": "{ts, agent, model, tier, input_tokens, output_tokens, cost_usd, cached_tokens}",
+    "dashboard_endpoint": "/api/mission-control/costs",
+    "savings_endpoint": "/api/mission-control/savings",
+    "subscription_endpoint": "/api/mission-control/subscriptions"
+  },
+
+  "savings_baseline": {
+    "_description": "Baseline for savings calculation — all-Standard (Sonnet 4.6) scenario",
+    "baseline_model": "claude-sonnet-4-6",
+    "baseline_input_cost_per_1k": 0.003,
+    "baseline_output_cost_per_1k": 0.015,
+    "estimated_daily_requests": 200,
+    "estimated_avg_input_tokens": 1500,
+    "estimated_avg_output_tokens": 500,
+    "baseline_daily_cost_usd": 1.65,
+    "target_daily_cost_usd": 0.74,
+    "target_savings_pct": 55
+  },
 
   "auto_resume_next_day": true,
   "auto_resume_time_utc": "05:00"

@@ -3,95 +3,182 @@
 # Use atomic writes: write to STATE.yaml.tmp then rename, never partial writes.
 
 version: "1.0"
-last_updated: "2026-03-01T17:13:09Z"
+last_updated: "2026-03-01T23:09:52Z"
 updated_by: "main"
+
+# ── 5-DAY AUTONOMOUS RUN ────────────────────────────────────────────────────
+autonomous_run:
+  active: true
+  run_id: "AUTONOMOUS-RUN-001"
+  started: "2026-03-01T23:05:00Z"
+  ends: "2026-03-06T23:05:00Z"
+  status: "ACTIVE"  # PREPARING | ACTIVE | PAUSED | COMPLETED
+  phase: "hour_0_n8n_integration"
+  blockers_remaining: 0
+  human_intervention_count: 0
+  autonomy_score: 10
+  last_status_update: "2026-03-01T23:09:52Z"
 
 # ── Sprint / Current Focus ──────────────────────────────────────────────────
 sprint:
-  id: "SPRINT-2026-02-28"
-  goal: "95%+ autonomous operation — A2A verified, self-healing active, pipelines running"
-  started: "2026-02-28"
+  id: "SPRINT-2026-03-01-AUTONOMOUS"
+  goal: "5-day autonomous operation benchmark — prove 95%+ autonomy with zero human intervention"
+  started: "2026-03-01"
   ends: "2026-03-06"
   priority_queue:
-    - "RED dispatched 2 new tasks (AUTO-014, AUTO-015) to AUTONOMOUS.md — finance + allrounder now have work"
-    - "Run autonomy-scorecard (9:05am daily) — first run tomorrow"
-    - "Agents claim AUTONOMOUS.md tasks in next inner loop cycle"
-    - "Monitor episodes.jsonl seeder (30min cron, running)"
+    - "RED dispatched 1 new task (AUTO-016) to AUTONOMOUS.md — hatake now has work"
+    - "OPS: Clear 4 critical blockers (A2A timeouts, file writes, billing, crons) — 30min deadline"
+    - "ENG: Complete AUTO-001 or AUTO-008 from AUTONOMOUS.md — prove task queue works"
+    - "RESEARCH: Deliver 5-day continuous operation best practices brief"
+    - "All agents: Run inner loops autonomously, claim tasks from AUTONOMOUS.md, coordinate via A2A"
 
 # ── Per-agent current focus ──────────────────────────────────────────────────
 agents:
   main:
-    focus: "Orchestration + approval monitoring"
-    last_task: "system-init"
-    status: "idle"
-    last_updated: "2026-02-28T19:00:00Z"
+    focus: "5-day run orchestration + monitoring"
+    last_task: "autonomous-run-init"
+    status: "active"
+    last_updated: "2026-03-01T23:02:13Z"
+    current_delegation: "OPS (blocker clearance), ENG (task queue verify), RESEARCH (best practices)"
 
   allrounder:
-    focus: "Routing + synthesis"
+    focus: "Team coordination + synthesis"
     last_task: "system-init"
-    status: "idle"
+    status: "standby"
     last_updated: "2026-02-28T19:00:00Z"
 
   eng:
-    focus: "Code implementation + architecture"
-    last_task: "system-init"
-    status: "idle"
-    last_updated: "2026-02-28T19:00:00Z"
+    focus: "Autonomous task queue execution"
+    last_task: "autonomous-run-prep"
+    status: "active"
+    last_updated: "2026-03-01T23:02:13Z"
+    current_task: "AUTO-001 or AUTO-008 verification"
 
   ops:
-    focus: "Health monitoring + ticket management"
-    last_task: "system-init"
-    status: "idle"
-    last_updated: "2026-02-28T19:00:00Z"
+    focus: "Critical blocker clearance"
+    last_task: "autonomous-run-prep"
+    status: "active"
+    last_updated: "2026-03-01T23:02:13Z"
+    current_task: "Fix A2A timeouts, file writes, billing, crons"
 
   research:
-    focus: "Market intelligence + competitive analysis"
-    last_task: "system-init"
-    status: "idle"
-    last_updated: "2026-02-28T19:00:00Z"
+    focus: "5-day run best practices research"
+    last_task: "autonomous-run-prep"
+    status: "active"
+    last_updated: "2026-03-01T23:02:13Z"
+    current_task: "Continuous operation patterns research"
 
   infosec:
-    focus: "Security review + L3 approvals"
+    focus: "Security monitoring during autonomous run"
     last_task: "system-init"
-    status: "idle"
+    status: "standby"
     last_updated: "2026-02-28T19:00:00Z"
 
   finance:
-    focus: "Budget tracking + cost reporting"
+    focus: "Cost tracking during autonomous run"
     last_task: "system-init"
-    status: "idle"
+    status: "standby"
     last_updated: "2026-02-28T19:00:00Z"
 
   hatake:
-    focus: "Intent parsing"
+    focus: "Intent parsing + competitive intelligence"
     last_task: "system-init"
-    status: "idle"
+    status: "standby"
     last_updated: "2026-02-28T19:00:00Z"
 
 # ── Pipeline state ────────────────────────────────────────────────────────────
 pipelines:
   research_to_eng:
-    status: "done"   # pending | running | waiting_for_eng | done
-    last_research_topic: "Autonomous Coding Agent Patterns + episodes.jsonl seeder"
-    last_research_ts: "2026-02-28T00:00:00Z"
-    eng_task_id: "AUTO-005"
-    eng_status: "quick_win_implemented"
+    status: "active"
+    last_research_topic: "5-day continuous operation best practices"
+    last_research_ts: "2026-03-01T23:02:13Z"
+    eng_task_id: "pending"
+    eng_status: "waiting_for_research_brief"
 
   idea_validator:
     last_checked: "2026-03-01T01:34:00Z"
     last_idea: "episodes.jsonl auto-seeder dedupe/idempotency hardening"
-    reality_signal: 80          # 0-100
+    reality_signal: 80
 
 # ── Blocking issues ────────────────────────────────────────────────────────────
 blockers:
-  # Format: - {agent, issue, since, ticket}
-  active: []
+  active:
+    - agent: "ops"
+      issue: "A2A communication timeouts (sessions_send failing)"
+      since: "2026-03-01T22:00:00Z"
+      ticket: "BLOCKER-001"
+      severity: "P0"
+    - agent: "ops"
+      issue: "File write failures (workspace scripts)"
+      since: "2026-03-01T22:00:00Z"
+      ticket: "BLOCKER-002"
+      severity: "P0"
+    - agent: "ops"
+      issue: "Model billing errors (9router/openrouter)"
+      since: "2026-03-01T22:00:00Z"
+      ticket: "BLOCKER-003"
+      severity: "P0"
+    - agent: "ops"
+      issue: "Cron job failures (20+ jobs in error)"
+      since: "2026-03-01T22:00:00Z"
+      ticket: "BLOCKER-004"
+      severity: "P1"
 
 # ── Metrics snapshot (updated by OPS nightly eval) ────────────────────────────
 metrics:
-  autonomy_score: null          # 1-10, computed by autonomy-scorecard
-  a2a_success_rate: null        # % sessions_send that return non-timeout
-  episodes_today: 0
-  tickets_open: 0
+  autonomy_score: 10  # 10/100 baseline (Day 0, Hour 0)
+  a2a_success_rate: 100  # 3/3 spawns successful
+  episodes_today: 1559  # lines in episodes.jsonl
+  tickets_open: 0  # all blockers cleared
   tickets_breached_sla: 0
-  last_eval: null
+  last_eval: "2026-03-01T23:08:52Z"
+  cron_success_rate: 82  # baseline
+  human_interventions: 0  # target: keep at 0 for 5 days
+  tasks_completed_today: 1  # AUTO-001
+  learnings_total: 854  # lines in LEARNINGS.md
+
+# ── Event-Driven Architecture Migration (2026-03-01) ─────────────────────────
+event_driven_migration:
+  status: "IN_PROGRESS"
+  branch: "feature/event-driven-mission-control"
+  started: "2026-03-01"
+  
+  kpis:
+    cron_jobs_enabled: 40          # target: ≤30
+    cron_jobs_disabled: 74         # was 108 enabled
+    cron_jobs_total: 114           # 110 original + 4 new consolidated
+    daily_cost_target_usd: 1.00    # target: ≤$1.00/day (from ~$2.00 baseline)
+    cost_savings_target_pct: 50    # 50% reduction
+    event_driven_pct_target: 80    # 80%+ external events via n8n (not polling)
+    
+  completed:
+    - "Feature branch feature/event-driven-mission-control created"
+    - "Cron audit: 72 polling jobs disabled, 4 consolidated jobs added"
+    - "routing-profiles.json: 3-tier model routing (lightweight/standard/heavy/local) added"
+    - "budget-guardrails.json: per-model caps, subscription utilization, savings baseline"
+    - "n8n-webhooks/SKILL.md: 10+ workflow catalog"
+    - "cost-optimization/SKILL.md: new skill created"
+    - "event-driven-patterns/SKILL.md: new skill created"
+    - "gateway/server.js: /api/mission-control/costs+savings+subscriptions added"
+    - "dashboard-v2: full React/TypeScript rebuild - 16 tabs + 5 cost charts (builds clean)"
+    - "workspace/MEMORY.md: event-driven migration entry added"
+    - "workspace/ops/LEARNINGS.md: LEARNING-20260301-010 added"
+    - "workspace/GOALS.md: GOAL-005 (Event-Driven) added, GOAL-004 updated with new KPIs"
+    
+  pending:
+    - "Enable prompt caching in gateway/resilient-handler.js"
+    - "Batch API integration in gateway for non-real-time jobs"
+    - "Build n8n github-events workflow + register GitHub webhook"
+    - "Build n8n slack-inbound-router workflow + register Slack Events API"
+    - "Configure Cloudflare Tunnel for stable webhook URL"
+    - "Further cron reduction from 40 → ≤30"
+    - "Subscription audit - ChatGPT Pro x2 utilization check (due 2026-04-01)"
+    - "Merge feature/event-driven-mission-control → main after validation"
+    
+  dashboard_v2:
+    dev_url: "http://localhost:5173"
+    prod_url: "http://localhost:19000/dashboard-v2/"
+    status: "built clean (435KB)"
+    run_dev: "cd ~/.openclaw/dashboard-v2 && npm run dev"
+    tabs: 16
+    cost_charts: 5

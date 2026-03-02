@@ -43,3 +43,46 @@ cat /tmp/cost.json | python {baseDir}/scripts/model_usage.py --input - --mode cu
 
 ## References
 - Read `references/codexbar-cli.md` for CLI flags and cost JSON fields.
+
+---
+
+## 3-Tier Model Routing (2026-03 Update — Event-Driven Architecture)
+
+OpenClaw RedOS now classifies every request into one of 4 tiers before calling a model. This is done automatically in `gateway/track-router.js`. Agents can override via payload.
+
+### Tiers
+
+| Tier | Model | Cost/1K in | Cost/1K out | Auto-assigned when |
+|------|-------|------------|-------------|-------------------|
+| `lightweight` | Claude Haiku 4.5 | $0.0008 | $0.004 | Prompt <300 chars + health/status keywords |
+| `standard` | Claude Sonnet 4.6 | $0.003 | $0.015 | Default for most agent work |
+| `heavy` | Claude Opus 4.6 | $0.015 | $0.075 | Architecture, L4/L5 approvals, prompt >4000 chars |
+| `local` | Ollama qwen2.5-coder:7b | $0.00 | $0.00 | HATAKE always; explicit `local` override |
+
+### Override tier in cron payload or message:
+
+```json
+{
+  "agentId": "eng",
+  "message": "Compile weekly cost report...",
+  "model_tier": "standard",
+  "batch": true
+}
+```
+
+### Lightweight keywords (auto-assigned):
+`ping`, `alive`, `status`, `heartbeat`, `warmup`, `health check`, `ack`, `uptime`, `dispatcher`
+
+### Heavy keywords (auto-assigned):
+`l4 approval`, `l5 approval`, `critical`, `irreversible`, `architecture decision`, `security review`, `comprehensive audit`
+
+### Check what tier a request was assigned:
+```bash
+grep "Tier:" ~/.openclaw/logs/gateway.log | tail -20
+```
+
+### Target split
+- 50% lightweight, 35% standard, 15% heavy
+- Expected savings vs all-Standard: ~55%
+
+Full documentation: `workspace/skills/cost-optimization/SKILL.md`

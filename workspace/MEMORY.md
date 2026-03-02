@@ -314,6 +314,21 @@ The RED Self-Improvement cron has been observed autonomously modifying `openclaw
 
 ---
 
+## [2026-03] Event-Driven Architecture Migration
+
+- **Cron jobs:** reduced from 110 → 40 enabled. Pattern: polling crons replaced with n8n webhook triggers or consolidated into autonomous-task-dispatcher (every 15min). True batch crons kept. Health check crons minimized. Feature branch: `feature/event-driven-mission-control`.
+- **Model routing:** 3 tiers added to `routing-profiles.json`: lightweight (Haiku 4.5, health checks + short queries), standard (Sonnet 4.6, most agent work), heavy (Opus 4.6, architecture + L4/L5), local (Ollama, HATAKE only). Target split: 50/35/15. Gateway reads `model_tier` from payload or classifies automatically.
+- **Prompt caching:** Anthropic `cache_control: {type: "ephemeral"}` on system prompt block. 90% expected hit rate on SOUL.md (~2000 tokens/call). Saves ~40% on input tokens.
+- **Batch API:** `"batch": true` in cron payload routes non-real-time jobs to Anthropic Batch API (50% cost reduction). Eligible: nightly sync, weekly reports, content factory.
+- **Cost target:** ≤$1.00/day (down from ~$2.00 baseline). Track in `workspace/logs/cost-events.jsonl`.
+- **n8n:** Primary event bus. 10+ workflows catalogued in `workspace/skills/n8n-webhooks/SKILL.md`. New: github-events, slack-inbound-router, cost-alert-escalation, error-escalation, model-health-check, daily-standup, autonomous-task-dispatcher.
+- **dashboard-v2:** Full React/TypeScript rebuild at `dashboard-v2/src/`. 16 tabs + 5 cost charts. Dev: `cd ~/.openclaw/dashboard-v2 && npm run dev` (port 5173). Build passes clean (435KB). API proxy: vite.config.ts proxies /api/* to localhost:19000.
+- **New gateway endpoints:** `GET /api/mission-control/costs`, `GET /api/mission-control/savings`, `GET /api/mission-control/subscriptions`.
+- **New skills:** `cost-optimization/SKILL.md` (routing rules, caching, batch API guide), `event-driven-patterns/SKILL.md` (classification guide, webhook registration procedure).
+- **Subscription audit:** ChatGPT Pro x2 ($400/mo) flagged for review. Potential savings: $180-360/mo if downgraded. Next audit: 2026-04-01.
+
+---
+
 ## Pending Items (as of 2026-03-01)
 
 ### P1

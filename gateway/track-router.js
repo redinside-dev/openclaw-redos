@@ -10,6 +10,62 @@ import { resilientHandler } from './resilient-handler.js';
 import { edRedOrchestrator } from '../agents/ed-red-orchestrator.js';
 import { agentOrchestrator } from '../orchestration/agent-orchestrator.js';
 
+/**
+ * Model Tier Classifier — assigns lightweight/standard/heavy/local based on
+ * payload model_tier override, agentId, prompt length, and keywords.
+ * Reads routing-profiles.json tier_classifier rules.
+ */
+const LIGHTWEIGHT_KEYWORDS = [
+  'ping', 'alive', 'status', 'heartbeat', 'warmup', 'check if', 'is it running',
+  'health check', 'ack', 'acknowledge', 'ok?', 'still running', 'uptime', 'dispatcher',
+  'warmup marker', 'pulse'
+];
+const HEAVY_KEYWORDS = [
+  'l4 approval', 'l5 approval', 'critical', 'irreversible', 'architecture decision',
+  'security review', 'comprehensive audit', 'full analysis', 'strategy document'
+];
+
+function classifyModelTier(agentId, message, context = {}) {
+  // 1. Explicit override from payload takes priority
+  if (context.model_tier) {
+    return context.model_tier;
+  }
+
+  // 2. HATAKE always uses local
+  if (agentId === 'hatake') {
+    return 'local';
+  }
+
+  const msgLower = (message || '').toLowerCase();
+  const msgLen = (message || '').length;
+
+  // 3. Short health/status queries → lightweight
+  if (msgLen < 300 && LIGHTWEIGHT_KEYWORDS.some(kw => msgLower.includes(kw))) {
+    return 'lightweight';
+  }
+
+  // 4. Heavy keywords → heavy
+  if (HEAVY_KEYWORDS.some(kw => msgLower.includes(kw))) {
+    return 'heavy';
+  }
+
+  // 5. Very long prompts → heavy (need full context window)
+  if (msgLen > 4000) {
+    return 'heavy';
+  }
+
+  // 6. Default → standard
+  return 'standard';
+}
+
+// Model tier → 9Router model string mapping
+const TIER_TO_MODEL = {
+  lightweight: '9router/free-unlimited',  // HATAKE routes to Haiku internally
+  standard:    '9router/free-unlimited',  // Standard: Sonnet via 9Router
+  heavy:       '9router/free-unlimited',  // Heavy: Opus via 9Router
+  local:       'ollama/qwen2.5-coder:7b'
+};
+
 export class TrackRouter {
   constructor() {
     this.fastTrackHandler = resilientHandler;
@@ -27,9 +83,17 @@ export class TrackRouter {
   async route(agentId, message, context = {}) {
     this.stats.total++;
 
+    // Classify model tier (lightweight / standard / heavy / local)
+    const tier = classifyModelTier(agentId, message, context);
+    context.model_tier = tier;
+    if (tier === 'local') {
+      context.forceModel = TIER_TO_MODEL.local;
+    }
+
     console.log(`\n${'='.repeat(60)}`);
     console.log(`📨 NEW REQUEST`);
     console.log(`Agent: ${agentId}`);
+    console.log(`Tier: ${tier}`);
     console.log(`Message: ${message.substring(0, 100)}${message.length > 100 ? '...' : ''}`);
     console.log(`${'='.repeat(60)}`);
 

@@ -1,7 +1,9 @@
 {
   "_meta": {
     "description": "Routing profiles control how the smart router balances quality, speed, and cost. Change 'active' to switch profiles. Weights must sum to 1.0.",
-    "switchCommand": "@RedinsideBot routing mode cost_saver"
+    "switchCommand": "@RedinsideBot routing mode cost_saver",
+    "updated": "2026-03-01",
+    "update_reason": "Event-driven architecture migration — added model_tiers for 3-tier intelligent routing"
   },
 
   "active": "cost_saver",
@@ -36,5 +38,162 @@
       "requireProvider": "ollama",
       "icon": "📴"
     }
+  },
+
+  "model_tiers": {
+    "_description": "3-tier intelligent routing. Target split: 50% lightweight / 35% standard / 15% heavy. Agents can override with model_tier field in payload.",
+    "_target_split": { "lightweight": 0.50, "standard": 0.35, "heavy": 0.15 },
+    "_estimated_savings": "~55% cost reduction vs all-standard baseline",
+
+    "lightweight": {
+      "description": "Fastest, cheapest. Health checks, status queries, simple summaries, short cron payloads.",
+      "model": "claude-haiku-4-5-20251001",
+      "provider": "9router",
+      "via": "9router/free-unlimited",
+      "max_input_tokens": 2000,
+      "max_output_tokens": 512,
+      "use_when": [
+        "prompt_length < 500 chars",
+        "task_type: health_check",
+        "task_type: status_query",
+        "task_type: simple_summary",
+        "task_type: ack",
+        "agent: hatake",
+        "cron_payload: short",
+        "keywords: [ping, alive, status, check, heartbeat, warmup, warmup]"
+      ],
+      "cost_per_1k_input": 0.0008,
+      "cost_per_1k_output": 0.004
+    },
+
+    "standard": {
+      "description": "Most agent work: code review, research summaries, planning, analysis.",
+      "model": "claude-sonnet-4-6",
+      "provider": "9router",
+      "via": "9router/free-unlimited",
+      "max_input_tokens": 8000,
+      "max_output_tokens": 4096,
+      "use_when": [
+        "task_type: code_review",
+        "task_type: research_summary",
+        "task_type: planning",
+        "task_type: analysis",
+        "task_type: writing",
+        "prompt_length: 500-4000 chars",
+        "agent: eng, research, finance, ops, infosec"
+      ],
+      "cost_per_1k_input": 0.003,
+      "cost_per_1k_output": 0.015
+    },
+
+    "heavy": {
+      "description": "Complex reasoning, architecture decisions, L4/L5 approvals, long-form content.",
+      "model": "claude-opus-4-6",
+      "provider": "9router",
+      "via": "9router/free-unlimited",
+      "max_input_tokens": 20000,
+      "max_output_tokens": 8192,
+      "use_when": [
+        "task_type: architecture_decision",
+        "task_type: complex_reasoning",
+        "task_type: l4_l5_approval",
+        "task_type: long_form_content",
+        "agent: main (RED CEO decisions)",
+        "prompt_length > 4000 chars",
+        "keywords: [critical, architecture, security review, approval, strategy]"
+      ],
+      "cost_per_1k_input": 0.015,
+      "cost_per_1k_output": 0.075
+    },
+
+    "local": {
+      "description": "Free local Ollama. Intent parsing, routing classification, simple classification.",
+      "model": "qwen2.5-coder:7b",
+      "provider": "ollama",
+      "via": "ollama/qwen2.5-coder:7b",
+      "max_input_tokens": 4000,
+      "max_output_tokens": 1024,
+      "use_when": [
+        "agent: hatake",
+        "task_type: intent_parsing",
+        "task_type: classification",
+        "task_type: routing",
+        "offline_required: true"
+      ],
+      "cost_per_1k_input": 0.0,
+      "cost_per_1k_output": 0.0
+    }
+  },
+
+  "tier_classifier": {
+    "_description": "Rules for HATAKE/gateway to auto-assign model tier. First match wins.",
+    "rules": [
+      {
+        "if": { "agent": "hatake" },
+        "assign": "local",
+        "reason": "HATAKE always uses Ollama"
+      },
+      {
+        "if": { "prompt_length_lt": 300, "task_keywords_any": ["ping", "alive", "status", "heartbeat", "warmup", "check if", "is it running"] },
+        "assign": "lightweight",
+        "reason": "Short health/status queries"
+      },
+      {
+        "if": { "task_type": "health_check" },
+        "assign": "lightweight",
+        "reason": "All health checks are lightweight"
+      },
+      {
+        "if": { "task_type": "simple_summary", "prompt_length_lt": 1000 },
+        "assign": "lightweight",
+        "reason": "Short summaries"
+      },
+      {
+        "if": { "task_type": "architecture_decision" },
+        "assign": "heavy",
+        "reason": "Architecture needs full reasoning"
+      },
+      {
+        "if": { "task_keywords_any": ["l4 approval", "l5 approval", "critical", "irreversible"] },
+        "assign": "heavy",
+        "reason": "High-stakes decisions"
+      },
+      {
+        "if": { "prompt_length_gt": 4000 },
+        "assign": "heavy",
+        "reason": "Long prompts need full context window"
+      },
+      {
+        "default": true,
+        "assign": "standard",
+        "reason": "Default for all other tasks"
+      }
+    ]
+  },
+
+  "prompt_caching": {
+    "_description": "Anthropic prompt caching config. Reduces input token cost by 90% on cache hits.",
+    "enabled": true,
+    "cache_control_type": "ephemeral",
+    "cache_system_prompt": true,
+    "cache_min_tokens": 1024,
+    "expected_cache_hit_rate": 0.90,
+    "eligible_agents": ["main", "allrounder", "eng", "research", "finance", "ops", "infosec", "hatake"],
+    "note": "Mark system prompt block with cache_control: {type: 'ephemeral'} in resilient-handler.js"
+  },
+
+  "batch_api": {
+    "_description": "Use Anthropic Batch API for non-real-time jobs. 50% cost reduction automatically.",
+    "enabled": true,
+    "batch_flag": "batch",
+    "eligible_job_types": [
+      "nightly memory sync",
+      "weekly reports",
+      "daily portfolio compilation",
+      "earnings research",
+      "content factory",
+      "market research"
+    ],
+    "note": "Add 'batch: true' to cron job payload. Gateway routes to Batch API instead of real-time."
   }
 }

@@ -13,6 +13,23 @@ import ToolCallMiddleware from './tool-call-middleware.js';
 import { exec } from 'child_process';
 import { promisify } from 'util';
 import fetch from 'node-fetch';
+import { readFileSync, existsSync } from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const SOUL_PATH = path.join(__dirname, '../workspace/SOUL.md');
+
+// Load SOUL.md once at startup for prompt caching
+let SOUL_CONTENT = '';
+try {
+  if (existsSync(SOUL_PATH)) {
+    SOUL_CONTENT = readFileSync(SOUL_PATH, 'utf8');
+    console.log(`📝 Prompt caching: SOUL.md loaded (${SOUL_CONTENT.length} chars, ~${Math.ceil(SOUL_CONTENT.length/4)} tokens)`);
+  }
+} catch (e) {
+  console.warn('⚠️  Could not load SOUL.md for prompt caching:', e.message);
+}
 
 const execAsync = promisify(exec);
 
@@ -112,7 +129,9 @@ export class ResilientHandler {
     // 5. Track cost and performance
     const estimatedTokens = {
       input: Math.ceil(message.length / 4),
-      output: Math.ceil(response.length / 4)
+      output: Math.ceil(response.length / 4),
+      cache_read: response._cacheStats?.cache_read || 0,
+      cache_write: response._cacheStats?.cache_write || 0
     };
 
     await costMonitor.recordRequest(
@@ -215,19 +234,36 @@ export class ResilientHandler {
       throw new Error('ANTHROPIC_API_KEY not set - cannot use cloud models');
     }
 
+    // Build request body — use prompt caching if SOUL.md is available
+    const requestBody = {
+      model: modelName,
+      max_tokens: 4096,
+      messages: [{ role: 'user', content: message }]
+    };
+
+    const headers = {
+      'Content-Type': 'application/json',
+      'x-api-key': apiKey,
+      'anthropic-version': '2023-06-01'
+    };
+
+    // Enable prompt caching for SOUL.md system prompt (≥1024 tokens required)
+    if (SOUL_CONTENT && SOUL_CONTENT.length > 4000) {
+      headers['anthropic-beta'] = 'prompt-caching-2024-07-31';
+      requestBody.system = [
+        {
+          type: 'text',
+          text: SOUL_CONTENT,
+          cache_control: { type: 'ephemeral' }
+        }
+      ];
+    }
+
     try {
       const response = await fetch('https://api.anthropic.com/v1/messages', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': apiKey,
-          'anthropic-version': '2023-06-01'
-        },
-        body: JSON.stringify({
-          model: modelName,
-          max_tokens: 4096,
-          messages: [{ role: 'user', content: message }]
-        }),
+        headers,
+        body: JSON.stringify(requestBody),
         timeout: 60000 // 1 minute timeout for cloud
       });
 
@@ -240,6 +276,17 @@ export class ResilientHandler {
 
       if (!data.content || !data.content[0] || !data.content[0].text) {
         throw new Error('Invalid response from Anthropic');
+      }
+
+      // Log cache hit stats if available
+      const usage = data.usage || {};
+      if (usage.cache_read_input_tokens || usage.cache_creation_input_tokens) {
+        const cacheRead = usage.cache_read_input_tokens || 0;
+        const cacheWrite = usage.cache_creation_input_tokens || 0;
+        const totalIn = usage.input_tokens || 0;
+        console.log(`💾 Prompt cache: read=${cacheRead} write=${cacheWrite} input=${totalIn} tokens`);
+        // Attach cache stats to response for cost tracking
+        data._cacheStats = { cache_read: cacheRead, cache_write: cacheWrite };
       }
 
       return data.content[0].text;
