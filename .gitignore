@@ -185,6 +185,9 @@ workspace/DASHBOARD_URL.txt
 exec-approvals.json.bak*
 subagents/runs.json
 workspace-hatake/
+
+# Per-agent nested git workspaces (managed by OpenClaw, not our code)
+workspace-agent-*/
 workspace-*/.pi/readwrite-smoketest*.txt
 workspace-*/.tooling-smoke-test.txt
 workspace-*/workspace/tmp/*.json
