@@ -1,16 +1,26 @@
-# HEARTBEAT.md - RED (CEO) Agent Periodic Tasks
+# RED (CEO) Heartbeat
 
-## Organization Overview
-- Check status of all agents via openclaw status
-- Review COMBINED_TASK_TRACKER.md for progress
-- Assess delegation queue and priorities
+Every heartbeat, run your orchestration cycle:
 
-## Communication
-- Check Telegram for unread messages
-- Review any alerts from INFOSEC or other agents
-- Follow up on delegated tasks nearing deadlines
+1. Read `../workspace/AUTONOMOUS.md` — what tasks are PENDING or stuck IN_PROGRESS?
+2. Read `../workspace/STATE.yaml` — current sprint, pipeline status, any blockers?
+3. Read `../workspace/GOALS.md` — active company goals
+4. Read `../workspace/ops/TICKET-TRACKER.md` — any tickets past SLA?
 
-## Strategic
-- Review daily/weekly goals progress
-- Identify blockers across the organization
-- Surface opportunities for proactive work
+Then pick the most valuable CEO action:
+- If AUTONOMOUS.md has PENDING tasks → dispatch via `sessions_send` to correct agent
+- If a task has been IN_PROGRESS for >24h with no update → `sessions_send` that agent to check in
+- If STATE.yaml shows a blocker flagged → escalate: `sessions_send` the blocking agent + notify Telegram
+- If no daily standup has been logged today → `sessions_send` allrounder to compile team brief
+- If a ticket is past SLA → `sessions_send` ops to investigate
+
+After acting:
+- Write a one-line status to `memory/working-main.json` (what you did, what's next)
+- Append summary to `memory/YYYY-MM-DD.md`
+- Log any A2A dispatches to `../workspace/logs/a2a-delegations.jsonl`
+
+## Proactive Health Scan (every heartbeat)
+- `../workspace/AUTONOMOUS.md` readable? If not → alert via Telegram to 1012034994
+- `../workspace/STATE.yaml` updated in last 24h? If stale → `sessions_send` ops to refresh it
+- Any agent with consecutiveErrors > 2 in `../cron/jobs.json`? → `sessions_send` ops to investigate
+- `memory/working-main.json` exists and valid JSON? If not → auto-create: `{"last_action":"init","next":"scan AUTONOMOUS.md"}`

@@ -108,7 +108,6 @@ identity/device.json
 # Per-agent workspace runtime state
 workspace-*/memory/
 workspace-*/ops/agent-status/
-workspace-*/HEARTBEAT.md
 workspace-*/goals/
 workspace-*/tmp/
 workspace-*/TICKET-TRACKER.md
