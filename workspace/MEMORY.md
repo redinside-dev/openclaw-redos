@@ -316,7 +316,22 @@ All agents run periodic inner loops (every 2-4h):
 | # | Item |
 |---|------|
 | 5 | Named Cloudflare tunnel (permanent URL, no manual updates after reboot) — requires domain in Cloudflare |
-| 6 | Tailscale daemon after reboot |
+| ~~6~~ | ~~Tailscale daemon~~ — CLOSED: disabled in openclaw.json (not installed) |
+
+---
+
+## Changes Log
+
+### 2026-03-03
+- **delivery.to fix**: 19 cron jobs used `delivery.target` (wrong field). OpenClaw requires `delivery.to`. All fixed.
+- **HEARTBEAT.md rewrites**: main (was vague/dead refs), ops (was raw JSON — broken), infosec (was stale fake data). All 3 now have concrete tool-call cycles matching allrounder/eng/research/finance pattern.
+- **Heartbeat model**: `ollama/qwen2.5-coder:7b` → `ollama/qwen3.5:4b` for all agents (newer, better reasoning).
+- **Tailscale disabled**: `gateway.tailscale.mode: off` — was generating errors on every restart.
+- **memory-core duplicate**: Deleted `extensions/memory-core/` — error log now clean on restart.
+- **llama3.1:8b removed**: 4GB freed from Ollama. Active models: qwen3.5:4b, qwen2.5-coder:7b, gpt-oss:20b, kimi-k2.5:cloud.
+- **OPS bot token rotated**: @OPSRED_BOT live. All 8 agent Telegram bots confirmed active.
+- **workspace-agent-*/ gitignored**: Per-agent nested git workspaces excluded from main repo.
+- **HEARTBEAT.md unignored**: Removed `workspace-*/HEARTBEAT.md` from .gitignore — these are instruction files, not runtime state.
 
 ---
 
@@ -336,4 +351,4 @@ All agents run periodic inner loops (every 2-4h):
 
 ---
 
-**Last updated:** 2026-03-02T09:45Z (security: Telegram token rotated, history scrubbed, telegram-bot-token.txt now gitignored; Ollama switched to brew headless service)
+**Last updated:** 2026-03-03T03:35Z — delivery.to fix, HEARTBEAT rewrites (main/ops/infosec), heartbeat model → qwen3.5:4b, tailscale disabled, memory-core duplicate cleared, llama3.1:8b removed
