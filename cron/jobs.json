@@ -7,7 +7,7 @@
       "name": "Telegram Approval Monitor (RED checks for approve/deny replies)",
       "enabled": true,
       "createdAtMs": 1772080522100,
-      "updatedAtMs": 1772507290835,
+      "updatedAtMs": 1772508374344,
       "schedule": {
         "kind": "cron",
         "expr": "*/2 * * * *",
@@ -26,11 +26,11 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1772507400000,
-        "lastRunAtMs": 1772507280035,
+        "nextRunAtMs": 1772508480000,
+        "lastRunAtMs": 1772508360023,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 10800,
+        "lastDurationMs": 14321,
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
         "lastDelivered": false
@@ -42,7 +42,7 @@
       "name": "System Pulse — Always-On Heartbeat (Ollama only)",
       "enabled": true,
       "createdAtMs": 1772080522100,
-      "updatedAtMs": 1772507104954,
+      "updatedAtMs": 1772508308192,
       "schedule": {
         "kind": "cron",
         "expr": "*/5 * * * *",
@@ -62,11 +62,11 @@
       },
       "state": {
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1772507400000,
-        "lastRunAtMs": 1772507100010,
+        "nextRunAtMs": 1772508600000,
+        "lastRunAtMs": 1772508300029,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 4944,
+        "lastDurationMs": 8163,
         "lastDeliveryStatus": "not-delivered",
         "lastDelivered": false
       }
@@ -332,7 +332,7 @@
       "name": "Cron Watchdog (alert on missed/failing jobs)",
       "enabled": true,
       "createdAtMs": 1770618629260,
-      "updatedAtMs": 1772506821098,
+      "updatedAtMs": 1772508023534,
       "schedule": {
         "kind": "cron",
         "expr": "*/10 8-22 * * *",
@@ -352,13 +352,14 @@
         "to": "channel:C0AEV3J2L23"
       },
       "state": {
-        "lastRunAtMs": 1772506814014,
+        "lastRunAtMs": 1772508015453,
         "lastStatus": "ok",
-        "lastDurationMs": 7084,
+        "lastDurationMs": 8081,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
-        "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772507400000
+        "lastDeliveryStatus": "delivered",
+        "nextRunAtMs": 1772508600000,
+        "lastDelivered": true
       }
     },
     {
@@ -526,8 +527,9 @@
       },
       "delivery": {
         "mode": "announce",
-        "channel": "last",
-        "bestEffort": true
+        "channel": "slack",
+        "bestEffort": true,
+        "to": "channel:C0AEV3MDEDD"
       },
       "state": {
         "nextRunAtMs": 1773054000000,
@@ -618,7 +620,7 @@
       "name": "9Router Token Keep-Fresh (every 4min)",
       "enabled": true,
       "createdAtMs": 1772210000000,
-      "updatedAtMs": 1772507299483,
+      "updatedAtMs": 1772508258912,
       "schedule": {
         "kind": "cron",
         "expr": "*/4 * * * *",
@@ -638,11 +640,11 @@
       },
       "state": {
         "consecutiveErrors": 0,
-        "lastRunAtMs": 1772507290835,
+        "lastRunAtMs": 1772508249416,
         "lastRunStatus": "ok",
-        "nextRunAtMs": 1772507520000,
+        "nextRunAtMs": 1772508480000,
         "lastStatus": "ok",
-        "lastDurationMs": 8648,
+        "lastDurationMs": 9496,
         "lastDeliveryStatus": "not-delivered",
         "lastDelivered": false
       }
@@ -884,13 +886,14 @@
         "replaces": "inner-loop-*, meta-self-check-*, a2a-*-proactive, sa-*-checkin"
       },
       "state": {
-        "nextRunAtMs": 1772507700000,
-        "lastRunAtMs": 1772506829734,
+        "nextRunAtMs": 1772508600000,
+        "lastRunAtMs": 1772507706790,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 23797,
-        "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 0
+        "lastDurationMs": 25552,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 0,
+        "lastDelivered": true
       },
       "delivery": {
         "mode": "announce",
@@ -898,7 +901,7 @@
         "bestEffort": true,
         "to": "1012034994"
       },
-      "updatedAtMs": 1772506853531,
+      "updatedAtMs": 1772507732342,
       "wakeMode": "now"
     },
     {
