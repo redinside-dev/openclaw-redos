@@ -108,9 +108,9 @@
 
     "local": {
       "description": "Free local Ollama. Intent parsing, routing classification, simple classification.",
-      "model": "qwen2.5-coder:7b",
+      "model": "qwen3.5:4b",
       "provider": "ollama",
-      "via": "ollama/qwen2.5-coder:7b",
+      "via": "ollama/qwen3.5:4b",
       "max_input_tokens": 4000,
       "max_output_tokens": 1024,
       "use_when": [
