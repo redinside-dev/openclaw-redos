@@ -65,7 +65,7 @@ curl -s -X POST http://localhost:5678/webhook/echo-test \
 | `eng` | ENG — code & architecture | 9router/free-unlimited | @ENG_BOT |
 | `research` | RESEARCH — analysis | 9router/free-unlimited | @RESEARCH_BOT |
 | `finance` | FINANCE — financial analysis | 9router/free-unlimited | @FINANCE_BOT |
-| `ops` | OPS — monitoring, SLA, health | 9router/free-unlimited | @OPS_BOT |
+| `ops` | OPS — monitoring, SLA, health | 9router/free-unlimited | @OPSRED_BOT |
 | `infosec` | INFOSEC — security, L3 approvals | 9router/free-unlimited | @INFOSECRED_BOT |
 
 **Fallback chain (all except hatake):** `9router/free-unlimited` → `9router/heartbeat-cheap` → `openai-codex/gpt-5.2`
