@@ -73,12 +73,12 @@ export class ResilientHandler {
 
         // Apply fallback strategy
         if (recovery.fallback === 'fast-model') {
-          context.forceModel = 'ollama/llama3.1:8b';
+          context.forceModel = 'groq/llama-3.1-8b-instant';
         } else if (recovery.fallback === 'alternative-model') {
           context.forceModel = this.getAlternativeModel();
         } else if (recovery.fallback === 'force-ollama') {
-          context.forceModel = 'ollama/llama3.1:8b';
-          console.log('💰 Forcing free Ollama model due to budget/credit issue');
+          context.forceModel = 'groq/llama-3.1-8b-instant';
+          console.log('💰 Forcing Groq free model due to budget/credit issue');
         }
 
         // Wait before retry
@@ -114,7 +114,7 @@ export class ResilientHandler {
       if (budgetRemaining < selectedModel.cost) {
         console.log('⚠️  Budget limit reached, forcing free model');
         selectedModel.provider = 'ollama';
-        selectedModel.model = 'llama3.1:8b';
+        selectedModel.model = 'qwen2.5-coder:7b';
         selectedModel.cost = 0;
       }
     }
@@ -383,7 +383,7 @@ export class ResilientHandler {
    */
   getAlternativeModel() {
     const alternatives = [
-      'ollama/llama3.1:8b',
+      'groq/llama-3.1-8b-instant',
       'ollama/qwen2.5-coder:7b',
       'ollama/glm-4.7-flash:latest'
     ];

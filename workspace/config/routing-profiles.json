@@ -121,7 +121,15 @@
         "offline_required: true"
       ],
       "cost_per_1k_input": 0.0,
-      "cost_per_1k_output": 0.0
+      "cost_per_1k_output": 0.0,
+      "fallback": {
+        "provider": "groq",
+        "model": "llama-3.1-8b-instant",
+        "trigger": "ollama_unreachable (ECONNREFUSED)",
+        "cost_per_1k_input": 0.0,
+        "cost_per_1k_output": 0.0,
+        "note": "Free tier — 500K tokens/day, 30 req/min. OpenClaw supports Groq for audio only — not wired as auto-fallback. HATAKE falls back to 9router/free-unlimited instead."
+      }
     }
   },
 
