@@ -115,6 +115,15 @@ workspace-*/LEARNINGS.md
 workspace-*/workspace/
 workspace-zen/
 
+# Agent-generated reports and research output (runtime, not code)
+workspace-allrounder/reports/
+workspace-research/*.md
+workspace-research/everything-claude-code/
+workspace-research/agentshield-*/
+workspace-eng/everything-claude-code*
+workspace-ops/workspace-ops/
+workspace-ops/skills/
+
 # Shared workspace runtime state
 workspace/memory/
 workspace/ops/agent-status/
@@ -124,6 +133,30 @@ workspace/tmp/
 workspace/goals/
 workspace/approvals/
 workspace/workspace/
+
+# Agent-generated workspace docs and reports (runtime output)
+workspace/ops/5-DAY-*.md
+workspace/ops/5-DAY-RUN-*.md
+workspace/ops/AUTONOMY-*.md
+workspace/ops/AUTONOMY-SCORE-*.json
+workspace/ops/HONEST-ASSESSMENT-*.md
+workspace/ops/OPS-STATUS-*.md
+workspace/ops/PRODUCTIVITY-CRISIS-*.md
+workspace/ops/SYSTEM-UPDATE-*.md
+workspace/ops/context-metrics-*.json
+workspace/ops/reflections/
+workspace/costs/
+workspace/competitive-intel/
+workspace/knowledge/
+workspace/integrations/
+workspace/docs/
+workspace/STATUS_UPDATE_*.md
+workspace/CONTINUATION_SUMMARY.md
+workspace/CEO-OPERATING-MANUAL.md
+workspace/research/
+
+# Root-level agent memory logs (runtime, date-stamped)
+memory/
 
 # Cron backup files
 cron/*.bak-*

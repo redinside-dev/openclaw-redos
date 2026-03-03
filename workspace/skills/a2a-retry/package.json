@@ -1,0 +1,8 @@
+{
+  "name": "a2a-retry",
+  "version": "1.0.0",
+  "description": "A2A communication with retry logic and Telegram fallback (Varick pattern)",
+  "main": "index.js",
+  "author": "RED",
+  "license": "MIT"
+}
