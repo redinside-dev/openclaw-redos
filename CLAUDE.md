@@ -61,7 +61,7 @@ curl -s -X POST http://localhost:5678/webhook/echo-test \
 |---|---|---|---|
 | `main` | RED (CEO) — orchestrator, Telegram approvals | 9router/free-unlimited | @RedinsideBot |
 | `allrounder` | ZEN (CSO) — general assistant | 9router/free-unlimited | @ZenRedBot |
-| `hatake` | HATAKE — internal intent parser | ollama/qwen3.5:4b | *(internal only)* |
+| `hatake` | HATAKE — internal intent parser | 9router/free-unlimited | *(internal only)* |
 | `eng` | ENG — code & architecture | 9router/free-unlimited | @ENG_BOT |
 | `research` | RESEARCH — analysis | 9router/free-unlimited | @RESEARCH_BOT |
 | `finance` | FINANCE — financial analysis | 9router/free-unlimited | @FINANCE_BOT |
@@ -78,7 +78,7 @@ Hierarchy: RED → ZEN; ENG, RESEARCH, FINANCE, OPS, INFOSEC, HATAKE report to R
 |---|---|---|---|
 | 9Router (port 20128) | free-unlimited, heartbeat-cheap | $0 | Primary for all agents |
 | openai-codex | gpt-5.2 | Subscription | Fallback only |
-| Ollama (port 11434) |  qwen3.5:4b | $0 | HATAKE only |
+| Ollama (port 11434) | qwen3.5:4b | $0 | HATAKE fallback (primary is 9router) |
 | Perplexity | sonar-pro | Subscription | RESEARCH explicit calls |
 | ZAI | glm-4.7, glm-4.7-flashx | PAYG | **Never use in crons or fallbacks** |
 
