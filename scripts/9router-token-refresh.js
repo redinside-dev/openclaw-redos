@@ -111,8 +111,31 @@ function hoursUntilExpiry(conn) {
 function getNinerKey() {
   try {
     const raw = fs.readFileSync(`${HOME}/.openclaw/openclaw.json`, 'utf8');
-    const m   = raw.match(/sk-[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}-[a-z0-9]+-[a-f0-9]+/);
-    return m ? m[0] : null;
+    // Fast path: key directly embedded in openclaw.json (legacy format)
+    const m = raw.match(/sk-[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}-[a-z0-9]+-[a-f0-9]+/);
+    if (m) return m[0];
+
+    // SecretRef path: key stored in credentials file (OpenClaw 2026.3.2+ format)
+    // models.providers['9router'].apiKey = {source:'file', provider:'credentials-file', id:'/providers/9router'}
+    const cfg = JSON.parse(raw);
+    const apiKeyRef = cfg?.models?.providers?.['9router']?.apiKey;
+    if (!apiKeyRef || typeof apiKeyRef !== 'object' || apiKeyRef.source !== 'file') return null;
+
+    const providerName = apiKeyRef.provider;
+    const providerCfg  = cfg?.secrets?.providers?.[providerName];
+    if (!providerCfg?.path) return null;
+
+    // Path may be absolute or relative to ~/.openclaw/
+    const credPath = providerCfg.path.startsWith('/')
+      ? providerCfg.path
+      : `${HOME}/.openclaw/${providerCfg.path}`;
+    const secrets = JSON.parse(fs.readFileSync(credPath, 'utf8'));
+
+    // Resolve JSON pointer: '/providers/9router' → secrets['providers']['9router']
+    const ptr = (apiKeyRef.id || '').replace(/^\//, '').split('/');
+    let val = secrets;
+    for (const seg of ptr) { val = val?.[seg]; }
+    return typeof val === 'string' && val.length > 0 ? val : null;
   } catch { return null; }
 }
 
@@ -616,7 +639,13 @@ function codexRefresh(refreshToken) {
         try {
           const j = JSON.parse(data);
           if (res.statusCode === 200 && j.access_token) resolve(j);
-          else reject(new Error(j.error_description || j.error || `HTTP ${res.statusCode}`));
+          else {
+            // Safely serialize error — j.error can be a string or an object
+            const errStr = j.error_description
+              || (typeof j.error === 'string' ? j.error : j.error ? JSON.stringify(j.error) : null)
+              || `HTTP ${res.statusCode}: ${data.slice(0, 120)}`;
+            reject(new Error(errStr));
+          }
         } catch { reject(new Error(`bad JSON (${res.statusCode}): ${data.slice(0, 100)}`)); }
       });
     });
