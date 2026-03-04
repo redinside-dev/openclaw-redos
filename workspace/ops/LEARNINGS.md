@@ -1013,6 +1013,17 @@ repeating mistakes and to build institutional knowledge.
 - **Prevention:** When writing n8n Code nodes typeVersion 2, always set `mode` explicitly. Per-item = no array wrapper. All-items = array wrapper. Test with manual execution.
 - **Applied To:** 4 n8n workflows (twitter-service, reddit-service, aggregator-service, shared-observability)
 
+### LEARNING-20260304-006
+- **Date:** 2026-03-04T03:35Z
+- **Source:** n8n Code node SQL escaping debug
+- **Agent:** OPS
+- **Category:** n8n Code Node + sqlite3 Shell Escaping
+- **Summary:** `sql.replace(/"/g,'\"')` in JavaScript is a no-op — double quotes are NOT escaped for shell
+- **Problem:** n8n Code node runs execSync via `/bin/sh -c "{command}"`. When SQL string contains `"` characters (e.g. from JSON.stringify()), they terminate the outer double-quoted shell argument. sqlite3 receives broken SQL; INSERT silently fails (try/catch catches it); node returns `_inserted: 1` (always, regardless of DB success).
+- **Root cause:** JS string `'\"'` = `"` (backslash before `"` in single-quoted JS string is not an escape). So `replace(/"/g,'\"')` replaces `"` with `"` — no change.
+- **Fix:** Use temp file for SQL instead of inline argument: `fs.writeFileSync(tmpFile, sql); execSync(\`sqlite3 'db' < '${tmpFile}'\`)`. No shell quoting issue — sqlite3 reads the file directly. `require('fs')` available because NODE_FUNCTION_ALLOW_BUILTIN=child_process,fs,path,os in n8n launchd plist.
+- **Applied To:** Insert Content, Insert Signals, DLQ Handler in twitter-service and reddit-service
+
 ### LEARNING-20260304-005
 - **Date:** 2026-03-04T03:10Z
 - **Source:** n8n social monitoring pipeline verification
