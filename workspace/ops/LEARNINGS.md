@@ -1058,3 +1058,18 @@ repeating mistakes and to build institutional knowledge.
 - **Problem:** Added `"mcp": {"ScraplingServer": {...}}` to openclaw.json. openclaw doctor: "Unrecognized key: mcp". The `mcporter` concept in OpenClaw is ONLY for QMD memory backend routing — not general MCP server registration.
 - **Fix:** For external tools/CLIs, use `exec` tool via wrapper scripts. Document in SKILL.md. No config change needed — agents already have exec access.
 - **Applied To:** workspace/skills/scrapling-mcp/SKILL.md
+
+---
+
+### LEARNING-20260304-008
+- **Date:** 2026-03-04
+- **Agent:** ENG/OPS
+- **Category:** Scrapling Python API
+- **Summary:** scrapling Selector `.body` returns raw page bytes, NOT element text. Use `.get_all_text()` and `.attrib.get()`.
+- **Problem:** Scrapling's `Selector.body` property returns `self._raw_body` — the full raw HTTP response body of the page (bytes/str), not the text content of the matched element. Calling `.body` on a sub-element returns empty string. BeautifulSoup methods (`.get_text()`, `.get()`, `.find_parent()`) do NOT exist on scrapling Selectors.
+- **Fix:**
+  - **Element text:** `el.get_all_text(separator=' ', strip=True)` — gets all descendant text concatenated. `el.text` for direct text only.
+  - **Attribute access:** `el.attrib.get('href', '')` — attrib is `AttributesHandler` (Mapping), not dict. Supports `.get(key, default)`.
+  - **Parent traversal:** `el.parent` (property) then check `el.parent.tag == 'a'`. No `find_parent()` method.
+  - **All descendants text:** `el.get_all_text()` recurses through all child nodes including nested spans.
+- **Applied To:** scripts/twitter-scrape.py
