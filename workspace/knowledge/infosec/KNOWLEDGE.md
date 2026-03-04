@@ -4,6 +4,16 @@
 
 ---
 
+## Model Routing — INFOSEC
+
+| Task | Model |
+|------|-------|
+| Routine heartbeat, approval queue age check | `ollama/qwen3.5:4b` |
+| L3 security review (code, configs, deps) | `9router/subagent-reliable` |
+| Incident response, full audit | `9router/subagent-reliable` |
+
+Security reviews must use a reliable model — use `subagent-reliable` for all L1/L3 work. Never rush a security review to save tokens.
+
 ## Approval Queue (L3 reviews)
 
 INFOSEC is the L3 checker for all code/config changes. When ENG or OPS sends a review request:

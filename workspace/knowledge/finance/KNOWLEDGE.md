@@ -4,6 +4,16 @@
 
 ---
 
+## Model Routing — Finance
+
+| Task | Model |
+|------|-------|
+| Routine portfolio checks, status reads (5-min intraday crons) | `9router/free-unlimited` |
+| Weekly cost report, earnings analysis | `9router/subagent-reliable` |
+| Deep financial modelling, subscription audit | `9router/subagent-reliable` |
+
+**Finance crons run up to 36 times/day during market hours (5-min interval).** Each session must be fast and cheap. Use `free-unlimited` unless you genuinely need deeper reasoning — the cost difference compounds quickly across 36 daily runs.
+
 ## Budget Guardrails
 Config: `workspace/config/budget-guardrails.json`
 

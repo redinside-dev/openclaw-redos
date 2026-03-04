@@ -1152,3 +1152,37 @@ The following keys are NOT in the openclaw.json schema and will fail `openclaw d
 - `agents.defaults.memorySearch.embeddingModel` (not valid)
 - `gateway.ws.pingInterval` / `gateway.ws.pingTimeout` (not valid)
 Always run `openclaw doctor` after any openclaw.json change.
+
+---
+
+## LEARNING-20260304-005 — SOUL.md size limit causes silent context truncation
+
+**Date:** 2026-03-04
+**Discovered by:** External consultant (monitoring session)
+**Symptom:** Security Mandate, CEO Operating Mandate, and Knowledge Transfer Protocol were never seen by agents — they were in the last 4,599 chars of SOUL.md (total 24,599) but OpenClaw truncates at 20,000.
+**Root cause:** Multiple sessions added content to SOUL.md without checking total size.
+**Fix:** Rewrote SOUL.md to 9,916 bytes (60% reduction). Moved Security Mandate and CEO Mandate to TOP.
+**Avoid next time:** After every SOUL.md edit, run `wc -c ~/.openclaw/workspace/SOUL.md`. Must stay under 18,000 bytes. OPS should alert RED if it exceeds threshold. Keep SOUL.md as a lean charter — verbose procedures belong in SKILL.md files.
+
+---
+
+## LEARNING-20260304-006 — Dispatcher exec loop from LEARNINGS.md pre-step
+
+**Date:** 2026-03-04
+**Discovered by:** External consultant (loop monitoring)
+**Symptom:** `autonomous-task-dispatcher-0001` cron generated "Loop warning: exec called 30 times with identical arguments" repeatedly for 3+ minutes.
+**Root cause:** The dispatcher payload included "DISPATCHER PRE-STEP: Read the last 10 entries from workspace/ops/LEARNINGS.md." The agent called exec (tail/cat) 30+ times on LEARNINGS.md (900+ lines) without progress. SOUL.md also mandated rag_query.py before non-trivial tasks — double loop risk.
+**Fix:** Simplified dispatcher payload: read AUTONOMOUS.md → if no PENDING, exit immediately → otherwise dispatch. Removed LEARNINGS pre-step entirely. Added explicit "Do NOT run rag_query.py" instruction.
+**Avoid next time:** Never add "read large files" pre-steps to high-frequency cron payloads. Dispatchers should be mechanical: read one small file, act, log, exit. Keep RAG queries for actual reasoning tasks, not dispatchers.
+
+---
+
+## LEARNING-20260304-007 — Model routing: use Ollama for mechanical loops
+
+**Date:** 2026-03-04
+**Pattern established:** 3-tier model routing to optimize cost and quality:
+- Tier 1 (Ollama qwen3.5:4b): heartbeats, health checks, dispatchers, status reads — free, local, fast
+- Tier 2 (9router/free-unlimited): standard agent work, analysis, coordination — free subscription tier
+- Tier 3 (9router/subagent-reliable or coding-factory): ENG complex impl, INFOSEC L3 review, deep research/finance — smart model only when needed
+**Finance note:** 5-min intraday crons run ~36 times/day. These must stay on free-unlimited — cost difference compounds to 36× per day.
+**Rule:** Match model to task complexity. Never use a smart model for mechanical tasks. Never use Ollama for work that needs quality output to the user.

@@ -4,6 +4,17 @@
 
 ---
 
+## Model Routing
+
+| Task | Model |
+|------|-------|
+| Standard research, brief writing | `9router/free-unlimited` |
+| Deep multi-source analysis, competitive intel | `9router/subagent-reliable` |
+| Perplexity calls | `sonar-pro` (PAYG — use sparingly, only for explicit research tasks) |
+| Routine indexing, feed scans | `9router/free-unlimited` |
+
+Never use ZAI/PAYG for bulk scraping loops. For recurring weekly digests that run on schedule, free-unlimited is the default — upgrade only when the analysis genuinely requires deeper reasoning.
+
 ## Primary Tools
 
 | Tool | Use case | Notes |

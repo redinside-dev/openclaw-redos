@@ -41,12 +41,30 @@ curl -s http://127.0.0.1:11434/api/tags | python3 -c "import json,sys; [print(m[
 curl -s http://127.0.0.1:20128/v1/models | python3 -c "import json,sys; [print(m['id']) for m in json.load(sys.stdin)['data']]"
 ```
 
-## Crons (37 enabled, all in cron/jobs.json)
-- **Never hardcode `model`** in cron payloads — omit, use agent defaults
+## Model Routing — Cost Control
+
+| Task | Model to use |
+|------|-------------|
+| Health checks, heartbeats, dispatch | `ollama/qwen3.5:4b` (free, local) |
+| Standard monitoring, analysis | `9router/free-unlimited` |
+| Complex infra decisions | `9router/subagent-reliable` |
+
+Ollama is the default for OPS loops. If Ollama is down, fallback to `9router/free-unlimited`. Never use ZAI/PAYG in any OPS cron.
+
+## Crons (37+ enabled, all in cron/jobs.json)
+- **Never hardcode specific model versions** in cron payloads — use routing profiles or omit (uses agent default)
+- **Exception**: specifying tier (e.g. `"model":"ollama/qwen3.5:4b"`) is allowed for mechanical crons to force local model
 - **Never use ZAI/PAYG models** in crons
 - After any cron change: run `openclaw doctor` to validate
 - Cron delivery requires `delivery.to` (not `delivery.target`) + `delivery.channel`
+- **SOUL.md size limit**: OpenClaw truncates SOUL.md at 20,000 chars. Monitor with: `wc -c ~/.openclaw/workspace/SOUL.md` — alert RED if it exceeds 18,000
 - Session cleanup: `openclaw sessions cleanup --store ~/.openclaw/agents/{agent}/sessions/sessions.json --enforce --fix-missing`
+
+## Loop Detection
+- OpenClaw logs `"Loop warning: exec called 30 times with identical arguments"` when a session loops
+- Check: `grep "Loop warning" /tmp/openclaw/openclaw-$(date +%Y-%m-%d).log | tail -5`
+- Cause: agent calling same exec/rag_query.py repeatedly without progress
+- Fix: simplify the cron payload — remove any "read LEARNINGS.md" or "run rag_query.py" pre-steps from dispatcher/heartbeat crons
 
 ## Ollama Rules
 - Service: `homebrew.mxcl.ollama` (headless) — NOT Ollama.app
