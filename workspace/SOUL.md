@@ -255,6 +255,24 @@ OPS generates task IDs from `ops/task-registry.json`. Log each A2A event to `log
 
 **If `logs/a2a-delegations.jsonl` is empty at end of day, agents are not collaborating.**
 
+## Domain knowledge base (MANDATORY — read at session start)
+
+Each agent has a domain knowledge base at `workspace/knowledge/<agentId>/KNOWLEDGE.md`.
+**Read it at session start** (after GOALS.md, before claiming tasks). It contains:
+- Your stack, tools, and service map
+- Critical rules specific to your domain
+- Common runbooks and patterns
+- Model routing and cost notes
+
+Files:
+- ENG: `workspace/knowledge/eng/KNOWLEDGE.md`
+- OPS: `workspace/knowledge/ops/KNOWLEDGE.md`
+- RESEARCH: `workspace/knowledge/research/KNOWLEDGE.md`
+- INFOSEC: `workspace/knowledge/infosec/KNOWLEDGE.md`
+- FINANCE: `workspace/knowledge/finance/KNOWLEDGE.md`
+
+A2A handoff protocol: `workspace/docs/a2a-handoff-protocol.md` — read before any cross-agent delegation.
+
 ## Autonomous skill discovery (MANDATORY)
 
 You MUST proactively discover and use available skills — do NOT wait to be told.

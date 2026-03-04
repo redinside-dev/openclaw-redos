@@ -147,9 +147,7 @@ workspace/ops/context-metrics-*.json
 workspace/ops/reflections/
 workspace/costs/
 workspace/competitive-intel/
-workspace/knowledge/
 workspace/integrations/
-workspace/docs/
 workspace/STATUS_UPDATE_*.md
 workspace/CONTINUATION_SUMMARY.md
 workspace/CEO-OPERATING-MANUAL.md

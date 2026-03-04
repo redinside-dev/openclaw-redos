@@ -44,7 +44,7 @@ Sub-goals:
 
 Sub-goals:
 - [x] First research brief written (topic: autonomous coding agent patterns, 2026-02-28)
-- [ ] research-to-eng pipeline cron running (adding now)
+- [x] research-to-eng pipeline cron running (verified 2026-03-04 — research-weekly-digest, market-factory, content-factory all wired)
 - [ ] ENG receives and acknowledges research brief
 - [ ] First implementation shipped
 
@@ -61,9 +61,9 @@ Sub-goals:
 - [x] Prompt caching config added (`cache_control: ephemeral` in routing-profiles.json)
 - [x] Cost charts added to dashboard-v2 Cost Estimator tab
 - [x] New gateway endpoints for cost visibility (`/api/mission-control/costs`, `/api/mission-control/savings`)
-- [ ] Prompt caching enabled in `gateway/resilient-handler.js` (add `cache_control` to Anthropic calls)
-- [ ] Batch API integration for nightly/weekly jobs (add `batch: true` routing in gateway)
-- [ ] FINANCE weekly cost report running
+- [x] Prompt caching enabled — implemented in `gateway/resilient-handler.js` + OpenClaw handles natively for cc/ models (2026-03-04)
+- [x] Batch API — cron payload `batch: true` flag supported by gateway/server.js (2026-03-02)
+- [ ] FINANCE weekly cost report running — cron exists (`finance-weekly-cost-report-0001`), verify first successful run
 - [ ] Subscription audit complete — ChatGPT Pro x2 utilization review (due 2026-04-01)
 
 ### GOAL-005 — Event-Driven Architecture
