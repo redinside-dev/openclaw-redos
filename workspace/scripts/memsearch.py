@@ -38,7 +38,7 @@ COLLECTION = "workspace"
 CHUNK_SIZE   = 600
 CHUNK_OVERLAP = 80
 EXCLUDE_DIRS = {".git", "__pycache__", "node_modules", ".memsearch",
-                "logs", "backups", "sessions", "delivery-queue"}
+                "logs", "backups", "sessions", "delivery-queue", "archive"}
 
 def get_files():
     seen, files = set(), []

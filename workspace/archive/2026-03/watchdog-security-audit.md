@@ -53,7 +53,7 @@ All three bash scripts attempt to read the token from a config file. If that fil
    <key>EnvironmentVariables</key>
    <dict>
      <key>TELEGRAM_BOT_TOKEN</key>
-     <string>7226481574:AAFapwI8aJfFGMQC73Um9qLcCL_mx_43kzc</string>
+     <string>[REDACTED — rotate this token via BotFather immediately]</string>
    </dict>
    ```
 2. Remove file-based token reading from scripts
