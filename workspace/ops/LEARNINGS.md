@@ -1186,3 +1186,20 @@ Always run `openclaw doctor` after any openclaw.json change.
 - Tier 3 (9router/subagent-reliable or coding-factory): ENG complex impl, INFOSEC L3 review, deep research/finance — smart model only when needed
 **Finance note:** 5-min intraday crons run ~36 times/day. These must stay on free-unlimited — cost difference compounds to 36× per day.
 **Rule:** Match model to task complexity. Never use a smart model for mechanical tasks. Never use Ollama for work that needs quality output to the user.
+
+
+COST-SUMMARY (2026-03-04 12:40 EST): weekly_cost_report.py EXIT=0; output status=UNKNOWN (missing_or_invalid_claude_json). Also noticed costsDir contains a stray space: "/Users/redinside/ .openclaw/workspace/costs".
+PAYG anomaly persists: workspace/logs/cost-events.jsonl (data range 2026-02-16..2026-02-22) shows net PAYG spend = $86.638349 across 1,847 payg events; openai-codex net = $91.619042; 100 negative-cost rows.
+STATE.yaml confirms: “Subscription audit: ChatGPT Pro x2 (due 2026-04-01)”.
+
+---
+
+## LEARNING-20260304-008 — SecretRef migration broke 9router-token-refresh.js
+
+**Date:** 2026-03-04
+**Discovered by:** External consultant
+**Symptom:** All 9Router OAuth accounts (kiro x3, iflow x2, claude x1) went offline. 9router-token-refresh.log showed "Could not find 9Router API key in openclaw.json" on every keepfresh run (every 4 min) for ~35 hours.
+**Root cause:** The keepfresh script's `getNinerKey()` used a regex to find the API key directly in openclaw.json. When we migrated the key to `credentials/secrets.json` via SecretRef (`models.providers['9router'].apiKey = {source:'file', provider:'credentials-file', id:'/providers/9router'}`), the regex found nothing → script exited → all OAuth tokens expired → 9Router disabled the connections.
+**Fix:** Updated `getNinerKey()` to resolve SecretRef: read `models.providers['9router'].apiKey` → find `secrets.providers[name].path` → read credentials file → resolve JSON pointer id.
+**Recovery:** Running `node scripts/9router-token-refresh.js --all` immediately recovered kiro x3 + claude x1. iflow x2 hit a server rate limit on iflow.cn (temporary — will recover on next keepfresh retry).
+**Avoid next time:** EVERY script that reads the 9Router API key from openclaw.json must handle the SecretRef format. When adding any SecretRef to openclaw.json, search all scripts for the old direct-read pattern and update them.
