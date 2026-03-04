@@ -18,9 +18,9 @@
 |---------|----------|-------------|------|--------|
 
 
-| AUTO-013 | P2 | eng | Validate all fallback model chains in openclaw.json are live — test each model in each agent's fallback array and remove/replace any that return errors | PENDING |
+| AUTO-013 | P2 | eng | Validate all fallback model chains in openclaw.json are live — test each model in each agent's fallback array and remove/replace any that return errors | IN_PROGRESS (claimed 2026-03-04T04:04Z) |
 
-| AUTO-022 | P2 | ops | GOAL-006 Self-Healing Infrastructure (DUE: 2026-03-05 23:59 EST): Auto-rotate credentials (Perplexity/GitHub tokens), auto-provision missing files/paths (fix INFOSEC blockers), create health monitors with remediation loops. Deliverable: Credential rotation cron, file provisioning script, 2+ health monitors with auto-fix | PENDING |
+| AUTO-022 | P2 | ops | GOAL-006 Self-Healing Infrastructure (DUE: 2026-03-05 23:59 EST): Auto-rotate credentials (Perplexity/GitHub tokens), auto-provision missing files/paths (fix INFOSEC blockers), create health monitors with remediation loops. Deliverable: Credential rotation cron, file provisioning script, 2+ health monitors with auto-fix | IN_PROGRESS (claimed 2026-03-04T04:04Z) |
 
 ---
 

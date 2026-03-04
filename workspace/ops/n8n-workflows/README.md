@@ -1,12 +1,14 @@
 # n8n Workflow Reference — RedOS
 
-**Status:** All 8 workflows active and verified as of 2026-03-02.
+**Status:** All 12 workflows active and verified as of 2026-03-04.
 **Instance:** `http://127.0.0.1:5678`
-**API key:** `workspace/config/n8n-api-key.txt`
+**API key:** `workspace/config/n8n-api-key.txt` (gitignored)
 
 ---
 
-## Active Workflows
+## Active Workflows (12 total)
+
+### Core Infrastructure
 
 | Workflow | ID | Trigger | Purpose |
 |----------|-----|---------|---------|
@@ -19,103 +21,73 @@
 | `error-escalation` | `NdKRqbHyxP7j9ihZ` | Gateway error handler | Critical error → escalate |
 | `daily-standup` | `C0gFamBjnzPGH8Y3` | Schedule 8am ET M–F | Dispatch standup check-ins to 6 agents |
 
+### Social Monitoring Pipeline
+
+| Workflow | ID | Trigger | Purpose |
+|----------|-----|---------|---------|
+| `twitter-service` | `7YRs0yJOR5pDvj6k` | every 30min | Authenticated Twitter/X scraping → SQLite (`content_raw`, `content_signals`) |
+| `reddit-service` | `bPsStF6AKUYzJSI9` | every 1h | Reddit ML/tech posts via JSON API → SQLite |
+| `aggregator-service` | `rRPKQxc8xwrhXnQJ` | daily 9am | Stats + top keywords + alerts → Slack + `/webhook/ingest-idea` |
+| `shared-observability` | `rJiesCoch2belvSQ` | every 5min | SLO health, DLQ backlog, circuit breaker monitoring |
+
 ---
 
 ## Webhook URLs
 
-| Path | Full URL |
-|------|----------|
-| Echo test | `http://127.0.0.1:5678/webhook/echo-test` |
-| Slack post | `http://127.0.0.1:5678/webhook/slack-post` |
-| GitHub repo status | `http://127.0.0.1:5678/webhook/github-repo-status` |
-| GitHub events | via Cloudflare tunnel (see `workspace/config/tunnel-url.txt`) |
-| Slack inbound | via Cloudflare tunnel |
-| Cost alert | `http://127.0.0.1:5678/webhook/cost-alert-escalation` |
-| Error escalation | `http://127.0.0.1:5678/webhook/error-escalation` |
+| Path | Full URL | Auth |
+|------|----------|------|
+| Echo test | `http://127.0.0.1:5678/webhook/echo-test` | None |
+| Slack post | `http://127.0.0.1:5678/webhook/slack-post` | None |
+| GitHub repo status | `http://127.0.0.1:5678/webhook/github-repo-status` | None |
+| GitHub events | via Cloudflare tunnel `/webhook/github-events` | GitHub HMAC |
+| Slack inbound | via Cloudflare tunnel `/webhook/slack-inbound-router` | Slack token |
 
 ---
 
-## Cloudflare Tunnel (GitHub + Slack inbound)
+## Social Monitoring Database
 
-The `github-events` and `slack-inbound-router` webhooks require a public URL.
+**Path:** `workspace/data/social-monitoring.db`
 
-**Auto-managed:** launchd `ai.openclaw.tunnel-sync` updates the GitHub webhook on every boot.
-- Current tunnel URL: `cat ~/.openclaw/workspace/config/tunnel-url.txt`
-- GitHub webhook ID: `cat ~/.openclaw/workspace/config/github-webhook-id.txt` (598611413)
-- PAT stored in: `workspace/config/github-webhook-pat.txt` (gitignored)
+| Table | Purpose | Current rows |
+|-------|---------|-------------|
+| `content_raw` | All ingested posts (platform, author, text, url, dedupe_key) | 16 |
+| `content_signals` | Enriched signals with sentiment + content_id FK | 1 |
+| `workflow_runs` | Run audit log (start, end, status, items processed) | 8 |
+| `dlq_events` | Dead-letter queue — failed items for retry | 0 |
 
-**Manual check:**
-```bash
-bash ~/.openclaw/scripts/tunnel-url.sh
+**Ideas KB:**
+- `workspace/ideas/twitter-feed.md` — auto-appended via `/webhook/ingest-idea`
+- `workspace/ideas/reddit-feed.md` — auto-appended via `/webhook/ingest-idea`
+- `workspace/ideas/ideas-index.json` — rebuilt nightly by `ideas-indexer-nightly-0001`
+
+---
+
+## CRITICAL — n8n Implementation Rules
+
+### 1. webhookId is mandatory
+Every webhook trigger node in imported JSON **MUST** have `"webhookId": "<uuid>"` at node level. Without it, n8n registers composite paths that never resolve. Add it, PUT via API, deactivate/reactivate.
+
+### 2. /api/chat is async — never use for data retrieval
+`POST http://localhost:19000/api/chat` returns `{status: "dispatched"}` immediately. Agents run async and post results to Telegram/Slack — NOT back to n8n. Use `execSync` with scrapling CLI or direct API calls inside Code nodes instead.
+
+### 3. n8n Code node (typeVersion 2) mode
+- `runOnceForAllItems`: input is `$input.all()` array, must return `[{json:{...}}]`
+- `runOnceForEachItem` (default): input is `$input.item.json`, must return `{json:{...}}`
+
+### 4. n8n PUT API — strip read-only fields
+Only send: `name, nodes, connections, settings`. Strip: `updatedAt, createdAt, id, active, isArchived, meta, pinData, staticData, versionId, activeVersionId, versionCounter, triggerCount, shared, tags, activeVersion`
+
+### 5. sqlite3 shell escaping
+Use temp file approach for SQL with embedded strings — never rely on shell quoting:
+```javascript
+const tmpFile = `/tmp/n8n_${Date.now()}.sql`;
+fs.writeFileSync(tmpFile, sql);
+execSync(`sqlite3 '/path/to/db' < '${tmpFile}'`);
+fs.unlinkSync(tmpFile);
 ```
 
----
+### 6. last_insert_rowid() returns 0 across connections
+Each `execSync('sqlite3 ...')` is a new process. Use `SELECT id FROM table WHERE dedupe_key='...' LIMIT 1` instead of `last_insert_rowid()`.
 
-## Agent→Gateway Dispatch Pattern
-
-When dispatching to the gateway from n8n httpRequest nodes:
-
-```json
-{
-  "method": "POST",
-  "url": "http://127.0.0.1:19000/api/chat",
-  "sendHeaders": true,
-  "headerParameters": {
-    "parameters": [
-      {"name": "Content-Type", "value": "application/json"},
-      {"name": "x-source", "value": "n8n-<workflow-name>"}
-    ]
-  },
-  "sendBody": true,
-  "contentType": "json",
-  "specifyBody": "json",
-  "jsonBody": "={{ JSON.stringify({ agentId: $json.agentId, message: $json.message }) }}"
-}
-```
-
-**Critical rules:**
-- Always use `http://127.0.0.1:19000` — never `localhost` (macOS resolves to IPv6 ::1)
-- Always specify `"method": "POST"` — n8n defaults to GET without it
-- For `contentType: "json"`, always use `specifyBody: "json"` + `jsonBody` — not top-level `body`
-
-See `workspace/ops/LEARNINGS.md` LEARNING-20260302-004 for full debug history.
-
----
-
-## Quick Tests
-
-```bash
-# Echo test
-curl -s -X POST http://127.0.0.1:5678/webhook/echo-test \
-  -H "Content-Type: application/json" -d '{"hello":"world"}'
-
-# Slack post
-curl -s -X POST http://127.0.0.1:5678/webhook/slack-post \
-  -H "Content-Type: application/json" \
-  -d '{"channel":"C0AEV3J2L23","text":"Test from n8n"}'
-
-# Cost alert escalation
-curl -s -X POST http://127.0.0.1:5678/webhook/cost-alert-escalation \
-  -H "Content-Type: application/json" \
-  -d '{"current_usd":1.70,"limit_usd":2.00,"pct":85,"triggered_by":"test"}'
-
-# Error escalation
-curl -s -X POST http://127.0.0.1:5678/webhook/error-escalation \
-  -H "Content-Type: application/json" \
-  -d '{"error_type":"gateway_timeout","agent":"eng","count":6,"log_snippet":"TimeoutError..."}'
-```
-
----
-
-## Re-importing Workflows
-
-If a workflow needs to be recreated from the JSON files in this directory:
-1. Open `http://127.0.0.1:5678`
-2. Click **Workflows** → **Import from file**
-3. Select the JSON file
-4. **Critical:** Ensure each webhook trigger node has `"webhookId": "<uuid>"` — without it, n8n registers broken composite paths
-5. Activate the workflow
-
-See `workspace/ops/LEARNINGS.md` LEARNING-20260302-001 for the webhookId requirement.
-
-**Last updated:** 2026-03-02
+### 7. No native SQLite node in n8n 2.9.4
+Use `n8n-nodes-base.code` (typeVersion 2) with `require('child_process').execSync` calling `sqlite3` CLI. `NODE_FUNCTION_ALLOW_BUILTIN=child_process,fs,path,os` is set in the n8n LaunchAgent.

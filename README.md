@@ -12,13 +12,13 @@
 
 | | |
 |---|---|
-| **OpenClaw CLI** | 2026.2.26 |
+| **OpenClaw CLI** | 2026.3.2 (auto-update enabled, stable channel) |
 | **Host** | Mac Mini · macOS 26 Tahoe · ARM64 |
 | **Gateway** | `ws://127.0.0.1:18789` — launchd `ai.openclaw.gateway` |
 | **Mission Control** | `http://localhost:19000` — launchd `ai.openclaw.dashboard` · auth: `red/redos2026` |
 | **9Router** | `http://localhost:20128` — multi-provider model proxy with auto-failover |
 | **n8n** | `http://localhost:5678` — credential-isolated external integrations · launchd `ai.openclaw.n8n` |
-| **Ollama** | `http://localhost:11434` — local models (hatake only) |
+| **Ollama** | `http://localhost:11434` — local models: `qwen3.5:4b` (heartbeat + RAG embeddings) |
 | **Channels** | Telegram (8 bots) · Slack (11 channels) |
 
 ---
@@ -34,7 +34,7 @@
 | `finance` | FINANCE | Finance analyst — costs, budget, portfolio | 9router/free-unlimited | @FINANCE_BOT |
 | `ops` | OPS | Scrum Master — health monitoring, tickets, SLA | 9router/free-unlimited | @OPS_BOT |
 | `infosec` | INFOSEC | Security officer — audits, L3 A2A approvals | 9router/free-unlimited | @INFOSECRED_BOT |
-| `hatake` | HATAKE | Intent parser — internal only, local model | ollama/qwen2.5-coder:7b | *(none)* |
+| `hatake` | HATAKE | Intent parser — internal only, local model | ollama/qwen3.5:4b | *(none)* |
 
 **Fallback chain (all except hatake):** `9router/free-unlimited` → `9router/heartbeat-cheap` → `openai-codex/gpt-5.2`
 
@@ -61,9 +61,9 @@
            │                      │                      │
            ▼                      ▼                      ▼
     ┌────────────┐         ┌────────────┐         ┌──────────────┐
-    │  43 SKILLS │         │  9 ROUTER  │         │   n8n :5678  │
+    │  54 SKILLS │         │  9 ROUTER  │         │   n8n :5678  │
     │            │         │  :20128    │         │              │
-    │ maker-chkr │         │ free-unlim │         │ 8 workflows  │
+    │ maker-chkr │         │ free-unlim │         │ 12 workflows │
     │ telegram-  │         │ heartbeat- │         │ github-evts  │
     │  approvals │         │   cheap    │         │ slack-router │
     │ autonomy-  │         │ gpt-5.2 fb │         │ daily-stdup  │
@@ -92,15 +92,15 @@
 | **9Router** | `9router/free-unlimited` | Multi-provider proxy | All agents — primary |
 | **9Router** | `9router/heartbeat-cheap` | Fast/cheap via proxy | All agents — fallback 1 |
 | **openai-codex** | `openai-codex/gpt-5.2` | GPT-5.2 subscription | All agents — fallback 2 |
-| **Ollama** | `ollama/qwen2.5-coder:7b` | Local, $0 | HATAKE only |
+| **Ollama** | `ollama/qwen3.5:4b` | Local, $0 | HATAKE + heartbeat model + local RAG embeddings |
 | **Perplexity** | `sonar-pro` | Subscription | RESEARCH (explicit calls) |
 | **ZAI** | `zai/glm-4.*` | PAYG | **Never use in crons or fallbacks** |
 
 ---
 
-## 24/7 Autonomy (30 Active Cron Jobs)
+## 24/7 Autonomy (35 Active Cron Jobs)
 
-**30 active / 85 disabled** (115 total) — reduced from 110 active via event-driven migration (2026-03-02).
+**35 active / 80 disabled** (115 total) — reduced from 110 active via event-driven migration (2026-03-02).
 Polling jobs replaced by n8n webhook workflows. Full list: `cron/jobs.json`.
 
 Key named cron jobs:
@@ -121,7 +121,7 @@ Key named cron jobs:
 
 ---
 
-## Skills (43+ in `workspace/skills/`)
+## Skills (54+ in `workspace/skills/`)
 
 | Skill | Purpose |
 |---|---|
@@ -171,7 +171,7 @@ Agents share state via files — no message-passing bottlenecks, race-condition 
 
 ---
 
-## n8n Webhook Delegation (8 Workflows Active)
+## n8n Webhook Delegation (12 Workflows Active)
 
 Credential-isolated external API calls and event-driven triggers. Agents POST to webhook URLs; credentials never leave n8n.
 
@@ -185,10 +185,44 @@ Credential-isolated external API calls and event-driven triggers. Agents POST to
 | `POST /webhook/cost-alert-escalation` | Budget threshold breach → escalate | Gateway cost monitor |
 | `POST /webhook/error-escalation` | Critical error → escalate | Gateway error handler |
 | Schedule `0 8 * * 1-5` | Daily standup → 6 agents | n8n cron (8am ET M–F) |
+| `twitter-service` (7YRs0yJOR5pDvj6k) | Authenticated Twitter/X scraping every 30min → SQLite | Schedule |
+| `reddit-service` (bPsStF6AKUYzJSI9) | Reddit ML/tech posts hourly → SQLite | Schedule |
+| `aggregator-service` (rRPKQxc8xwrhXnQJ) | Daily social monitoring report + top signals → Slack | Schedule 9am |
+| `shared-observability` (rJiesCoch2belvSQ) | SLO health, DLQ backlog, circuit breakers every 5min | Schedule |
 
 **Cloudflare tunnel:** Auto-synced on each boot via launchd `ai.openclaw.tunnel-sync`.
 Current URL written to `workspace/config/tunnel-url.txt`.
 Dashboard: `http://127.0.0.1:5678` · API key: `workspace/config/n8n-api-key.txt` (gitignored)
+
+---
+
+## Social Monitoring Pipeline (Live since 2026-03-04)
+
+Automated intelligence feed from Twitter/X and Reddit into a local SQLite knowledge base.
+
+| Component | Details |
+|---|---|
+| **Twitter scraping** | `scripts/twitter-scrape.py` — StealthyFetcher + session cookies, rotates queries/UA, 8-35s human delay |
+| **Reddit scraping** | Anonymous JSON API via n8n Code node (no auth needed) |
+| **Database** | `workspace/data/social-monitoring.db` — `content_raw`, `content_signals`, `workflow_runs` |
+| **Ideas KB** | `workspace/ideas/twitter-feed.md` + `reddit-feed.md` — auto-appended |
+| **Ingest endpoint** | `POST http://localhost:19000/webhook/ingest-idea {platform, title, url, summary, score}` |
+| **Credentials** | `credentials/twitter-session.json` (gitignored) — auth_token, ct0, twid |
+
+---
+
+## OpenClaw 2026.3.2 — Active Features
+
+| Feature | Config | Status |
+|---|---|---|
+| Auto-update | stable channel, 6h delay | ✅ Enabled |
+| Loop detection | warning@10, critical@20, breaker@30 | ✅ Enabled |
+| PDF tool | pdfModel: 9router/free-unlimited, 25MB/50pg | ✅ Configured |
+| Ollama memory embeddings | provider: ollama, model: qwen3.5:4b | ✅ Enabled |
+| A2A loop prevention | maxPingPongTurns: 3 | ✅ Configured |
+| Natural response delay | humanDelay: natural (800-2500ms) | ✅ Enabled |
+| Heartbeat active hours | 07:00-02:00 ET (skips 2-7am) | ✅ Enabled |
+| heartbeat.directPolicy | block (prevents DM spam) | ✅ Set |
 
 ---
 
@@ -215,13 +249,13 @@ Dashboard: `http://127.0.0.1:5678` · API key: `workspace/config/n8n-api-key.txt
 | File | Purpose |
 |---|---|
 | `openclaw.json` | Master runtime config **(gitignored)** |
-| `cron/jobs.json` | 115 cron definitions (30 enabled / 85 disabled) |
+| `cron/jobs.json` | 115 cron definitions (35 enabled / 80 disabled) |
 | `workspace/SOUL.md` | **Company OS** — injected into every agent session |
 | `workspace/MEMORY.md` | Curated long-term memory |
 | `workspace/GOALS.md` | Active company goals |
 | `workspace/STATE.yaml` | Live shared state |
 | `workspace/AUTONOMOUS.md` | Agent task queue |
-| `workspace/skills/` | 43 declarative skills |
+| `workspace/skills/` | 54 declarative skills |
 | `workspace/ops/TICKET-TRACKER.md` | Issue tracker |
 | `workspace/ops/OPENCLAW-STANDARDS.md` | OpenClaw standards checklist (Part 3.3) |
 | `workspace/RUNBOOK.md` | Single reference: crons, skills, RAG, dashboard |
@@ -306,5 +340,5 @@ npm update -g openclaw && bash scripts/patch-pairing-reply.sh
 
 ---
 
-**Status: ✅ FULLY OPERATIONAL — 30 active crons · 8 n8n workflows · event-driven architecture · bounded autonomy L0–L5**
-**Last updated: 2026-03-02**
+**Status: ✅ FULLY OPERATIONAL — 35 active crons · 12 n8n workflows · social monitoring pipeline · autonomy ~84%**
+**Last updated: 2026-03-04**

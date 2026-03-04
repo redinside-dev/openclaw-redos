@@ -1,143 +1,83 @@
 version: '1.0'
-last_updated: '2026-03-03T04:56:36.102Z'
-updated_by: ops-autonomy-calc
-autonomous_run:
-  active: true
-  run_id: AUTONOMOUS-RUN-001
-  started: '2026-03-01T23:05:00Z'
-  ends: '2026-03-06T23:05:00Z'
-  status: ACTIVE
-  phase: hour_0_n8n_integration
-  blockers_remaining: 0
-  human_intervention_count: 0
-  autonomy_score: 10
-  last_status_update: '2026-03-01T23:09:52Z'
-sprint:
-  id: SPRINT-2026-03-01-AUTONOMOUS
-  goal: 5-day autonomous operation benchmark — prove 95%+ autonomy with zero human intervention
-  started: '2026-03-01'
-  ends: '2026-03-06'
-  priority_queue:
-    - RED dispatched 1 new task (AUTO-016) to AUTONOMOUS.md — hatake now has work
-    - 'OPS: Clear 4 critical blockers (A2A timeouts, file writes, billing, crons) — 30min deadline'
-    - 'ENG: Complete AUTO-001 or AUTO-008 from AUTONOMOUS.md — prove task queue works'
-    - 'RESEARCH: Deliver 5-day continuous operation best practices brief'
-    - 'All agents: Run inner loops autonomously, claim tasks from AUTONOMOUS.md, coordinate via A2A'
-agents:
-  main:
-    focus: 5-day run orchestration + monitoring
-    last_task: autonomous-run-init
-    status: active
-    last_updated: '2026-03-01T23:02:13Z'
-    current_delegation: OPS (blocker clearance), ENG (task queue verify), RESEARCH (best practices)
-  allrounder:
-    focus: Team coordination + synthesis
-    last_task: system-init
-    status: standby
-    last_updated: '2026-02-28T19:00:00Z'
-  eng:
-    focus: Autonomous task queue execution
-    last_task: autonomous-run-prep
-    status: active
-    last_updated: '2026-03-01T23:02:13Z'
-    current_task: AUTO-001 or AUTO-008 verification
-  ops:
-    focus: Critical blocker clearance
-    last_task: autonomous-run-prep
-    status: active
-    last_updated: '2026-03-01T23:02:13Z'
-    current_task: Fix A2A timeouts, file writes, billing, crons
-  research:
-    focus: 5-day run best practices research
-    last_task: autonomous-run-prep
-    status: active
-    last_updated: '2026-03-01T23:02:13Z'
-    current_task: Continuous operation patterns research
-  infosec:
-    focus: Security monitoring during autonomous run
-    last_task: system-init
-    status: standby
-    last_updated: '2026-02-28T19:00:00Z'
-  finance:
-    focus: Cost tracking during autonomous run
-    last_task: system-init
-    status: standby
-    last_updated: '2026-02-28T19:00:00Z'
-  hatake:
-    focus: Intent parsing + competitive intelligence
-    last_task: system-init
-    status: standby
-    last_updated: '2026-02-28T19:00:00Z'
+last_updated: '2026-03-04T05:20:00.000Z'
+updated_by: consultant-session
+
+# Runtime metrics
+dispatched_tasks_total: 9
+verified_completions_total: 9
+real_autonomy_score: 84
+last_autonomy_calc: '2026-03-04T05:20:00.000Z'
+
+# Stack versions
+openclaw_version: 2026.3.2
+node_version: 25.7.0
+n8n_version: 2.9.4
+
+# Service status (as of 2026-03-04 05:20 UTC)
+services:
+  gateway: running
+  dashboard: running
+  n8n: running
+  nine_router: running
+  ollama: running
+  cloudflared: running
+  workers: [eng, ops, research]
+
+# Cron health
+crons_enabled: 35
+crons_disabled: 80
+crons_total: 115
+crons_with_errors: 0
+
+# n8n workflows
+n8n_workflows_active: 12
+n8n_workflows_total: 12
+
+# Pipelines
 pipelines:
-  research_to_eng:
-    status: active
-    last_research_topic: 5-day continuous operation best practices
-    last_research_ts: '2026-03-01T23:02:13Z'
-    eng_task_id: pending
-    eng_status: waiting_for_research_brief
-  idea_validator:
-    last_checked: '2026-03-01T01:34:00Z'
-    last_idea: episodes.jsonl auto-seeder dedupe/idempotency hardening
-    reality_signal: 80
-blockers:
-  active: []
-metrics:
-  autonomy_score: 10
-  a2a_success_rate: 100
-  episodes_today: 1559
-  tickets_open: 0
-  tickets_breached_sla: 0
-  last_eval: '2026-03-01T23:08:52Z'
-  cron_success_rate: 82
-  human_interventions: 0
-  tasks_completed_today: 1
-  learnings_total: 854
-  real_autonomy_score: 100
-  dispatched_tasks_total: 8
-  verified_completions_total: 8
-  last_autonomy_calc: '2026-03-03T04:56:36.097Z'
-event_driven_migration:
-  status: IN_PROGRESS
-  branch: feature/event-driven-mission-control
-  started: '2026-03-01'
-  kpis:
-    cron_jobs_enabled: 30
-    cron_jobs_disabled: 85
-    cron_jobs_total: 115
-    n8n_workflows_active: 12
-    cron_jobs_enabled: 31
-    cron_jobs_total: 115
-    social_monitoring: active
-    scrapling: installed_v0.4.1
-    ideas_kb: active
-    daily_cost_target_usd: 1
-    cost_savings_target_pct: 50
-    event_driven_pct_target: 80
-  completed:
-    - Feature branch feature/event-driven-mission-control created
-    - 'Cron audit: 80 polling jobs disabled, 4 consolidated jobs added → 30 active'
-    - 'routing-profiles.json: 3-tier model routing (lightweight/standard/heavy/local) added'
-    - 'budget-guardrails.json: per-model caps, subscription utilization, savings baseline'
-    - 'n8n-webhooks/SKILL.md: workflow catalog'
-    - 'cost-optimization/SKILL.md + event-driven-patterns/SKILL.md: new skills created'
-    - 'dashboard-v2: full React/TypeScript rebuild - 16 tabs + 5 cost charts (builds clean)'
-    - 'PR #2 merged to main: event-driven architecture'
-    - 'n8n github-events workflow built + GitHub webhook registered (ID: 598611413)'
-    - n8n slack-inbound-router built
-    - 'Cloudflare Tunnel auto-sync on boot: launchd ai.openclaw.tunnel-sync'
-    - 3 n8n dispatch bugs fixed (localhost→127.0.0.1, body→jsonBody, GET→POST)
-    - 'End-to-end verified: git push → GitHub → Cloudflare → n8n → gateway → agent dispatch'
-    - Duplicate daily-standup workflow deleted (2026-03-02)
-    - 'Scrapling v0.4.1 installed: web scraping for all agents via exec'
-    - '4 social monitoring n8n workflows active: twitter-service, reddit-service, aggregator-service, shared-observability'
-    - 'Ideas KB pipeline: workspace/ideas/ + /webhook/ingest-idea + ideas-indexer-nightly cron'
-    - 'Fake web-scraping skill deleted (260KB of invalid openclaw browser calls)'
-  pending:
-    - Subscription audit - ChatGPT Pro x2 utilization check (due 2026-04-01)
-  dashboard_v2:
-    dev_url: http://localhost:5173
-    prod_url: http://localhost:19000/dashboard-v2/
-    status: built clean (435KB)
-    run_dev: cd ~/.openclaw/dashboard-v2 && npm run dev
-    tabs: 16
-    cost_charts: 5
+  social_monitoring: active
+  scrapling: installed_v0.4.1
+  ideas_kb: active
+  github_webhook: active
+  slack_events: active
+  event_driven_architecture: complete
+
+# DB state (social-monitoring.db as of 2026-03-04 04:00 UTC)
+social_db:
+  content_raw_rows: 16
+  content_signals_rows: 1
+  workflow_run_successes: 8
+
+# Goals summary
+goals:
+  GOAL-001: in_progress  # 98% autonomous — currently at 84%
+  GOAL-002: in_progress  # zero silent failures
+  GOAL-003: pending      # research→eng pipeline not yet firing
+  GOAL-004: in_progress  # cost optimisation
+  GOAL-005: complete     # event-driven architecture ✅ 2026-03-02
+  GOAL-006: in_progress  # production reliability — deadline 2026-03-06
+
+# Recent completions
+completed:
+  - 'Event-driven architecture (GOAL-005): cron 110→35, 12 n8n workflows'
+  - 'Cloudflare tunnel auto-sync on each boot'
+  - 'Social monitoring pipeline: twitter-service + reddit-service + aggregator + observability'
+  - 'Scrapling v0.4.1: authenticated Twitter scraping with session cookies'
+  - 'OpenClaw 2026.3.2 upgrade + 8 new features enabled'
+  - 'Session cleanup: 1527+ archives + orphans removed'
+  - 'Loop detection enabled (was causing 30-iteration exec loops)'
+  - 'Node@22→25 plist fix (was causing Telegram silence)'
+
+# Pending (next session priorities)
+pending:
+  - 'GOAL-006 P1: Force Resolution + Coordination Protocol (DUE TODAY 2026-03-04)'
+  - 'GOAL-006 P1: Context Engineering (OVERDUE from 2026-03-03)'
+  - 'GOAL-003: wire research-to-eng pipeline cron'
+  - 'GOAL-004: prompt caching in gateway/resilient-handler.js'
+  - 'SecretRefs: migrate API keys from openclaw.json to env/file refs'
+  - 'Subscription audit: ChatGPT Pro x2 (due 2026-04-01)'
+
+# Financial
+daily_cost_target_usd: 1
+cost_savings_target_pct: 50
+payg_spend: blocked  # cost_saver profile active

@@ -106,6 +106,22 @@ After EVERY cron job run or significant interaction, you MUST write a brief memo
 - **KNOWLEDGEBASE.md:** `/Users/redinside/.openclaw/KNOWLEDGEBASE.md` — full system documentation
 - **MEMORY.md:** `/Users/redinside/.openclaw/workspace/MEMORY.md` — curated long-term memory
 
+## Pre-Task Retrieval (MANDATORY)
+
+Before starting implementation or answering policy/config/feature questions, run RAG retrieval first:
+
+```bash
+python3 ~/.openclaw/workspace/scripts/rag_query.py "<task or question>" --top 5
+```
+
+If you need raw ranked matches, run semantic search directly:
+
+```bash
+python3 ~/.openclaw/workspace/scripts/memsearch.py "<query>" --top 5
+```
+
+Both commands must work in any agent session. If one fails, switch to `~/.openclaw/.venv/bin/python3` and report the failure to OPS.
+
 ## Boundaries
 
 - Private things stay private. Period.

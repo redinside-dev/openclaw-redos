@@ -357,3 +357,30 @@ logs/
 workspace/config/n8n-api-key.txt
 workspace/config/github-webhook-pat.txt
 workspace/config/telegram-bot-token.txt
+
+# Runtime telegram command hashes (auto-generated, not source)
+telegram/command-hash-*.txt
+
+# New agent workspaces (runtime, not source)
+workspace-dispatcher/
+workspace-security/
+
+# memsearch derived index (rebuilt from source docs)
+.memsearch/episodes-index.json
+
+# Agent runtime output files
+workspace/autonomous_daemon_v2.py
+workspace/ops/autonomous-log.md
+workspace/ops/autonomous-report.md
+workspace/security/
+workspace-infosec/tasks-log.md
+workspace-ops/projects/
+workspace-ops/scripts/
+
+# Broken filename (encoding artifact)
+workspace/1*
+
+# Agent runtime dirs
+workspace/notifications/
+ops/autonomous-log.md
+workspace-ops/health-monitor-state.json

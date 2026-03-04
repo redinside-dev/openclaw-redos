@@ -55,7 +55,7 @@ curl -H "X-N8N-API-KEY: ..." http://localhost:5678/api/v1/workflows | jq '.data 
 
 ### Key Services
 - **9router:** Model routing proxy (`http://127.0.0.1:20128`)
-- **n8n:** Workflow automation (`http://127.0.0.1:5678`) — **8 active workflows as of 2026-03-02**
+- **n8n:** Workflow automation (`http://127.0.0.1:5678`) — **12 active workflows as of 2026-03-04**
 - **Qdrant:** Vector search (`http://127.0.0.1:6333`)
 - **Dashboard:** Mission control (`http://127.0.0.1:19000`) · auth: `red/redos2026`
 
@@ -233,7 +233,7 @@ All agents run periodic inner loops (every 2-4h):
 
 ## n8n Workflows (as of 2026-03-02)
 
-**Total:** 8 active workflows (duplicate daily-standup deleted 2026-03-02)
+**Total:** 12 active workflows (8 core + 4 social monitoring, verified 2026-03-04)
 **Instance:** `http://127.0.0.1:5678`
 **API Key:** `workspace/config/n8n-api-key.txt`
 
@@ -332,10 +332,10 @@ All agents run periodic inner loops (every 2-4h):
 ### 2026-03-03
 - **delivery.to fix**: 19 cron jobs used `delivery.target` (wrong field). OpenClaw requires `delivery.to`. All fixed.
 - **HEARTBEAT.md rewrites**: main (was vague/dead refs), ops (was raw JSON — broken), infosec (was stale fake data). All 3 now have concrete tool-call cycles matching allrounder/eng/research/finance pattern.
-- **Heartbeat model**: `ollama/qwen2.5-coder:7b` → `ollama/qwen3.5:4b` for all agents (newer, better reasoning).
+- **Heartbeat model**: `ollama/qwen3.5:4b` → `ollama/qwen3.5:4b` for all agents (newer, better reasoning).
 - **Tailscale disabled**: `gateway.tailscale.mode: off` — was generating errors on every restart.
 - **memory-core duplicate**: Deleted `extensions/memory-core/` — error log now clean on restart.
-- **llama3.1:8b removed**: 4GB freed from Ollama. Active models: qwen3.5:4b, qwen2.5-coder:7b, gpt-oss:20b, kimi-k2.5:cloud.
+- **llama3.1:8b removed**: 4GB freed from Ollama. Active models: qwen3.5:4b, qwen3.5:4b, gpt-oss:20b, kimi-k2.5:cloud.
 - **OPS bot token rotated**: @OPSRED_BOT live. All 8 agent Telegram bots confirmed active.
 - **workspace-agent-*/ gitignored**: Per-agent nested git workspaces excluded from main repo.
 - **HEARTBEAT.md unignored**: Removed `workspace-*/HEARTBEAT.md` from .gitignore — these are instruction files, not runtime state.

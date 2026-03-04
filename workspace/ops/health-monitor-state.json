@@ -1,5 +1,13 @@
 {
   "runCount": 1,
   "lastRun": "2026-02-24T02:51:00Z",
-  "lastStatus": "HEALTHY"
+  "lastStatus": "HEALTHY",
+  "memory_integrity": {
+    "last_check": "2026-03-03T06:42:46.026847Z",
+    "status": "healthy",
+    "episodes_seeded": 28,
+    "episodes_indexed": 150,
+    "workspace_chunks": 6281,
+    "databases_compacted": 7
+  }
 }
