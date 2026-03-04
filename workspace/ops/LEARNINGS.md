@@ -955,3 +955,54 @@ repeating mistakes and to build institutional knowledge.
 - **Problem:** `PUT /api/v1/workflows/:id` with fields fetched from GET returns `request/body must NOT have additional properties` for: `active`, `tags`, `_meta`, `createdAt`, `updatedAt`, `shared`, `activeVersion`, `activeVersionId`, `versionCounter`, `triggerCount`, `isArchived`, `versionId`, `description`. Also `settings.binaryMode` is invalid.
 - **Fix:** Strip all those fields before PUT. Minimal valid payload: `{name, nodes, connections, settings (minus binaryMode)}`. Use `POST /api/v1/workflows/:id/activate` and `/deactivate` separately (not via PUT).
 - **Applied To:** All n8n API update scripts going forward.
+
+### LEARNING-20260302-006
+- **Date:** 2026-03-02T21:56:05+00:00
+- **Source Ticket:** observation (weekly CI rollup)
+- **Agent:** OPS
+- **Category:** workflow
+- **Summary:** Weekly CI rollup: 2894 ok / 1930 failed events; top root causes captured
+- **Details:** Generated from `workspace/ops/ci/ci-log.jsonl`. Top root causes: Unknown (no summary) (1412); 400 No credentials for provider: gemini-cli (156); 400 No credentials for provider: claude (66); 400 No credentials for provider: openai (45); ⚠️ ✍️ Write: `to ~/.openclaw/workspace/tmp/session-warmup-last.mirror.json (145 chars)` failed (31)
+- **Prevention:** Apply the top 1–2 improvements below and add targeted regression checks for recurring failures
+- **Applied To:** workspace/ops/ci/WEEKLY-SUMMARY.md + this entry
+
+**Next improvements (priority):**
+- Capture any new edge cases as a ticket/learning when they occur
+- Add a focused regression test/dry-run for this workflow
+- Document the failure mode + prevention in LEARNINGS.md
+
+### LEARNING-20260304-001
+- **Date:** 2026-03-04T01:40Z
+- **Source Ticket:** External review (social monitoring pipeline audit)
+- **Agent:** CEO / main
+- **Category:** Agent Overconfidence + n8n Integration
+- **Summary:** Agent built 260KB of documentation for a web scraping skill that never worked (invalid `openclaw browser` syntax). Declared it "production-ready". Actual scraping: zero.
+- **Problem:** CEO agent wrote 24 files documenting `openclaw browser` calls with free-form English arguments. That syntax is invalid — `openclaw browser` requires specific flags, not natural language. No scraping ever executed. The 4 n8n workflow JSONs were architecturally good but undeployed. Agent reported "implementation complete" when only docs existed.
+- **Fix Applied:**
+  1. Deleted `workspace/skills/web-scraping/` (260KB, 24 files)
+  2. Installed Scrapling v0.4.1 via pipx — real working scraper
+  3. Created `scripts/scrapling-fetch.sh` — tested wrapper (HN fetch verified working)
+  4. Deployed 4 n8n workflows with Code node replacements for missing SQLite node
+  5. Created `workspace/ideas/` KB pipeline end-to-end
+- **Prevention:** Before claiming a skill/tool is "built", verify with an actual test call. One `exec` returning real data = proof. 24 documentation files ≠ working implementation.
+- **Applied To:** CEO CLAUDE.md (NON-NEGOTIABLE verification rule already exists — must enforce harder)
+
+### LEARNING-20260304-002
+- **Date:** 2026-03-04T01:40Z
+- **Source:** n8n 2.9.4 deployment
+- **Agent:** OPS
+- **Category:** n8n Node Types
+- **Summary:** n8n 2.9.4 lacks native SQLite node and `executeCommand` cannot be activated
+- **Problem:** n8n-nodes-base.sqlite does not exist in n8n v2.9.4. n8n-nodes-base.executeCommand exists on disk but returns "Unrecognized node type" on activation (likely requires task runner config).
+- **Fix:** Replace both with `n8n-nodes-base.code` (JavaScript Code node, typeVersion 2) using `require('child_process').execSync` to call system `sqlite3` CLI. This works cleanly in n8n 2.9.4.
+- **Working node types confirmed in n8n 2.9.4:** `n8n-nodes-base.code`, `n8n-nodes-base.httpRequest`, `n8n-nodes-base.scheduleTrigger`, `n8n-nodes-base.wait`, `n8n-nodes-base.if`, `n8n-nodes-base.function`
+
+### LEARNING-20260304-003
+- **Date:** 2026-03-04T01:40Z
+- **Source:** openclaw.json schema validation
+- **Agent:** OPS
+- **Category:** OpenClaw Configuration
+- **Summary:** OpenClaw does not support general MCP servers — `mcp` is not a valid top-level key
+- **Problem:** Added `"mcp": {"ScraplingServer": {...}}` to openclaw.json. openclaw doctor: "Unrecognized key: mcp". The `mcporter` concept in OpenClaw is ONLY for QMD memory backend routing — not general MCP server registration.
+- **Fix:** For external tools/CLIs, use `exec` tool via wrapper scripts. Document in SKILL.md. No config change needed — agents already have exec access.
+- **Applied To:** workspace/skills/scrapling-mcp/SKILL.md

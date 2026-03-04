@@ -40,6 +40,21 @@ Always log the call to `workspace/logs/audit.jsonl` after execution.
 | `slack-post` | `zIoMz7Ug5oVeZz5T` | Post message to Slack channel | `{channel: "C...", text: "..."}` | `{ok: true, ts: "..."}` |
 | `github-repo-status` | `g7fy6gWny65rhStr` | Fetch latest 3 commits from a GitHub repo | `{repo: "owner/name"}` | array of commit objects |
 
+### Social Monitoring Workflows (added 2026-03-04, Code-node based)
+
+| Workflow | n8n ID | Schedule | Purpose | DB Table |
+|----------|--------|----------|---------|---------|
+| `twitter-service` | `7YRs0yJOR5pDvj6k` | every 30min | Fetch AI/tech tweets via RESEARCH agent + scrapling | `content_raw`, `content_signals` |
+| `reddit-service` | `bPsStF6AKUYzJSI9` | every 1h | Fetch ML/tech Reddit posts via Reddit JSON API | `content_raw`, `content_signals` |
+| `aggregator-service` | `rRPKQxc8xwrhXnQJ` | daily 9am | Daily report: stats + top keywords + alerts → Slack | `reports_daily` |
+| `shared-observability` | `rJiesCoch2belvSQ` | every 5min | Monitor workflow health, SLOs, DLQ backlog | `workflow_runs`, `dlq_events` |
+
+SQLite DB: `workspace/data/social-monitoring.db`
+Ingest webhook: `POST http://localhost:19000/webhook/ingest-idea` `{platform, title, url, summary, score}`
+Ideas KB: `workspace/ideas/twitter-feed.md`, `workspace/ideas/reddit-feed.md`, `workspace/ideas/ideas-index.json`
+
+> **Node type note:** n8n 2.9.4 has no native SQLite node. Code nodes use `require('child_process').execSync` to call `sqlite3` CLI. `n8n-nodes-base.executeCommand` also cannot be activated — use Code node instead.
+
 ### Event Receivers (n8n as inbound webhook — GitHub/Slack call n8n, n8n calls gateway)
 
 | Path | Trigger source | Purpose | Replaces |

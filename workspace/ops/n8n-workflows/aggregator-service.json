@@ -1,0 +1,256 @@
+{
+  "name": "aggregator-service",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 9 * * *"
+            }
+          ]
+        }
+      },
+      "id": "ag1a2b3c-4d5e-6789-abcd-ef1234567890",
+      "name": "Daily 9am",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "functionCode": "const runId = $execution.id;\nconst startTime = new Date().toISOString();\nconst workflowName = 'aggregator-service';\nconst reportDate = new Date().toISOString().split('T')[0];\n\nreturn [{\n  json: {\n    runId,\n    workflowName,\n    startTime,\n    reportDate\n  }\n}];"
+      },
+      "id": "ag2b3c4d-5e6f-7890-bcde-f12345678901",
+      "name": "Init Run",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT \n  c.platform,\n  COUNT(*) as total_posts,\n  AVG(CASE \n    WHEN s.sentiment = 'positive' THEN 1 \n    WHEN s.sentiment = 'negative' THEN -1 \n    ELSE 0 \n  END) as sentiment_avg,\n  SUM(CAST(json_extract(c.engagement_json, '$.likes') AS INTEGER) + \n      CAST(json_extract(c.engagement_json, '$.retweets') AS INTEGER) + \n      CAST(json_extract(c.engagement_json, '$.score') AS INTEGER)) as total_engagement\nFROM content_raw c\nLEFT JOIN content_signals s ON c.id = s.content_id\nWHERE c.captured_at >= datetime('now', '-24 hours')\nGROUP BY c.platform",
+        "options": {}
+      },
+      "id": "ag3c4d5e-6f7a-8901-cdef-123456789012",
+      "name": "Query Platform Stats",
+      "type": "n8n-nodes-base.sqlite",
+      "typeVersion": 1,
+      "position": [650, 300],
+      "credentials": {
+        "sqlite": {
+          "id": "1",
+          "name": "social-monitoring-db"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT \n  json_each.value as keyword,\n  COUNT(*) as frequency\nFROM content_signals,\n  json_each(keywords_json)\nWHERE enriched_at >= datetime('now', '-24 hours')\nGROUP BY keyword\nORDER BY frequency DESC\nLIMIT 10",
+        "options": {}
+      },
+      "id": "ag4d5e6f-7a8b-9012-def1-234567890123",
+      "name": "Query Top Keywords",
+      "type": "n8n-nodes-base.sqlite",
+      "typeVersion": 1,
+      "position": [650, 450],
+      "credentials": {
+        "sqlite": {
+          "id": "1",
+          "name": "social-monitoring-db"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT \n  c.platform,\n  c.text,\n  c.author,\n  c.url,\n  s.sentiment,\n  (CAST(json_extract(c.engagement_json, '$.likes') AS INTEGER) + \n   CAST(json_extract(c.engagement_json, '$.retweets') AS INTEGER) + \n   CAST(json_extract(c.engagement_json, '$.score') AS INTEGER)) as engagement_total\nFROM content_raw c\nLEFT JOIN content_signals s ON c.id = s.content_id\nWHERE c.captured_at >= datetime('now', '-24 hours')\n  AND s.sentiment = 'negative'\nORDER BY engagement_total DESC\nLIMIT 5",
+        "options": {}
+      },
+      "id": "ag5e6f7a-8b9c-0123-ef12-345678901234",
+      "name": "Query Top Alerts",
+      "type": "n8n-nodes-base.sqlite",
+      "typeVersion": 1,
+      "position": [650, 600],
+      "credentials": {
+        "sqlite": {
+          "id": "1",
+          "name": "social-monitoring-db"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "const stats = $input.all()[0].json;\nconst keywords = $input.all()[1].json;\nconst alerts = $input.all()[2].json;\nconst reportDate = $node[\"Init Run\"].json.reportDate;\n\n// Build platform summary\nlet platformSummary = '';\nif (Array.isArray(stats)) {\n  platformSummary = stats.map(s => \n    `- **${s.platform}:** ${s.total_posts} posts, avg sentiment ${(s.sentiment_avg || 0).toFixed(2)}, ${s.total_engagement || 0} total engagement`\n  ).join('\\n');\n} else if (stats.platform) {\n  platformSummary = `- **${stats.platform}:** ${stats.total_posts} posts, avg sentiment ${(stats.sentiment_avg || 0).toFixed(2)}, ${stats.total_engagement || 0} total engagement`;\n} else {\n  platformSummary = '- No data collected in the last 24 hours';\n}\n\n// Build keywords list\nlet keywordsList = '';\nif (Array.isArray(keywords) && keywords.length > 0) {\n  keywordsList = keywords.map((k, i) => `${i+1}. ${k.keyword} (${k.frequency} mentions)`).join('\\n');\n} else if (keywords.keyword) {\n  keywordsList = `1. ${keywords.keyword} (${keywords.frequency} mentions)`;\n} else {\n  keywordsList = '- No keywords extracted';\n}\n\n// Build alerts section\nlet alertsList = '';\nif (Array.isArray(alerts) && alerts.length > 0) {\n  alertsList = alerts.map((a, i) => \n    `${i+1}. **${a.platform}** by ${a.author} (${a.engagement_total} engagement)\\n   ${a.text.substring(0, 150)}...\\n   ${a.url}`\n  ).join('\\n\\n');\n} else if (alerts.platform) {\n  alertsList = `1. **${alerts.platform}** by ${alerts.author} (${alerts.engagement_total} engagement)\\n   ${alerts.text.substring(0, 150)}...\\n   ${alerts.url}`;\n} else {\n  alertsList = '- No negative sentiment alerts in the last 24 hours';\n}\n\nconst summary = `# Daily Social Monitoring Report — ${reportDate}\n\n## Platform Summary\n${platformSummary}\n\n## Top Keywords\n${keywordsList}\n\n## Top Negative Sentiment Alerts\n${alertsList}\n\n## Actions\n- Review alerts in Slack #redos-mission-control\n- Check workflow health: http://127.0.0.1:5678\n\n---\n*Generated by aggregator-service at ${new Date().toISOString()}*`;\n\nconst trends = {\n  platforms: Array.isArray(stats) ? stats : [stats],\n  keywords: Array.isArray(keywords) ? keywords.slice(0, 5) : [keywords],\n  alerts: Array.isArray(alerts) ? alerts : [alerts]\n};\n\nreturn [{\n  json: {\n    reportDate,\n    summary,\n    trends: JSON.stringify(trends)\n  }\n}];"
+      },
+      "id": "ag6f7a8b-9c0d-1234-f123-456789012345",
+      "name": "Generate Report",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [850, 400]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "=INSERT INTO reports_daily (report_date, summary_md, trends_json, delivered_to, created_at)\nVALUES (\n  '{{ $json.reportDate }}',\n  '{{ $json.summary.replace(/'/g, \"''\") }}',\n  '{{ $json.trends }}',\n  'slack:C0AEV3J2L23',\n  datetime('now')\n)\nON CONFLICT(report_date) DO UPDATE SET\n  summary_md = excluded.summary_md,\n  trends_json = excluded.trends_json,\n  created_at = datetime('now')",
+        "options": {}
+      },
+      "id": "ag7a8b9c-0d1e-2345-1234-567890123456",
+      "name": "Save Report",
+      "type": "n8n-nodes-base.sqlite",
+      "typeVersion": 1,
+      "position": [1050, 400],
+      "credentials": {
+        "sqlite": {
+          "id": "1",
+          "name": "social-monitoring-db"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:5678/webhook/slack-post",
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  channel: 'C0AEV3J2L23',\n  text: $json.summary\n}) }}"
+      },
+      "id": "ag8b9c0d-1e2f-3456-2345-678901234567",
+      "name": "Post to Slack",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [1250, 400]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "=INSERT INTO workflow_runs (workflow_name, started_at, ended_at, status, records_in, records_out, cost_estimate, run_duration_ms)\nVALUES (\n  'aggregator-service',\n  '{{ $node[\"Init Run\"].json.startTime }}',\n  datetime('now'),\n  'success',\n  1,\n  1,\n  0.02,\n  (julianday('now') - julianday('{{ $node[\"Init Run\"].json.startTime }}')) * 86400000\n)",
+        "options": {}
+      },
+      "id": "ag9c0d1e-2f3a-4567-3456-789012345678",
+      "name": "Log Run",
+      "type": "n8n-nodes-base.sqlite",
+      "typeVersion": 1,
+      "position": [1450, 400],
+      "credentials": {
+        "sqlite": {
+          "id": "1",
+          "name": "social-monitoring-db"
+        }
+      },
+      "alwaysOutputData": true
+    }
+  ],
+  "connections": {
+    "Daily 9am": {
+      "main": [
+        [
+          {
+            "node": "Init Run",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Init Run": {
+      "main": [
+        [
+          {
+            "node": "Query Platform Stats",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Query Top Keywords",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Query Top Alerts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Query Platform Stats": {
+      "main": [
+        [
+          {
+            "node": "Generate Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Query Top Keywords": {
+      "main": [
+        [
+          {
+            "node": "Generate Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Query Top Alerts": {
+      "main": [
+        [
+          {
+            "node": "Generate Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Report": {
+      "main": [
+        [
+          {
+            "node": "Save Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Report": {
+      "main": [
+        [
+          {
+            "node": "Post to Slack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Post to Slack": {
+      "main": [
+        [
+          {
+            "node": "Log Run",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {},
+  "versionId": "1",
+  "id": "aggregator-service-001",
+  "meta": {
+    "instanceId": "redos-n8n"
+  },
+  "tags": []
+}

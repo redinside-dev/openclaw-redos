@@ -1389,6 +1389,40 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // Social monitoring idea ingestion webhook
+  if (req.method === 'POST' && url.pathname === '/webhook/ingest-idea') {
+    let rawBody = '';
+    req.on('data', chunk => { rawBody += chunk; });
+    req.on('end', () => {
+      try {
+        const body = JSON.parse(rawBody);
+        const platform = body.platform;
+        const title = body.title;
+        const sourceUrl = body.url;
+        const summary = body.summary;
+        const score = body.score;
+        if (!platform || !title) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: 'platform and title required' }));
+          return;
+        }
+        const feedFile = platform === 'twitter' ? 'twitter-feed.md' : 'reddit-feed.md';
+        const feedPath = path.join(OPENCLAW_DIR, 'workspace', 'ideas', feedFile);
+        const ts = new Date().toISOString();
+        const safeTitle = String(title).replace(/[`*_[\]]/g, '');
+        const safeSummary = String(summary || '').substring(0, 500);
+        const entry = '\n---\n**' + safeTitle + '**\nSource: ' + (sourceUrl || 'n/a') + '\nScore: ' + (score || 0) + '\n' + safeSummary + '\n_' + ts + '_\n';
+        fs.appendFileSync(feedPath, entry);
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: true, platform: platform, file: feedFile, ts: ts }));
+      } catch(e) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: e.message }));
+      }
+    });
+    return;
+  }
+
   // Dashboard v2 — served at /v2/
   if (url.pathname.startsWith('/v2/') || url.pathname === '/v2') {
     const v2Dist = path.join(__dirname, '..', 'dashboard-v2', 'dist');

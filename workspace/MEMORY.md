@@ -322,6 +322,13 @@ All agents run periodic inner loops (every 2-4h):
 
 ## Changes Log
 
+### 2026-03-04
+- **Scrapling MCP installed**: `scrapling[ai]` v0.4.1 via pipx at `/Users/redinside/.local/bin/scrapling`. Browser deps installed. Wrapper script at `~/.openclaw/scripts/scrapling-fetch.sh`. SKILL at `workspace/skills/scrapling-mcp/SKILL.md`. All 8 agents can scrape via exec.
+- **Social monitoring live**: 4 n8n workflows active (twitter-service, reddit-service, aggregator-service, shared-observability). SQLite DB at `workspace/data/social-monitoring.db`. Code nodes use `child_process.execSync + sqlite3 CLI` (n8n 2.9.4 has no native sqlite node; `executeCommand` node also not activatable — use Code node).
+- **Ideas KB pipeline**: `workspace/ideas/twitter-feed.md` + `reddit-feed.md` auto-appended. `ideas-indexer-nightly-0001` cron (OPS, 23:00) rebuilds `ideas-index.json`. Webhook `POST http://localhost:19000/webhook/ingest-idea` with `{platform, title, url, summary, score}`.
+- **Fake web-scraping skill deleted**: `workspace/skills/web-scraping/` (260KB, 24 files) and `workspace/scripts/reddit_mcp.sh` — all called invalid `openclaw browser` syntax and never ran.
+- **OpenClaw MCP limitation**: `mcp` is not a valid top-level key in `openclaw.json`. OpenClaw's `mcporter` only works for QMD memory backend, not general MCP. Use `exec` + wrapper scripts instead.
+
 ### 2026-03-03
 - **delivery.to fix**: 19 cron jobs used `delivery.target` (wrong field). OpenClaw requires `delivery.to`. All fixed.
 - **HEARTBEAT.md rewrites**: main (was vague/dead refs), ops (was raw JSON — broken), infosec (was stale fake data). All 3 now have concrete tool-call cycles matching allrounder/eng/research/finance pattern.
@@ -332,6 +339,7 @@ All agents run periodic inner loops (every 2-4h):
 - **OPS bot token rotated**: @OPSRED_BOT live. All 8 agent Telegram bots confirmed active.
 - **workspace-agent-*/ gitignored**: Per-agent nested git workspaces excluded from main repo.
 - **HEARTBEAT.md unignored**: Removed `workspace-*/HEARTBEAT.md` from .gitignore — these are instruction files, not runtime state.
+- **Production social monitoring built**: 4 n8n workflows (twitter-service, reddit-service, aggregator-service, shared-observability) + SQLite database + full documentation. Ready for deployment. See `ops/n8n-workflows/DEPLOYMENT-SUMMARY.md`.
 
 ---
 
@@ -351,4 +359,4 @@ All agents run periodic inner loops (every 2-4h):
 
 ---
 
-**Last updated:** 2026-03-03T03:35Z — delivery.to fix, HEARTBEAT rewrites (main/ops/infosec), heartbeat model → qwen3.5:4b, tailscale disabled, memory-core duplicate cleared, llama3.1:8b removed
+**Last updated:** 2026-03-04T01:40Z — Scrapling installed, 4 social monitoring workflows active, ideas KB pipeline live, fake web-scraping skill deleted

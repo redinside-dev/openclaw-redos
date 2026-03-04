@@ -1,0 +1,443 @@
+{
+  "name": "twitter-service",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "*/30 * * * *"
+            }
+          ]
+        }
+      },
+      "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "name": "Every 30min",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "functionCode": "const runId = $execution.id;\nconst startTime = new Date().toISOString();\nconst workflowName = 'twitter-service';\n\nreturn [{\n  json: {\n    runId,\n    workflowName,\n    startTime,\n    recordsIn: 0,\n    recordsOut: 0,\n    errors: []\n  }\n}];"
+      },
+      "id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+      "name": "Init Run",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:19000/api/chat",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  agentId: 'research',\n  message: 'Run twitter scraper and return JSON array of tweets: bash ~/.openclaw/workspace/skills/web-scraping/scripts/twitter-scraper.sh'\n}) }}",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "id": "c3d4e5f6-a7b8-9012-cdef-123456789012",
+      "name": "Fetch Twitter",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [650, 300],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "functionCode": "// Parse scraper output and normalize to common schema\nconst response = $input.item.json;\nconst tweets = [];\n\ntry {\n  // Extract JSON from agent response\n  let data = response;\n  if (typeof response === 'string') {\n    // Try to find JSON in the response\n    const jsonMatch = response.match(/\\[.*\\]/s);\n    if (jsonMatch) {\n      data = JSON.parse(jsonMatch[0]);\n    } else {\n      throw new Error('No JSON array found in response');\n    }\n  }\n  \n  // Normalize each tweet\n  const dataArray = Array.isArray(data) ? data : [data];\n  for (const tweet of dataArray) {\n    const dateStr = new Date().toISOString().split('T')[0];\n    tweets.push({\n      platform: 'twitter',\n      source_id: tweet.id || tweet.tweet_id || `twitter_${Date.now()}_${Math.random()}`,\n      author: tweet.author || tweet.username || 'unknown',\n      text: tweet.text || tweet.content || '',\n      url: tweet.url || `https://twitter.com/i/status/${tweet.id}`,\n      created_at: tweet.created_at || new Date().toISOString(),\n      engagement_json: JSON.stringify({\n        likes: parseInt(tweet.likes) || 0,\n        retweets: parseInt(tweet.retweets) || 0,\n        replies: parseInt(tweet.replies) || 0\n      }),\n      dedupe_key: `twitter_${tweet.id || Date.now()}_${dateStr}`\n    });\n  }\n} catch (error) {\n  console.error('Parse error:', error.message);\n  return [{ json: { error: error.message, raw: response } }];\n}\n\nif (tweets.length === 0) {\n  return [{ json: { error: 'No tweets parsed', raw: response } }];\n}\n\nreturn tweets.map(t => ({ json: t }));"
+      },
+      "id": "d4e5f6a7-b8c9-0123-def1-234567890123",
+      "name": "Parse Twitter Data",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [850, 300],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "=SELECT id FROM content_raw WHERE dedupe_key = '{{ $json.dedupe_key }}' LIMIT 1",
+        "options": {}
+      },
+      "id": "e5f6a7b8-c9d0-1234-ef12-345678901234",
+      "name": "Check Duplicates",
+      "type": "n8n-nodes-base.sqlite",
+      "typeVersion": 1,
+      "position": [1050, 300],
+      "credentials": {
+        "sqlite": {
+          "id": "1",
+          "name": "social-monitoring-db"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{ $json.id }}",
+              "operation": "isEmpty"
+            }
+          ]
+        }
+      },
+      "id": "f6a7b8c9-d0e1-2345-f123-456789012345",
+      "name": "Filter New",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [1250, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:19000/api/chat",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  agentId: 'research',\n  message: `Analyze this tweet and respond with JSON {\\\"sentiment\\\": \\\"positive|negative|neutral\\\", \\\"keywords\\\": [\\\"word1\\\", \\\"word2\\\", \\\"word3\\\"]}:\\n\\n${$json.text}`\n}) }}",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "a7b8c9d0-e1f2-3456-1234-567890123456",
+      "name": "Sentiment Analysis",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [1450, 200],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "functionCode": "const enrichment = $input.item.json;\nconst original = $input.all()[0].json;\n\nlet sentiment = 'neutral';\nlet keywords = [];\n\ntry {\n  // Try to parse JSON response from LLM\n  const responseText = enrichment.response || enrichment.message || JSON.stringify(enrichment);\n  const jsonMatch = responseText.match(/\\{[^}]*\\\"sentiment\\\"[^}]*\\}/s);\n  \n  if (jsonMatch) {\n    const parsed = JSON.parse(jsonMatch[0]);\n    sentiment = parsed.sentiment || 'neutral';\n    keywords = parsed.keywords || [];\n  } else {\n    // Fallback: simple text analysis\n    const text = responseText.toLowerCase();\n    if (text.includes('positive')) sentiment = 'positive';\n    else if (text.includes('negative')) sentiment = 'negative';\n    \n    // Extract words in quotes or after \"keywords:\"\n    const keywordMatch = text.match(/keywords?:?\\s*([^\\n]+)/i);\n    if (keywordMatch) {\n      keywords = keywordMatch[1].split(',').map(k => k.trim().replace(/[\"'\\[\\]]/g, '')).slice(0, 5);\n    }\n  }\n} catch (error) {\n  console.error('Enrichment parse error:', error.message);\n}\n\nreturn [{\n  json: {\n    ...original,\n    sentiment,\n    keywords: JSON.stringify(keywords),\n    trend_score: 0.0\n  }\n}];"
+      },
+      "id": "b8c9d0e1-f2a3-4567-2345-678901234567",
+      "name": "Parse Enrichment",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [1650, 200]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "=INSERT INTO content_raw (platform, source_id, author, text, url, created_at, engagement_json, dedupe_key, captured_at)\nVALUES (\n  '{{ $json.platform }}',\n  '{{ $json.source_id }}',\n  '{{ $json.author }}',\n  '{{ $json.text.replace(/'/g, \"''\") }}',\n  '{{ $json.url }}',\n  '{{ $json.created_at }}',\n  '{{ $json.engagement_json }}',\n  '{{ $json.dedupe_key }}',\n  datetime('now')\n)",
+        "options": {}
+      },
+      "id": "c9d0e1f2-a3b4-5678-3456-789012345678",
+      "name": "Insert Content",
+      "type": "n8n-nodes-base.sqlite",
+      "typeVersion": 1,
+      "position": [1850, 200],
+      "credentials": {
+        "sqlite": {
+          "id": "1",
+          "name": "social-monitoring-db"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "=SELECT last_insert_rowid() as content_id",
+        "options": {}
+      },
+      "id": "d0e1f2a3-b4c5-6789-4567-890123456789",
+      "name": "Get Content ID",
+      "type": "n8n-nodes-base.sqlite",
+      "typeVersion": 1,
+      "position": [2050, 200],
+      "credentials": {
+        "sqlite": {
+          "id": "1",
+          "name": "social-monitoring-db"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "=INSERT INTO content_signals (content_id, sentiment, keywords_json, trend_score, enriched_at)\nVALUES (\n  {{ $json.content_id }},\n  '{{ $node[\"Parse Enrichment\"].json.sentiment }}',\n  '{{ $node[\"Parse Enrichment\"].json.keywords }}',\n  {{ $node[\"Parse Enrichment\"].json.trend_score }},\n  datetime('now')\n)",
+        "options": {}
+      },
+      "id": "e1f2a3b4-c5d6-7890-5678-901234567890",
+      "name": "Insert Signals",
+      "type": "n8n-nodes-base.sqlite",
+      "typeVersion": 1,
+      "position": [2250, 200],
+      "credentials": {
+        "sqlite": {
+          "id": "1",
+          "name": "social-monitoring-db"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $node[\"Parse Enrichment\"].json.sentiment }}",
+              "operation": "equals",
+              "value2": "negative"
+            }
+          ]
+        },
+        "combineOperation": "any"
+      },
+      "id": "f2a3b4c5-d6e7-8901-6789-012345678901",
+      "name": "Check Alert Threshold",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [2450, 200]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:5678/webhook/slack-post",
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  channel: 'C0AEV3J2L23',\n  text: `🚨 Twitter Alert\\n*Sentiment:* ${$node[\"Parse Enrichment\"].json.sentiment}\\n*Author:* ${$node[\"Parse Enrichment\"].json.author}\\n*Text:* ${$node[\"Parse Enrichment\"].json.text.substring(0, 200)}...\\n*URL:* ${$node[\"Parse Enrichment\"].json.url}`\n}) }}"
+      },
+      "id": "a3b4c5d6-e7f8-9012-7890-123456789012",
+      "name": "Alert to Slack",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [2650, 100]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "=INSERT INTO workflow_runs (workflow_name, started_at, ended_at, status, records_in, records_out, cost_estimate, run_duration_ms)\nVALUES (\n  'twitter-service',\n  '{{ $node[\"Init Run\"].json.startTime }}',\n  datetime('now'),\n  'success',\n  1,\n  1,\n  0.05,\n  (julianday('now') - julianday('{{ $node[\"Init Run\"].json.startTime }}')) * 86400000\n)",
+        "options": {}
+      },
+      "id": "b4c5d6e7-f8a9-0123-8901-234567890123",
+      "name": "Log Run Success",
+      "type": "n8n-nodes-base.sqlite",
+      "typeVersion": 1,
+      "position": [2650, 300],
+      "credentials": {
+        "sqlite": {
+          "id": "1",
+          "name": "social-monitoring-db"
+        }
+      },
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "=INSERT INTO dlq_events (workflow_name, payload_json, error, failed_at)\nVALUES (\n  'twitter-service',\n  '{{ JSON.stringify($json) }}',\n  '{{ $json.error || \"Unknown error\" }}',\n  datetime('now')\n)",
+        "options": {}
+      },
+      "id": "c5d6e7f8-a9b0-1234-9012-345678901234",
+      "name": "DLQ Handler",
+      "type": "n8n-nodes-base.sqlite",
+      "typeVersion": 1,
+      "position": [1450, 400],
+      "credentials": {
+        "sqlite": {
+          "id": "1",
+          "name": "social-monitoring-db"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Every 30min": {
+      "main": [
+        [
+          {
+            "node": "Init Run",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Init Run": {
+      "main": [
+        [
+          {
+            "node": "Fetch Twitter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Twitter": {
+      "main": [
+        [
+          {
+            "node": "Parse Twitter Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Twitter Data": {
+      "main": [
+        [
+          {
+            "node": "Check Duplicates",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "DLQ Handler",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Duplicates": {
+      "main": [
+        [
+          {
+            "node": "Filter New",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter New": {
+      "main": [
+        [
+          {
+            "node": "Sentiment Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Log Run Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sentiment Analysis": {
+      "main": [
+        [
+          {
+            "node": "Parse Enrichment",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Enrichment": {
+      "main": [
+        [
+          {
+            "node": "Insert Content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert Content": {
+      "main": [
+        [
+          {
+            "node": "Get Content ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Content ID": {
+      "main": [
+        [
+          {
+            "node": "Insert Signals",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert Signals": {
+      "main": [
+        [
+          {
+            "node": "Check Alert Threshold",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Alert Threshold": {
+      "main": [
+        [
+          {
+            "node": "Alert to Slack",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Log Run Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Alert to Slack": {
+      "main": [
+        [
+          {
+            "node": "Log Run Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {},
+  "versionId": "1",
+  "id": "twitter-service-001",
+  "meta": {
+    "instanceId": "redos-n8n"
+  },
+  "tags": []
+}
