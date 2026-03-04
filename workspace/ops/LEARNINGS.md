@@ -1013,6 +1013,21 @@ repeating mistakes and to build institutional knowledge.
 - **Prevention:** When writing n8n Code nodes typeVersion 2, always set `mode` explicitly. Per-item = no array wrapper. All-items = array wrapper. Test with manual execution.
 - **Applied To:** 4 n8n workflows (twitter-service, reddit-service, aggregator-service, shared-observability)
 
+### LEARNING-20260304-005
+- **Date:** 2026-03-04T03:10Z
+- **Source:** n8n social monitoring pipeline verification
+- **Agent:** OPS
+- **Category:** n8n Integration Pattern
+- **Summary:** n8n `/api/chat` calls return async dispatch receipts — never use for data retrieval inside workflows
+- **Problem:** n8n `httpRequest` nodes calling `POST http://localhost:19000/api/chat` get back `{ok: true, status: "dispatched", runId: "..."}` immediately. The RESEARCH agent then runs independently and posts results to Slack/Telegram — NOT back to n8n. Downstream nodes receive the dispatch receipt, not real data.
+- **Fix:** Replace `/api/chat` calls in n8n workflows with synchronous alternatives:
+  - Reddit: `curl -s https://www.reddit.com/r/SUBREDDIT/hot.json` (free, reliable, no auth)
+  - Twitter: `bash ~/.openclaw/scripts/scrapling-fetch.sh stealthy <url>` via `execSync` in Code node
+  - Sentiment/enrichment: Local keyword-based Code node (no LLM needed for basic NLP)
+- **n8n PUT API rule:** When PUTting a workflow, strip all read-only fields: `updatedAt`, `createdAt`, `id`, `active`, `isArchived`, `meta`, `pinData`, `staticData`, `versionId`, `activeVersionId`, `versionCounter`, `triggerCount`, `shared`, `tags`, `activeVersion`. Only send: `name`, `nodes`, `connections`, `settings`.
+- **Timing rule:** Workflow fixes must be applied BEFORE the scheduled run fires. n8n pre-queues scheduled jobs at runtime — if the schedule fires at T+0, your fix must be in place at T-1min or earlier. If you miss a run, wait for the next one (don't try to force-trigger scheduled workflows — `POST /executions/{id}/retry` only works for failed executions, not schedule triggers).
+- **Applied To:** twitter-service, reddit-service (Fetch, Parse, Sentiment Analysis, Parse Enrichment nodes)
+
 ### LEARNING-20260304-003
 - **Date:** 2026-03-04T01:40Z
 - **Source:** openclaw.json schema validation
