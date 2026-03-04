@@ -15,6 +15,20 @@ import sys, os, json, argparse, hashlib, uuid
 from pathlib import Path
 from datetime import datetime, timezone
 
+
+def _bootstrap_venv_site_packages():
+    """Allow `python3 memsearch.py` to reuse deps from ~/.openclaw/.venv."""
+    venv_lib = Path.home() / ".openclaw" / ".venv" / "lib"
+    if not venv_lib.exists():
+        return
+    for site_pkg in sorted(venv_lib.glob("python*/site-packages"), reverse=True):
+        site_pkg_str = str(site_pkg)
+        if site_pkg_str not in sys.path:
+            sys.path.insert(0, site_pkg_str)
+
+
+_bootstrap_venv_site_packages()
+
 WORKSPACE  = Path.home() / ".openclaw" / "workspace"
 INDEX_DIR  = Path.home() / ".openclaw" / ".memsearch"
 HASH_FILE  = INDEX_DIR / "file-hashes.json"

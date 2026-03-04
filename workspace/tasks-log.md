@@ -13,3 +13,6 @@ AUTO-018 | ops | 2026-03-03 00:16 EST | done | Calculated real_autonomy_score=10
 AUTO-017 | eng | 2026-03-03T00:19:04Z | done | Added pre-task RAG/memsearch instructions across agent SOUL files, patched memsearch venv bootstrap, and verified rag_query returns context for 9router token refresh fix.
 AUTO-030 | eng | 2026-03-02 22:53 EST | done | Recovered dispatch-timeout task: confirmed AUTO-030 superseded by completed coordination protocol work (AUTO-028/AUTO-021), documented timeout recovery process in docs/timeout-recovery-process.md
 AUTO-014 | finance | 2026-03-03T03:53:41Z | done | Wrote weekly cost report to workspace/costs/weekly-report-2026-03-03.md (providers, budget vs $15/day, tracking data needs)
+AUTO-035 | eng | 2026-03-03T04:15:00Z | done | Added JS/TS parsing to analyze_codebase.py via esprima+TS fallback, tested on ky TS repo excluding node_modules, updated multi-language output summaries, and documented language support in README
+AUTO-011 | infosec | 2026-03-03T04:24:09Z | done | Security audit complete: 3 CRITICAL + 5 HIGH + 3 MEDIUM findings in watchdog scripts. Telegram token exposed, command injection risks, unsafe db.json restoration. Full report: workspace/docs/watchdog-security-audit.md
+AUTO-018 | ops | 2026-03-03 04:56 EST | done | Calculated real_autonomy_score=100% (8/8 tasks)

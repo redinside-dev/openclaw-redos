@@ -16,15 +16,11 @@
 
 | Task ID | Priority | Assigned To | Task | Status |
 |---------|----------|-------------|------|--------|
-| AUTO-009 | P1 | ops | Verify 3 new watchdog LaunchAgents are running: 9router-watchdog, model-outage-monitor, session-overflow-monitor. Run each script manually once and confirm no errors. Post result to #redos-ops | PENDING |
-| AUTO-010 | P1 | eng | Implement 9router token refresh cron (every 6h) for kiro/claude tokens — post-incident iflow and codex tokens lost. Verify all provider connections in db.json are valid after refresh | PENDING |
-| AUTO-011 | P1 | infosec | Security audit of new watchdog scripts: verify Telegram token is not exposed in logs, verify db.json backup permissions (600), verify session archive does not leak session content. Post findings to #redos-infosec | IN_PROGRESS (claimed 2026-03-02T23:01Z by dispatcher) |
-| AUTO-012 | P2 | ops | Add 9router process health to the morning autonomy-scorecard check. Score should include: 9router uptime, db.json size, session overflow count | PENDING |
+
+
 | AUTO-013 | P2 | eng | Validate all fallback model chains in openclaw.json are live — test each model in each agent's fallback array and remove/replace any that return errors | PENDING |
-| AUTO-014 | P1 | finance | Implement weekly cost report cron (GOAL-004): analyze workspace/costs/*.json, compute daily avg, cache hit rate, top 3 expensive agents. Post to #redos-finance | IN_PROGRESS (claimed 2026-03-02T23:01Z by dispatcher) |
-| AUTO-016 | P1 | ops | Verify autonomous-task-dispatcher-0001 is running cleanly (no consecutiveErrors). Check workspace/logs/dispatch.jsonl for last 3 entries. Post result to #redos-ops | PENDING |
-| AUTO-017 | P2 | eng | Wire rag_query.py into pre-task retrieval: ensure memsearch and rag_query are callable from any agent session. Test with: python3 ~/.openclaw/workspace/scripts/rag_query.py "9router token refresh fix" and confirm results return | PENDING |
-| AUTO-018 | P2 | ops | Add real_autonomy_score to STATE.yaml nightly: compute (verified_completions / dispatched_tasks) * 100 from tasks-log.md. Add nightly cron for OPS to calculate and write to STATE.yaml | PENDING |
+
+| AUTO-022 | P2 | ops | GOAL-006 Self-Healing Infrastructure (DUE: 2026-03-05 23:59 EST): Auto-rotate credentials (Perplexity/GitHub tokens), auto-provision missing files/paths (fix INFOSEC blockers), create health monitors with remediation loops. Deliverable: Credential rotation cron, file provisioning script, 2+ health monitors with auto-fix | PENDING |
 
 ---
 
@@ -40,6 +36,11 @@
 | AUTO-006 | RED | 2026-02-28 | 14 stale tickets resolved, 3 escalated |
 | AUTO-008 | — | — | Path verified correct; ENG sandbox has ../workspace/ access |
 | AUTO-015 | RED | 2026-03-02 | Research-to-eng pipeline verified via AUTO-005 in tasks-log.md |
+| AUTO-017 | eng | 2026-03-03 | RAG/memsearch wired into all agent SOUL files, tested successfully |
+| AUTO-018 | ops | 2026-03-03 | Autonomy score tracking live with nightly cron |
+| AUTO-019 | eng | 2026-03-03 | Context Engineering complete: A2A handoff protocol + knowledge bases for 3 agents |
+| AUTO-020 | ops | 2026-03-03 | Force Resolution Pattern complete: 3 watchdog scripts upgraded, SLA handler, dependency blocker |
+| AUTO-021 | eng | 2026-03-03 | Coordination Protocol complete: sessions_send retry wrapper, conflict resolution protocol |
 
 ---
 
