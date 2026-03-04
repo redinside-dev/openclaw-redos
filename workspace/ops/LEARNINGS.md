@@ -1114,3 +1114,41 @@ repeating mistakes and to build institutional knowledge.
   - ❌ Not used: SecretRefs (all creds plaintext), ACP runtime, Diffs plugin, TTS/Talk, Docker sandbox, LanceDB memory, Zalo plugin, Config Includes ($include), Bedrock auto-discovery
   - ⚠️ Known bugs: per-agent heartbeat interval ignored (#14986), per-agent thinking level in config ignored (#21624), nodes.run broken in 2026.3.2 (#33080)
 - **Next sessions:** Implement SecretRefs for credential management (HIGH priority for production)
+
+---
+
+## LEARNING-20260304-002 — OpenClaw 2026.3.2 SecretRef validation (CRITICAL)
+
+**Problem:** Gateway crash-loops on startup with "Secret provider 'default' is not configured" for any apiKey using `{source:"file", provider:"default", id:"..."}`.
+
+**Root cause:** OpenClaw 2026.3.2 added strict secrets validation. Without a `secrets.providers` section in openclaw.json, the "default" provider alias is unconfigured. HOWEVER — env refs with `provider:"default"` work via a passthrough ONLY when `providers["default"]` is NOT configured.
+
+**Fix:**
+```json
+"secrets": {
+  "providers": {
+    "credentials-file": {
+      "source": "file",
+      "path": "/Users/redinside/.openclaw/credentials/secrets.json"
+    }
+  }
+}
+```
+- Name it anything other than "default" (e.g. "credentials-file")
+- Create `credentials/secrets.json` with `{"providers": {"9router": "...", "zai": "..."}}` (chmod 600)
+- Update all `apiKey` file refs to `provider: "credentials-file"`, `id: "/providers/<name>"`
+- Leave env refs with `provider: "default"` — they use builtin env passthrough
+
+## LEARNING-20260304-003 — fastembed ONNX cache corruption pattern
+
+**Symptom:** `rag_query.py` throws `ONNXRuntimeError: NO_SUCHFILE: model_optimized.onnx`  
+**Cause:** fastembed cache at `/var/folders/.../fastembed_cache/` has partial download (no .onnx file)  
+**Fix:** `rm -rf /var/folders/bs/srf_0gbd0y13hwm0_g5jvdcw0000gn/T/fastembed_cache/` — next run re-downloads  
+**Note:** memsearch.py uses fastembed (BAAI/bge-small-en-v1.5, 384-dim), NOT Ollama. nomic-embed-text is rejected by openclaw.json schema.
+
+## LEARNING-20260304-004 — openclaw.json schema-rejected keys (don't add these)
+
+The following keys are NOT in the openclaw.json schema and will fail `openclaw doctor`:
+- `agents.defaults.memorySearch.embeddingModel` (not valid)
+- `gateway.ws.pingInterval` / `gateway.ws.pingTimeout` (not valid)
+Always run `openclaw doctor` after any openclaw.json change.
