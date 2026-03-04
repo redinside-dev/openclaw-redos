@@ -33,35 +33,42 @@ function calculateAutonomyScore() {
     // Count verified completions (lines with status "done")
     let dispatchedTasks = 0;
     let verifiedCompletions = 0;
+    const perAgent = {};
 
     for (const line of lines) {
       const trimmed = line.trim();
-      
+
       // Skip headers, separators, empty lines
-      if (!trimmed || trimmed.startsWith('#') || trimmed.startsWith('|---') || 
+      if (!trimmed || trimmed.startsWith('#') || trimmed.startsWith('|---') ||
           trimmed.startsWith('| Task ID') || trimmed === '---') {
         continue;
       }
 
-      // Parse task line: AUTO-NNN | agent | timestamp | status | result
-      if (trimmed.startsWith('|') || /^(AUTO|TASK|BOOTSTRAP)-/.test(trimmed)) {
+      // Parse task line: AUTO-NNN | agentId | timestamp | status | result
+      if (trimmed.startsWith('|') || /^(AUTO|TASK|BOOTSTRAP|CONTEXT)-/.test(trimmed)) {
         dispatchedTasks++;
-        
-        // Check if status is "done"
-        if (trimmed.includes('| done |') || trimmed.includes('|done|')) {
+        const parts = trimmed.replace(/^\|/, '').split('|').map(s => s.trim());
+        const agentId = parts[1] || 'unknown';
+        const status = parts[3] || '';
+        if (!perAgent[agentId]) perAgent[agentId] = { dispatched: 0, completed: 0 };
+        perAgent[agentId].dispatched++;
+
+        if (status === 'done' || trimmed.includes('| done |') || trimmed.includes('|done|')) {
           verifiedCompletions++;
+          perAgent[agentId].completed++;
         }
       }
     }
 
     // Calculate score
-    const realAutonomyScore = dispatchedTasks > 0 
-      ? Math.round((verifiedCompletions / dispatchedTasks) * 100) 
+    const realAutonomyScore = dispatchedTasks > 0
+      ? Math.round((verifiedCompletions / dispatchedTasks) * 100)
       : 0;
 
     console.log(`Dispatched tasks: ${dispatchedTasks}`);
     console.log(`Verified completions: ${verifiedCompletions}`);
     console.log(`Real autonomy score: ${realAutonomyScore}%`);
+    console.log('Per-agent breakdown:', JSON.stringify(perAgent));
 
     // Read STATE.yaml
     if (!fs.existsSync(STATE_YAML_PATH)) {
@@ -81,6 +88,7 @@ function calculateAutonomyScore() {
     state.metrics.dispatched_tasks_total = dispatchedTasks;
     state.metrics.verified_completions_total = verifiedCompletions;
     state.metrics.last_autonomy_calc = new Date().toISOString();
+    state.metrics.per_agent_completions = perAgent;
     state.last_updated = new Date().toISOString();
     state.updated_by = 'ops-autonomy-calc';
 

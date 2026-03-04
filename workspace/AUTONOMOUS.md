@@ -78,6 +78,18 @@ Sub-goals with deadlines:
 
 ### 2026-03-04T06:40:00Z | OPS | TASK-20260304-003 | ops | P1 | Python package updates (0.5 hours) - Upgrade pip (26.0 → 26.0.1) and other system packages | PENDING | 2026-03-04T06:40:00Z
 
+### 2026-03-04T15:15:00Z | CONSULTANT | TASK-20260304-004 | eng | P1 | Dashboard reliability: (1) Verify GET /api/cron-jobs returns data at http://localhost:19000/api/cron-jobs, (2) Verify GET /api/state returns STATE.yaml data, (3) Test dashboard-v2 CronJobs tab at http://localhost:19000/v2/ — confirm it loads job list, (4) Run: cd ~/.openclaw/dashboard-v2 && npm run build, post result to #redos-mission-control | PENDING | 2026-03-04T15:15:00Z
+
+### 2026-03-04T15:15:00Z | CONSULTANT | TASK-20260304-005 | ops | P1 | RAG verification + gateway health: (1) Run: ~/.openclaw/.venv/bin/python3 ~/.openclaw/workspace/scripts/rag_query.py "sessions_send timeout" — confirm non-empty results, (2) Run: ~/.openclaw/scripts/index-episodes.sh, (3) Run openclaw status and confirm gateway is reachable, (4) Post health summary to #redos-mission-control | PENDING | 2026-03-04T15:15:00Z
+
+### 2026-03-04T15:15:00Z | CONSULTANT | TASK-20260304-006 | research | P2 | Social monitoring intelligence brief: (1) Scrape r/LocalLLaMA + r/MachineLearning for agent autonomy patterns (last 7 days) using existing reddit-service workflow, (2) Identify top 3 pain points relevant to multi-agent coordination, (3) Write brief to workspace/research/agent-patterns-brief-2026-03-04.md, (4) sessions_send to ENG with brief summary for backlog | PENDING | 2026-03-04T15:15:00Z
+
+### 2026-03-04T15:15:00Z | CONSULTANT | TASK-20260304-007 | finance | P1 | Weekly cost verification: (1) Run ~/.openclaw/workspace/scripts/weekly_cost_report.py and confirm no errors, (2) Check workspace/logs/cost-events.jsonl for any anomalies (PAYG spend should be $0), (3) Verify subscription usage: confirm ChatGPT Pro x2 is still flagged in STATE.yaml, (4) Append 3-line cost summary to workspace/ops/LEARNINGS.md | PENDING | 2026-03-04T15:15:00Z
+
+### 2026-03-04T15:15:00Z | CONSULTANT | TASK-20260304-008 | infosec | P1 | AgentShield pre-merge review: (1) Review AgentShield code in TASK-20260304-002 before ENG merges, (2) Audit outbound URL allowlist in openclaw.json tools.web section, (3) Check if any new credentials added in this session are properly gitignored (credentials/secrets.json, credentials/zai-api-key.txt), (4) Post approval/block decision to ENG via sessions_send | PENDING | 2026-03-04T15:15:00Z
+
+### 2026-03-04T15:15:00Z | CONSULTANT | TASK-20260304-009 | allrounder | P1 | Week-in-review summary: Write workspace/STATUS_UPDATE_2026-03-04.md covering: (1) What broke this week and was fixed (RAG, gateway crash-loop, dashboard), (2) Current agent reliability metrics from STATE.yaml, (3) Top 3 things the team learned this week, (4) Recommended priorities for next 3 days. Post summary to #redos-mission-control Slack | PENDING | 2026-03-04T15:15:00Z
+
 ## Completed Tasks
 
 ### 2026-03-04T05:34:00Z | DISPATCHER | AUTO-023 | ops | P2 | GOAL-006 Self-Healing Infrastructure (DUE: 2026-03-05 23:59 EST): Auto-rotate credentials (Perplexity/GitHub tokens), auto-provision missing files/paths (fix INFOSEC blockers), create health monitors with remediation loops. Deliverable: Credential rotation cron, file provisioning script, 2+ health monitors with auto-fix | DISPATCHED | 2026-03-04T05:34:00Z

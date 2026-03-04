@@ -736,6 +736,52 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // --- GET /api/cron-jobs (dashboard-v2 CronJobs tab) ---
+  if (req.method === 'GET' && url.pathname === '/api/cron-jobs') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify(getCronJobs()));
+    return;
+  }
+
+  // --- GET /api/state (dashboard-v2 Overview — STATE.yaml as JSON) ---
+  if (req.method === 'GET' && url.pathname === '/api/state') {
+    try {
+      const stateFile = path.join(OPENCLAW_DIR, 'workspace', 'STATE.yaml');
+      if (!fs.existsSync(stateFile)) { res.writeHead(404); res.end(JSON.stringify({ error: 'STATE.yaml not found' })); return; }
+      const yaml = fs.readFileSync(stateFile, 'utf8');
+      // Parse YAML minimally — convert to JSON via simple key:value extraction
+      const state = {};
+      const lines = yaml.split('\n');
+      let current = state;
+      const stack = [{ obj: state, indent: -1 }];
+      for (const line of lines) {
+        const trimmed = line.trimEnd();
+        if (!trimmed || trimmed.startsWith('#')) continue;
+        const indent = trimmed.length - trimmed.trimStart().length;
+        const match = trimmed.trim().match(/^([^:]+):\s*(.*)$/);
+        if (!match) continue;
+        const [, key, val] = match;
+        while (stack.length > 1 && stack[stack.length - 1].indent >= indent) stack.pop();
+        const parent = stack[stack.length - 1].obj;
+        if (!val || val === '{}') {
+          parent[key.trim()] = {};
+          stack.push({ obj: parent[key.trim()], indent });
+        } else if (val.startsWith("'") || val.startsWith('"')) {
+          parent[key.trim()] = val.replace(/^['"]|['"]$/g, '');
+        } else if (!isNaN(Number(val))) {
+          parent[key.trim()] = Number(val);
+        } else {
+          parent[key.trim()] = val;
+        }
+      }
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify(state));
+    } catch (e) {
+      res.writeHead(500); res.end(JSON.stringify({ error: e.message }));
+    }
+    return;
+  }
+
   // --- Cron job model update ---
   if (req.method === 'PATCH' && url.pathname.startsWith('/api/cron-jobs/')) {
     const jobId = url.pathname.split('/api/cron-jobs/')[1];
@@ -1190,6 +1236,10 @@ const server = http.createServer((req, res) => {
       byProvider[provider].cost_usd += cost;
     }
 
+    // Build byModel cost map for v2 Overview
+    const byModelCost = {};
+    for (const [m, stats] of Object.entries(byModel)) byModelCost[m] = stats.cost_usd;
+
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({
       dailySpend: Math.round(dailySpend * 10000) / 10000,
@@ -1201,6 +1251,20 @@ const server = http.createServer((req, res) => {
       recentCosts: todayCosts.slice(-20),
       recentRouting: routing.slice(-20),
       recentAnalytics: analytics.slice(-20),
+      // v2 dashboard shape
+      data: {
+        today: {
+          total: Math.round(dailySpend * 10000) / 10000,
+          requests: totalCalls,
+          byModel: byModelCost,
+        },
+        recentFeed: analytics.slice(-20).map(a => ({
+          agent: a.agent,
+          model: a.model,
+          cost: a.cost_usd,
+          ts: a.ts || a.timestamp,
+        })),
+      },
     }));
     return;
   }

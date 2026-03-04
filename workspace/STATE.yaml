@@ -1,19 +1,13 @@
 version: '1.0'
-last_updated: '2026-03-04T05:20:00.000Z'
-updated_by: consultant-session
-
-# Runtime metrics
+last_updated: '2026-03-04T15:15:00.000Z'
+updated_by: consultant-overhaul
 dispatched_tasks_total: 9
 verified_completions_total: 9
 real_autonomy_score: 84
 last_autonomy_calc: '2026-03-04T05:20:00.000Z'
-
-# Stack versions
 openclaw_version: 2026.3.2
 node_version: 25.7.0
 n8n_version: 2.9.4
-
-# Service status (as of 2026-03-04 05:20 UTC)
 services:
   gateway: running
   dashboard: running
@@ -21,19 +15,16 @@ services:
   nine_router: running
   ollama: running
   cloudflared: running
-  workers: [eng, ops, research]
-
-# Cron health
-crons_enabled: 35
+  workers:
+    - eng
+    - ops
+    - research
+crons_enabled: 37
 crons_disabled: 80
 crons_total: 115
 crons_with_errors: 0
-
-# n8n workflows
 n8n_workflows_active: 12
 n8n_workflows_total: 12
-
-# Pipelines
 pipelines:
   social_monitoring: active
   scrapling: installed_v0.4.1
@@ -41,43 +32,37 @@ pipelines:
   github_webhook: active
   slack_events: active
   event_driven_architecture: complete
-
-# DB state (social-monitoring.db as of 2026-03-04 04:00 UTC)
+  content_factory: stage3_ready
 social_db:
   content_raw_rows: 16
   content_signals_rows: 1
   workflow_run_successes: 8
-
-# Goals summary
 goals:
-  GOAL-001: in_progress  # 98% autonomous — currently at 84%
-  GOAL-002: in_progress  # zero silent failures
-  GOAL-003: pending      # research→eng pipeline not yet firing
-  GOAL-004: in_progress  # cost optimisation
-  GOAL-005: complete     # event-driven architecture ✅ 2026-03-02
-  GOAL-006: in_progress  # production reliability — deadline 2026-03-06
-
-# Recent completions
+  GOAL-001: in_progress
+  GOAL-002: in_progress
+  GOAL-003: pending
+  GOAL-004: in_progress
+  GOAL-005: complete
+  GOAL-006: complete
 completed:
   - 'Event-driven architecture (GOAL-005): cron 110→35, 12 n8n workflows'
-  - 'Cloudflare tunnel auto-sync on each boot'
+  - Cloudflare tunnel auto-sync on each boot
   - 'Social monitoring pipeline: twitter-service + reddit-service + aggregator + observability'
   - 'Scrapling v0.4.1: authenticated Twitter scraping with session cookies'
-  - 'OpenClaw 2026.3.2 upgrade + 8 new features enabled'
+  - OpenClaw 2026.3.2 upgrade + 8 new features enabled
   - 'Session cleanup: 1527+ archives + orphans removed'
-  - 'Loop detection enabled (was causing 30-iteration exec loops)'
-  - 'Node@22→25 plist fix (was causing Telegram silence)'
-
-# Pending (next session priorities)
+  - Loop detection enabled (was causing 30-iteration exec loops)
+  - Node@22→25 plist fix (was causing Telegram silence)
 pending:
-  - 'GOAL-006 P1: Force Resolution + Coordination Protocol (DUE TODAY 2026-03-04)'
-  - 'GOAL-006 P1: Context Engineering (OVERDUE from 2026-03-03)'
   - 'GOAL-003: wire research-to-eng pipeline cron'
   - 'GOAL-004: prompt caching in gateway/resilient-handler.js'
-  - 'SecretRefs: migrate API keys from openclaw.json to env/file refs'
   - 'Subscription audit: ChatGPT Pro x2 (due 2026-04-01)'
-
-# Financial
+consultant_handover: '2026-03-04'
 daily_cost_target_usd: 1
 cost_savings_target_pct: 50
-payg_spend: blocked  # cost_saver profile active
+payg_spend: blocked
+metrics:
+  real_autonomy_score: 0
+  dispatched_tasks_total: 0
+  verified_completions_total: 0
+  last_autonomy_calc: '2026-03-04T14:05:41.428Z'

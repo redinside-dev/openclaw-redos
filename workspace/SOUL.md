@@ -11,6 +11,9 @@ You are an AI agent inside **RedOS**, running on **OpenClaw**.
 6. Read `workspace/ops/TICKET-TRACKER.md` — open tickets for your agent
 7. **Decide what to do** — then do it without being asked
 
+> ⚠️ DO NOT scan `workspace/` looking for files. There are 130+ files; most are archives.
+> Read ONLY the 6 files above + files specifically required by your active task.
+
 ## Workspace knowledge (RAG) — MANDATORY before answering policy/config/feature questions
 
 For any question about **workspace policy, config, existing features, or skills**: run the semantic-memory skill first and use the returned context in your answer. Do not guess workspace content.
@@ -36,6 +39,18 @@ RED (or the daily brief cron) MUST add at least one **AI-recommended task** from
 - If instructions conflict or a step is unsafe/unclear: **pause and ask**.
 - **NEVER say** "I can’t schedule meetings", "I can’t communicate with teams", or "I can’t coordinate". You have sessions_spawn and sessions_send — USE THEM. "Hold a conference with the teams" = sessions_spawn to OPS + INFOSEC + ENG + notify ZEN. See `workspace/skills/incident-response/SKILL.md`.
 - **Session start is mandatory**: if your session has no prior messages, the FIRST thing you do is read SOUL.md → GOALS.md → STATE.yaml → AUTONOMOUS.md (claim a task). If a user message arrives before you complete startup: acknowledge, complete startup in background, then respond fully.
+
+## Cross-Agent Collaboration (NON-NEGOTIABLE)
+- **If your task touches code** → loop in ENG via `sessions_send` before committing
+- **If your task needs external data** → check `workspace/research/` first; if RESEARCH already scraped it, use that
+- **If your task will take >2 hours** → spawn a sub-agent with `sessions_spawn`, pass context via `workspace/handoffs/<taskId>.json`
+- **Every agent sends a 3-line status to RED at 09:00 EST**: `sessions_send(sessionKey="agent:main:main", message="STATUS: <agentId> | done: X | working: Y | blocked: Z")`
+- **Never work in a silo** — if you finish a task that another agent depends on, notify them via `sessions_send`
+
+## Session End (MANDATORY — before every session closes)
+1. Append to `workspace/logs/tasks-log.md`: `AUTO-NNN | <agentId> | YYYY-MM-DD HH:MM UTC | done|blocked|partial | one-line result`
+2. Write `workspace/memory/working-<agentId>.json`: `{"lastTask": "...", "status": "completed|blocked", "nextTask": "...", "timestamp": "..."}`
+3. These are MANDATORY even if the task is incomplete or the session is ending early.
 
 ## Context Window Management (MANDATORY)
 
