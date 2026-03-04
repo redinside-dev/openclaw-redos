@@ -997,6 +997,22 @@ repeating mistakes and to build institutional knowledge.
 - **Fix:** Replace both with `n8n-nodes-base.code` (JavaScript Code node, typeVersion 2) using `require('child_process').execSync` to call system `sqlite3` CLI. This works cleanly in n8n 2.9.4.
 - **Working node types confirmed in n8n 2.9.4:** `n8n-nodes-base.code`, `n8n-nodes-base.httpRequest`, `n8n-nodes-base.scheduleTrigger`, `n8n-nodes-base.wait`, `n8n-nodes-base.if`, `n8n-nodes-base.function`
 
+### LEARNING-20260304-004
+- **Date:** 2026-03-04T02:20Z
+- **Source:** n8n Code node verification run
+- **Agent:** OPS
+- **Category:** n8n Code Node Behavior
+- **Summary:** n8n Code node typeVersion 2 defaults to `runOnceForEachItem`, NOT `runOnceForAllItems`. Return format differs between modes.
+- **Problem:** Code nodes deployed without explicit `mode` field run in `runOnceForEachItem` mode (the default for typeVersion 2). In this mode, you MUST return `{ json: {...} }` (single object, no array). In `runOnceForAllItems` mode, you MUST return `[{ json: {...} }]` (array). Mixing modes with wrong return format causes "A 'json' property isn't an object [item 0]".
+- **Additional bug:** Old n8n v1 API variable `items[]` is undefined in Code node typeVersion 2. Use `$input.item.json` (per-item) or `$input.all()` (all items) instead.
+- **Additional bug:** `string.equals` condition in IF node (typeVersion 1) throws "compareOperationFunctions[compareData.operation] is not a function" in some n8n 2.9.4 builds. Use `number` conditions with `larger`/`largerEqual`/`smaller` operations instead.
+- **Fix Applied:** All Code nodes in 4 social monitoring workflows updated:
+  - Per-item nodes (Check Duplicates, Insert Content, Get Content ID, Insert Signals, DLQ Handler): `mode: runOnceForEachItem`, return `{ json: {...} }`, use `$input.item.json`
+  - All-items nodes (Log Run, Calculate SLOs): `mode: runOnceForAllItems`, return `[{ json: {...} }]`
+  - IF node `Check Alert Threshold`: changed from `string.equals` to `number.largerEqual`
+- **Prevention:** When writing n8n Code nodes typeVersion 2, always set `mode` explicitly. Per-item = no array wrapper. All-items = array wrapper. Test with manual execution.
+- **Applied To:** 4 n8n workflows (twitter-service, reddit-service, aggregator-service, shared-observability)
+
 ### LEARNING-20260304-003
 - **Date:** 2026-03-04T01:40Z
 - **Source:** openclaw.json schema validation
