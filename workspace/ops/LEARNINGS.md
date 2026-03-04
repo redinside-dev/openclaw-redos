@@ -1216,3 +1216,30 @@ STATE.yaml confirms: “Subscription audit: ChatGPT Pro x2 (due 2026-04-01)”.
 **Fix 2:** Added routing profile aliases (`9router/coding-factory`, `9router/subagent-reliable`, `9router/research-deep`, etc.) to `defaults.models` in openclaw.json so agents can reference these models in sessions_spawn without "model not allowed" errors.
 **Fix 3:** Archived the stuck sessions to clear the loops.
 **Avoid next time:** Model routing guidance in SOUL.md/KNOWLEDGE.md must be framed as cron configuration reference, NOT as agent runtime directives. Agents MUST NOT use sessions.patch for model switching. If a health check cron needs Ollama, set `model: "ollama/qwen3.5:4b"` in the CRON PAYLOAD, not in agent instructions.
+
+---
+
+## LEARNING-20260304-010: Session Loop Watchdog — Multi-Resumption Loop Prevention
+
+**Date:** 2026-03-04
+**Severity:** HIGH
+**Category:** Autonomous Operations
+
+**Problem:** OpenClaw's per-run loop detection (`tools.loopDetection.globalCircuitBreakerThreshold: 30`) only stops tool execution within a single embedded run. After a 10-minute timeout, sessions resume with "Continue where you left off" — resetting the counter. A looping session can run 30 calls → timeout → resume → 30 more → repeat indefinitely. The OPS session `6abedbd5` had 49x identical `ps aux | grep openclaw-gateway` calls and would have continued without intervention.
+
+**Fix:** Created `~/.openclaw/scripts/session-loop-watchdog.sh` — pure bash + Python, no LLM, zero API cost:
+- Runs every 5 minutes via `session-loop-watchdog-0001` cron (OPS, Tier L2)
+- Scans all `agents/*/sessions/*.jsonl` modified in last 15 minutes, >20KB
+- Parses last 50 tool calls; if top repeated command ≥10 times → archives the session
+- Archives by renaming to `.jsonl.archived` (recoverable, not deleted)
+- Logs kills to `workspace/logs/loop-watchdog.log`
+- Posts Slack alert to `C0AEV3MDEDD` via n8n `slack-post` webhook on any kill
+
+**First run findings:** Immediately caught a live loop — `6abedbd5` (49x `ps aux | grep openclaw-gateway`). Real-world validated on first deployment.
+
+**allowedModels schema note:** `agents.defaults.allowedModels` is NOT a valid openclaw.json key — schema rejects it. Cannot technically restrict Ollama from sessions.patch at the config level. Rely on SOUL.md prompt guidance instead ("Do NOT use sessions.patch to change model — ever").
+
+**Avoid next time:** Any cron running bash watchdog scripts should:
+1. Write Python to a temp file rather than using heredoc in `$()` subshell (bash doesn't support it)
+2. Use `trap 'rm -f "$PY_SCRIPT"' EXIT` to clean up temp files
+3. Test with a synthetic fake session (25+ repeated tool calls, >20KB file) before deploying

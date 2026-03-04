@@ -7,7 +7,7 @@
       "name": "Telegram Approval Monitor (RED checks for approve/deny replies)",
       "enabled": true,
       "createdAtMs": 1772080522100,
-      "updatedAtMs": 1772663236158,
+      "updatedAtMs": 1772664197095,
       "schedule": {
         "kind": "cron",
         "expr": "*/2 * * * *",
@@ -26,14 +26,14 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1772663280000,
-        "lastRunAtMs": 1772663187323,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 48835,
+        "nextRunAtMs": 1772664360000,
+        "lastRunAtMs": 1772664107010,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 90085,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 0,
-        "runningAtMs": 1772663538329
+        "consecutiveErrors": 1,
+        "runningAtMs": 1772664480303
       }
     },
     {
@@ -42,7 +42,7 @@
       "name": "System Pulse — Always-On Heartbeat (Ollama only)",
       "enabled": true,
       "createdAtMs": 1772080522100,
-      "updatedAtMs": 1772663106366,
+      "updatedAtMs": 1772664303474,
       "schedule": {
         "kind": "cron",
         "expr": "*/5 * * * *",
@@ -62,14 +62,13 @@
       },
       "state": {
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1772663400000,
-        "lastRunAtMs": 1772663100029,
+        "nextRunAtMs": 1772664600000,
+        "lastRunAtMs": 1772664300032,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 6337,
+        "lastDurationMs": 3442,
         "lastDeliveryStatus": "not-delivered",
-        "lastDelivered": false,
-        "runningAtMs": 1772663538329
+        "lastDelivered": false
       }
     },
     {
@@ -360,9 +359,8 @@
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "not-delivered",
-        "nextRunAtMs": 1772663400000,
-        "lastDelivered": false,
-        "runningAtMs": 1772663538329
+        "nextRunAtMs": 1772664600000,
+        "lastDelivered": false
       }
     },
     {
@@ -646,12 +644,12 @@
         "consecutiveErrors": 0,
         "lastRunAtMs": 1772663058896,
         "lastRunStatus": "ok",
-        "nextRunAtMs": 1772663280000,
+        "nextRunAtMs": 1772664480000,
         "lastStatus": "ok",
         "lastDurationMs": 10704,
         "lastDeliveryStatus": "not-delivered",
         "lastDelivered": false,
-        "runningAtMs": 1772663538329
+        "runningAtMs": 1772664480303
       }
     },
     {
@@ -913,14 +911,14 @@
         "replaces": "inner-loop-*, meta-self-check-*, a2a-*-proactive, sa-*-checkin"
       },
       "state": {
-        "nextRunAtMs": 1772663400000,
-        "lastRunAtMs": 1772661776202,
+        "nextRunAtMs": 1772665200000,
+        "lastRunAtMs": 1772664303474,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 615499,
-        "lastDeliveryStatus": "unknown",
+        "lastDurationMs": 163404,
+        "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "runningAtMs": 1772663538329
+        "lastDelivered": true
       },
       "delivery": {
         "mode": "announce",
@@ -928,7 +926,7 @@
         "bestEffort": true,
         "to": "1012034994"
       },
-      "updatedAtMs": 1772662391701,
+      "updatedAtMs": 1772664466878,
       "wakeMode": "now",
       "sessionTarget": "isolated"
     },
@@ -989,15 +987,14 @@
         "replaces": "c8481b2a-System-Health-Watch, 76777b7a-OPS-Health-Monitor, context-health-check-*"
       },
       "state": {
-        "nextRunAtMs": 1772663400000,
+        "nextRunAtMs": 1772665200000,
         "lastRunAtMs": 1772662391701,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
         "lastDurationMs": 177379,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "lastDelivered": true,
-        "runningAtMs": 1772663538329
+        "lastDelivered": true
       },
       "delivery": {
         "mode": "announce",
@@ -1028,14 +1025,14 @@
         "replaces": "session-warmup-0001, session-anchor-*"
       },
       "state": {
-        "nextRunAtMs": 1772664300000,
-        "lastRunAtMs": 1772662569080,
+        "nextRunAtMs": 1772665200000,
+        "lastRunAtMs": 1772664466878,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 35820,
-        "lastDeliveryStatus": "delivered",
+        "lastDurationMs": 11304,
+        "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
-        "lastDelivered": true
+        "lastDelivered": false
       },
       "delivery": {
         "mode": "announce",
@@ -1043,7 +1040,7 @@
         "bestEffort": true,
         "to": "1012034994"
       },
-      "updatedAtMs": 1772662604900,
+      "updatedAtMs": 1772664478182,
       "wakeMode": "now",
       "sessionTarget": "isolated"
     },
@@ -1147,14 +1144,14 @@
         "channel": "telegram"
       },
       "state": {
-        "nextRunAtMs": 1772663258342,
+        "nextRunAtMs": 1772664458310,
         "lastRunAtMs": 1772662958342,
         "lastRunStatus": "error",
         "lastStatus": "error",
         "lastDurationMs": 60104,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 1,
-        "runningAtMs": 1772663538329
+        "runningAtMs": 1772664480303
       }
     },
     {
@@ -1164,7 +1161,7 @@
       "name": "Autonomous OPS Agent",
       "enabled": true,
       "createdAtMs": 1772512524322,
-      "updatedAtMs": 1772663185278,
+      "updatedAtMs": 1772664255182,
       "schedule": {
         "kind": "every",
         "everyMs": 300000,
@@ -1184,15 +1181,14 @@
         "channel": "telegram"
       },
       "state": {
-        "nextRunAtMs": 1772663424347,
-        "lastRunAtMs": 1772663124347,
+        "nextRunAtMs": 1772664497095,
+        "lastRunAtMs": 1772664197095,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 60931,
+        "lastDurationMs": 58087,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "lastDelivered": true,
-        "runningAtMs": 1772663538329
+        "lastDelivered": true
       }
     },
     {
@@ -1222,14 +1218,14 @@
         "channel": "telegram"
       },
       "state": {
-        "nextRunAtMs": 1772663836158,
+        "nextRunAtMs": 1772664324570,
         "lastRunAtMs": 1772663236158,
         "lastRunStatus": "error",
         "lastStatus": "error",
         "lastDurationMs": 300066,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 1,
-        "lastError": "cron: job execution timed out"
+        "runningAtMs": 1772664480303
       }
     },
     {
@@ -1390,6 +1386,30 @@
       },
       "state": {
         "nextRunAtMs": 1772686500000
+      }
+    },
+    {
+      "id": "session-loop-watchdog-0001",
+      "agentId": "ops",
+      "name": "Session Loop Watchdog — kill looping agent sessions",
+      "enabled": true,
+      "schedule": {
+        "kind": "cron",
+        "expr": "*/5 * * * *",
+        "tz": "America/Toronto"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "thinking": "off",
+        "model": "ollama/qwen3.5:4b",
+        "timeoutSeconds": 30,
+        "message": "Run pre-approved loop watchdog (Tier L2 — no approval needed):\nexec: bash ~/.openclaw/scripts/session-loop-watchdog.sh\nReturn NO_REPLY."
+      },
+      "delivery": {
+        "mode": "silent",
+        "bestEffort": true
       }
     }
   ]
