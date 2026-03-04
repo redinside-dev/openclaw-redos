@@ -1013,6 +1013,16 @@ repeating mistakes and to build institutional knowledge.
 - **Prevention:** When writing n8n Code nodes typeVersion 2, always set `mode` explicitly. Per-item = no array wrapper. All-items = array wrapper. Test with manual execution.
 - **Applied To:** 4 n8n workflows (twitter-service, reddit-service, aggregator-service, shared-observability)
 
+### LEARNING-20260304-007
+- **Date:** 2026-03-04T04:05Z
+- **Source:** content_signals content_id=0 bug
+- **Agent:** OPS
+- **Category:** sqlite3 Connection Isolation
+- **Summary:** `last_insert_rowid()` returns 0 in a new sqlite3 connection — each execSync call opens a new connection
+- **Problem:** `Get Content ID` used `SELECT last_insert_rowid()` to get the ID of the row just inserted by `Insert Content`. But each `execSync('sqlite3 ...')` creates a new connection. `last_insert_rowid()` is per-connection and returns 0 in a fresh connection.
+- **Fix:** Query content_raw by `dedupe_key` instead: `SELECT id FROM content_raw WHERE dedupe_key = '${safe(dedupe_key)}' LIMIT 1`. The dedupe_key is unique per item per day, so this reliably returns the correct row ID.
+- **Applied To:** Get Content ID node in twitter-service and reddit-service
+
 ### LEARNING-20260304-006
 - **Date:** 2026-03-04T03:35Z
 - **Source:** n8n Code node SQL escaping debug
