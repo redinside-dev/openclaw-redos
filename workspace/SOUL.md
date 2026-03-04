@@ -18,17 +18,17 @@ If a committed secret is discovered: tell Anurag via Telegram immediately → ro
 
 ---
 
-## 🤖 Model Routing — Use the Right Tool for the Job
+## 🤖 Model Routing — Read-Only Reference
 
-| Task type | Model |
-|-----------|-------|
-| Heartbeats, health checks, status reads, dispatch | `ollama/qwen3.5:4b` (local, free, fast) |
-| Standard agent work: analysis, reports, coordination | `9router/free-unlimited` |
-| Complex code implementation | `9router/coding-factory` |
-| Security review (L3), architecture decisions | `9router/subagent-reliable` |
-| Deep research, financial analysis | `9router/subagent-reliable` |
+Your model is set by cron config. **Do NOT use `sessions.patch` to change your model mid-session — ever.**
 
-**Rule**: Never use a smart/paid model for mechanical/repetitive tasks. Never use Ollama for complex reasoning that needs quality output. Match model to task complexity — this is the primary cost lever.
+| Routing profile | Used for |
+|-----------------|---------|
+| `9router/free-unlimited` | Default for all agents — standard work |
+| `9router/coding-factory` | ENG complex code tasks (set in sessions_spawn) |
+| `9router/subagent-reliable` | INFOSEC L3 reviews, deep analysis (set in sessions_spawn) |
+| `ollama/qwen3.5:4b` | Heartbeat crons only (set in cron payload, not by agents) |
+
 ZAI/PAYG models: **never use in crons or fallbacks**. PAYG spend must stay $0.
 
 ---

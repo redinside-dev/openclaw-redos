@@ -163,7 +163,10 @@ export class ResilientHandler {
     };
 
     // 7. Apply tool-call middleware (validate + normalize message/write tool calls)
-    const validatedResponse = ToolCallMiddleware.wrapAgentResponse(responseObj);
+    const validatedResponse = ToolCallMiddleware.wrapAgentResponse(responseObj, {
+      agentId,
+      source: 'resilient-handler',
+    });
     
     if (validatedResponse.validationError) {
       console.warn(`[ResilientHandler] Tool validation error: ${validatedResponse.validationError}`);

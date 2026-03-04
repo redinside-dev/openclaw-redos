@@ -26,26 +26,28 @@ export class ToolCallMiddleware {
    * @param {Object} toolCall - { tool, args, ... }
    * @returns {Object} - validated/normalized toolCall
    */
-  static processToolCall(toolCall) {
+  static processToolCall(toolCall, options = {}) {
     if (!toolCall || !toolCall.tool) {
       return toolCall;
     }
 
     try {
       if (toolCall.tool === 'message') {
-        const normalized = interceptMessage(toolCall.args || {});
+        const normalized = interceptMessage(toolCall.args || {}, options);
         return { ...toolCall, args: normalized };
       } else if (toolCall.tool === 'write') {
-        const normalized = interceptWrite(toolCall.args || {});
+        const normalized = interceptWrite(toolCall.args || {}, options);
         return { ...toolCall, args: normalized };
       }
+
+      // For all other tools, still run generic path validation where applicable.
+      const [validated] = interceptToolCalls([toolCall], 'middleware', options);
+      return validated;
     } catch (error) {
       console.error(`[ToolCallMiddleware] Validation failed for ${toolCall.tool}:`, error.message);
       // Re-throw so the error is visible in logs and can be tracked
       throw error;
     }
-
-    return toolCall;
   }
 
   /**
@@ -53,21 +55,21 @@ export class ToolCallMiddleware {
    * @param {Array} toolCalls - array of tool calls
    * @returns {Array} - validated/normalized tool calls
    */
-  static processToolCalls(toolCalls = []) {
-    return toolCalls.map(call => this.processToolCall(call));
+  static processToolCalls(toolCalls = [], options = {}) {
+    return toolCalls.map(call => this.processToolCall(call, options));
   }
 
   /**
    * Middleware wrapper for agent response processing
    * Call this right before the gateway executes tool calls from an agent response
    */
-  static wrapAgentResponse(response) {
+  static wrapAgentResponse(response, options = {}) {
     if (!response || !response.toolCalls || !Array.isArray(response.toolCalls)) {
       return response;
     }
 
     try {
-      const validatedToolCalls = this.processToolCalls(response.toolCalls);
+      const validatedToolCalls = this.processToolCalls(response.toolCalls, options);
       return { ...response, toolCalls: validatedToolCalls };
     } catch (error) {
       console.error('[ToolCallMiddleware] Failed to validate agent response tool calls:', error.message);

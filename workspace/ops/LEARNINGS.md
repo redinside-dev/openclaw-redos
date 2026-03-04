@@ -1203,3 +1203,16 @@ STATE.yaml confirms: “Subscription audit: ChatGPT Pro x2 (due 2026-04-01)”.
 **Fix:** Updated `getNinerKey()` to resolve SecretRef: read `models.providers['9router'].apiKey` → find `secrets.providers[name].path` → read credentials file → resolve JSON pointer id.
 **Recovery:** Running `node scripts/9router-token-refresh.js --all` immediately recovered kiro x3 + claude x1. iflow x2 hit a server rate limit on iflow.cn (temporary — will recover on next keepfresh retry).
 **Avoid next time:** EVERY script that reads the 9Router API key from openclaw.json must handle the SecretRef format. When adding any SecretRef to openclaw.json, search all scripts for the old direct-read pattern and update them.
+
+---
+
+## LEARNING-20260304-009 — SOUL.md model routing caused agent model-switching loops
+
+**Date:** 2026-03-04
+**Discovered by:** External consultant
+**Symptom:** OPS main session stuck in 600s loop calling `curl localhost:18789/api/health` returning "Not Found" 184+ times. Main agent looping on `curl r.jina.ai/...` 36+ times. INFOSEC session reading same file 86 times. Gateway logs showed continuous "Loop warning: exec called 30 times".
+**Root cause:** SOUL.md model routing table said "use `ollama/qwen3.5:4b` for health checks". The OPS agent read this, called `sessions.patch` to switch to qwen3.5:4b, then qwen3.5:4b (4B param model) looped on health checks because it can't reliably exit complex multi-step tasks. The model routing table was being interpreted as a directive to switch models mid-session.
+**Fix 1:** Updated SOUL.md model routing section to say "Model is set by cron config. Do NOT use sessions.patch to change model mid-session — ever."
+**Fix 2:** Added routing profile aliases (`9router/coding-factory`, `9router/subagent-reliable`, `9router/research-deep`, etc.) to `defaults.models` in openclaw.json so agents can reference these models in sessions_spawn without "model not allowed" errors.
+**Fix 3:** Archived the stuck sessions to clear the loops.
+**Avoid next time:** Model routing guidance in SOUL.md/KNOWLEDGE.md must be framed as cron configuration reference, NOT as agent runtime directives. Agents MUST NOT use sessions.patch for model switching. If a health check cron needs Ollama, set `model: "ollama/qwen3.5:4b"` in the CRON PAYLOAD, not in agent instructions.

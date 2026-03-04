@@ -16,15 +16,38 @@ const {
   validateMessageArgs,
   normalizeWriteArgs,
   validateWriteArgs,
+  validateToolPaths,
+  getWorkspaceRoot,
 } = require('./tool-schema-compat.cjs');
+
+const PATH_VALIDATED_TOOLS = [
+  'read',
+  'write',
+  'edit',
+  'exec',
+  'image',
+  'pdf',
+  'message',
+  'browser',
+  'canvas',
+  'nodes',
+];
+
+function resolveValidationOptions(options = {}) {
+  return {
+    ...options,
+    workspaceRoot: getWorkspaceRoot(options),
+  };
+}
 
 /**
  * Intercept and validate message tool call
  * Throws if validation fails; returns normalized args if valid
  */
-function interceptMessage(args) {
+function interceptMessage(args, options = {}) {
+  const validatedOpts = resolveValidationOptions(options);
   const normalized = normalizeMessageArgs(args);
-  const error = validateMessageArgs(normalized);
+  const error = validateMessageArgs(normalized, validatedOpts);
 
   if (error) {
     throw new Error(`[Tool Validation] message: ${error}`);
@@ -38,9 +61,10 @@ function interceptMessage(args) {
  * Intercept and validate write tool call
  * Throws if validation fails; returns normalized args if valid
  */
-function interceptWrite(args) {
+function interceptWrite(args, options = {}) {
+  const validatedOpts = resolveValidationOptions(options);
   const normalized = normalizeWriteArgs(args);
-  const error = validateWriteArgs(normalized);
+  const error = validateWriteArgs(normalized, validatedOpts);
 
   if (error) {
     throw new Error(`[Tool Validation] write: ${error}`);
@@ -51,17 +75,37 @@ function interceptWrite(args) {
 }
 
 /**
- * Batch intercept multiple tool calls (for agent responses with multiple tools)
- * Note: exec calls pass through — enforcement is via OpenClaw sandbox and tools.deny.
+ * Intercept generic tool path fields where applicable.
  */
-function interceptToolCalls(toolCalls = [], agentId = 'unknown') {
+function interceptGenericToolPath(toolName, args = {}, options = {}) {
+  const validatedOpts = resolveValidationOptions(options);
+  const pathError = validateToolPaths(toolName, args, validatedOpts);
+  if (pathError) {
+    throw new Error(`[Tool Validation] ${toolName}: ${pathError}`);
+  }
+  return args;
+}
+
+/**
+ * Batch intercept multiple tool calls (for agent responses with multiple tools)
+ * Now includes workspace path validation for all path-bearing tools.
+ */
+function interceptToolCalls(toolCalls = [], agentId = 'unknown', options = {}) {
   return toolCalls.map(call => {
+    if (!call || !call.tool) return call;
+
     if (call.tool === 'message') {
-      return { ...call, args: interceptMessage(call.args) };
-    } else if (call.tool === 'write') {
-      return { ...call, args: interceptWrite(call.args) };
+      return { ...call, args: interceptMessage(call.args, options) };
     }
-    // exec and other tools: pass through — OpenClaw gateway enforces sandbox/deny natively
+
+    if (call.tool === 'write') {
+      return { ...call, args: interceptWrite(call.args, options) };
+    }
+
+    if (PATH_VALIDATED_TOOLS.includes(call.tool)) {
+      return { ...call, args: interceptGenericToolPath(call.tool, call.args || {}, options) };
+    }
+
     return call;
   });
 }
@@ -69,5 +113,6 @@ function interceptToolCalls(toolCalls = [], agentId = 'unknown') {
 module.exports = {
   interceptMessage,
   interceptWrite,
+  interceptGenericToolPath,
   interceptToolCalls,
 };
