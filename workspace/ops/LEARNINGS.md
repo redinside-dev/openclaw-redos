@@ -1073,3 +1073,44 @@ repeating mistakes and to build institutional knowledge.
   - **Parent traversal:** `el.parent` (property) then check `el.parent.tag == 'a'`. No `find_parent()` method.
   - **All descendants text:** `el.get_all_text()` recurses through all child nodes including nested spans.
 - **Applied To:** scripts/twitter-scrape.py
+
+---
+
+### LEARNING-20260304-009
+- **Date:** 2026-03-04
+- **Agent:** OPS (via consultant)
+- **Category:** OpenClaw Updates
+- **Summary:** node@22→node@25 Homebrew upgrade silently broke gateway plist. Use stable symlink not versioned Cellar path.
+- **Problem:** After Homebrew upgraded Node from 22→25, `ai.openclaw.gateway.plist` pointed to `/opt/homebrew/Cellar/node@22/22.22.0/bin/node` which no longer existed. Exit code 78 on every restart. Telegram went silent for ~2.5 hours.
+- **Fix:** Use `/opt/homebrew/bin/node` (stable symlink). Also applies to `ai.openclaw.node.plist` and `com.9router.autostart.plist`. Check after every `openclaw update`.
+- **Prevention:** `grep -r "Cellar/node" ~/Library/LaunchAgents/` after any Node upgrade.
+
+---
+
+### LEARNING-20260304-010
+- **Date:** 2026-03-04
+- **Agent:** OPS (via consultant)
+- **Category:** OpenClaw 2026.3.2 Breaking Changes
+- **Summary:** 2026.3.2 breaking changes: heartbeat.directPolicy default reverted to allow + 7 new features applied.
+- **Changes applied:**
+  1. `agents.defaults.heartbeat.directPolicy: "block"` — prevents heartbeats spamming DMs (2026.3.2 reverted default to allow)
+  2. `tools.loopDetection.enabled: true` — prevents runaway exec loops (like 30-iteration loop we saw in logs)
+  3. `agents.defaults.pdfModel: {primary: "9router/free-unlimited"}` — enables native PDF analysis tool (new in 2026.3.2)
+  4. `session.agentToAgent.maxPingPongTurns: 3` — prevents A2A ping-pong loops (was 5 default)
+  5. `agents.defaults.memorySearch: {provider: "ollama", model: "qwen3.5:4b"}` — free local embeddings for RAG
+  6. `agents.defaults.humanDelay: {mode: "natural"}` — natural 800-2500ms pause between streaming blocks
+  7. `agents.defaults.heartbeat.activeHours: {start:"07:00", end:"02:00"}` — skip heartbeat 2-7am ET (saves Ollama cycles)
+- **Invalid keys (don't add):** `gateway.http.endpoints.health` (not valid), top-level `memorySearch` (moved to `agents.defaults.memorySearch`)
+
+---
+
+### LEARNING-20260304-011
+- **Date:** 2026-03-04
+- **Agent:** ENG
+- **Category:** OpenClaw 2026.3.2 Feature Audit
+- **Summary:** RedOS uses ~56% of OpenClaw features. Top unused capabilities: SecretRefs, ACP, Diffs plugin, TTS, Sandbox.
+- **Feature map:**
+  - ✅ Used: cron/scheduler, A2A sessions, webhooks, skills, memory-core RAG, scrapling, n8n delegation, Telegram/Slack, GitHub hooks, streaming, heartbeat, PDF tool (now configured), loop detection (now enabled)
+  - ❌ Not used: SecretRefs (all creds plaintext), ACP runtime, Diffs plugin, TTS/Talk, Docker sandbox, LanceDB memory, Zalo plugin, Config Includes ($include), Bedrock auto-discovery
+  - ⚠️ Known bugs: per-agent heartbeat interval ignored (#14986), per-agent thinking level in config ignored (#21624), nodes.run broken in 2026.3.2 (#33080)
+- **Next sessions:** Implement SecretRefs for credential management (HIGH priority for production)
