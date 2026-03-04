@@ -7,7 +7,7 @@
       "name": "Telegram Approval Monitor (RED checks for approve/deny replies)",
       "enabled": true,
       "createdAtMs": 1772080522100,
-      "updatedAtMs": 1772576417949,
+      "updatedAtMs": 1772633256384,
       "schedule": {
         "kind": "cron",
         "expr": "*/2 * * * *",
@@ -26,13 +26,15 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1772576520000,
-        "lastRunAtMs": 1772576382429,
+        "nextRunAtMs": 1772633280000,
+        "lastRunAtMs": 1772633229193,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 35520,
-        "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 0
+        "lastDurationMs": 27191,
+        "lastDeliveryStatus": "not-delivered",
+        "consecutiveErrors": 0,
+        "lastDelivered": false,
+        "runningAtMs": 1772633942574
       }
     },
     {
@@ -41,7 +43,7 @@
       "name": "System Pulse — Always-On Heartbeat (Ollama only)",
       "enabled": true,
       "createdAtMs": 1772080522100,
-      "updatedAtMs": 1772576422312,
+      "updatedAtMs": 1772633260391,
       "schedule": {
         "kind": "cron",
         "expr": "*/5 * * * *",
@@ -61,13 +63,14 @@
       },
       "state": {
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1772576700000,
-        "lastRunAtMs": 1772576417949,
+        "nextRunAtMs": 1772633400000,
+        "lastRunAtMs": 1772633256384,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 4363,
+        "lastDurationMs": 4007,
         "lastDeliveryStatus": "not-delivered",
-        "lastDelivered": false
+        "lastDelivered": false,
+        "runningAtMs": 1772633942574
       }
     },
     {
@@ -76,7 +79,7 @@
       "name": "Daily Portfolio Review (Pre-Market)",
       "enabled": true,
       "createdAtMs": 1770267281600,
-      "updatedAtMs": 1772545653479,
+      "updatedAtMs": 1772632109476,
       "schedule": {
         "kind": "cron",
         "expr": "45 8 * * 1-5",
@@ -91,14 +94,14 @@
         "timeoutSeconds": 600
       },
       "state": {
-        "lastRunAtMs": 1772545623364,
+        "lastRunAtMs": 1772632059547,
         "lastStatus": "ok",
-        "lastDurationMs": 30115,
+        "lastDurationMs": 49929,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
-        "lastDeliveryStatus": "not-delivered",
-        "nextRunAtMs": 1772631900000,
-        "lastDelivered": false
+        "lastDeliveryStatus": "delivered",
+        "nextRunAtMs": 1772718300000,
+        "lastDelivered": true
       },
       "delivery": {
         "mode": "announce",
@@ -113,7 +116,7 @@
       "name": "Trading Window Brief (8am-4pm ET)",
       "enabled": true,
       "createdAtMs": 1770392652158,
-      "updatedAtMs": 1772568164789,
+      "updatedAtMs": 1772633349913,
       "schedule": {
         "kind": "cron",
         "expr": "0,30 8-15 * * 1-5",
@@ -134,13 +137,13 @@
         "to": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "lastRunAtMs": 1772568092538,
+        "lastRunAtMs": 1772633260391,
         "lastStatus": "ok",
-        "lastDurationMs": 72251,
+        "lastDurationMs": 89522,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1772629200000,
+        "nextRunAtMs": 1772634600000,
         "lastDelivered": true
       }
     },
@@ -261,7 +264,7 @@
       "name": "Daily AI + OpenClaw Trends Brief (Telegram DM)",
       "enabled": true,
       "createdAtMs": 1770593929748,
-      "updatedAtMs": 1772501427376,
+      "updatedAtMs": 1772601394927,
       "schedule": {
         "kind": "cron",
         "expr": "30 20 * * *",
@@ -281,14 +284,14 @@
         "to": "1012034994"
       },
       "state": {
-        "lastRunAtMs": 1772501417227,
+        "lastRunAtMs": 1772601344314,
         "lastStatus": "ok",
-        "lastDurationMs": 10149,
+        "lastDurationMs": 50613,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
-        "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772587800000,
-        "runningAtMs": 1772601344072
+        "lastDeliveryStatus": "delivered",
+        "nextRunAtMs": 1772674200000,
+        "lastDelivered": true
       }
     },
     {
@@ -332,7 +335,7 @@
       "name": "Cron Watchdog (alert on missed/failing jobs)",
       "enabled": true,
       "createdAtMs": 1770618629260,
-      "updatedAtMs": 1772576025141,
+      "updatedAtMs": 1772633378327,
       "schedule": {
         "kind": "cron",
         "expr": "*/10 8-22 * * *",
@@ -352,14 +355,15 @@
         "to": "channel:C0AEV3J2L23"
       },
       "state": {
-        "lastRunAtMs": 1772576015225,
+        "lastRunAtMs": 1772633349913,
         "lastStatus": "ok",
-        "lastDurationMs": 9916,
+        "lastDurationMs": 28414,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1772576400000,
-        "lastDelivered": true
+        "nextRunAtMs": 1772633400000,
+        "lastDelivered": true,
+        "runningAtMs": 1772633942574
       }
     },
     {
@@ -368,7 +372,7 @@
       "name": "RED CEO Daily Summary to Anurag",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1772492480527,
+      "updatedAtMs": 1772601459420,
       "schedule": {
         "kind": "cron",
         "expr": "0 18 * * 1-5",
@@ -388,14 +392,14 @@
         "to": "1012034994"
       },
       "state": {
-        "lastRunAtMs": 1772492431610,
-        "lastStatus": "error",
-        "lastDurationMs": 48917,
-        "consecutiveErrors": 3,
-        "lastRunStatus": "error",
-        "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772578800000,
-        "runningAtMs": 1772601344072
+        "lastRunAtMs": 1772601394927,
+        "lastStatus": "ok",
+        "lastDurationMs": 64493,
+        "consecutiveErrors": 0,
+        "lastRunStatus": "ok",
+        "lastDeliveryStatus": "delivered",
+        "nextRunAtMs": 1772665200000,
+        "lastDelivered": true
       }
     },
     {
@@ -404,7 +408,7 @@
       "name": "RED Daily Brief (Telegram)",
       "enabled": true,
       "createdAtMs": 1771202886122,
-      "updatedAtMs": 1772546559350,
+      "updatedAtMs": 1772633469102,
       "schedule": {
         "kind": "cron",
         "expr": "0 9 * * *",
@@ -423,13 +427,13 @@
         "to": "1012034994"
       },
       "state": {
-        "lastRunAtMs": 1772546513091,
+        "lastRunAtMs": 1772633378327,
         "lastStatus": "ok",
-        "lastDurationMs": 46259,
+        "lastDurationMs": 90775,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1772632800000,
+        "nextRunAtMs": 1772719200000,
         "lastDelivered": true
       }
     },
@@ -439,7 +443,7 @@
       "name": "Habit check-in — daily prompt (Telegram)",
       "enabled": true,
       "createdAtMs": 1772410000000,
-      "updatedAtMs": 1772543142827,
+      "updatedAtMs": 1772629975832,
       "schedule": {
         "kind": "cron",
         "expr": "0 8 * * *",
@@ -459,11 +463,11 @@
         "to": "1012034994"
       },
       "state": {
-        "nextRunAtMs": 1772629200000,
-        "lastRunAtMs": 1772543124622,
+        "nextRunAtMs": 1772715600000,
+        "lastRunAtMs": 1772629963831,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 18205,
+        "lastDurationMs": 12001,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
         "lastDelivered": true
@@ -584,7 +588,7 @@
       "name": "9Router Auth Watchdog (proactive expiry + auto-name)",
       "enabled": true,
       "createdAtMs": 1772020000000,
-      "updatedAtMs": 1772575250027,
+      "updatedAtMs": 1772631893701,
       "schedule": {
         "kind": "every",
         "everyMs": 1800000,
@@ -605,14 +609,15 @@
         "to": "channel:C0AEV3MDEDD"
       },
       "state": {
-        "consecutiveErrors": 1,
-        "lastRunAtMs": 1772575129959,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 120068,
-        "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1772576929959,
-        "runningAtMs": 1772601344072
+        "consecutiveErrors": 0,
+        "lastRunAtMs": 1772631877677,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 16024,
+        "lastDeliveryStatus": "not-delivered",
+        "nextRunAtMs": 1772633677677,
+        "lastDelivered": false,
+        "runningAtMs": 1772633942574
       }
     },
     {
@@ -621,7 +626,7 @@
       "name": "9Router Token Keep-Fresh (every 4min)",
       "enabled": true,
       "createdAtMs": 1772210000000,
-      "updatedAtMs": 1772576433019,
+      "updatedAtMs": 1772633479576,
       "schedule": {
         "kind": "cron",
         "expr": "*/4 * * * *",
@@ -633,7 +638,8 @@
         "kind": "agentTurn",
         "thinking": "off",
         "timeoutSeconds": 120,
-        "message": "9ROUTER KEEPFRESH — scripted, no reasoning.\n\nRun exactly:\n1. Execute: node /Users/redinside/.openclaw/scripts/9router-token-refresh.js 2>&1\n   Capture stdout+stderr and exit code.\n2. If exit code is 0: write {\"ts\":\"<ISO-now>\",\"status\":\"ok\"} to ../workspace/tmp/9router-keepfresh-last.json. Return NO_REPLY.\n3. If exit code is 2 (auth alert):\n   a. Extract the text between '--- ALERT_PAYLOAD ---' and '--- END_PAYLOAD ---' from the output.\n   b. Send that extracted text as a Telegram DM to user 1012034994 with parse_mode=Markdown.\n   c. Write {\"ts\":\"<ISO-now>\",\"status\":\"alert\",\"alerts\":<count>} to ../workspace/tmp/9router-keepfresh-last.json.\n   d. Return NO_REPLY.\n4. If exit code is 1 (script error): write {\"ts\":\"<ISO-now>\",\"status\":\"error\"} to ../workspace/tmp/9router-keepfresh-last.json. Return NO_REPLY.\n\nNo commentary. Do not reason about output. Just run and forward."
+        "message": "9ROUTER KEEPFRESH — scripted, no reasoning.\n\nRun exactly:\n1. Execute: node /Users/redinside/.openclaw/scripts/9router-token-refresh.js 2>&1\n   Capture stdout+stderr and exit code.\n2. If exit code is 0: write {\"ts\":\"<ISO-now>\",\"status\":\"ok\"} to ../workspace/tmp/9router-keepfresh-last.json. Return NO_REPLY.\n3. If exit code is 2 (auth alert):\n   a. Extract the text between '--- ALERT_PAYLOAD ---' and '--- END_PAYLOAD ---' from the output.\n   b. Send that extracted text as a Telegram DM to user 1012034994 with parse_mode=Markdown.\n   c. Write {\"ts\":\"<ISO-now>\",\"status\":\"alert\",\"alerts\":<count>} to ../workspace/tmp/9router-keepfresh-last.json.\n   d. Return NO_REPLY.\n4. If exit code is 1 (script error): write {\"ts\":\"<ISO-now>\",\"status\":\"error\"} to ../workspace/tmp/9router-keepfresh-last.json. Return NO_REPLY.\n\nNo commentary. Do not reason about output. Just run and forward.",
+        "model": "ollama/llama3.1:8b"
       },
       "delivery": {
         "mode": "silent",
@@ -641,13 +647,14 @@
       },
       "state": {
         "consecutiveErrors": 0,
-        "lastRunAtMs": 1772576422312,
+        "lastRunAtMs": 1772633469102,
         "lastRunStatus": "ok",
-        "nextRunAtMs": 1772576640000,
+        "nextRunAtMs": 1772633520000,
         "lastStatus": "ok",
-        "lastDurationMs": 10707,
+        "lastDurationMs": 10474,
         "lastDeliveryStatus": "not-delivered",
-        "lastDelivered": false
+        "lastDelivered": false,
+        "runningAtMs": 1772633942574
       }
     },
     {
@@ -656,7 +663,7 @@
       "name": "Nightly Eval — Episode Analysis + Autonomy Scorecard (2am ET)",
       "enabled": true,
       "createdAtMs": 1772265000000,
-      "updatedAtMs": 1772521238598,
+      "updatedAtMs": 1772607850223,
       "schedule": {
         "kind": "cron",
         "expr": "0 2 * * *",
@@ -676,11 +683,11 @@
       },
       "state": {
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1772607600000,
-        "lastRunAtMs": 1772521232305,
+        "nextRunAtMs": 1772694000000,
+        "lastRunAtMs": 1772607843707,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 6293,
+        "lastDurationMs": 6516,
         "lastDeliveryStatus": "unknown"
       },
       "sessionTarget": "isolated"
@@ -759,7 +766,7 @@
       "name": "Market Research + Product Factory — weekly pain point mining",
       "enabled": true,
       "createdAtMs": 1772292376509,
-      "updatedAtMs": 1772292376509,
+      "updatedAtMs": 1772633682509,
       "schedule": {
         "kind": "cron",
         "expr": "0 9 * * 3",
@@ -777,7 +784,13 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1772632800000
+        "nextRunAtMs": 1773234000000,
+        "lastRunAtMs": 1772633479576,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 202933,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 0
       },
       "sessionTarget": "isolated"
     },
@@ -892,15 +905,15 @@
         "replaces": "inner-loop-*, meta-self-check-*, a2a-*-proactive, sa-*-checkin"
       },
       "state": {
-        "nextRunAtMs": 1772577000000,
-        "lastRunAtMs": 1772576433019,
+        "nextRunAtMs": 1772633700000,
+        "lastRunAtMs": 1772632109476,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 23362,
-        "lastDeliveryStatus": "delivered",
+        "lastDurationMs": 1038862,
+        "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
-        "lastDelivered": true,
-        "runningAtMs": 1772601344072
+        "lastDelivered": false,
+        "runningAtMs": 1772633942574
       },
       "delivery": {
         "mode": "announce",
@@ -908,7 +921,7 @@
         "bestEffort": true,
         "to": "1012034994"
       },
-      "updatedAtMs": 1772576456381,
+      "updatedAtMs": 1772633148338,
       "wakeMode": "now",
       "sessionTarget": "isolated"
     },
@@ -931,14 +944,13 @@
         "replaces": "episodes-seeder-0001, health-jsonl-writer-0001"
       },
       "state": {
-        "nextRunAtMs": 1772605800000,
-        "lastRunAtMs": 1772519629644,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 570482,
+        "nextRunAtMs": 1772692200000,
+        "lastRunAtMs": 1772606831228,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 92436,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 2,
-        "lastError": "⚠️ ✉️ Message failed",
+        "consecutiveErrors": 0,
         "lastDelivered": true
       },
       "delivery": {
@@ -948,7 +960,7 @@
         "to": "1012034994"
       },
       "wakeMode": "now",
-      "updatedAtMs": 1772520200126,
+      "updatedAtMs": 1772606923664,
       "sessionTarget": "isolated"
     },
     {
@@ -970,15 +982,14 @@
         "replaces": "c8481b2a-System-Health-Watch, 76777b7a-OPS-Health-Monitor, context-health-check-*"
       },
       "state": {
-        "nextRunAtMs": 1772577000000,
-        "lastRunAtMs": 1772575383912,
+        "nextRunAtMs": 1772634600000,
+        "lastRunAtMs": 1772633682509,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 29846,
+        "lastDurationMs": 32241,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "lastDelivered": true,
-        "runningAtMs": 1772601344072
+        "lastDelivered": true
       },
       "delivery": {
         "mode": "announce",
@@ -986,7 +997,7 @@
         "bestEffort": true,
         "to": "1012034994"
       },
-      "updatedAtMs": 1772575413758,
+      "updatedAtMs": 1772633714750,
       "wakeMode": "now",
       "sessionTarget": "isolated"
     },
@@ -1009,15 +1020,14 @@
         "replaces": "session-warmup-0001, session-anchor-*"
       },
       "state": {
-        "nextRunAtMs": 1772577900000,
-        "lastRunAtMs": 1772575413758,
+        "nextRunAtMs": 1772635500000,
+        "lastRunAtMs": 1772633148338,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 18307,
+        "lastDurationMs": 24226,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "lastDelivered": true,
-        "runningAtMs": 1772601344072
+        "lastDelivered": true
       },
       "delivery": {
         "mode": "announce",
@@ -1025,7 +1035,7 @@
         "bestEffort": true,
         "to": "1012034994"
       },
-      "updatedAtMs": 1772575432065,
+      "updatedAtMs": 1772633172564,
       "wakeMode": "now",
       "sessionTarget": "isolated"
     },
@@ -1036,7 +1046,7 @@
       "name": "9Router Token Refresh (Kiro/Claude) + Provider Validation",
       "enabled": true,
       "createdAtMs": 1772409068811,
-      "updatedAtMs": 1772560495585,
+      "updatedAtMs": 1772623996133,
       "schedule": {
         "kind": "every",
         "everyMs": 21600000,
@@ -1057,15 +1067,14 @@
         "to": "1012034994"
       },
       "state": {
-        "nextRunAtMs": 1772582090358,
-        "lastRunAtMs": 1772560490358,
+        "nextRunAtMs": 1772645588939,
+        "lastRunAtMs": 1772623988939,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 5227,
+        "lastDurationMs": 7194,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "lastDelivered": true,
-        "runningAtMs": 1772601344072
+        "lastDelivered": true
       }
     },
     {
@@ -1079,7 +1088,7 @@
       },
       "enabled": true,
       "payload": {
-        "message": "AUTONOMY SCORE NIGHTLY: Run the calculate-autonomy-score.js script to compute real_autonomy_score and update STATE.yaml.\n\n1. exec: cd ~/.openclaw && node scripts/calculate-autonomy-score.js\n2. The script will:\n   - Parse workspace/tasks-log.md to count dispatched_tasks and verified_completions\n   - Calculate real_autonomy_score = (verified_completions / dispatched_tasks) * 100\n   - Update workspace/STATE.yaml with the score (atomic write via .tmp file)\n   - Append completion entry to tasks-log.md\n3. Read the script output to get the calculated score\n4. Post to Telegram: \"📊 Nightly autonomy score: X% (Y verified / Z dispatched tasks)\"\n5. Return NO_REPLY.",
+        "message": "AUTONOMY SCORE NIGHTLY: Compute real_autonomy_score and update STATE.yaml.\n\n1. exec: cd ~/.openclaw && node scripts/calculate-autonomy-score.js\n2. Read the script output to get the calculated score\n3. Read workspace/STATE.yaml to confirm real_autonomy_score was updated\n4. Return a one-line summary: \"Autonomy score: X% (Y verified / Z dispatched)\"\nReply HEARTBEAT_OK if score is >= 50%, ALERT_LOW_AUTONOMY if < 50%.",
         "kind": "agentTurn"
       },
       "delivery": {
@@ -1090,17 +1099,17 @@
       },
       "wakeMode": "now",
       "state": {
-        "nextRunAtMs": 1772599500000,
-        "lastRunAtMs": 1772513793222,
+        "nextRunAtMs": 1772685900000,
+        "lastRunAtMs": 1772602266413,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 13457,
+        "lastDurationMs": 12388,
         "lastDelivered": true,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 1,
-        "runningAtMs": 1772601344072
+        "consecutiveErrors": 0,
+        "lastError": "⚠️ ✉️ Message failed"
       },
-      "updatedAtMs": 1772513806679,
+      "updatedAtMs": 1772633797843,
       "sessionTarget": "isolated"
     },
     {
@@ -1110,7 +1119,7 @@
       "name": "SLA Enforcement - 5min checks",
       "enabled": true,
       "createdAtMs": 1772510258310,
-      "updatedAtMs": 1772576501852,
+      "updatedAtMs": 1772633227125,
       "schedule": {
         "kind": "every",
         "everyMs": 300000,
@@ -1130,14 +1139,15 @@
         "channel": "telegram"
       },
       "state": {
-        "nextRunAtMs": 1772576756381,
-        "lastRunAtMs": 1772576456381,
+        "nextRunAtMs": 1772633472564,
+        "lastRunAtMs": 1772633172564,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 45471,
+        "lastDurationMs": 54561,
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
-        "lastDelivered": false
+        "lastDelivered": false,
+        "runningAtMs": 1772633942574
       }
     },
     {
@@ -1147,7 +1157,7 @@
       "name": "Autonomous OPS Agent",
       "enabled": true,
       "createdAtMs": 1772512524322,
-      "updatedAtMs": 1772576380025,
+      "updatedAtMs": 1772633817615,
       "schedule": {
         "kind": "every",
         "everyMs": 300000,
@@ -1167,13 +1177,14 @@
         "channel": "telegram"
       },
       "state": {
-        "nextRunAtMs": 1772576440025,
-        "lastRunAtMs": 1772576079952,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 300073,
-        "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 2
+        "nextRunAtMs": 1772634014750,
+        "lastRunAtMs": 1772633714750,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 102865,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 0,
+        "lastDelivered": true
       }
     },
     {
@@ -1183,7 +1194,7 @@
       "name": "Autonomous INFOSEC Agent",
       "enabled": true,
       "createdAtMs": 1772512524570,
-      "updatedAtMs": 1772576801923,
+      "updatedAtMs": 1772633940473,
       "schedule": {
         "kind": "every",
         "everyMs": 600000,
@@ -1203,14 +1214,14 @@
         "channel": "telegram"
       },
       "state": {
-        "nextRunAtMs": 1772577101852,
-        "lastRunAtMs": 1772576501852,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 300071,
-        "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 1,
-        "runningAtMs": 1772601344072
+        "nextRunAtMs": 1772634417615,
+        "lastRunAtMs": 1772633817615,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 122858,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 0,
+        "lastDelivered": true
       }
     },
     {
@@ -1238,9 +1249,67 @@
           "announce": true
         }
       },
-      "state": {},
+      "state": {
+        "nextRunAtMs": 1772683200000
+      },
       "delivery": {
         "mode": "announce"
+      }
+    },
+    {
+      "id": "disk-cleanup-weekly-0001",
+      "agentId": "ops",
+      "name": "Weekly Disk Cleanup (logs, tmp, orphan files)",
+      "enabled": true,
+      "createdAtMs": 1772633797843,
+      "updatedAtMs": 1772633797843,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 3 * * 1",
+        "tz": "America/Toronto"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "thinking": "off",
+        "timeoutSeconds": 120,
+        "message": "WEEKLY DISK CLEANUP — Monday 3am ET.\n\n1. exec: find ~/.openclaw/logs -name '*.log' -mtime +7 -size +1M -exec truncate -s 1M {} \\; 2>/dev/null; echo \"Logs truncated\"\n2. exec: find ~/.openclaw/workspace/tmp -mtime +3 -type f -delete 2>/dev/null; echo \"Tmp cleaned\"\n3. exec: find ~/.openclaw/workspace -name '__pycache__' -type d -exec rm -rf {} + 2>/dev/null; echo \"Pycache cleared\"\n4. exec: df -h ~/.openclaw | tail -1\n5. Report disk usage and what was cleaned. Append to workspace/tasks-log.md: \"CLEANUP | ops | $(date) | done | disk cleanup complete\"\nReturn HEARTBEAT_OK."
+      },
+      "delivery": {
+        "mode": "silent",
+        "bestEffort": true
+      },
+      "state": {
+        "nextRunAtMs": 1773039600000
+      }
+    },
+    {
+      "id": "credential-health-check-0001",
+      "agentId": "ops",
+      "name": "Credential Health Check (daily — token age + API reachability)",
+      "enabled": true,
+      "createdAtMs": 1772633797843,
+      "updatedAtMs": 1772633797843,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 6 * * *",
+        "tz": "America/Toronto"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "thinking": "off",
+        "timeoutSeconds": 90,
+        "message": "CREDENTIAL HEALTH CHECK — daily 6am ET.\n\n1. exec: curl -s --max-time 5 http://127.0.0.1:20128/health 2>&1 | head -3\n2. exec: curl -s --max-time 5 http://127.0.0.1:11434/api/tags 2>&1 | python3 -c \"import json,sys; d=json.load(sys.stdin); print(f'Ollama OK: {len(d[\"models\"])} models')\" 2>/dev/null || echo \"Ollama unreachable\"\n3. Check ~/.openclaw/logs/gateway.err.log last 20 lines for AUTH errors:\n   exec: tail -20 ~/.openclaw/logs/gateway.err.log | grep -i \"auth\\|401\\|403\\|token\" || echo \"No auth errors\"\n4. If any auth errors found: alert via message(action=\"send\", channel=\"telegram\", target=\"1012034994\", text=\"⚠️ CREDENTIAL ALERT: auth errors detected in gateway logs — check 9router token\")\n5. Return HEARTBEAT_OK if all healthy, ALERT_CRED_ISSUE if problems found."
+      },
+      "delivery": {
+        "mode": "silent",
+        "bestEffort": true
+      },
+      "state": {
+        "nextRunAtMs": 1772708400000
       }
     }
   ]

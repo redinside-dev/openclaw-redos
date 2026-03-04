@@ -186,6 +186,15 @@ This is **boss→worker** — you assign a task, the agent does it, returns a re
 - The work is **self-contained** and doesn't need back-and-forth
 - You want the agent to work **in the background**
 
+### A2A retry (MANDATORY on timeout)
+
+If `sessions_send` times out or returns an error:
+1. **Do NOT silently drop the message.** Use the `a2a-retry` skill:
+   - Write context to `workspace/handoffs/<from>-to-<to>-<ts>.json`
+   - Retry with 2× timeout (up to 3 attempts with backoff: 60s → 120s → 240s)
+   - If all retries fail: send via Telegram DM to the agent's owner + log to `workspace/handoffs/failures.jsonl`
+2. Full pattern documented in `workspace/skills/a2a-retry/SKILL.md`
+
 ### MANDATORY logging for every A2A interaction:
 
 Before every `sessions_send` or `sessions_spawn`, append to `logs/a2a-delegations.jsonl`:
@@ -274,6 +283,30 @@ Anurag should not have to discover skills for you. That is YOUR job.
 - Ensuring all agents know about and use available skills.
 - Running a monthly skill audit: are all enabled skills actually being used?
 - Flagging unused skills to Anurag with a recommendation (keep/remove/improve).
+
+## Task templates (MANDATORY — copy-paste these formats)
+
+### AUTONOMOUS.md task entry (agents adding tasks):
+```
+| AUTO-NNN | P1 | eng | Implement feature X | PENDING |
+| AUTO-NNN | P2 | ops | Run disk cleanup | IN_PROGRESS | claimed by ops 2026-03-04 |
+| AUTO-NNN | P1 | research | Research competitor Y | DONE | brief at workspace/tmp/brief.md |
+```
+
+### tasks-log.md completion entry (MANDATORY — one line per completed task):
+```
+AUTO-NNN | <agentId> | <YYYY-MM-DD HH:MM> UTC | done | <one-line result summary>
+```
+Example: `AUTO-021 | eng | 2026-03-04 14:30 UTC | done | Implemented retry logic in a2a-retry skill`
+
+**Every completed task MUST be logged to tasks-log.md in this exact format.** The nightly autonomy score reads this file — missing entries = lower score.
+
+### AUTONOMOUS.md claim procedure:
+1. Find a PENDING task assigned to your agent (or unassigned)
+2. Update the row: `PENDING` → `IN_PROGRESS | claimed by <agentId> <timestamp>`
+3. Complete the work
+4. Update: `IN_PROGRESS` → `DONE | <brief result>`
+5. Append to tasks-log.md using the template above
 
 ## Learn from mistakes (post-resolution)
 
