@@ -71,6 +71,22 @@ Next dispatch: [agentId | taskId or "none pending"]
 
 ---
 
+## STEP 0 (SECURITY CHECK — added 2026-03-04): Pre-heartbeat scan
+
+Before ANY other step, if you are about to commit or push anything:
+1. **NEVER commit secrets** — scan with: `git diff --cached | grep -E 'AAF[0-9]+|ghp_|sk-|AKIA|bot.*token'`
+2. If any credential found → ABORT commit, redact, then re-commit
+3. This applies to ALL files including audit docs, archive files, and reports
+
+**System state as of 2026-03-04 (knowledge transfer):**
+- Gateway: was crash-looping (secrets provider missing) — FIXED. If it crashes again: check `logs/gateway.err.log` for "Secret provider" errors → check `credentials/secrets.json` exists with 600 perms
+- RAG: was broken (fastembed ONNX cache corrupted) — FIXED. If RAG fails: `rm -rf /var/folders/bs/srf_0gbd0y13hwm0_g5jvdcw0000gn/T/fastembed_cache/` then rerun rag_query.py
+- Dashboard v2: GET /api/cron-jobs and GET /api/state now work
+- New crons: task-injector-hourly-0001 (keeps agents busy) + accountability-daily-0001 (23:55 audit)
+- Per-agent working memory: workspace/memory/working-<agentId>.json for all 8 agents
+
+---
+
 ## Loop Detection Rule
 
 If you find yourself writing the same message, spawning the same agent, or reading the same file 3+ times in one heartbeat without producing a new artifact → STOP. Write to Slack: "CEO LOOP DETECTED — halting and alerting OPS." Do not continue.
