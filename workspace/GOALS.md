@@ -147,7 +147,44 @@ Sub-goals with deadlines:
 
 ---
 
+---
+
+### GOAL-007 — 10 Open-Source Projects in 2 Months
+**Owner:** RED (orchestrates) + RESEARCH (ideation) + ENG (implementation)
+**Horizon:** 2026-03-05 → 2026-05-05 (8 weeks)
+**Status:** 🟡 Starting — RESEARCH generating backlog (PRJ-001)
+**KPI:** 10 public GitHub repos, each with: ≥1 real commit by an agent, README, open issues, PR log
+
+**Pipeline (how it works):**
+```
+RESEARCH: pain point mining → project spec → workspace/projects/backlog.md
+  ↓ (weekly, PRJ-NNN tasks injected by dispatcher)
+ENG: picks spec → creates GitHub repo → implements MVP → opens PR → logs to PM-LOG.md
+  ↓
+RED: reviews PR log at 09:00 EST daily, posts weekly update to Slack
+```
+
+**Tracking:**
+- Backlog: `workspace/projects/backlog.md` (RESEARCH owns)
+- Per-project: `workspace/projects/<slug>/` → `PM-LOG.md`, `SPEC.md`, PRs
+- PR log: `workspace/projects/pr-log.md` (auto-appended by ENG after each PR)
+- Weekly digest: RED posts to `#redos-mission-control` every Monday 09:00 EST
+
+**Project status board:**
+| # | Slug | Status | Repo | Last PR |
+|---|------|--------|------|---------|
+| — | backlog | 🔄 RESEARCH mining pain points | — | — |
+
+*(RESEARCH fills this table in backlog.md; ENG updates as repos are created)*
+
+**Constraints:**
+- All projects must be public GitHub repos under `redinside-dev/` org or `anuragg-saxenaa` account
+- Each project: Node.js or Python (current stack), MIT license
+- No approval needed for repo creation, commits, or PRs — these are L1/L2 autonomous actions
+- ENG must open a PR (not push directly to main) so there is a reviewable artifact
+
+---
+
 ## Icebox (future goals, not active)
 
-- Multi-agent content factory pipeline
 - Personal knowledge base with RAG ingestion
