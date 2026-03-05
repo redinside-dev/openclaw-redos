@@ -55,9 +55,18 @@ curl -H "X-N8N-API-KEY: ..." http://localhost:5678/api/v1/workflows | jq '.data 
 
 ### Key Services
 - **9router:** Model routing proxy (`http://127.0.0.1:20128`)
-- **n8n:** Workflow automation (`http://127.0.0.1:5678`) — **12 active workflows as of 2026-03-04**
+- **n8n:** Workflow automation (`http://127.0.0.1:5678`) — **13 active workflows as of 2026-03-05**
 - **Qdrant:** Vector search (`http://127.0.0.1:6333`)
 - **Dashboard:** Mission control (`http://127.0.0.1:19000`) · auth: `red/redos2026`
+
+### Gateway Auto-Recovery (deployed 2026-03-04)
+Gateway has a 4-layer resilience system — **do not manually restart unless all layers have failed and you receive a CRITICAL alert.**
+- n8n "🛡️ OpenClaw Guardian" checks every 2min (external, workflow ID: ZD7ljvVjdj9OvosQ)
+- `ai.openclaw.gateway-watchdog` launchd runs every 60s
+- `ai.openclaw.telegram-deadman` runs every 5min (silent-bot detection)
+- `ai.openclaw.boot-guard` runs at boot (post-upgrade entrypoint check)
+- Alerts sent via @OPSRED_BOT to admin
+- **After any `npm update -g openclaw`: run `openclaw gateway install` immediately**
 
 ---
 

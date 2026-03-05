@@ -1,6 +1,6 @@
 version: '1.0'
-last_updated: '2026-03-04T15:15:00.000Z'
-updated_by: consultant-overhaul
+last_updated: '2026-03-05T01:30:00.000Z'
+updated_by: consultant-session5
 dispatched_tasks_total: 9
 verified_completions_total: 9
 real_autonomy_score: 84
@@ -23,8 +23,8 @@ crons_enabled: 37
 crons_disabled: 80
 crons_total: 115
 crons_with_errors: 0
-n8n_workflows_active: 12
-n8n_workflows_total: 12
+n8n_workflows_active: 13
+n8n_workflows_total: 13
 pipelines:
   social_monitoring: active
   scrapling: installed_v0.4.1
@@ -33,6 +33,7 @@ pipelines:
   slack_events: active
   event_driven_architecture: complete
   content_factory: stage3_ready
+  gateway_resilience: active
 social_db:
   content_raw_rows: 16
   content_signals_rows: 1
@@ -53,6 +54,8 @@ completed:
   - 'Session cleanup: 1527+ archives + orphans removed'
   - Loop detection enabled (was causing 30-iteration exec loops)
   - Node@22→25 plist fix (was causing Telegram silence)
+  - '4-layer gateway resilience: n8n Guardian + 3 launchd watchdogs (2026-03-04 Session 5)'
+  - Session loop watchdog deployed (kills infinite-loop sessions every 5min)
 pending:
   - 'GOAL-003: wire research-to-eng pipeline cron'
   - 'GOAL-004: prompt caching in gateway/resilient-handler.js'

@@ -1243,3 +1243,31 @@ STATE.yaml confirms: “Subscription audit: ChatGPT Pro x2 (due 2026-04-01)”.
 1. Write Python to a temp file rather than using heredoc in `$()` subshell (bash doesn't support it)
 2. Use `trap 'rm -f "$PY_SCRIPT"' EXIT` to clean up temp files
 3. Test with a synthetic fake session (25+ repeated tool calls, >20KB file) before deploying
+
+---
+
+## LEARNING-20260304-011: Gateway Resilience — 4-Layer Auto-Recovery System
+
+**Date:** 2026-03-04 (Session 5)
+**Severity:** CRITICAL
+**Category:** Infra Reliability
+
+**Problem:** A 2.5-hour silent outage occurred on 2026-03-04 starting at 18:34 ET. Root cause: EISDIR crash in gateway → SIGTERM → OpenClaw 2026.3.2 had changed the service entrypoint (`dist/index.js node run` → `dist/entry.js gateway`) but `ai.openclaw.gateway` launchd plist was never reinstalled after upgrade. Stale plist → gateway never came back. All 7 Telegram bots disconnected with no alert.
+
+**Immediate fix:**
+```bash
+openclaw gateway install   # always run after npm update -g openclaw
+openclaw node restart
+```
+
+**Permanent fix — 4-layer guardian system deployed:**
+- **Layer 0 (n8n, 2min):** "🛡️ OpenClaw Guardian" workflow ID `ZD7ljvVjdj9OvosQ` — completely external to OpenClaw, checks port 18789, tries `openclaw gateway install` then `launchctl kickstart`, Telegram alert via @OPSRED_BOT
+- **Layer 1 (launchd, 60s):** `ai.openclaw.gateway-watchdog` — same repair logic in bash
+- **Layer 2 (launchd, 5min):** `ai.openclaw.telegram-deadman` — detects silent bots when gateway is technically up; kills + restarts gateway to reinitialize Telegram providers
+- **Layer 3 (launchd, boot):** `ai.openclaw.boot-guard` — validates plist entrypoint after every system boot
+
+**Alert channel:** All alerts via @OPSRED_BOT (token in `workspace/config/telegram-bot-token.txt`) to admin chat_id `1012034994`.
+
+**Rule:** After every `npm update -g openclaw`, run `openclaw gateway install` immediately. Do not wait.
+
+**Scripts:** `scripts/alert-lib.sh`, `scripts/gateway-watchdog.sh`, `scripts/telegram-deadman.sh`, `scripts/boot-guard.sh`, `scripts/watchdog-task-stall.sh`

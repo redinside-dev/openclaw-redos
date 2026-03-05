@@ -1,6 +1,6 @@
 # OPS Domain Knowledge Base
 
-**Agent:** OPS (⚙️) | **Updated:** 2026-03-04
+**Agent:** OPS (⚙️) | **Updated:** 2026-03-04 (Session 5)
 
 ---
 
@@ -14,7 +14,32 @@
 | 9Router | 20128 | `ai.openclaw.9router` | `launchctl kickstart -k gui/$(id -u)/ai.openclaw.9router` |
 | Ollama | 11434 | `homebrew.mxcl.ollama` | `launchctl kickstart -k gui/$(id -u)/homebrew.mxcl.ollama` |
 | Cloudflared | — | `ai.openclaw.cloudflared` | `launchctl kickstart -k gui/$(id -u)/ai.openclaw.cloudflared` |
-| Watchdog | — | `ai.openclaw.watchdog` | `launchctl kickstart -k gui/$(id -u)/ai.openclaw.watchdog` |
+| Watchdog (30min) | — | `ai.openclaw.watchdog` | `launchctl kickstart -k gui/$(id -u)/ai.openclaw.watchdog` |
+| Gateway Watchdog (60s) | — | `ai.openclaw.gateway-watchdog` | `launchctl kickstart -k gui/$(id -u)/ai.openclaw.gateway-watchdog` |
+| Telegram Deadman (5min) | — | `ai.openclaw.telegram-deadman` | `launchctl kickstart -k gui/$(id -u)/ai.openclaw.telegram-deadman` |
+| Boot Guard (boot-time) | — | `ai.openclaw.boot-guard` | runs once at login |
+
+## 4-Layer Gateway Resilience System (deployed 2026-03-04)
+
+The gateway has a 4-layer auto-recovery system. **Do NOT manually intervene** unless all 4 layers have failed.
+
+| Layer | What | Interval | Action |
+|-------|------|----------|--------|
+| 0 | n8n "🛡️ OpenClaw Guardian" (ID: ZD7ljvVjdj9OvosQ) | 2 min | External; tries `openclaw gateway install` + kickstart; Telegram alert |
+| 1 | `ai.openclaw.gateway-watchdog` launchd | 60s | Bash; same repair; direct Telegram via @OPSRED_BOT |
+| 2 | `ai.openclaw.telegram-deadman` launchd | 5 min | Detects silent Telegram providers; kills gateway to force reinit |
+| 3 | `ai.openclaw.boot-guard` launchd | boot only | Validates plist entrypoint post-upgrade |
+
+**Manual repair (if all layers fail):**
+```bash
+openclaw gateway install
+openclaw node restart
+```
+
+**Root cause of 2026-03-04 outage:** Post-upgrade launchd entrypoint mismatch (`dist/index.js node run` → `dist/entry.js gateway`). After any `npm update -g openclaw`, always run `openclaw gateway install`.
+
+**Alert bot:** @OPSRED_BOT sends all watchdog alerts to admin (chat_id 1012034994).
+**Token file:** `workspace/config/telegram-bot-token.txt` (contains OPS_BOT token)
 
 ## Full Stack Restart
 ```bash
