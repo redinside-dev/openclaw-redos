@@ -82,7 +82,7 @@ Ideas KB: `workspace/ideas/twitter-feed.md`, `workspace/ideas/reddit-feed.md`, `
 | `daily-standup` | 8am weekdays | Trigger RED standup → compile status → post to Slack | `sa-*-checkin` x6 crons |
 | `model-health-check` | Every 30min | Ping Ollama + 9Router; alert only on failure | `c8481b2a` + `76777b7a` system health crons |
 | `trading-window` | Market open (9:30am ET) + Market close (4pm ET) | FINANCE agent trade review | Reduce 30-min cadence to event-based |
-| `autonomous-task-dispatcher` | Every 15min | Single job checks AUTONOMOUS.md, dispatches | All 8 inner loop crons + 8 meta-self-check crons |
+| `autonomous-ta[REDACTED] | Every 15min | Single job checks AUTONOMOUS.md, dispatches | All 8 inner loop crons + 8 meta-self-check crons |
 | `memory-sync` | Nightly (1:30am ET) | Compact + sync all agent memories | `episodes-seeder-0001`, `health-jsonl-writer-0001` |
 
 ### Utility Workflows

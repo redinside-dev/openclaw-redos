@@ -1,0 +1,1056 @@
+{
+  "audits": [
+    {
+      "id": "audit-f827f338",
+      "leadId": "lead-82a4fd59",
+      "url": null,
+      "businessName": "Joe's Pizza",
+      "grade": "D",
+      "scores": {
+        "speed": 1,
+        "mobile": 1,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "No website found"
+      ],
+      "recommendation": "No website exists. Full rebuild with modern website recommended.",
+      "analyzedAt": "2026-03-06T07:04:08.959933Z",
+      "hasContent": false
+    },
+    {
+      "id": "audit-2020cd0c",
+      "leadId": "lead-04e6aebe",
+      "url": null,
+      "businessName": "Maria's Bakery",
+      "grade": "D",
+      "scores": {
+        "speed": 1,
+        "mobile": 1,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "No website found"
+      ],
+      "recommendation": "No website exists. Full rebuild with modern website recommended.",
+      "analyzedAt": "2026-03-06T07:04:08.960114Z",
+      "hasContent": false
+    },
+    {
+      "id": "audit-52d174a4",
+      "leadId": "lead-c70769fa",
+      "url": null,
+      "businessName": "Mike's Plumbing",
+      "grade": "D",
+      "scores": {
+        "speed": 1,
+        "mobile": 1,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "No website found"
+      ],
+      "recommendation": "No website exists. Full rebuild with modern website recommended.",
+      "analyzedAt": "2026-03-06T07:04:08.960123Z",
+      "hasContent": false
+    },
+    {
+      "id": "audit-28684cc6",
+      "leadId": "lead-803dc0d7",
+      "url": null,
+      "businessName": "Elite Electric",
+      "grade": "D",
+      "scores": {
+        "speed": 1,
+        "mobile": 1,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "No website found"
+      ],
+      "recommendation": "No website exists. Full rebuild with modern website recommended.",
+      "analyzedAt": "2026-03-06T07:04:08.960128Z",
+      "hasContent": false
+    },
+    {
+      "id": "audit-fc66b700",
+      "leadId": "lead-3daecadb",
+      "url": null,
+      "businessName": "Cool Air HVAC",
+      "grade": "D",
+      "scores": {
+        "speed": 1,
+        "mobile": 1,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "No website found"
+      ],
+      "recommendation": "No website exists. Full rebuild with modern website recommended.",
+      "analyzedAt": "2026-03-06T07:04:08.960133Z",
+      "hasContent": false
+    },
+    {
+      "id": "audit-c85633c5",
+      "leadId": "lead-0dc540b6",
+      "url": null,
+      "businessName": "Smith Law Office",
+      "grade": "D",
+      "scores": {
+        "speed": 1,
+        "mobile": 1,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "No website found"
+      ],
+      "recommendation": "No website exists. Full rebuild with modern website recommended.",
+      "analyzedAt": "2026-03-06T07:04:08.960138Z",
+      "hasContent": false
+    },
+    {
+      "url": "http://brownaccounting.Wixsite.com/mysite",
+      "businessName": "Brown Accounting",
+      "grade": "D",
+      "scores": {
+        "speed": 3,
+        "mobile": 3,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "Poor SEO optimization",
+        "Outdated design",
+        "Limited content",
+        "No website or unreachable"
+      ],
+      "recommendation": "Full rebuild recommended. Current site is ineffective.",
+      "analyzedAt": "2026-03-06T07:04:09.629615Z",
+      "hasContent": false,
+      "id": "audit-5e7edcb6",
+      "leadId": "lead-60496824"
+    },
+    {
+      "url": "http://sunsetrealty.Wixsite.com/mysite",
+      "businessName": "Sunset Realty",
+      "grade": "D",
+      "scores": {
+        "speed": 3,
+        "mobile": 3,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "Poor SEO optimization",
+        "Outdated design",
+        "Limited content",
+        "No website or unreachable"
+      ],
+      "recommendation": "Full rebuild recommended. Current site is ineffective.",
+      "analyzedAt": "2026-03-06T07:04:10.211324Z",
+      "hasContent": false,
+      "id": "audit-c510eb1b",
+      "leadId": "lead-dc900e35"
+    },
+    {
+      "url": "https://quickfixauto.com",
+      "businessName": "Quick Fix Auto",
+      "grade": "C",
+      "scores": {
+        "speed": 5,
+        "mobile": 3,
+        "seo": 2,
+        "design": 3,
+        "content": 2
+      },
+      "issues": [
+        "Poor SEO optimization",
+        "Limited content"
+      ],
+      "recommendation": "Website needs improvement. Consider optimization.",
+      "analyzedAt": "2026-03-06T07:04:10.653788Z",
+      "hasContent": true,
+      "id": "audit-8bb4312c",
+      "leadId": "lead-dec075c8"
+    },
+    {
+      "url": "https://sparklecleaning.com",
+      "businessName": "Sparkle Cleaning",
+      "grade": "C",
+      "scores": {
+        "speed": 5,
+        "mobile": 3,
+        "seo": 2,
+        "design": 3,
+        "content": 2
+      },
+      "issues": [
+        "Poor SEO optimization",
+        "Limited content"
+      ],
+      "recommendation": "Website needs improvement. Consider optimization.",
+      "analyzedAt": "2026-03-06T07:04:11.071753Z",
+      "hasContent": true,
+      "id": "audit-6aedc706",
+      "leadId": "lead-f58b64e7"
+    },
+    {
+      "id": "audit-7defeef8",
+      "leadId": "lead-a0b3e118",
+      "url": null,
+      "businessName": "Green Landscapes",
+      "grade": "D",
+      "scores": {
+        "speed": 1,
+        "mobile": 1,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "No website found"
+      ],
+      "recommendation": "No website exists. Full rebuild with modern website recommended.",
+      "analyzedAt": "2026-03-06T07:04:11.071807Z",
+      "hasContent": false
+    },
+    {
+      "id": "audit-a27818ce",
+      "leadId": "lead-be302fbf",
+      "url": null,
+      "businessName": "Fresh Cuts Salon",
+      "grade": "D",
+      "scores": {
+        "speed": 1,
+        "mobile": 1,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "No website found"
+      ],
+      "recommendation": "No website exists. Full rebuild with modern website recommended.",
+      "analyzedAt": "2026-03-06T07:04:11.071821Z",
+      "hasContent": false
+    },
+    {
+      "id": "audit-425c8b8b",
+      "leadId": "lead-f2eadca2",
+      "url": null,
+      "businessName": "Paws & Claws Vet",
+      "grade": "D",
+      "scores": {
+        "speed": 1,
+        "mobile": 1,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "No website found"
+      ],
+      "recommendation": "No website exists. Full rebuild with modern website recommended.",
+      "analyzedAt": "2026-03-06T07:04:11.071831Z",
+      "hasContent": false
+    },
+    {
+      "id": "audit-a68e6014",
+      "leadId": "lead-5d38ea4e",
+      "url": null,
+      "businessName": "Downtown Fitness",
+      "grade": "D",
+      "scores": {
+        "speed": 1,
+        "mobile": 1,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "No website found"
+      ],
+      "recommendation": "No website exists. Full rebuild with modern website recommended.",
+      "analyzedAt": "2026-03-06T07:04:11.071839Z",
+      "hasContent": false
+    },
+    {
+      "id": "audit-f2c2e5c1",
+      "leadId": "lead-1fae5e92",
+      "url": null,
+      "businessName": "Golden Florist",
+      "grade": "D",
+      "scores": {
+        "speed": 1,
+        "mobile": 1,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "No website found"
+      ],
+      "recommendation": "No website exists. Full rebuild with modern website recommended.",
+      "analyzedAt": "2026-03-06T07:04:11.071847Z",
+      "hasContent": false
+    },
+    {
+      "id": "audit-cd6309bb",
+      "leadId": "lead-df0c318a",
+      "url": null,
+      "businessName": "Dr. Smith Dental",
+      "grade": "D",
+      "scores": {
+        "speed": 1,
+        "mobile": 1,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "No website found"
+      ],
+      "recommendation": "No website exists. Full rebuild with modern website recommended.",
+      "analyzedAt": "2026-03-06T07:04:11.071947Z",
+      "hasContent": false
+    },
+    {
+      "url": "http://cityinsurance.Wixsite.com/mysite",
+      "businessName": "City Insurance",
+      "grade": "D",
+      "scores": {
+        "speed": 3,
+        "mobile": 3,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "Poor SEO optimization",
+        "Outdated design",
+        "Limited content",
+        "No website or unreachable"
+      ],
+      "recommendation": "Full rebuild recommended. Current site is ineffective.",
+      "analyzedAt": "2026-03-06T07:04:11.700625Z",
+      "hasContent": false,
+      "id": "audit-0a4dec4d",
+      "leadId": "lead-a184ecb6"
+    },
+    {
+      "url": "http://techsolutionsit.Wixsite.com/mysite",
+      "businessName": "Tech Solutions IT",
+      "grade": "D",
+      "scores": {
+        "speed": 3,
+        "mobile": 3,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "Poor SEO optimization",
+        "Outdated design",
+        "Limited content",
+        "No website or unreachable"
+      ],
+      "recommendation": "Full rebuild recommended. Current site is ineffective.",
+      "analyzedAt": "2026-03-06T07:04:12.269702Z",
+      "hasContent": false,
+      "id": "audit-44926ad0",
+      "leadId": "lead-1e871a0e"
+    },
+    {
+      "url": "https://happytailsgrooming.com",
+      "businessName": "Happy Tails Grooming",
+      "grade": "B",
+      "scores": {
+        "speed": 2,
+        "mobile": 5,
+        "seo": 5,
+        "design": 5,
+        "content": 5
+      },
+      "issues": [
+        "Slow page load time"
+      ],
+      "recommendation": "Website is good. Minor improvements possible.",
+      "analyzedAt": "2026-03-06T07:04:16.354039Z",
+      "hasContent": true,
+      "id": "audit-9f8a05a7",
+      "leadId": "lead-b01b5974"
+    },
+    {
+      "url": "https://bellaspa&nails.com",
+      "businessName": "Bella Spa & Nails",
+      "grade": "D",
+      "scores": {
+        "speed": 3,
+        "mobile": 3,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "Poor SEO optimization",
+        "Outdated design",
+        "Limited content",
+        "No website or unreachable"
+      ],
+      "recommendation": "Full rebuild recommended. Current site is ineffective.",
+      "analyzedAt": "2026-03-06T07:04:16.403928Z",
+      "hasContent": false,
+      "id": "audit-c7ca1eea",
+      "leadId": "lead-4eaf1b12"
+    },
+    {
+      "id": "audit-a120aa66",
+      "leadId": "lead-561522d3",
+      "url": null,
+      "businessName": "Joe's Pizza",
+      "grade": "D",
+      "scores": {
+        "speed": 1,
+        "mobile": 1,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "No website found"
+      ],
+      "recommendation": "No website exists. Full rebuild with modern website recommended.",
+      "analyzedAt": "2026-03-06T07:09:04.276856Z",
+      "hasContent": false
+    },
+    {
+      "id": "audit-794fb4c3",
+      "leadId": "lead-7df93445",
+      "url": null,
+      "businessName": "Maria's Bakery",
+      "grade": "D",
+      "scores": {
+        "speed": 1,
+        "mobile": 1,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "No website found"
+      ],
+      "recommendation": "No website exists. Full rebuild with modern website recommended.",
+      "analyzedAt": "2026-03-06T07:09:04.277009Z",
+      "hasContent": false
+    },
+    {
+      "id": "audit-ab69f642",
+      "leadId": "lead-6453b902",
+      "url": null,
+      "businessName": "Mike's Plumbing",
+      "grade": "D",
+      "scores": {
+        "speed": 1,
+        "mobile": 1,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "No website found"
+      ],
+      "recommendation": "No website exists. Full rebuild with modern website recommended.",
+      "analyzedAt": "2026-03-06T07:09:04.277017Z",
+      "hasContent": false
+    },
+    {
+      "id": "audit-8b322180",
+      "leadId": "lead-c1a92bb5",
+      "url": null,
+      "businessName": "Elite Electric",
+      "grade": "D",
+      "scores": {
+        "speed": 1,
+        "mobile": 1,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "No website found"
+      ],
+      "recommendation": "No website exists. Full rebuild with modern website recommended.",
+      "analyzedAt": "2026-03-06T07:09:04.277022Z",
+      "hasContent": false
+    },
+    {
+      "id": "audit-f12a269f",
+      "leadId": "lead-60f88734",
+      "url": null,
+      "businessName": "Cool Air HVAC",
+      "grade": "D",
+      "scores": {
+        "speed": 1,
+        "mobile": 1,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "No website found"
+      ],
+      "recommendation": "No website exists. Full rebuild with modern website recommended.",
+      "analyzedAt": "2026-03-06T07:09:04.277028Z",
+      "hasContent": false
+    },
+    {
+      "id": "audit-b3ce0ba7",
+      "leadId": "lead-fba1cb4e",
+      "url": null,
+      "businessName": "Smith Law Office",
+      "grade": "D",
+      "scores": {
+        "speed": 1,
+        "mobile": 1,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "No website found"
+      ],
+      "recommendation": "No website exists. Full rebuild with modern website recommended.",
+      "analyzedAt": "2026-03-06T07:09:04.277033Z",
+      "hasContent": false
+    },
+    {
+      "id": "audit-0dcb0568",
+      "leadId": "lead-009f47bd",
+      "url": null,
+      "businessName": "Brown Accounting",
+      "grade": "D",
+      "scores": {
+        "speed": 1,
+        "mobile": 1,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "No website found"
+      ],
+      "recommendation": "No website exists. Full rebuild with modern website recommended.",
+      "analyzedAt": "2026-03-06T07:09:04.277037Z",
+      "hasContent": false
+    },
+    {
+      "url": "http://sunsetrealty.wixsite.com/mysite",
+      "businessName": "Sunset Realty",
+      "grade": "D",
+      "scores": {
+        "speed": 3,
+        "mobile": 3,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "Poor SEO optimization",
+        "Outdated design",
+        "Limited content",
+        "No website or unreachable"
+      ],
+      "recommendation": "Full rebuild recommended. Current site is ineffective.",
+      "analyzedAt": "2026-03-06T07:09:04.644328Z",
+      "hasContent": false,
+      "id": "audit-9e385b75",
+      "leadId": "lead-582cc121"
+    },
+    {
+      "url": "http://quickfixauto.wixsite.com/mysite",
+      "businessName": "Quick Fix Auto",
+      "grade": "D",
+      "scores": {
+        "speed": 3,
+        "mobile": 3,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "Poor SEO optimization",
+        "Outdated design",
+        "Limited content",
+        "No website or unreachable"
+      ],
+      "recommendation": "Full rebuild recommended. Current site is ineffective.",
+      "analyzedAt": "2026-03-06T07:09:05.142770Z",
+      "hasContent": false,
+      "id": "audit-b561ce26",
+      "leadId": "lead-e0df590c"
+    },
+    {
+      "url": "https://sparklecleaningvaughan.ca",
+      "businessName": "Sparkle Cleaning",
+      "grade": "D",
+      "scores": {
+        "speed": 3,
+        "mobile": 3,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "Poor SEO optimization",
+        "Outdated design",
+        "Limited content",
+        "No website or unreachable"
+      ],
+      "recommendation": "Full rebuild recommended. Current site is ineffective.",
+      "analyzedAt": "2026-03-06T07:09:05.190952Z",
+      "hasContent": false,
+      "id": "audit-a9d1ea5a",
+      "leadId": "lead-2b38114e"
+    },
+    {
+      "id": "audit-bf1b9457",
+      "leadId": "lead-2818c242",
+      "url": null,
+      "businessName": "Green Landscapes",
+      "grade": "D",
+      "scores": {
+        "speed": 1,
+        "mobile": 1,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "No website found"
+      ],
+      "recommendation": "No website exists. Full rebuild with modern website recommended.",
+      "analyzedAt": "2026-03-06T07:09:05.191045Z",
+      "hasContent": false
+    },
+    {
+      "id": "audit-2367eb78",
+      "leadId": "lead-bba51d3c",
+      "url": null,
+      "businessName": "Fresh Cuts Salon",
+      "grade": "D",
+      "scores": {
+        "speed": 1,
+        "mobile": 1,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "No website found"
+      ],
+      "recommendation": "No website exists. Full rebuild with modern website recommended.",
+      "analyzedAt": "2026-03-06T07:09:05.191067Z",
+      "hasContent": false
+    },
+    {
+      "id": "audit-cf2c0206",
+      "leadId": "lead-2f555119",
+      "url": null,
+      "businessName": "Paws & Claws Vet",
+      "grade": "D",
+      "scores": {
+        "speed": 1,
+        "mobile": 1,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "No website found"
+      ],
+      "recommendation": "No website exists. Full rebuild with modern website recommended.",
+      "analyzedAt": "2026-03-06T07:09:05.191083Z",
+      "hasContent": false
+    },
+    {
+      "id": "audit-7feb9fee",
+      "leadId": "lead-fe741e3e",
+      "url": null,
+      "businessName": "Downtown Fitness",
+      "grade": "D",
+      "scores": {
+        "speed": 1,
+        "mobile": 1,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "No website found"
+      ],
+      "recommendation": "No website exists. Full rebuild with modern website recommended.",
+      "analyzedAt": "2026-03-06T07:09:05.191098Z",
+      "hasContent": false
+    },
+    {
+      "id": "audit-bf98f26d",
+      "leadId": "lead-67875628",
+      "url": null,
+      "businessName": "Golden Florist",
+      "grade": "D",
+      "scores": {
+        "speed": 1,
+        "mobile": 1,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "No website found"
+      ],
+      "recommendation": "No website exists. Full rebuild with modern website recommended.",
+      "analyzedAt": "2026-03-06T07:09:05.191111Z",
+      "hasContent": false
+    },
+    {
+      "id": "audit-ac0b4cbe",
+      "leadId": "lead-47be93bd",
+      "url": null,
+      "businessName": "Dr. Smith Dental",
+      "grade": "D",
+      "scores": {
+        "speed": 1,
+        "mobile": 1,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "No website found"
+      ],
+      "recommendation": "No website exists. Full rebuild with modern website recommended.",
+      "analyzedAt": "2026-03-06T07:09:05.191127Z",
+      "hasContent": false
+    },
+    {
+      "id": "audit-2bd4b7c7",
+      "leadId": "lead-6e5c55db",
+      "url": null,
+      "businessName": "City Insurance",
+      "grade": "D",
+      "scores": {
+        "speed": 1,
+        "mobile": 1,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "No website found"
+      ],
+      "recommendation": "No website exists. Full rebuild with modern website recommended.",
+      "analyzedAt": "2026-03-06T07:09:05.191141Z",
+      "hasContent": false
+    },
+    {
+      "url": "http://techsolutionsit.wixsite.com/mysite",
+      "businessName": "Tech Solutions IT",
+      "grade": "D",
+      "scores": {
+        "speed": 3,
+        "mobile": 3,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "Poor SEO optimization",
+        "Outdated design",
+        "Limited content",
+        "No website or unreachable"
+      ],
+      "recommendation": "Full rebuild recommended. Current site is ineffective.",
+      "analyzedAt": "2026-03-06T07:09:05.563039Z",
+      "hasContent": false,
+      "id": "audit-bcd7b53c",
+      "leadId": "lead-80ed50f0"
+    },
+    {
+      "url": "http://happytailsgrooming.wixsite.com/mysite",
+      "businessName": "Happy Tails Grooming",
+      "grade": "D",
+      "scores": {
+        "speed": 3,
+        "mobile": 3,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "Poor SEO optimization",
+        "Outdated design",
+        "Limited content",
+        "No website or unreachable"
+      ],
+      "recommendation": "Full rebuild recommended. Current site is ineffective.",
+      "analyzedAt": "2026-03-06T07:09:06.059748Z",
+      "hasContent": false,
+      "id": "audit-ccac0f30",
+      "leadId": "lead-9329180a"
+    },
+    {
+      "url": "https://bellaspa&nailswhitby.ca",
+      "businessName": "Bella Spa & Nails",
+      "grade": "D",
+      "scores": {
+        "speed": 3,
+        "mobile": 3,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "Poor SEO optimization",
+        "Outdated design",
+        "Limited content",
+        "No website or unreachable"
+      ],
+      "recommendation": "Full rebuild recommended. Current site is ineffective.",
+      "analyzedAt": "2026-03-06T07:09:06.105526Z",
+      "hasContent": false,
+      "id": "audit-938eb614",
+      "leadId": "lead-3574d2ff"
+    },
+    {
+      "id": "audit-955f5fe8",
+      "leadId": "lead-53778432",
+      "url": null,
+      "businessName": "Maple Leaf Restaurant",
+      "grade": "D",
+      "scores": {
+        "speed": 1,
+        "mobile": 1,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "No website found"
+      ],
+      "recommendation": "No website exists. Full rebuild with modern website recommended.",
+      "analyzedAt": "2026-03-06T07:09:06.105612Z",
+      "hasContent": false
+    },
+    {
+      "id": "audit-19f77f50",
+      "leadId": "lead-9e3fcb17",
+      "url": null,
+      "businessName": "Northern Construction",
+      "grade": "D",
+      "scores": {
+        "speed": 1,
+        "mobile": 1,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "No website found"
+      ],
+      "recommendation": "No website exists. Full rebuild with modern website recommended.",
+      "analyzedAt": "2026-03-06T07:09:06.105633Z",
+      "hasContent": false
+    },
+    {
+      "id": "audit-e21ae754",
+      "leadId": "lead-c26af0e4",
+      "url": null,
+      "businessName": "Canadian Legal Services",
+      "grade": "D",
+      "scores": {
+        "speed": 1,
+        "mobile": 1,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "No website found"
+      ],
+      "recommendation": "No website exists. Full rebuild with modern website recommended.",
+      "analyzedAt": "2026-03-06T07:09:06.105653Z",
+      "hasContent": false
+    },
+    {
+      "id": "audit-3a52c2e8",
+      "leadId": "lead-5496d878",
+      "url": null,
+      "businessName": "True North Realty",
+      "grade": "D",
+      "scores": {
+        "speed": 1,
+        "mobile": 1,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "No website found"
+      ],
+      "recommendation": "No website exists. Full rebuild with modern website recommended.",
+      "analyzedAt": "2026-03-06T07:09:06.105670Z",
+      "hasContent": false
+    },
+    {
+      "id": "audit-039411fd",
+      "leadId": "lead-b01de107",
+      "url": null,
+      "businessName": "Ottawa Dental",
+      "grade": "D",
+      "scores": {
+        "speed": 1,
+        "mobile": 1,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "No website found"
+      ],
+      "recommendation": "No website exists. Full rebuild with modern website recommended.",
+      "analyzedAt": "2026-03-06T07:09:06.105686Z",
+      "hasContent": false
+    },
+    {
+      "id": "audit-a3f2bfa7",
+      "leadId": "lead-9a27b076",
+      "url": null,
+      "businessName": "Toronto Medical Clinic",
+      "grade": "D",
+      "scores": {
+        "speed": 1,
+        "mobile": 1,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "No website found"
+      ],
+      "recommendation": "No website exists. Full rebuild with modern website recommended.",
+      "analyzedAt": "2026-03-06T07:09:06.105703Z",
+      "hasContent": false
+    },
+    {
+      "id": "audit-cdbe28cd",
+      "leadId": "lead-7857a474",
+      "url": null,
+      "businessName": "Niagara Salon",
+      "grade": "D",
+      "scores": {
+        "speed": 1,
+        "mobile": 1,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "No website found"
+      ],
+      "recommendation": "No website exists. Full rebuild with modern website recommended.",
+      "analyzedAt": "2026-03-06T07:09:06.105723Z",
+      "hasContent": false
+    },
+    {
+      "url": "http://greatlakespizza.wixsite.com/mysite",
+      "businessName": "Great Lakes Pizza",
+      "grade": "D",
+      "scores": {
+        "speed": 3,
+        "mobile": 3,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "Poor SEO optimization",
+        "Outdated design",
+        "Limited content",
+        "No website or unreachable"
+      ],
+      "recommendation": "Full rebuild recommended. Current site is ineffective.",
+      "analyzedAt": "2026-03-06T07:09:06.652878Z",
+      "hasContent": false,
+      "id": "audit-95dd76f6",
+      "leadId": "lead-0ec0d87b"
+    },
+    {
+      "url": "http://royalteacoffee.wixsite.com/mysite",
+      "businessName": "Royal Tea Coffee",
+      "grade": "D",
+      "scores": {
+        "speed": 3,
+        "mobile": 3,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "Poor SEO optimization",
+        "Outdated design",
+        "Limited content",
+        "No website or unreachable"
+      ],
+      "recommendation": "Full rebuild recommended. Current site is ineffective.",
+      "analyzedAt": "2026-03-06T07:09:07.214785Z",
+      "hasContent": false,
+      "id": "audit-bd90db9f",
+      "leadId": "lead-abced0d0"
+    },
+    {
+      "url": "https://maplespavaughan.ca",
+      "businessName": "Maple Spa",
+      "grade": "D",
+      "scores": {
+        "speed": 3,
+        "mobile": 3,
+        "seo": 1,
+        "design": 1,
+        "content": 1
+      },
+      "issues": [
+        "Poor SEO optimization",
+        "Outdated design",
+        "Limited content",
+        "No website or unreachable"
+      ],
+      "recommendation": "Full rebuild recommended. Current site is ineffective.",
+      "analyzedAt": "2026-03-06T07:09:07.257731Z",
+      "hasContent": false,
+      "id": "audit-bce6371d",
+      "leadId": "lead-6c1bb019"
+    }
+  ],
+  "lastUpdated": "2026-03-06T09:12:54.589593Z",
+  "stats": {
+    "total": 50,
+    "gradeA": 0,
+    "gradeB": 1,
+    "gradeC": 2,
+    "gradeD": 47
+  }
+}

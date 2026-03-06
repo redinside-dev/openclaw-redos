@@ -24,7 +24,7 @@ INTAKE → PLANNING → QUEUED → IN_PROGRESS → IN_REVIEW → DONE → DELIVE
 ### Create Project
 When a HATAKE brief arrives:
 1. Generate ID: `PROJ-{YYYYMMDD}-{3-digit-sequence}`
-2. Run: `bash workspace/skills/task-runner/scripts/create-project.sh {id} "{brief}"`
+2. Run: `bash workspace/skills/ta[REDACTED] {id} "{brief}"`
 3. Fill state.json with brief data
 4. Create task breakdown (see "Break into Tasks" below)
 
@@ -58,7 +58,7 @@ Read the HATAKE brief and the smart-router's model assignments. For each departm
 
 ### Dispatch Task
 When all dependencies are met (all depends_on tasks have status == "done"):
-1. Run: `bash workspace/skills/task-runner/scripts/dispatch-task.sh {project} {task} {agent} "{message}"`
+1. Run: `bash workspace/skills/ta[REDACTED] {project} {task} {agent} "{message}"`
 2. Build the task prompt (see below)
 3. Start timeout timer
 

@@ -1,0 +1,48 @@
+{
+  "jobs": [
+    {
+      "id": "website-agency-leads-daily",
+      "name": "Website Agency - Lead Generation",
+      "schedule": "0 9 * * *",
+      "enabled": true,
+      "agent": "hatake",
+      "payload": {
+        "command": "python3 /Users/redinside/.openclaw/workspace-website-agency/scripts/lead_generator.py --count 50",
+        "description": "Generate 50 new leads daily"
+      }
+    },
+    {
+      "id": "website-agency-audit-cycle",
+      "name": "Website Agency - Audit Cycle",
+      "schedule": "0 */4 * * *",
+      "enabled": true,
+      "agent": "research",
+      "payload": {
+        "command": "python3 /Users/redinside/.openclaw/workspace-website-agency/scripts/website_auditor.py --all",
+        "description": "Audit all pending leads every 4 hours"
+      }
+    },
+    {
+      "id": "website-agency-build-queue",
+      "name": "Website Agency - Build Queue",
+      "schedule": "0 */2 * * *",
+      "enabled": true,
+      "agent": "eng",
+      "payload": {
+        "command": "python3 /Users/redinside/.openclaw/workspace-website-agency/scripts/website_builder.py",
+        "description": "Build websites for grade D leads every 2 hours"
+      }
+    },
+    {
+      "id": "website-agency-outreach-cycle",
+      "name": "Website Agency - Outreach",
+      "schedule": "0 */3 * * *",
+      "enabled": true,
+      "agent": "zen",
+      "payload": {
+        "command": "python3 /Users/redinside/.openclaw/workspace-website-agency/scripts/outreach.py",
+        "description": "Send outreach to ready projects every 3 hours"
+      }
+    }
+  ]
+}

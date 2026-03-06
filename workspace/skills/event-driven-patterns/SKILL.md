@@ -90,7 +90,7 @@ Is this job triggered by an external event (GitHub, Slack, email, price)?
           └── NO → Does it run at a specific business time?
                     ├── YES → Keep as true-batch cron
                     └── NO → Is it "check for work / dispatch tasks"?
-                              ├── YES → Replace with autonomous-task-dispatcher
+                              ├── YES → Replace with autonomous-ta[REDACTED]
                               └── NO → Document and disable
 ```
 
@@ -187,7 +187,7 @@ Instead of 8 inner loops (one per agent, every 2-4h), we use ONE dispatcher (eve
 - Prevents "thundering herd" when all agents wake up simultaneously
 - Easier to debug (single dispatch log)
 
-**Dispatcher is cron:** `autonomous-task-dispatcher-0001` (every 15min, main agent)
+**Dispatcher is cron:** `autonomous-ta[REDACTED] (every 15min, main agent)
 
 ---
 
@@ -195,14 +195,14 @@ Instead of 8 inner loops (one per agent, every 2-4h), we use ONE dispatcher (eve
 
 | Category | Jobs removed | Reason |
 |----------|-------------|--------|
-| Inner loops (per-agent) | 8 | Consolidated into single autonomous-task-dispatcher |
-| Meta self-checks (per-agent) | 8 | Consolidated into autonomous-task-dispatcher |
+| Inner loops (per-agent) | 8 | Consolidated into single autonomous-ta[REDACTED] |
+| Meta self-checks (per-agent) | 8 | Consolidated into autonomous-ta[REDACTED] |
 | Individual standup check-ins | 6 | OPS Scrum Master compiles from agent-status files |
 | Session anchors (per-agent) | 4 | Consolidated into session-warmup-consolidated |
 | Duplicate health monitors | 4 | Consolidated into model-health-check |
 | Context health checks (per-agent) | 6 | Consolidated into model-health-check |
 | Provider quota syncs (duplicates) | 3 | 9router-auth-watchdog already covers this |
-| Polling A2A crons | 5 | Consolidated into autonomous-task-dispatcher |
+| Polling A2A crons | 5 | Consolidated into autonomous-ta[REDACTED] |
 | Digest writers (every 2h) | 2 | Event-driven via error-escalation webhook |
 | GitHub/Gmail polling | 2 | Replaced by n8n inbound webhooks |
 | Other duplicates/disabled | 13 | Various consolidations |

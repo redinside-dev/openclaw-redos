@@ -18,7 +18,7 @@ if [ -z "$MESSAGE" ]; then
 fi
 
 # Update task status to in_progress
-bash "$OPENCLAW_DIR/workspace/skills/task-runner/scripts/update-task.sh" \
+bash "$OPENCLAW_DIR/workspace/skills/ta[REDACTED] \
   "$PROJECT_ID" "$TASK_ID" "in_progress"
 
 # Send to agent via openclaw CLI

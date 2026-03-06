@@ -1,0 +1,5 @@
+{
+  "timestamp": "2026-03-05T20:09:00-05:00",
+  "cron": "🚨 *9ROUTER RESOURCE ALERT*",
+  "content": "The following providers need attention to keep the coding factory running:\n• ❌ [codex] Account 2: {\"message\":\"Your refresh token has already been used to generate a new access token. Please try signing in again.\", \"type\":\"invalid_request_error\", \"param\":null, \"code\":\"refresh_token_reused\"} — re-auth at http://localhost:20128\n→ Re-authenticate at http://localhost:20128 → Providers\n→ Or run: `node scripts/9router-token-refresh.js --all`\n\n---\nCron: 🚨 *9ROUTER RESOURCE ALERT*\n\nThe following providers need attention to keep the coding factory running:\n• ❌ [codex] Account 2: {\"message\":\"Your refresh token has already been used to generate a new access token. Please try signing in again.\", \"type\":\"invalid_request_error\", \"param\":null, \"code\":\"refresh_token_reused\"} — re-auth at http://localhost:20128\n→ Re-authenticate at http://localhost:20128 → Providers\n→ Or run: `node scripts/9router-token-refresh.js --all`\n\n--- END_PAYLOAD ---
+}

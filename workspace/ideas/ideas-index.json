@@ -1,0 +1,22 @@
+{
+  "generated_at": "2026-03-04T10:13:00-05:00",
+  "total": 2,
+  "ideas": [
+    {
+      "title": "@ziwenxu: 12 agents, no hiring, just folders with .md files and AI that never sleeps",
+      "url": "https://twitter.com/ziwenxu_/status/test",
+      "summary": "Validates the OpenClaw RedOS architecture — AI company as ~/.openclaw/ folders. They coordinate. They learn. They ship daily.",
+      "score": 890,
+      "platform": "twitter",
+      "date": "2026-03-04T01:44:42.547Z"
+    },
+    {
+      "title": "Scrapling v0.4.1: Python scraping with MCP server and Cloudflare bypass",
+      "url": "https://reddit.com/r/MachineLearning/test",
+      "summary": "New Python web scraping framework with built-in MCP server, fingerprint randomization, and Cloudflare bypass mode via StealthyFetcher.",
+      "score": 450,
+      "platform": "reddit",
+      "date": "2026-03-04T01:39:08.103Z"
+    }
+  ]
+}

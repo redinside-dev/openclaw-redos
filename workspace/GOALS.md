@@ -121,7 +121,7 @@ Sub-goals with deadlines:
   - **Owner:** ENG
   - **Deliverable:** sessions_send timeout fix deployed, retry logic implemented, conflict resolution protocol documented
 
-- [x] **Self-Healing Infrastructure (P2) — DONE 2026-03-04**: disk-cleanup-weekly + credential-health-check crons, watchdog auto-remediation, workspace-ops scripts deployed
+- [x] **Self-Healing Infrastructure (P2) — DONE 2026-03-04**: di[REDACTED] + credential-health-check crons, watchdog auto-remediation, workspace-ops scripts deployed
   - Auto-rotate credentials (Perplexity/GitHub tokens)
   - Auto-provision missing files/paths (fix INFOSEC blockers)
   - Health monitors with remediation loops
@@ -182,6 +182,52 @@ RED: reviews PR log at 09:00 EST daily, posts weekly update to Slack
 - Each project: Node.js or Python (current stack), MIT license
 - No approval needed for repo creation, commits, or PRs — these are L1/L2 autonomous actions
 - ENG must open a PR (not push directly to main) so there is a reviewable artifact
+
+---
+
+### GOAL-008 — Fully Automated Website Agency
+**Owner:** RED (orchestrates) + HATAKE (lead gen) + RESEARCH (audit) + ENG (build) + ZEN (outreach)
+**Horizon:** Q1 2026 → Q2 2026 (4 weeks)
+**Status:** 🟡 Starting — Infrastructure and skills created
+**KPI:** 5+ converted clients per month, 80% automated outreach
+
+**Pipeline:**
+```
+HATAKE: Google Maps → find businesses without websites → leads.json
+  ↓
+RESEARCH: audit website → grade A/B/C/D → audits.json
+  ↓ (grade D)
+ENG: generate custom website → preview URL → projects.json
+  ↓
+ZEN: send SMS preview → schedule AI voice call → close deal
+  ↓
+RED: approval (L4) → go live
+```
+
+**Tracking:**
+- Leads: `workspace-website-agency/leads.json`
+- Audits: `workspace-website-agency/audits.json`
+- Projects: `workspace-website-agency/projects.json`
+- Skills: `workspace/skills/lead-gen-maps/`, `website-auditor/`, `website-builder/`, `outreach-automation/`
+
+**n8n webhooks needed:**
+- `google-maps-search` - Find businesses
+- `website-audit` - Analyze sites
+- `website-builder` - Generate sites
+- `sms-sender` - Send preview links
+- `voice-call-schedule` - AI voice follow-up
+
+**Skills created:**
+- [x] `lead-gen-maps` (HATAKE)
+- [x] `website-auditor` (RESEARCH)
+- [x] `website-builder` (ENG)
+- [x] `outreach-automation` (ZEN)
+
+**Next steps:**
+- [ ] Create n8n workflows for all webhooks
+- [ ] Test lead-gen on a small batch (10 businesses)
+- [ ] Run full pipeline end-to-end
+- [ ] Set up cron jobs for daily automation
 
 ---
 

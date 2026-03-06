@@ -1,0 +1,8 @@
+{
+  "status": "completed",
+  "task": "Create workspace/tmp/a2a-test.txt with content 'A2A works!'",
+  "outputs": [
+    "/Users/redinside/.openclaw/workspace/tmp/a2a-test.txt"
+  ],
+  "content_written": "A2A works!"
+}

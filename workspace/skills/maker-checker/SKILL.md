@@ -1,6 +1,6 @@
 # Skill: maker-checker
 
-**L0–L5 risk-tiered approval system — agents govern each other. Anurag only approves L4/L5 actions via Telegram.**
+**L0–L5 ri[REDACTED] approval system — agents govern each other. Anurag only approves L4/L5 actions via Telegram.**
 
 ## Overview
 

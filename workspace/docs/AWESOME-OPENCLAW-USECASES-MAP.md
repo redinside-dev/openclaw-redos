@@ -54,7 +54,7 @@ Single source of truth for the agent: compare each use case to RedOS, then imple
 | [second-brain](https://github.com/hesamsheikh/awesome-openclaw-usecases/blob/main/usecases/second-brain.md) | Partial | RAG, semantic-memory, habit-log | No dedicated “second brain” capture topic/channel or Cmd+K UI. Optional. |
 | [self-healing-home-server](https://github.com/hesamsheikh/awesome-openclaw-usecases/blob/main/usecases/self-healing-home-server.md) | Have | system-pulse cron, self-healing-auto, self-healing-protocol, OPS launchctl | Extend: document email triage, knowledge extraction into RAG, daily security audit (RUNBOOK/OPENCLAW-STANDARDS). |
 | [semantic-memory-search](https://github.com/hesamsheikh/awesome-openclaw-usecases/blob/main/usecases/semantic-memory-search.md) | Have | ~/.openclaw/.memsearch/qdrant/, memsearch.py, rag_query.py, reindex 3am | None. |
-| [todoist-task-manager](https://github.com/hesamsheikh/awesome-openclaw-usecases/blob/main/usecases/todoist-task-manager.md) | Missing | — | Optional: Todoist integration via n8n; tasks sync to AUTONOMOUS. |
+| [todoist-ta[REDACTED] | Missing | — | Optional: Todoist integration via n8n; tasks sync to AUTONOMOUS. |
 | [x-account-analysis](https://github.com/hesamsheikh/awesome-openclaw-usecases/blob/main/usecases/x-account-analysis.md) | Missing | — | Optional: RESEARCH cron for X/Twitter analytics. |
 | [youtube-content-pipeline](https://github.com/hesamsheikh/awesome-openclaw-usecases/blob/main/usecases/youtube-content-pipeline.md) | Missing | — | Optional: content pipeline for YouTube. |
 

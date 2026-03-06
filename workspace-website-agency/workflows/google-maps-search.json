@@ -1,0 +1,51 @@
+{
+  "name": "Google Maps Search",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "google-maps-search",
+        "responseMode": "onReceived"
+      },
+      "id": "webhook",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "webhookId": "google-maps-search"
+    },
+    {
+      "parameters": {
+        "url": "https://maps.googleapis.com/maps/api/place/nearbysearch/json",
+        "queryParameters": {
+          "parameters": [
+            {"name": "location", "value": "={{ $json.body.location }}"},
+            {"name": "radius", "value": "={{ $json.body.radius }}"},
+            {"name": "keyword", "value": "={{ $json.body.keyword }}"},
+            {"name": "key", "value": "={{ $env.GOOGLE_MAPS_API_KEY }}"}
+          ]
+        }
+      },
+      "id": "maps",
+      "name": "Google Maps API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [500, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { businesses: $json.results } }}"
+      },
+      "id": "respond",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [750, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": {"main": [[{"node": "Google Maps API", "type": "main", "index": 0}]]},
+    "Google Maps API": {"main": [[{"node": "Respond", "type": "main", "index": 0}]]}
+  }
+}

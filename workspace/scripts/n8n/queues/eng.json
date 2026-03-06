@@ -1,0 +1,16 @@
+[
+  {
+    "job_id": "ef9a6e6c",
+    "agent_id": "eng",
+    "task": "test task from queue system",
+    "payload": {},
+    "priority": "normal",
+    "status": "processing",
+    "retry_count": 0,
+    "max_retries": 3,
+    "created_at": "2026-03-06T00:05:39.962898",
+    "started_at": "2026-03-06T00:06:15.165008",
+    "completed_at": null,
+    "error": null
+  }
+]

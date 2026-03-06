@@ -1,0 +1,50 @@
+{
+  "name": "Website Builder",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "website-builder",
+        "responseMode": "onReceived"
+      },
+      "id": "36222a37-a753-4cb7-9437-ccb1b89ab44a",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "webhookId": "website-builder"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { previewUrl: 'https://preview.example.com/' & $json.body.business.name, status: 'ready', business: $json.body.business } }}"
+      },
+      "id": "fe5777b8-2a9b-4c47-9481-d083442ce081",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Respond",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "id": "41046e44-db6d-469b-bce5-1d680e4c19b7",
+  "uuid": "853e09a8-5365-40e0-9c16-8b956f6f5e1c"
+}

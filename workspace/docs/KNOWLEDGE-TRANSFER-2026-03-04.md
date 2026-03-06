@@ -28,13 +28,13 @@ All agents should read this once and internalize the patterns.
 **Symptom:** GitHub secret scanning email — token in `workspace/archive/2026-03/watchdog-security-audit.md`
 **Root cause:** File was archived with raw token still inside, then committed
 **Immediate fix:** Redact in file, push, rebuild RAG index (excluded `archive/` dir from indexing)
-**Lesson:** Audit ANY file for secrets BEFORE staging. Archive ≠ safe. Run `git diff --cached | grep -E 'AAF[0-9]+|ghp_|sk-'` before every commit.
+**Lesson:** Audit ANY file for secrets BEFORE staging. Archive ≠ safe. Run `git diff --cached | grep -E 'AAF[0-9]+|ghp_|[REDACTED] before every commit.
 
 ### 5. Agents idle (0 tasks dispatched)
 **Root cause:** AUTONOMOUS.md had only 3 tasks for 8 agents. No auto-injection mechanism.
 **Fix applied:**
 - Backfilled AUTONOMOUS.md with 6 new tasks (one per idle agent)
-- Added `task-injector-hourly-0001` cron — auto-creates tasks for agents with 0 PENDING entries
+- Added `ta[REDACTED] cron — auto-creates tasks for agents with 0 PENDING entries
 - Added `accountability-daily-0001` cron — 23:55 audit of tasks-log.md per agent
 
 ## What Was Added / Changed
@@ -44,7 +44,7 @@ All agents should read this once and internalize the patterns.
 | `openclaw.json` | Added `secrets.providers.credentials-file`, updated apiKey refs |
 | `credentials/secrets.json` | NEW — contains 9router + zai API keys (chmod 600, gitignored) |
 | `dashboard/server.js` | Added GET /api/cron-jobs, GET /api/state, fixed analytics data.today wrapper |
-| `cron/jobs.json` | Added task-injector-hourly-0001 + accountability-daily-0001; fixed ideas-indexer channel |
+| `cron/jobs.json` | Added ta[REDACTED] + accountability-daily-0001; fixed ideas-indexer channel |
 | `workspace/SOUL.md` | Added doc-scan warning, cross-agent collab rules, Session End mandate, Security Mandate, CEO Operating Mandate, Knowledge Transfer Protocol |
 | `workspace/HEARTBEAT.md` | Added STEP 0 security check + system state snapshot |
 | `workspace/AUTONOMOUS.md` | 6 new tasks for idle agents (ENG/OPS/RESEARCH/FINANCE/INFOSEC/ALLROUNDER) |

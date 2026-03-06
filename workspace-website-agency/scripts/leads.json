@@ -1,0 +1,431 @@
+{
+  "leads": [
+    {
+      "id": "lead-b12ea909",
+      "name": "Joe's Pizza",
+      "category": "restaurant",
+      "address": "100 Main St",
+      "city": "San Francisco",
+      "state": "CA",
+      "zip": "94102",
+      "phone": "+1-415-555-1000",
+      "website": null,
+      "rating": 3.5,
+      "reviews": 0,
+      "source": "generated-demo",
+      "foundAt": "2026-03-06T07:03:06.278235Z",
+      "status": "pending-audit",
+      "enrichment": {
+        "email": "info@joespizza.com",
+        "owner": "Owner 1",
+        "social": {}
+      }
+    },
+    {
+      "id": "lead-f4376508",
+      "name": "Maria's Bakery",
+      "category": "bakery",
+      "address": "110 Oak Ave",
+      "city": "Oakland",
+      "state": "CA",
+      "zip": "94601",
+      "phone": "+1-415-555-1001",
+      "website": null,
+      "rating": 3.6,
+      "reviews": 2,
+      "source": "generated-demo",
+      "foundAt": "2026-03-06T07:03:06.278248Z",
+      "status": "pending-audit",
+      "enrichment": {
+        "email": "info@mariasbakery.com",
+        "owner": "Owner 2",
+        "social": {}
+      }
+    },
+    {
+      "id": "lead-167cac26",
+      "name": "Mike's Plumbing",
+      "category": "plumber",
+      "address": "120 Maple Dr",
+      "city": "Berkeley",
+      "state": "CA",
+      "zip": "94702",
+      "phone": "+1-415-555-1002",
+      "website": null,
+      "rating": 3.7,
+      "reviews": 4,
+      "source": "generated-demo",
+      "foundAt": "2026-03-06T07:03:06.278256Z",
+      "status": "pending-audit",
+      "enrichment": {
+        "email": "info@mikesplumbing.com",
+        "owner": "Owner 3",
+        "social": {}
+      }
+    },
+    {
+      "id": "lead-f89deaa9",
+      "name": "Elite Electric",
+      "category": "electrician",
+      "address": "130 Elm Street",
+      "city": "San Jose",
+      "state": "CA",
+      "zip": "95110",
+      "phone": "+1-415-555-1003",
+      "website": null,
+      "rating": 3.8,
+      "reviews": 6,
+      "source": "generated-demo",
+      "foundAt": "2026-03-06T07:03:06.278261Z",
+      "status": "pending-audit",
+      "enrichment": {
+        "email": "info@eliteelectric.com",
+        "owner": "Owner 4",
+        "social": {}
+      }
+    },
+    {
+      "id": "lead-93d85691",
+      "name": "Cool Air HVAC",
+      "category": "hvac",
+      "address": "140 Cedar Ln",
+      "city": "Sacramento",
+      "state": "CA",
+      "zip": "95814",
+      "phone": "+1-415-555-1004",
+      "website": null,
+      "rating": 3.9,
+      "reviews": 8,
+      "source": "generated-demo",
+      "foundAt": "2026-03-06T07:03:06.278267Z",
+      "status": "pending-audit",
+      "enrichment": {
+        "email": "info@coolairhvac.com",
+        "owner": "Owner 5",
+        "social": {}
+      }
+    },
+    {
+      "id": "lead-eb5d45f0",
+      "name": "Smith Law Office",
+      "category": "lawyer",
+      "address": "150 Pine Rd",
+      "city": "Fresno",
+      "state": "CA",
+      "zip": "93701",
+      "phone": "+1-415-555-1005",
+      "website": null,
+      "rating": 4.0,
+      "reviews": 10,
+      "source": "generated-demo",
+      "foundAt": "2026-03-06T07:03:06.278272Z",
+      "status": "pending-audit",
+      "enrichment": {
+        "email": "info@smithlawoffice.com",
+        "owner": "Owner 6",
+        "social": {}
+      }
+    },
+    {
+      "id": "lead-ca74c3cd",
+      "name": "Brown Accounting",
+      "category": "accountant",
+      "address": "160 Washington Blvd",
+      "city": "Los Angeles",
+      "state": "CA",
+      "zip": "90001",
+      "phone": "+1-415-555-1006",
+      "website": "http://brownaccounting.Wixsite.com/mysite",
+      "rating": 4.1,
+      "reviews": 12,
+      "source": "generated-demo",
+      "foundAt": "2026-03-06T07:03:06.278278Z",
+      "status": "pending-audit",
+      "enrichment": {
+        "email": "info@brownaccounting.com",
+        "owner": "Owner 7",
+        "social": {}
+      }
+    },
+    {
+      "id": "lead-9f461102",
+      "name": "Sunset Realty",
+      "category": "real estate",
+      "address": "170 Lincoln Ave",
+      "city": "San Diego",
+      "state": "CA",
+      "zip": "92101",
+      "phone": "+1-415-555-1007",
+      "website": "http://sunsetrealty.Wixsite.com/mysite",
+      "rating": 4.2,
+      "reviews": 14,
+      "source": "generated-demo",
+      "foundAt": "2026-03-06T07:03:06.278283Z",
+      "status": "pending-audit",
+      "enrichment": {
+        "email": "info@sunsetrealty.com",
+        "owner": "Owner 8",
+        "social": {}
+      }
+    },
+    {
+      "id": "lead-78b43977",
+      "name": "Quick Fix Auto",
+      "category": "auto repair",
+      "address": "180 Park St",
+      "city": "Palo Alto",
+      "state": "CA",
+      "zip": "94301",
+      "phone": "+1-415-555-1008",
+      "website": "https://quickfixauto.com",
+      "rating": 4.3,
+      "reviews": 16,
+      "source": "generated-demo",
+      "foundAt": "2026-03-06T07:03:06.278289Z",
+      "status": "pending-audit",
+      "enrichment": {
+        "email": "info@quickfixauto.com",
+        "owner": "Owner 9",
+        "social": {}
+      }
+    },
+    {
+      "id": "lead-84268f54",
+      "name": "Sparkle Cleaning",
+      "category": "cleaning service",
+      "address": "190 Center St",
+      "city": "Santa Monica",
+      "state": "CA",
+      "zip": "90401",
+      "phone": "+1-415-555-1009",
+      "website": "https://sparklecleaning.com",
+      "rating": 4.4,
+      "reviews": 18,
+      "source": "generated-demo",
+      "foundAt": "2026-03-06T07:03:06.278295Z",
+      "status": "pending-audit",
+      "enrichment": {
+        "email": "info@sparklecleaning.com",
+        "owner": "Owner 10",
+        "social": {}
+      }
+    },
+    {
+      "id": "lead-fd07dfb6",
+      "name": "Green Landscapes",
+      "category": "landscaping",
+      "address": "200 Main St",
+      "city": "San Francisco",
+      "state": "CA",
+      "zip": "94102",
+      "phone": "+1-415-555-1010",
+      "website": null,
+      "rating": 4.5,
+      "reviews": 20,
+      "source": "generated-demo",
+      "foundAt": "2026-03-06T07:03:06.278300Z",
+      "status": "pending-audit",
+      "enrichment": {
+        "email": "info@greenlandscapes.com",
+        "owner": "Owner 11",
+        "social": {}
+      }
+    },
+    {
+      "id": "lead-fbe435ec",
+      "name": "Fresh Cuts Salon",
+      "category": "hair salon",
+      "address": "210 Oak Ave",
+      "city": "Oakland",
+      "state": "CA",
+      "zip": "94601",
+      "phone": "+1-415-555-1011",
+      "website": null,
+      "rating": 4.6,
+      "reviews": 22,
+      "source": "generated-demo",
+      "foundAt": "2026-03-06T07:03:06.278306Z",
+      "status": "pending-audit",
+      "enrichment": {
+        "email": "info@freshcutssalon.com",
+        "owner": "Owner 12",
+        "social": {}
+      }
+    },
+    {
+      "id": "lead-41054a8b",
+      "name": "Paws & Claws Vet",
+      "category": "veterinarian",
+      "address": "220 Maple Dr",
+      "city": "Berkeley",
+      "state": "CA",
+      "zip": "94702",
+      "phone": "+1-415-555-1012",
+      "website": null,
+      "rating": 4.7,
+      "reviews": 24,
+      "source": "generated-demo",
+      "foundAt": "2026-03-06T07:03:06.278312Z",
+      "status": "pending-audit",
+      "enrichment": {
+        "email": "info@paws&clawsvet.com",
+        "owner": "Owner 13",
+        "social": {}
+      }
+    },
+    {
+      "id": "lead-45f7a9aa",
+      "name": "Downtown Fitness",
+      "category": "gym",
+      "address": "230 Elm Street",
+      "city": "San Jose",
+      "state": "CA",
+      "zip": "95110",
+      "phone": "+1-415-555-1013",
+      "website": null,
+      "rating": 4.8,
+      "reviews": 26,
+      "source": "generated-demo",
+      "foundAt": "2026-03-06T07:03:06.278318Z",
+      "status": "pending-audit",
+      "enrichment": {
+        "email": "info@downtownfitness.com",
+        "owner": "Owner 14",
+        "social": {}
+      }
+    },
+    {
+      "id": "lead-7c19bddc",
+      "name": "Golden Florist",
+      "category": "florist",
+      "address": "240 Cedar Ln",
+      "city": "Sacramento",
+      "state": "CA",
+      "zip": "95814",
+      "phone": "+1-415-555-1014",
+      "website": null,
+      "rating": 4.9,
+      "reviews": 28,
+      "source": "generated-demo",
+      "foundAt": "2026-03-06T07:03:06.278325Z",
+      "status": "pending-audit",
+      "enrichment": {
+        "email": "info@goldenflorist.com",
+        "owner": "Owner 15",
+        "social": {}
+      }
+    },
+    {
+      "id": "lead-6e897bfe",
+      "name": "Dr. Smith Dental",
+      "category": "dentist",
+      "address": "250 Pine Rd",
+      "city": "Fresno",
+      "state": "CA",
+      "zip": "93701",
+      "phone": "+1-415-555-1015",
+      "website": null,
+      "rating": 3.5,
+      "reviews": 30,
+      "source": "generated-demo",
+      "foundAt": "2026-03-06T07:03:06.278331Z",
+      "status": "pending-audit",
+      "enrichment": {
+        "email": "info@dr.smithdental.com",
+        "owner": "Owner 16",
+        "social": {}
+      }
+    },
+    {
+      "id": "lead-b0e6651a",
+      "name": "City Insurance",
+      "category": "insurance",
+      "address": "260 Washington Blvd",
+      "city": "Los Angeles",
+      "state": "CA",
+      "zip": "90001",
+      "phone": "+1-415-555-1016",
+      "website": "http://cityinsurance.Wixsite.com/mysite",
+      "rating": 3.6,
+      "reviews": 32,
+      "source": "generated-demo",
+      "foundAt": "2026-03-06T07:03:06.278337Z",
+      "status": "pending-audit",
+      "enrichment": {
+        "email": "info@cityinsurance.com",
+        "owner": "Owner 17",
+        "social": {}
+      }
+    },
+    {
+      "id": "lead-7e1cc953",
+      "name": "Tech Solutions IT",
+      "category": "computer repair",
+      "address": "270 Lincoln Ave",
+      "city": "San Diego",
+      "state": "CA",
+      "zip": "92101",
+      "phone": "+1-415-555-1017",
+      "website": "http://techsolutionsit.Wixsite.com/mysite",
+      "rating": 3.7,
+      "reviews": 34,
+      "source": "generated-demo",
+      "foundAt": "2026-03-06T07:03:06.278343Z",
+      "status": "pending-audit",
+      "enrichment": {
+        "email": "info@techsolutionsit.com",
+        "owner": "Owner 18",
+        "social": {}
+      }
+    },
+    {
+      "id": "lead-4d8a5c5c",
+      "name": "Happy Tails Grooming",
+      "category": "grooming",
+      "address": "280 Park St",
+      "city": "Palo Alto",
+      "state": "CA",
+      "zip": "94301",
+      "phone": "+1-415-555-1018",
+      "website": "https://happytailsgrooming.com",
+      "rating": 3.8,
+      "reviews": 36,
+      "source": "generated-demo",
+      "foundAt": "2026-03-06T07:03:06.278350Z",
+      "status": "pending-audit",
+      "enrichment": {
+        "email": "info@happytailsgrooming.com",
+        "owner": "Owner 19",
+        "social": {}
+      }
+    },
+    {
+      "id": "lead-878dcf93",
+      "name": "Bella Spa & Nails",
+      "category": "spa",
+      "address": "290 Center St",
+      "city": "Santa Monica",
+      "state": "CA",
+      "zip": "90401",
+      "phone": "+1-415-555-1019",
+      "website": "https://bellaspa&nails.com",
+      "rating": 3.9,
+      "reviews": 38,
+      "source": "generated-demo",
+      "foundAt": "2026-03-06T07:03:06.278359Z",
+      "status": "pending-audit",
+      "enrichment": {
+        "email": "info@bellaspa&nails.com",
+        "owner": "Owner 20",
+        "social": {}
+      }
+    }
+  ],
+  "lastUpdated": "2026-03-06T07:03:06.278367Z",
+  "stats": {
+    "total": 20,
+    "withWebsite": 8,
+    "withoutWebsite": 12,
+    "pendingAudit": 20
+  }
+}

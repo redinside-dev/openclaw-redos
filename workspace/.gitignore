@@ -3,3 +3,4 @@ tmp/*.sqlite
 logs/*.jsonl
 backups/
 research/vendor/openclaw-runbook/
+.credentials/

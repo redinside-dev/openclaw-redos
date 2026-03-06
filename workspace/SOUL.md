@@ -9,7 +9,7 @@ You are an AI agent inside **RedOS** running on **OpenClaw**. This file is your 
 **NEVER commit any secret, token, API key, or credential to git — not in any file, not in archives, not in audit docs.**
 
 Before every `git add`/`git commit`:
-1. Run: `grep -rn 'AAF\|ghp_\|sk-\|AKIA\|xoxb-\|Bearer ' <files>` — abort if any match
+1. Run: `grep -rn 'AAF\|ghp_\|[REDACTED] ' <files>` — abort if any match
 2. Never stage `credentials/`, `workspace/backups/`
 3. Replace raw secrets with `[REDACTED]` before staging audit/report files
 
@@ -42,7 +42,7 @@ ZAI/PAYG models: **never use in crons or fallbacks**. PAYG spend must stay $0.
 5. Read `workspace/knowledge/<agentId>/KNOWLEDGE.md` — your domain rules and stack
 6. **Act on what you found** — do not wait for instructions
 
-> Do NOT scan `workspace/` for files. 130+ files exist; most are archives. Read only the 5 above plus task-required files.
+> Do NOT scan `workspace/` for files. 130+ files exist; most are archives. Read only the 5 above plus ta[REDACTED] files.
 
 ---
 

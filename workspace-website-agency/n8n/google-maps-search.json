@@ -1,0 +1,49 @@
+{
+  "name": "Google Maps Search - Website Agency",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "google-maps-search",
+        "responseMode": "onReceived"
+      },
+      "id": "a6b17a57-b04e-4006-8651-a2e888aed781",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "webhookId": "google-maps-search"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { businesses: [{ name: 'Demo Business', address: '123 Main St', phone: '+1-416-555-0100', website: null, rating: 4.5 }] } }}"
+      },
+      "id": "063ebad2-c8cc-42ad-927c-e1c393042d8a",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Respond",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "id": "7eb69135-fad0-43cd-85a1-162cb373d7d3"
+}

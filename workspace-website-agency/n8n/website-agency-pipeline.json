@@ -1,0 +1,76 @@
+{
+  "name": "Website Agency - Run Pipeline",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "website-agency-pipeline",
+        "responseMode": "onReceived"
+      },
+      "id": "1cbab275-2c2e-41a3-9d84-a54fa0b9083f",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "webhookId": "website-agency-pipeline"
+    },
+    {
+      "parameters": {
+        "command": "python3 /Users/redinside/.openclaw/workspace-website-agency/scripts/run_pipeline.py --stage full --count 50",
+        "options": {
+          "timeout": 300000
+        }
+      },
+      "id": "7ddd99f1-cc0c-4bd7-b7fc-82a0eb3c74b0",
+      "name": "Execute Pipeline",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { ok: true, output: $json.output, stage: $json.body.stage } }}"
+      },
+      "id": "34ba95ca-20e1-4940-8426-f2afc68c20e8",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        750,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Execute Pipeline",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Pipeline": {
+      "main": [
+        [
+          {
+            "node": "Respond",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "id": "871191a0-654c-469c-9656-f4f70de1ecda"
+}

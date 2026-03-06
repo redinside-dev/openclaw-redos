@@ -1,1 +1,10 @@
-{"agentId":"finance","updatedAt":"2026-02-24T05:00:00Z","currentFocus":"Session start — reading state and goals","lastAction":"none","nextAction":"Read goals and state files, then decide what to do","blockers":[]}
+{
+  "agentId": "finance",
+  "updatedAt": "2026-03-05T05:35:00Z",
+  "currentFocus": "Monitor gateway cost usage + detect budget overruns (AUTO-034)",
+  "activeGoals": ["goal-finance-001", "goal-finance-002"],
+  "pendingDecisions": [
+    "Escalate stale cost-events telemetry to OPS/RED vs implement quick local monitor script"
+  ],
+  "lastThought": "Budget overrun detection is blocked because cost-events.jsonl and provider-quota.json are stale/unknown; need telemetry repair + align guardrails (Codex exemption)."
+}

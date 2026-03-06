@@ -176,7 +176,7 @@ curl -s -X POST https://slack.com/api/chat.postMessage \
 
 When you accept a delegated task (spawned by another agent), register it:
 
-1. Read `ops/task-registry.json`
+1. Read `ops/ta[REDACTED]
 2. Add an entry:
 ```json
 {

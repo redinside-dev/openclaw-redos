@@ -1,0 +1,25 @@
+🚀 Just shipped 2 open source projects:
+
+1️⃣ Codebase Onboarding Agent
+Understand any codebase in minutes with AI-powered analysis
+- Dependency graphs
+- Entry point detection  
+- Code metrics
+- Python support (JS/TS coming)
+
+2️⃣ Smart Worker Suspension
+Eliminate 96% waste in AI agent systems
+- Exponential backoff (1min → 1hr)
+- Saves $60-120/day
+- 10-15x productivity increase
+
+Both MIT licensed, ready for production use.
+
+🔗 https://github.com/anuragg-saxenaa/codebase-onboarding-agent
+🔗 https://github.com/anuragg-saxenaa/smart-worker-suspension
+
+Built these while building an autonomous AI company. The agents now build products themselves.
+
+What should we build next? 🤔
+
+#opensource #ai #devtools #productivity
