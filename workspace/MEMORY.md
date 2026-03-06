@@ -368,4 +368,74 @@ All agents run periodic inner loops (every 2-4h):
 
 ---
 
-**Last updated:** 2026-03-04T01:40Z — Scrapling installed, 4 social monitoring workflows active, ideas KB pipeline live, fake web-scraping skill deleted
+---
+
+## Enterprise Job Queue System (2026-03-06)
+
+### Problem Solved
+- **Old system:** Cron jobs directly executed agents → session locks → deadlocks → system breakdown
+- **Root cause:** Multiple cron jobs hitting same agent simultaneously
+
+### Solution: Per-Agent Queue Workers
+Each agent has its own queue + worker - NO MORE DEADLOCKS.
+
+### Components
+| Component | Location | Purpose |
+|-----------|----------|----------|
+| job-queue.py | workspace/scripts/ | Core queue management |
+| queue-worker.py | workspace/scripts/ | Worker that processes 1 job at a time |
+| queue-cron.sh | scripts/ | Submits jobs to queues |
+| LaunchAgents | ~/Library/LaunchAgents/ai.openclaw.queue-worker.*.plist | 8 workers (1 per agent) |
+
+### How It Works
+```
+1. Cron triggers queue-cron.sh (every 5min)
+2. Reads AUTONOMOUS.md for PENDING tasks
+3. Submits to agent queue (eng.json, ops.json, etc.)
+4. Queue worker picks up job (1 at a time)
+5. Executes agent with task
+6. Marks complete/failed with retry logic
+```
+
+### Queue Commands
+```bash
+# Check all queues
+python3 ~/.openclaw/workspace/scripts/job-queue.py status
+
+# Submit job manually
+python3 ~/.openclaw/workspace/scripts/job-queue.py submit eng "your task here"
+
+# View specific queue
+cat ~/.openclaw/workspace/n8n/queues/eng.json
+```
+
+### Features
+- **No deadlocks** - Each agent has dedicated worker
+- **Auto retry** - Failed jobs retry 3x with backoff
+- **Dead letter queue** - Jobs fail 3x go to DLQ for review
+- **Persistent** - Queues saved to disk, survive restarts
+- **Scales to 80+ agents** - Just add more workers
+
+### Running Services
+| Worker | Status | PID |
+|--------|--------|-----|
+| eng | Running | 38570 |
+| ops | Running | 38845 |
+| research | Running | 38961 |
+| finance | Running | 39077 |
+| main | Running | 39079 |
+| infosec | Running | 39081 |
+| allrounder | Running | 39083 |
+| hatake | Running | 39085 |
+| queue-cron | Running | - |
+
+### For Agents
+**When you complete a task:**
+1. Update AUTONOMOUS.md: PENDING → COMPLETED
+2. Job automatically goes to validation queue
+
+**When you need work:**
+1. Check your queue file: `cat ~/.openclaw/workspace/n8n/queues/<agent>.json`
+2. Or submit new tasks to other agents using job-queue.py
+
+**Last updated:** 2026-03-06T04:15Z — Enterprise queue system deployed, 8 workers running, deadlocks eliminated

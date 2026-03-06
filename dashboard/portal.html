@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>RedOS Mission Control</title>
+<style>
+:root {
+  --bg: #0d0d0f;
+  --bg2: #16161a;
+  --bg3: #1e1e24;
+  --bg4: #26262e;
+  --border: #2a2a35;
+  --text: #f0f0f5;
+  --text2: #9898a8;
+  --text3: #686878;
+  --blue: #3b82f6;
+  --green: #22c55e;
+  --yellow: #eab308;
+  --red: #ef4444;
+  --purple: #a855f7;
+  --cyan: #06b6d4;
+  --accent: #3b82f6;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro', 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overscroll-behavior: none;
+}
+/* Header */
+.header {
+  background: linear-gradient(180deg, var(--bg2) 0%, var(--bg) 100%);
+  padding: 12px 16px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(20px);
+}
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.logo-icon {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 14px;
+}
+.logo-text {
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -0.5px;
+}
+.logo-text span { color: var(--blue); }
+.status-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg3);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+}
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 8px var(--green);
+  animation: pulse 2s infinite;
+}
+.status-dot.offline { background: var(--red); box-shadow: 0 0 8px var(--red); animation: none; }
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+/* Navigation */
+.nav {
+  display: flex;
+  gap: 4px;
+  margin-top: 12px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.nav::-webkit-scrollbar { display: none; }
+.nav-item {
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text3);
+  white-space: nowrap;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: transparent;
+  border: none;
+}
+.nav-item:hover { color: var(--text2); }
+.nav-item.active {
+  background: var(--bg4);
+  color: var(--text);
+}
+/* Content */
+.content {
+  padding: 16px;
+  padding-bottom: 100px;
+}
+.page { display: none; }
+.page.active { display: block; }
+/* Cards */
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.card-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.card-action {
+  font-size: 11px;
+  color: var(--blue);
+  cursor: pointer;
+}
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.stat-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+}
+.stat-value {
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1;
+  background: linear-gradient(135deg, var(--text), var(--text2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.stat-label {
+  font-size: 11px;
+  color: var(--text3);
+  margin-top: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.stat-card.success .stat-value { background: linear-gradient(135deg, var(--green), #4ade80); -webkit-background-clip: text; }
+.stat-card.warning .stat-value { background: linear-gradient(135deg, var(--yellow), #facc15); -webkit-background-clip: text; }
+.stat-card.error .stat-value { background: linear-gradient(135deg, var(--red), #f87171); -webkit-background-clip: text; }
+/* Agent List */
+.agent-list { display: flex; flex-direction: column; gap: 8px; }
+.agent-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: var(--bg3);
+  border-radius: 12px;
+}
+.agent-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+}
+.agent-info { flex: 1; }
+.agent-name { font-weight: 600; font-size: 14px; }
+.agent-role { font-size: 11px; color: var(--text3); }
+.agent-status {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.status-online { background: rgba(34,197,94,0.15); color: var(--green); }
+.status-busy { background: rgba(234,179,8,0.15); color: var(--yellow); }
+.status-offline { background: rgba(239,68,68,0.15); color: var(--red); }
+/* Task List */
+.task-list { display: flex; flex-direction: column; gap: 8px; }
+.task-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px;
+  background: var(--bg3);
+  border-radius: 12px;
+}
+.task-priority {
+  width: 4px;
+  height: 100%;
+  min-height: 40px;
+  border-radius: 2px;
+}
+.priority-p0 { background: var(--red); }
+.priority-p1 { background: var(--yellow); }
+.priority-p2 { background: var(--blue); }
+.task-content { flex: 1; }
+.task-id { font-size: 10px; color: var(--text3); font-family: monospace; }
+.task-title { font-size: 13px; font-weight: 500; margin-top: 2px; }
+.task-meta {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+  font-size: 10px;
+  color: var(--text3);
+}
+.task-tag {
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: var(--bg4);
+}
+/* Actions */
+.quick-actions {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+.action-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 16px 8px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text2);
+  font-size: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.action-btn:hover { background: var(--bg4); color: var(--text); }
+.action-btn:active { transform: scale(0.95); }
+.action-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+/* Timeline */
+.timeline { display: flex; flex-direction: column; gap: 0; }
+.timeline-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px 0;
+  border-left: 2px solid var(--border);
+  margin-left: 10px;
+  padding-left: 16px;
+  position: relative;
+}
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -5px;
+  top: 16px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid var(--blue);
+}
+.timeline-time { font-size: 10px; color: var(--text3); min-width: 50px; }
+.timeline-content { flex: 1; font-size: 12px; color: var(--text2); }
+.timeline-content strong { color: var(--text); }
+/* Footer */
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(180deg, transparent, var(--bg) 20%);
+  padding: 20px 16px 16px;
+  display: flex;
+  justify-content: center;
+}
+.footer-inner {
+  display: flex;
+  gap: 8px;
+  background: var(--bg2);
+  padding: 6px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+}
+.nav-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 20px;
+  background: transparent;
+  border: none;
+  border-radius: 10px;
+  color: var(--text3);
+  font-size: 9px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.nav-btn.active {
+  background: var(--blue);
+  color: white;
+}
+.nav-btn-icon { font-size: 18px; }
+/* Loading */
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  color: var(--text3);
+}
+/* Refresh indicator */
+.refresh-indicator {
+  position: fixed;
+  top: 60px;
+  right: 16px;
+  background: var(--blue);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 500;
+  z-index: 200;
+  display: none;
+  animation: fadeIn 0.2s;
+}
+.refresh-indicator.show { display: flex; align-items: center; gap: 6px; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+/* Pull to refresh */
+.pull-to-refresh {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  z-index: 99;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.pull-to-refresh.active { opacity: 1; }
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text3);
+}
+.empty-icon { font-size: 48px; margin-bottom: 12px; opacity: 0.5; }
+.empty-text { font-size: 14px; }
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="header-top">
+    <div class="logo">
+      <div class="logo-icon">R</div>
+      <div class="logo-text">Red<span>OS</span></div>
+    </div>
+    <div class="status-pill">
+      <div class="status-dot" id="systemStatus"></div>
+      <span id="statusText">Online</span>
+    </div>
+  </div>
+  <nav class="nav" id="mainNav">
+    <button class="nav-item active" data-page="overview">Overview</button>
+    <button class="nav-item" data-page="agents">Agents</button>
+    <button class="nav-item" data-page="tasks">Tasks</button>
+    <button class="nav-item" data-page="activity">Activity</button>
+  </nav>
+</div>
+
+<div class="refresh-indicator" id="refreshIndicator">
+  <span>↻</span> Updating...
+</div>
+
+<div class="content">
+  <!-- Overview Page -->
+  <div class="page active" id="page-overview">
+    <div class="stats-grid">
+      <div class="stat-card success">
+        <div class="stat-value" id="statAgents">8</div>
+        <div class="stat-label">Active Agents</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="statTasks">0</div>
+        <div class="stat-label">Pending Tasks</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="statProjects">0</div>
+        <div class="stat-label">Projects</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="statPRs">0</div>
+        <div class="stat-label">PRs This Week</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Quick Actions</span>
+      </div>
+      <div class="quick-actions">
+        <button class="action-btn" onclick="refreshAll()">
+          <div class="action-icon" style="background: rgba(59,130,246,0.2);">↻</div>
+          Refresh
+        </button>
+        <button class="action-btn" onclick="triggerScan()">
+          <div class="action-icon" style="background: rgba(34,197,94,0.2);">▶</div>
+          Run Scan
+        </button>
+        <button class="action-btn" onclick="openDashboard()">
+          <div class="action-icon" style="background: rgba(168,85,247,0.2);">◉</div>
+          Full UI
+        </button>
+        <button class="action-btn" onclick="testAlert()">
+          <div class="action-icon" style="background: rgba(239,68,68,0.2);">⚡</div>
+          Test Alert
+        </button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Recent Activity</span>
+        <span class="card-action" onclick="navigateTo('activity')">View All</span>
+      </div>
+      <div class="timeline" id="recentActivity">
+        <div class="loading">Loading...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Agents Page -->
+  <div class="page" id="page-agents">
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">All Agents</span>
+        <span class="card-action" onclick="refreshAgents()">↻</span>
+      </div>
+      <div class="agent-list" id="agentList">
+        <div class="loading">Loading...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tasks Page -->
+  <div class="page" id="page-tasks">
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Pending Tasks</span>
+        <span class="card-action" onclick="refreshTasks()">↻</span>
+      </div>
+      <div class="task-list" id="taskList">
+        <div class="loading">Loading...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Activity Page -->
+  <div class="page" id="page-activity">
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">System Activity</span>
+        <span class="card-action" onclick="refreshActivity()">↻</span>
+      </div>
+      <div class="timeline" id="fullActivity">
+        <div class="loading">Loading...</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<nav class="footer">
+  <div class="footer-inner">
+    <button class="nav-btn active" data-page="overview">
+      <span class="nav-btn-icon">⌂</span>
+      Home
+    </button>
+    <button class="nav-btn" data-page="agents">
+      <span class="nav-btn-icon">◉</span>
+      Agents
+    </button>
+    <button class="nav-btn" data-page="tasks">
+      <span class="nav-btn-icon">☰</span>
+      Tasks
+    </button>
+    <button class="nav-btn" data-page="activity">
+      <span class="nav-btn-icon">⚡</span>
+      Activity
+    </button>
+  </div>
+</nav>
+
+<script>
+const API_BASE = window.location.origin;
+let autoRefreshInterval = null;
+let eventSource = null;
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+  initNavigation();
+  loadAllData();
+  initSSE();
+  startAutoRefresh();
+});
+
+function initNavigation() {
+  const navItems = document.querySelectorAll('.nav-item, .footer .nav-btn');
+  navItems.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const page = btn.dataset.page;
+      navigateTo(page);
+    });
+  });
+}
+
+function navigateTo(page) {
+  // Update nav
+  document.querySelectorAll('.nav-item, .footer .nav-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.page === page);
+  });
+
+  // Update pages
+  document.querySelectorAll('.page').forEach(p => {
+    p.classList.toggle('active', p.id === `page-${page}`);
+  });
+
+  // Load page data if needed
+  if (page === 'agents') refreshAgents();
+  else if (page === 'tasks') refreshTasks();
+  else if (page === 'activity') refreshActivity();
+}
+
+function showRefresh() {
+  document.getElementById('refreshIndicator').classList.add('show');
+  setTimeout(() => {
+    document.getElementById('refreshIndicator').classList.remove('show');
+  }, 1000);
+}
+
+async function loadAllData() {
+  showRefresh();
+  await Promise.all([
+    refreshStats(),
+    refreshAgents(),
+    refreshTasks(),
+    refreshActivity()
+  ]);
+}
+
+async function refreshStats() {
+  try {
+    const res = await fetch(`${API_BASE}/api/dashboard`);
+    const data = await res.json();
+
+    document.getElementById('statAgents').textContent = data.agents?.length || 0;
+    document.getElementById('systemStatus').classList.remove('offline');
+    document.getElementById('statusText').textContent = 'Online';
+  } catch (e) {
+    document.getElementById('systemStatus').classList.add('offline');
+    document.getElementById('statusText').textContent = 'Offline';
+  }
+}
+
+async function refreshAgents() {
+  try {
+    const res = await fetch(`${API_BASE}/api/dashboard`);
+    const data = await res.json();
+    const agents = data.agents || [];
+
+    document.getElementById('statAgents').textContent = agents.length;
+
+    const agentColors = {
+      main: 'linear-gradient(135deg, #3b82f6, #1d4ed8)',
+      eng: 'linear-gradient(135deg, #22c55e, #16a34a)',
+      research: 'linear-gradient(135deg, #a855f7, #7c3aed)',
+      ops: 'linear-gradient(135deg, #f97316, #ea580c)',
+      finance: 'linear-gradient(135deg, #06b6d4, #0891b2)',
+      infosec: 'linear-gradient(135deg, #ef4444, #dc2626)',
+      allrounder: 'linear-gradient(135deg, #eab308, #ca8a04)',
+      hatake: 'linear-gradient(135deg, #ec4899, #db2777)'
+    };
+
+    const agentNames = {
+      main: 'RED (CEO)',
+      eng: 'ENG',
+      research: 'RESEARCH',
+      ops: 'OPS',
+      finance: 'FINANCE',
+      infosec: 'INFOSEC',
+      allrounder: 'ZEN (COO)',
+      hatake: 'HATAKE'
+    };
+
+    const html = agents.map(a => `
+      <div class="agent-item">
+        <div class="agent-avatar" style="background: ${agentColors[a.id] || '#666'}">
+          ${(agentNames[a.id] || a.id).charAt(0)}
+        </div>
+        <div class="agent-info">
+          <div class="agent-name">${agentNames[a.id] || a.id}</div>
+          <div class="agent-role">${a.id}</div>
+        </div>
+        <span class="agent-status status-online">Active</span>
+      </div>
+    `).join('');
+
+    document.getElementById('agentList').innerHTML = html || '<div class="empty-state"><div class="empty-icon">◉</div><div class="empty-text">No agents found</div></div>';
+  } catch (e) {
+    document.getElementById('agentList').innerHTML = '<div class="empty-state"><div class="empty-icon">⚠</div><div class="empty-text">Failed to load agents</div></div>';
+  }
+}
+
+async function refreshTasks() {
+  try {
+    const res = await fetch(`${API_BASE}/workspace/AUTONOMOUS.md`);
+    const text = await res.text();
+
+    // Parse AUTONOMOUS.md
+    const pendingMatch = text.match(/## P1 — PENDING[\s\S]*?\| ID \|/);
+    const pendingTasks = [];
+
+    if (pendingMatch) {
+      const lines = text.split('\n');
+      let inPending = false;
+      for (const line of lines) {
+        if (line.includes('## P1 — PENDING')) { inPending = true; continue; }
+        if (line.includes('## P1 —') && inPending) break;
+        if (inPending && line.includes('|') && !line.includes('ID |')) {
+          const parts = line.split('|').filter(p => p.trim());
+          if (parts.length >= 5) {
+            const id = parts[1].trim();
+            const task = parts[3]?.trim() || '';
+            const agent = parts[4]?.trim() || '';
+            const status = parts[5]?.trim() || '';
+            if (id && !id.includes('-')) {
+              pendingTasks.push({ id, task, agent, status });
+            }
+          }
+        }
+      }
+    }
+
+    document.getElementById('statTasks').textContent = pendingTasks.length;
+
+    const html = pendingTasks.slice(0, 10).map(t => `
+      <div class="task-item">
+        <div class="task-priority priority-p1"></div>
+        <div class="task-content">
+          <div class="task-id">${t.id}</div>
+          <div class="task-title">${t.task.substring(0, 60)}${t.task.length > 60 ? '...' : ''}</div>
+          <div class="task-meta">
+            <span class="task-tag">${t.agent}</span>
+            <span class="task-tag">${t.status}</span>
+          </div>
+        </div>
+      </div>
+    `).join('');
+
+    document.getElementById('taskList').innerHTML = html || '<div class="empty-state"><div class="empty-icon">✓</div><div class="empty-text">No pending tasks</div></div>';
+  } catch (e) {
+    document.getElementById('taskList').innerHTML = '<div class="empty-state"><div class="empty-icon">⚠</div><div class="empty-text">Failed to load tasks</div></div>';
+  }
+}
+
+async function refreshActivity() {
+  try {
+    const res = await fetch(`${API_BASE}/api/dashboard`);
+    const data = await res.json();
+
+    const activities = [];
+
+    // Add cron jobs
+    if (data.cronJobs) {
+      data.cronJobs.slice(0, 5).forEach(cj => {
+        activities.push({
+          time: cj.state?.lastRunAtMs ? new Date(cj.state.lastRunAtMs).toLocaleTimeString() : 'N/A',
+          content: `<strong>${cj.name}</strong> - ${cj.state?.lastRunStatus || 'unknown'}`
+        });
+      });
+    }
+
+    // Add recent agent activity
+    if (data.agents) {
+      data.agents.slice(0, 3).forEach(a => {
+        activities.push({
+          time: new Date().toLocaleTimeString(),
+          content: `<strong>${a.id}</strong> agent is active`
+        });
+      });
+    }
+
+    const html = activities.slice(0, 10).map(a => `
+      <div class="timeline-item">
+        <div class="timeline-time">${a.time}</div>
+        <div class="timeline-content">${a.content}</div>
+      </div>
+    `).join('');
+
+    document.getElementById('recentActivity').innerHTML = html || '<div class="empty-state"><div class="empty-icon">⚡</div><div class="empty-text">No recent activity</div></div>';
+    document.getElementById('fullActivity').innerHTML = html || '<div class="empty-state"><div class="empty-icon">⚡</div><div class="empty-text">No activity</div></div>';
+  } catch (e) {
+    document.getElementById('recentActivity').innerHTML = '<div class="empty-state"><div class="empty-icon">⚠</div><div class="empty-text">Failed to load</div></div>';
+  }
+}
+
+function refreshAll() {
+  loadAllData();
+}
+
+function triggerScan() {
+  fetch(`${API_BASE}/openclaw`, { method: 'POST' }).then(() => {
+    alert('Scan triggered');
+    setTimeout(loadAllData, 2000);
+  });
+}
+
+function openDashboard() {
+  window.open(`${API_BASE}/`, '_blank');
+}
+
+function testAlert() {
+  alert('RedOS Mission Control is working!');
+}
+
+// SSE for real-time updates
+function initSSE() {
+  try {
+    eventSource = new EventSource(`${API_BASE}/api/events`);
+    eventSource.onmessage = (e) => {
+      loadAllData();
+    };
+    eventSource.onerror = () => {
+      console.log('SSE disconnected, falling back to polling');
+    };
+  } catch (e) {
+    console.log('SSE not available');
+  }
+}
+
+// Auto refresh every 30 seconds
+function startAutoRefresh() {
+  autoRefreshInterval = setInterval(() => {
+    loadAllData();
+  }, 30000);
+}
+
+// Handle visibility change
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden) {
+    loadAllData();
+  }
+});
+</script>
+</body>
+</html>
