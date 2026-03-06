@@ -10,6 +10,13 @@ openclaw.json
 openclaw.json.bak*
 openclaw.json.backup*
 
+# Channel configs often contain tokens (keep local-only)
+config/slack.json
+config/openclaw.json
+
+# Local agent/tooling settings (can contain env exports)
+.claude/settings.local.json
+
 # ==========================================
 # CREDENTIALS & SECRETS
 # ==========================================

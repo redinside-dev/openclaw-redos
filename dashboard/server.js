@@ -1300,6 +1300,14 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // Mobile-first portal
+  if (url.pathname === '/portal') {
+    const portalHtml = fs.readFileSync(path.join(__dirname, 'portal.html'), 'utf-8');
+    res.writeHead(200, { 'Content-Type': 'text/html', 'Cache-Control': 'no-cache, no-store' });
+    res.end(portalHtml);
+    return;
+  }
+
   // ── /api/search — semantic memory search ──────────────────────────────────
   if (url.pathname === '/api/search' && req.method === 'GET') {
     const q = url.searchParams.get('q') || '';

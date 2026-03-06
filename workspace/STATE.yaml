@@ -1,10 +1,10 @@
 version: '1.0'
-last_updated: '2026-03-05T01:30:00.000Z'
-updated_by: consultant-session5
+last_updated: '2026-03-06T05:09:18.315Z'
+updated_by: ops-autonomy-calc
 dispatched_tasks_total: 9
 verified_completions_total: 9
-real_autonomy_score: 84
-last_autonomy_calc: '2026-03-04T05:20:00.000Z'
+real_autonomy_score: 85
+last_autonomy_calc: 2026-03-05T23:35:00.000Z
 openclaw_version: 2026.3.2
 node_version: 25.7.0
 n8n_version: 2.9.4
@@ -68,4 +68,5 @@ metrics:
   real_autonomy_score: 0
   dispatched_tasks_total: 0
   verified_completions_total: 0
-  last_autonomy_calc: '2026-03-04T14:05:41.428Z'
+  last_autonomy_calc: '2026-03-06T05:09:18.315Z'
+  per_agent_completions: {}

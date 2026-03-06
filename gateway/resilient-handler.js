@@ -19,26 +19,164 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SOUL_PATH = path.join(__dirname, '../workspace/SOUL.md');
+const KNOWLEDGE_PATH = path.join(__dirname, '../workspace/knowledge/RESEARCH/KNOWLEDGE.md');
 
-// Load SOUL.md once at startup for prompt caching
-let SOUL_CONTENT = '';
-try {
-  if (existsSync(SOUL_PATH)) {
-    SOUL_CONTENT = readFileSync(SOUL_PATH, 'utf8');
-    console.log(`📝 Prompt caching: SOUL.md loaded (${SOUL_CONTENT.length} chars, ~${Math.ceil(SOUL_CONTENT.length/4)} tokens)`);
+// Enhanced prompt caching system
+class PromptCache {
+    this.cache = new Map();
+    this.cacheHits = 0;
+    this.cacheMisses = 0;
+    this.cacheWrites = 0;
+    this.cacheSize = 0;
+    this.maxCacheSize = 100; // Max 100 cached prompts
+    
+    // Load cacheable files at startup
+    this.loadCacheableFiles();
+
+  loadCacheableFiles() {
+    try {
+      // Load SOUL.md - core system prompt
+      if (existsSync(SOUL_PATH)) {
+        const soulContent = readFileSync(SOUL_PATH, 'utf8');
+        const soulSize = soulContent.length;
+        this.cache.set('SOUL.md', {
+          content: soulContent,
+          size: soulSize,
+          tokens: Math.ceil(soulSize / 4),
+          lastUsed: Date.now()
+        });
+        console.log(`📝 Prompt caching: SOUL.md loaded (${soulSize} chars, ~${Math.ceil(soulSize/4)} tokens)`);
+        this.cacheSize++;
+      }
+
+      // Load RESEARCH knowledge base
+      if (existsSync(KNOWLEDGE_PATH)) {
+        const knowledgeContent = readFileSync(KNOWLEDGE_PATH, 'utf8');
+        const knowledgeSize = knowledgeContent.length;
+        this.cache.set('KNOWLEDGE.md', {
+          content: knowledgeContent,
+          size: knowledgeSize,
+          tokens: Math.ceil(knowledgeSize / 4),
+          lastUsed: Date.now()
+        });
+        console.log(`📝 Prompt caching: KNOWLEDGE.md loaded (${knowledgeSize} chars, ~${Math.ceil(knowledgeSize/4)} tokens)`);
+        this.cacheSize++;
+      }
+
+      // Load other cacheable files (config, policies, etc.)
+      this.loadAdditionalCacheableFiles();
+    } catch (e) {
+      console.warn('⚠️  Could not load prompt cache files:', e.message);
+    }
   }
-} catch (e) {
-  console.warn('⚠️  Could not load SOUL.md for prompt caching:', e.message);
-}
+
+  loadAdditionalCacheableFiles() {
+    // Add more cacheable files here as needed
+    // This keeps frequently used context readily available
+  }
+
+  getPrompt(name) {
+    const entry = this.cache.get(name);
+    if (entry) {
+      entry.lastUsed = Date.now();
+      this.cacheHits++;
+      return entry.content;
+    }
+    this.cacheMisses++;
+    return null;
+  }
+
+  logCacheStats() {
+    const stats = this.getStats();
+    console.log(`💾 Prompt Cache Stats: ${stats.hits} hits, ${stats.misses} misses, ${stats.hitRate} hit rate`);
+    console.log(`   Current cache size: ${stats.currentSize}/${stats.maxSize} entries`);
+  }
+
+  getStats() {
+    return {
+      hits: this.cacheHits,
+      misses: this.cacheMisses,
+      hitRate: this.cacheHits + this.cacheMisses > 0 
+        ? (this.cacheHits / (this.cacheHits + this.cacheMisses) * 100).toFixed(1) + '%'
+        : '0%',
+      currentSize: this.cache.size,
+      maxSize: this.maxCacheSize
+    };
+  }
+
+  logCacheStats() {
+    const stats = this.getStats();
+    console.log(`💾 Prompt Cache Stats: ${stats.hits} hits, ${stats.misses} misses, ${stats.hitRate} hit rate`);
+    console.log(`   Current cache size: ${stats.currentSize}/${stats.maxSize} entries`);
+  }
+
+  getStats() {
+    return {
+      hits: this.cacheHits,
+      misses: this.cacheMisses,
+      hitRate: this.cacheHits + this.cacheMisses > 0 
+        ? (this.cacheHits / (this.cacheHits + this.cacheMisses) * 100).toFixed(1) + '%'
+        : '0%',
+      currentSize: this.cache.size,
+      maxSize: this.maxCacheSize
+    };
+  }
+
+  loadAdditionalCacheableFiles() {
+    // Add more cacheable files here as needed
+    // This keeps frequently used context readily available
+  }
+
+  getPrompt(name) {
+    const entry = this.cache.get(name);
+    if (entry) {
+      entry.lastUsed = Date.now();
+      this.cacheHits++;
+      return entry.content;
+    }
+    this.cacheMisses++;
+    return null;
+  }
+
+  /**
+   * Periodically log cache statistics
+   */
+  logCacheStats() {
+    const stats = this.getStats();
+    console.log(`💾 Prompt Cache Stats: ${stats.hits} hits, ${stats.misses} misses, ${stats.hitRate} hit rate`);
+    console.log(`   Current cache size: ${stats.currentSize}/${stats.maxSize} entries`);
+  }
+
+  /**
+   * Initialize the handler with performance monitoring
+   */
+    this.analyzer = new TaskAnalyzer();
+    this.promptCache = new PromptCache();
+    this.router = smartRouterV2;
+    this.maxRetries = 3;
+    this.cacheStatsInterval = null;
+    
+    // Start periodic cache stats logging
+    this.cacheStatsInterval = setInterval(() => {
+      this.logCacheStats();
+    
+    // Log initial cache stats
+    this.logCacheStats();
+  }
+
+  /**
+   * Clean up resources
+   */
+  cleanup() {
+    if (this.cacheStatsInterval) {
+      clearInterval(this.cacheStatsInterval);
+    }
+  }
 
 const execAsync = promisify(exec);
 
 export class ResilientHandler {
-  constructor() {
-    this.analyzer = new TaskAnalyzer();
-    this.router = smartRouterV2;
-    this.maxRetries = 3;
-  }
+
 
   /**
    * Handle message with full resilience
@@ -182,11 +320,11 @@ export class ResilientHandler {
     if (model.provider === 'ollama') {
       return await this.callOllama(model.model, message);
     } else if (model.provider === 'anthropic') {
-      return await this.callAnthropic(model.model, message);
+      return await this.callAnthropic(model.model, message, agentId);
     } else if (model.provider === 'perplexity') {
-      return await this.callPerplexity(model.model, message);
+      return await this.callPerplexity(model.model, message, agentId);
     } else if (model.provider === 'zai') {
-      return await this.callZhipu(model.model, message);
+      return await this.callZhipu(model.model, message, agentId);
     } else {
       throw new Error(`Unsupported provider: ${model.provider}`);
     }
@@ -230,7 +368,7 @@ export class ResilientHandler {
   /**
    * Call Anthropic API
    */
-  async callAnthropic(modelName, message) {
+  async callAnthropic(modelName, message, agentId) {
     const apiKey = process.env.ANTHROPIC_API_KEY;
 
     if (!apiKey) {
@@ -250,13 +388,14 @@ export class ResilientHandler {
       'anthropic-version': '2023-06-01'
     };
 
-    // Enable prompt caching for SOUL.md system prompt (≥1024 tokens required)
-    if (SOUL_CONTENT && SOUL_CONTENT.length > 4000) {
+    // Enable enhanced prompt caching using PromptCache
+    const soulContent = promptCache.getPrompt('SOUL.md');
+    if (soulContent) {
       headers['anthropic-beta'] = 'prompt-caching-2024-07-31';
       requestBody.system = [
         {
           type: 'text',
-          text: SOUL_CONTENT,
+          text: soulContent,
           cache_control: { type: 'ephemeral' }
         }
       ];
@@ -325,8 +464,9 @@ export class ResilientHandler {
       });
 
       if (!response.ok) {
-        const error = await response.text();
-        throw new Error(`Perplexity error: ${error}`);
+        const errorText = await response.text();
+        // Include status code so error-handler can classify 401/429 correctly
+        throw new Error(`Perplexity error (${response.status}): ${errorText}`);
       }
 
       const data = await response.json();
@@ -463,6 +603,21 @@ export class ResilientHandler {
           if (h.success) acc[h.modelId].successes++;
           return acc;
         }, {})
+    };
+  }
+
+  /**
+   * Get prompt caching statistics
+   */
+  getCacheStats() {
+    return {
+      hits: promptCache.cacheHits,
+      misses: promptCache.cacheMisses,
+      hitRate: promptCache.cacheHits + promptCache.cacheMisses > 0 
+        ? (promptCache.cacheHits / (promptCache.cacheHits + promptCache.cacheMisses) * 100).toFixed(1) + '%'
+        : '0%',
+      currentSize: promptCache.cache.size,
+      maxSize: promptCache.maxCacheSize
     };
   }
 }

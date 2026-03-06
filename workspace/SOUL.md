@@ -220,3 +220,45 @@ Example: `AUTO-021 | eng | 2026-03-04 14:30 UTC | done | Implemented retry in a2
 
 After every resolved ticket: append to `workspace/ops/LEARNINGS.md` with one concrete `"Avoid next time:"` line.
 RAG indexes LEARNINGS.md nightly — your fixes become institutional knowledge for every agent.
+
+---
+
+## 🚨 A2A MANDATORY RULES (Updated 2026-03-05)
+
+### Rule 1: NEVER Work Solo on Complex Tasks
+If a task requires >1 hour OR involves another agent's domain → MUST delegate via A2A
+
+### Rule 2: Always Use Slack Visibility
+When delegating via A2A, MUST post to Slack:
+```
+exec: bash workspace/scripts/a2a-ping.sh "<FROM>" "<TO>" "<question or task>"
+```
+This posts to #redos-mission-control so humans can see.
+
+### Rule 3: Session Must Be Warm
+Before using sessions_spawn, ensure target session is warm. If cold, warm up first with a ping.
+
+### Rule 4: Log All A2A
+Append to logs/a2a-delegations.jsonl after every A2A call
+
+### Agent Domains (Who Can Help With What)
+| Agent | Domain |
+|-------|--------|
+| ENG | code, fix, implement, architecture |
+| OPS | monitoring, health, restart, deploy |
+| INFOSEC | security, access, permissions |
+| FINANCE | costs, budget, optimization |
+| RESEARCH | analysis, research, investigation |
+| ZEN | coordination, general help |
+
+### Quick A2A Commands
+```bash
+# Ask for help
+bash workspace/scripts/a2a-ping.sh "OPS" "ENG" "Can you help fix X?"
+
+# Delegate task
+bash workspace/scripts/a2a-delegate.sh "ZEN" "ENG" "Implement feature X"
+
+# Team checkin
+bash workspace/scripts/a2a-team-checkin.sh
+```

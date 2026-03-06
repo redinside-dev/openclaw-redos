@@ -47,6 +47,24 @@ const CURSOR_MODEL = 'gpt-5.3-codex';
 const PROXY_CONFIG = `${process.env.HOME}/.openclaw/config/proxy-accounts.json`;
 const CCS_CONFIG   = `${process.env.HOME}/.ccs/config.yaml`;
 const CCS_INSTANCES = `${process.env.HOME}/.ccs/instances`;
+const CCS_SETTINGS = (name) => `${process.env.HOME}/.ccs/${name}.settings.json`;
+
+// MiniMax model IDs — included in merged /v1/models list; request body is forwarded as-is when model is in this list
+const MINIMAX_MODEL_IDS = [
+  'MiniMax-M2.5',
+  'MiniMax-M2.5-highspeed',
+  'MiniMax-M2.5-lightning',
+  'MiniMax-M2.1',
+  'MiniMax-M2.1-highspeed',
+  'MiniMax-M2',
+];
+
+// Claude model IDs shown in merged list so client can pick Sonnet/Opus/Haiku for cloud tiers
+const CLAUDE_MODEL_IDS = [
+  'claude-sonnet-4-6',
+  'claude-opus-4-6',
+  'claude-haiku-4-5',
+];
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Logging
@@ -134,6 +152,28 @@ function loadAccounts() {
         refreshToken: makeRefreshTokenFn(val, tokenCache),
       });
       log(`[proxy] Account ${name} → oauth (${val})`);
+    } else if (val === 'api') {
+      // API tier: baseUrl + apiKey + model from ~/.ccs/<name>.settings.json
+      try {
+        const settingsPath = CCS_SETTINGS(name).replace(/^~/, process.env.HOME);
+        const raw = fs.readFileSync(settingsPath, 'utf8');
+        const settings = JSON.parse(raw);
+        const env = settings.env || {};
+        const baseUrl = env.ANTHROPIC_BASE_URL || 'https://api.anthropic.com';
+        const apiKey = env.ANTHROPIC_AUTH_TOKEN || '';
+        const model = env.ANTHROPIC_MODEL || settings.model || 'MiniMax-M2.5';
+        const opusModel = env.ANTHROPIC_DEFAULT_OPUS_MODEL || model;
+        const sonnetModel = env.ANTHROPIC_DEFAULT_SONNET_MODEL || model;
+        const haikuModel = env.ANTHROPIC_DEFAULT_HAIKU_MODEL || 'MiniMax-M2.5-lightning';
+        if (!apiKey) {
+          log(`[proxy] Account ${name} → api skipped (no ANTHROPIC_AUTH_TOKEN in ${settingsPath})`);
+        } else {
+          result.push({ name, type: 'api', baseUrl, apiKey, model, opusModel, sonnetModel, haikuModel });
+          log(`[proxy] Account ${name} → api (${baseUrl}, opus=${opusModel}, sonnet=${sonnetModel}, haiku=${haikuModel})`);
+        }
+      } catch (e) {
+        log(`[proxy] Account ${name} → api failed: ${e.message}`);
+      }
     } else {
       log(`[proxy] Account ${name} → unknown config value "${val}", skipping`);
     }
@@ -216,6 +256,20 @@ function getCyclicSequence() {
     ? Math.max(accounts.findIndex(a => a.name === forcedStart), 0)
     : currentTierIdx;
   return Array.from({ length: n }, (_, i) => accounts[(start + i) % n]);
+}
+
+/** Route by model: MiniMax models → api tier first, Claude models → cloud tiers first, else cyclic. Always respects forcedStart. */
+function getSequenceForModel(model) {
+  if (forcedStart) return getCyclicSequence();
+  const m = (model || '').trim();
+  if (!m) return getCyclicSequence();
+  if (MINIMAX_MODEL_IDS.includes(m)) {
+    const api = accounts.find((a) => a.type === 'api' && !tierStates[a.name]?.exhausted);
+    if (!api) return getCyclicSequence();
+    const rest = accounts.filter((a) => a !== api);
+    return [api, ...rest];
+  }
+  return getCyclicSequence();
 }
 
 function readBody(stream) {
@@ -329,6 +383,34 @@ function makeRefreshTokenFn(service, tokenCache) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// Body sanitization — strip thinking blocks with signatures from conversation
+// history so switching between providers doesn't cause "Invalid signature" errors
+// ─────────────────────────────────────────────────────────────────────────────
+function sanitizeBodyForProvider(bodyBuffer) {
+  if (!bodyBuffer.length) return bodyBuffer;
+  try {
+    const body = JSON.parse(bodyBuffer.toString('utf8'));
+    if (!Array.isArray(body.messages)) return bodyBuffer;
+    let changed = false;
+    for (const msg of body.messages) {
+      if (msg.role !== 'assistant' || !Array.isArray(msg.content)) continue;
+      const filtered = msg.content.filter((block) => {
+        if (block.type === 'thinking' && block.signature) {
+          changed = true;
+          return false;
+        }
+        return true;
+      });
+      if (changed) msg.content = filtered;
+    }
+    if (!changed) return bodyBuffer;
+    return Buffer.from(JSON.stringify(body), 'utf8');
+  } catch (_) {
+    return bodyBuffer;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // Forward helpers
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -399,10 +481,83 @@ function forwardRequestOAuth(originalReq, bodyBuffer, token) {
   });
 }
 
+/** Forward to API tier (e.g. MiniMax). If request model is already a MiniMax model, send as-is; else use account default. Returns { proxyRes, clientModel, upstreamModel }. */
+function forwardRequestApi(originalReq, bodyBuffer, account) {
+  const { baseUrl, apiKey, model } = account;
+  let clientModel = null;
+  let upstreamModel = model;
+  let outBody = bodyBuffer;
+  if (bodyBuffer.length) {
+    try {
+      const body = JSON.parse(bodyBuffer.toString('utf8'));
+      clientModel = body.model || null;
+      const requested = (clientModel || '').trim();
+      if (requested && MINIMAX_MODEL_IDS.includes(requested)) {
+        upstreamModel = requested;
+      } else {
+        body.model = model;
+        upstreamModel = model;
+        outBody = Buffer.from(JSON.stringify(body), 'utf8');
+      }
+    } catch (_) {}
+  }
+  return new Promise((resolve, reject) => {
+    const target = new URL(baseUrl);
+    const isTls = target.protocol === 'https:';
+    const reqPath = originalReq.url || '/v1/messages';
+    const basePath = target.pathname.endsWith('/') ? target.pathname.slice(0, -1) : target.pathname;
+    const path = basePath ? `${basePath}${reqPath.startsWith('/') ? reqPath : '/' + reqPath}` : reqPath;
+
+    const headers = {};
+    for (const [k, v] of Object.entries(originalReq.headers)) {
+      const kl = k.toLowerCase();
+      if (['host', 'connection', 'transfer-encoding', 'authorization', 'x-api-key'].includes(kl)) continue;
+      headers[k] = v;
+    }
+    headers['host'] = target.hostname;
+    headers['authorization'] = `Bearer ${apiKey}`;
+    headers['x-api-key'] = apiKey;
+    if (!headers['anthropic-version']) headers['anthropic-version'] = '2023-06-01';
+    headers['content-length'] = outBody.length;
+
+    const proto = isTls ? https : http;
+    const proxyReq = proto.request({
+      hostname: target.hostname,
+      port: target.port || (isTls ? 443 : 80),
+      path,
+      method: originalReq.method,
+      headers,
+    }, proxyRes => resolve({ proxyRes, clientModel, upstreamModel }));
+    proxyReq.on('error', reject);
+    proxyReq.setTimeout(120000, () => proxyReq.destroy(new Error('api upstream timeout')));
+    proxyReq.write(outBody);
+    proxyReq.end();
+  });
+}
+
 /** Pipe a proxy response directly back to the client */
 function pipeResponse(proxyRes, clientRes) {
   clientRes.writeHead(proxyRes.statusCode, proxyRes.headers);
   proxyRes.pipe(clientRes);
+}
+
+/** Pipe API tier response, rewriting response body so "model" matches what the client sent (avoids "model may not exist" when we defaulted the request). */
+function pipeApiResponse(proxyRes, clientRes, clientModel, upstreamModel) {
+  if (clientModel === upstreamModel || !clientModel) {
+    pipeResponse(proxyRes, clientRes);
+    return;
+  }
+  const safe = (s) => (s || '').replace(/[\\^$*+?.()|[\]{}]/g, '\\$&');
+  const re = new RegExp(safe(upstreamModel), 'g');
+  readBody(proxyRes).then((bodyBuf) => {
+    const out = bodyBuf.toString('utf8').replace(re, clientModel);
+    clientRes.writeHead(proxyRes.statusCode, proxyRes.headers);
+    clientRes.end(Buffer.from(out, 'utf8'));
+  }).catch((e) => {
+    log(`[proxy] pipeApiResponse read error: ${e.message}`);
+    clientRes.writeHead(502, { 'Content-Type': 'application/json' });
+    clientRes.end(JSON.stringify({ error: { message: 'Proxy response read failed' } }));
+  });
 }
 
 /** Check if Cursor daemon is running */
@@ -652,7 +807,7 @@ const server = http.createServer(async (req, res) => {
 
   // ── Manual force endpoints ────────────────────────────────────────────────
   const forceMatch = req.url?.match(/^\/force(?:\?account=(\w+)|-(\w+))$/);
-  const legacyForceMap = { 'force-cloud2': 'cloud2', 'force-cloud3': 'cloud3', 'force-cursor': 'cursor' };
+  const legacyForceMap = { 'force-cloud1': 'cloud1', 'force-cloud2': 'cloud2', 'force-cloud3': 'cloud3', 'force-cloud4': 'cloud4', 'force-minimax': 'minimax', 'force-cursor': 'cursor' };
   const legacyTarget = legacyForceMap[req.url?.slice(1)];
   const forceTarget = forceMatch?.[1] || forceMatch?.[2] || legacyTarget;
 
@@ -686,12 +841,37 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  if (!req.url?.startsWith('/v1/')) {
+  const pathname = (req.url || '').split('?')[0] || '';
+  if (!pathname.startsWith('/v1/')) {
     res.writeHead(404); res.end('Not found'); return;
   }
 
-  // ── Build cyclic tier sequence ────────────────────────────────────────────
-  const sequence = getCyclicSequence();
+  // ── GET /v1/models: always return merged list so client sees Claude + MiniMax (and can pick MiniMax-M2.5 without forcing first)
+  if (req.method === 'GET' && pathname === '/v1/models') {
+    const data = [
+      ...CLAUDE_MODEL_IDS.map((id) => ({ id, object: 'model', created: 0, owned_by: 'anthropic' })),
+      ...MINIMAX_MODEL_IDS.map((id) => ({ id, object: 'model', created: 0, owned_by: 'minimax' })),
+    ];
+    if (accounts.some((a) => a.type === 'cursor')) {
+      data.push({ id: CURSOR_MODEL, object: 'model', created: 0, owned_by: 'cursor' });
+    }
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ object: 'list', data }));
+    return;
+  }
+
+  // ── Requested model from body (for routing: try the tier that supports this model first)
+  let requestedModel = null;
+  if (body.length) {
+    try {
+      const parsed = JSON.parse(body.toString('utf8'));
+      requestedModel = parsed.model || null;
+    } catch (_) {}
+  }
+  const sequence = getSequenceForModel(requestedModel);
+  let responseClientModel = null;
+  let responseUpstreamModel = null;
+  const safeBody = sanitizeBodyForProvider(body);
 
   // ── Try each tier in order ────────────────────────────────────────────────
   for (const account of sequence) {
@@ -705,17 +885,6 @@ const server = http.createServer(async (req, res) => {
     try {
       // ── Cursor tier ──────────────────────────────────────────────────────
       if (account.type === 'cursor') {
-        // Fake model list (Cursor's list doesn't include Claude model IDs)
-        if (req.method === 'GET' && req.url === '/v1/models') {
-          res.writeHead(200, { 'Content-Type': 'application/json' });
-          res.end(JSON.stringify({ object: 'list', data: [
-            { id: 'claude-sonnet-4-6', object: 'model', created: 0, owned_by: 'anthropic' },
-            { id: 'claude-opus-4-6',   object: 'model', created: 0, owned_by: 'anthropic' },
-            { id: 'claude-haiku-4-5',  object: 'model', created: 0, owned_by: 'anthropic' },
-          ]}));
-          return;
-        }
-
         const cursorRunning = await isCursorRunning();
         if (!cursorRunning) {
           log('[proxy] Cursor daemon not running — skipping');
@@ -723,26 +892,31 @@ const server = http.createServer(async (req, res) => {
         }
 
         if (req.url?.startsWith('/v1/messages')) {
-          await forwardToCursor(req, body, res);
+          await forwardToCursor(req, safeBody, res);
         } else {
-          const cursorRes = await forwardRequest(CURSOR_BASE, req, body);
+          const cursorRes = await forwardRequest(CURSOR_BASE, req, safeBody);
           log(`[proxy] ← cursor raw ${cursorRes.statusCode}`);
           pipeResponse(cursorRes, res);
         }
         return; // success
       }
 
-      // ── Cloud tiers (passthrough or OAuth) ───────────────────────────────
+      // ── Cloud tiers (passthrough, OAuth, or API) ─────────────────────────
       let proxyRes;
       if (account.type === 'passthrough') {
-        proxyRes = await forwardRequest(ANTHROPIC_BASE, req, body);
+        proxyRes = await forwardRequest(ANTHROPIC_BASE, req, safeBody);
       } else if (account.type === 'oauth') {
         const token = await account.refreshToken();
         if (!token) {
           log(`[proxy] ${account.name} token unavailable — skipping`);
           continue;
         }
-        proxyRes = await forwardRequestOAuth(req, body, token);
+        proxyRes = await forwardRequestOAuth(req, safeBody, token);
+      } else if (account.type === 'api') {
+        const apiMeta = await forwardRequestApi(req, safeBody, account);
+        proxyRes = apiMeta.proxyRes;
+        responseClientModel = apiMeta.clientModel;
+        responseUpstreamModel = apiMeta.upstreamModel;
       } else {
         log(`[proxy] ${account.name} unknown type — skipping`);
         continue;
@@ -751,17 +925,25 @@ const server = http.createServer(async (req, res) => {
       const status = proxyRes.statusCode;
       log(`[proxy] ← ${account.name} ${status}`);
 
-      // Only failover on quota EXHAUSTION, not general rate limits
+      // Subscription accounts (oauth/passthrough): ANY 429 = exhaustion (daily/weekly limit)
+      // API accounts: check body for specific exhaustion patterns
       if (status === 402 || status === 429) {
         const bodyBuf = await readBody(proxyRes);
-        if (isExhaustion(status, bodyBuf)) {
+        const isSubscription = account.type === 'oauth' || account.type === 'passthrough';
+        if (status === 402 || (isSubscription && status === 429) || isExhaustion(status, bodyBuf)) {
+          log(`[proxy] ${account.name} → exhaustion (${status}, subscription=${isSubscription})`);
           markExhausted(account.name);
-          continue; // advance to next tier
+          continue;
         }
-        // Non-exhaustion 4xx — pass through to client as-is
         res.writeHead(status, proxyRes.headers);
         res.end(bodyBuf);
         return;
+      }
+
+      // 404 from oauth accounts = token/account issue, skip to next
+      if (status === 404 && (account.type === 'oauth' || account.type === 'passthrough')) {
+        log(`[proxy] ${account.name} → 404 (account issue, skipping)`);
+        continue;
       }
 
       // For 200 SSE responses: inspect stream for body-level exhaustion signals
@@ -771,26 +953,43 @@ const server = http.createServer(async (req, res) => {
         const exhausted = await new Promise((resolve) => {
           let headerWritten = false;
           let detected = false;
+          const needReplace = responseClientModel && responseUpstreamModel && responseClientModel !== responseUpstreamModel;
+          const esc = (s) => (s || '').replace(/[\\^$*+?.()|[\]{}]/g, '\\$&');
+          const re = needReplace ? new RegExp(esc(responseUpstreamModel), 'g') : null;
+          let carryover = ''; // so model string split across chunks is still replaced
+          const maxCarry = needReplace ? Math.max(0, (responseUpstreamModel || '').length - 1) : 0;
 
-          proxyRes.on('data', chunk => {
-            if (detected) return; // already bailing out, discard
-            if (sseChunkIsExhaustion(chunk)) {
-              detected = true;
-              log(`[proxy] ${account.name} SSE exhaustion detected mid-stream — failing over`);
-              // Destroy upstream connection; do NOT write to client yet if nothing sent
-              proxyRes.destroy();
-              resolve(true);
-              return;
-            }
+          function writeChunk(buf) {
             if (!headerWritten) {
               res.writeHead(status, proxyRes.headers);
               headerWritten = true;
             }
-            res.write(chunk);
+            if (buf.length) res.write(buf);
+          }
+
+          proxyRes.on('data', chunk => {
+            if (detected) return;
+            if (sseChunkIsExhaustion(chunk)) {
+              detected = true;
+              log(`[proxy] ${account.name} SSE exhaustion detected mid-stream — failing over`);
+              proxyRes.destroy();
+              resolve(true);
+              return;
+            }
+            let str = carryover + chunk.toString('utf8');
+            if (re) str = str.replace(re, responseClientModel);
+            if (maxCarry > 0 && str.length > maxCarry) {
+              carryover = str.slice(-maxCarry);
+              str = str.slice(0, -maxCarry);
+            } else {
+              carryover = '';
+            }
+            writeChunk(Buffer.from(str, 'utf8'));
           });
 
           proxyRes.on('end', () => {
             if (!detected) {
+              if (carryover) writeChunk(Buffer.from(carryover, 'utf8'));
               if (!headerWritten) res.writeHead(status, proxyRes.headers);
               res.end();
               resolve(false);
@@ -812,7 +1011,11 @@ const server = http.createServer(async (req, res) => {
         return; // success — response already piped
       }
 
-      pipeResponse(proxyRes, res);
+      if (responseClientModel != null) {
+        pipeApiResponse(proxyRes, res, responseClientModel, responseUpstreamModel);
+      } else {
+        pipeResponse(proxyRes, res);
+      }
       return; // success
 
     } catch (e) {

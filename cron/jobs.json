@@ -7,7 +7,7 @@
       "name": "Telegram Approval Monitor (RED checks for approve/deny replies)",
       "enabled": true,
       "createdAtMs": 1772080522100,
-      "updatedAtMs": 1772772275157,
+      "updatedAtMs": 1772774120626,
       "schedule": {
         "kind": "cron",
         "expr": "*/2 * * * *",
@@ -26,14 +26,14 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1772773175157,
-        "lastRunAtMs": 1772772185112,
+        "nextRunAtMs": 1772777720626,
+        "lastRunAtMs": 1772774030562,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 90045,
+        "lastDurationMs": 90064,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 4,
-        "runningAtMs": 1772774030559
+        "consecutiveErrors": 5,
+        "lastError": "cron: job execution timed out"
       }
     },
     {
@@ -42,7 +42,7 @@
       "name": "System Pulse — Always-On Heartbeat (Ollama only)",
       "enabled": true,
       "createdAtMs": 1772080522100,
-      "updatedAtMs": 1772772934518,
+      "updatedAtMs": 1772776805450,
       "schedule": {
         "kind": "cron",
         "expr": "*/5 * * * *",
@@ -62,14 +62,14 @@
       },
       "state": {
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1772773200000,
-        "lastRunAtMs": 1772772927549,
+        "nextRunAtMs": 1772777100000,
+        "lastRunAtMs": 1772776800098,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 6969,
+        "lastDurationMs": 5352,
         "lastDeliveryStatus": "not-delivered",
         "lastDelivered": false,
-        "runningAtMs": 1772774030559
+        "runningAtMs": 1772777334166
       }
     },
     {
@@ -588,7 +588,7 @@
       "name": "9Router Auth Watchdog (proactive expiry + auto-name)",
       "enabled": true,
       "createdAtMs": 1772020000000,
-      "updatedAtMs": 1772772283612,
+      "updatedAtMs": 1772774501989,
       "schedule": {
         "kind": "every",
         "everyMs": 1800000,
@@ -610,12 +610,12 @@
       },
       "state": {
         "consecutiveErrors": 0,
-        "lastRunAtMs": 1772772276916,
+        "lastRunAtMs": 1772774492834,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 6696,
+        "lastDurationMs": 9155,
         "lastDeliveryStatus": "not-delivered",
-        "nextRunAtMs": 1772774076916,
+        "nextRunAtMs": 1772777800000,
         "lastDelivered": false
       }
     },
@@ -625,7 +625,7 @@
       "name": "9Router Token Keep-Fresh (every 4min)",
       "enabled": true,
       "createdAtMs": 1772210000000,
-      "updatedAtMs": 1772772943530,
+      "updatedAtMs": 1772776819463,
       "schedule": {
         "kind": "cron",
         "expr": "*/4 * * * *",
@@ -645,14 +645,14 @@
       },
       "state": {
         "consecutiveErrors": 0,
-        "lastRunAtMs": 1772772934518,
+        "lastRunAtMs": 1772776805450,
         "lastRunStatus": "ok",
-        "nextRunAtMs": 1772772960000,
+        "nextRunAtMs": 1772777040000,
         "lastStatus": "ok",
-        "lastDurationMs": 9012,
+        "lastDurationMs": 14013,
         "lastDeliveryStatus": "not-delivered",
         "lastDelivered": false,
-        "runningAtMs": 1772774030559
+        "runningAtMs": 1772777334166
       }
     },
     {
@@ -915,13 +915,14 @@
         "replaces": "inner-loop-*, meta-self-check-*, a2a-*-proactive, sa-*-checkin"
       },
       "state": {
-        "nextRunAtMs": 1772774100000,
-        "lastRunAtMs": 1772772943530,
+        "nextRunAtMs": 1772777700000,
+        "lastRunAtMs": 1772776819463,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 676376,
-        "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 0
+        "lastDurationMs": 14286,
+        "lastDeliveryStatus": "not-delivered",
+        "consecutiveErrors": 0,
+        "lastDelivered": false
       },
       "delivery": {
         "mode": "announce",
@@ -929,7 +930,7 @@
         "bestEffort": true,
         "to": "1012034994"
       },
-      "updatedAtMs": 1772773619906,
+      "updatedAtMs": 1772776833749,
       "wakeMode": "now",
       "sessionTarget": "isolated"
     },
@@ -990,15 +991,14 @@
         "replaces": "c8481b2a-System-Health-Watch, 76777b7a-OPS-Health-Monitor, context-health-check-*"
       },
       "state": {
-        "nextRunAtMs": 1772773200000,
-        "lastRunAtMs": 1772772141112,
+        "nextRunAtMs": 1772778600000,
+        "lastRunAtMs": 1772776833749,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 33478,
+        "lastDurationMs": 37319,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "lastDelivered": true,
-        "runningAtMs": 1772774030559
+        "lastDelivered": true
       },
       "delivery": {
         "mode": "announce",
@@ -1006,7 +1006,7 @@
         "bestEffort": true,
         "to": "1012034994"
       },
-      "updatedAtMs": 1772772174590,
+      "updatedAtMs": 1772776871068,
       "wakeMode": "now",
       "sessionTarget": "isolated"
     },
@@ -1031,11 +1031,11 @@
         "replaces": "session-warmup-0001, session-anchor-*"
       },
       "state": {
-        "nextRunAtMs": 1772775900000,
-        "lastRunAtMs": 1772773619906,
+        "nextRunAtMs": 1772779500000,
+        "lastRunAtMs": 1772776871068,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 135407,
+        "lastDurationMs": 45970,
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
         "lastDelivered": false
@@ -1046,7 +1046,7 @@
         "bestEffort": true,
         "to": "1012034994"
       },
-      "updatedAtMs": 1772773755313,
+      "updatedAtMs": 1772776917038,
       "wakeMode": "now",
       "sessionTarget": "isolated"
     },
@@ -1129,7 +1129,7 @@
       "name": "SLA Enforcement - 5min checks",
       "enabled": true,
       "createdAtMs": 1772510258310,
-      "updatedAtMs": 1772773822103,
+      "updatedAtMs": 1772776969529,
       "schedule": {
         "kind": "every",
         "everyMs": 300000,
@@ -1149,14 +1149,15 @@
         "channel": "telegram"
       },
       "state": {
-        "nextRunAtMs": 1772774062040,
-        "lastRunAtMs": 1772773762040,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 60063,
-        "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 1,
-        "lastError": "cron: job execution timed out"
+        "nextRunAtMs": 1772777227589,
+        "lastRunAtMs": 1772776927589,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 41940,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 0,
+        "lastDelivered": true,
+        "runningAtMs": 1772777334166
       }
     },
     {
@@ -1166,7 +1167,7 @@
       "name": "Autonomous OPS Agent",
       "enabled": true,
       "createdAtMs": 1772512524322,
-      "updatedAtMs": 1772773878256,
+      "updatedAtMs": 1772777269601,
       "schedule": {
         "kind": "every",
         "everyMs": 300000,
@@ -1186,14 +1187,14 @@
         "channel": "telegram"
       },
       "state": {
-        "nextRunAtMs": 1772774122103,
-        "lastRunAtMs": 1772773822103,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 56153,
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0,
-        "lastDelivered": true
+        "nextRunAtMs": 1772777424322,
+        "lastRunAtMs": 1772776969529,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 300072,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 1,
+        "lastError": "cron: job execution timed out"
       }
     },
     {
@@ -1203,7 +1204,7 @@
       "name": "Autonomous INFOSEC Agent",
       "enabled": true,
       "createdAtMs": 1772512524570,
-      "updatedAtMs": 1772772925429,
+      "updatedAtMs": 1772777332037,
       "schedule": {
         "kind": "every",
         "everyMs": 600000,
@@ -1223,14 +1224,14 @@
         "channel": "telegram"
       },
       "state": {
-        "nextRunAtMs": 1772773225429,
-        "lastRunAtMs": 1772772625367,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 300062,
-        "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 3,
-        "runningAtMs": 1772774030559
+        "nextRunAtMs": 1772777869601,
+        "lastRunAtMs": 1772777269601,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 62436,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 0,
+        "lastDelivered": true
       }
     },
     {
@@ -1343,7 +1344,7 @@
       "name": "Task Injector — keep all 8 agents busy hourly",
       "enabled": true,
       "createdAtMs": 1772637969291,
-      "updatedAtMs": 1772764339442,
+      "updatedAtMs": 1772774409218,
       "schedule": {
         "kind": "cron",
         "expr": "5 * * * *",
@@ -1362,14 +1363,14 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1772773500000,
-        "lastRunAtMs": 1772764257800,
+        "nextRunAtMs": 1772777100000,
+        "lastRunAtMs": 1772774327925,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 81642,
+        "lastDurationMs": 81293,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 0,
-        "runningAtMs": 1772774030559
+        "runningAtMs": 1772777334166
       }
     },
     {
@@ -1378,7 +1379,7 @@
       "name": "Peer Validation — validate completed tasks",
       "enabled": true,
       "createdAtMs": 1772773500000,
-      "updatedAtMs": 1772773500000,
+      "updatedAtMs": 1772774485607,
       "schedule": {
         "kind": "cron",
         "expr": "15 * * * *",
@@ -1397,14 +1398,13 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1772773500000,
-        "lastRunAtMs": 1772764257800,
+        "nextRunAtMs": 1772777700000,
+        "lastRunAtMs": 1772774409218,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 81642,
+        "lastDurationMs": 76389,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 0,
-        "runningAtMs": 1772774030559
+        "consecutiveErrors": 0
       }
     },
     {
@@ -1467,16 +1467,17 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1772774100000,
-        "lastRunAtMs": 1772773998319,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 30044,
-        "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 1,
-        "lastError": "cron: job execution timed out"
+        "nextRunAtMs": 1772777100000,
+        "lastRunAtMs": 1772776917038,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 8423,
+        "lastDeliveryStatus": "not-delivered",
+        "consecutiveErrors": 0,
+        "lastDelivered": false,
+        "runningAtMs": 1772777334166
       },
-      "updatedAtMs": 1772774028363
+      "updatedAtMs": 1772776925461
     },
     {
       "name": "Project Pipeline — daily RESEARCH→ENG handoff",

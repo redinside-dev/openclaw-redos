@@ -31,6 +31,14 @@ class ResilientErrorHandler {
       return { retry: true, fallback: 'local' };
     });
 
+    // Perplexity / provider quota exhausted (NOT a transient rate limit)
+    this.registerStrategy('INSUFFICIENT_QUOTA', async (error, context) => {
+      // Open a long circuit so we don't hammer the provider on every cron/agent call.
+      this.tripCircuitBreaker('INSUFFICIENT_QUOTA', { openMs: 6 * 60 * 60 * 1000 }); // 6h
+      console.log('🧾 Quota exhausted (insufficient_quota). Disabling internet provider temporarily and falling back.');
+      return { retry: false, fallback: 'alternative-model' };
+    });
+
     // Timeout errors
     this.registerStrategy('ETIMEDOUT', async (error, context) => {
       console.log('⏱️  Timeout, switching to faster model...');
@@ -119,12 +127,22 @@ class ResilientErrorHandler {
    * Classify error type
    */
   classifyError(error) {
-    const message = (error.message || String(error)).toLowerCase();
+    const raw = (error.message || String(error));
+    const message = raw.toLowerCase();
+
+    // Perplexity quota exhausted often shows as: code=401, type=insufficient_quota
+    if (message.includes('insufficient_quota') || (message.includes('exceeded your current quota') && message.includes('perplexity'))) {
+      return 'INSUFFICIENT_QUOTA';
+    }
 
     if (message.includes('econnrefused')) return 'ECONNREFUSED';
     if (message.includes('etimedout')) return 'ETIMEDOUT';
     if (message.includes('rate limit') || message.includes('429') || message.includes('rate_limit')) return 'RATE_LIMIT';
+
+    // Generic "quota" text can be either rate limiting or provider quota. If we got here,
+    // prefer RATE_LIMIT unless it matches the more specific Perplexity insufficient_quota above.
     if (message.includes('quota') || message.includes('limit exceeded') || message.includes('key limit exceeded')) return 'RATE_LIMIT';
+
     if (message.includes('billing') || message.includes('credits') || message.includes('insufficient balance') || message.includes('run out of credits')) return 'ANTHROPIC_CREDIT';
     if (message.includes('ollama')) return 'OLLAMA_ERROR';
     if (message.includes('parse entities') || message.includes('markdown')) return 'MARKDOWN_ERROR';
@@ -138,12 +156,17 @@ class ResilientErrorHandler {
    * Circuit breaker - prevents cascading failures
    */
   isCircuitOpen(errorType) {
-    const breaker = this.circuitBreakers.get(errorType) || { failures: 0, lastFailure: 0 };
+    const breaker = this.circuitBreakers.get(errorType) || { failures: 0, lastFailure: 0, openUntil: 0 };
     const now = Date.now();
 
-    // Reset after 60 seconds
-    if (now - breaker.lastFailure > 60000) {
-      this.circuitBreakers.set(errorType, { failures: 0, lastFailure: 0 });
+    // If explicitly opened until a time, respect it
+    if (breaker.openUntil && now < breaker.openUntil) {
+      return true;
+    }
+
+    // Reset after 60 seconds (unless explicitly opened)
+    if (!breaker.openUntil && now - breaker.lastFailure > 60000) {
+      this.circuitBreakers.set(errorType, { failures: 0, lastFailure: 0, openUntil: 0 });
       return false;
     }
 
@@ -154,10 +177,16 @@ class ResilientErrorHandler {
   /**
    * Trip circuit breaker
    */
-  tripCircuitBreaker(errorType) {
-    const breaker = this.circuitBreakers.get(errorType) || { failures: 0, lastFailure: 0 };
+  tripCircuitBreaker(errorType, options = {}) {
+    const breaker = this.circuitBreakers.get(errorType) || { failures: 0, lastFailure: 0, openUntil: 0 };
     breaker.failures++;
     breaker.lastFailure = Date.now();
+
+    // Optional explicit open duration
+    if (options.openMs && Number.isFinite(options.openMs)) {
+      breaker.openUntil = Date.now() + options.openMs;
+    }
+
     this.circuitBreakers.set(errorType, breaker);
   }
 
@@ -168,6 +197,8 @@ class ResilientErrorHandler {
     const breaker = this.circuitBreakers.get(errorType);
     if (breaker) {
       breaker.failures = Math.max(0, breaker.failures - 1);
+      // If we were explicitly open, a success should close it.
+      breaker.openUntil = 0;
       this.circuitBreakers.set(errorType, breaker);
     }
   }
@@ -219,7 +250,8 @@ class ResilientErrorHandler {
       circuitBreakers: Array.from(this.circuitBreakers.entries()).map(([type, breaker]) => ({
         type,
         failures: breaker.failures,
-        isOpen: this.isCircuitOpen(type)
+        isOpen: this.isCircuitOpen(type),
+        openUntil: breaker.openUntil || 0
       }))
     };
   }
