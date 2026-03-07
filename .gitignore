@@ -391,3 +391,15 @@ ops/autonomous-log.md
 workspace-ops/health-monitor-state.json
 workspace/config/github-push-pat.txt
 .github/workflows/
+
+# Binary/DB files that must NEVER be committed
+.memsearch/qdrant/
+.memsearch/file-hashes.json
+memory/*.sqlite
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+*.pyc
+__pycache__/
+dashboard/server.err
+dashboard/server.out
