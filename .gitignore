@@ -390,3 +390,4 @@ workspace/notifications/
 ops/autonomous-log.md
 workspace-ops/health-monitor-state.json
 workspace/config/github-push-pat.txt
+.github/workflows/
