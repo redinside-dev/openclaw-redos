@@ -439,3 +439,43 @@ cat ~/.openclaw/workspace/n8n/queues/eng.json
 2. Or submit new tasks to other agents using job-queue.py
 
 **Last updated:** 2026-03-06T04:15Z — Enterprise queue system deployed, 8 workers running, deadlocks eliminated
+
+---
+
+## Session Update — 2026-03-07
+
+### Infrastructure Fixes Applied
+- **Root cause of repeated outages**: `update.auto.enabled: true` caused silent breaking schema upgrades every 6–18h. Fixed with n8n staged update pipeline (backup → install → validate → restart → verify → auto-rollback).
+- **OpenClaw v2026.3.2 migration**: Agents moved from flat `agents.main` keys to `agents.list[]` array format. All 8 agents migrated.
+- **Slack tokens fixed**: Real `xoxb-` and `xapp-` tokens set; bot invited to all 15 Slack channels with per-agent routing.
+- **flock fix**: `telegram-deadman.sh` used Linux-only `flock`; replaced with `mkdir`-based atomic lock.
+- **refresh_token_reused fix**: Removed `--all` flag from `9router-token-refresh.js` call in restart script.
+
+### Model Providers
+- **Primary**: `9router/free-unlimited` (all agents)
+- **Fallback**: `minimax/MiniMax-M2.5` via `sk-cp-...` Coding Plan key (OpenAI-compat endpoint `https://api.minimax.io/v1`)
+- **ZAI**: Never use in crons or fallbacks (PAYG, expensive)
+- **MiniMax Anthropic endpoint** (`/anthropic`): Has balance issue — use OpenAI endpoint instead
+
+### Slack Channel Routing
+| Agent | Channel |
+|---|---|
+| RED | #redos-red (C0AFLUZ4P71) |
+| ZEN | #redos-zen (C0AFZ09R9V3) |
+| ENG | #redos-eng (C0AFW1B0QUB) |
+| RESEARCH | #redos-research (C0AG615R5E0) |
+| FINANCE | #redos-finance (C0AG6166CJ0) |
+| OPS | #redos-ops (C0AGFA9417T) |
+| INFOSEC | #redos-infosec (C0AG2CTU6AW) |
+| HATAKE | #redos (C0AG3GPSS4A) |
+
+### n8n Workflows (all 13 operational)
+- `slack-post`: Fixed wrong Slack token (was old `txgY6M7` key)
+- `cost-alert-escalation` + `error-escalation`: Fixed GET→POST method on Slack calls
+- `github-repo-status`: Added GitHub PAT; corrected org to `redinside-dev`
+- `twitter-service`: Increased n8n task runner timeout to 180s (`N8N_RUNNERS_TASK_TIMEOUT`)
+- `🛡️ OpenClaw Guardian`: Upgraded with config drift + staged update pipeline nodes
+
+### Watchdog Services
+- `config-drift-watchdog.sh`: Runs every 10min via launchd, alerts Telegram on invalid config
+- Staged update pipeline: n8n Guardian runs every 6h, validates + auto-rollbacks bad updates

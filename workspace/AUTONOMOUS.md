@@ -1,38 +1,23 @@
-## P0 — PENDING (2026-03-06T14:10Z)
+SEC-ACCESS-LEASTPRIV-20260306 | infosec | **Medium**: Review broad admin grant `workspace/security/*` with `execute`. Tighten scope (remove execute unless justified), shorten TTL, and document rationale. | VALIDATED 2026-03-07 12:39 UTC
 
-### Security Tasks
-- SEC-ROTATE-TELEGRAM-20260306 | infosec+ops | **High**: Plaintext Telegram bot token(s) detected in repo config/backup artifacts (openclaw.json + backups). Action: revoke/rotate token(s); migrate to secrets store; scrub plaintext occurrences (including backups); verify no token remains via secret-scan; document rotation timestamp. |
-- SEC-ROTATE-OPENAI-20260306 | infosec+ops | **High**: OpenAI-style `sk-` key detected in agent config files (agents/*/agent/auth-profiles.json, agents/*/agent/models.json). Action: revoke/rotate key(s); move to secrets store/env; scrub plaintext; confirm key not committed to git history. |
-- SEC-ROTATE-SLACK-20260306 | infosec+ops | **High**: Plaintext Slack bot token pattern (xoxb-) previously detected in workspace files/tests/backups (per audit_log). Action: rotate/revoke Slack token(s); scrub plaintext occurrences; ensure backups don’t retain secrets; validate Slack integration still works post-rotation. |
-- SEC-HYGIENE-SCAN-20260306 | infosec | **High**: Add/enable automated secret scanning (pre-commit + CI) and a hard rule: no secrets in openclaw.json/backups. Add patterns (xoxb-, sk-, Telegram token), plus remediation checklist. |
+# AUTONOMOUS TASK ASSIGNMENT
 
-## P1 — PENDING (2026-03-06T14:10Z)
+## Active Tasks
 
-### Security Tasks
-- SEC-ACCESS-LEASTPRIV-20260306 | infosec | **Medium**: Review broad admin grant `workspace/security/*` with `execute`. Tighten scope (remove execute unless justified), shorten TTL, and document rationale. |
+| Task ID | Agent | Priority | Status | Age | Notes |
+|---------|-------|----------|--------|-----|-------|
+| SEC-ACCESS-LEASTPRIV-20260306 | infosec | Medium | COMPLETED | 0h 50m | Security review complete |
 
-## P1 — IN_PROGRESS (2026-03-06T12:43Z)
+## P1 — PENDING
 
-### Research Tasks
-- RES-TRENDS-20260306 | research | Run web_search for: 'AI agents trends March 2026', 'agentic AI frameworks 2026'. Check HN, Reddit r/LocalLLaMA. Document in workspace/research/trends/YYYY-MM-DD.md. Then research 1 developer pain point from: LLM cost tracking, agent watchdog, A2A protocol, multi-agent queue, PR auto-reviewer, session memory, model router, cron-as-code, dev onboarding, LLM loop detector. Pick highest HN/Reddit traction. Write SPEC.md to workspace/projects/<slug>/. Mark as READY or PENDING. |
+| Task ID | Agent | Priority | Status | Age | Notes |
+|---------|-------|----------|--------|-----|-------|
+| RES-TRENDS-20260307 | research | High | PENDING | 0m | Run web_search for: 'AI agents trends March 2026', 'agentic AI frameworks 2026'. Check HN, Reddit r/LocalLLaMA. Document in workspace/research/trends/2026-03-07.md. Then research 1 developer pain point from: LLM cost tracking, agent watchdog, A2A protocol, multi-agent queue, PR auto-reviewer, session memory, model router, cron-as-code, dev onboarding, LLM loop detector. Pick highest HN/Reddit traction. Write SPEC.md to workspace/projects/<slug>/. Mark as READY or PENDING. |
+| PRJ-ENG-20260307 | eng | High | PENDING | 0m | Check workspace/projects/backlog.md for any READY project → add: Pick first READY spec. Run: bash scripts/create-project-repo.sh <slug> "<desc>". Implement MVP, add GitHub Actions CI (.github/workflows/), verify CI passes, open PR, log to pr-log.md. |
+| OPS-HEALTH-20260307 | ops | High | PENDING | 0m | Run system health check. |
 
-### Engineering Tasks
-- PRJ-ENG-20260306 | eng | Check workspace/projects/backlog.md for any READY project → add: Pick first READY spec. Run: bash scripts/create-project-repo.sh <slug> "<desc>". Implement MVP, add GitHub Actions CI (.github/workflows/), verify CI passes, open PR, log to pr-log.md. |
+## P2 — PENDING
 
-### Ops Tasks
-- OPS-HEALTH-20260307 | ops | Run system health check (cron:health-001) |
-
-## P1 — IN_PROGRESS (2026-03-06T12:43Z)
-
-### Research Tasks
-- RES-TRENDS-20260307 | research | Run web_search for: 'AI agents trends March 2026', 'agentic AI frameworks 2026'. Check HN, Reddit r/LocalLLaMA. Document in workspace/research/trends/YYYY-MM-DD.md. Then research 1 developer pain point from: LLM cost tracking, agent watchdog, A2A protocol, multi-agent queue, PR auto-reviewer, session memory, model router, cron-as-code, dev onboarding, LLM loop detector. Pick highest HN/Reddit traction. Write SPEC.md to workspace/projects/<slug>/. Mark as READY or PENDING. |
-
-### Engineering Tasks
-- PRJ-ENG-20260307 | eng | Check workspace/projects/backlog.md for any READY project → add: Pick first READY spec. Run: bash scripts/create-project-repo.sh <slug> "<desc>". Implement MVP, add GitHub Actions CI (.github/workflows/), verify CI passes, open PR, log to pr-log.md. |
-
-### Ops Tasks
-- OPS-HEALTH-20260307 | ops | Run system health check (cron:health-001) |
-
-## P2 — ACTIVE
-
-## P3 — BACKLOG
+| Task ID | Agent | Priority | Status | Age | Notes |
+|---------|-------|----------|--------|-----|-------|
+| ENG-GITHUB-20260307 | eng | Medium | PENDING | 0m | Search GitHub for 'good first issue' in: anthropic/claude-code, langchain-ai/langchain, crewai/crewAI, automata-lang/automata. Pick one solvable in 2-4h. Comment 'I can help', implement, submit PR. Log to pr-log.md. |

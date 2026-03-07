@@ -7,7 +7,7 @@ Agents mark their own tasks complete without review. Need human (or agent) valid
 
 ### 1. Self-Validation (Agent marks complete)
 When an agent finishes, they must:
-1. Write output to workspace/validation/<task-id>/
+1. Write output to workspace/validation/<ta[REDACTED]
 2. Mark task as COMPLETED in AUTONOMOUS.md
 
 ### 2. Peer Review (Another Agent validates)

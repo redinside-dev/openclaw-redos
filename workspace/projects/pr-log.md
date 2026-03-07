@@ -9,3 +9,4 @@ Format: `| date | project | PR title | PR URL | status |`
 |------|---------|----------|--------|--------|
 
 *(ENG: append rows here as PRs are opened)*
+| 2026-03-06 | codebase-onboarding-agent | Add GitHub Actions CI workflow | https://github.com/redinside-dev/codebase-onboarding-agent | CI ready |

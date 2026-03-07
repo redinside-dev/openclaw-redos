@@ -72,7 +72,7 @@ These names appear in 2+ accounts (not bad, but important for risk sizing):
 | XEQT | iShares Core Equity ETF Portfolio | EXCHANGE_TRADED_FUND | RRSP, TFSA |
 
 ## 5) Action framework (Option A / Option B)
-### Option A — Risk-managed growth (fits 10% drawdown budget)
+### Option A — Ri[REDACTED] growth (fits 10% drawdown budget)
 - Cap any single stock at **~8–10%** of the *USD bucket*; anything above becomes a trim candidate.
 - Consolidate overlapping index exposure (avoid owning multiple versions of the same index unless there is a clear reason).
 - Keep speculative names in a strict “sandbox” bucket (e.g., **≤5% total**).

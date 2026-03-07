@@ -112,7 +112,7 @@ All critical path issues resolved. System ready for 24/7 autonomous operation.
 2. `/Users/redinside/.openclaw/workspace/AUTONOMOUS.md` - Unblocked 5 tasks
 
 ## Next Autonomous Run
-The autonomous-task-dispatcher cron runs every 15 minutes. Next run expected at:
+The autonomous-ta[REDACTED] cron runs every 15 minutes. Next run expected at:
 - **09:45 UTC** - Should succeed without channel errors ✅
 
 ## Recommendations

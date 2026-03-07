@@ -1,69 +1,18 @@
-# TASKS.md - System Health Issues
+# Critical System Issues - Action Items
 
-## Critical Issues (P0 - 30 min SLA)
+## P0 - Immediate Attention
+1. **Fix 9router connectivity on port 9999** - Service not responding, causing gateway token errors.
+2. **Resolve A2A delegation timeouts** - Multiple timeout errors observed; investigate network/firewall or service config.
+3. **Fix gateway token missing errors** - Gateway reports unauthorized token missing; verify and restore gateway token configuration.
 
-### TASK-001: Restart Ollama Service
-- **Status:** COMPLETED
-- **Priority:** P0 (30 min SLA)
-- **Issue:** Ollama consuming 423.1% CPU, system overloaded
-- **Action:** Restart ollama service failed 4 attempts, service stopped
-- **Assigned:** OPS
-- **Created:** 2026-03-04T20:50:00-05:00
-- **SLA Deadline:** 2026-03-04T22:22:00-05:00
-- **Started:** 2026-03-04T22:17:00-05:00
-- **Escalated:** 2026-03-04T22:20:00-05:00
-- **Escalation Note:** Multiple restart attempts failed, service stopped to prevent system failure
-- **Completed:** 2026-03-04T22:23:00-05:00
+## P1 - High Priority
+4. **Set up automated backup system** - No backup mechanism currently configured; implement scheduled backups.
+5. **Update invalid config entries** - Fix `models.providers.ollama.api` invalid input in openclaw.json, ensure proper model provider configuration.
 
-### TASK-002: Fix Gateway Origin Restrictions
-- **Status:** PENDING
-- **Priority:** P1 (2 hour SLA)
-- **Issue:** Gateway Control UI blocked by origin restrictions
-- **Action:** Update gateway config to allow proper origin access
-- **Assigned:** OPS
-- **Created:** 2026-03-04T20:50:00-05:00
-- **SLA Deadline:** 2026-03-04T22:50:00-05:00
+## P2 - Medium Priority
+6. **Restart gateway to apply config changes** - Gateway needs restart after config updates.
+7. **Monitor memory usage** - Memory usage at 94%; investigate potential leaks or cleanup processes.
 
-## High Priority Issues (P2 - 8 hour SLA)
-
-### TASK-003: Configure Time Machine Backup
-- **Status:** PENDING
-- **Priority:** P2 (8 hour SLA)
-- **Issue:** No automated backup system configured
-- **Action:** Set up Time Machine backup schedule
-- **Assigned:** OPS
-- **Created:** 2026-03-04T20:50:00-05:00
-- **SLA Deadline:** 2026-03-05T04:50:00-05:00
-
-### TASK-004: Monitor Ollama Performance Post-Restart
-- **Status:** PENDING
-- **Priority:** P2 (8 hour SLA)
-- **Issue:** Verify Ollama stabilizes after restart
-- **Action:** Monitor CPU usage for 24 hours
-- **Assigned:** OPS
-- **Created:** 2026-03-04T20:50:00-05:00
-- **SLA Deadline:** 2026-03-05T20:50:00-05:00
-
-## Medium Priority Issues (P3 - 48 hour SLA)
-
-### TASK-005: Create Health Analysis File
-- **Status:** PENDING
-- **Priority:** P3 (48 hour SLA)
-- **Issue:** Missing analysis file referenced in state-ops.json
-- **Action:** Create comprehensive health analysis document
-- **Assigned:** OPS
-- **Created:** 2026-03-04T20:50:00-05:00
-- **SLA Deadline:** 2026-03-06T20:50:00-05:00
-
-## System Health Summary
-- **Overall Status:** DEGRADED
-- **Critical Issues:** 2
-- **High Priority:** 3
-- **System Load:** Elevated but manageable
-- **Services:** 3/4 operational
-
-## Next Steps
-1. Execute TASK-001 (restart ollama) - IMMEDIATE
-2. Execute TASK-002 (fix gateway) - Within 2 hours
-3. Execute TASK-003 (Time Machine) - Within 8 hours
-4. Monitor system stability and update task tracker
+## P3 - Low Priority
+8. **Check for outdated dependencies** - Run dependency audit to identify outdated packages.
+9. **Verify critical endpoints** - Test connectivity to 18789, 9999, 60203, 20128 to ensure all services are reachable.

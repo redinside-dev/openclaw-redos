@@ -46,3 +46,28 @@
 | FINANCE | workspace/finance/memory/state-finance.json |
 | RESEARCH | workspace/research/memory/state-research.json |
 
+
+---
+
+## 2026-03-07 — Infrastructure Hardening Learnings
+
+### OpenClaw Auto-Update Root Cause
+`update.auto.enabled: true` silently upgrades OpenClaw every 6–18h with no rollback. Schema breaking changes (e.g. v2026.3.2 agents flat→list migration) crash-loop the gateway. **Fix**: n8n staged update pipeline with automatic rollback.
+
+### MiniMax API Endpoints
+- `/anthropic/v1/messages` — returns `insufficient balance` even with valid key unless PAYG credits added
+- `/v1/text/chatcompletion_v2` — non-standard path, OpenClaw `openai-completions` won't find it  
+- **Only working path for OpenClaw**: Use `api: openai-completions` with baseUrl `https://api.minimax.io/v1` — but this hits 404 because path is non-standard
+- **Solution**: MiniMax Coding Plan (`sk-cp-`) works via OpenAI-compat but needs PAYG credits for Anthropic endpoint. Keep as fallback until confirmed working.
+
+### n8n HTTP Request Node Gotchas
+- Default method is GET — always explicitly set `method: POST` for webhook calls
+- `specifyBody: json` with `jsonBody` field conflicts with `body` field — use one or the other
+- `specifyBody: string` with `body` as template expression is most reliable
+- PUT `/api/v1/workflows/:id` only accepts: `name`, `nodes`, `connections`, `settings` — strip all other fields
+
+### 9Router OAuth Race Condition
+Running `9router-token-refresh.js --all` simultaneously with launchd-scheduled refresh causes `refresh_token_reused` error (OAuth single-use tokens). Fix: remove `--all` from restart script, let launchd handle scheduled refresh independently.
+
+### flock Not Available on macOS
+Use `mkdir`-based atomic lock instead: `if ! mkdir "${LOCK}.d" 2>/dev/null; then exit 0; fi`

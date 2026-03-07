@@ -39,7 +39,7 @@ openclaw doctor
 | **RAG** | `semantic-memory-reindex-0001` (3am) — rebuild vector index via `~/.openclaw/.venv/bin/python3 .../memsearch.py index` |
 | **A2A / pipelines** | `a2a-eng-reads-research-0001`, `a2a-infosec-reviews-eng-0001`, `a2a-friday-retro-0001`, `a2a-red-morning-team-pulse-0001`; research→ENG intake crons |
 | **Inner loops** | `inner-loop-main-0001`, `inner-loop-eng-0001`, etc. — each agent reads STATE/AUTONOMOUS/TICKET and acts |
-| **Health** | `system-pulse-always-on-0001`, `c8481b2a-...` System Health Watch, `ops-disk-monitor-daily-2026-02-22`, `cron-watchdog` |
+| **Health** | `system-pulse-always-on-0001`, `c8481b2a-...` System Health Watch, `ops-di[REDACTED] `cron-watchdog` |
 | **Episodes** | `episodes-seeder-0001` (every 30 min 8–22) — seeds episodes.jsonl from cron state |
 
 ---

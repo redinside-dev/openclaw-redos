@@ -203,7 +203,7 @@ These are extracted to `workspace/memory/archived-sessions/` with default permis
    ```python
    # Remove lines containing common secret patterns
    REDACT_PATTERNS = [
-       r'(sk-|pk-|api[_-]?key|token|secret|password)',
+       r'([REDACTED]
        r'(Bearer|Authorization):\s*\S+',
    ]
    for pattern in REDACT_PATTERNS:
@@ -299,9 +299,9 @@ ARCHIVE_PATH="${ARCHIVE_DIR}/${SESSION_ID}-$(date -u +%Y%m%dT%H%M%S).json"
 
 **Issue:**
 ```javascript
-const IFLOW_CLIENT_SECRET = '4Z3YjXycVsQvyGF1etiNlIBB4RsqSDtW';
-const CLAUDE_CLIENT_ID   = '9d1c250a-e61b-44d9-88ed-5944d1962f5e';
-const CODEX_CLIENT_ID   = 'app_EMoamEEZ73f0CkXaXp7hrann';
+const IFLOW_CLIENT_SECRET = '[REDACTED]';
+const CLAUDE_CLIENT_ID   = '[REDACTED]';
+const CODEX_CLIENT_ID   = '[REDACTED]';
 ```
 
 Hardcoded secrets in source code. If script is committed to git or exposed, secrets are compromised.
@@ -317,9 +317,9 @@ Hardcoded secrets in source code. If script is committed to git or exposed, secr
    <key>EnvironmentVariables</key>
    <dict>
      <key>IFLOW_CLIENT_SECRET</key>
-     <string>4Z3YjXycVsQvyGF1etiNlIBB4RsqSDtW</string>
+     <string>[REDACTED]</string>
      <key>CLAUDE_CLIENT_ID</key>
-     <string>9d1c250a-e61b-44d9-88ed-5944d1962f5e</string>
+     <string>[REDACTED]</string>
    </dict>
    ```
 3. Validate all required secrets are set on startup

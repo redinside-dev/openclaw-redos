@@ -15,7 +15,7 @@
 - **Slack:** Team coordination (ops, eng, research internal tasks)
 
 **Fixed crons:**
-- autonomous-task-dispatcher-0001 → telegram
+- autonomous-ta[REDACTED] → telegram
 - telegram-approval-monitor-0001 → telegram  
 - system-pulse-always-on-0001 → slack
 - 9router-keepfresh-0001 → slack
@@ -40,7 +40,7 @@
 **Problem:** Blocked - needed watchdog script paths and Slack channel ID
 
 **Solution:** Provided all required information:
-- Watchdog scripts: cron_watchdog.py, disk-watchdog.sh, watchdog-task-stall.sh
+- Watchdog scripts: cron_watchdog.py, di[REDACTED] watchdog-ta[REDACTED]
 - Slack channel: C0AEV3MDEDD (#redos-mission-control)
 - Task changed from BLOCKED to PENDING
 
@@ -87,7 +87,7 @@
 ## Next Steps
 
 ### Immediate (0-15 minutes)
-1. **Verify cron fix:** Wait for next autonomous-task-dispatcher run (every 15min) - should succeed now
+1. **Verify cron fix:** Wait for next autonomous-ta[REDACTED] run (every 15min) - should succeed now
 2. **Monitor episodes.jsonl:** Check for successful cron executions without "Channel is required" errors
 3. **Agent task pickup:** Agents should start claiming PENDING tasks from AUTONOMOUS.md
 
@@ -147,7 +147,7 @@
 
 ```bash
 # Check cron is working
-tail -f ~/.openclaw/workspace/logs/episodes.jsonl | grep "autonomous-task-dispatcher"
+tail -f ~/.openclaw/workspace/logs/episodes.jsonl | grep "autonomous-ta[REDACTED]
 
 # Check agents are claiming tasks
 grep -E "IN_PROGRESS|DONE" ~/.openclaw/workspace/AUTONOMOUS.md

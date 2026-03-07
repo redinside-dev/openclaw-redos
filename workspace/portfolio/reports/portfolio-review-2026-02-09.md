@@ -4,7 +4,7 @@
 
 ## 1) Market Regime Snapshot
 
-**Regime:** **Neutral → mildly risk-off** (tight financial conditions + crowded mega-cap AI + high dispersion).
+**Regime:** **Neutral → mildly ri[REDACTED] (tight financial conditions + crowded mega-cap AI + high dispersion).
 
 **Key macro drivers (what matters this week):**
 - **Rates/real yields:** equity duration risk remains the dominant factor; long-duration growth/AI is sensitive to any upside surprises in inflation or hawkish repricing.
@@ -26,7 +26,7 @@ Below, labels are based on current regime sensitivity (quality, cash flows, fact
 - **GOOGL (TFSA 7.38%, RRSP 8.47%) — Favored**
   - Quality cash flows; AI execution improving; valuation typically less stretched vs top AI beta.
 - **META (TFSA 9.54%) — Favored**
-  - Strong earnings power and buyback capacity; remains a high-quality “risk-on” core.
+  - Strong earnings power and buyback capacity; remains a high-quality “ri[REDACTED] core.
 - **AMZN (TFSA 5.96%, RRSP 4.02%) — Favored**
   - AWS + retail operating leverage; tends to work in neutral regimes.
 - **AAPL (TFSA 7.66%, RRSP 3.68%) — Neutral**
@@ -68,7 +68,7 @@ Below, labels are based on current regime sensitivity (quality, cash flows, fact
 - **TSLA (TFSA 1.50%, RRSP 5.35%) — Neutral → Disfavored (risk management)**
   - High dispersion and headline/valuation sensitivity; keep smaller or hedge via sizing.
 - **COIN (TFSA 3.45%) — Disfavored (high beta, correlated with crypto)**
-  - Works in risk-on/crypto rallies; vulnerable in risk-off.
+  - Works in ri[REDACTED] rallies; vulnerable in ri[REDACTED]
 - **MSTR (TFSA 1.36%, RRSP 0.33%) — Disfavored (levered BTC proxy)**
 - **SMCI (TFSA 0.12%, RRSP 0.65%) — Neutral → Disfavored**
   - Volatile and event-risk heavy; position sizing matters.
@@ -77,7 +77,7 @@ Below, labels are based on current regime sensitivity (quality, cash flows, fact
 - **PLUG (TFSA 0.72%) — Disfavored**
   - Balance-sheet/financing sensitivity in tighter conditions.
 - **OPEN (TFSA 0.90%) — Disfavored**
-  - Housing/financing sensitivity; weak risk/reward in a neutral-to-risk-off regime.
+  - Housing/financing sensitivity; weak risk/reward in a neutral-to-ri[REDACTED] regime.
 - **WOLF (TFSA 0.15%, RRSP 0.00%) — Disfavored**
   - High operational/financing risk; avoid unless you have a specific catalyst thesis.
 - **BBAI (TFSA 2.34%, RRSP 0.58%) — Disfavored**
@@ -135,7 +135,7 @@ Below, labels are based on current regime sensitivity (quality, cash flows, fact
 - **AI infrastructure (quality):** **AVGO**, **ASML**, **ANET** (higher quality than micro-cap AI narratives)
 - **Industrial compounders:** **EMR**, **CAT**, **ETN** (real-economy exposure; can help diversify tech)
 - **Financial quality:** **JPM** (if you want more cyclicality with quality)
-- **Defensive staples/utilities (if risk-off deepens):** **XLP** / **XLU** (use as tactical hedge)
+- **Defensive staples/utilities (if ri[REDACTED] deepens):** **XLP** / **XLU** (use as tactical hedge)
 
 **If you want a single “clean” core + satellites model portfolio:**
 - Core: SPY (or VFV) + a quality/low-vol ETF (USMV) + a healthcare sleeve (XLV)
@@ -144,7 +144,7 @@ Below, labels are based on current regime sensitivity (quality, cash flows, fact
 ## 5) Risks & Invalidation Points
 
 **Key risks to this positioning:**
-- **Sharp re-acceleration in risk-on/liquidity:** high-beta names you trimmed can rip higher.
+- **Sharp re-acceleration in ri[REDACTED] high-beta names you trimmed can rip higher.
 - **Rates fall hard (growth tailwind):** long-duration speculative tech can outperform briefly.
 - **AI cycle risk:** any demand digestion in semis could hit NVDA/SOXX/SMH hardest.
 

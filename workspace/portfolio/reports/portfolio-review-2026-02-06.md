@@ -1,7 +1,7 @@
 # Daily Portfolio Review — 2026-02-06
 
 ## Executive Summary (PM View)
-The portfolio remains **decisively risk-on** and **US mega-cap / AI-semiconductor concentrated**, with meaningful secondary exposure to **crypto beta** (SOL-heavy) and a smaller sleeve of **China / EM internet**. This is a coherent regime bet (AI capex + platform monetization + liquidity), but the current construction embeds **single-factor crowding risk** (AI/semi + long-duration growth) and **idiosyncratic headline risk** (COIN/MSTR/China ADRs).
+The portfolio remains **decisively ri[REDACTED] and **US mega-cap / AI-semiconductor concentrated**, with meaningful secondary exposure to **crypto beta** (SOL-heavy) and a smaller sleeve of **China / EM internet**. This is a coherent regime bet (AI capex + platform monetization + liquidity), but the current construction embeds **single-factor crowding risk** (AI/semi + long-duration growth) and **idiosyncratic headline risk** (COIN/MSTR/China ADRs).
 
 **Today’s priority:** tighten risk governance around the largest exposures (NVDA, mega-cap tech, SOL) and explicitly define rebalance/trim levels rather than relying on discretion.
 
@@ -72,8 +72,8 @@ Observations:
 
 ## What’s Working (Why this is coherent)
 - You’re positioned for the **dominant market narrative**: AI build-out + platform monetization + passive flows into US mega-cap.
-- The book has **multiple engines of beta** (US equities + semis + crypto) which is powerful in risk-on regimes.
-- Gold/miners and LMT provide **some** offset, but they are not large enough to be reliable hedges against a broad risk-off.
+- The book has **multiple engines of beta** (US equities + semis + crypto) which is powerful in ri[REDACTED] regimes.
+- Gold/miners and LMT provide **some** offset, but they are not large enough to be reliable hedges against a broad ri[REDACTED]
 
 ---
 

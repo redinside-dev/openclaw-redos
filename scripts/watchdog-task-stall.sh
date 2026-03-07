@@ -45,7 +45,7 @@ fi
 if [[ -f "$AUTONOMOUS_MD" ]]; then
   # Find IN_PROGRESS tasks older than 4 hours
   STALLED=$(grep -E "^\|.*IN_PROGRESS" "$AUTONOMOUS_MD" 2>/dev/null | wc -l | tr -d ' ')
-  if [[ "$STALLED" -gt 5 ]]; then
+  if [ "$STALLED" -gt 5 ]; then
     log "WARNING: $STALLED tasks stuck IN_PROGRESS — may indicate agent loops"
     send_slack_direct "⚠️ [OpenClaw Watchdog] $STALLED tasks stuck IN_PROGRESS in AUTONOMOUS.md. Possible agent loops."
   fi

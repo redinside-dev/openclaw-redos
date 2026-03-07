@@ -18,7 +18,7 @@
 
 ### 3. Secret/Credential Audit
 - **Exposed secrets**: **NONE FOUND** in workspace
-- **Common patterns scanned**: sk-, ghp_, AKIA, AWS_KEY, xoxb-, Bearer tokens
+- **Common patterns scanned**: [REDACTED] ghp_, AKIA, AWS_KEY, xoxb-, Bearer tokens
 - **.env files**: None found
 - **Git history**: No exposed secrets detected in recent commits
 

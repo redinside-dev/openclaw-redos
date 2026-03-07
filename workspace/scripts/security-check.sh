@@ -25,7 +25,7 @@ if command -v rg &> /dev/null; then
     echo ""
     echo "Scanning for exposed secrets..."
     # Search for common secret patterns
-    rg -i "(sk-\w+|ghp_\w+|AKIA\w+|xoxb-\w+|Bearer\s+\w+|password\s*=\s*['\"]\w+|secret\s*:\s*['\"]\w+)" /Users/redinside --type-not docker -g '!{node_modules,.git,Library,Trash,Downloads}' -C 0 --line-number 2>/dev/null | head -20 || echo "No exposed secrets found in common locations"
+    rg -i "([REDACTED] /Users/redinside --type-not docker -g '!{node_modules,.git,Library,Trash,Downloads}' -C 0 --line-number 2>/dev/null | head -20 || echo "No exposed secrets found in common locations"
 fi
 
 # 3. File permissions audit

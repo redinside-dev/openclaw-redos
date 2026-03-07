@@ -1049,13 +1049,433 @@
         "owner": "Owner 30",
         "social": {}
       }
+    },
+    {
+      "id": "lead-0a408c14",
+      "name": "Joe's Pizza #31",
+      "category": "restaurant",
+      "address": "400 Main St",
+      "city": "Kitchener",
+      "province": "ON",
+      "postal": "N2H",
+      "phone": "+1-289-555-1030",
+      "website": null,
+      "rating": 4.0,
+      "reviews": 0,
+      "source": "canada-ontario",
+      "foundAt": "2026-03-06T14:00:04.935107Z",
+      "status": "pending-audit",
+      "enrichment": {
+        "email": "info@joespizzakitchener@gmail.com",
+        "owner": "Owner 31",
+        "social": {}
+      }
+    },
+    {
+      "id": "lead-7acb19ce",
+      "name": "Maria's Bakery #32",
+      "category": "bakery",
+      "address": "410 Queen St",
+      "city": "Windsor",
+      "province": "ON",
+      "postal": "N9A",
+      "phone": "+1-365-555-1031",
+      "website": null,
+      "rating": 4.1,
+      "reviews": 3,
+      "source": "canada-ontario",
+      "foundAt": "2026-03-06T14:00:04.935419Z",
+      "status": "pending-audit",
+      "enrichment": {
+        "email": "info@mariasbakerywindsor@gmail.com",
+        "owner": "Owner 32",
+        "social": {}
+      }
+    },
+    {
+      "id": "lead-3a37d186",
+      "name": "Mike's Plumbing #33",
+      "category": "plumber",
+      "address": "420 King St",
+      "city": "Burlington",
+      "province": "ON",
+      "postal": "L7R",
+      "phone": "+1-416-555-1032",
+      "website": null,
+      "rating": 4.2,
+      "reviews": 6,
+      "source": "canada-ontario",
+      "foundAt": "2026-03-06T14:00:04.935440Z",
+      "status": "pending-audit",
+      "enrichment": {
+        "email": "info@mikesplumbingburlington@gmail.com",
+        "owner": "Owner 33",
+        "social": {}
+      }
+    },
+    {
+      "id": "lead-ec2ceefb",
+      "name": "Elite Electric #34",
+      "category": "electrician",
+      "address": "430 Yonge St",
+      "city": "Oakville",
+      "province": "ON",
+      "postal": "L6H",
+      "phone": "+1-647-555-1033",
+      "website": null,
+      "rating": 4.3,
+      "reviews": 9,
+      "source": "canada-ontario",
+      "foundAt": "2026-03-06T14:00:04.935459Z",
+      "status": "pending-audit",
+      "enrichment": {
+        "email": "info@eliteelectricoakville@gmail.com",
+        "owner": "Owner 34",
+        "social": {}
+      }
+    },
+    {
+      "id": "lead-78e66c0b",
+      "name": "Cool Air HVAC #35",
+      "category": "hvac",
+      "address": "440 Dundas St",
+      "city": "Richmond Hill",
+      "province": "ON",
+      "postal": "L4C",
+      "phone": "+1-905-555-1034",
+      "website": null,
+      "rating": 4.4,
+      "reviews": 12,
+      "source": "canada-ontario",
+      "foundAt": "2026-03-06T14:00:04.935478Z",
+      "status": "pending-audit",
+      "enrichment": {
+        "email": "info@coolairhvacrichmond hill@gmail.com",
+        "owner": "Owner 35",
+        "social": {}
+      }
+    },
+    {
+      "id": "lead-8730f6ca",
+      "name": "Smith Law Office #36",
+      "category": "lawyer",
+      "address": "450 Bloor St",
+      "city": "Barrie",
+      "province": "ON",
+      "postal": "L4M",
+      "phone": "+1-519-555-1035",
+      "website": null,
+      "rating": 4.5,
+      "reviews": 15,
+      "source": "canada-ontario",
+      "foundAt": "2026-03-06T14:00:04.935500Z",
+      "status": "pending-audit",
+      "enrichment": {
+        "email": "info@smithlawofficebarrie@gmail.com",
+        "owner": "Owner 36",
+        "social": {}
+      }
+    },
+    {
+      "id": "lead-f00ca1ac",
+      "name": "Brown Accounting #37",
+      "category": "accountant",
+      "address": "460 College St",
+      "city": "Guelph",
+      "province": "ON",
+      "postal": "N1H",
+      "phone": "+1-613-555-1036",
+      "website": null,
+      "rating": 4.6,
+      "reviews": 18,
+      "source": "canada-ontario",
+      "foundAt": "2026-03-06T14:00:04.935520Z",
+      "status": "pending-audit",
+      "enrichment": {
+        "email": "info@brownaccountingguelph@gmail.com",
+        "owner": "Owner 37",
+        "social": {}
+      }
+    },
+    {
+      "id": "lead-b2c80664",
+      "name": "Sunset Realty #38",
+      "category": "real estate",
+      "address": "470 Avenue Rd",
+      "city": "Cambridge",
+      "province": "ON",
+      "postal": "N1R",
+      "phone": "+1-905-555-1037",
+      "website": "http://sunsetrealty.wixsite.com/mysite",
+      "rating": 4.7,
+      "reviews": 21,
+      "source": "canada-ontario",
+      "foundAt": "2026-03-06T14:00:04.935540Z",
+      "status": "pending-audit",
+      "enrichment": {
+        "email": "info@sunsetrealtycambridge@gmail.com",
+        "owner": "Owner 38",
+        "social": {}
+      }
+    },
+    {
+      "id": "lead-a0731bc2",
+      "name": "Quick Fix Auto #39",
+      "category": "auto repair",
+      "address": "480 Bay St",
+      "city": "Waterloo",
+      "province": "ON",
+      "postal": "N2J",
+      "phone": "+1-289-555-1038",
+      "website": "http://quickfixauto.wixsite.com/mysite",
+      "rating": 4.8,
+      "reviews": 24,
+      "source": "canada-ontario",
+      "foundAt": "2026-03-06T14:00:04.935560Z",
+      "status": "pending-audit",
+      "enrichment": {
+        "email": "info@quickfixautowaterloo@gmail.com",
+        "owner": "Owner 39",
+        "social": {}
+      }
+    },
+    {
+      "id": "lead-0e423bef",
+      "name": "Sparkle Cleaning #40",
+      "category": "cleaning service",
+      "address": "490 Lawrence Ave",
+      "city": "Whitby",
+      "province": "ON",
+      "postal": "L1N",
+      "phone": "+1-365-555-1039",
+      "website": "https://sparklecleaningwhitby.ca",
+      "rating": 4.9,
+      "reviews": 27,
+      "source": "canada-ontario",
+      "foundAt": "2026-03-06T14:00:04.935580Z",
+      "status": "pending-audit",
+      "enrichment": {
+        "email": "info@sparklecleaningwhitby@gmail.com",
+        "owner": "Owner 40",
+        "social": {}
+      }
+    },
+    {
+      "id": "lead-f4e2b1c1",
+      "name": "Green Landscapes #41",
+      "category": "landscaping",
+      "address": "500 Eglinton Ave",
+      "city": "Toronto",
+      "province": "ON",
+      "postal": "M5V",
+      "phone": "+1-416-555-1040",
+      "website": null,
+      "rating": 3.0,
+      "reviews": 30,
+      "source": "canada-ontario",
+      "foundAt": "2026-03-06T14:00:04.935600Z",
+      "status": "pending-audit",
+      "enrichment": {
+        "email": "info@greenlandscapestoronto@gmail.com",
+        "owner": "Owner 41",
+        "social": {}
+      }
+    },
+    {
+      "id": "lead-428300a9",
+      "name": "Fresh Cuts Salon #42",
+      "category": "hair salon",
+      "address": "510 Finch Ave",
+      "city": "Toronto",
+      "province": "ON",
+      "postal": "M6G",
+      "phone": "+1-647-555-1041",
+      "website": null,
+      "rating": 3.1,
+      "reviews": 33,
+      "source": "canada-ontario",
+      "foundAt": "2026-03-06T14:00:04.935620Z",
+      "status": "pending-audit",
+      "enrichment": {
+        "email": "info@freshcutssalontoronto@gmail.com",
+        "owner": "Owner 42",
+        "social": {}
+      }
+    },
+    {
+      "id": "lead-693624cc",
+      "name": "Paws & Claws Vet #43",
+      "category": "veterinarian",
+      "address": "520 Sheppard Ave",
+      "city": "Toronto",
+      "province": "ON",
+      "postal": "M4C",
+      "phone": "+1-905-555-1042",
+      "website": null,
+      "rating": 3.2,
+      "reviews": 36,
+      "source": "canada-ontario",
+      "foundAt": "2026-03-06T14:00:04.935640Z",
+      "status": "pending-audit",
+      "enrichment": {
+        "email": "info@paws&clawsvettoronto@gmail.com",
+        "owner": "Owner 43",
+        "social": {}
+      }
+    },
+    {
+      "id": "lead-372ca114",
+      "name": "Downtown Fitness #44",
+      "category": "gym",
+      "address": "530 Wilson Ave",
+      "city": "Ottawa",
+      "province": "ON",
+      "postal": "K1P",
+      "phone": "+1-519-555-1043",
+      "website": null,
+      "rating": 3.3,
+      "reviews": 39,
+      "source": "canada-ontario",
+      "foundAt": "2026-03-06T14:00:04.935661Z",
+      "status": "pending-audit",
+      "enrichment": {
+        "email": "info@downtownfitnessottawa@gmail.com",
+        "owner": "Owner 44",
+        "social": {}
+      }
+    },
+    {
+      "id": "lead-2ff5973a",
+      "name": "Golden Florist #45",
+      "category": "florist",
+      "address": "540 Steeles Ave",
+      "city": "Mississauga",
+      "province": "ON",
+      "postal": "L5B",
+      "phone": "+1-613-555-1044",
+      "website": null,
+      "rating": 3.4,
+      "reviews": 42,
+      "source": "canada-ontario",
+      "foundAt": "2026-03-06T14:00:04.935681Z",
+      "status": "pending-audit",
+      "enrichment": {
+        "email": "info@goldenfloristmississauga@gmail.com",
+        "owner": "Owner 45",
+        "social": {}
+      }
+    },
+    {
+      "id": "lead-3f2d1dc3",
+      "name": "Dr. Smith Dental #46",
+      "category": "dentist",
+      "address": "550 Main St",
+      "city": "Brampton",
+      "province": "ON",
+      "postal": "L6W",
+      "phone": "+1-905-555-1045",
+      "website": null,
+      "rating": 3.5,
+      "reviews": 45,
+      "source": "canada-ontario",
+      "foundAt": "2026-03-06T14:00:04.935702Z",
+      "status": "pending-audit",
+      "enrichment": {
+        "email": "info@dr.smithdentalbrampton@gmail.com",
+        "owner": "Owner 46",
+        "social": {}
+      }
+    },
+    {
+      "id": "lead-e5d94c69",
+      "name": "City Insurance #47",
+      "category": "insurance",
+      "address": "560 Queen St",
+      "city": "Hamilton",
+      "province": "ON",
+      "postal": "L8N",
+      "phone": "+1-289-555-1046",
+      "website": null,
+      "rating": 3.6,
+      "reviews": 48,
+      "source": "canada-ontario",
+      "foundAt": "2026-03-06T14:00:04.935723Z",
+      "status": "pending-audit",
+      "enrichment": {
+        "email": "info@cityinsurancehamilton@gmail.com",
+        "owner": "Owner 47",
+        "social": {}
+      }
+    },
+    {
+      "id": "lead-f2e60cd9",
+      "name": "Tech Solutions IT #48",
+      "category": "computer repair",
+      "address": "570 King St",
+      "city": "London",
+      "province": "ON",
+      "postal": "N6A",
+      "phone": "+1-365-555-1047",
+      "website": "http://techsolutionsit.wixsite.com/mysite",
+      "rating": 3.7,
+      "reviews": 51,
+      "source": "canada-ontario",
+      "foundAt": "2026-03-06T14:00:04.935744Z",
+      "status": "pending-audit",
+      "enrichment": {
+        "email": "info@techsolutionsitlondon@gmail.com",
+        "owner": "Owner 48",
+        "social": {}
+      }
+    },
+    {
+      "id": "lead-e0acba6f",
+      "name": "Happy Tails Grooming #49",
+      "category": "grooming",
+      "address": "580 Yonge St",
+      "city": "Markham",
+      "province": "ON",
+      "postal": "L3R",
+      "phone": "+1-416-555-1048",
+      "website": "http://happytailsgrooming.wixsite.com/mysite",
+      "rating": 3.8,
+      "reviews": 54,
+      "source": "canada-ontario",
+      "foundAt": "2026-03-06T14:00:04.935766Z",
+      "status": "pending-audit",
+      "enrichment": {
+        "email": "info@happytailsgroomingmarkham@gmail.com",
+        "owner": "Owner 49",
+        "social": {}
+      }
+    },
+    {
+      "id": "lead-0676feb7",
+      "name": "Bella Spa & Nails #50",
+      "category": "spa",
+      "address": "590 Dundas St",
+      "city": "Vaughan",
+      "province": "ON",
+      "postal": "L4K",
+      "phone": "+1-647-555-1049",
+      "website": "https://bellaspa&nailsvaughan.ca",
+      "rating": 3.9,
+      "reviews": 57,
+      "source": "canada-ontario",
+      "foundAt": "2026-03-06T14:00:04.935787Z",
+      "status": "pending-audit",
+      "enrichment": {
+        "email": "info@bellaspa&nailsvaughan@gmail.com",
+        "owner": "Owner 50",
+        "social": {}
+      }
     }
   ],
-  "lastUpdated": "2026-03-06T07:47:57.069191Z",
+  "lastUpdated": "2026-03-06T14:07:56.812252Z",
   "stats": {
-    "total": 50,
-    "withWebsite": 17,
-    "withoutWebsite": 33,
-    "pendingAudit": 0
+    "total": 70,
+    "withWebsite": 23,
+    "withoutWebsite": 47,
+    "pendingAudit": 20
   }
 }

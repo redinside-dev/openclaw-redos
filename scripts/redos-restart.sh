@@ -28,6 +28,21 @@ info() { echo -e "${BLUE}→${NC} $*"; }
 STATUS_ONLY=false
 [[ "${1:-}" == "--status" ]] && STATUS_ONLY=true
 
+# ------- Config validation guard -------
+if [[ "$STATUS_ONLY" == "false" ]]; then
+  VALIDATE_OUT=$(openclaw config validate 2>&1)
+  if echo "$VALIDATE_OUT" | grep -q "Config valid"; then
+    ok "Config valid"
+  else
+    fail "Config validation FAILED — aborting restart to prevent crash loop"
+    echo "$VALIDATE_OUT"
+    echo ""
+    echo "Fix with: openclaw doctor"
+    echo "Then re-run: bash scripts/redos-restart.sh"
+    exit 1
+  fi
+fi
+
 # ------- Status check -------
 
 check_status() {
@@ -187,8 +202,8 @@ fi
 sleep 3
 if [[ -f "$HOME/.9router/db.json" ]]; then
   if [[ -f "$HOME/.openclaw/scripts/9router-token-refresh.js" ]]; then
-    info "Refreshing 9Router OAuth tokens (Kiro + Cursor)..."
-    node "$HOME/.openclaw/scripts/9router-token-refresh.js" --all > /dev/null 2>&1 || true
+    info "Refreshing 9Router OAuth tokens (Kiro only — skipping --all to avoid refresh_token_reused race)..."
+    node "$HOME/.openclaw/scripts/9router-token-refresh.js" > /dev/null 2>&1 || true
   fi
 
   info "Running 9Router watchdog (normalize names + check expiry)..."

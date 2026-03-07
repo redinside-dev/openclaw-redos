@@ -4,7 +4,7 @@
 # Auto-remediation: nudge agent, reassign if no response, escalate if critical
 
 AUTONOMOUS_FILE="$HOME/.openclaw/workspace/AUTONOMOUS.md"
-STATE_FILE="$HOME/.openclaw/workspace/tmp/task-stall-state.json"
+STATE_FILE="$HOME/.openclaw/workspace/tmp/ta[REDACTED]
 ALERT_THRESHOLD_HOURS=2
 NUDGE_THRESHOLD_HOURS=1
 NOW=$(date -u +%s)
@@ -120,7 +120,7 @@ if [ -f "$DISPATCH_LOG" ]; then
     if [ $consecutive_errors -ge 3 ]; then
         # Try to restart dispatcher cron
         echo "  → Attempting to fix dispatcher (${consecutive_errors} consecutive errors)"
-        openclaw cron trigger autonomous-task-dispatcher-0001 2>/dev/null
+        openclaw cron trigger autonomous-ta[REDACTED] 2>/dev/null
         
         if [ $? -eq 0 ]; then
             REMEDIATED+=("✓ Restarted dispatcher cron")

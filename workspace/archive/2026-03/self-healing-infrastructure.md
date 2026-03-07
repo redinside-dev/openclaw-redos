@@ -90,9 +90,9 @@ bash ~/.openclaw/workspace/scripts/file-provisioning.sh
 
 ## Deliverable 3: Health Monitors with Auto-Remediation (✓ COMPLETE)
 
-### 3.1 disk-health-monitor.py
+### 3.1 di[REDACTED]
 
-**Location**: `~/.openclaw/workspace/scripts/disk-health-monitor.py`
+**Location**: `~/.openclaw/workspace/scripts/di[REDACTED]
 
 **Auto-Remediation Logic**:
 - **Threshold**: Triggers at 85% disk usage
@@ -106,7 +106,7 @@ bash ~/.openclaw/workspace/scripts/file-provisioning.sh
 
 **Usage**:
 ```bash
-python3 ~/.openclaw/workspace/scripts/disk-health-monitor.py
+python3 ~/.openclaw/workspace/scripts/di[REDACTED]
 ```
 
 **Recommended Cron**: Every 5 minutes
@@ -140,7 +140,7 @@ python3 ~/.openclaw/workspace/scripts/model-health-monitor.py
 - Missed runs → Triggers immediate run
 - Failed jobs → Resets error counter, triggers retry
 
-### 3.4 watchdog-task-stall.sh (Already Exists)
+### 3.4 watchdog-ta[REDACTED] (Already Exists)
 
 **Auto-Remediation**:
 - 1h stalled → Nudge agent
@@ -172,7 +172,7 @@ python3 ~/.openclaw/workspace/scripts/model-health-monitor.py
 - ✅ Secure permissions (600) for secrets
 - ✅ INFOSEC blocker detection implemented
 
-**disk-health-monitor.py**:
+**di[REDACTED]
 - ✅ Script created with execute permissions
 - ✅ Disk usage monitoring implemented
 - ✅ Multi-stage cleanup logic implemented
@@ -250,7 +250,7 @@ Add to `~/.openclaw/cron/jobs.json`:
 
 ```json
 {
-  "id": "disk-health-monitor-0001",
+  "id": "di[REDACTED]
   "agentId": "ops",
   "name": "Disk Health Monitor (every 5min)",
   "enabled": true,
@@ -263,7 +263,7 @@ Add to `~/.openclaw/cron/jobs.json`:
     "kind": "agentTurn",
     "thinking": "off",
     "timeoutSeconds": 180,
-    "message": "Run: python3 ~/.openclaw/workspace/scripts/disk-health-monitor.py"
+    "message": "Run: python3 ~/.openclaw/workspace/scripts/di[REDACTED]
   },
   "delivery": {
     "mode": "silent",
@@ -302,7 +302,7 @@ Add to `~/.openclaw/cron/jobs.json`:
 
 - `~/.openclaw/workspace/scripts/credential-rotation.py` (new)
 - `~/.openclaw/workspace/scripts/file-provisioning.sh` (new)
-- `~/.openclaw/workspace/scripts/disk-health-monitor.py` (new)
+- `~/.openclaw/workspace/scripts/di[REDACTED] (new)
 - `~/.openclaw/workspace/scripts/model-health-monitor.py` (new)
 - `~/.openclaw/workspace/docs/self-healing-infrastructure.md` (this file)
 
@@ -312,7 +312,7 @@ Add to `~/.openclaw/cron/jobs.json`:
 
 1. **Test credential-rotation.py**: Verify token pool files exist and rotation logic works
 2. **Test file-provisioning.sh**: Run once to provision missing paths/files
-3. **Test disk-health-monitor.py**: Verify disk monitoring and cleanup logic
+3. **Test di[REDACTED] Verify disk monitoring and cleanup logic
 4. **Test model-health-monitor.py**: Verify model health checks and gateway restart
 5. **Add cron jobs**: Install recommended cron jobs to enable auto-healing
 6. **Populate token pools**: Replace placeholder tokens with actual credentials

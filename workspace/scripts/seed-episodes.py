@@ -62,9 +62,20 @@ with open(EPISODES_PATH, "a") as f:
             continue
 
         error_msg = None
+        error_type = None
+        tool = None
+        agent = None
+        
         if last_status != "ok":
             err = state.get("lastError") or {}
-            error_msg = err.get("message") if isinstance(err, dict) else str(err)
+            if isinstance(err, dict):
+                error_msg = err.get("message")
+                error_type = err.get("error_type")
+                tool = err.get("tool")
+                agent = err.get("agent")
+            else:
+                error_msg = str(err)
+                error_type = "unknown"
 
         episode = {
             "ts": last_run_iso,
@@ -73,7 +84,10 @@ with open(EPISODES_PATH, "a") as f:
             "taskId": job.get("id"),
             "taskName": job.get("name"),
             "outcome": "ok" if last_status == "ok" else "failed",
-            "error_type": error_msg,
+            "error_type": error_type,
+            "error_msg": error_msg,
+            "tool": tool,
+            "agent": agent,
             "source": "cron-seed",
         }
         f.write(json.dumps(episode) + "\n")

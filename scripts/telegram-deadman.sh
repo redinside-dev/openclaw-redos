@@ -24,8 +24,10 @@ is_gateway_up() {
     "http://127.0.0.1:18789/health" > /dev/null 2>&1
 }
 
-exec 9>"$LOCK"
-flock -n 9 || exit 0
+# macOS-compatible lock (flock not available on macOS without util-linux)
+LOCK_DIR="${LOCK}.d"
+if ! mkdir "$LOCK_DIR" 2>/dev/null; then exit 0; fi
+trap 'rmdir "$LOCK_DIR" 2>/dev/null' EXIT
 
 log "--- check ---"
 

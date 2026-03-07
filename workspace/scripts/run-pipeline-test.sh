@@ -78,11 +78,11 @@ echo ""
 echo -e "${CYAN}[3/8] Skills${NC}"
 check "hatake-parser/SKILL.md exists" "[ -f '$WORKSPACE/skills/hatake-parser/SKILL.md' ]"
 check "smart-router/SKILL.md exists" "[ -f '$WORKSPACE/skills/smart-router/SKILL.md' ]"
-check "task-runner/SKILL.md exists" "[ -f '$WORKSPACE/skills/task-runner/SKILL.md' ]"
+check "ta[REDACTED] exists" "[ -f '$WORKSPACE/skills/ta[REDACTED] ]"
 check "cost-tracker/SKILL.md exists" "[ -f '$WORKSPACE/skills/cost-tracker/SKILL.md' ]"
 check "retry-cascade/SKILL.md exists" "[ -f '$WORKSPACE/skills/retry-cascade/SKILL.md' ]"
-check "create-project.sh exists" "[ -f '$WORKSPACE/skills/task-runner/scripts/create-project.sh' ]"
-check "create-project.sh is executable" "[ -x '$WORKSPACE/skills/task-runner/scripts/create-project.sh' ]"
+check "create-project.sh exists" "[ -f '$WORKSPACE/skills/ta[REDACTED] ]"
+check "create-project.sh is executable" "[ -x '$WORKSPACE/skills/ta[REDACTED] ]"
 echo ""
 
 # ── 4. SCRIPTS ────────────────────────────────────────────────
@@ -91,7 +91,7 @@ check "gateway-wrapper.sh exists" "[ -f '$WORKSPACE/scripts/gateway-wrapper.sh' 
 check "gateway-wrapper.sh is executable" "[ -x '$WORKSPACE/scripts/gateway-wrapper.sh' ]"
 check "ollama-health.sh exists" "[ -f '$WORKSPACE/scripts/ollama-health.sh' ]"
 check "ollama-health.sh is executable" "[ -x '$WORKSPACE/scripts/ollama-health.sh' ]"
-check "disk-watchdog.sh exists" "[ -f '$WORKSPACE/scripts/disk-watchdog.sh' ]"
+check "di[REDACTED] exists" "[ -f '$WORKSPACE/scripts/di[REDACTED] ]"
 check "backup-to-cloud.sh exists" "[ -f '$WORKSPACE/scripts/backup-to-cloud.sh' ]"
 check "Slack schema drift lint passes" "python3 '$WORKSPACE/scripts/lint_slack_schema.py'"
 echo ""
@@ -112,7 +112,7 @@ check "Template BRIEF.md exists" "[ -f '$WORKSPACE/projects/_template/BRIEF.md' 
 
 # Test project creation
 TEST_ID="TEST-$(date +%s)"
-check "Create test project" "bash '$WORKSPACE/skills/task-runner/scripts/create-project.sh' '$TEST_ID' 'Test project for pipeline validation'"
+check "Create test project" "bash '$WORKSPACE/skills/ta[REDACTED] '$TEST_ID' 'Test project for pipeline validation'"
 check "Test project dir created" "[ -d '$WORKSPACE/projects/$TEST_ID' ]"
 check "Test state.json has project_id" "jq -e '.project_id == \"$TEST_ID\"' '$WORKSPACE/projects/$TEST_ID/state.json'"
 

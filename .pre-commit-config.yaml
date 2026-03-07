@@ -1,0 +1,35 @@
+# Secret scanning + hygiene pre-commit hooks
+# Install:  pipx install pre-commit   (or: pip install pre-commit)
+# Enable:   pre-commit install
+# Run all:  pre-commit run -a
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: check-merge-conflict
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: detect-private-key
+
+  # NOTE: gitleaks catches many token formats out of the box; we also ship a
+  # local lightweight regex scanner for fast feedback + custom policies.
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.21.2
+    hooks:
+      - id: gitleaks
+        args: ["--config", ".gitleaks.toml"]
+
+  - repo: local
+    hooks:
+      - id: forbid-sensitive-files
+        name: Forbid committing sensitive local-only files (openclaw.json/backups/.env/etc)
+        entry: python3 scripts/secret_scan/forbid_sensitive_files.py
+        language: system
+        pass_filenames: true
+
+      - id: secret-pattern-scan
+        name: Quick regex secret scan (xoxb-, sk-, Telegram token, etc)
+        entry: python3 scripts/secret_scan/secret_pattern_scan.py
+        language: system
+        pass_filenames: true

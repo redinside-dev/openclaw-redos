@@ -34,7 +34,7 @@ D) **Cost/latency resilience** (avoid invalid model IDs, auth invalidation; keep
   - `guide.md`
   - `examples/security-hardening.md`
   - `examples/heartbeat-example.md`
-  - `examples/task-tracking-prompt.md`
+  - `examples/ta[REDACTED]
   - `showcases/*`
 
 Deliverable: `workspace/research/openclaw-runbook-index.md` with quick links + what to steal.

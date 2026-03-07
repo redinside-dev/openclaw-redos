@@ -1,7 +1,7 @@
 # Daily Portfolio Review (Full) — 2026-02-24
 
 ## 1) Market Regime Snapshot
-**Regime: Risk-off (cautious posture).**
+**Regime: Ri[REDACTED] (cautious posture).**
 
 **Key drivers:**
 - **Tariff/trade uncertainty** continues to drive elevated equity risk premium. Market breadth remains fragile with gap risk and multiple compression for high-duration growth names.
@@ -13,10 +13,10 @@
 ---
 
 ## 2) Holdings Review (Favored / Neutral / Disfavored)
-> Labels reflect the **current risk-off tactical regime**, not long-term fundamentals.
+> Labels reflect the **current ri[REDACTED] tactical regime**, not long-term fundamentals.
 
 ### Core mega-cap / quality
-- **MSFT — Favored:** Quality balance sheet, durable enterprise demand, and lower volatility profile. Tends to hold up better in risk-off environments than high-beta semis.
+- **MSFT — Favored:** Quality balance sheet, durable enterprise demand, and lower volatility profile. Tends to hold up better in ri[REDACTED] environments than high-beta semis.
 - **GOOGL — Favored:** High free cash flow, reasonable valuation vs peers. Less single-product cycle risk relative to other mega-cap tech.
 - **META — Neutral/Favored:** Strong cash generation and efficiency discipline. More cyclical ad sensitivity makes it moderate risk.
 - **AAPL — Neutral:** Quality with defensive characteristics within tech, but growth sensitivity plus China/tariff overhang creates drag.
@@ -25,15 +25,15 @@
 - **NDAQ — Favored/Neutral:** High-quality exchange/market infrastructure. More defensive than beta, though volumes can swing with sentiment.
 
 ### Semis / AI beta (overweight risk)
-- **NVDA — Neutral (trim):** Best-in-class AI infrastructure, but **crowded + high-duration multiple**. Vulnerable to risk-off rotations and any AI capex narrative wobble.
+- **NVDA — Neutral (trim):** Best-in-class AI infrastructure, but **crowded + high-duration multiple**. Vulnerable to ri[REDACTED] rotations and any AI capex narrative wobble.
 - **SOXX / SMH — Neutral (trim):** Broad semiconductor exposure. In this regime, prefer **less cyclicality**.
 - **INTC — Disfavored:** Structural execution challenges and competitive pressure. Not the defensive semi exposure desired in volatility.
-- **SMCI — Disfavored:** High volatility and narrative-driven. Poor risk-adjusted fit in risk-off regime.
-- **WOLF — Disfavored:** Cyclical end-market + execution/capital intensity. Not a risk-off hold.
+- **SMCI — Disfavored:** High volatility and narrative-driven. Poor ri[REDACTED] fit in ri[REDACTED] regime.
+- **WOLF — Disfavored:** Cyclical end-market + execution/capital intensity. Not a ri[REDACTED] hold.
 
-### Crypto + high-beta proxies (reduce in risk-off)
-- **IBIT / FBTC / GBTC / BTCC / BTCX.B (BTC ETFs) — Neutral (size down):** BTC can act as "risk-on liquidity," and tariff/rates uncertainty creates whipsaw risk. Keep a **smaller core** if strategic allocation is maintained.
-- **MSTR — Disfavored:** Levered BTC proxy with downside convexity in risk-off environments.
+### Crypto + high-beta proxies (reduce in ri[REDACTED]
+- **IBIT / FBTC / GBTC / BTCC / BTCX.B (BTC ETFs) — Neutral (size down):** BTC can act as "ri[REDACTED] liquidity," and tariff/rates uncertainty creates whipsaw risk. Keep a **smaller core** if strategic allocation is maintained.
+- **MSTR — Disfavored:** Levered BTC proxy with downside convexity in ri[REDACTED] environments.
 - **COIN — Disfavored:** Highly correlated to crypto risk and liquidity cycles. Tends to underperform in de-risking phases.
 - **ETHX.B — Neutral/Disfavored:** ETH beta typically higher than BTC in selloffs.
 
@@ -41,7 +41,7 @@
 - **BABA / PDD / FXI / ZID — Disfavored:** Tariff headline risk plus policy/geopolitical overhang. Not where fresh risk should be deployed.
 
 ### Defensive / ballast / real assets
-- **RGLD — Favored:** Quality gold/royalty exposure. Benefits from risk-off sentiment and policy uncertainty.
+- **RGLD — Favored:** Quality gold/royalty exposure. Benefits from ri[REDACTED] sentiment and policy uncertainty.
 - **NEM / ABX — Neutral/Favored:** More operational/commodity beta than RGLD. Still useful as inflation hedge but with higher volatility.
 - **LMT — Favored:** Defense = geopolitical hedge. Tends to be resilient in uncertain environments.
 - **K (Kellanova) — Favored:** Staples profile with defensive cashflows. Low volatility ballast.
@@ -54,18 +54,18 @@
 - **MGK / QQQM / XQQ / QQC — Neutral (consolidate):** Strong funds but add **more duration/tech concentration** on top of existing AI/semi exposure.
 - **XEQT — Favored:** Diversified core. Useful as "set and hold" ballast.
 
-### Speculative / pre-revenue / concept names (exit in risk-off)
+### Speculative / pre-revenue / concept names (exit in ri[REDACTED]
 - **BBAI — Disfavored:** High beta AI narrative with execution risk.
 - **OKLO — Disfavored:** Pre-commercialization nuclear concept with financing and regulatory risk.
 - **PLUG — Disfavored:** Balance sheet/financing concerns + macro sensitivity to industrial cycles.
 - **OPEN — Disfavored:** Housing and rates sensitivity with reflexive equity dynamics.
 - **RGTI / QBTS — Disfavored:** Early quantum names with extreme volatility and uncertain commercialization timelines.
-- **SOFI — Neutral/Disfavored:** Can be a long-term winner, but still trades as risk-on financial growth.
+- **SOFI — Neutral/Disfavored:** Can be a long-term winner, but still trades as ri[REDACTED] financial growth.
 - **TSLA — Disfavored/Neutral:** High beta + macro sensitivity. Keep only if strategic conviction, otherwise trim.
 - **MLGO — Disfavored:** Microcap/speculative with high idiosyncratic risk.
 
 ### Crypto (direct holdings)
-- **SOL / AVAX / SUI — Disfavored (size down materially):** High beta vs BTC. In risk-off, these alt tokens tend to drawdown harder.
+- **SOL / AVAX / SUI — Disfavored (size down materially):** High beta vs BTC. In ri[REDACTED] these alt tokens tend to drawdown harder.
 - **DOT / GALA — Disfavored:** Long-tail beta with no tactical advantage.
 - **BTC (direct) — Neutral:** If crypto exposure is strategic, **prefer BTC over alts** tactically.
 
@@ -74,7 +74,7 @@
 ## 3) Model Portfolio Actions (increase / reduce / exit / hold)
 
 ### A) Immediate de-risk (next 1–5 trading days)
-**Exit / near-exit (risk-off cleanup):**
+**Exit / near-exit (ri[REDACTED] cleanup):**
 - BBAI, OKLO, PLUG, OPEN, RGTI, QBTS, WOLF, SMCI, MLGO, GALA, DOT (and other tail positions).
 
 **Reduce (trim back):**
@@ -140,18 +140,18 @@
 ## 5) Risks & Invalidation Points
 
 ### Key risks to current positioning:
-1. **Whipsaw risk** — If tariff headlines de-escalate quickly, high-beta AI/semis can rip. Trimming may underperform during short bursts of risk-on sentiment.
+1. **Whipsaw risk** — If tariff headlines de-escalate quickly, high-beta AI/semis can rip. Trimming may underperform during short bursts of ri[REDACTED] sentiment.
 2. **Rate shock risk** — If rates drop sharply, long-duration growth (NVDA/QQQ) re-rates, and defensives can materially lag.
 3. **Crypto reflexivity** — Reduced crypto beta can miss upside if liquidity conditions improve rapidly and speculative appetite returns.
 
-### Invalidation triggers (rotate back risk-on if):
+### Invalidation triggers (rotate back ri[REDACTED] if):
 1. Tariff narrative clarifies / de-escalates AND breadth improves (cyclicals + small caps confirm strength).
 2. Financial conditions ease visibly (yields/credit spreads tighten) and equity trend resumes higher with strong participation (breakout + >70% advancing issues).
 3. Defensive sectors (staples, utilities) begin to underperform cyclicals, signaling rotation back into risk.
 
 ### Tactical flexibility:
 - Keep dry powder (cash/short duration) to redeploy into quality growth if regime flips.
-- Maintain core quality mega-cap positions (MSFT, GOOGL) as they tend to lead in both risk-off and eventual risk-on rotations.
+- Maintain core quality mega-cap positions (MSFT, GOOGL) as they tend to lead in both ri[REDACTED] and eventual ri[REDACTED] rotations.
 - Monitor crypto/BTC as a leading indicator of liquidity and risk appetite shifts.
 
 ---
