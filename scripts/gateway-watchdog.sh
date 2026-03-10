@@ -24,7 +24,7 @@ is_gateway_up() {
     "http://127.0.0.1:18789/health" > /dev/null 2>&1
 }
 
-# flock: only one instance runs at a time; skip if already running
+#  only one instance runs at a time; skip if already running
 exec 9>"$LOCK"
 flock -n 9 || exit 0
 

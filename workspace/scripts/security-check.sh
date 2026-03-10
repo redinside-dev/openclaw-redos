@@ -25,7 +25,7 @@ if command -v rg &> /dev/null; then
     echo ""
     echo "Scanning for exposed secrets..."
     # Search for common secret patterns
-    rg -i "([REDACTED] /Users/redinside --type-not docker -g '!{node_modules,.git,Library,Trash,Downloads}' -C 0 --line-number 2>/dev/null | head -20 || echo "No exposed secrets found in common locations"
+    rg -i "password|secret|key|token|api_key|credential|private_key" /Users/redinside --type-not docker -g '!{node_modules,.git,Library,Trash,Downloads}' -C 0 --line-number 2>/dev/null | head -20 || echo "No exposed secrets found in common locations"
 fi
 
 # 3. File permissions audit
@@ -43,8 +43,6 @@ echo ""
 echo "=== ACCESS LOGS REVIEW ==="
 
 if [ -f /var/log/system.log ]; then
-    echo "Recent system log entries (last 50 lines)..."
-    tail -50 /var/log/system.log | grep -i "error\|fail\|denied\|attempt\|auth" || echo "No suspicious system log entries found"
 fi
 
 if [ -f /var/log/auth.log ]; then

@@ -3,8 +3,8 @@
  * Autonomous Task Dispatcher - reads AUTONOMOUS.md and dispatches tasks to agents
  */
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 const AUTONOMOUS_FILE = path.join(process.env.HOME, '.openclaw', 'workspace-main', 'AUTONOMOUS.md');
 

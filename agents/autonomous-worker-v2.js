@@ -58,11 +58,221 @@ class AutonomousWorkerV2 {
    * Workers can use this even during degradation (smart degradation allows it)
    */
   async callGatewayLLM_CLI(prompt, context = {}) {
-
-  async callGatewayLLM_CLI(prompt, context = {}) {
     return new Promise((resolve, reject) => {
-      const { exec } = require("child_process");
-      const cmd = `openclaw agent --agent ${this.agentId} --message "${prompt.replace(/"/g, '\\"')}" --local`;
+      const requestBody = JSON.stringify({
+        message: prompt,
+        agentId: this.agentId,
+        context: context
+      });
+
+      const options = {
+        hostname: 'localhost',
+        port: 19000,
+        path: '/api/chat',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Content-Length': Buffer.byteLength(requestBody),
+          'x-worker-request': 'true',
+          'x-source': 'autonomous-worker',
+          'x-purpose': 'FIX_ISSUE',
+          'x-user-id': `worker-${this.agentId}`,
+          'Content-Type': 'application/json',
+          'Content-Length': Buffer.byteLength(requestBody)
+        }
+      };
+
+      const req = http.request(options, (res) => {
+        let data = '';
+
+        res.on('data', (chunk) => {
+          data += chunk;
+        });
+
+        res.on('end', () => {
+          try {
+            const response = JSON.parse(data);
+            resolve(response);
+          } catch (error) {
+            reject(new Error());
+          }
+        });
+      });
+
+      req.on('error', (error) => {
+        reject(new Error());
+      });
+
+      req.write(requestBody);
+      req.end();
+    });
+
+      const options = {
+        hostname: 'localhost',
+        port: 19000,
+        path: '/api/chat',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Content-Length': Buffer.byteLength(requestBody),
+          'x-worker-request': 'true',
+          'x-source': 'autonomous-worker',
+          'x-purpose': 'FIX_ISSUE',
+          'x-user-id': `worker-${this.agentId}`,
+          'Content-Type': 'application/json',
+          'Content-Length': Buffer.byteLength(requestBody)
+        }
+      };
+
+      const req = http.request(options, (res) => {
+        let data = '';
+
+        res.on('data', (chunk) => {
+          data += chunk;
+        });
+
+        res.on('end', () => {
+          try {
+            const response = JSON.parse(data);
+            resolve(response);
+          } catch (error) {
+            reject(new Error());
+          }
+        });
+      });
+
+      req.on('error', (error) => {
+        reject(new Error());
+      });
+
+      req.write(requestBody);
+      req.end();
+    });
+
+      const options = {
+        hostname: 'localhost',
+        port: 19000,
+        path: '/api/chat',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Content-Length': Buffer.byteLength(requestBody),
+          'x-worker-request': 'true',
+          'x-source': 'autonomous-worker',
+          'x-purpose': 'FIX_ISSUE',
+          'x-user-id': `worker-${this.agentId}`,
+          'Content-Type': 'application/json',
+          'Content-Length': Buffer.byteLength(requestBody)
+        }
+      };
+
+      const req = http.request(options, (res) => {
+        let data = '';
+
+        res.on('data', (chunk) => {
+          data += chunk;
+        });
+
+        res.on('end', () => {
+          try {
+            const response = JSON.parse(data);
+            resolve(response);
+          } catch (error) {
+            reject(new Error());
+          }
+        });
+      });
+
+      req.on('error', (error) => {
+        reject(new Error());
+      });
+
+      req.write(requestBody);
+      req.end();
+    });
+
+      const options = {
+        hostname: 'localhost',
+        port: 19000,
+        path: '/api/chat',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Content-Length': Buffer.byteLength(requestBody),
+          'x-worker-request': 'true',
+          'x-source': 'autonomous-worker',
+          'x-purpose': 'FIX_ISSUE',
+          'x-user-id': `worker-${this.agentId}`,
+          'Content-Type': 'application/json',
+          'Content-Length': Buffer.byteLength(requestBody)
+        }
+      };
+
+      const req = http.request(options, (res) => {
+        let data = '';
+
+        res.on('data', (chunk) => {
+          data += chunk;
+        });
+
+        res.on('end', () => {
+          try {
+            const response = JSON.parse(data);
+            resolve(response);
+          } catch (error) {
+            reject(new Error());
+          }
+        });
+      });
+
+      req.on('error', (error) => {
+        reject(new Error());
+      });
+
+      req.write(requestBody);
+      req.end();
+    });
+
+      const options = {
+        hostname: 'localhost',
+        port: 19000,
+        path: '/api/chat',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Content-Length': Buffer.byteLength(requestBody),
+          'x-worker-request': 'true',
+          'x-source': 'autonomous-worker',
+          'x-purpose': 'FIX_ISSUE',
+          'x-user-id': 
+        }
+      };
+
+      const req = http.request(options, (res) => {
+        let data = '';
+
+        res.on('data', (chunk) => {
+          data += chunk;
+        });
+
+        res.on('end', () => {
+          try {
+            const response = JSON.parse(data);
+            resolve(response);
+          } catch (error) {
+            reject(new Error());
+          }
+        });
+      });
+
+      req.on('error', (error) => {
+        reject(new Error());
+      });
+
+      req.write(requestBody);
+      req.end();
+    });
+  } --message "${prompt.replace(/"/g, '\\"')}" --local`;
       
       exec(cmd, { timeout: 120000 }, (error, stdout, stderr) => {
         if (error) {

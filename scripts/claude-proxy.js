@@ -482,6 +482,9 @@ function forwardRequestOAuth(originalReq, bodyBuffer, token) {
 }
 
 /** Forward to API tier (e.g. MiniMax). If request model is already a MiniMax model, send as-is; else use account default. Returns { proxyRes, clientModel, upstreamModel }. */
+/** Trims long conversation history so MiniMax context limit (2013) is not exceeded. */
+const MINIMAX_MAX_MESSAGES = 30;
+
 function forwardRequestApi(originalReq, bodyBuffer, account) {
   const { baseUrl, apiKey, model } = account;
   let clientModel = null;
@@ -497,8 +500,12 @@ function forwardRequestApi(originalReq, bodyBuffer, account) {
       } else {
         body.model = model;
         upstreamModel = model;
-        outBody = Buffer.from(JSON.stringify(body), 'utf8');
       }
+      // Trim messages to avoid MiniMax "context window exceeds limit (2013)"
+      if (Array.isArray(body.messages) && body.messages.length > MINIMAX_MAX_MESSAGES) {
+        body.messages = body.messages.slice(-MINIMAX_MAX_MESSAGES);
+      }
+      outBody = Buffer.from(JSON.stringify(body), 'utf8');
     } catch (_) {}
   }
   return new Promise((resolve, reject) => {
