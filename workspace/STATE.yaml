@@ -1,5 +1,5 @@
 version: '1.0'
-last_updated: '2026-03-06T05:09:18.315Z'
+last_updated: '2026-03-11T09:56:55.676Z'
 updated_by: ops-autonomy-calc
 dispatched_tasks_total: 9
 verified_completions_total: 9
@@ -65,8 +65,20 @@ daily_cost_target_usd: 1
 cost_savings_target_pct: 50
 payg_spend: blocked
 metrics:
-  real_autonomy_score: 0
-  dispatched_tasks_total: 0
-  verified_completions_total: 0
-  last_autonomy_calc: '2026-03-06T05:09:18.315Z'
-  per_agent_completions: {}
+  real_autonomy_score: 100
+  dispatched_tasks_total: 2
+  verified_completions_total: 2
+  last_autonomy_calc: '2026-03-11T09:56:55.675Z'
+  per_agent_completions_today:
+    main: 0
+    ops: 0
+    eng: 0
+    research: 0
+    finance: 0
+    infosec: 0
+    allrounder: 0
+    hatake: 0
+  per_agent_completions:
+    ops:
+      dispatched: 2
+      completed: 2

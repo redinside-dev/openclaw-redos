@@ -1,8 +1,26 @@
 {
-  "timestamp": "2026-03-07T13:34:00-05:00",
-  "ollama_status": "200 OK",
-  "nine_router_status": "404 Not Found",
-  "nine_router_response": "HTML 404 page (9Router web interface)",
-  "gateway_err_log": "Not found",
-  "last_checked": "2026-03-07T13:34:00-05:00"
+  "timestamp": "2026-03-11T23:44:00Z",
+  "ollama": {
+    "status": "up",
+    "responseCode": 200,
+    "responseTime": "< 1s"
+  },
+  "nineRouter": {
+    "status": "down",
+    "responseCode": 404,
+    "responseTime": "< 1s",
+    "issue": "Service not responding on port 20128"
+  },
+  "errors": {
+    "gatewayErrLog": "No new errors in last 30 minutes",
+    "lastChecked": "2026-03-11T23:44:00Z"
+  },
+  "alerts": [
+    {
+      "type": "service-down",
+      "service": "9Router",
+      "message": "9Router not responding on port 20128 (HTTP 404)",
+      "timestamp": "2026-03-11T23:44:00Z"
+    }
+  ]
 }

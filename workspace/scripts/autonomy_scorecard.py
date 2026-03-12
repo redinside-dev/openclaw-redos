@@ -6,11 +6,11 @@ import sys
 from collections import defaultdict
 from datetime import datetime, timezone, timedelta
 
-# Use fixed "now" for reproducibility (based on cron runtime: 2026-03-07 05:29 EST)
-now_utc = datetime(2026, 3, 7, 10, 29, 0, tzinfo=timezone.utc)
-today_date = now_utc.date()  # 2026-03-07
-today_start_utc = datetime(2026, 3, 7, 5, 0, 0, tzinfo=timezone.utc)  # 00:00 EST = 05:00 UTC
-today_end_utc = datetime(2026, 3, 8, 4, 59, 59, tzinfo=timezone.utc)    # 23:59 EST = 04:59 UTC next day
+# Use actual current date from context: 2026-03-11 07:13 UTC
+now_utc = datetime(2026, 3, 11, 7, 13, 0, tzinfo=timezone.utc)
+today_date = now_utc.date()  # 2026-03-11
+today_start_utc = datetime(2026, 3, 11, 5, 0, 0, tzinfo=timezone.utc)  # 00:00 EST = 05:00 UTC
+today_end_utc = datetime(2026, 3, 12, 4, 59, 59, tzinfo=timezone.utc)    # 23:59 EST = 04:59 UTC next day
 
 window_ago_ms = int((now_utc - timedelta(hours=24)).timestamp() * 1000)
 
@@ -180,7 +180,8 @@ next_action_map = {
 next_action = next_action_map.get(lowest[0] if lowest else "cron_success_rate", "Review all metrics and take corrective action.")
 
 # Output scorecard
-print("AUTONOMY SCORECARD — 2026-03-07")
+date_str = today_date.strftime("%Y-%m-%d")
+print(f"AUTONOMY SCORECARD — {date_str}")
 print("-" * 40)
 print(f"Score: {score}/10")
 print()
@@ -197,7 +198,7 @@ print(f"Next action: {next_action}")
 import os
 os.makedirs('/Users/redinside/.openclaw/workspace/ops', exist_ok=True)
 json_out = {
-    "date": "2026-03-07",
+    "date": date_str,
     "score": score,
     "cron_success_rate": round(cron_success_rate, 1),
     "a2a_count": a2a_count_today,
@@ -205,6 +206,7 @@ json_out = {
     "delivery_success_rate": round(delivery_success_rate, 1),
     "tool_errors": tool_errors
 }
-with open('/Users/redinside/.openclaw/workspace/ops/AUTONOMY-SCORE-2026-03-07.json', 'w') as f:
+json_filename = f"/Users/redinside/.openclaw/workspace/ops/AUTONOMY-SCORE-{date_str}.json"
+with open(json_filename, 'w') as f:
     json.dump(json_out, f, indent=2)
-print(f"\nWrote scorecard to /Users/redinside/.openclaw/workspace/ops/AUTONOMY-SCORE-2026-03-07.json")
+print(f"\nWrote scorecard to {json_filename}")

@@ -1,0 +1,24 @@
+{
+  "total": 59,
+  "success": 46,
+  "failed": 13,
+  "failure_rate": 22.033898305084744,
+  "clusters": {
+    "('unknown', None, None)": 9,
+    "(None, None, None)": 4
+  },
+  "top3": [
+    {
+      "error_type": "unknown",
+      "tool": null,
+      "agent": null,
+      "count": 9
+    },
+    {
+      "error_type": null,
+      "tool": null,
+      "agent": null,
+      "count": 4
+    }
+  ]
+}

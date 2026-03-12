@@ -1,10 +1,20 @@
 {
-  "agentId": "finance",
-  "updatedAt": "2026-03-05T05:35:00Z",
-  "currentFocus": "Monitor gateway cost usage + detect budget overruns (AUTO-034)",
-  "activeGoals": ["goal-finance-001", "goal-finance-002"],
-  "pendingDecisions": [
-    "Escalate stale cost-events telemetry to OPS/RED vs implement quick local monitor script"
+  "currentFocus": "Portfolio data acquisition",
+  "status": "awaiting holdings file creation",
+  "lastMarketUpdate": "2026-03-09T17:38:00-05:00",
+  "nextActions": [
+    "Create workspace/portfolio/HOLDINGS.md with current positions",
+    "Verify portfolio-review-2026-02-06.md exists",
+    "Resume real-time monitoring once data available"
   ],
-  "lastThought": "Budget overrun detection is blocked because cost-events.jsonl and provider-quota.json are stale/unknown; need telemetry repair + align guardrails (Codex exemption)."
+  "watchlist": {
+    "NVDA": "$138 resistance break changes view to bullish",
+    "SOL": "$190 holds key for momentum continuation",
+    "META": "$680 support break changes to bearish",
+    "AAPL": "$190 earnings catalyst level",
+    "MSFT": "$400 psychological level"
+  },
+  "newIdeas": {
+    "none": "None today"
+  }
 }

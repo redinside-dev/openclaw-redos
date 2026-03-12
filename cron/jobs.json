@@ -7,7 +7,7 @@
       "name": "Telegram Approval Monitor (RED checks for approve/deny replies)",
       "enabled": true,
       "createdAtMs": 1772080522100,
-      "updatedAtMs": 1773154561621,
+      "updatedAtMs": 1773270904101,
       "schedule": {
         "kind": "cron",
         "expr": "*/2 * * * *",
@@ -23,17 +23,19 @@
       },
       "delivery": {
         "mode": "silent",
-        "bestEffort": true
+        "bestEffort": true,
+        "channel": "telegram",
+        "to": "1012034994"
       },
       "state": {
-        "nextRunAtMs": 1773158161621,
-        "lastRunAtMs": 1773154471533,
+        "nextRunAtMs": 1773274504101,
+        "lastRunAtMs": 1773270814017,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 90088,
+        "lastDurationMs": 90084,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 5,
-        "lastError": "Error: cron: job execution timed out"
+        "consecutiveErrors": 6,
+        "lastError": "cron: job execution timed out"
       }
     },
     {
@@ -42,7 +44,7 @@
       "name": "System Pulse — Always-On Heartbeat (Ollama only)",
       "enabled": true,
       "createdAtMs": 1772080522100,
-      "updatedAtMs": 1773154698300,
+      "updatedAtMs": 1773272430077,
       "schedule": {
         "kind": "cron",
         "expr": "*/5 * * * *",
@@ -58,17 +60,19 @@
       },
       "delivery": {
         "mode": "silent",
-        "bestEffort": true
+        "bestEffort": true,
+        "channel": "telegram",
+        "to": "1012034994"
       },
       "state": {
-        "consecutiveErrors": 11,
-        "nextRunAtMs": 1773158298300,
-        "lastRunAtMs": 1773154668242,
+        "consecutiveErrors": 6,
+        "nextRunAtMs": 1773276030077,
+        "lastRunAtMs": 1773272400025,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 30058,
+        "lastDurationMs": 30052,
         "lastDeliveryStatus": "unknown",
-        "lastError": "Error: cron: job execution timed out"
+        "lastError": "cron: job execution timed out"
       }
     },
     {
@@ -77,7 +81,7 @@
       "name": "Daily Portfolio Review (Pre-Market)",
       "enabled": true,
       "createdAtMs": 1770267281600,
-      "updatedAtMs": 1773150886908,
+      "updatedAtMs": 1773249119444,
       "schedule": {
         "kind": "cron",
         "expr": "45 8 * * 1-5",
@@ -92,13 +96,13 @@
         "timeoutSeconds": 600
       },
       "state": {
-        "lastRunAtMs": 1773150734484,
+        "lastRunAtMs": 1773248979864,
         "lastStatus": "ok",
-        "lastDurationMs": 152424,
+        "lastDurationMs": 139580,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1773233100000,
+        "nextRunAtMs": 1773319500000,
         "lastDelivered": true
       },
       "delivery": {
@@ -112,9 +116,9 @@
       "id": "199a722c-5a9f-4df0-a7d6-71f8039ee187",
       "agentId": "finance",
       "name": "Trading Window Brief (8am-4pm ET)",
-      "enabled": true,
+      "enabled": false,
       "createdAtMs": 1770392652158,
-      "updatedAtMs": 1773154264732,
+      "updatedAtMs": 1773232899821,
       "schedule": {
         "kind": "cron",
         "expr": "0,30 8-15 * * 1-5",
@@ -135,13 +139,12 @@
         "to": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "lastRunAtMs": 1773154169184,
+        "lastRunAtMs": 1773232299656,
         "lastStatus": "ok",
-        "lastDurationMs": 95548,
+        "lastDurationMs": 33688,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1773156600000,
         "lastDelivered": true
       }
     },
@@ -151,7 +154,7 @@
       "name": "Trading Window Brief (4:00pm ET)",
       "enabled": true,
       "createdAtMs": 1770392732884,
-      "updatedAtMs": 1773113125067,
+      "updatedAtMs": 1773262546369,
       "schedule": {
         "kind": "cron",
         "expr": "0 16 * * 1-5",
@@ -172,13 +175,13 @@
         "to": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "lastRunAtMs": 1773113074564,
+        "lastRunAtMs": 1773262509360,
         "lastStatus": "ok",
-        "lastDurationMs": 50503,
+        "lastDurationMs": 37009,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1773172800000,
+        "nextRunAtMs": 1773345600000,
         "lastDelivered": true
       }
     },
@@ -188,7 +191,7 @@
       "name": "QQQ Profit/Stop Watch (intraday)",
       "enabled": true,
       "createdAtMs": 1770399961842,
-      "updatedAtMs": 1773113606024,
+      "updatedAtMs": 1773258967725,
       "schedule": {
         "kind": "cron",
         "expr": "*/5 12-15 * * 1-5",
@@ -209,14 +212,14 @@
         "to": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "lastRunAtMs": 1773113425933,
-        "lastStatus": "error",
-        "lastDurationMs": 180091,
-        "lastRunStatus": "error",
-        "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 1,
-        "nextRunAtMs": 1773158400000,
-        "lastError": "Error: cron: job execution timed out"
+        "lastRunAtMs": 1773258935388,
+        "lastStatus": "ok",
+        "lastDurationMs": 32337,
+        "lastRunStatus": "ok",
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1773331200000,
+        "lastDelivered": true
       }
     },
     {
@@ -225,7 +228,7 @@
       "name": "Market Leads (Alpha Vantage, 4x/day)",
       "enabled": true,
       "createdAtMs": 1770408691799,
-      "updatedAtMs": 1773154395923,
+      "updatedAtMs": 1773262483562,
       "schedule": {
         "kind": "cron",
         "expr": "0 10,12,14,15 * * 1-5",
@@ -246,13 +249,13 @@
         "to": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "lastRunAtMs": 1773154264732,
+        "lastRunAtMs": 1773262329689,
         "lastStatus": "ok",
-        "lastDurationMs": 131191,
+        "lastDurationMs": 153873,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1773158400000,
+        "nextRunAtMs": 1773324000000,
         "lastDelivered": true
       }
     },
@@ -262,7 +265,7 @@
       "name": "Daily AI + OpenClaw Trends Brief (Telegram DM)",
       "enabled": true,
       "createdAtMs": 1770593929748,
-      "updatedAtMs": 1773105712452,
+      "updatedAtMs": 1773189337961,
       "schedule": {
         "kind": "cron",
         "expr": "30 20 * * *",
@@ -282,13 +285,13 @@
         "to": "1012034994"
       },
       "state": {
-        "lastRunAtMs": 1773105694779,
+        "lastRunAtMs": 1773189310653,
         "lastStatus": "ok",
-        "lastDurationMs": 17673,
+        "lastDurationMs": 27308,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1773189000000,
+        "nextRunAtMs": 1773275400000,
         "lastDelivered": true
       }
     },
@@ -314,7 +317,8 @@
       },
       "delivery": {
         "mode": "silent",
-        "bestEffort": true
+        "bestEffort": true,
+        "channel": "slack"
       },
       "state": {
         "nextRunAtMs": 1773658800000,
@@ -332,7 +336,7 @@
       "name": "Cron Watchdog (alert on missed/failing jobs)",
       "enabled": true,
       "createdAtMs": 1770618629260,
-      "updatedAtMs": 1773154438927,
+      "updatedAtMs": 1773273010604,
       "schedule": {
         "kind": "cron",
         "expr": "*/10 8-22 * * *",
@@ -352,13 +356,13 @@
         "to": "channel:C0AEV3J2L23"
       },
       "state": {
-        "lastRunAtMs": 1773154395923,
+        "lastRunAtMs": 1773273000037,
         "lastStatus": "ok",
-        "lastDurationMs": 43004,
+        "lastDurationMs": 10567,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1773155400000,
+        "nextRunAtMs": 1773273600000,
         "lastDelivered": true
       }
     },
@@ -368,7 +372,7 @@
       "name": "RED CEO Daily Summary to Anurag",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1773111878957,
+      "updatedAtMs": 1773267067123,
       "schedule": {
         "kind": "cron",
         "expr": "0 18 * * 1-5",
@@ -388,13 +392,13 @@
         "to": "1012034994"
       },
       "state": {
-        "lastRunAtMs": 1773111790336,
+        "lastRunAtMs": 1773267028562,
         "lastStatus": "ok",
-        "lastDurationMs": 88621,
+        "lastDurationMs": 38561,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1773180000000,
+        "nextRunAtMs": 1773352800000,
         "lastDelivered": true
       }
     },
@@ -404,7 +408,7 @@
       "name": "RED Daily Brief (Telegram)",
       "enabled": true,
       "createdAtMs": 1771202886122,
-      "updatedAtMs": 1773150353602,
+      "updatedAtMs": 1773235535055,
       "schedule": {
         "kind": "cron",
         "expr": "0 9 * * *",
@@ -423,13 +427,13 @@
         "to": "1012034994"
       },
       "state": {
-        "lastRunAtMs": 1773150298224,
+        "lastRunAtMs": 1773235453935,
         "lastStatus": "ok",
-        "lastDurationMs": 55378,
+        "lastDurationMs": 81120,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1773234000000,
+        "nextRunAtMs": 1773320400000,
         "lastDelivered": true
       }
     },
@@ -439,7 +443,7 @@
       "name": "Habit check-in — daily prompt (Telegram)",
       "enabled": true,
       "createdAtMs": 1772410000000,
-      "updatedAtMs": 1773146866425,
+      "updatedAtMs": 1773232496910,
       "schedule": {
         "kind": "cron",
         "expr": "0 8 * * *",
@@ -459,11 +463,11 @@
         "to": "1012034994"
       },
       "state": {
-        "nextRunAtMs": 1773230400000,
-        "lastRunAtMs": 1773146857734,
+        "nextRunAtMs": 1773316800000,
+        "lastRunAtMs": 1773232476394,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 8691,
+        "lastDurationMs": 20516,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
         "lastDelivered": true
@@ -586,7 +590,7 @@
       "name": "9Router Auth Watchdog (proactive expiry + auto-name)",
       "enabled": true,
       "createdAtMs": 1772020000000,
-      "updatedAtMs": 1773140207655,
+      "updatedAtMs": 1773272828279,
       "schedule": {
         "kind": "every",
         "everyMs": 1800000,
@@ -608,12 +612,12 @@
       },
       "state": {
         "consecutiveErrors": 0,
-        "lastRunAtMs": 1773140181643,
+        "lastRunAtMs": 1773272800032,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 26012,
+        "lastDurationMs": 28247,
         "lastDeliveryStatus": "not-delivered",
-        "nextRunAtMs": 1773155800000,
+        "nextRunAtMs": 1773274600032,
         "lastDelivered": false
       }
     },
@@ -621,9 +625,9 @@
       "id": "9router-keepfresh-0001",
       "agentId": "ops",
       "name": "9Router Token Keep-Fresh (every 4min)",
-      "enabled": true,
+      "enabled": false,
       "createdAtMs": 1772210000000,
-      "updatedAtMs": 1773150652337,
+      "updatedAtMs": 1773232899821,
       "schedule": {
         "kind": "cron",
         "expr": "*/4 * * * *",
@@ -639,15 +643,16 @@
       },
       "delivery": {
         "mode": "silent",
-        "bestEffort": true
+        "bestEffort": true,
+        "channel": "telegram",
+        "to": "1012034994"
       },
       "state": {
         "consecutiveErrors": 0,
-        "lastRunAtMs": 1773150620449,
+        "lastRunAtMs": 1773230800084,
         "lastRunStatus": "ok",
-        "nextRunAtMs": 1773155520000,
         "lastStatus": "ok",
-        "lastDurationMs": 31888,
+        "lastDurationMs": 27716,
         "lastDeliveryStatus": "not-delivered",
         "lastDelivered": false
       }
@@ -658,7 +663,7 @@
       "name": "Nightly Eval — Episode Analysis + Autonomy Scorecard (2am ET)",
       "enabled": true,
       "createdAtMs": 1772265000000,
-      "updatedAtMs": 1773123930392,
+      "updatedAtMs": 1773213957891,
       "schedule": {
         "kind": "cron",
         "expr": "0 2 * * *",
@@ -673,16 +678,19 @@
       },
       "delivery": {
         "mode": "silent",
-        "bestEffort": true
+        "bestEffort": true,
+        "channel": "telegram",
+        "to": "1012034994"
       },
       "state": {
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1773208800000,
-        "lastRunAtMs": 1773123794248,
+        "nextRunAtMs": 1773295200000,
+        "lastRunAtMs": 1773213885641,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 136144,
-        "lastDeliveryStatus": "unknown"
+        "lastDurationMs": 72250,
+        "lastDeliveryStatus": "delivered",
+        "lastDelivered": true
       },
       "sessionTarget": "isolated"
     },
@@ -692,7 +700,7 @@
       "name": "Weekly Improvement Proposal (RED, Monday 9am ET)",
       "enabled": true,
       "createdAtMs": 1772265000000,
-      "updatedAtMs": 1773109154963,
+      "updatedAtMs": 1773199852052,
       "schedule": {
         "kind": "cron",
         "expr": "0 9 * * 1",
@@ -708,7 +716,9 @@
       },
       "delivery": {
         "mode": "silent",
-        "bestEffort": true
+        "bestEffort": true,
+        "channel": "telegram",
+        "to": "1012034994"
       },
       "state": {
         "consecutiveErrors": 0,
@@ -727,7 +737,7 @@
       "name": "Weekly Market Intelligence Digest",
       "enabled": true,
       "createdAtMs": 1772291614907,
-      "updatedAtMs": 1773112870587,
+      "updatedAtMs": 1773199852052,
       "schedule": {
         "kind": "cron",
         "expr": "0 8 * * 1",
@@ -742,7 +752,9 @@
       },
       "delivery": {
         "mode": "silent",
-        "bestEffort": true
+        "bestEffort": true,
+        "channel": "telegram",
+        "to": "1012034994"
       },
       "state": {
         "nextRunAtMs": 1773662400000,
@@ -761,7 +773,7 @@
       "name": "Market Research + Product Factory — weekly pain point mining",
       "enabled": true,
       "createdAtMs": 1772292376509,
-      "updatedAtMs": 1772633682509,
+      "updatedAtMs": 1773235676476,
       "schedule": {
         "kind": "cron",
         "expr": "0 9 * * 3",
@@ -776,16 +788,19 @@
       },
       "delivery": {
         "mode": "silent",
-        "bestEffort": true
+        "bestEffort": true,
+        "channel": "telegram",
+        "to": "1012034994"
       },
       "state": {
-        "nextRunAtMs": 1773234000000,
-        "lastRunAtMs": 1772633479576,
+        "nextRunAtMs": 1773838800000,
+        "lastRunAtMs": 1773235535055,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 202933,
-        "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 0
+        "lastDurationMs": 141421,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 0,
+        "lastDelivered": true
       },
       "sessionTarget": "isolated"
     },
@@ -795,7 +810,7 @@
       "name": "Content Factory Stage 1 — topic research (Fri 2pm)",
       "enabled": true,
       "createdAtMs": 1772292376509,
-      "updatedAtMs": 1772860192139,
+      "updatedAtMs": 1773199852052,
       "schedule": {
         "kind": "cron",
         "expr": "0 14 * * 5",
@@ -810,7 +825,9 @@
       },
       "delivery": {
         "mode": "silent",
-        "bestEffort": true
+        "bestEffort": true,
+        "channel": "telegram",
+        "to": "1012034994"
       },
       "state": {
         "nextRunAtMs": 1773424800000,
@@ -830,7 +847,7 @@
       "name": "MVP Brief Intake — implement top quick wins from market factory",
       "enabled": true,
       "createdAtMs": 1772292376509,
-      "updatedAtMs": 1772746967083,
+      "updatedAtMs": 1773199852052,
       "schedule": {
         "kind": "cron",
         "expr": "30 10 * * 4",
@@ -845,7 +862,9 @@
       },
       "delivery": {
         "mode": "silent",
-        "bestEffort": true
+        "bestEffort": true,
+        "channel": "telegram",
+        "to": "1012034994"
       },
       "state": {
         "nextRunAtMs": 1773325800000,
@@ -880,7 +899,8 @@
       },
       "delivery": {
         "mode": "silent",
-        "bestEffort": true
+        "bestEffort": true,
+        "channel": "slack"
       },
       "state": {
         "consecutiveErrors": 0,
@@ -912,11 +932,11 @@
         "replaces": "inner-loop-*, meta-self-check-*, a2a-*-proactive, sa-*-checkin"
       },
       "state": {
-        "nextRunAtMs": 1773155700000,
-        "lastRunAtMs": 1773154438927,
+        "nextRunAtMs": 1773273600000,
+        "lastRunAtMs": 1773272700027,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 10355,
+        "lastDurationMs": 9512,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
         "lastDelivered": true
@@ -927,7 +947,7 @@
         "bestEffort": true,
         "to": "1012034994"
       },
-      "updatedAtMs": 1773154449282,
+      "updatedAtMs": 1773272709539,
       "wakeMode": "now",
       "sessionTarget": "isolated"
     },
@@ -950,11 +970,11 @@
         "replaces": "episodes-seeder-0001, health-jsonl-writer-0001"
       },
       "state": {
-        "nextRunAtMs": 1773207000000,
-        "lastRunAtMs": 1773123665094,
+        "nextRunAtMs": 1773293400000,
+        "lastRunAtMs": 1773213648557,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 60108,
+        "lastDurationMs": 75409,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
         "lastDelivered": true
@@ -966,7 +986,7 @@
         "to": "1012034994"
       },
       "wakeMode": "now",
-      "updatedAtMs": 1773123725202,
+      "updatedAtMs": 1773213723966,
       "sessionTarget": "isolated"
     },
     {
@@ -988,11 +1008,11 @@
         "replaces": "c8481b2a-System-Health-Watch, 76777b7a-OPS-Health-Monitor, context-health-check-*"
       },
       "state": {
-        "nextRunAtMs": 1773156600000,
-        "lastRunAtMs": 1773150659937,
+        "nextRunAtMs": 1773273600000,
+        "lastRunAtMs": 1773272659665,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 38974,
+        "lastDurationMs": 39133,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
         "lastDelivered": true
@@ -1003,7 +1023,7 @@
         "bestEffort": true,
         "to": "1012034994"
       },
-      "updatedAtMs": 1773150698911,
+      "updatedAtMs": 1773272698798,
       "wakeMode": "now",
       "sessionTarget": "isolated"
     },
@@ -1028,14 +1048,14 @@
         "replaces": "session-warmup-0001, session-anchor-*"
       },
       "state": {
-        "nextRunAtMs": 1773157500000,
-        "lastRunAtMs": 1773150698911,
+        "nextRunAtMs": 1773273600000,
+        "lastRunAtMs": 1773272709539,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 35573,
-        "lastDeliveryStatus": "not-delivered",
+        "lastDurationMs": 25489,
+        "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "lastDelivered": false
+        "lastDelivered": true
       },
       "delivery": {
         "mode": "announce",
@@ -1043,7 +1063,7 @@
         "bestEffort": true,
         "to": "1012034994"
       },
-      "updatedAtMs": 1773150734484,
+      "updatedAtMs": 1773272735028,
       "wakeMode": "now",
       "sessionTarget": "isolated"
     },
@@ -1054,7 +1074,7 @@
       "name": "9Router Token Refresh (Kiro/Claude) + Provider Validation",
       "enabled": true,
       "createdAtMs": 1772409068811,
-      "updatedAtMs": 1773132524387,
+      "updatedAtMs": 1773273091287,
       "schedule": {
         "kind": "every",
         "everyMs": 21600000,
@@ -1075,14 +1095,14 @@
         "to": "1012034994"
       },
       "state": {
-        "nextRunAtMs": 1773165068811,
-        "lastRunAtMs": 1773132508561,
+        "nextRunAtMs": 1773294668845,
+        "lastRunAtMs": 1773273068845,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 15826,
-        "lastDeliveryStatus": "delivered",
+        "lastDurationMs": 22442,
+        "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
-        "lastDelivered": true
+        "lastDelivered": false
       }
     },
     {
@@ -1107,16 +1127,16 @@
       },
       "wakeMode": "now",
       "state": {
-        "nextRunAtMs": 1773200700000,
-        "lastRunAtMs": 1773115440762,
+        "nextRunAtMs": 1773287100000,
+        "lastRunAtMs": 1773207992612,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 7419,
+        "lastDurationMs": 8596,
         "lastDelivered": true,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0
       },
-      "updatedAtMs": 1773115448181,
+      "updatedAtMs": 1773208001208,
       "sessionTarget": "isolated"
     },
     {
@@ -1126,7 +1146,7 @@
       "name": "SLA Enforcement - 5min checks",
       "enabled": true,
       "createdAtMs": 1772510258310,
-      "updatedAtMs": 1773155275382,
+      "updatedAtMs": 1773273518433,
       "schedule": {
         "kind": "every",
         "everyMs": 300000,
@@ -1146,14 +1166,14 @@
         "channel": "telegram"
       },
       "state": {
-        "nextRunAtMs": 1773158875382,
-        "lastRunAtMs": 1773155215295,
+        "nextRunAtMs": 1773277118433,
+        "lastRunAtMs": 1773273458343,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 60087,
+        "lastDurationMs": 60090,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 6,
-        "lastError": "Error: cron: job execution timed out"
+        "consecutiveErrors": 10,
+        "lastError": "cron: job execution timed out"
       }
     },
     {
@@ -1163,7 +1183,7 @@
       "name": "Autonomous OPS Agent",
       "enabled": true,
       "createdAtMs": 1772512524322,
-      "updatedAtMs": 1773155215295,
+      "updatedAtMs": 1773273255646,
       "schedule": {
         "kind": "every",
         "everyMs": 300000,
@@ -1183,14 +1203,15 @@
         "channel": "telegram"
       },
       "state": {
-        "nextRunAtMs": 1773155412222,
-        "lastRunAtMs": 1773155112222,
+        "nextRunAtMs": 1773273624322,
+        "lastRunAtMs": 1773273221752,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 103073,
+        "lastDurationMs": 33894,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "lastDelivered": true
+        "lastDelivered": true,
+        "runningAtMs": 1773273862602
       }
     },
     {
@@ -1198,9 +1219,9 @@
       "agentId": "main",
       "sessionKey": "agent:main:telegram:direct:1012034994",
       "name": "Autonomous INFOSEC Agent",
-      "enabled": true,
+      "enabled": false,
       "createdAtMs": 1772512524570,
-      "updatedAtMs": 1773149424715,
+      "updatedAtMs": 1773232899821,
       "schedule": {
         "kind": "every",
         "everyMs": 600000,
@@ -1220,11 +1241,10 @@
         "channel": "telegram"
       },
       "state": {
-        "nextRunAtMs": 1773155724570,
-        "lastRunAtMs": 1773149357799,
+        "lastRunAtMs": 1773230314532,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 66916,
+        "lastDurationMs": 83710,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
         "lastDelivered": true
@@ -1236,7 +1256,7 @@
       "name": "Ideas Indexer (nightly rebuild of workspace/ideas/ideas-index.json)",
       "enabled": true,
       "createdAtMs": 1772588283198,
-      "updatedAtMs": 1773112775283,
+      "updatedAtMs": 1773198739582,
       "schedule": {
         "kind": "cron",
         "expr": "0 23 * * *",
@@ -1256,11 +1276,11 @@
         }
       },
       "state": {
-        "nextRunAtMs": 1773198000000,
-        "lastRunAtMs": 1773112753528,
+        "nextRunAtMs": 1773284400000,
+        "lastRunAtMs": 1773198691112,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 21755,
+        "lastDurationMs": 48470,
         "lastDelivered": true,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0
@@ -1277,7 +1297,7 @@
       "name": "Weekly Disk Cleanup (logs, tmp, orphan files)",
       "enabled": true,
       "createdAtMs": 1772633797843,
-      "updatedAtMs": 1773106849893,
+      "updatedAtMs": 1773199852052,
       "schedule": {
         "kind": "cron",
         "expr": "0 3 * * 1",
@@ -1293,7 +1313,9 @@
       },
       "delivery": {
         "mode": "silent",
-        "bestEffort": true
+        "bestEffort": true,
+        "channel": "telegram",
+        "to": "1012034994"
       },
       "state": {
         "nextRunAtMs": 1773644400000,
@@ -1311,7 +1333,7 @@
       "name": "Credential Health Check (daily — token age + API reachability)",
       "enabled": true,
       "createdAtMs": 1772633797843,
-      "updatedAtMs": 1773138934314,
+      "updatedAtMs": 1773224624486,
       "schedule": {
         "kind": "cron",
         "expr": "0 6 * * *",
@@ -1327,17 +1349,19 @@
       },
       "delivery": {
         "mode": "silent",
-        "bestEffort": true
+        "bestEffort": true,
+        "channel": "telegram",
+        "to": "1012034994"
       },
       "state": {
-        "nextRunAtMs": 1773223200000,
-        "lastRunAtMs": 1773138920502,
+        "nextRunAtMs": 1773309600000,
+        "lastRunAtMs": 1773224594851,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 13812,
-        "lastDeliveryStatus": "not-delivered",
+        "lastDurationMs": 29635,
+        "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "lastDelivered": false
+        "lastDelivered": true
       }
     },
     {
@@ -1346,7 +1370,7 @@
       "name": "Task Injector — keep all 8 agents busy hourly",
       "enabled": true,
       "createdAtMs": 1772637969291,
-      "updatedAtMs": 1773155290232,
+      "updatedAtMs": 1773270716287,
       "schedule": {
         "kind": "cron",
         "expr": "5 * * * *",
@@ -1362,16 +1386,20 @@
       },
       "delivery": {
         "mode": "silent",
-        "bestEffort": true
+        "bestEffort": true,
+        "channel": "telegram",
+        "to": "1012034994"
       },
       "state": {
-        "nextRunAtMs": 1773158700000,
-        "lastRunAtMs": 1773155275382,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 14850,
-        "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 0
+        "nextRunAtMs": 1773273900000,
+        "lastRunAtMs": 1773270653581,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 62706,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 2,
+        "lastError": "⚠️ ✉️ Message failed",
+        "lastDelivered": true
       }
     },
     {
@@ -1380,7 +1408,7 @@
       "name": "Peer Validation — validate completed tasks",
       "enabled": true,
       "createdAtMs": 1772773500000,
-      "updatedAtMs": 1773154730842,
+      "updatedAtMs": 1773272356494,
       "schedule": {
         "kind": "cron",
         "expr": "15 * * * *",
@@ -1396,16 +1424,19 @@
       },
       "delivery": {
         "mode": "silent",
-        "bestEffort": true
+        "bestEffort": true,
+        "channel": "telegram",
+        "to": "1012034994"
       },
       "state": {
-        "nextRunAtMs": 1773155700000,
-        "lastRunAtMs": 1773154698300,
+        "nextRunAtMs": 1773274500000,
+        "lastRunAtMs": 1773272329067,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 32542,
-        "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 0
+        "lastDurationMs": 27427,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 0,
+        "lastDelivered": true
       }
     },
     {
@@ -1414,7 +1445,7 @@
       "name": "Accountability Daily — per-agent completion audit at 23:55",
       "enabled": true,
       "createdAtMs": 1772637969291,
-      "updatedAtMs": 1773115503860,
+      "updatedAtMs": 1773201634899,
       "schedule": {
         "kind": "cron",
         "expr": "55 23 * * *",
@@ -1434,14 +1465,13 @@
         "to": "C0AEV3MDEDD"
       },
       "state": {
-        "nextRunAtMs": 1773201300000,
-        "lastRunAtMs": 1773115453250,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 50610,
+        "nextRunAtMs": 1773287700000,
+        "lastRunAtMs": 1773201563728,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 71171,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 3,
-        "lastError": "⚠️ ✉️ Message failed",
+        "consecutiveErrors": 0,
         "lastDelivered": true
       }
     },
@@ -1466,19 +1496,21 @@
       },
       "delivery": {
         "mode": "silent",
-        "bestEffort": true
+        "bestEffort": true,
+        "channel": "telegram",
+        "to": "1012034994"
       },
       "state": {
-        "nextRunAtMs": 1773158365937,
-        "lastRunAtMs": 1773154735881,
+        "nextRunAtMs": 1773276067758,
+        "lastRunAtMs": 1773272437738,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 30056,
+        "lastDurationMs": 30020,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 13,
+        "consecutiveErrors": 34,
         "lastError": "cron: job execution timed out"
       },
-      "updatedAtMs": 1773154765937
+      "updatedAtMs": 1773272467758
     },
     {
       "name": "Project Pipeline — daily RESEARCH→ENG handoff",
@@ -1501,7 +1533,7 @@
         "mode": "announce"
       },
       "state": {
-        "nextRunAtMs": 1773237600000
+        "nextRunAtMs": 1773324000000
       },
       "wakeMode": "now",
       "sessionTarget": "isolated"
@@ -1512,7 +1544,7 @@
       "name": "Website Agency - Lead Generation (Ontario)",
       "enabled": true,
       "createdAtMs": 1772780400000,
-      "updatedAtMs": 1773154169184,
+      "updatedAtMs": 1773235706294,
       "schedule": {
         "kind": "cron",
         "expr": "0 9 * * *",
@@ -1528,16 +1560,19 @@
       },
       "delivery": {
         "mode": "silent",
-        "bestEffort": true
+        "bestEffort": true,
+        "channel": "telegram",
+        "to": "1012034994"
       },
       "state": {
-        "nextRunAtMs": 1773234000000,
-        "lastRunAtMs": 1773154149736,
+        "nextRunAtMs": 1773320400000,
+        "lastRunAtMs": 1773235686540,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 19448,
-        "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 0
+        "lastDurationMs": 19754,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 0,
+        "lastDelivered": true
       }
     },
     {
@@ -1546,7 +1581,7 @@
       "name": "Website Agency - Audit Websites",
       "enabled": true,
       "createdAtMs": 1772780400000,
-      "updatedAtMs": 1773144276397,
+      "updatedAtMs": 1773261956769,
       "schedule": {
         "kind": "cron",
         "expr": "0 */4 * * *",
@@ -1563,16 +1598,20 @@
       },
       "delivery": {
         "mode": "silent",
-        "bestEffort": true
+        "bestEffort": true,
+        "channel": "telegram",
+        "to": "1012034994"
       },
       "state": {
-        "nextRunAtMs": 1773158636729,
-        "lastRunAtMs": 1773144236769,
+        "nextRunAtMs": 1773273836729,
+        "lastRunAtMs": 1773261943476,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 39628,
-        "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 0
+        "lastDurationMs": 13293,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 0,
+        "lastDelivered": true,
+        "runningAtMs": 1773273862602
       }
     },
     {
@@ -1581,7 +1620,7 @@
       "name": "Website Agency - Build Websites",
       "enabled": true,
       "createdAtMs": 1772780400000,
-      "updatedAtMs": 1773154655980,
+      "updatedAtMs": 1773267376499,
       "schedule": {
         "kind": "cron",
         "expr": "0 */2 * * *",
@@ -1598,16 +1637,19 @@
       },
       "delivery": {
         "mode": "silent",
-        "bestEffort": true
+        "bestEffort": true,
+        "channel": "telegram",
+        "to": "1012034994"
       },
       "state": {
-        "nextRunAtMs": 1773158698057,
-        "lastRunAtMs": 1773154561621,
+        "nextRunAtMs": 1773273898057,
+        "lastRunAtMs": 1773267368278,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 94359,
-        "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 0
+        "lastDurationMs": 8221,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 0,
+        "lastDelivered": true
       }
     },
     {
@@ -1616,7 +1658,7 @@
       "name": "Website Agency - Outreach",
       "enabled": true,
       "createdAtMs": 1772780400000,
-      "updatedAtMs": 1773148087604,
+      "updatedAtMs": 1773266551167,
       "schedule": {
         "kind": "cron",
         "expr": "0 */3 * * *",
@@ -1633,16 +1675,57 @@
       },
       "delivery": {
         "mode": "silent",
-        "bestEffort": true
+        "bestEffort": true,
+        "channel": "telegram",
+        "to": "1012034994"
       },
       "state": {
-        "nextRunAtMs": 1773158465002,
-        "lastRunAtMs": 1773148052456,
+        "nextRunAtMs": 1773277265002,
+        "lastRunAtMs": 1773266542564,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 35148,
+        "lastDurationMs": 8603,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 0,
+        "lastDelivered": true
+      }
+    },
+    {
+      "id": "consultant-teach-0001",
+      "agentId": "main",
+      "name": "Consultant Teach — Sync RAG learnings to agent KB (every 6h)",
+      "enabled": true,
+      "createdAtMs": 1773197990595,
+      "updatedAtMs": 1773266709639,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 */6 * * *",
+        "tz": "America/Toronto",
+        "staggerMs": 300000
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "thinking": "off",
+        "timeoutSeconds": 120,
+        "message": "CONSULTANT TEACH: Read workspace/consultant/RAG-LEARNINGS.md. For every fix entry added in the last 24 hours, extract the key learning and append a concise summary to workspace/ops/LEARNINGS.md. Then update working memory for the relevant agents (ops, eng, research) by writing a brief note to their workspace memory files if applicable. Do not send any Slack or Telegram messages — this is a silent background task. Acknowledge with OK when done."
+      },
+      "delivery": {
+        "mode": "silent",
+        "bestEffort": true,
+        "channel": "telegram",
+        "to": "1012034994"
+      },
+      "state": {
+        "nextRunAtMs": 1773288189540,
+        "lastRunAtMs": 1773266589573,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 120066,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 0
+        "consecutiveErrors": 1,
+        "lastError": "cron: job execution timed out"
       }
     }
   ]

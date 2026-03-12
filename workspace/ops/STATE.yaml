@@ -1,0 +1,8 @@
+metrics:
+  per_agent_completions_today:
+    eng: 0
+    ops: 0
+    research: 0
+    finance: 0
+    infosec: 0
+    allrounder: 0

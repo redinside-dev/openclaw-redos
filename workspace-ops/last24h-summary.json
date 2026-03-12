@@ -1,0 +1,22 @@
+{
+  "total_episodes": 22,
+  "successful": 13,
+  "failed": 9,
+  "failure_rate": 40.91,
+  "failure_clusters": [
+    {
+      "error_type": "unknown",
+      "tool": "null",
+      "agent": "unknown",
+      "count": 9
+    }
+  ],
+  "top3": [
+    {
+      "count": 9,
+      "error_type": "unknown",
+      "tool": "null",
+      "agent": "unknown"
+    }
+  ]
+}
