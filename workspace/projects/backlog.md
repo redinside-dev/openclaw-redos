@@ -2,8 +2,29 @@
 
 | # | Slug | Status | GitHub Repo | Last PR | PM Log |
 |---|------|--------|-------------|---------|--------|
-| 1 | costwatch | ✅ READY | — | — | — |
-| 2 | redos-website | 🔄 READY | — | — | — |
-| 3 | cursorless-voice | 🔄 READY | — | — | — |
+| 1 | costwatch | 🔨 BUILDING | — | — | 2026-03-12: ENG building MVP |
+| 2 | redos-website | 🔨 BUILDING | — | — | 2026-03-12: ENG building MVP |
+| 3 | codebase-onboarding-agent | ✅ READY | — | — | Has full implementation |
 | 4 | a2a-protocol | ✅ READY | — | — | — |
-| 5 | pr-auto-reviewer | ✅ READY | — | — | 2026-03-11: Research validated high demand for PR auto-reviewer tools. Created SPEC.md. |
+| 5 | pr-auto-reviewer | ✅ READY | — | — | 2026-03-11: SPEC.md created |
+| 6 | agent-loop-detection | ✅ READY | — | — | 2026-03-12: SPEC.md exists |
+| 7 | session-memory | ✅ READY | — | — | 2026-03-12: SPEC.md exists |
+| 8 | llm-gateway-proxy | ✅ READY | — | — | 2026-03-12: Added to backlog |
+| 9 | agent-eval-harness | ✅ READY | — | — | 2026-03-12: Added to backlog |
+| 10 | context-window-optimizer | ✅ READY | — | — | 2026-03-12: Added to backlog |
+
+## Current Status
+- **Ready projects:** 8/10
+- **Building:** 2 (costwatch, redos-website)
+- **Goal:** 10 public GitHub repos by 2026-05-05
+
+## Project Descriptions
+
+### #8 — llm-gateway-proxy
+Universal LLM proxy with model fallback chains, cost tracking, and request/response logging. Acts as a drop-in middleware layer between apps and any LLM provider. Node.js.
+
+### #9 — agent-eval-harness
+Automated evaluation framework for LLM agents. Define test scenarios, expected outputs, and scoring rubrics. Run regression tests against agent behavior. Python.
+
+### #10 — context-window-optimizer
+Automatically manages and compresses conversation context to stay within token limits. Summarizes old messages, preserves key facts, reduces cost. Python library.
