@@ -63,3 +63,12 @@ See `workspace/SOUL.md` for the approval-request template and tool gating rules.
   - Control: maintain at least one backup search/intel provider and alarm when quota < safety threshold.
 - **Privilege breadth issue:** `exec-approvals.json` currently permits `/bin/bash` for multiple agents.
   - Control: phase out shell-level approvals; replace with binary-specific + argument-constrained entries per agent.
+
+## 2026-03-13 Inner-loop findings (2026-03-13 09:02 ET)
+
+- **Persistent shell blast-radius:** `/bin/bash` is approved for 6/8 active agents (`main`, `allrounder`, `eng`, `ops`, `research`, `finance`).
+  - Control: remove shell-level approvals and migrate to least-privilege, binary+arg constrained allowlists.
+- **Escalation path reliability gap:** INFOSEC `sessions_send` escalations to RED and ENG timed out in-loop.
+  - Control: add a guaranteed fallback escalation path (secondary recipient/session + retry policy) so security alerts cannot silently fail.
+- **Operational signal saturation:** fallback/auth/quota floods remain active in ticket stream and continue to reduce incident signal quality.
+  - Control: dedupe repetitive health-snapshot tickets by signature/time window and reserve P1/P0 routing for novel or worsening conditions.

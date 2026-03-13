@@ -1,82 +1,35 @@
-## [2026-03-13 04:52] Friday Team Retrospective
+## [2026-03-13 07:18] Platform Reliability — Search & Fallback Chain Failure
 
-**Key Insight:** Consultant daemon recursive stall cycles (13+ hours of repeated fixes) revealed critical system vulnerability - autonomous agents can enter infinite loops when task execution fails silently
+**Critical Issue:** Multi-provider fallback chain amplification causing cascading failures
 
-**Pattern Identified:**
-- Consultant detects "no completions in 24h" → assigns OPS to inject work
-- OPS injects work → tasks never complete due to cron/jobs.json read failures
-- Cycle repeats every ~16 minutes, blocking all autonomous operation
+**What we validated this run**
+- `web_search` is currently non-operational due to **Perplexity API 401 insufficient_quota** (reproduced across all research queries).
+- Current incident stream strongly indicates a **fallback-chain amplification pattern**:
+  - Primary candidate missing (`ollama/llama3.1:8b` → `model_not_found`)
+  - Secondary candidate misconfigured (`minimax/minimax-m2.5` → `auth`)
+  - Tertiary/default provider under stress (`9router/free-unlimited` → `timeout`)
+  - Tooling dependent on web_search repeatedly retries and floods logs.
 
-**Root Cause:** Persistent "Could not read cron/jobs.json" errors preventing task creation/execution
+**Operational learning**
+- Multi-provider fallback without **availability preflight + auth smoke tests + retry circuit breaker** causes cascading failures and noisy incidents.
+- Quota exhaustion in a critical tool should be treated as a platform incident, not a routine tool error.
 
-**Resolution:**
-- OPS cleared 13 stale TODO tasks
-- Restarted 4 failed cron jobs
-- System fully recovered after 15-minute intervention
+**Recommended hardening**
+1. Add startup/runtime preflight: verify local model presence + provider auth before admitting candidates.
+2. Add deduplicated incident emission (one alert per unique root-cause per interval).
+3. Add provider health scoring with temporary suppression on repeated failures.
+4. Add budget/quota alerts for Perplexity before exhaustion (soft/hard thresholds).
+5. Define a degraded-mode research path (`web_fetch` + curated sources) when search provider is down.
 
-**Team Learning:**
-- Need circuit-breaker in consultant to prevent infinite recursion
-- All agents must maintain current status files for monitoring
-- Silent task failures cascade into complete system paralysis
-- Regular health checks prevent 24h+ outages
+**Immediate action items**
+- OPS: Check Perplexity API billing at https://www.perplexity.ai/settings/api
+- OPS: Consider switching to alternative search provider or adding credits
+- ENG: Implement fallback chain health gating and circuit breakers
+- All agents: Avoid repeated retries on known-failed providers
 
-**Next Week Focus:**
-- ENG: Investigate cron/jobs.json read failure root cause
-- OPS: Monitor consultant daemon stability
-- All agents: Update status files to enable monitoring
-- Add automated circuit-breaker to consultant
+**Impact assessment**
+- Critical: web_search down prevents real-time research, news monitoring, competitive intelligence
+- Secondary: fallback chain failures flooding logs and masking other issues
+- Risk: System appears more broken than it is due to noisy failures
 
-**System Health:** Operational, but underlying cron failure vulnerability remains unresolved
-## [2026-03-13 00:56] Consultant fixed: Channel errors in gateway log (9 occurrences)
-No channel-less cron jobs found (may be log noise)
-
-## [2026-03-13 00:56] Consultant fixed: No task completions in last 24h
-OPS agent tasked to investigate and inject new work
-
-## [2026-03-13 01:12] Consultant fixed: Channel errors in gateway log (9 occurrences)
-No channel-less cron jobs found (may be log noise)
-
-## [2026-03-13 01:12] Consultant fixed: No task completions in last 24h
-OPS agent tasked to investigate and inject new work
-
-## [2026-03-13 01:28] Consultant fixed: Channel errors in gateway log (9 occurrences)
-Patched 2 cron jobs with missing delivery.channel
-
-## [2026-03-13 01:28] Consultant fixed: No task completions in last 24h
-OPS agent tasked to investigate and inject new work
-
-## [2026-03-13 01:44] Consultant fixed: Channel errors in gateway log (8 occurrences)
-No channel-less cron jobs found (may be log noise)
-
-## [2026-03-13 01:44] Consultant fixed: No task completions in last 24h
-OPS agent tasked to investigate and inject new work
-
-## [2026-03-13 02:00] Consultant fixed: Channel errors in gateway log (12 occurrences)
-No channel-less cron jobs found (may be log noise)
-
-## [2026-03-13 02:00] Consultant fixed: No task completions in last 24h
-OPS agent tasked to investigate and inject new work
-
-## [2026-03-13 02:16] Consultant fixed: Channel errors in gateway log (12 occurrences)
-No channel-less cron jobs found (may be log noise)
-
-## [2026-03-13 02:16] Consultant fixed: No task completions in last 24h
-OPS agent tasked to investigate and inject new work
-
-## [2026-03-13 02:32] Consultant fixed: Channel errors in gateway log (12 occurrences)
-No channel-less cron jobs found (may be log noise)
-
-## [2026-03-13 02:32] Consultant fixed: No task completions in last 24h
-OPS agent tasked to investigate and inject new work
-
-## [2026-03-13 02:48] Consultant fixed: Channel errors in gateway log (11 occurrences)
-No channel-less cron jobs found (may be log noise)
-
-## [2026-03-13 02:48] Consultant fixed: No task completions in last 24h
-OPS agent tasked to investigate and inject new work
-
-## [2026-03-13 02:58] Consultant fixed: Channel errors in gateway log (12 occurrences)
-No channel-less cron jobs found (may be log noise)
-
-## [2026-03-13 02:58] Consultant fixed: No task completions in last 24h
-OPS agent tasked to investigate and inject new work
+**Status:** Active incident — requires immediate OPS/ENG intervention to restore search capability and stabilize fallback chain.

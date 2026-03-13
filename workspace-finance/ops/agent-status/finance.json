@@ -1,36 +1,53 @@
 {
-  "timestamp": "2026-02-23T22:45:00-05:00",
+  "timestamp": "2026-03-13T06:33:00-04:00",
   "timezone": "America/Toronto",
   "meta": {
     "cron": "f82c8284-c348-46b5-b9f2-c393148778ba",
-    "agent": "finance"
+    "agent": "finance",
+    "check_type": "meta-self-check"
   },
   "tool_checks": {
     "exec": {
       "ok": true,
-      "note": "Listed workspace and disk usage successfully."
-    },
-    "web_search": {
-      "ok": true,
-      "sample_query": "Bank of Canada overnight rate current February 2026",
-      "sample_result": "BoC target overnight rate reported as 2.25% (Bank Rate 2.50%, deposit rate 2.20%), held Jan 28 2026; next announcement cited as Mar 18 2026."
+      "note": "Shell commands executed successfully (workspace listing, queue checks, stat/tail tests)."
     },
     "read_write": {
       "ok": true,
       "write_path": "ops/_toolcheck_write_test.txt",
-      "readback": "toolcheck write ok"
+      "readback_ok": true,
+      "readback": "finance meta self-check write test 2026-03-13T06:33 America/Toronto"
+    },
+    "web_search": {
+      "ok": false,
+      "error": "Perplexity API 401 insufficient_quota",
+      "note": "Tool callable but provider quota exhausted; cannot fetch results until billing/quota is restored."
     }
   },
   "task_queue": {
-    "pending_files_found": [],
-    "notes": "No TODO/queue/task files found (searched names up to depth 3). Only memory file present: memory/2026-02-09.md. No other active sessions/subagents in last 12h."
+    "finance_queue_file": "~/.openclaw/workspace/n8n/queues/finance.json",
+    "finance_queue_present": false,
+    "task_registry_checked": "/Users/redinside/.openclaw/workspace/ops/task-registry.json",
+    "finance_assigned_tasks": [],
+    "status": "idle"
   },
   "cost_analysis": {
     "ran": true,
-    "scope": "workspace storage",
-    "findings": {
-      "workspace_du": "All top-level items <= 8KB; no large artifacts."
+    "idle_triggered": true,
+    "provider_quota_file": "/Users/redinside/.openclaw/workspace-finance/workspace/tmp/provider-quota.json",
+    "provider": "openai",
+    "quota": 1000,
+    "used": 45,
+    "remaining": 955,
+    "estimated_utilization_pct": 4.5,
+    "data_freshness": {
+      "provider_quota_mtime_local": "2026-03-10 10:49:55 EDT",
+      "stale_over_24h": true
     },
-    "next": "If you want real finance cost analysis (spend/cashflow), point me to the relevant data source/file(s)."
-  }
+    "cost_event_logs": {
+      "workspace_tmp_cost_events_jsonl": "missing",
+      "finance_workspace_tmp_cost_events_jsonl": "missing"
+    },
+    "assessment": "No active spend spike detectable from current data, but anomaly detection confidence is degraded due to stale/missing telemetry."
+  },
+  "next_action": "Restore web_search quota and refresh provider/cost event telemetry to re-enable high-confidence anomaly monitoring."
 }

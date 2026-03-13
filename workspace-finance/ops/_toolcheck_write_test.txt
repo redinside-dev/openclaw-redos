@@ -1,1 +1,1 @@
-toolcheck write ok
+finance meta self-check write test 2026-03-13T06:33 America/Toronto
