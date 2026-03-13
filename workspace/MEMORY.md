@@ -82,7 +82,7 @@ Gateway has a 4-layer resilience system — **do not manually restart unless all
 - **File:** `AUTONOMOUS.md` (max 50 lines, active tasks only)
 - **Log:** `workspace/tasks-log.md` (append-only completion log)
 - **Dispatcher:** Autonomous Task Dispatcher cron (every 15min)
-- **Rules:** Only RED adds tasks, workers claim ONE at a time, mark IN_PROGRESS, append completion
+- **Rules:** Only RED adds tasks, workers claim ONE at a time, mark TODO, append completion
 
 ### Inner Loop Pattern
 All agents run periodic inner loops (every 2-4h):

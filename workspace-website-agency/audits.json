@@ -17073,6 +17073,1806 @@
       "url": null,
       "businessName": "Fitness Business",
       "timestamp": "2026-03-11T12:55:10.132311"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168311",
+      "leadId": "lead-134638",
+      "url": null,
+      "businessName": "Mechanic Business",
+      "timestamp": "2026-03-12T12:13:23.168325"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168335",
+      "leadId": "lead-339303",
+      "url": null,
+      "businessName": "Mechanic Business",
+      "timestamp": "2026-03-12T12:13:23.168337"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.16834",
+      "leadId": "lead-612789",
+      "url": null,
+      "businessName": "Hair Salon Business",
+      "timestamp": "2026-03-12T12:13:23.168341"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168343",
+      "leadId": "lead-417934",
+      "url": null,
+      "businessName": "Insurance Business",
+      "timestamp": "2026-03-12T12:13:23.168344"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168346",
+      "leadId": "lead-146068",
+      "url": null,
+      "businessName": "Painter Business",
+      "timestamp": "2026-03-12T12:13:23.168347"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168349",
+      "leadId": "lead-414061",
+      "url": null,
+      "businessName": "Nail Salon Business",
+      "timestamp": "2026-03-12T12:13:23.168350"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168352",
+      "leadId": "lead-296430",
+      "url": null,
+      "businessName": "Hotel Business",
+      "timestamp": "2026-03-12T12:13:23.168353"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168355",
+      "leadId": "lead-661046",
+      "url": null,
+      "businessName": "Motel Business",
+      "timestamp": "2026-03-12T12:13:23.168356"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168358",
+      "leadId": "lead-341723",
+      "url": null,
+      "businessName": "Coffee Shop Business",
+      "timestamp": "2026-03-12T12:13:23.168359"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168361",
+      "leadId": "lead-271194",
+      "url": null,
+      "businessName": "Clinic Business",
+      "timestamp": "2026-03-12T12:13:23.168362"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168364",
+      "leadId": "lead-239314",
+      "url": null,
+      "businessName": "Dance Studio Business",
+      "timestamp": "2026-03-12T12:13:23.168365"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168367",
+      "leadId": "lead-387499",
+      "url": null,
+      "businessName": "Florist Business",
+      "timestamp": "2026-03-12T12:13:23.168368"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168369",
+      "leadId": "lead-656805",
+      "url": null,
+      "businessName": "Dentist Business",
+      "timestamp": "2026-03-12T12:13:23.168371"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168372",
+      "leadId": "lead-265913",
+      "url": null,
+      "businessName": "Dentist Business",
+      "timestamp": "2026-03-12T12:13:23.168373"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168375",
+      "leadId": "lead-511299",
+      "url": null,
+      "businessName": "Barber Business",
+      "timestamp": "2026-03-12T12:13:23.168376"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168377",
+      "leadId": "lead-796448",
+      "url": null,
+      "businessName": "Pet Store Business",
+      "timestamp": "2026-03-12T12:13:23.168379"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.16838",
+      "leadId": "lead-237554",
+      "url": null,
+      "businessName": "Pet Store Business",
+      "timestamp": "2026-03-12T12:13:23.168382"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168383",
+      "leadId": "lead-299499",
+      "url": null,
+      "businessName": "Nail Salon Business",
+      "timestamp": "2026-03-12T12:13:23.168385"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168386",
+      "leadId": "lead-976135",
+      "url": null,
+      "businessName": "Spa Business",
+      "timestamp": "2026-03-12T12:13:23.168387"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168389",
+      "leadId": "lead-247097",
+      "url": null,
+      "businessName": "Hotel Business",
+      "timestamp": "2026-03-12T12:13:23.168390"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168392",
+      "leadId": "lead-900027",
+      "url": null,
+      "businessName": "Auto Repair Business",
+      "timestamp": "2026-03-12T12:13:23.168393"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168394",
+      "leadId": "lead-988471",
+      "url": null,
+      "businessName": "Veterinarian Business",
+      "timestamp": "2026-03-12T12:13:23.168395"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168397",
+      "leadId": "lead-374714",
+      "url": null,
+      "businessName": "Lawyer Business",
+      "timestamp": "2026-03-12T12:13:23.168398"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168399",
+      "leadId": "lead-583178",
+      "url": null,
+      "businessName": "Attorney Business",
+      "timestamp": "2026-03-12T12:13:23.168401"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168402",
+      "leadId": "lead-661111",
+      "url": null,
+      "businessName": "Jewelry Business",
+      "timestamp": "2026-03-12T12:13:23.168403"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168405",
+      "leadId": "lead-800036",
+      "url": null,
+      "businessName": "Bookkeeper Business",
+      "timestamp": "2026-03-12T12:13:23.168406"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168408",
+      "leadId": "lead-845723",
+      "url": null,
+      "businessName": "Spa Business",
+      "timestamp": "2026-03-12T12:13:23.168409"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168411",
+      "leadId": "lead-891868",
+      "url": null,
+      "businessName": "Insurance Business",
+      "timestamp": "2026-03-12T12:13:23.168412"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168413",
+      "leadId": "lead-789742",
+      "url": null,
+      "businessName": "Electrician Business",
+      "timestamp": "2026-03-12T12:13:23.168414"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168416",
+      "leadId": "lead-557035",
+      "url": null,
+      "businessName": "Dentist Business",
+      "timestamp": "2026-03-12T12:13:23.168417"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168429",
+      "leadId": "lead-409722",
+      "url": null,
+      "businessName": "Hair Salon Business",
+      "timestamp": "2026-03-12T12:13:23.168430"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168431",
+      "leadId": "lead-905379",
+      "url": null,
+      "businessName": "Pizza Business",
+      "timestamp": "2026-03-12T12:13:23.168432"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168434",
+      "leadId": "lead-432572",
+      "url": null,
+      "businessName": "Pizza Business",
+      "timestamp": "2026-03-12T12:13:23.168435"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168437",
+      "leadId": "lead-585941",
+      "url": null,
+      "businessName": "Hotel Business",
+      "timestamp": "2026-03-12T12:13:23.168438"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168439",
+      "leadId": "lead-762640",
+      "url": null,
+      "businessName": "Doctor Business",
+      "timestamp": "2026-03-12T12:13:23.168440"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168442",
+      "leadId": "lead-126755",
+      "url": null,
+      "businessName": "Fitness Business",
+      "timestamp": "2026-03-12T12:13:23.168443"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168444",
+      "leadId": "lead-148294",
+      "url": null,
+      "businessName": "Clinic Business",
+      "timestamp": "2026-03-12T12:13:23.168446"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168447",
+      "leadId": "lead-444433",
+      "url": null,
+      "businessName": "Grooming Business",
+      "timestamp": "2026-03-12T12:13:23.168448"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.16845",
+      "leadId": "lead-882698",
+      "url": null,
+      "businessName": "Fitness Business",
+      "timestamp": "2026-03-12T12:13:23.168451"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168452",
+      "leadId": "lead-201942",
+      "url": null,
+      "businessName": "Veterinarian Business",
+      "timestamp": "2026-03-12T12:13:23.168453"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168455",
+      "leadId": "lead-949524",
+      "url": null,
+      "businessName": "Fitness Business",
+      "timestamp": "2026-03-12T12:13:23.168456"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168458",
+      "leadId": "lead-926209",
+      "url": null,
+      "businessName": "Coffee Shop Business",
+      "timestamp": "2026-03-12T12:13:23.168459"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.16846",
+      "leadId": "lead-362490",
+      "url": null,
+      "businessName": "Bakery Business",
+      "timestamp": "2026-03-12T12:13:23.168461"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168463",
+      "leadId": "lead-890832",
+      "url": null,
+      "businessName": "Retail Business",
+      "timestamp": "2026-03-12T12:13:23.168464"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168465",
+      "leadId": "lead-290647",
+      "url": null,
+      "businessName": "Lawyer Business",
+      "timestamp": "2026-03-12T12:13:23.168466"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168468",
+      "leadId": "lead-680087",
+      "url": null,
+      "businessName": "Yoga Business",
+      "timestamp": "2026-03-12T12:13:23.168469"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168471",
+      "leadId": "lead-205459",
+      "url": null,
+      "businessName": "Cleaning Service Business",
+      "timestamp": "2026-03-12T12:13:23.168472"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168473",
+      "leadId": "lead-870597",
+      "url": null,
+      "businessName": "Pet Store Business",
+      "timestamp": "2026-03-12T12:13:23.168474"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168476",
+      "leadId": "lead-331132",
+      "url": null,
+      "businessName": "Hair Salon Business",
+      "timestamp": "2026-03-12T12:13:23.168477"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168478",
+      "leadId": "lead-544829",
+      "url": null,
+      "businessName": "Yoga Business",
+      "timestamp": "2026-03-12T12:13:23.168480"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168481",
+      "leadId": "lead-736414",
+      "url": null,
+      "businessName": "Accountant Business",
+      "timestamp": "2026-03-12T12:13:23.168482"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168484",
+      "leadId": "lead-153855",
+      "url": null,
+      "businessName": "Auto Repair Business",
+      "timestamp": "2026-03-12T12:13:23.168485"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168486",
+      "leadId": "lead-803920",
+      "url": null,
+      "businessName": "Painter Business",
+      "timestamp": "2026-03-12T12:13:23.168487"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168489",
+      "leadId": "lead-329335",
+      "url": null,
+      "businessName": "Doctor Business",
+      "timestamp": "2026-03-12T12:13:23.168490"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168491",
+      "leadId": "lead-158995",
+      "url": null,
+      "businessName": "Hvac Business",
+      "timestamp": "2026-03-12T12:13:23.168493"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168494",
+      "leadId": "lead-380634",
+      "url": null,
+      "businessName": "Grooming Business",
+      "timestamp": "2026-03-12T12:13:23.168495"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168497",
+      "leadId": "lead-715398",
+      "url": null,
+      "businessName": "Pizza Business",
+      "timestamp": "2026-03-12T12:13:23.168498"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168499",
+      "leadId": "lead-498880",
+      "url": null,
+      "businessName": "Attorney Business",
+      "timestamp": "2026-03-12T12:13:23.168501"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168502",
+      "leadId": "lead-936929",
+      "url": null,
+      "businessName": "Bookkeeper Business",
+      "timestamp": "2026-03-12T12:13:23.168503"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168505",
+      "leadId": "lead-233100",
+      "url": null,
+      "businessName": "Inn Business",
+      "timestamp": "2026-03-12T12:13:23.168506"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168507",
+      "leadId": "lead-670411",
+      "url": null,
+      "businessName": "Clinic Business",
+      "timestamp": "2026-03-12T12:13:23.168508"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.16851",
+      "leadId": "lead-455282",
+      "url": null,
+      "businessName": "Dance Studio Business",
+      "timestamp": "2026-03-12T12:13:23.168511"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168512",
+      "leadId": "lead-579471",
+      "url": null,
+      "businessName": "Realtor Business",
+      "timestamp": "2026-03-12T12:13:23.168514"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168515",
+      "leadId": "lead-757123",
+      "url": null,
+      "businessName": "Landscaping Business",
+      "timestamp": "2026-03-12T12:13:23.168516"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168518",
+      "leadId": "lead-771230",
+      "url": null,
+      "businessName": "Retail Business",
+      "timestamp": "2026-03-12T12:13:23.168519"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168523",
+      "leadId": "lead-236127",
+      "url": null,
+      "businessName": "Doctor Business",
+      "timestamp": "2026-03-12T12:13:23.168524"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168526",
+      "leadId": "lead-364645",
+      "url": null,
+      "businessName": "Painter Business",
+      "timestamp": "2026-03-12T12:13:23.168527"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168528",
+      "leadId": "lead-718316",
+      "url": null,
+      "businessName": "Doctor Business",
+      "timestamp": "2026-03-12T12:13:23.168530"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168531",
+      "leadId": "lead-554056",
+      "url": null,
+      "businessName": "Hair Salon Business",
+      "timestamp": "2026-03-12T12:13:23.168532"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168534",
+      "leadId": "lead-983767",
+      "url": null,
+      "businessName": "Inn Business",
+      "timestamp": "2026-03-12T12:13:23.168535"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168536",
+      "leadId": "lead-317165",
+      "url": null,
+      "businessName": "Grooming Business",
+      "timestamp": "2026-03-12T12:13:23.168537"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168539",
+      "leadId": "lead-339822",
+      "url": null,
+      "businessName": "Barber Business",
+      "timestamp": "2026-03-12T12:13:23.168540"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168541",
+      "leadId": "lead-538203",
+      "url": null,
+      "businessName": "Contractor Business",
+      "timestamp": "2026-03-12T12:13:23.168543"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168544",
+      "leadId": "lead-436203",
+      "url": null,
+      "businessName": "Bakery Business",
+      "timestamp": "2026-03-12T12:13:23.168545"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168547",
+      "leadId": "lead-439137",
+      "url": null,
+      "businessName": "Nail Salon Business",
+      "timestamp": "2026-03-12T12:13:23.168548"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168554",
+      "leadId": "lead-926005",
+      "url": null,
+      "businessName": "Bookkeeper Business",
+      "timestamp": "2026-03-12T12:13:23.168555"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168557",
+      "leadId": "lead-835059",
+      "url": null,
+      "businessName": "Fitness Business",
+      "timestamp": "2026-03-12T12:13:23.168559"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168561",
+      "leadId": "lead-343891",
+      "url": null,
+      "businessName": "Hair Salon Business",
+      "timestamp": "2026-03-12T12:13:23.168562"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168563",
+      "leadId": "lead-562932",
+      "url": null,
+      "businessName": "Contractor Business",
+      "timestamp": "2026-03-12T12:13:23.168565"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168566",
+      "leadId": "lead-623385",
+      "url": null,
+      "businessName": "Gym Business",
+      "timestamp": "2026-03-12T12:13:23.168567"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168569",
+      "leadId": "lead-130321",
+      "url": null,
+      "businessName": "Pet Store Business",
+      "timestamp": "2026-03-12T12:13:23.168570"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168571",
+      "leadId": "lead-195479",
+      "url": null,
+      "businessName": "Cleaning Service Business",
+      "timestamp": "2026-03-12T12:13:23.168572"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168574",
+      "leadId": "lead-443513",
+      "url": null,
+      "businessName": "Real Estate Business",
+      "timestamp": "2026-03-12T12:13:23.168575"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168576",
+      "leadId": "lead-339712",
+      "url": null,
+      "businessName": "Clothing Store Business",
+      "timestamp": "2026-03-12T12:13:23.168578"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168579",
+      "leadId": "lead-809231",
+      "url": null,
+      "businessName": "Barber Business",
+      "timestamp": "2026-03-12T12:13:23.168580"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168582",
+      "leadId": "lead-737447",
+      "url": null,
+      "businessName": "Florist Business",
+      "timestamp": "2026-03-12T12:13:23.168583"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168584",
+      "leadId": "lead-769092",
+      "url": null,
+      "businessName": "Attorney Business",
+      "timestamp": "2026-03-12T12:13:23.168586"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168587",
+      "leadId": "lead-605527",
+      "url": null,
+      "businessName": "Hvac Business",
+      "timestamp": "2026-03-12T12:13:23.168588"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.16859",
+      "leadId": "lead-690551",
+      "url": null,
+      "businessName": "Attorney Business",
+      "timestamp": "2026-03-12T12:13:23.168591"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168592",
+      "leadId": "lead-446289",
+      "url": null,
+      "businessName": "Towing Business",
+      "timestamp": "2026-03-12T12:13:23.168593"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168595",
+      "leadId": "lead-627855",
+      "url": null,
+      "businessName": "Restaurant Business",
+      "timestamp": "2026-03-12T12:13:23.168596"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168597",
+      "leadId": "lead-613631",
+      "url": null,
+      "businessName": "Retail Business",
+      "timestamp": "2026-03-12T12:13:23.168599"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168604",
+      "leadId": "lead-778918",
+      "url": null,
+      "businessName": "Dentist Business",
+      "timestamp": "2026-03-12T12:13:23.168605"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168607",
+      "leadId": "lead-259914",
+      "url": null,
+      "businessName": "Pharmacy Business",
+      "timestamp": "2026-03-12T12:13:23.168608"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168609",
+      "leadId": "lead-572698",
+      "url": null,
+      "businessName": "Coffee Shop Business",
+      "timestamp": "2026-03-12T12:13:23.168611"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168612",
+      "leadId": "lead-709366",
+      "url": null,
+      "businessName": "Spa Business",
+      "timestamp": "2026-03-12T12:13:23.168613"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168615",
+      "leadId": "lead-237546",
+      "url": null,
+      "businessName": "Restaurant Business",
+      "timestamp": "2026-03-12T12:13:23.168616"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168617",
+      "leadId": "lead-846435",
+      "url": null,
+      "businessName": "Real Estate Business",
+      "timestamp": "2026-03-12T12:13:23.168619"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.16862",
+      "leadId": "lead-932510",
+      "url": null,
+      "businessName": "Agent Business",
+      "timestamp": "2026-03-12T12:13:23.168621"
+    },
+    {
+      "grade": "F",
+      "scores": {
+        "speed": 0,
+        "mobile": 0,
+        "seo": 0,
+        "design": 0,
+        "content": 0
+      },
+      "issues": [
+        "No website"
+      ],
+      "id": "audit-1773332003.168623",
+      "leadId": "lead-132794",
+      "url": null,
+      "businessName": "Painter Business",
+      "timestamp": "2026-03-12T12:13:23.168624"
     }
   ],
   "lastUpdated": "2026-03-06T13:31:45.282148Z",

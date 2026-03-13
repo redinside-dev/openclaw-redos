@@ -16,21 +16,4 @@ This is your curated long-term memory. Write significant events, decisions, less
 
 ## YYYY-MM-DD - Event/Decision
 - **What happened:** Brief description
-- **Why it matters:** Context and significance
-- **Decision made:** What was decided and why
-- **Lessons learned:** Key takeaways
-
-## Important People
-- [Add important people and their roles/context]
-
-## Key Projects
-- [Add key projects and their current status]
-
-## Technical Decisions
-- [Add important technical decisions and their rationale]
-
-## Personal Preferences
-- [Add preferences that should persist]
-
----
-*This file is your curated wisdom. Update it regularly with what matters.*
+- **Why it matt

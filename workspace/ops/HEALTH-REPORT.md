@@ -25,7 +25,7 @@
 - **Key fixes**: 4 failed cron jobs restarted, 13 stale tasks cleared
 
 ### Current Task Queue
-- AUTONOMOUS.md contains active tasks (all PENDING or IN_PROGRESS)
+- AUTONOMOUS.md contains active tasks (all PENDING or TODO)
 - No blocking issues detected
 - Consultant daemon monitoring for anomalies
 

@@ -30,7 +30,7 @@ This file contains tasks that can be executed autonomously by agents without hum
 
 Tasks are tracked using status labels:
 - **PENDING**: Ready to be executed
-- **IN_PROGRESS**: Currently being executed
+- **TODO**: Currently being executed
 - **COMPLETED**: Successfully finished
 - **FAILED**: Execution failed
 
@@ -63,7 +63,7 @@ Tasks are tracked using status labels:
 
 ## P3 — PENDING
 
-## IN_PROGRESS
+## TODO
 
 ## COMPLETED
 

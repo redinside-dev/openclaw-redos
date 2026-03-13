@@ -11,7 +11,7 @@ This file contains the dispatcher logic for autonomous operations.
 - Active subagents: 0 (no violations)
 - AUTONOMOUS.md: Exists and valid
 - Dispatcher: Last run 25 minutes ago (within 20-minute window)
-- IN_PROGRESS tasks: None found
+- TODO tasks: None found
 
 ## Violations Log
 No violations detected during this SLA enforcement check.

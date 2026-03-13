@@ -1,9 +1,9 @@
 {
-  "lastChecked": "2026-03-09T17:39:00-05:00",
+  "lastChecked": "2026-03-13T05:19:00-04:00",
   "holdingsFileStatus": "missing",
   "lastWatchlist": [
     "NVDA: $138 resistance break changes view to bullish",
-    "SOL: $190 holds key for momentum continuation", 
+    "SOL: $190 holds key for momentum continuation",
     "META: $680 support break changes to bearish",
     "AAPL: $190 earnings catalyst level",
     "MSFT: $400 psychological level"
@@ -11,7 +11,18 @@
   "newIdeas": [
     "None today"
   ],
-  "actionRequired": "Create holdings file at workspace/portfolio/HOLDINGS.md",
+  "actionRequired": "Fix provider quota freshness pipeline so FINANCE can alert within 1 hour.",
   "marketStatus": "closed",
-  "nextBriefTime": "2026-03-10T08:00:00-05:00"
+  "nextBriefTime": "2026-03-10T08:00:00-05:00",
+  "costMonitoring": {
+    "provider": "openai",
+    "used": 45,
+    "quota": 1000,
+    "remaining": 955,
+    "source": "workspace/tmp/provider-quota.json",
+    "snapshotFresh": false,
+    "estimatedSpendTodayUsd": 0.0,
+    "anomaly": "telemetry_stale",
+    "note": "Telemetry stale blocks high-confidence anomaly detection"
+  }
 }

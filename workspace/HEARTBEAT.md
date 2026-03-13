@@ -30,7 +30,7 @@ Read: `workspace/tasks-log.md` (last 10 lines)
 
 Read: `workspace/AUTONOMOUS.md`
 
-- For any IN_PROGRESS task with a claimed timestamp >90 minutes ago:
+- For any TODO task with a claimed timestamp >90 minutes ago:
   1. Mark it as BLOCKED in AUTONOMOUS.md
   2. Notify the assigned agent via sessions_spawn: "Your task [taskId] is stuck. What is blocking you? Report blocker or abort."
   3. Post to Slack: `"⚠️ [taskId] stuck >90min — [agent] notified"`
@@ -42,7 +42,7 @@ Read: `workspace/AUTONOMOUS.md`
 
 Read: `workspace/AUTONOMOUS.md`
 
-- For any agent with PENDING tasks assigned to them and no current IN_PROGRESS task:
+- For any agent with PENDING tasks assigned to them and no current TODO task:
   - Spawn them via sessions_spawn with: "Claim your highest-priority PENDING task in AUTONOMOUS.md. Run rag_query.py on it first. Complete it. Write result to tasks-log.md. Do NOT ask for approval."
 - Priority order: P1 before P2, ops before eng before research for ties
 

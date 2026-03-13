@@ -53,3 +53,13 @@ Guidelines:
 ## High-risk tool approval gates
 
 See `workspace/SOUL.md` for the approval-request template and tool gating rules.
+
+
+## 2026-03-13 Inner-loop findings (2026-03-13 05:00 ET)
+
+- **Detection visibility risk:** sustained model/auth fallback noise in runtime logs/tickets can bury true security alerts.
+  - Control: add dedupe + severity thresholds for repeated fallback events and route only actionable deltas to P1/P0 channels.
+- **Threat-intel degradation:** `web_search` quota outage (401 insufficient_quota) reduces ability to quickly verify external IOCs/threat reports.
+  - Control: maintain at least one backup search/intel provider and alarm when quota < safety threshold.
+- **Privilege breadth issue:** `exec-approvals.json` currently permits `/bin/bash` for multiple agents.
+  - Control: phase out shell-level approvals; replace with binary-specific + argument-constrained entries per agent.

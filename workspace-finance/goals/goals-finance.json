@@ -1,6 +1,6 @@
 {
   "agentId": "finance",
-  "updatedAt": "2026-02-24T05:00:00Z",
+  "updatedAt": "2026-03-13T09:19:00Z",
   "goals": [
     {
       "id": "goal-finance-001",
@@ -8,8 +8,8 @@
       "why": "RED needs to know what we're spending on models, APIs, and infrastructure. If I don't report it, nobody knows.",
       "priority": "P1",
       "status": "in_progress",
-      "progress": "Cost tracker skill exists. Weekly report cron may exist. Need to verify it's running and producing useful output.",
-      "nextAction": "Check if cost-tracker skill is producing reports. If not, run it now and post to #redos-mission-control.",
+      "progress": "Weekly cost reporting still not evidenced in recent memory logs; telemetry reliability needs repair before high-confidence weekly summary.",
+      "nextAction": "Generate and post weekly cost report once quota + cost-event feeds are fresh; post to #redos-mission-control.",
       "createdAt": "2026-02-24T05:00:00Z",
       "targetDate": "2026-02-28T00:00:00Z",
       "blockers": []
@@ -19,9 +19,9 @@
       "title": "Flag any model cost anomalies within 1 hour of occurrence",
       "why": "A runaway cron or a stuck agent can burn through API budget in minutes. I need to catch it fast.",
       "priority": "P1",
-      "status": "not_started",
-      "progress": "Not monitoring for anomalies yet.",
-      "nextAction": "Check workspace/tmp/provider-quota.json for current spend. Set a mental threshold — if daily spend exceeds 2x average, alert RED immediately.",
+      "status": "in_progress",
+      "progress": "Quota snapshot checked in inner loop; latest provider-quota snapshot is stale, so real-time anomaly detection is degraded.",
+      "nextAction": "Repair/verify fresh provider-quota updates, then enforce 2x rolling-7-day anomaly alert rule to RED.",
       "createdAt": "2026-02-24T05:00:00Z",
       "targetDate": "2026-03-01T00:00:00Z",
       "blockers": []
@@ -31,9 +31,9 @@
       "title": "Build a model cost optimization recommendation",
       "why": "We're using expensive models for tasks that cheap models could handle. I should identify and fix this.",
       "priority": "P2",
-      "status": "not_started",
-      "progress": "Not started.",
-      "nextAction": "Analyze which crons use which models. Identify any that use premium models for simple tasks. Recommend cheaper alternatives to RED.",
+      "status": "in_progress",
+      "progress": "Need per-cron/model cost granularity; current quota snapshot is aggregate-only.",
+      "nextAction": "Extract top 3 expensive cron jobs from fresh cost-events data and recommend cheaper routing (prefer 9router/free-unlimited for routine checks).",
       "createdAt": "2026-02-24T05:00:00Z",
       "targetDate": "2026-03-07T00:00:00Z",
       "blockers": []

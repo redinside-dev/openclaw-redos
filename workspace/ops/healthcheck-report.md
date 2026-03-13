@@ -6,7 +6,7 @@ I've completed a comprehensive system health check and identified critical issue
 
 ### 🔴 Critical Issues Found
 1. **API Authentication Failures** (P0): 1,696 9Router rate limiting errors, 3 Perplexity quota exceeded errors, Anthropic credit balance too low
-2. **SLA Violations** (P0): 3 tasks in IN_PROGRESS for 85+ minutes (auto-moved to PENDING)
+2. **SLA Violations** (P0): 3 tasks in TODO for 85+ minutes (auto-moved to PENDING)
 3. **Backup Infrastructure** (P1): No backup tools installed, no backup directory
 
 ### 📊 Current System Status

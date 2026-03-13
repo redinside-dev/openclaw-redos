@@ -150,7 +150,7 @@
 tail -f ~/.openclaw/workspace/logs/episodes.jsonl | grep "autonomous-ta[REDACTED]
 
 # Check agents are claiming tasks
-grep -E "IN_PROGRESS|DONE" ~/.openclaw/workspace/AUTONOMOUS.md
+grep -E "TODO|DONE" ~/.openclaw/workspace/AUTONOMOUS.md
 
 # Check task completion log
 tail ~/.openclaw/workspace/tasks-log.md

@@ -170,7 +170,7 @@ Use this exact sequence for failed or timed-out handoffs. **Never skip steps.**
 When two agents claim the same task or produce conflicting artifacts simultaneously:
 
 ### Detection
-- Each agent checks `workspace/AUTONOMOUS.md` before claiming — if `IN_PROGRESS` row exists for that task, do not claim.
+- Each agent checks `workspace/AUTONOMOUS.md` before claiming — if `TODO` row exists for that task, do not claim.
 - If a write conflict is detected post-facto (two log entries for the same task/step): the **earlier timestamp wins**.
 
 ### Resolution steps
@@ -179,10 +179,10 @@ When two agents claim the same task or produce conflicting artifacts simultaneou
 3. **Secondary yields**: secondary agent marks its work `SUPERSEDED`, appends note in `tasks-log.md`.
 4. **Primary reviews secondary artifact** (it may contain useful work) and merges what is valid.
 5. **Log resolution**: both agents append a `status: "conflict_resolved"` entry with `primary` and `superseded` agent fields.
-6. **Update AUTONOMOUS.md**: single `IN_PROGRESS` row remains; duplicate is removed.
+6. **Update AUTONOMOUS.md**: single `TODO` row remains; duplicate is removed.
 
 ### Parallel work guardrails
-- Only one agent may hold `IN_PROGRESS` on any given `taskId` at a time.
+- Only one agent may hold `TODO` on any given `taskId` at a time.
 - Before starting parallel sub-tasks on the same deliverable, the lead agent must post a sub-task ownership table to `#redos-mission-control` Slack channel.
 - Sub-tasks must use derived `handoffId` (e.g. `A2A-20260302-ENG-001-sub-1`) so they can be traced independently.
 

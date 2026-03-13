@@ -10,7 +10,7 @@
 
 **Key Findings:**
 1. **Episodes Logging Failure** - Root cause of system blindness
-2. **Stale Tasks** - 8 IN_PROGRESS tasks reset to PENDING on 2026-03-10
+2. **Stale Tasks** - 8 TODO tasks reset to PENDING on 2026-03-10
 3. **No Task Completions** - 24+ hours without any completions
 4. **Agent Status** - All agents running but unmonitored
 

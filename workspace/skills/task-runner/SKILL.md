@@ -6,12 +6,12 @@ Manage the full lifecycle of projects: create, plan, dispatch, track, verify, de
 ## Task State Machine
 
 ```
-INTAKE → PLANNING → QUEUED → IN_PROGRESS → IN_REVIEW → DONE → DELIVERED
+INTAKE → PLANNING → QUEUED → TODO → IN_REVIEW → DONE → DELIVERED
 
-  From IN_PROGRESS:  → BLOCKED (waiting for input)
+  From TODO:  → BLOCKED (waiting for input)
                      → FAILED (retry cascade triggered)
 
-  From IN_REVIEW:    → REVISION (needs fixes, goes back to IN_PROGRESS)
+  From IN_REVIEW:    → REVISION (needs fixes, goes back to TODO)
 
   From FAILED:       → QUEUED (after successful retry)
                      → BLOCKED (escalated to human)
@@ -91,7 +91,7 @@ When done, report back with:
 ```
 
 ### Monitor Progress
-While tasks are IN_PROGRESS:
+While tasks are TODO:
 - Check every 60 seconds if agent has produced output
 - If timeout exceeded → trigger retry-cascade skill
 - If task blocked → update state, notify RED

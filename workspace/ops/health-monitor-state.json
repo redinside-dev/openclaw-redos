@@ -1,26 +1,20 @@
 {
-  "timestamp": "2026-03-11T23:44:00Z",
+  "timestamp": "2026-03-12T18:00:00Z",
   "ollama": {
     "status": "up",
-    "responseCode": 200,
-    "responseTime": "< 1s"
+    "response": "200 OK",
+    "timestamp": "2026-03-12T18:00:00Z"
   },
   "nineRouter": {
     "status": "down",
-    "responseCode": 404,
-    "responseTime": "< 1s",
-    "issue": "Service not responding on port 20128"
+    "response": "404 HTML",
+    "timestamp": "2026-03-12T18:00:00Z",
+    "notes": "Port 20128 returns HTML error page instead of health JSON"
   },
-  "errors": {
-    "gatewayErrLog": "No new errors in last 30 minutes",
-    "lastChecked": "2026-03-11T23:44:00Z"
+  "gatewayErrLog": {
+    "checked": true,
+    "recentErrors": false,
+    "lastChecked": "2026-03-12T18:00:00Z"
   },
-  "alerts": [
-    {
-      "type": "service-down",
-      "service": "9Router",
-      "message": "9Router not responding on port 20128 (HTTP 404)",
-      "timestamp": "2026-03-11T23:44:00Z"
-    }
-  ]
+  "alertsSent": false
 }

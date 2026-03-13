@@ -1,11 +1,12 @@
 {
-  "currentFocus": "Portfolio data acquisition",
-  "status": "awaiting holdings file creation",
-  "lastMarketUpdate": "2026-03-09T17:38:00-05:00",
+  "currentFocus": "Cost telemetry freshness + anomaly readiness",
+  "status": "monitoring_with_data_freshness_risk",
+  "lastMarketUpdate": "2026-03-13T05:19:00-04:00",
   "nextActions": [
-    "Create workspace/portfolio/HOLDINGS.md with current positions",
-    "Verify portfolio-review-2026-02-06.md exists",
-    "Resume real-time monitoring once data available"
+    "Repair provider-quota freshness (stale >24h)",
+    "Compute rolling 7-day baseline once fresh daily points exist",
+    "Prepare weekly cost report for RED/#redos-mission-control",
+    "Identify top 3 expensive cron jobs and cheaper model swaps"
   ],
   "watchlist": {
     "NVDA": "$138 resistance break changes view to bullish",
@@ -16,5 +17,13 @@
   },
   "newIdeas": {
     "none": "None today"
+  },
+  "costSnapshot": {
+    "provider": "openai",
+    "used": 45,
+    "quota": 1000,
+    "remaining": 955,
+    "snapshotFresh": false,
+    "estimatedSpendTodayUsd": 0.0
   }
 }

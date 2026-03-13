@@ -24,7 +24,7 @@
 
 ### Chunk 4 (OPS — In Progress)
 - [x] Deduplicate health-snapshot auto-tickets
-  - [x] Updated `health_snapshot_ticket.py` to check for existing OPEN/IN_PROGRESS tickets with same pattern
+  - [x] Updated `health_snapshot_ticket.py` to check for existing OPEN/TODO tickets with same pattern
   - [x] Removed global `**` wildcard from `exec-approvals.json` (P0 security incident TICKET-20260224-071)
   - [ ] Tighten exec approvals per-agent (TICKET-20260224-072, pending INFOSEC decision)
   - [ ] Gateway restart for schema validator middleware (coordinated with ENG)

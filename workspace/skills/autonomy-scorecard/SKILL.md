@@ -29,7 +29,7 @@ Make autonomy measurable. Compute a daily score from real runtime data so the te
 - Target: ≥10 interactions/day = healthy
 
 **3. Open ticket count by priority**
-- Count lines matching `OPEN` or `IN_PROGRESS` in TICKET-TRACKER.md
+- Count lines matching `OPEN` or `TODO` in TICKET-TRACKER.md
 - Count P0/P1 separately (critical)
 
 **4. Delivery success rate**

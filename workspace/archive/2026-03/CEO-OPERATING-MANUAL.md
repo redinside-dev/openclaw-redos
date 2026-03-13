@@ -69,7 +69,7 @@ RED adds to AUTONOMOUS.md:
 ### Phase 2: Agent Claims Task
 ```
 Agent updates AUTONOMOUS.md:
-| AUTO-NNN | P1 | eng | [Task description] | IN_PROGRESS (claimed 2026-03-02T15:30Z) |
+| AUTO-NNN | P1 | eng | [Task description] | TODO (claimed 2026-03-02T15:30Z) |
 ```
 - Agent posts to Slack: "⏱️ AUTO-NNN: Starting now"
 
