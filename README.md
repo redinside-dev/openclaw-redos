@@ -1,235 +1,277 @@
 # OpenClaw RedOS
 
-**RedOS** is a custom AI operating system — business logic, agent identities, skills, and orchestration — built on top of the [OpenClaw](https://openclaw.ai) CLI runtime.
+> Autonomous AI company running on OpenClaw CLI — 8 specialized agents, 30 active crons, two revenue streams, zero humans in the loop.
+
+**Owner:** [anuragg-saxenaa](https://github.com/anuragg-saxenaa) · **Infra:** [redinside-dev](https://github.com/redinside-dev) · **Platform:** macOS (Darwin 25) · **Updated:** 2026-03-14
+
+---
+
+## What This Is
+
+RedOS is a custom business operating system built on the [OpenClaw](https://github.com/decolua/9router) runtime. It runs a team of 8 autonomous AI agents that:
+
+- Ship open-source developer tools to GitHub daily
+- Find real Ontario businesses without websites and pitch them
+- Make OSS contributions to world-class agentic AI projects daily
+- Monitor themselves, file tickets, and self-heal
 
 Two distinct layers:
-- **OpenClaw CLI** at `/opt/homebrew/lib/node_modules/openclaw/` — compiled Node.js runtime. **Never edit `dist/` files.**
-- **RedOS** at `~/.openclaw/` — this repo. All customizations live here.
+- **OpenClaw CLI** at `/opt/homebrew/lib/node_modules/openclaw/` — compiled runtime. Never edit.
+- **RedOS** at `~/.openclaw/` — this repo. All business logic lives here.
 
 ---
 
-## Quick Start
+## Agent Hierarchy
 
-```bash
-# Restart full stack after any config change
-bash ~/.openclaw/scripts/redos-restart.sh
-
-# Check status without restarting
-bash ~/.openclaw/scripts/redos-restart.sh --status
-
-# Validate config (run before every restart)
-openclaw doctor
-
-# Test an agent
-openclaw agent --agent main --channel slack --message "test" --json
+```
+                        ┌─────────────────────┐
+                        │   RED (main/CEO)     │
+                        │  Orchestrator        │
+                        │  Telegram approvals  │
+                        │  @RedinsideBot       │
+                        └──────────┬──────────┘
+                                   │ commands
+                        ┌──────────▼──────────┐
+                        │   ZEN (allrounder)   │
+                        │   COO / CSO          │
+                        │   Cross-functional   │
+                        │   @ZenRedBot         │
+                        └──────────┬──────────┘
+                                   │ delegates to
+          ┌──────────┬─────────────┼──────────────┬──────────┬──────────┐
+          ▼          ▼             ▼              ▼          ▼          ▼
+   ┌──────────┐ ┌─────────┐ ┌──────────┐ ┌──────────┐ ┌────────┐ ┌─────────┐
+   │   ENG    │ │RESEARCH │ │ FINANCE  │ │   OPS    │ │INFOSEC │ │ HATAKE  │
+   │ Code &   │ │ Market  │ │ CFO/Cost │ │ Monitor  │ │Security│ │ Intent  │
+   │ Infra    │ │ Intel   │ │ Tracking │ │ SLA      │ │ L3     │ │ Parser  │
+   │@ENGRED   │ │@RESEARCH│ │@FINANCE  │ │ @OPSRED  │ │@INFOSEC│ │internal │
+   └──────────┘ └─────────┘ └──────────┘ └──────────┘ └────────┘ └─────────┘
 ```
 
 ---
 
-## Architecture
-
-### The 8 Agents
-
-| ID | Name / Role | Telegram Bot |
-|---|---|---|
-| `main` | **RED** (CEO) — orchestrator, Telegram approvals | @RedinsideBot |
-| `allrounder` | **ZEN** (COO) — general assistant, cross-functional | @ZenRedBot |
-| `eng` | **ENG** — code, APIs, infrastructure | @ENGRED_BOT |
-| `research` | **RESEARCH** — market & competitive intelligence | @RESEARCHRED_BOT |
-| `finance` | **FINANCE** (CFO) — portfolio, cost tracking | @FINANCERED_BOT |
-| `ops` | **OPS** — cron, health monitoring, SLA | @OPSRED_BOT |
-| `infosec` | **INFOSEC** — security, L3 approvals | @INFOSECRED_BOT |
-| `hatake` | **HATAKE** — internal intent parser (no channel) | *(internal only)* |
-
-**Hierarchy:** RED → ZEN; ENG, RESEARCH, FINANCE, OPS, INFOSEC, HATAKE all report to RED.
-
-**Fallback chain (all except hatake):**
-```
-9router/free-unlimited → 9router/heartbeat-cheap → openai-codex/gpt-5.2
-```
-
-### Model Providers
-
-| Provider | Port | Models | Cost | Notes |
-|---|---|---|---|---|
-| 9Router | 20128 | free-unlimited, heartbeat-cheap | $0 | Primary for all agents |
-| Minimax | — | MiniMax-M2.5 | PAYG | Fallback #1 |
-| OpenAI Codex | — | gpt-5.3-codex | Subscription | Fallback #2 |
-| Ollama | 11434 | qwen3.5:4b | $0 | Local, OPS fallback |
-| Perplexity | — | sonar-pro | Subscription | RESEARCH web_search only |
-| ZAI | — | glm-4.7, glm-4.7-flashx | PAYG | **Never use in crons or fallbacks** |
-
-### Request Flow
+## Request Flow
 
 ```
-User message (Telegram / Slack)
-  → OpenClaw channel plugin (botToken → agentId)
-  → Agent session (context pruning, memory-core plugin)
-  → 9Router model call with auto-failover
-  → Response back to channel
-  → LLM Analytics plugin → workspace/logs/*.jsonl
+User (Telegram / Slack)
+        │
+        ▼
+OpenClaw channel plugin
+  (botToken → agentId lookup)
+        │
+        ▼
+Agent session created
+  ├── Context pruning
+  ├── memory-core plugin (injects SOUL.md + working memory)
+  └── Skills loaded (65 total, 31 active)
+        │
+        ▼
+9Router model call  ──fail──▶  9router/heartbeat-cheap  ──fail──▶  openai-codex/gpt-5.2
+  (free-unlimited)
+        │ success
+        ▼
+Response → channel
+        │
+        ▼
+LLM Analytics plugin
+  └── workspace/logs/*.jsonl
 ```
 
-### Bounded Autonomy (L0–L5)
+---
 
-Agents operate within a tiered approval system:
-
-| Level | Scope | Approval |
-|---|---|---|
-| L0 | Read-only | Auto-approve |
-| L1 | Safe writes | Auto-approve |
-| L2 | Reversible changes | Auto-approve |
-| L3 | Infra / sensitive | INFOSEC A2A review (120s timeout) |
-| L4 | External / money | Telegram approval (10 min window) |
-| L5 | Critical / irreversible | Telegram approval (30 min window) |
-
-Defined in: `workspace/skills/maker-checker/SKILL.md`
-
-### Skills System
-
-Skills are declarative `SKILL.md` files in `workspace/skills/` — no code. OpenClaw applies them during execution.
-
-- **57 total skills** — Enable in `openclaw.json` under `skills.entries`
-
-### Cron Jobs
-
-`cron/jobs.json` — **73 definitions** (after event-driven migration, 2026-03-02).
-
-- **Never hardcode `model` in cron payloads** — omit the field, let agent defaults apply
-- Runs logged to `workspace/logs/`
-
-### n8n Webhook Delegation
-
-n8n runs on port `5678` (launchd `ai.openclaw.n8n`). Agents call webhook URLs for credential-isolated external API calls.
-
-See: `workspace/skills/n8n-webhooks/SKILL.md`
-
-### Mission Control Dashboard
-
-- URL: `http://localhost:19000`
-- Auth: `red` / `redos2026`
-- Managed by: launchd `ai.openclaw.dashboard`
-- Key endpoints: `/api/pipeline`, `/api/analytics`, `/api/agents`, `/api/tickets`, `/api/search`
-
-### Open Source Projects (GOAL-007)
-
-10 projects being built by autonomous agents — target: public GitHub repos by 2026-05-05.
-
-| # | Slug | Status | Stack |
-|---|------|--------|-------|
-| 1 | `costwatch` | 🔨 Building | Node.js, Express, Socket.IO |
-| 2 | `redos-website` | 🔨 Building | Next.js 16, TypeScript, Tailwind CSS 4 |
-| 3 | `codebase-onboarding-agent` | ✅ MVP shipped | Python, AST, CLI |
-| 4 | `a2a-protocol` | 📋 Spec ready | TypeScript, WebSockets |
-| 5 | `pr-auto-reviewer` | 📋 Spec ready | Python, GitHub API, Claude API |
-| 6 | `agent-loop-detection` | 📋 Spec ready | Node.js |
-| 7 | `session-memory` | 📋 Spec ready | Python, Qdrant, fastembed |
-| 8 | `llm-gateway-proxy` | 📋 Spec ready | Node.js, Express, SQLite |
-| 9 | `agent-eval-harness` | 📋 Spec ready | Python, YAML, CLI |
-| 10 | `context-window-optimizer` | 📋 Spec ready | Python, tiktoken |
-
-Backlog + specs: `workspace/projects/`
-
-### Website Agency (GOAL-008)
-
-Fully automated website agency targeting Ontario businesses without websites.
+## Full Autonomy Loop
 
 ```
-HATAKE: Google Maps → leads.json (1030+ leads)
-  ↓
-RESEARCH: audit → grade A/B/C/D/F → audits.json
-  ↓ (grade D/F)
-ENG: batch_build.py → HTML site → sites/ (977 sites built)
-  ↓
-ZEN: send_outreach.py → SMS/email → projects.json
-  ↓
-ZEN: voice_followup.py → AI voice call via n8n
-  ↓
-RED: L4 approval → go live
+Every 3h: RESEARCH inner loop
+  │
+  ├── Read twitter-feed.md + reddit-feed.md + ideas-index.json  ← live signal
+  ├── web_search("github trending AI tools today")
+  ├── Pick highest-scored unshipped pain point (with source URL)
+  ├── Write workspace/projects/<slug>/SPEC.md
+  ├── Add row to backlog.md (Status=READY)
+  └── sessions_spawn → ENG
+          │
+          ▼
+     ENG inner loop (every 4h)
+          │
+          ├── Read backlog.md → pick first READY project
+          ├── gh repo create redinside-dev/<slug>
+          ├── Implement MVP from SPEC.md
+          ├── Add GitHub Actions CI (.github/workflows/ci.yml)
+          ├── git push → GitHub
+          ├── Update backlog.md (Status=SHIPPED)
+          └── Post to Slack #redos-eng
+
+Daily 11am Toronto: OSS Contributor
+  │
+  ├── Pick today's target (Mon=9router Tue=eko Wed=llm-functions Thu=LiteMultiAgent Fri=open-computer-use)
+  ├── gh issue list → pick concrete fixable issue
+  ├── Fork as anuragg-saxenaa
+  ├── Implement fix
+  ├── git push → anuragg-saxenaa/<repo>
+  ├── Open PR via REST API  ← attributed to anuragg-saxenaa
+  └── Log to pr-log.md + Slack #redos-eng
 ```
 
-- Leads: `workspace-website-agency/leads.json`
-- Sites: `workspace-website-agency/sites/` (977 HTML files)
-- Projects: `workspace-website-agency/projects.json`
-- Crons: `workspace-website-agency/cron.json` (4 jobs: lead-gen, audit, build, outreach + voice)
+---
+
+## Website Agency Pipeline
+
+```
+Daily 9am: lead_generator.py
+  │  Overpass API (free, OpenStreetMap)
+  │  Finds Ontario businesses missing "website" tag
+  ▼
+leads.json  (real names, addresses, lat/lon, OSM IDs)
+  │
+  ▼ Every 4h: website_auditor.py
+audits.json  (grade A–F, speed, mobile, SEO)
+  │
+  ▼ Every 2h: website_builder.py
+sites/<slug>.html  (generated landing page demo)
+  │
+  ▼ Every 3h: send_outreach.py
+SMS / email → business owner
+  │
+  ▼ 10am / 2pm / 6pm: voice_followup.py
+AI voice call follow-up
+```
+
+---
+
+## Bounded Autonomy (L0–L5)
+
+```
+L0  read-only          ──▶  auto-approve
+L1  safe-write         ──▶  auto-approve
+L2  reversible-change  ──▶  auto-approve
+L3  infra/sensitive    ──▶  INFOSEC A2A review (120s timeout)
+L4  external/money     ──▶  Telegram approval → RED (10 min window)
+L5  critical/irrevers. ──▶  Telegram approval → RED (30 min window)
+```
+
+---
+
+## Model Providers
+
+| Provider | Port | Models | Cost | Usage |
+|----------|------|--------|------|-------|
+| 9Router | 20128 | `free-unlimited`, `heartbeat-cheap` | $0 | Primary — all agents |
+| openai-codex | — | `gpt-5.2` | Subscription | Final fallback only |
+| Perplexity | — | `sonar-pro` | Subscription | RESEARCH explicit calls |
+| ZAI | — | `glm-4.7`, `glm-4.7-flashx` | PAYG | **Never in crons/fallbacks** |
+
+---
+
+## Open Source Projects (GOAL-007)
+
+Target: 10 public GitHub repos shipped by 2026-05-05. All repos have GitHub Actions CI. OSS contributions made daily as `anuragg-saxenaa`.
+
+| # | Project | Status | Stack | GitHub |
+|---|---------|--------|-------|--------|
+| 1 | `costwatch` | 🔨 Building | Node.js, Express | — |
+| 2 | `redos-website` | 🔨 Building | Next.js, TypeScript | — |
+| 3 | `codebase-onboarding-agent` | ✅ Shipped | Python, AST, CLI | [repo](https://github.com/redinside-dev/codebase-onboarding-agent) |
+| 4 | `a2a-protocol` | ✅ Shipped | TypeScript, WebSockets | [repo](https://github.com/redinside-dev/a2a-protocol) |
+| 5 | `pr-auto-reviewer` | ✅ Shipped | Python, GitHub API | [repo](https://github.com/redinside-dev/pr-auto-reviewer) |
+| 6 | `agent-loop-detection` | ✅ Shipped | Node.js | [repo](https://github.com/redinside-dev/agent-loop-detection) |
+| 7 | `session-memory` | ✅ Shipped | TypeScript, Express | [repo](https://github.com/redinside-dev/session-memory) |
+| 8 | `llm-gateway-proxy` | 📋 Ready | Node.js, SQLite | — |
+| 9 | `agent-eval-harness` | 📋 Ready | Python, YAML, CLI | — |
+| 10 | `context-window-optimizer` | 📋 Ready | Python, tiktoken | — |
+| 11 | `llm-observability-hub` | 📋 Ready | Python | — |
+
+---
+
+## Daily OSS Contributions
+
+Contributing to world-class agentic AI repos daily as **`anuragg-saxenaa`**:
+
+| Day | Repo | Stars | Focus |
+|-----|------|-------|-------|
+| Mon | [decolua/9router](https://github.com/decolua/9router) | 909 | Our AI gateway — direct stakeholder |
+| Tue | [FellouAI/eko](https://github.com/FellouAI/eko) | 4894 | Top agentic framework |
+| Wed | [sigoden/llm-functions](https://github.com/sigoden/llm-functions) | 718 | LLM tool functions |
+| Thu | [PathOnAIOrg/LiteMultiAgent](https://github.com/PathOnAIOrg/LiteMultiAgent) | 102 | Multi-agent framework |
+| Fri | [coasty-ai/open-computer-use](https://github.com/coasty-ai/open-computer-use) | 372 | Computer use agent |
+| Sat/Sun | [decolua/9router](https://github.com/decolua/9router) | 909 | 106 open issues |
+
+Recent contributions: [pr-log.md](workspace/projects/pr-log.md)
+
+---
+
+## Cron Schedule (30 enabled of 74)
+
+| Cron ID | Agent | Schedule (Toronto) | Purpose |
+|---------|-------|-------------------|---------|
+| `telegram-approval-monitor-0001` | RED | every 2 min | Watch approve/deny replies |
+| `system-pulse-always-on-0001` | OPS | every 5 min | Health heartbeat |
+| `inner-loop-research-0001` | RESEARCH | every 3h at :30 | Mine pain points → specs |
+| `inner-loop-eng-0001` | ENG | 6x/day | Ship projects from backlog |
+| `inner-loop-ops-0001` | OPS | every 4h | Monitor SLA + tickets |
+| `inner-loop-allrounder-0001` | ZEN | every 3h | Cross-agent coordination |
+| `oss-contributor-0001` | ENG | 11am daily | OSS PR as anuragg-saxenaa |
+| `website-agency-leads-daily` | HATAKE | 9am daily | 50 real leads via Overpass API |
+| `website-agency-audit-cycle` | RESEARCH | every 4h | Audit pending leads |
+| `website-agency-build-queue` | ENG | every 2h | Build sites for top leads |
+| `website-agency-outreach-cycle` | ZEN | every 3h | SMS/email outreach |
+| `website-agency-voice-followup` | ZEN | 10am/2pm/6pm | AI voice follow-up calls |
+
+---
+
+## Infrastructure
+
+| Service | Port | Managed by | Purpose |
+|---------|------|------------|---------|
+| OpenClaw Gateway | 20088 | `ai.openclaw.gateway` | Agent runtime + API |
+| 9Router | 20128 | `ai.openclaw.9router` | LLM proxy + failover |
+| n8n | 5678 | `ai.openclaw.n8n` | Webhook delegation, credentials |
+| Mission Control | 19000 | `ai.openclaw.dashboard` | Ops dashboard (`red`/`redos2026`) |
 
 ---
 
 ## Key Files
 
 | File | Purpose |
-|---|---|
-| `openclaw.json` | Master runtime config — **Never commit** |
-| `cron/jobs.json` | 115 cron definitions (30 enabled / 85 disabled) |
-| `workspace/SOUL.md` | Company OS — injected into every agent session |
-| `workspace/MEMORY.md` | Curated long-term memory |
-| `workspace/GOALS.md` | Active company goals (RED only writes) |
-| `workspace/STATE.yaml` | Live shared state (sprint, pipelines, metrics) |
+|------|---------|
+| `openclaw.json` | Master runtime config — **never commit** |
+| `cron/jobs.json` | 74 cron definitions (30 enabled) |
+| `workspace/SOUL.md` | Company OS injected into every session |
+| `workspace/GOALS.md` | Active goals (RED writes only) |
+| `workspace/STATE.yaml` | Live sprint/metrics state |
 | `workspace/AUTONOMOUS.md` | Agent task queue |
-| `workspace/config/budget-guardrails.json` | Per-agent cost limits |
-| `workspace/ops/TICKET-TRACKER.md` | Issue tracking |
-| `workspace/ops/LEARNINGS.md` | Institutional knowledge |
-| `workspace/scripts/seed-episodes.py` | Seeds episodes.jsonl from cron state |
-| `identity/device.json` | Ed25519 keypair — **NEVER delete** |
-| `agents/autonomous-worker-v2.js` | Autonomous task worker |
-| `scripts/redos-restart.sh` | Full stack restart script |
-| `workspace-website-agency/` | Ontario Website Agency — leads, sites, outreach, voice calls |
-| `workspace/projects/` | 10 open-source project specs + implementations |
+| `workspace/projects/backlog.md` | OSS project pipeline |
+| `workspace/projects/pr-log.md` | All shipped + contributed PRs |
+| `workspace-website-agency/` | Ontario Website Agency pipeline |
+| `credentials/secrets.json` | API keys — **never commit** |
+| `identity/device.json` | Ed25519 keypair — **never delete** |
 
 ---
 
-## Services & Ports
-
-| Service | Port | launchd Label |
-|---|---|---|
-| OpenClaw Gateway | 18789 | `ai.openclaw.gateway` |
-| Mission Control Dashboard | 19000 | `ai.openclaw.dashboard` |
-| n8n Workflow Engine | 5678 | `ai.openclaw.n8n` |
-| 9Router (model proxy) | 20128 | `com.9router.autostart` |
-| Ollama (local LLM) | 11434 | `homebrew.mxcl.ollama` |
-| Browser Control | 18791 | *(gateway subprocess)* |
-
----
-
-## Authentication
-
-Three places must carry the same `OPENCLAW_GATEWAY_TOKEN`:
-1. `openclaw.json` → `gateway.auth.token`
-2. `~/Library/LaunchAgents/ai.openclaw.gateway.plist` → `OPENCLAW_GATEWAY_TOKEN`
-3. `~/.zprofile` → `export OPENCLAW_GATEWAY_TOKEN=...`
-
-Also required in `~/.zprofile`:
-```bash
-export OPENCLAW_GATEWAY_URL="http://127.0.0.1:18789"
-```
-
----
-
-## Common Commands
+## Quick Start
 
 ```bash
+# Restart full stack
+bash ~/.openclaw/scripts/redos-restart.sh
+
+# Check status
+bash ~/.openclaw/scripts/redos-restart.sh --status
+
+# Validate config before restart
+openclaw doctor
+
 # Live logs
 tail -f ~/.openclaw/logs/gateway.log
-tail -f ~/.openclaw/logs/gateway.err.log
-tail -f ~/.openclaw/logs/n8n.log
 
-# Full diagnosis
-openclaw doctor
-openclaw doctor --fix
+# Test an agent
+openclaw agent --agent main --channel slack --message "status" --json
 
-# Check Ollama models
-curl -s http://127.0.0.1:11434/api/tags | python3 -c "import json,sys; [print(m['name']) for m in json.load(sys.stdin)['models']]"
+# Run a cron manually
+openclaw cron run inner-loop-research-0001
+openclaw cron run oss-contributor-0001
 
-# Upgrade OpenClaw CLI
-npm update -g openclaw
-bash scripts/patch-pairing-reply.sh  # restore custom pairing reply after upgrade
-
-# Seed episodes.jsonl manually
-python3 ~/.openclaw/workspace/scripts/seed-episodes.py
-
-# Test n8n webhook
-curl -s -X POST http://localhost:5678/webhook/echo-test \
-  -H "Content-Type: application/json" -d '{"agent":"claude"}'
+# Run website agency pipeline
+python3 workspace-website-agency/scripts/lead_generator.py --count 50
 ```
 
 ---
@@ -237,13 +279,11 @@ curl -s -X POST http://localhost:5678/webhook/echo-test \
 ## Critical Rules
 
 - **Never edit** `/opt/homebrew/lib/node_modules/openclaw/dist/`
-- **Never commit** `openclaw.json`, `identity/`, `devices/`, `credentials/`, `*.plist`
-- **Never delete** `identity/device.json` — the Ed25519 keypair cannot be regenerated
-- **Run `openclaw doctor`** after any `openclaw.json` change — schema is strict
+- **Never commit** `openclaw.json`, `identity/`, `credentials/`
 - **Never hardcode `model`** in cron payloads — omit it, use agent defaults
-- **Never use ZAI (PAYG)** in crons or fallback chains
-- **L4/L5 actions require Telegram approval** before execution
-- **Secrets** belong only in n8n credential store or env vars — never in skills or committed files
+- **Never use ZAI** in crons or fallback chains (PAYG = runaway cost risk)
+- **L4/L5 actions** require Telegram approval from RED before execution
+- **Run `openclaw doctor`** after any `openclaw.json` change
 
 ---
 
@@ -254,4 +294,4 @@ user.name  = anuragg-saxenaa
 user.email = anuragg.saxenaa@gmail.com
 ```
 
-**Gitignored:** `openclaw.json`, `identity/`, `devices/`, `credentials/`, `logs/`, `*.plist`, `memory/*.sqlite`, `.memsearch/qdrant/`
+GitHub: `redinside-dev` (org / infra owner) · `anuragg-saxenaa` (OSS contributor identity, collaborator on all repos)
