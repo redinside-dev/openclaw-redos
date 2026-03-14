@@ -4,7 +4,7 @@
 |---|------|--------|-------------|---------|--------|
 | 1 | costwatch | 🔨 BUILDING | — | — | 2026-03-12: ENG building MVP |
 | 2 | redos-website | 🔨 BUILDING | — | — | 2026-03-12: ENG building MVP |
-| 3 | codebase-onboarding-agent | ✅ READY | — | — | Has full implementation |
+| 3 | codebase-onboarding-agent | ✅ SHIPPED | https://github.com/redinside-dev/codebase-onboarding-agent | — | Has full implementation |
 | 4 | a2a-protocol | ✅ READY | — | — | — |
 | 5 | pr-auto-reviewer | ✅ READY | — | — | 2026-03-11: SPEC.md created |
 | 6 | agent-loop-detection | ✅ READY | — | — | 2026-03-12: SPEC.md exists |

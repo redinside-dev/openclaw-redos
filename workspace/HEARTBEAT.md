@@ -90,3 +90,24 @@ Before ANY other step, if you are about to commit or push anything:
 ## Loop Detection Rule
 
 If you find yourself writing the same message, spawning the same agent, or reading the same file 3+ times in one heartbeat without producing a new artifact → STOP. Write to Slack: "CEO LOOP DETECTED — halting and alerting OPS." Do not continue.
+
+---
+
+## STEP 6: ENG Shipping Pipeline (added 2026-03-13)
+
+Read: `workspace/projects/pr-log.md`
+
+- If no entry with today's date → ENG has not shipped today
+  → sessions_send(sessionKey="agent:eng:main", message="RED heartbeat: no shipping activity today. Pick a READY project from workspace/projects/backlog.md and implement it. Commit and push to github.com/redinside-dev/<slug>.")
+- Post to Slack #redos-mission-control: `"💻 ENG shipped: [slug] or not yet today"`
+
+---
+
+## STEP 7: RESEARCH Spec Pipeline (added 2026-03-13)
+
+Read: `workspace/projects/backlog.md`
+
+- Count rows with status READY
+- If READY count < 3:
+  → sessions_send(sessionKey="agent:research:main", message="RED heartbeat: only N READY projects in backlog. Mine more developer pain points and write 2 new specs into workspace/projects/backlog.md.")
+- Post to Slack #redos-mission-control: `"🔬 RESEARCH backlog: N READY projects"`
