@@ -72,3 +72,11 @@ See `workspace/SOUL.md` for the approval-request template and tool gating rules.
   - Control: add a guaranteed fallback escalation path (secondary recipient/session + retry policy) so security alerts cannot silently fail.
 - **Operational signal saturation:** fallback/auth/quota floods remain active in ticket stream and continue to reduce incident signal quality.
   - Control: dedupe repetitive health-snapshot tickets by signature/time window and reserve P1/P0 routing for novel or worsening conditions.
+
+
+## 2026-03-13 Inner-loop findings (2026-03-13 23:05 UTC)
+
+- **Shell approval blast radius remains high:** `/bin/bash` is currently approved for 7/8 active agents (`main`, `allrounder`, `eng`, `ops`, `infosec`, `research`, `finance`).
+  - Control: remove shell-level approvals and enforce binary-specific, argument-constrained allowlists per agent role.
+- **Escalation reliability still degraded:** INFOSEC urgent `sessions_send` calls to RED and ENG timed out during this loop.
+  - Control: define and test fallback alert path (secondary session/channel + retry policy) so P1/P0 alerts have guaranteed delivery.

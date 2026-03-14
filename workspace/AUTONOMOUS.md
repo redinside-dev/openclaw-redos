@@ -2,11 +2,11 @@
 telegram-approval-monitor-0001, a7862717-4e67-421f-9aa4-ee2131cf56c6, session-loop-watchdog-0001
 ## CONSULTANT TASK (injected 2026-03-12T15:58:31Z)
 
-**CONSULTANT-OPS-20260312115831** | PENDING (2026-03-12T15:58:31Z) | ops | CONSULTANT ALERT: No task completions detected in the last 24 hours. Please check if all agents are operational. Run a health check, report any stuck agents to workspace/ops/TICKET-TRACKER.md, and inject fresh tasks into workspace/AUTONOMOUS.md to restart activity.
+**CONSULTANT-OPS-20260312115831** | IN_PROGRESS (2026-03-13T11:02:00Z) | ops | CONSULTANT ALERT: No task completions detected in the last 24 hours. Please check if all agents are operational. Run a health check, report any stuck agents to workspace/ops/TICKET-TRACKER.md, and inject fresh tasks into workspace/AUTONOMOUS.md to restart activity.
 
 ## CONSULTANT TASK (injected 2026-03-12T15:58:31Z)
 
-**CONSULTANT-OPS-20260312115831** | PENDING (2026-03-12T15:58:31Z) | ops | CONSULTANT ISSUE [L1]: 3 cron jobs with consecutive errors
+**CONSULTANT-OPS-20260312115831** | IN_PROGRESS (2026-03-13T11:02:00Z) | ops | CONSULTANT ISSUE [L1]: 3 cron jobs with consecutive errors
 telegram-approval-monitor-0001, a7862717-4e67-421f-9aa4-ee2131cf56c6, session-loop-watchdog-0001
 
 ## CONSULTANT TASK (injected 2026-03-12T16:14:11Z)

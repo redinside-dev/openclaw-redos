@@ -1,69 +1,105 @@
 version: '1.0'
-last_updated: '2026-03-12T03:50:02.603Z'
-updated_by: ops-autonomy-calc
-dispatched_tasks_total: 9
-verified_completions_total: 9
-real_autonomy_score: 85
-last_autonomy_calc: 2026-03-05T23:35:00.000Z
-openclaw_version: 2026.3.2
-node_version: 25.7.0
-n8n_version: 2.9.4
-services:
-  gateway: running
-  dashboard: running
-  n8n: running
-  nine_router: running
-  ollama: running
-  cloudflared: running
-  workers:
-    - eng
-    - ops
-    - research
-crons_enabled: 37
-crons_disabled: 80
-crons_total: 115
-crons_with_errors: 0
-n8n_workflows_active: 13
-n8n_workflows_total: 13
-pipelines:
-  social_monitoring: active
-  scrapling: installed_v0.4.1
-  ideas_kb: active
-  github_webhook: active
-  slack_events: active
-  event_driven_architecture: complete
-  content_factory: stage3_ready
-  gateway_resilience: active
-social_db:
-  content_raw_rows: 16
-  content_signals_rows: 1
-  workflow_run_successes: 8
-goals:
-  GOAL-001: in_progress
-  GOAL-002: in_progress
-  GOAL-003: pending
-  GOAL-004: in_progress
-  GOAL-005: complete
-  GOAL-006: complete
-completed:
-  - 'Event-driven architecture (GOAL-005): cron 110→35, 12 n8n workflows'
-  - Cloudflare tunnel auto-sync on each boot
-  - 'Social monitoring pipeline: twitter-service + reddit-service + aggregator + observability'
-  - 'Scrapling v0.4.1: authenticated Twitter scraping with session cookies'
-  - OpenClaw 2026.3.2 upgrade + 8 new features enabled
-  - 'Session cleanup: 1527+ archives + orphans removed'
-  - Loop detection enabled (was causing 30-iteration exec loops)
-  - Node@22→25 plist fix (was causing Telegram silence)
-  - '4-layer gateway resilience: n8n Guardian + 3 launchd watchdogs (2026-03-04 Session 5)'
-  - Session loop watchdog deployed (kills infinite-loop sessions every 5min)
-pending:
-  - 'GOAL-003: wire research-to-eng pipeline cron'
-  - 'GOAL-004: prompt caching in gateway/resilient-handler.js'
-  - 'Subscription audit: ChatGPT Pro x2 (due 2026-04-01)'
-consultant_handover: '2026-03-04'
-daily_cost_target_usd: 1
-cost_savings_target_pct: 50
-payg_spend: blocked
+last_updated: '2026-03-13T10:47:00.000Z'
+updated_by: ops-health-scan
+
+# System Status
+overview:
+  dashboard: http://127.0.0.1:18789/
+  os: macos 26.3.1 (arm64) · node 25.8.0
+  tailscale: off
+  channel: stable (config)
+  update: pnpm · npm latest 2026.3.12
+  gateway: local · ws://127.0.0.1:18789 (local loopback) · reachable 7ms · auth token · redinsides-Mac-mini.
+  gateway_service: LaunchAgent installed · loaded · running (pid 75934, state active)
+  node_service: LaunchAgent installed · loaded · running (pid 91551, state active)
+  agents: 8 · 7 bootstrap files present · sessions 376 · default main active 5m ago
+  memory: 7 files · 7 chunks · sources memory · plugin memory-core · vector ready · fts ready · cache on (374)
+  probes: skipped (use --deep)
+  heartbeat: 30m (main), disabled (allrounder), disabled (eng), disabled (finance), disabled (hatake), disabled (infosec), disabled (ops), disabled (research)
+  sessions: 376 active · default free-unlimited (1000k ctx) · 8 stores
+
+# Security Audit
+security_audit:
+  summary: 8 critical · 1 warn · 2 info
+  critical_issues:
+    - Small models require sandboxing and web tools disabled
+      - ollama/qwen3.5:4b (4B) @ agents.list.ops.model.fallbacks (unsafe; sandbox=off; web=[web_search, web_fetch, browser])
+      - Fix: If you must use small models, enable sandboxing for all sessions (agents.defaults.sandbox.mode="all") and disable web_search/web_fetch/browser (tools.deny=["group:web","browser"])
+    - Telegram DMs are open (7 accounts)
+      - channels.telegram.accounts.default.dmPolicy="open" allows anyone to DM the bot
+      - channels.telegram.accounts.allrounder.dmPolicy="open" allows anyone to DM the bot
+      - channels.telegram.accounts.eng.dmPolicy="open" allows anyone to DM the bot
+      - channels.telegram.accounts.finance.dmPolicy="open" allows anyone to DM the bot
+      - channels.telegram.accounts.infosec.dmPolicy="open" allows anyone to DM the bot
+      - channels.telegram.accounts.ops.dmPolicy="open" allows anyone to DM the bot
+      - channels.telegram.accounts.research.dmPolicy="open" allows anyone to DM the bot
+      - Fix: Use pairing/allowlist; if you really need open DMs, ensure channels.telegram.accounts.*.allowFrom includes "*"
+
+# Channels
+channels:
+  telegram:
+    enabled: ON
+    state: OK
+    detail: token config×7 (8591…d64Q · len 46) · accounts 7/7
+  slack:
+    enabled: ON
+    state: OK
+    detail: tokens ok (bot config, app config) (bot xoxb…80dR · len 59, app xapp…42d4 · len 98) · accounts 1/1
+
+# Sessions
+active_sessions:
+  - agent:research:main
+    kind: direct
+    age: just now
+    model: free-unlimited
+    tokens: 114k/1000k (11%)
+  - agent:ops:main
+    kind: direct
+    age: 2m ago
+    model: free-unlimited
+    tokens: 91k/1000k (9%)
+  - agent:finance:cron:199a722c-5a9…
+    kind: direct
+    age: 2m ago
+    model: llama3.1:8b
+    tokens: 20k/128k (16%)
+  - agent:finance:cron:199a722c-5a9…
+    kind: direct
+    age: 2m ago
+    model: llama3.1:8b
+    tokens: 20k/128k (16%)
+  - agent:ops:cron:system-pulse-alw…
+    kind: direct
+    age: 3m ago
+    model: llama3.1:8b
+    tokens: 413k/1000k (41%)
+  - agent:ops:cron:system-pulse-alw…
+    kind: direct
+    age: 3m ago
+    model: llama3.1:8b
+    tokens: 413k/1000k (41%)
+  - agent:main:cron:telegram-approv…
+    kind: direct
+    age: 5m ago
+    model: llama3.1:8b
+    tokens: 16k/205k (8%)
+  - agent:main:cron:telegram-approv…
+    kind: direct
+    age: 5m ago
+    model: llama3.1:8b
+    tokens: 16k/205k (8%)
+  - agent:ops:cron:9router-auth-wat…
+    kind: direct
+    age: 6m ago
+    model: llama3.1:8b
+    tokens: unknown/1000k (?%)
+  - agent:ops:cron:9router-auth-wat…
+    kind: direct
+    age: 6m ago
+    model: llama3.1:8b
+    tokens: unknown/1000k (?%)
+
+# Metrics
 metrics:
   real_autonomy_score: 100
   dispatched_tasks_total: 3
@@ -82,3 +118,59 @@ metrics:
     ops:
       dispatched: 3
       completed: 3
+
+# Services Status
+gateway_service:
+  installed: true
+  loaded: true
+  running: true
+  pid: 75934
+  state: active
+node_service:
+  installed: true
+  loaded: true
+  running: true
+  pid: 91551
+  state: active
+
+# Agent Status
+agents:
+  count: 8
+  bootstrap_files: 7
+  sessions_total: 376
+  default_session: main
+  default_model: free-unlimited
+  default_context: 1000k
+
+# Memory Status
+memory:
+  files: 7
+  chunks: 7
+  sources: memory
+  plugins:
+    - memory-core
+    - vector
+    - fts
+  cache: on (374)
+
+# Heartbeat Configuration
+heartbeat:
+  main: 30m
+  allrounder: disabled
+  eng: disabled
+  finance: disabled
+  hatake: disabled
+  infosec: disabled
+  ops: disabled
+  research: disabled
+
+# Next Steps
+next_steps:
+  - Need to share?      openclaw status --all
+  - Need to debug live? openclaw logs --follow
+  - Need to test channels? openclaw status --deep
+
+# FAQ
+faq_url: https://docs.openclaw.ai/faq
+# Troubleshooting
+troubleshooting_url: https://docs.openclaw.ai/troubleshooting

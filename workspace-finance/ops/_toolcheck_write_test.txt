@@ -1,1 +1,1 @@
-finance meta self-check write test 2026-03-13T06:33 America/Toronto
+finance meta self-check write test 2026-03-13T20:04:30-04:00 America/Toronto
