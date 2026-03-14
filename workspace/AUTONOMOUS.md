@@ -7,13 +7,13 @@
 
 ## ENG Tasks
 
-**ENG-2026-0313-001** | DONE | eng | Shipped: a2a-protocol, pr-auto-reviewer, agent-loop-detection, session-memory, llm-gateway-proxy, agent-eval-harness, context-window-optimizer, llm-observability-hub → redinside-dev on GitHub. All have CI.
+**ENG-2026-0313-001** | DONE | eng | Shipped: a2a-protocol, pr-auto-reviewer, agent-loop-detection, session-memory, llm-gateway-proxy, agent-eval-harness, context-window-optimizer, llm-observability-hub → anuragg-saxenaa on GitHub. All have CI.
 
 **ENG-2026-0313-002** | DONE | eng | Website agency lead gen pipeline wired to Overpass API — real Ontario businesses, real addresses.
 
-**ENG-2026-0314-001** | PENDING | eng | Ship `costwatch` MVP: read workspace/projects/costwatch/SPEC.md, create redinside-dev/costwatch repo, implement, add CI, push.
+**ENG-2026-0314-001** | DONE | eng | Shipped costwatch → https://github.com/anuragg-saxenaa/costwatch. Node.js+Express+SQLite+Socket.IO. Real-time cost monitoring, multi-provider pricing (OpenAI/Anthropic/Google), budget alerts. CI matrix Node 18/20/22.
 
-**ENG-2026-0314-002** | PENDING | eng | Ship `redos-website` MVP: read workspace/projects/redos-website/SPEC.md, create redinside-dev/redos-website repo, implement, add CI, push.
+**ENG-2026-0314-002** | PENDING | eng | Ship `redos-website` MVP: read workspace/projects/redos-website/SPEC.md, create anuragg-saxenaa/redos-website repo (use ANURAGG_TOKEN from credentials/secrets.json → github.anuragg-saxenaa), implement, add CI, push.
 
 ---
 

@@ -95,7 +95,7 @@ Every 3h: RESEARCH inner loop
      ENG inner loop (every 4h)
           │
           ├── Read backlog.md → pick first READY project
-          ├── gh repo create redinside-dev/<slug>
+          ├── GH_TOKEN=$ANURAGG_TOKEN gh repo create anuragg-saxenaa/<slug>
           ├── Implement MVP from SPEC.md
           ├── Add GitHub Actions CI (.github/workflows/ci.yml)
           ├── git push → GitHub
@@ -171,15 +171,15 @@ Target: 10 public GitHub repos shipped by 2026-05-05. All repos have GitHub Acti
 |---|---------|--------|-------|--------|
 | 1 | `costwatch` | 🔨 Building | Node.js, Express | — |
 | 2 | `redos-website` | 🔨 Building | Next.js, TypeScript | — |
-| 3 | `codebase-onboarding-agent` | ✅ Shipped | Python, AST, CLI | [repo](https://github.com/redinside-dev/codebase-onboarding-agent) |
-| 4 | `a2a-protocol` | ✅ Shipped | TypeScript, WebSockets | [repo](https://github.com/redinside-dev/a2a-protocol) |
-| 5 | `pr-auto-reviewer` | ✅ Shipped | Python, GitHub API | [repo](https://github.com/redinside-dev/pr-auto-reviewer) |
-| 6 | `agent-loop-detection` | ✅ Shipped | Node.js | [repo](https://github.com/redinside-dev/agent-loop-detection) |
-| 7 | `session-memory` | ✅ Shipped | TypeScript, Express | [repo](https://github.com/redinside-dev/session-memory) |
-| 8 | `llm-gateway-proxy` | 📋 Ready | Node.js, SQLite | — |
-| 9 | `agent-eval-harness` | 📋 Ready | Python, YAML, CLI | — |
-| 10 | `context-window-optimizer` | 📋 Ready | Python, tiktoken | — |
-| 11 | `llm-observability-hub` | 📋 Ready | Python | — |
+| 3 | `codebase-onboarding-agent` | ✅ Shipped | Python, AST, CLI | [repo](https://github.com/anuragg-saxenaa/codebase-onboarding-agent) |
+| 4 | `a2a-protocol` | ✅ Shipped | TypeScript, WebSockets | [repo](https://github.com/anuragg-saxenaa/a2a-protocol) |
+| 5 | `pr-auto-reviewer` | ✅ Shipped | Python, GitHub API | [repo](https://github.com/anuragg-saxenaa/pr-auto-reviewer) |
+| 6 | `agent-loop-detection` | ✅ Shipped | Node.js | [repo](https://github.com/anuragg-saxenaa/agent-loop-detection) |
+| 7 | `session-memory` | ✅ Shipped | TypeScript, Express | [repo](https://github.com/anuragg-saxenaa/session-memory) |
+| 8 | `llm-gateway-proxy` | ✅ Shipped | Node.js, SQLite | [repo](https://github.com/anuragg-saxenaa/llm-gateway-proxy) |
+| 9 | `agent-eval-harness` | ✅ Shipped | Python, YAML, CLI | [repo](https://github.com/anuragg-saxenaa/agent-eval-harness) |
+| 10 | `context-window-optimizer` | ✅ Shipped | Python, tiktoken | [repo](https://github.com/anuragg-saxenaa/context-window-optimizer) |
+| 11 | `llm-observability-hub` | ✅ Shipped | FastAPI, SQLite | [repo](https://github.com/anuragg-saxenaa/llm-observability-hub) |
 
 ---
 
