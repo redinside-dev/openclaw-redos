@@ -68,7 +68,8 @@
         "lastDurationMs": 60008,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 47,
-        "lastErrorReason": "timeout"
+        "lastErrorReason": "timeout",
+        "runningAtMs": 1773463160200
       }
     },
     {
@@ -407,7 +408,8 @@
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
         "nextRunAtMs": 1773462600000,
-        "lastErrorReason": "timeout"
+        "lastErrorReason": "timeout",
+        "runningAtMs": 1773463160200
       }
     },
     {
@@ -628,8 +630,7 @@
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
         "nextRunAtMs": 1773489600000,
-        "lastErrorReason": "timeout",
-        "runningAtMs": 1773462708149
+        "lastErrorReason": "timeout"
       }
     },
     {
@@ -1380,7 +1381,8 @@
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
         "nextRunAtMs": 1773462400000,
-        "lastErrorReason": "timeout"
+        "lastErrorReason": "timeout",
+        "runningAtMs": 1773463160200
       }
     },
     {
@@ -2096,7 +2098,8 @@
         "lastDurationMs": 76767,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1773462205000
+        "nextRunAtMs": 1773462205000,
+        "runningAtMs": 1773463160200
       }
     },
     {
@@ -2280,8 +2283,7 @@
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 13,
         "nextRunAtMs": 1773475414472,
-        "lastErrorReason": "timeout",
-        "runningAtMs": 1773462708149
+        "lastErrorReason": "timeout"
       }
     },
     {
@@ -2357,8 +2359,7 @@
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 3,
         "nextRunAtMs": 1773475255483,
-        "lastErrorReason": "model_not_found",
-        "runningAtMs": 1773462708149
+        "lastErrorReason": "model_not_found"
       }
     },
     {
@@ -2379,7 +2380,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 600,
-        "message": "You are RESEARCH. Mine developer pain points and write actionable project specs for ENG to implement.\n\nSTEP 1 — READ BACKLOG:\n- Read workspace/projects/backlog.md\n- Count how many rows have Status=READY. If >= 5, skip to STEP 5 (enough specs already).\n\nSTEP 2 — MINE PAIN POINTS (pick ONE):\nOption A — web_search (if available):\n  - web_search(\"developer tools pain points 2026 site:github.com OR site:reddit.com/r/programming\")\n  - web_search(\"LLM agent observability tools open source 2026\")\nOption B — reason from knowledge:\n  - What developer problems are unsolved in: code review, agent monitoring, LLM cost, context management, CI/CD?\n\nSTEP 3 — WRITE ONE NEW SPEC:\n- Choose ONE pain point not already in backlog.md\n- Create workspace/projects/<new-slug>/SPEC.md with:\n  ## Problem: <one sentence>\n  ## Solution: <one sentence>  \n  ## Stack: Python or Node.js\n  ## Files: list the 3-5 files ENG needs to create\n  ## Core logic: pseudocode, max 10 lines\n- Add row to workspace/projects/backlog.md: | N | <slug> | READY | — | <date>: RESEARCH wrote spec |\n\nSTEP 4 — NOTIFY ENG:\n- sessions_send(sessionKey=\"agent:eng:main\", message=\"RESEARCH: new spec ready → workspace/projects/<slug>/SPEC.md — <one-line summary>\")\n\nSTEP 5 — UPDATE STATE:\n- Update workspace/memory/working-research.json: {\"lastTask\": \"wrote spec for <slug>\", \"status\": \"completed\", \"nextTask\": \"mine more pain points\", \"timestamp\": \"<now>\"}\n- Append to workspace/logs/tasks-log.md: \"AUTO-RES | research | <datetime> UTC | done | wrote spec for <slug>\"\n- Post to Slack #redos-research (channel:C0AEV3J2L23): \"🔬 RESEARCH: new spec — <slug>\"\n\nKeep specs tight. ENG needs to ship in one 15-minute session."
+        "message": "You are RESEARCH. Mine developer pain points and write actionable project specs for ENG to implement.\n\nSTEP 1 — READ BACKLOG:\n- Read workspace/projects/backlog.md\n- Count how many rows have Status=READY. If >= 5, skip to STEP 5 (enough specs already).\n\nSTEP 2 — MINE PAIN POINTS (pick ONE):\nOption A — web_search (if available):\n  - web_search(\"developer tools pain points 2026 site:github.com OR site:reddit.com/r/programming\")\n  - web_search(\"LLM agent observability tools open source 2026\")\nOption B — reason from knowledge:\n  - What developer problems are unsolved in: code review, agent monitoring, LLM cost, context management, CI/CD?\n\nSTEP 3 — WRITE ONE NEW SPEC:\n- Choose ONE pain point not already in backlog.md\n- Create workspace/projects/<new-slug>/SPEC.md with:\n  ## Problem: <one sentence>\n  ## Solution: <one sentence>  \n  ## Stack: Python or Node.js\n  ## Files: list the 3-5 files ENG needs to create\n  ## Core logic: pseudocode, max 10 lines\n- Add row to workspace/projects/backlog.md: | N | <slug> | READY | — | <date>: RESEARCH wrote spec |\n\nSTEP 4 — NOTIFY ENG:\n- sessions_spawn(agentId=\"eng\", message=\"RESEARCH: new spec ready → workspace/projects/<slug>/SPEC.md — <one-line summary>\")\n\nSTEP 5 — UPDATE STATE:\n- Update workspace/memory/working-research.json: {\"lastTask\": \"wrote spec for <slug>\", \"status\": \"completed\", \"nextTask\": \"mine more pain points\", \"timestamp\": \"<now>\"}\n- Append to workspace/logs/tasks-log.md: \"AUTO-RES | research | <datetime> UTC | done | wrote spec for <slug>\"\n- Post to Slack #redos-research (channel:C0AEV3J2L23): \"🔬 RESEARCH: new spec — <slug>\"\n\nKeep specs tight. ENG needs to ship in one 15-minute session."
       },
       "delivery": {
         "mode": "announce",
@@ -2394,7 +2395,8 @@
         "lastDurationMs": 295518,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1773462600000
+        "nextRunAtMs": 1773462600000,
+        "runningAtMs": 1773463160200
       }
     },
     {
@@ -2431,8 +2433,7 @@
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 4,
         "nextRunAtMs": 1773476100000,
-        "lastErrorReason": "timeout",
-        "runningAtMs": 1773462708149
+        "lastErrorReason": "timeout"
       }
     },
     {
