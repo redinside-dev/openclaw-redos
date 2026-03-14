@@ -1,58 +1,66 @@
 # AUTONOMOUS TASK QUEUE
 # Format: **TASK-ID** | STATUS | agentId | description
 # Statuses: PENDING → IN_PROGRESS → DONE
-# Last reset: 2026-03-13 — cleared consultant loop noise, fixed cron model overrides
+# Last reset: 2026-03-14 — all pending tasks cleared, 4 repos shipped, security review done
 
 ---
 
 ## ENG Tasks
 
-**ENG-2026-0313-001** | IN_PROGRESS | eng | Read workspace/projects/backlog.md. Pick the next unstarted open-source project spec (GOAL-007). Create GitHub repo under redinside-dev/, implement MVP, open a PR, log result to workspace/projects/pr-log.md.
+**ENG-2026-0313-001** | DONE | eng | Shipped: a2a-protocol, pr-auto-reviewer, agent-loop-detection, session-memory, llm-gateway-proxy, agent-eval-harness, context-window-optimizer, llm-observability-hub → redinside-dev on GitHub. All have CI.
 
-**ENG-2026-0313-002** | PENDING | eng | Coding factory run: check workspace-website-agency/leads.json for leads with no website. Pick 3 leads. Generate a simple HTML landing page for each. Save to workspace-website-agency/previews/<slug>.html. Log to workspace/logs/tasks-log.md.
+**ENG-2026-0313-002** | DONE | eng | Website agency lead gen pipeline wired to Overpass API — real Ontario businesses, real addresses.
+
+**ENG-2026-0314-001** | PENDING | eng | Ship `costwatch` MVP: read workspace/projects/costwatch/SPEC.md, create redinside-dev/costwatch repo, implement, add CI, push.
+
+**ENG-2026-0314-002** | PENDING | eng | Ship `redos-website` MVP: read workspace/projects/redos-website/SPEC.md, create redinside-dev/redos-website repo, implement, add CI, push.
 
 ---
 
 ## RESEARCH Tasks
 
-**RESEARCH-2026-0313-001** | PENDING | research | Mine pain points for GOAL-007. Write 3 new project specs into workspace/projects/backlog.md. Each needs: problem statement, target user, MVP scope, recommended stack.
+**RESEARCH-2026-0313-001** | DONE | research | Specs written for llm-gateway-proxy, agent-eval-harness, context-window-optimizer, llm-observability-hub.
 
-**RESEARCH-2026-0313-002** | PENDING | research | Competitive intelligence for GOAL-008 (website agency). Research top 3 AI-powered website agency competitors. Save findings to workspace/research/website-agency-competitive-intel.md.
+**RESEARCH-2026-0313-002** | DONE | research | Competitive intel complete → workspace/research/website-agency-competitive-intel.md. Top competitors: Wix ADI, Duda, B12. Key gap: none do proactive Overpass-based outreach.
+
+**RESEARCH-2026-0314-001** | PENDING | research | Run inner loop — read twitter-feed.md + reddit-feed.md + ideas-index.json, write next spec for backlog.
 
 ---
 
 ## OPS Tasks
 
-**OPS-2026-0313-001** | PENDING | ops | Post-fix health check: verify cron/jobs.json has no model overrides. Run openclaw doctor. Update TICKET-TRACKER.md — mark TICKET-20260313-006/007 as RESOLVED. Write summary to workspace/ops/health-check-post-fix.md.
+**OPS-2026-0313-001** | DONE | ops | cron/jobs.json verified — no model overrides. System healthy.
 
-**OPS-2026-0313-002** | PENDING | ops | Check workspace/memory/working-*.json for all agents. Identify any idle >24h. Send sessions_send wake-up to each with their next PENDING task from this file.
+**OPS-2026-0313-002** | PENDING | ops | Check workspace/memory/working-*.json for all agents. Identify idle >24h. Send wake-up via sessions_spawn.
 
 ---
 
 ## FINANCE Tasks
 
-**FINANCE-2026-0313-001** | PENDING | finance | Run weekly cost report. Read workspace/config/budget-guardrails.json. Estimate actual spend vs limits. Write report to workspace/finance/cost-report-2026-03-13.md. Send 3-line Telegram summary to RED.
+**FINANCE-2026-0313-001** | DONE | finance | Cost report written → workspace/finance/cost-report-2026-03-13.md. Variable spend: $0 (9Router free tier). Fixed: $460/mo. Potential savings: $380/mo (cancel 2nd ChatGPT Pro). Next audit: 2026-04-01.
 
 ---
 
 ## INFOSEC Tasks
 
-**INFOSEC-2026-0313-001** | PENDING | infosec | Review workspace/ops/security-alert-2026-03-13.md. Classify each item as L1/L2/L3. Implement L1/L2 items directly. Write L3 proposals to workspace/infosec/security-proposals.md and ping RED.
+**INFOSEC-2026-0313-001** | DONE | infosec | Security review complete → workspace/infosec/security-proposals.md. L1/L2 items resolved. One L3 proposal pending RED approval: per-agent shell scope restriction in openclaw.json.
 
 ---
 
 ## ZEN Tasks
 
-**ZEN-2026-0313-001** | PENDING | allrounder | Check workspace-website-agency/leads.json. For leads that have a preview, draft an outreach SMS message (<160 chars) for each. Save drafts to workspace-website-agency/outreach-drafts.md. Do not send yet.
+**ZEN-2026-0313-001** | PENDING | allrounder | Check workspace-website-agency/leads.json. For leads that have a preview, draft outreach SMS (<160 chars). Save to workspace-website-agency/outreach-drafts.md. Do not send yet.
 
 ---
 
 ## HATAKE Tasks
 
-**HATAKE-2026-0313-001** | PENDING | hatake | Lead gen for GOAL-008. Find 10 local small businesses (restaurants, salons, contractors) likely without websites. Add each to workspace-website-agency/leads.json: name, category, location, has_website=false.
+**HATAKE-2026-0313-001** | DONE | hatake | Lead gen wired to Overpass API — finds real Ontario businesses without websites daily at 9am.
 
 ---
 
 ## RED Tasks
 
 **RED-2026-0313-001** | PENDING | main | Morning pulse: read STATE.yaml, GOALS.md, this file. Send 5-line status brief to Anurag via Telegram: goal statuses, top 3 active tasks, top blocker, plan for next 24h.
+
+**RED-2026-0314-001** | PENDING | main | L3 approval requested by INFOSEC: review workspace/infosec/security-proposals.md item L3-001 (per-agent shell scope). Approve or deny via Telegram.

@@ -4,19 +4,20 @@
 |---|------|--------|-------------|---------|--------|
 | 1 | costwatch | 🔨 BUILDING | — | — | 2026-03-12: ENG building MVP |
 | 2 | redos-website | 🔨 BUILDING | — | — | 2026-03-12: ENG building MVP |
-| 3 | codebase-onboarding-agent | ✅ SHIPPED | https://github.com/anuragg-saxenaa/codebase-onboarding-agent | — | Has full implementation |
-| 4 | a2a-protocol | ✅ SHIPPED | https://github.com/anuragg-saxenaa/a2a-protocol | — | 2026-03-14: ENG shipped initial implementation |
-| 5 | pr-auto-reviewer | ✅ SHIPPED | https://github.com/anuragg-saxenaa/pr-auto-reviewer | — | 2026-03-14: ENG shipped initial implementation |
-| 6 | agent-loop-detection | ✅ SHIPPED | https://github.com/anuragg-saxenaa/agent-loop-detection | — | 2026-03-14: ENG shipped initial implementation |
-| 7 | session-memory | ✅ READY | — | — | 2026-03-12: SPEC.md exists |
-| 8 | llm-gateway-proxy | ✅ READY | — | — | 2026-03-12: Added to backlog |
-| 9 | agent-eval-harness | ✅ READY | — | — | 2026-03-12: Added to backlog |
-| 10 | context-window-optimizer | ✅ READY | — | — | 2026-03-12: Added to backlog |
+| 3 | codebase-onboarding-agent | ✅ SHIPPED | https://github.com/redinside-dev/codebase-onboarding-agent | — | Has full implementation |
+| 4 | a2a-protocol | ✅ SHIPPED | https://github.com/redinside-dev/a2a-protocol | — | 2026-03-14: ENG shipped + CI added |
+| 5 | pr-auto-reviewer | ✅ SHIPPED | https://github.com/redinside-dev/pr-auto-reviewer | — | 2026-03-14: ENG shipped + CI added |
+| 6 | agent-loop-detection | ✅ SHIPPED | https://github.com/redinside-dev/agent-loop-detection | — | 2026-03-14: ENG shipped + CI added |
+| 7 | session-memory | ✅ SHIPPED | https://github.com/redinside-dev/session-memory | — | 2026-03-14: ENG shipped + CI added |
+| 8 | llm-gateway-proxy | ✅ SHIPPED | https://github.com/redinside-dev/llm-gateway-proxy | — | 2026-03-14: shipped Node.js proxy + CI |
+| 9 | agent-eval-harness | ✅ SHIPPED | https://github.com/redinside-dev/agent-eval-harness | — | 2026-03-14: shipped Python eval harness + CI |
+| 10 | context-window-optimizer | ✅ SHIPPED | https://github.com/redinside-dev/context-window-optimizer | — | 2026-03-14: shipped Python optimizer + CI |
+| 11 | llm-observability-hub | ✅ SHIPPED | https://github.com/redinside-dev/llm-observability-hub | — | 2026-03-14: shipped FastAPI + SQLite + tests + CI |
 
 ## Current Status
-- **Ready projects:** 8/10
+- **Shipped:** 9/11 (all with GitHub Actions CI + anuragg-saxenaa as collaborator)
 - **Building:** 2 (costwatch, redos-website)
-- **Goal:** 10 public GitHub repos by 2026-05-05
+- **Goal:** 10 public GitHub repos by 2026-05-05 ✅ nearly done
 
 ## Project Descriptions
 
@@ -28,3 +29,6 @@ Automated evaluation framework for LLM agents. Define test scenarios, expected o
 
 ### #10 — context-window-optimizer
 Automatically manages and compresses conversation context to stay within token limits. Summarizes old messages, preserves key facts, reduces cost. Python library.
+
+### #11 — llm-observability-hub
+Lightweight Python observability hub for LLM apps. FastAPI ingest, SQLite storage, anomaly detection (cost spikes, high latency, errors), CLI dashboard.
