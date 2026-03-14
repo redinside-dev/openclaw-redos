@@ -7,7 +7,7 @@
 
 ## ENG Tasks
 
-**ENG-2026-0313-001** | PENDING | eng | Read workspace/projects/backlog.md. Pick the next unstarted open-source project spec (GOAL-007). Create GitHub repo under redinside-dev/, implement MVP, open a PR, log result to workspace/projects/pr-log.md.
+**ENG-2026-0313-001** | IN_PROGRESS | eng | Read workspace/projects/backlog.md. Pick the next unstarted open-source project spec (GOAL-007). Create GitHub repo under redinside-dev/, implement MVP, open a PR, log result to workspace/projects/pr-log.md.
 
 **ENG-2026-0313-002** | PENDING | eng | Coding factory run: check workspace-website-agency/leads.json for leads with no website. Pick 3 leads. Generate a simple HTML landing page for each. Save to workspace-website-agency/previews/<slug>.html. Log to workspace/logs/tasks-log.md.
 
