@@ -19,27 +19,28 @@
         "kind": "agentTurn",
         "thinking": "off",
         "timeoutSeconds": 90,
-        "message": "APPROVAL MONITOR — check for pending Telegram approvals:\n\n1. Read all files in workspace/approvals/pending/ (if empty, return NO_REPLY immediately)\n2. Read recent Telegram DMs from Anurag (user 1012034994) — look for messages matching 'approve TICKET-XXXXXXXX' or 'deny TICKET-XXXXXXXX'\n3. For each match:\n   a. Move workspace/approvals/pending/TICKET-ID.json to workspace/approvals/approved/ or denied/ accordingly\n   b. Update the status field in the file to 'approved' or 'denied', add approvedAt timestamp\n   c. sessions_spawn the requesting agent (field 'requestedBy' in the file) with message: 'Approval decision received for TICKET-ID: [approved/denied]. You may now proceed (or stop) with your pending action.'\n4. For any pending approval older than 30 minutes without a decision: send a reminder Telegram DM to 1012034994: '⏰ Pending approval reminder: TICKET-ID — [action summary]. Reply approve TICKET-ID or deny TICKET-ID'\n\nIf no pending approvals and no Telegram replies found: return NO_REPLY."
+        "message": "APPROVAL MONITOR \u2014 check for pending Telegram approvals:\n\n1. Read all files in workspace/approvals/pending/ (if empty, return NO_REPLY immediately)\n2. Read recent Telegram DMs from Anurag (user 1012034994) \u2014 look for messages matching 'approve TICKET-XXXXXXXX' or 'deny TICKET-XXXXXXXX'\n3. For each match:\n   a. Move workspace/approvals/pending/TICKET-ID.json to workspace/approvals/approved/ or denied/ accordingly\n   b. Update the status field in the file to 'approved' or 'denied', add approvedAt timestamp\n   c. sessions_spawn the requesting agent (field 'requestedBy' in the file) with message: 'Approval decision received for TICKET-ID: [approved/denied]. You may now proceed (or stop) with your pending action.'\n4. For any pending approval older than 30 minutes without a decision: send a reminder Telegram DM to 1012034994: '\u23f0 Pending approval reminder: TICKET-ID \u2014 [action summary]. Reply approve TICKET-ID or deny TICKET-ID'\n\nIf no pending approvals and no Telegram replies found: return NO_REPLY."
       },
       "delivery": {
         "mode": "silent",
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1773458280000,
+        "nextRunAtMs": 1773460800000,
         "lastRunAtMs": 1773448363303,
         "lastRunStatus": "error",
         "lastStatus": "error",
         "lastDurationMs": 90005,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 48,
-        "lastErrorReason": "timeout"
+        "lastErrorReason": "timeout",
+        "runningAtMs": 1773460832344
       }
     },
     {
       "id": "system-pulse-always-on-0001",
       "agentId": "ops",
-      "name": "System Pulse — Always-On Heartbeat (Ollama only)",
+      "name": "System Pulse \u2014 Always-On Heartbeat (Ollama only)",
       "enabled": true,
       "createdAtMs": 1772080522100,
       "updatedAtMs": 1773448513316,
@@ -54,21 +55,22 @@
         "kind": "agentTurn",
         "thinking": "off",
         "timeoutSeconds": 60,
-        "message": "SYSTEM PULSE — run these checks now, in order:\n\n1. curl -s http://127.0.0.1:18789/health | head -c 200\n2. curl -s http://127.0.0.1:11434/api/tags | head -c 100\n3. curl -s http://127.0.0.1:20128/ | head -c 100\n\nIf gateway (18789) is DOWN: immediately run `bash /Users/redinside/.openclaw/scripts/redos-restart.sh` then send Telegram DM to user 1012034994: '🚨 SYSTEM PULSE: Gateway was down — auto-restarted at <time>'\n\nIf Ollama (11434) is DOWN: run `launchctl start homebrew.mxcl.ollama` then send Telegram DM to user 1012034994: '🚨 SYSTEM PULSE: Ollama was down — auto-restarted'\n\nIf everything is UP: write {\"ts\": \"<ISO now>\", \"status\": \"ok\", \"agent\": \"ops\"} to workspace/tmp/pulse-last.json ONLY. Do NOT send messages, do NOT reply. Return NO_REPLY."
+        "message": "SYSTEM PULSE \u2014 run these checks now, in order:\n\n1. curl -s http://127.0.0.1:18789/health | head -c 200\n2. curl -s http://127.0.0.1:11434/api/tags | head -c 100\n3. curl -s http://127.0.0.1:20128/ | head -c 100\n\nIf gateway (18789) is DOWN: immediately run `bash /Users/redinside/.openclaw/scripts/redos-restart.sh` then send Telegram DM to user 1012034994: '\ud83d\udea8 SYSTEM PULSE: Gateway was down \u2014 auto-restarted at <time>'\n\nIf Ollama (11434) is DOWN: run `launchctl start homebrew.mxcl.ollama` then send Telegram DM to user 1012034994: '\ud83d\udea8 SYSTEM PULSE: Ollama was down \u2014 auto-restarted'\n\nIf everything is UP: write {\"ts\": \"<ISO now>\", \"status\": \"ok\", \"agent\": \"ops\"} to workspace/tmp/pulse-last.json ONLY. Do NOT send messages, do NOT reply. Return NO_REPLY."
       },
       "delivery": {
         "mode": "silent",
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1773458400000,
+        "nextRunAtMs": 1773460800000,
         "lastRunAtMs": 1773448453308,
         "lastRunStatus": "error",
         "lastStatus": "error",
         "lastDurationMs": 60008,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 47,
-        "lastErrorReason": "timeout"
+        "lastErrorReason": "timeout",
+        "runningAtMs": 1773460832344
       }
     },
     {
@@ -87,7 +89,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "Daily Portfolio Review – Pre-Market (automated)\n\nYou are operating as an automated portfolio review agent.\n\nInputs:\n- Reference portfolio is in: workspace/portfolio/HOLDINGS.md\n- If HOLDINGS.md is empty or unclear, send ONE Telegram message asking Anurag to update it (no other output).\n\nTasks to execute (mandatory):\n1) Review current holdings and lead on next actions.\n2) Identify which holdings are disfavored under current market conditions.\n3) State what the model portfolio would rotate into.\n4) Suggest new stocks/assets that would replace weaker positions.\n\nOutput requirements:\nA) Telegram delivery (Option 2):\n- Send a SHORT summary to Telegram DM (user id 1012034994) using the message tool.\n- If content is too long, split into 2–3 Telegram messages labeled:\n  \"Portfolio Review (1/3)\", \"(2/3)\", ...\n- Hard limit: keep each Telegram message under ~3500 characters.\n\nB) Full report delivery (email):\n- Write the FULL detailed report to a markdown file under:\n  workspace/portfolio/reports/\n  Filename: portfolio-review-YYYY-MM-DD.md\n- Send the full report by email to: anorag.saxena@gmail.com\n  using the gog CLI via exec tool:\n  gog gmail send --account anorag.saxena@gmail.com --to anorag.saxena@gmail.com --subject \"Daily Portfolio Review (Full) - YYYY-MM-DD\" --body-file <path>\n\nReport structure for the FULL markdown report (strict):\n1) Market Regime Snapshot (risk-on/off/neutral + key macro drivers)\n2) Holdings Review (each holding labeled Favored/Neutral/Disfavored + short rationale)\n3) Model Portfolio Actions (increase/reduce/exit/hold)\n4) New Ideas / Replacements\n5) Risks & Invalidation Points\n\nRules:\n- All actions are framed as a hypothetical professional model portfolio.\n- Be decisive, institutional PM tone. No guarantees.\n- End both Telegram summary and full markdown report with disclosure footer:\n  Provider: <provider_name>\n  Model: <exact_model_identifier>\n",
+        "message": "Daily Portfolio Review \u2013 Pre-Market (automated)\n\nYou are operating as an automated portfolio review agent.\n\nInputs:\n- Reference portfolio is in: workspace/portfolio/HOLDINGS.md\n- If HOLDINGS.md is empty or unclear, send ONE Telegram message asking Anurag to update it (no other output).\n\nTasks to execute (mandatory):\n1) Review current holdings and lead on next actions.\n2) Identify which holdings are disfavored under current market conditions.\n3) State what the model portfolio would rotate into.\n4) Suggest new stocks/assets that would replace weaker positions.\n\nOutput requirements:\nA) Telegram delivery (Option 2):\n- Send a SHORT summary to Telegram DM (user id 1012034994) using the message tool.\n- If content is too long, split into 2\u20133 Telegram messages labeled:\n  \"Portfolio Review (1/3)\", \"(2/3)\", ...\n- Hard limit: keep each Telegram message under ~3500 characters.\n\nB) Full report delivery (email):\n- Write the FULL detailed report to a markdown file under:\n  workspace/portfolio/reports/\n  Filename: portfolio-review-YYYY-MM-DD.md\n- Send the full report by email to: anorag.saxena@gmail.com\n  using the gog CLI via exec tool:\n  gog gmail send --account anorag.saxena@gmail.com --to anorag.saxena@gmail.com --subject \"Daily Portfolio Review (Full) - YYYY-MM-DD\" --body-file <path>\n\nReport structure for the FULL markdown report (strict):\n1) Market Regime Snapshot (risk-on/off/neutral + key macro drivers)\n2) Holdings Review (each holding labeled Favored/Neutral/Disfavored + short rationale)\n3) Model Portfolio Actions (increase/reduce/exit/hold)\n4) New Ideas / Replacements\n5) Risks & Invalidation Points\n\nRules:\n- All actions are framed as a hypothetical professional model portfolio.\n- Be decisive, institutional PM tone. No guarantees.\n- End both Telegram summary and full markdown report with disclosure footer:\n  Provider: <provider_name>\n  Model: <exact_model_identifier>\n",
         "thinking": "low",
         "timeoutSeconds": 600
       },
@@ -125,7 +127,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 300,
-        "message": "Trading Window Brief (Mon–Fri, 8am–4pm ET)\n\nInputs:\n- Holdings: workspace/portfolio/HOLDINGS.md\n- Latest full report: workspace/portfolio/reports/portfolio-review-2026-02-06.md (use as baseline until replaced)\n\nTask:\nCreate a short, non-overwhelming brief for Anurag to support decision-making during market hours.\n\nOutput:\nSend a SINGLE Telegram DM to user id 1012034994, under 2500 characters.\n\nStructure (strict):\n1) Today’s focus (1 sentence)\n2) Do this now (max 3 bullets)\n3) Watchlist / levels (max 5 bullets; symbol + what changes your mind)\n4) New ideas (max 2 ideas; 1 line each)\n\nRules:\n- Plain English. No jargon.\n- No more than 10 total bullets.\n- If there is no strong action today: say \"No action\" and focus on watchlist.\n- End with: Provider: <provider> | Model: <model>"
+        "message": "Trading Window Brief (Mon\u2013Fri, 8am\u20134pm ET)\n\nInputs:\n- Holdings: workspace/portfolio/HOLDINGS.md\n- Latest full report: workspace/portfolio/reports/portfolio-review-2026-02-06.md (use as baseline until replaced)\n\nTask:\nCreate a short, non-overwhelming brief for Anurag to support decision-making during market hours.\n\nOutput:\nSend a SINGLE Telegram DM to user id 1012034994, under 2500 characters.\n\nStructure (strict):\n1) Today\u2019s focus (1 sentence)\n2) Do this now (max 3 bullets)\n3) Watchlist / levels (max 5 bullets; symbol + what changes your mind)\n4) New ideas (max 2 ideas; 1 line each)\n\nRules:\n- Plain English. No jargon.\n- No more than 10 total bullets.\n- If there is no strong action today: say \"No action\" and focus on watchlist.\n- End with: Provider: <provider> | Model: <model>"
       },
       "delivery": {
         "mode": "announce",
@@ -163,7 +165,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 300,
-        "message": "Trading Window Brief (Mon–Fri)\n\nThis is the 4:00pm ET close-time brief.\n\nInputs:\n- Holdings: workspace/portfolio/HOLDINGS.md\n- Latest full report: workspace/portfolio/reports/portfolio-review-2026-02-06.md (use as baseline until replaced)\n\nTask:\nCreate a short, non-overwhelming brief for Anurag.\n\nOutput:\nSend a SINGLE Telegram DM to user id 1012034994, under 2500 characters.\n\nStructure (strict):\n1) Today’s focus (1 sentence)\n2) Do this now (max 3 bullets)\n3) Watchlist / levels (max 5 bullets; symbol + what changes your mind)\n4) New ideas (max 2 ideas; 1 line each)\n\nRules:\n- Plain English. No jargon.\n- No more than 10 total bullets.\n- If there is no strong action today: say \"No action\" and focus on watchlist.\n- End with: Provider: <provider> | Model: <model>"
+        "message": "Trading Window Brief (Mon\u2013Fri)\n\nThis is the 4:00pm ET close-time brief.\n\nInputs:\n- Holdings: workspace/portfolio/HOLDINGS.md\n- Latest full report: workspace/portfolio/reports/portfolio-review-2026-02-06.md (use as baseline until replaced)\n\nTask:\nCreate a short, non-overwhelming brief for Anurag.\n\nOutput:\nSend a SINGLE Telegram DM to user id 1012034994, under 2500 characters.\n\nStructure (strict):\n1) Today\u2019s focus (1 sentence)\n2) Do this now (max 3 bullets)\n3) Watchlist / levels (max 5 bullets; symbol + what changes your mind)\n4) New ideas (max 2 ideas; 1 line each)\n\nRules:\n- Plain English. No jargon.\n- No more than 10 total bullets.\n- If there is no strong action today: say \"No action\" and focus on watchlist.\n- End with: Provider: <provider> | Model: <model>"
       },
       "delivery": {
         "mode": "announce",
@@ -239,7 +241,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 180,
-        "message": "Gmail Unread Summary (automated) — Telegram only\n\nAccount: anorag.saxena@gmail.com\n\nGoal:\n- Send Anurag a short summary of NEW unread inbox threads since last check.\n- Do NOT send emails. Do NOT mark anything as read. Do NOT archive/delete.\n\nState:\n- Read/write JSON state at workspace/tmp/gmail-unread-digest.json\n  Shape: { \"seenThreadIds\": [\"...\"] }\n\nSteps:\n1) Load state file (if missing, treat as empty).\n2) Fetch unread inbox threads (max 15) using exec:\n   gog gmail search \"in:inbox is:unread\" --account anorag.saxena@gmail.com --json --max 15\n3) Determine which threads are NEW (id not in seenThreadIds).\n4) If there are no new threads: do nothing.\n5) If there are new threads: send ONE Telegram DM to user id 1012034994 with:\n   - Title: \"Unread Gmail (since last check)\"\n   - For each new thread (max 8): date, from, subject\n   - If more than 8: add \"(+N more)\"\n   Keep under 2500 chars.\n6) Update state file by adding all currently-seen thread ids (from the fetched list) to seenThreadIds (dedupe).\n\nOutput rules:\n- Plain English. No jargon.\n- End message with: Provider: <provider> | Model: <model>"
+        "message": "Gmail Unread Summary (automated) \u2014 Telegram only\n\nAccount: anorag.saxena@gmail.com\n\nGoal:\n- Send Anurag a short summary of NEW unread inbox threads since last check.\n- Do NOT send emails. Do NOT mark anything as read. Do NOT archive/delete.\n\nState:\n- Read/write JSON state at workspace/tmp/gmail-unread-digest.json\n  Shape: { \"seenThreadIds\": [\"...\"] }\n\nSteps:\n1) Load state file (if missing, treat as empty).\n2) Fetch unread inbox threads (max 15) using exec:\n   gog gmail search \"in:inbox is:unread\" --account anorag.saxena@gmail.com --json --max 15\n3) Determine which threads are NEW (id not in seenThreadIds).\n4) If there are no new threads: do nothing.\n5) If there are new threads: send ONE Telegram DM to user id 1012034994 with:\n   - Title: \"Unread Gmail (since last check)\"\n   - For each new thread (max 8): date, from, subject\n   - If more than 8: add \"(+N more)\"\n   Keep under 2500 chars.\n6) Update state file by adding all currently-seen thread ids (from the fetched list) to seenThreadIds (dedupe).\n\nOutput rules:\n- Plain English. No jargon.\n- End message with: Provider: <provider> | Model: <model>"
       },
       "delivery": {
         "mode": "announce",
@@ -277,7 +279,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 180,
-        "message": "You are running a scheduled GitHub repo monitor and must produce a Telegram-ready message.\n\nRepos to monitor:\n- anuragg-saxenaa/stock-crypto-portfolio-tracker\n- anuragg-saxenaa/spring-boot-product-api\n\nState file:\n- Read/write: workspace/tmp/github-repo-monitor.json\n- Shape: {\"lastRunIso\":\"...\"}\n- If file missing/unreadable or lastRunIso missing: treat lastRunIso as (now - 24h).\n\nCurrent run:\n1) Determine nowIso = current time in ISO-8601 with timezone (or Z).\n2) For each repo, fetch (via `exec`) using GitHub CLI (already authenticated):\n   a) PRs: gh api \"/repos/{owner}/{repo}/pulls?state=all&sort=updated&direction=desc&per_page=10\"\n   b) Issues: gh api \"/repos/{owner}/{repo}/issues?state=all&sort=updated&direction=desc&per_page=10\"\n      - Note: GitHub issues endpoint may include PRs; ignore entries that have a `pull_request` field.\n   c) Actions runs: gh api \"/repos/{owner}/{repo}/actions/runs?per_page=5\"\n\nFiltering rules:\n- Include items whose `updated_at` is strictly > lastRunIso. If `updated_at` missing, use `created_at`.\n- For Actions workflow runs, use `updated_at` or `run_started_at`/`created_at` if needed, and include if > lastRunIso.\n- Cap final output to max 8 bullets TOTAL across both repos (pick most recently updated across all items).\n\nStatus formatting:\n- PR: state open/closed + if merged then status \"merged\".\n- Issue: state open/closed.\n- CI: status derived from workflow run conclusion (success/failure/cancelled/skipped/neutral/timed_out/action_required) and/or status.\n\nOutput format (STRICT):\n- If there are any included items:\n  Title line exactly: \"GitHub Updates\"\n  Then bullets, each on its own line:\n  - repo: PR/Issue/CI — short title/name — status\n- If nothing new across both repos:\n  Send a single line exactly: \"No notable GitHub updates since last check.\"\n- Keep the whole message under 2000 chars.\n- End with a final line:\n  Provider: GitHub API (gh) | Model: <model>\n  where <model> is the actual model name used for this run (obtain via session_status if needed).\n\nFinally:\n- Update the state file with {\"lastRunIso\": nowIso} (write atomically: write temp then rename).\n\nNotes:\n- Be brief; shorten titles if needed.\n- Prefer most recent updates; do not exceed 8 bullets."
+        "message": "You are running a scheduled GitHub repo monitor and must produce a Telegram-ready message.\n\nRepos to monitor:\n- anuragg-saxenaa/stock-crypto-portfolio-tracker\n- anuragg-saxenaa/spring-boot-product-api\n\nState file:\n- Read/write: workspace/tmp/github-repo-monitor.json\n- Shape: {\"lastRunIso\":\"...\"}\n- If file missing/unreadable or lastRunIso missing: treat lastRunIso as (now - 24h).\n\nCurrent run:\n1) Determine nowIso = current time in ISO-8601 with timezone (or Z).\n2) For each repo, fetch (via `exec`) using GitHub CLI (already authenticated):\n   a) PRs: gh api \"/repos/{owner}/{repo}/pulls?state=all&sort=updated&direction=desc&per_page=10\"\n   b) Issues: gh api \"/repos/{owner}/{repo}/issues?state=all&sort=updated&direction=desc&per_page=10\"\n      - Note: GitHub issues endpoint may include PRs; ignore entries that have a `pull_request` field.\n   c) Actions runs: gh api \"/repos/{owner}/{repo}/actions/runs?per_page=5\"\n\nFiltering rules:\n- Include items whose `updated_at` is strictly > lastRunIso. If `updated_at` missing, use `created_at`.\n- For Actions workflow runs, use `updated_at` or `run_started_at`/`created_at` if needed, and include if > lastRunIso.\n- Cap final output to max 8 bullets TOTAL across both repos (pick most recently updated across all items).\n\nStatus formatting:\n- PR: state open/closed + if merged then status \"merged\".\n- Issue: state open/closed.\n- CI: status derived from workflow run conclusion (success/failure/cancelled/skipped/neutral/timed_out/action_required) and/or status.\n\nOutput format (STRICT):\n- If there are any included items:\n  Title line exactly: \"GitHub Updates\"\n  Then bullets, each on its own line:\n  - repo: PR/Issue/CI \u2014 short title/name \u2014 status\n- If nothing new across both repos:\n  Send a single line exactly: \"No notable GitHub updates since last check.\"\n- Keep the whole message under 2000 chars.\n- End with a final line:\n  Provider: GitHub API (gh) | Model: <model>\n  where <model> is the actual model name used for this run (obtain via session_status if needed).\n\nFinally:\n- Update the state file with {\"lastRunIso\": nowIso} (write atomically: write temp then rename).\n\nNotes:\n- Be brief; shorten titles if needed.\n- Prefer most recent updates; do not exceed 8 bullets."
       },
       "delivery": {
         "mode": "announce",
@@ -315,7 +317,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 240,
-        "message": "Market Leads (Alpha Vantage) — short Telegram note\n\nGoal:\n- Provide 3–5 actionable intraday leads using Alpha Vantage market data (no execution).\n- Plain English, non-overwhelming.\n\nInputs:\n- Holdings file: workspace/portfolio/HOLDINGS.md\n\nProcess:\n1) Build a candidate list of US-listed tickers from HOLDINGS.md (ignore obvious non-US tickers like *.B, *.TO, and crypto symbols).\n2) Take top 10 candidates by max weight across TFSA+RRSP (approx_weight_pct).\n3) For each candidate, call alphavantage.TOOL_CALL tool_name=GLOBAL_QUOTE with {symbol}.\n4) Rank by absolute changePercent.\n\nOutput:\nSend ONE Telegram DM to user id 1012034994 under 2000 chars:\n- Header: \"Market Leads\"\n- \"Today’s bias\" (1 sentence)\n- \"Top movers to watch\" (3 bullets: symbol + change% + 1-line note)\n- \"Risk / do-not-do\" (1 bullet)\n- If data is stale or missing: say so and do not fabricate.\nEnd with Provider/Model footer.\n\nRules:\n- Not financial advice; no guarantees.\n- No more than 6 bullets total."
+        "message": "Market Leads (Alpha Vantage) \u2014 short Telegram note\n\nGoal:\n- Provide 3\u20135 actionable intraday leads using Alpha Vantage market data (no execution).\n- Plain English, non-overwhelming.\n\nInputs:\n- Holdings file: workspace/portfolio/HOLDINGS.md\n\nProcess:\n1) Build a candidate list of US-listed tickers from HOLDINGS.md (ignore obvious non-US tickers like *.B, *.TO, and crypto symbols).\n2) Take top 10 candidates by max weight across TFSA+RRSP (approx_weight_pct).\n3) For each candidate, call alphavantage.TOOL_CALL tool_name=GLOBAL_QUOTE with {symbol}.\n4) Rank by absolute changePercent.\n\nOutput:\nSend ONE Telegram DM to user id 1012034994 under 2000 chars:\n- Header: \"Market Leads\"\n- \"Today\u2019s bias\" (1 sentence)\n- \"Top movers to watch\" (3 bullets: symbol + change% + 1-line note)\n- \"Risk / do-not-do\" (1 bullet)\n- If data is stale or missing: say so and do not fabricate.\nEnd with Provider/Model footer.\n\nRules:\n- Not financial advice; no guarantees.\n- No more than 6 bullets total."
       },
       "delivery": {
         "mode": "announce",
@@ -353,7 +355,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 150,
-        "message": "System Health Watch (automated) — only alert on problems\n\nGoal:\n- Keep OpenClaw reliable and reduce \"silent failures\".\n- Check core services + key automations.\n- If everything looks healthy: do nothing (no Telegram).\n\nChecks:\n1) Gateway health:\n- Use exec: openclaw status\n- If status output contains errors, unhealthy flags, or can't connect: alert.\n\n2) Browser control health (isolated browser):\n- Call browser(status) with profile=\"openclaw\".\n- If enabled=false OR running=false OR cdpReady=false: alert.\n\n3) Cron integrity + freshness (key jobs):\n- Read ../cron/jobs.json\n- Ensure these job ids exist and are enabled:\n  - 69c261e4-53e0-495a-9d9b-4c22413e8f26 (Daily Portfolio Review)\n  - 199a722c-5a9f-4df0-a7d6-71f8039ee187 (Trading Window Brief)\n  - 7d1f3378-1f52-48ee-a2d9-9c4aaf8f5c88 (Gmail Unread Summary)\n  - 2ef34ad2-e703-415d-8ad9-08a5acdfa1ca (GitHub Repo Updates)\n  - 58248a42-7459-4341-9065-be5acc73f61e (QQQ Watch)\n- Also check for \"stale\" signals:\n  - If any of the jobs have state.nextRunAtMs that is > 10 minutes in the past (missed run), alert.\n  - If a job has no nextRunAtMs, alert.\n\nAlerting:\n- If any check fails, send ONE Telegram DM to user id 1012034994:\n  Title: \"OpenClaw Health Alert\"\n  Then bullets with failing components and the suggested fix.\n  Keep under 1500 chars.\n  End with: Provider: <provider> | Model: <model>\n\nRules:\n- Do not attempt restarts automatically.\n- Do not change config.\n- Do not spam: send at most one alert per run."
+        "message": "System Health Watch (automated) \u2014 only alert on problems\n\nGoal:\n- Keep OpenClaw reliable and reduce \"silent failures\".\n- Check core services + key automations.\n- If everything looks healthy: do nothing (no Telegram).\n\nChecks:\n1) Gateway health:\n- Use exec: openclaw status\n- If status output contains errors, unhealthy flags, or can't connect: alert.\n\n2) Browser control health (isolated browser):\n- Call browser(status) with profile=\"openclaw\".\n- If enabled=false OR running=false OR cdpReady=false: alert.\n\n3) Cron integrity + freshness (key jobs):\n- Read ../cron/jobs.json\n- Ensure these job ids exist and are enabled:\n  - 69c261e4-53e0-495a-9d9b-4c22413e8f26 (Daily Portfolio Review)\n  - 199a722c-5a9f-4df0-a7d6-71f8039ee187 (Trading Window Brief)\n  - 7d1f3378-1f52-48ee-a2d9-9c4aaf8f5c88 (Gmail Unread Summary)\n  - 2ef34ad2-e703-415d-8ad9-08a5acdfa1ca (GitHub Repo Updates)\n  - 58248a42-7459-4341-9065-be5acc73f61e (QQQ Watch)\n- Also check for \"stale\" signals:\n  - If any of the jobs have state.nextRunAtMs that is > 10 minutes in the past (missed run), alert.\n  - If a job has no nextRunAtMs, alert.\n\nAlerting:\n- If any check fails, send ONE Telegram DM to user id 1012034994:\n  Title: \"OpenClaw Health Alert\"\n  Then bullets with failing components and the suggested fix.\n  Keep under 1500 chars.\n  End with: Provider: <provider> | Model: <model>\n\nRules:\n- Do not attempt restarts automatically.\n- Do not change config.\n- Do not spam: send at most one alert per run."
       },
       "delivery": {
         "mode": "announce",
@@ -391,7 +393,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 60,
-        "message": "Status update (automation work in progress)\n\nDone so far (safe, non-breaking):\n- Added cron: System Health Watch (OpenClaw) (alerts only, no auto restarts)\n- Updated POLICY.md to require progress pings + immediate failure reporting\n\nIn progress (next):\n- Add stale-run detection (alert if key crons stop running / nextRun missed)\n- Write a browser-control recovery playbook (so YouTube/Chrome timeouts have a clear fix path)\n\nETA:\n- Next improvement: ~10–15 min\n- Full set above: ~20–30 min total (from start)\n\nIf you want me to stop these 10-min updates at any time, reply: STOP UPDATES.\n\nProvider: <provider> | Model: <model>"
+        "message": "Status update (automation work in progress)\n\nDone so far (safe, non-breaking):\n- Added cron: System Health Watch (OpenClaw) (alerts only, no auto restarts)\n- Updated POLICY.md to require progress pings + immediate failure reporting\n\nIn progress (next):\n- Add stale-run detection (alert if key crons stop running / nextRun missed)\n- Write a browser-control recovery playbook (so YouTube/Chrome timeouts have a clear fix path)\n\nETA:\n- Next improvement: ~10\u201315 min\n- Full set above: ~20\u201330 min total (from start)\n\nIf you want me to stop these 10-min updates at any time, reply: STOP UPDATES.\n\nProvider: <provider> | Model: <model>"
       },
       "delivery": {
         "mode": "announce",
@@ -406,8 +408,9 @@
         "consecutiveErrors": 12,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1773458400000,
-        "lastErrorReason": "timeout"
+        "nextRunAtMs": 1773460800000,
+        "lastErrorReason": "timeout",
+        "runningAtMs": 1773460832344
       }
     },
     {
@@ -627,8 +630,9 @@
         "consecutiveErrors": 7,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1773489600000,
-        "lastErrorReason": "timeout"
+        "nextRunAtMs": 1773460735063,
+        "lastErrorReason": "timeout",
+        "runningAtMs": 1773460832344
       }
     },
     {
@@ -647,7 +651,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "You are RED (CEO). Write your morning standup status.\n\nRead workspace/ops/TICKET-TRACKER.md and workspace/ops/LEARNINGS.md for context.\n\nWrite your status to workspace/ops/agent-status/main.json as valid JSON:\n{\n  \"agent\": \"main\",\n  \"date\": \"YYYY-MM-DD\",\n  \"updatedAt\": \"ISO timestamp\",\n  \"sprintGoal\": \"1-sentence goal for this sprint\",\n  \"workingOn\": \"What you are focused on today\",\n  \"completedYesterday\": \"What you completed yesterday or recently\",\n  \"eta\": \"ETA for current sprint goal (e.g. EOD, 2 days, etc.)\",\n  \"blockers\": \"Any blockers, or 'None'\"\n}\n\nAfter writing the JSON file, use the message tool to post your standup to #redos-scrum.\n\nPost this message to channel:C0AEV3J2L23:\n```\n👑 *RED (CEO) — Daily Standup*\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📅 *Date:* <today's date, e.g. Mon Feb 17 2026>\n🎯 *Sprint Goal:* <your sprintGoal>\n✅ *Completed Yesterday:* <your completedYesterday>\n🔨 *Working On Today:* <your workingOn>\n⏱️ *ETA:* <your eta>\n🚧 *Blockers:* <your blockers or None>\n```\n\nUse the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AEV3J2L23\".\nDo NOT send a Telegram message. Just write the file and post to Slack.",
+        "message": "You are RED (CEO). Write your morning standup status.\n\nRead workspace/ops/TICKET-TRACKER.md and workspace/ops/LEARNINGS.md for context.\n\nWrite your status to workspace/ops/agent-status/main.json as valid JSON:\n{\n  \"agent\": \"main\",\n  \"date\": \"YYYY-MM-DD\",\n  \"updatedAt\": \"ISO timestamp\",\n  \"sprintGoal\": \"1-sentence goal for this sprint\",\n  \"workingOn\": \"What you are focused on today\",\n  \"completedYesterday\": \"What you completed yesterday or recently\",\n  \"eta\": \"ETA for current sprint goal (e.g. EOD, 2 days, etc.)\",\n  \"blockers\": \"Any blockers, or 'None'\"\n}\n\nAfter writing the JSON file, use the message tool to post your standup to #redos-scrum.\n\nPost this message to channel:C0AEV3J2L23:\n```\n\ud83d\udc51 *RED (CEO) \u2014 Daily Standup*\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n\ud83d\udcc5 *Date:* <today's date, e.g. Mon Feb 17 2026>\n\ud83c\udfaf *Sprint Goal:* <your sprintGoal>\n\u2705 *Completed Yesterday:* <your completedYesterday>\n\ud83d\udd28 *Working On Today:* <your workingOn>\n\u23f1\ufe0f *ETA:* <your eta>\n\ud83d\udea7 *Blockers:* <your blockers or None>\n```\n\nUse the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AEV3J2L23\".\nDo NOT send a Telegram message. Just write the file and post to Slack.",
         "thinking": "low",
         "timeoutSeconds": 240
       },
@@ -685,7 +689,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "STEP 0 (MANDATORY before writing standup): Read workspace/tmp/hatake-routing-YYYY-MM-DD.json (today's date). If it exists, use HATAKE's complexity scores and intent to inform what you report as workingOn.\n\nYou are ENG (Engineering Lead). Write your morning standup status.\n\nRead workspace/ops/TICKET-TRACKER.md for any tickets assigned to you.\n\nWrite your status to workspace/ops/agent-status/eng.json as valid JSON:\n{\n  \"agent\": \"eng\",\n  \"date\": \"YYYY-MM-DD\",\n  \"updatedAt\": \"ISO timestamp\",\n  \"sprintGoal\": \"1-sentence engineering goal for this sprint\",\n  \"workingOn\": \"What you are focused on today (be specific: feature, bug, PR)\",\n  \"completedYesterday\": \"What you completed recently\",\n  \"eta\": \"ETA for current work (e.g. EOD, 2 days, next sprint)\",\n  \"blockers\": \"Any blockers, or 'None'\"\n}\n\nAfter writing the JSON file, use the message tool to post your standup to #redos-scrum.\n\nPost this message to channel:C0AEV3J2L23:\n```\n💻 *ENG (Engineering Lead) — Daily Standup*\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📅 *Date:* <today's date, e.g. Mon Feb 17 2026>\n🎯 *Sprint Goal:* <your sprintGoal>\n✅ *Completed Yesterday:* <your completedYesterday>\n🔨 *Working On Today:* <your workingOn>\n⏱️ *ETA:* <your eta>\n🚧 *Blockers:* <your blockers or None>\n```\n\nUse the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AEV3J2L23\".\nDo NOT send a Telegram message. Just write the file and post to Slack.",
+        "message": "STEP 0 (MANDATORY before writing standup): Read workspace/tmp/hatake-routing-YYYY-MM-DD.json (today's date). If it exists, use HATAKE's complexity scores and intent to inform what you report as workingOn.\n\nYou are ENG (Engineering Lead). Write your morning standup status.\n\nRead workspace/ops/TICKET-TRACKER.md for any tickets assigned to you.\n\nWrite your status to workspace/ops/agent-status/eng.json as valid JSON:\n{\n  \"agent\": \"eng\",\n  \"date\": \"YYYY-MM-DD\",\n  \"updatedAt\": \"ISO timestamp\",\n  \"sprintGoal\": \"1-sentence engineering goal for this sprint\",\n  \"workingOn\": \"What you are focused on today (be specific: feature, bug, PR)\",\n  \"completedYesterday\": \"What you completed recently\",\n  \"eta\": \"ETA for current work (e.g. EOD, 2 days, next sprint)\",\n  \"blockers\": \"Any blockers, or 'None'\"\n}\n\nAfter writing the JSON file, use the message tool to post your standup to #redos-scrum.\n\nPost this message to channel:C0AEV3J2L23:\n```\n\ud83d\udcbb *ENG (Engineering Lead) \u2014 Daily Standup*\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n\ud83d\udcc5 *Date:* <today's date, e.g. Mon Feb 17 2026>\n\ud83c\udfaf *Sprint Goal:* <your sprintGoal>\n\u2705 *Completed Yesterday:* <your completedYesterday>\n\ud83d\udd28 *Working On Today:* <your workingOn>\n\u23f1\ufe0f *ETA:* <your eta>\n\ud83d\udea7 *Blockers:* <your blockers or None>\n```\n\nUse the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AEV3J2L23\".\nDo NOT send a Telegram message. Just write the file and post to Slack.",
         "thinking": "low",
         "timeoutSeconds": 240
       },
@@ -723,7 +727,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "You are RESEARCH (Research Analyst). Write your morning standup status.\n\nRead workspace/ops/TICKET-TRACKER.md and workspace/ops/LEARNINGS.md for context.\n\nWrite your status to workspace/ops/agent-status/research.json as valid JSON:\n{\n  \"agent\": \"research\",\n  \"date\": \"YYYY-MM-DD\",\n  \"updatedAt\": \"ISO timestamp\",\n  \"sprintGoal\": \"1-sentence research goal for this sprint\",\n  \"workingOn\": \"What you are researching today\",\n  \"completedYesterday\": \"What you completed recently\",\n  \"eta\": \"ETA for current research output\",\n  \"blockers\": \"Any blockers or missing data, or 'None'\"\n}\n\nAfter writing the JSON file, use the message tool to post your standup to #redos-scrum.\n\nPost this message to channel:C0AEV3J2L23:\n```\n🔬 *RESEARCH (Research Analyst) — Daily Standup*\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📅 *Date:* <today's date, e.g. Mon Feb 17 2026>\n🎯 *Sprint Goal:* <your sprintGoal>\n✅ *Completed Yesterday:* <your completedYesterday>\n🔨 *Working On Today:* <your workingOn>\n⏱️ *ETA:* <your eta>\n🚧 *Blockers:* <your blockers or None>\n```\n\nUse the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AEV3J2L23\".\nDo NOT send a Telegram message. Just write the file and post to Slack.",
+        "message": "You are RESEARCH (Research Analyst). Write your morning standup status.\n\nRead workspace/ops/TICKET-TRACKER.md and workspace/ops/LEARNINGS.md for context.\n\nWrite your status to workspace/ops/agent-status/research.json as valid JSON:\n{\n  \"agent\": \"research\",\n  \"date\": \"YYYY-MM-DD\",\n  \"updatedAt\": \"ISO timestamp\",\n  \"sprintGoal\": \"1-sentence research goal for this sprint\",\n  \"workingOn\": \"What you are researching today\",\n  \"completedYesterday\": \"What you completed recently\",\n  \"eta\": \"ETA for current research output\",\n  \"blockers\": \"Any blockers or missing data, or 'None'\"\n}\n\nAfter writing the JSON file, use the message tool to post your standup to #redos-scrum.\n\nPost this message to channel:C0AEV3J2L23:\n```\n\ud83d\udd2c *RESEARCH (Research Analyst) \u2014 Daily Standup*\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n\ud83d\udcc5 *Date:* <today's date, e.g. Mon Feb 17 2026>\n\ud83c\udfaf *Sprint Goal:* <your sprintGoal>\n\u2705 *Completed Yesterday:* <your completedYesterday>\n\ud83d\udd28 *Working On Today:* <your workingOn>\n\u23f1\ufe0f *ETA:* <your eta>\n\ud83d\udea7 *Blockers:* <your blockers or None>\n```\n\nUse the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AEV3J2L23\".\nDo NOT send a Telegram message. Just write the file and post to Slack.",
         "thinking": "low",
         "timeoutSeconds": 240
       },
@@ -761,7 +765,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "You are FINANCE (Finance Analyst). Write your morning standup status.\n\nRead workspace/portfolio/HOLDINGS.md if available for context.\n\nWrite your status to workspace/ops/agent-status/finance.json as valid JSON:\n{\n  \"agent\": \"finance\",\n  \"date\": \"YYYY-MM-DD\",\n  \"updatedAt\": \"ISO timestamp\",\n  \"sprintGoal\": \"1-sentence finance goal for this sprint\",\n  \"workingOn\": \"What you are focused on today (portfolio review, analysis, etc.)\",\n  \"completedYesterday\": \"What you completed recently\",\n  \"eta\": \"ETA for current deliverable\",\n  \"blockers\": \"Any blockers (missing data, pending input), or 'None'\"\n}\n\nAfter writing the JSON file, use the message tool to post your standup to #redos-scrum.\n\nPost this message to channel:C0AEV3J2L23:\n```\n💰 *FINANCE (Finance Analyst) — Daily Standup*\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📅 *Date:* <today's date, e.g. Mon Feb 17 2026>\n🎯 *Sprint Goal:* <your sprintGoal>\n✅ *Completed Yesterday:* <your completedYesterday>\n🔨 *Working On Today:* <your workingOn>\n⏱️ *ETA:* <your eta>\n🚧 *Blockers:* <your blockers or None>\n```\n\nUse the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AEV3J2L23\".\nDo NOT send a Telegram message. Just write the file and post to Slack.",
+        "message": "You are FINANCE (Finance Analyst). Write your morning standup status.\n\nRead workspace/portfolio/HOLDINGS.md if available for context.\n\nWrite your status to workspace/ops/agent-status/finance.json as valid JSON:\n{\n  \"agent\": \"finance\",\n  \"date\": \"YYYY-MM-DD\",\n  \"updatedAt\": \"ISO timestamp\",\n  \"sprintGoal\": \"1-sentence finance goal for this sprint\",\n  \"workingOn\": \"What you are focused on today (portfolio review, analysis, etc.)\",\n  \"completedYesterday\": \"What you completed recently\",\n  \"eta\": \"ETA for current deliverable\",\n  \"blockers\": \"Any blockers (missing data, pending input), or 'None'\"\n}\n\nAfter writing the JSON file, use the message tool to post your standup to #redos-scrum.\n\nPost this message to channel:C0AEV3J2L23:\n```\n\ud83d\udcb0 *FINANCE (Finance Analyst) \u2014 Daily Standup*\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n\ud83d\udcc5 *Date:* <today's date, e.g. Mon Feb 17 2026>\n\ud83c\udfaf *Sprint Goal:* <your sprintGoal>\n\u2705 *Completed Yesterday:* <your completedYesterday>\n\ud83d\udd28 *Working On Today:* <your workingOn>\n\u23f1\ufe0f *ETA:* <your eta>\n\ud83d\udea7 *Blockers:* <your blockers or None>\n```\n\nUse the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AEV3J2L23\".\nDo NOT send a Telegram message. Just write the file and post to Slack.",
         "thinking": "low",
         "timeoutSeconds": 240
       },
@@ -799,7 +803,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "You are OPS (Scrum Master). Write your morning standup status.\n\nRead workspace/ops/TICKET-TRACKER.md and logs/gateway.err.log (last 10 lines) for context.\n\nWrite your status to workspace/ops/agent-status/ops.json as valid JSON:\n{\n  \"agent\": \"ops\",\n  \"date\": \"YYYY-MM-DD\",\n  \"updatedAt\": \"ISO timestamp\",\n  \"sprintGoal\": \"1-sentence ops goal for this sprint\",\n  \"workingOn\": \"What you are focused on today (ticket management, health, SLA)\",\n  \"completedYesterday\": \"What you completed recently\",\n  \"eta\": \"ETA for current ops deliverable\",\n  \"blockers\": \"Any system issues or blockers, or 'None'\"\n}\n\nAfter writing the JSON file, use the message tool to post your standup to #redos-scrum.\n\nPost this message to channel:C0AEV3J2L23:\n```\n⚙️ *OPS (Scrum Master) — Daily Standup*\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📅 *Date:* <today's date, e.g. Mon Feb 17 2026>\n🎯 *Sprint Goal:* <your sprintGoal>\n✅ *Completed Yesterday:* <your completedYesterday>\n🔨 *Working On Today:* <your workingOn>\n⏱️ *ETA:* <your eta>\n🚧 *Blockers:* <your blockers or None>\n```\n\nUse the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AEV3J2L23\".\nDo NOT send a Telegram message. Just write the file and post to Slack.",
+        "message": "You are OPS (Scrum Master). Write your morning standup status.\n\nRead workspace/ops/TICKET-TRACKER.md and logs/gateway.err.log (last 10 lines) for context.\n\nWrite your status to workspace/ops/agent-status/ops.json as valid JSON:\n{\n  \"agent\": \"ops\",\n  \"date\": \"YYYY-MM-DD\",\n  \"updatedAt\": \"ISO timestamp\",\n  \"sprintGoal\": \"1-sentence ops goal for this sprint\",\n  \"workingOn\": \"What you are focused on today (ticket management, health, SLA)\",\n  \"completedYesterday\": \"What you completed recently\",\n  \"eta\": \"ETA for current ops deliverable\",\n  \"blockers\": \"Any system issues or blockers, or 'None'\"\n}\n\nAfter writing the JSON file, use the message tool to post your standup to #redos-scrum.\n\nPost this message to channel:C0AEV3J2L23:\n```\n\u2699\ufe0f *OPS (Scrum Master) \u2014 Daily Standup*\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n\ud83d\udcc5 *Date:* <today's date, e.g. Mon Feb 17 2026>\n\ud83c\udfaf *Sprint Goal:* <your sprintGoal>\n\u2705 *Completed Yesterday:* <your completedYesterday>\n\ud83d\udd28 *Working On Today:* <your workingOn>\n\u23f1\ufe0f *ETA:* <your eta>\n\ud83d\udea7 *Blockers:* <your blockers or None>\n```\n\nUse the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AEV3J2L23\".\nDo NOT send a Telegram message. Just write the file and post to Slack.",
         "thinking": "low",
         "timeoutSeconds": 240
       },
@@ -837,7 +841,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "You are INFOSEC (Security Officer). Write your morning standup status.\n\nRead logs/gateway.err.log (last 20 lines) and workspace/ops/TICKET-TRACKER.md for context.\n\nWrite your status to workspace/ops/agent-status/infosec.json as valid JSON:\n{\n  \"agent\": \"infosec\",\n  \"date\": \"YYYY-MM-DD\",\n  \"updatedAt\": \"ISO timestamp\",\n  \"sprintGoal\": \"1-sentence security goal for this sprint\",\n  \"workingOn\": \"What you are monitoring or hardening today\",\n  \"completedYesterday\": \"What security checks or improvements you completed recently\",\n  \"eta\": \"ETA for current security deliverable\",\n  \"blockers\": \"Any security concerns or blockers, or 'None'\"\n}\n\nAfter writing the JSON file, use the message tool to post your standup to #redos-scrum.\n\nPost this message to channel:C0AEV3J2L23:\n```\n🔒 *INFOSEC (Security Officer) — Daily Standup*\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📅 *Date:* <today's date, e.g. Mon Feb 17 2026>\n🎯 *Sprint Goal:* <your sprintGoal>\n✅ *Completed Yesterday:* <your completedYesterday>\n🔨 *Working On Today:* <your workingOn>\n⏱️ *ETA:* <your eta>\n🚧 *Blockers:* <your blockers or None>\n```\n\nUse the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AEV3J2L23\".\nDo NOT send a Telegram message. Just write the file and post to Slack.",
+        "message": "You are INFOSEC (Security Officer). Write your morning standup status.\n\nRead logs/gateway.err.log (last 20 lines) and workspace/ops/TICKET-TRACKER.md for context.\n\nWrite your status to workspace/ops/agent-status/infosec.json as valid JSON:\n{\n  \"agent\": \"infosec\",\n  \"date\": \"YYYY-MM-DD\",\n  \"updatedAt\": \"ISO timestamp\",\n  \"sprintGoal\": \"1-sentence security goal for this sprint\",\n  \"workingOn\": \"What you are monitoring or hardening today\",\n  \"completedYesterday\": \"What security checks or improvements you completed recently\",\n  \"eta\": \"ETA for current security deliverable\",\n  \"blockers\": \"Any security concerns or blockers, or 'None'\"\n}\n\nAfter writing the JSON file, use the message tool to post your standup to #redos-scrum.\n\nPost this message to channel:C0AEV3J2L23:\n```\n\ud83d\udd12 *INFOSEC (Security Officer) \u2014 Daily Standup*\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n\ud83d\udcc5 *Date:* <today's date, e.g. Mon Feb 17 2026>\n\ud83c\udfaf *Sprint Goal:* <your sprintGoal>\n\u2705 *Completed Yesterday:* <your completedYesterday>\n\ud83d\udd28 *Working On Today:* <your workingOn>\n\u23f1\ufe0f *ETA:* <your eta>\n\ud83d\udea7 *Blockers:* <your blockers or None>\n```\n\nUse the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AEV3J2L23\".\nDo NOT send a Telegram message. Just write the file and post to Slack.",
         "thinking": "low",
         "timeoutSeconds": 240
       },
@@ -862,7 +866,7 @@
     {
       "id": "0e518762-ba06-462b-aae1-78d201befbd0",
       "agentId": "ops",
-      "name": "OPS Scrum Master — Morning Standup",
+      "name": "OPS Scrum Master \u2014 Morning Standup",
       "enabled": true,
       "createdAtMs": 1771194095024,
       "updatedAtMs": 1773412750302,
@@ -875,7 +879,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "You are OPS, the Scrum Master. Compile and publish the daily standup.\n\nBACKGROUND: Each agent wrote their morning status to a JSON file at 9:05am. Read those files now to compile the standup. Do NOT use sessions_send — agents are idle and won't respond.\n\nSTEPS:\n1. Read each agent status file (skip missing files gracefully, mark agent as 'No check-in'):\n   - workspace/ops/agent-status/main.json\n   - workspace/ops/agent-status/eng.json\n   - workspace/ops/agent-status/research.json\n   - workspace/ops/agent-status/finance.json\n   - workspace/ops/agent-status/ops.json\n   - workspace/ops/agent-status/infosec.json\n   Each file has: { agent, date, workingOn, completedYesterday, eta, blockers, sprintGoal, updatedAt }\n\n2. Read workspace/ops/TICKET-TRACKER.md — count open tickets by priority.\n\n3. Read logs/gateway.err.log (last 20 lines) — check system health.\n\n4. Append a standup entry to workspace/ops/STANDUP-LOG.md in this format:\n```\n### Standup YYYY-MM-DD 09:15 ET\n\n**OPS (Scrum Master) Roll Call:**\n\n| Agent | Status | Working On | Blockers | ETA | Next |\n|-------|--------|-----------|----------|-----|------|\n| RED | ... | ... | ... | ... | ... |\n| ENG | ... | ... | ... | ... | ... |\n| RESEARCH | ... | ... | ... | ... | ... |\n| FINANCE | ... | ... | ... | ... | ... |\n| OPS | ... | ... | ... | ... | ... |\n| INFOSEC | ... | ... | ... | ... | ... |\n\n**Open Tickets:** {count} (P0: {n}, P1: {n}, P2: {n}, P3: {n})\n**SLA Breaches:** {list or \"None\"}\n**System Health:** {healthy/degraded/issues}\n**Action Items:**\n1. ...\n```\n\n5. Send a Telegram summary to Anurag (user ID: 1012034994) — keep under 2500 chars:\n   - Header: Morning Standup YYYY-MM-DD\n   - Per-agent one-liner: what they're working on, any blockers\n   - Ticket count + SLA status\n   - System health\n   - Top action items\n\nRULES:\n- If an agent has no status file or date != today: mark as 'No check-in'.\n- Never fabricate agent responses. Only use what's in the JSON files.\n\n5. Post the compiled standup summary to Slack channel #redos-scrum (channel:C0AEV3J2L23).\n   Format the Slack message as:\n   ```\n   ⚙️ *Daily Scrum Summary — <date>*\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n   *Agents checked in:* <count>/<total>\n   \n   <for each agent that checked in>\n   <emoji> *<AGENT NAME>* — <workingOn>\n   › Completed: <completedYesterday>\n   › ETA: <eta> | Blockers: <blockers>\n   \n   *Sprint Goals:* <list>\n   *Open Tickets:* <count> open, <count> breached SLA\n   *Action Items:* <if any>\n   ```\n   Use the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AEV3J2L23\"\n   \n6. Send the standup summary to Anurag via Telegram DM (user 1012034994) as before.",
+        "message": "You are OPS, the Scrum Master. Compile and publish the daily standup.\n\nBACKGROUND: Each agent wrote their morning status to a JSON file at 9:05am. Read those files now to compile the standup. Do NOT use sessions_send \u2014 agents are idle and won't respond.\n\nSTEPS:\n1. Read each agent status file (skip missing files gracefully, mark agent as 'No check-in'):\n   - workspace/ops/agent-status/main.json\n   - workspace/ops/agent-status/eng.json\n   - workspace/ops/agent-status/research.json\n   - workspace/ops/agent-status/finance.json\n   - workspace/ops/agent-status/ops.json\n   - workspace/ops/agent-status/infosec.json\n   Each file has: { agent, date, workingOn, completedYesterday, eta, blockers, sprintGoal, updatedAt }\n\n2. Read workspace/ops/TICKET-TRACKER.md \u2014 count open tickets by priority.\n\n3. Read logs/gateway.err.log (last 20 lines) \u2014 check system health.\n\n4. Append a standup entry to workspace/ops/STANDUP-LOG.md in this format:\n```\n### Standup YYYY-MM-DD 09:15 ET\n\n**OPS (Scrum Master) Roll Call:**\n\n| Agent | Status | Working On | Blockers | ETA | Next |\n|-------|--------|-----------|----------|-----|------|\n| RED | ... | ... | ... | ... | ... |\n| ENG | ... | ... | ... | ... | ... |\n| RESEARCH | ... | ... | ... | ... | ... |\n| FINANCE | ... | ... | ... | ... | ... |\n| OPS | ... | ... | ... | ... | ... |\n| INFOSEC | ... | ... | ... | ... | ... |\n\n**Open Tickets:** {count} (P0: {n}, P1: {n}, P2: {n}, P3: {n})\n**SLA Breaches:** {list or \"None\"}\n**System Health:** {healthy/degraded/issues}\n**Action Items:**\n1. ...\n```\n\n5. Send a Telegram summary to Anurag (user ID: 1012034994) \u2014 keep under 2500 chars:\n   - Header: Morning Standup YYYY-MM-DD\n   - Per-agent one-liner: what they're working on, any blockers\n   - Ticket count + SLA status\n   - System health\n   - Top action items\n\nRULES:\n- If an agent has no status file or date != today: mark as 'No check-in'.\n- Never fabricate agent responses. Only use what's in the JSON files.\n\n5. Post the compiled standup summary to Slack channel #redos-scrum (channel:C0AEV3J2L23).\n   Format the Slack message as:\n   ```\n   \u2699\ufe0f *Daily Scrum Summary \u2014 <date>*\n   \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n   *Agents checked in:* <count>/<total>\n   \n   <for each agent that checked in>\n   <emoji> *<AGENT NAME>* \u2014 <workingOn>\n   \u203a Completed: <completedYesterday>\n   \u203a ETA: <eta> | Blockers: <blockers>\n   \n   *Sprint Goals:* <list>\n   *Open Tickets:* <count> open, <count> breached SLA\n   *Action Items:* <if any>\n   ```\n   Use the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AEV3J2L23\"\n   \n6. Send the standup summary to Anurag via Telegram DM (user 1012034994) as before.",
         "thinking": "low",
         "timeoutSeconds": 300
       },
@@ -940,7 +944,7 @@
       "name": "OPS System Health Monitor",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1773449473354,
+      "updatedAtMs": 1773460218621,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -950,7 +954,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "You are OPS, the system health monitor. Check system health now.\n\nSTEPS:\n1. Read logs/gateway.err.log (last 20 lines) — look for new errors since last check.\n2. Read logs/errors.jsonl (last 5 entries) — check for recurring failures.\n3. Read workspace/ops/TICKET-TRACKER.md — check what's already tracked.\n\nIF you find new errors NOT already in TICKET-TRACKER.md:\na. Add a ticket to TICKET-TRACKER.md following the format there.\nb. Add a learning to workspace/ops/LEARNINGS.md if applicable.\nc. If critical (system down): Send Telegram alert to user 1012034994.\n\nIF everything is healthy: Do nothing. Be silent.\n\nRULES:\n- Do NOT run shell commands. Only use read and write tools.\n- Only create tickets for NEW issues not already tracked.\n- Keep it brief.\n\nAfter completing all checks and file updates, use the message tool to post a health summary to #redos-mission-control (channel:C0AEV3MDEDD).\n\nFormat:\n```\n🔍 *System Health Check — <timestamp>*\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\nStatus: ✅ HEALTHY / ⚠️ DEGRADED / 🔴 CRITICAL\n<summary of findings — errors found, tickets opened/updated, actions taken>\n```\nOnly post if there are findings OR every 3rd run (to avoid channel spam). Always post if status is DEGRADED or CRITICAL.\nUse the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AEV3MDEDD\" ",
+        "message": "You are OPS, the system health monitor. Check system health now.\n\nSTEPS:\n1. Read logs/gateway.err.log (last 20 lines) \u2014 look for new errors since last check.\n2. Read logs/errors.jsonl (last 5 entries) \u2014 check for recurring failures.\n3. Read workspace/ops/TICKET-TRACKER.md \u2014 check what's already tracked.\n\nIF you find new errors NOT already in TICKET-TRACKER.md:\na. Add a ticket to TICKET-TRACKER.md following the format there.\nb. Add a learning to workspace/ops/LEARNINGS.md if applicable.\nc. If critical (system down): Send Telegram alert to user 1012034994.\n\nIF everything is healthy: Do nothing. Be silent.\n\nRULES:\n- Do NOT run shell commands. Only use read and write tools.\n- Only create tickets for NEW issues not already tracked.\n- Keep it brief.\n\nAfter completing all checks and file updates, use the message tool to post a health summary to #redos-mission-control (channel:C0AEV3MDEDD).\n\nFormat:\n```\n\ud83d\udd0d *System Health Check \u2014 <timestamp>*\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\nStatus: \u2705 HEALTHY / \u26a0\ufe0f DEGRADED / \ud83d\udd34 CRITICAL\n<summary of findings \u2014 errors found, tickets opened/updated, actions taken>\n```\nOnly post if there are findings OR every 3rd run (to avoid channel spam). Always post if status is DEGRADED or CRITICAL.\nUse the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AEV3MDEDD\" ",
         "thinking": "low",
         "timeoutSeconds": 300
       },
@@ -962,14 +966,14 @@
       },
       "state": {
         "lastStatus": "error",
-        "lastRunAtMs": 1773449173318,
-        "lastDurationMs": 300036,
-        "consecutiveErrors": 1,
+        "lastRunAtMs": 1773459918577,
+        "lastDurationMs": 300044,
+        "consecutiveErrors": 2,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1773458495024,
+        "nextRunAtMs": 1773463518577,
         "lastErrorReason": "timeout",
-        "runningAtMs": 1773459918333
+        "lastError": "Error: cron: job execution timed out"
       }
     },
     {
@@ -988,7 +992,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "You are RED (CEO). Run the self-improvement reflection cycle.\n\nSTEPS:\n1. Read workspace/ops/LEARNINGS.md — review recent learnings.\n2. Read workspace/ops/TICKET-TRACKER.md — review resolved tickets from last 24h.\n3. Read logs/errors.jsonl (last 20 entries) — look for patterns.\n4. Read workspace/logs/routing-decisions.jsonl (last 30 entries) — check routing quality and agent performance.\n5. Read each agent status file explicitly (avoid directory listing / shell):\n   - workspace/ops/agent-status/main.json\n   - workspace/ops/agent-status/allrounder.json (if present)\n   - workspace/ops/agent-status/eng.json\n   - workspace/ops/agent-status/research.json\n   - workspace/ops/agent-status/finance.json\n   - workspace/ops/agent-status/ops.json\n   - workspace/ops/agent-status/infosec.json\n   (Skip missing files gracefully.)\n\nANALYZE:\n- Are there recurring errors? → Propose a permanent fix (update config, skill, or LEARNINGS.md)\n- Are there model routing issues? → Suggest fallback chain adjustments\n- Are there patterns in user corrections? → Propose behavior updates\n- Which agents are performing well? Which need support?\n- What should the team focus on tomorrow?\n\nACTIONS:\n- If you identify an improvement, apply it (update LEARNINGS.md, SKILL.md, or config as needed)\n- Use sessions_spawn (NOT sessions_send) to notify relevant agents:\n  sessions_spawn(agentId=\"ops\", task=\"Self-improvement review complete. Please update TICKET-TRACKER.md if any items resolved: {summary}\")\n- Create a ticket in TICKET-TRACKER.md for any systemic issue found\n\nPOST TO SLACK:\nAfter your analysis, post your improvement directives to #redos-mission-control using the message tool:\n```\n👑 *RED (CEO) — Daily Improvement Directives*\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📊 *Patterns observed:* <what you found>\n🔧 *Actions taken:* <what you fixed>\n📋 *Directives for the team:*\n• ENG: <directive if any>\n• RESEARCH: <directive if any>\n• OPS: <directive if any>\n• INFOSEC: <directive if any>\n```\nUse the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AEV3MDEDD\"\n\nOUTPUT: Brief summary of what was reviewed and any actions taken.",
+        "message": "You are RED (CEO). Run the self-improvement reflection cycle.\n\nSTEPS:\n1. Read workspace/ops/LEARNINGS.md \u2014 review recent learnings.\n2. Read workspace/ops/TICKET-TRACKER.md \u2014 review resolved tickets from last 24h.\n3. Read logs/errors.jsonl (last 20 entries) \u2014 look for patterns.\n4. Read workspace/logs/routing-decisions.jsonl (last 30 entries) \u2014 check routing quality and agent performance.\n5. Read each agent status file explicitly (avoid directory listing / shell):\n   - workspace/ops/agent-status/main.json\n   - workspace/ops/agent-status/allrounder.json (if present)\n   - workspace/ops/agent-status/eng.json\n   - workspace/ops/agent-status/research.json\n   - workspace/ops/agent-status/finance.json\n   - workspace/ops/agent-status/ops.json\n   - workspace/ops/agent-status/infosec.json\n   (Skip missing files gracefully.)\n\nANALYZE:\n- Are there recurring errors? \u2192 Propose a permanent fix (update config, skill, or LEARNINGS.md)\n- Are there model routing issues? \u2192 Suggest fallback chain adjustments\n- Are there patterns in user corrections? \u2192 Propose behavior updates\n- Which agents are performing well? Which need support?\n- What should the team focus on tomorrow?\n\nACTIONS:\n- If you identify an improvement, apply it (update LEARNINGS.md, SKILL.md, or config as needed)\n- Use sessions_spawn (NOT sessions_send) to notify relevant agents:\n  sessions_spawn(agentId=\"ops\", task=\"Self-improvement review complete. Please update TICKET-TRACKER.md if any items resolved: {summary}\")\n- Create a ticket in TICKET-TRACKER.md for any systemic issue found\n\nPOST TO SLACK:\nAfter your analysis, post your improvement directives to #redos-mission-control using the message tool:\n```\n\ud83d\udc51 *RED (CEO) \u2014 Daily Improvement Directives*\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n\ud83d\udcca *Patterns observed:* <what you found>\n\ud83d\udd27 *Actions taken:* <what you fixed>\n\ud83d\udccb *Directives for the team:*\n\u2022 ENG: <directive if any>\n\u2022 RESEARCH: <directive if any>\n\u2022 OPS: <directive if any>\n\u2022 INFOSEC: <directive if any>\n```\nUse the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AEV3MDEDD\"\n\nOUTPUT: Brief summary of what was reviewed and any actions taken.",
         "thinking": "low",
         "timeoutSeconds": 300
       },
@@ -1026,7 +1030,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "You are OPS. Check for open tickets and attempt to diagnose and fix them.\n\nSTEPS:\n1. Read workspace/ops/TICKET-TRACKER.md\n2. For each OPEN ticket (not yet IN_PROGRESS):\n   a. Set status to IN_PROGRESS\n   b. Read the error details\n   c. Check workspace/ops/LEARNINGS.md — has this been seen before?\n   d. Check logs/errors.jsonl for related errors\n   e. If it's a config issue: attempt to fix it (read/write openclaw.json or relevant config)\n   f. If it's a code issue: delegate to ENG via sessions_send(label=\"eng\", message=\"Fix needed: {details}\")\n   g. If it's a model issue: check model-registry.json, try switching fallback\n   h. If it's unfamiliar: use web_search to research the error\n   i. After fixing: verify the fix, update ticket to RESOLVED, append to LEARNINGS.md\n   j. If you can't fix it: escalate to RED via sessions_send(label=\"main\")\n\n3. If no open tickets: do nothing silently.\n\nIMPORTANT: Actually attempt fixes. Don't just log that you looked at it. Use exec, file operations, sessions_send, and web_search as needed.",
+        "message": "You are OPS. Check for open tickets and attempt to diagnose and fix them.\n\nSTEPS:\n1. Read workspace/ops/TICKET-TRACKER.md\n2. For each OPEN ticket (not yet IN_PROGRESS):\n   a. Set status to IN_PROGRESS\n   b. Read the error details\n   c. Check workspace/ops/LEARNINGS.md \u2014 has this been seen before?\n   d. Check logs/errors.jsonl for related errors\n   e. If it's a config issue: attempt to fix it (read/write openclaw.json or relevant config)\n   f. If it's a code issue: delegate to ENG via sessions_send(label=\"eng\", message=\"Fix needed: {details}\")\n   g. If it's a model issue: check model-registry.json, try switching fallback\n   h. If it's unfamiliar: use web_search to research the error\n   i. After fixing: verify the fix, update ticket to RESOLVED, append to LEARNINGS.md\n   j. If you can't fix it: escalate to RED via sessions_send(label=\"main\")\n\n3. If no open tickets: do nothing silently.\n\nIMPORTANT: Actually attempt fixes. Don't just log that you looked at it. Use exec, file operations, sessions_send, and web_search as needed.",
         "thinking": "low",
         "timeoutSeconds": 300
       },
@@ -1064,7 +1068,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "You are RESEARCH. Run proactive knowledge update.\n\nSTEPS:\n1. Read workspace/ops/LEARNINGS.md — check what issues have been found recently.\n2. Read workspace/ops/TICKET-TRACKER.md — check for any tickets that need research.\n3. For any open tickets assigned to you or tagged as needing research:\n   a. Use web_search to find solutions, best practices, or documentation\n   b. Summarize findings and post them as a comment on the ticket\n   c. If you find a solution, notify the assignee via sessions_send\n\n4. Proactive scan: Use web_search to check for:\n   - OpenClaw updates or new features\n   - Issues with models we use (openai-codex, zai/glm, perplexity)\n   - Security advisories for our tools\n\n5. If you find anything relevant:\n   a. Append to workspace/ops/LEARNINGS.md\n   b. Notify OPS via sessions_send(label=\"ops\", message=\"Research update: {summary}\")\n   c. If it's urgent (security issue, breaking change), also notify RED\n\n6. If nothing notable found: do nothing silently.\n\nPOST TO SLACK:\nAfter completing research and updating files, post key findings to #openclaw-optimization so your colleagues can learn from it:\nUse the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AF4KB4TUK\"\nMessage format:\n```\n🔬 *RESEARCH Knowledge Update — <date>*\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n<3-5 bullet points of the most actionable findings>\n*Recommended team actions:* <what ENG/OPS/INFOSEC should do based on this>\n```",
+        "message": "You are RESEARCH. Run proactive knowledge update.\n\nSTEPS:\n1. Read workspace/ops/LEARNINGS.md \u2014 check what issues have been found recently.\n2. Read workspace/ops/TICKET-TRACKER.md \u2014 check for any tickets that need research.\n3. For any open tickets assigned to you or tagged as needing research:\n   a. Use web_search to find solutions, best practices, or documentation\n   b. Summarize findings and post them as a comment on the ticket\n   c. If you find a solution, notify the assignee via sessions_send\n\n4. Proactive scan: Use web_search to check for:\n   - OpenClaw updates or new features\n   - Issues with models we use (openai-codex, zai/glm, perplexity)\n   - Security advisories for our tools\n\n5. If you find anything relevant:\n   a. Append to workspace/ops/LEARNINGS.md\n   b. Notify OPS via sessions_send(label=\"ops\", message=\"Research update: {summary}\")\n   c. If it's urgent (security issue, breaking change), also notify RED\n\n6. If nothing notable found: do nothing silently.\n\nPOST TO SLACK:\nAfter completing research and updating files, post key findings to #openclaw-optimization so your colleagues can learn from it:\nUse the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AF4KB4TUK\"\nMessage format:\n```\n\ud83d\udd2c *RESEARCH Knowledge Update \u2014 <date>*\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n<3-5 bullet points of the most actionable findings>\n*Recommended team actions:* <what ENG/OPS/INFOSEC should do based on this>\n```",
         "thinking": "low",
         "timeoutSeconds": 300
       },
@@ -1081,7 +1085,7 @@
         "consecutiveErrors": 2,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1773458258302,
+        "nextRunAtMs": 1773469295024,
         "lastErrorReason": "timeout"
       }
     },
@@ -1101,7 +1105,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "You are RED (CEO). Compile and send the daily summary to Anurag.\n\nSTEPS:\n1. Read workspace/ops/STANDUP-LOG.md — get today's standup.\n2. Read workspace/ops/TICKET-TRACKER.md — get ticket summary.\n3. Read workspace/ops/LEARNINGS.md — get today's learnings.\n4. Read logs/gateway.err.log (last 20 lines) — system health.\n\nCOMPILE a Telegram message to Anurag (user ID: 1012034994) with:\n\n📊 **RedOS Daily Summary — {date}**\n\n**System Health:** {healthy/degraded/issues}\n**Tickets:** {opened today} opened, {resolved today} resolved, {open} still open\n**SLA Breaches:** {count or \"None\"}\n\n**Key Events:**\n- {bullet points of important things that happened}\n\n**Learnings Applied:**\n- {bullet points of self-improvements made}\n\n**Agent Activity:**\n- {which agents were active, what they did}\n\n**Tomorrow's Focus:**\n- {what needs attention}\n\nKeep under 3000 chars. Send via Telegram DM.\n\nAfter sending the Telegram summary, also post to Slack #all-redos (channel:C0AG4AY6VME).\n\nFormat the Slack message as:\n```\n👑 *CEO Daily Summary — <date>*\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📊 *Today's Activity*\n• Calls: <N> | Spend: $<amount>\n• Active agents: <list>\n\n🎯 *Sprint Progress*\n<bullet list of key items from standup>\n\n🎫 *Tickets*\n• <open count> open | <resolved count> resolved today\n• <any SLA breaches>\n\n📚 *Learnings / Decisions*\n<key learnings from today>\n\n🔮 *Tomorrow's Focus*\n<key priorities>\n```\nUse the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AG4AY6VME\" ",
+        "message": "You are RED (CEO). Compile and send the daily summary to Anurag.\n\nSTEPS:\n1. Read workspace/ops/STANDUP-LOG.md \u2014 get today's standup.\n2. Read workspace/ops/TICKET-TRACKER.md \u2014 get ticket summary.\n3. Read workspace/ops/LEARNINGS.md \u2014 get today's learnings.\n4. Read logs/gateway.err.log (last 20 lines) \u2014 system health.\n\nCOMPILE a Telegram message to Anurag (user ID: 1012034994) with:\n\n\ud83d\udcca **RedOS Daily Summary \u2014 {date}**\n\n**System Health:** {healthy/degraded/issues}\n**Tickets:** {opened today} opened, {resolved today} resolved, {open} still open\n**SLA Breaches:** {count or \"None\"}\n\n**Key Events:**\n- {bullet points of important things that happened}\n\n**Learnings Applied:**\n- {bullet points of self-improvements made}\n\n**Agent Activity:**\n- {which agents were active, what they did}\n\n**Tomorrow's Focus:**\n- {what needs attention}\n\nKeep under 3000 chars. Send via Telegram DM.\n\nAfter sending the Telegram summary, also post to Slack #all-redos (channel:C0AG4AY6VME).\n\nFormat the Slack message as:\n```\n\ud83d\udc51 *CEO Daily Summary \u2014 <date>*\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n\ud83d\udcca *Today's Activity*\n\u2022 Calls: <N> | Spend: $<amount>\n\u2022 Active agents: <list>\n\n\ud83c\udfaf *Sprint Progress*\n<bullet list of key items from standup>\n\n\ud83c\udfab *Tickets*\n\u2022 <open count> open | <resolved count> resolved today\n\u2022 <any SLA breaches>\n\n\ud83d\udcda *Learnings / Decisions*\n<key learnings from today>\n\n\ud83d\udd2e *Tomorrow's Focus*\n<key priorities>\n```\nUse the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AG4AY6VME\" ",
         "thinking": "low",
         "timeoutSeconds": 300
       },
@@ -1138,7 +1142,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "Create Anurag Saxena’s daily brief.\n\nInstructions:\n- Read these workspace files first:\n  - briefs/daily-brief-instructions.md\n  - briefs/daily-brief-topics.md\n- Use web_search/web_fetch when needed for headlines; include direct links.\n- Keep it concise; omit empty sections.\n- No crypto.\n\nDeliver the brief as a Telegram message.",
+        "message": "Create Anurag Saxena\u2019s daily brief.\n\nInstructions:\n- Read these workspace files first:\n  - briefs/daily-brief-instructions.md\n  - briefs/daily-brief-topics.md\n- Use web_search/web_fetch when needed for headlines; include direct links.\n- Keep it concise; omit empty sections.\n- No crypto.\n\nDeliver the brief as a Telegram message.",
         "timeoutSeconds": 300
       },
       "delivery": {
@@ -1161,7 +1165,7 @@
     {
       "id": "a2a-eng-reads-research-0001",
       "agentId": "eng",
-      "name": "ENG ← RESEARCH: Read & Apply Learnings",
+      "name": "ENG \u2190 RESEARCH: Read & Apply Learnings",
       "enabled": true,
       "createdAtMs": 1771380089656,
       "updatedAtMs": 1773417402635,
@@ -1174,7 +1178,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "You are ENG (Engineering Lead). Read your colleagues' latest findings and respond.\n\nSTEPS:\n1. Use the message tool to read recent messages from #openclaw-optimization:\n   message(action=\"read\", channel=\"slack\", target=\"channel:C0AF4KB4TUK\", limit=20)\n2. Read workspace/ops/LEARNINGS.md for context.\n3. Identify any findings from RESEARCH or INFOSEC that are relevant to engineering.\n4. For each relevant finding:\n   a. Assess if you need to take action (code change, config update, dependency check)\n   b. If yes, do it or create a ticket in TICKET-TRACKER.md\n5. Post your engineering response/acknowledgment to #openclaw-optimization:\n   ```\n   💻 *ENG Response — <date>*\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n   Read RESEARCH/INFOSEC updates. Here's my take:\n   <your engineering assessment and actions taken>\n   ```\n   Use the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AF4KB4TUK\" ",
+        "message": "You are ENG (Engineering Lead). Read your colleagues' latest findings and respond.\n\nSTEPS:\n1. Use the message tool to read recent messages from #openclaw-optimization:\n   message(action=\"read\", channel=\"slack\", target=\"channel:C0AF4KB4TUK\", limit=20)\n2. Read workspace/ops/LEARNINGS.md for context.\n3. Identify any findings from RESEARCH or INFOSEC that are relevant to engineering.\n4. For each relevant finding:\n   a. Assess if you need to take action (code change, config update, dependency check)\n   b. If yes, do it or create a ticket in TICKET-TRACKER.md\n5. Post your engineering response/acknowledgment to #openclaw-optimization:\n   ```\n   \ud83d\udcbb *ENG Response \u2014 <date>*\n   \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n   Read RESEARCH/INFOSEC updates. Here's my take:\n   <your engineering assessment and actions taken>\n   ```\n   Use the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AF4KB4TUK\" ",
         "thinking": "low",
         "timeoutSeconds": 180
       },
@@ -1199,7 +1203,7 @@
     {
       "id": "a2a-infosec-reviews-eng-0001",
       "agentId": "infosec",
-      "name": "INFOSEC ← ENG: Security Review of Updates",
+      "name": "INFOSEC \u2190 ENG: Security Review of Updates",
       "enabled": true,
       "createdAtMs": 1771380089656,
       "updatedAtMs": 1773385921286,
@@ -1212,7 +1216,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "You are INFOSEC (Security Officer). Review ENG's recent work for security implications.\n\nSTEPS:\n1. Use the message tool to read recent messages from #openclaw-optimization:\n   message(action=\"read\", channel=\"slack\", target=\"channel:C0AF4KB4TUK\", limit=30)\n2. Read logs/gateway.err.log (last 30 lines) for security events.\n3. Review any code changes, config updates, or new integrations ENG has posted.\n4. Check workspace/ops/LEARNINGS.md for known security patterns.\n5. For each security concern found:\n   a. Post a security advisory to #openclaw-optimization with severity level\n   b. Create a ticket in TICKET-TRACKER.md if P1/P2\n6. Post security review summary to #openclaw-optimization:\n   ```\n   🔒 *INFOSEC Security Review — <date>*\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n   Reviewed ENG updates. Security assessment:\n   *Status:* ✅ CLEAR / ⚠️ ADVISORIES / 🔴 CRITICAL\n   <findings and recommendations>\n   ```\n   Use the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AF4KB4TUK\" ",
+        "message": "You are INFOSEC (Security Officer). Review ENG's recent work for security implications.\n\nSTEPS:\n1. Use the message tool to read recent messages from #openclaw-optimization:\n   message(action=\"read\", channel=\"slack\", target=\"channel:C0AF4KB4TUK\", limit=30)\n2. Read logs/gateway.err.log (last 30 lines) for security events.\n3. Review any code changes, config updates, or new integrations ENG has posted.\n4. Check workspace/ops/LEARNINGS.md for known security patterns.\n5. For each security concern found:\n   a. Post a security advisory to #openclaw-optimization with severity level\n   b. Create a ticket in TICKET-TRACKER.md if P1/P2\n6. Post security review summary to #openclaw-optimization:\n   ```\n   \ud83d\udd12 *INFOSEC Security Review \u2014 <date>*\n   \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n   Reviewed ENG updates. Security assessment:\n   *Status:* \u2705 CLEAR / \u26a0\ufe0f ADVISORIES / \ud83d\udd34 CRITICAL\n   <findings and recommendations>\n   ```\n   Use the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AF4KB4TUK\" ",
         "thinking": "off",
         "timeoutSeconds": 600
       },
@@ -1237,7 +1241,7 @@
     {
       "id": "a2a-friday-retro-0001",
       "agentId": "ops",
-      "name": "OPS Friday Retrospective — Team Peer Learning",
+      "name": "OPS Friday Retrospective \u2014 Team Peer Learning",
       "enabled": true,
       "createdAtMs": 1771380089656,
       "updatedAtMs": 1773440514576,
@@ -1250,7 +1254,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "You are OPS (Scrum Master). Facilitate the Friday team retrospective.\n\nSTEPS:\n1. Read workspace/ops/STANDUP-LOG.md — review the week's standups.\n2. Read workspace/ops/LEARNINGS.md — what was learned this week.\n3. Read workspace/ops/TICKET-TRACKER.md — tickets resolved this week.\n4. Use the message tool to read #openclaw-optimization messages from this week:\n   message(action=\"read\", channel=\"slack\", target=\"channel:C0AF4KB4TUK\", limit=50)\n\n5. Ask each agent for their retrospective input via sessions_spawn:\n   - sessions_spawn(agentId=\"eng\", task=\"Friday retro: What did you learn this week from your colleagues (RESEARCH, INFOSEC, OPS)? What will you do differently next week? 2-3 sentences max.\")\n   - sessions_spawn(agentId=\"research\", task=\"Friday retro: What was the most valuable insight you shared with the team this week? What did you learn from ENG or INFOSEC? 2-3 sentences max.\")\n   - sessions_spawn(agentId=\"infosec\", task=\"Friday retro: What security improvements happened this week? What do you want the team to focus on next week? 2-3 sentences max.\")\n   - sessions_spawn(agentId=\"finance\", task=\"Friday retro: Any financial/cost insights from this week? What should be watched next week? 2-3 sentences max.\")\n\n6. Compile ALL responses and post to #redos-scrum as the weekly retrospective:\n   ```\n   ⚙️ *Friday Retrospective — Week of <date>*\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n   📊 *Week Summary:* <tickets resolved, calls made, key learnings>\n   \n   💬 *What the team learned from each other:*\n   💻 ENG: <their retro response>\n   🔬 RESEARCH: <their retro response>\n   🔒 INFOSEC: <their retro response>\n   💰 FINANCE: <their retro response>\n   \n   🎯 *Next week focus:* <OPS recommendation>\n   ```\n   Use the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AEV3J2L23\"\n\n7. Append a weekly summary entry to workspace/ops/LEARNINGS.md",
+        "message": "You are OPS (Scrum Master). Facilitate the Friday team retrospective.\n\nSTEPS:\n1. Read workspace/ops/STANDUP-LOG.md \u2014 review the week's standups.\n2. Read workspace/ops/LEARNINGS.md \u2014 what was learned this week.\n3. Read workspace/ops/TICKET-TRACKER.md \u2014 tickets resolved this week.\n4. Use the message tool to read #openclaw-optimization messages from this week:\n   message(action=\"read\", channel=\"slack\", target=\"channel:C0AF4KB4TUK\", limit=50)\n\n5. Ask each agent for their retrospective input via sessions_spawn:\n   - sessions_spawn(agentId=\"eng\", task=\"Friday retro: What did you learn this week from your colleagues (RESEARCH, INFOSEC, OPS)? What will you do differently next week? 2-3 sentences max.\")\n   - sessions_spawn(agentId=\"research\", task=\"Friday retro: What was the most valuable insight you shared with the team this week? What did you learn from ENG or INFOSEC? 2-3 sentences max.\")\n   - sessions_spawn(agentId=\"infosec\", task=\"Friday retro: What security improvements happened this week? What do you want the team to focus on next week? 2-3 sentences max.\")\n   - sessions_spawn(agentId=\"finance\", task=\"Friday retro: Any financial/cost insights from this week? What should be watched next week? 2-3 sentences max.\")\n\n6. Compile ALL responses and post to #redos-scrum as the weekly retrospective:\n   ```\n   \u2699\ufe0f *Friday Retrospective \u2014 Week of <date>*\n   \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n   \ud83d\udcca *Week Summary:* <tickets resolved, calls made, key learnings>\n   \n   \ud83d\udcac *What the team learned from each other:*\n   \ud83d\udcbb ENG: <their retro response>\n   \ud83d\udd2c RESEARCH: <their retro response>\n   \ud83d\udd12 INFOSEC: <their retro response>\n   \ud83d\udcb0 FINANCE: <their retro response>\n   \n   \ud83c\udfaf *Next week focus:* <OPS recommendation>\n   ```\n   Use the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AEV3J2L23\"\n\n7. Append a weekly summary entry to workspace/ops/LEARNINGS.md",
         "thinking": "low",
         "timeoutSeconds": 300
       },
@@ -1288,7 +1292,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "You are RED (CEO). Run the morning team pulse — have a real conversation with each team member and post the results to Slack.\n\nSTEPS:\n1. Read workspace/ops/agent-status/ — collect everyone's standup JSON files.\n\n2. For each agent, use sessions_send (NOT sessions_spawn) for a real peer conversation:\n   BEFORE each sessions_send, append to workspace/logs/a2a-delegations.jsonl:\n   {\"type\":\"dispatch\",\"ts\":\"<ISO>\",\"from\":\"main\",\"to\":\"<agentId>\",\"mode\":\"send\",\"task\":\"Morning pulse check-in\"}\n\n   Then send:\n   - sessions_send(sessionKey=\"agent:allrounder:main\", message=\"Good morning ZEN! RED here. What's your main focus today and anything you need from me?\", timeoutSeconds=45)\n   - sessions_send(sessionKey=\"agent:eng:main\", message=\"Good morning ENG! RED here. What are you building today and any blockers?\", timeoutSeconds=45)\n   - sessions_send(sessionKey=\"agent:research:main\", message=\"Good morning RESEARCH! RED here. What are you investigating today?\", timeoutSeconds=45)\n   - sessions_send(sessionKey=\"agent:finance:main\", message=\"Good morning FINANCE! RED here. Any financial updates or concerns today?\", timeoutSeconds=45)\n   - sessions_send(sessionKey=\"agent:ops:main\", message=\"Good morning OPS! RED here. System health status and any tickets needing attention?\", timeoutSeconds=45)\n   - sessions_send(sessionKey=\"agent:infosec:main\", message=\"Good morning INFOSEC! RED here. Any security concerns or alerts overnight?\", timeoutSeconds=45)\n\n   AFTER each reply, append to workspace/logs/a2a-delegations.jsonl:\n   {\"type\":\"result\",\"ts\":\"<ISO>\",\"from\":\"main\",\"to\":\"<agentId>\",\"mode\":\"send\",\"task\":\"Morning pulse\",\"result_preview\":\"<first 100 chars of reply>\"}\n\n3. Post the team greeting to #all-redos:\n   ```\n   👑 *Good morning, team! — <date>*\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n   Here's what everyone is working on today:\n   \n   👑 RED: <your own focus>\n   🌐 ZEN: <ZEN's response>\n   💻 ENG: <ENG's response>\n   🔬 RESEARCH: <RESEARCH's response>\n   💰 FINANCE: <FINANCE's response>\n   ⚙️ OPS: <OPS's response>\n   🔒 INFOSEC: <INFOSEC's response>\n   \n   Let's have a great day! 🚀\n   ```\n   Use the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AG4AY6VME\" ",
+        "message": "You are RED (CEO). Run the morning team pulse \u2014 have a real conversation with each team member and post the results to Slack.\n\nSTEPS:\n1. Read workspace/ops/agent-status/ \u2014 collect everyone's standup JSON files.\n\n2. For each agent, use sessions_send (NOT sessions_spawn) for a real peer conversation:\n   BEFORE each sessions_send, append to workspace/logs/a2a-delegations.jsonl:\n   {\"type\":\"dispatch\",\"ts\":\"<ISO>\",\"from\":\"main\",\"to\":\"<agentId>\",\"mode\":\"send\",\"task\":\"Morning pulse check-in\"}\n\n   Then send:\n   - sessions_send(sessionKey=\"agent:allrounder:main\", message=\"Good morning ZEN! RED here. What's your main focus today and anything you need from me?\", timeoutSeconds=45)\n   - sessions_send(sessionKey=\"agent:eng:main\", message=\"Good morning ENG! RED here. What are you building today and any blockers?\", timeoutSeconds=45)\n   - sessions_send(sessionKey=\"agent:research:main\", message=\"Good morning RESEARCH! RED here. What are you investigating today?\", timeoutSeconds=45)\n   - sessions_send(sessionKey=\"agent:finance:main\", message=\"Good morning FINANCE! RED here. Any financial updates or concerns today?\", timeoutSeconds=45)\n   - sessions_send(sessionKey=\"agent:ops:main\", message=\"Good morning OPS! RED here. System health status and any tickets needing attention?\", timeoutSeconds=45)\n   - sessions_send(sessionKey=\"agent:infosec:main\", message=\"Good morning INFOSEC! RED here. Any security concerns or alerts overnight?\", timeoutSeconds=45)\n\n   AFTER each reply, append to workspace/logs/a2a-delegations.jsonl:\n   {\"type\":\"result\",\"ts\":\"<ISO>\",\"from\":\"main\",\"to\":\"<agentId>\",\"mode\":\"send\",\"task\":\"Morning pulse\",\"result_preview\":\"<first 100 chars of reply>\"}\n\n3. Post the team greeting to #all-redos:\n   ```\n   \ud83d\udc51 *Good morning, team! \u2014 <date>*\n   \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n   Here's what everyone is working on today:\n   \n   \ud83d\udc51 RED: <your own focus>\n   \ud83c\udf10 ZEN: <ZEN's response>\n   \ud83d\udcbb ENG: <ENG's response>\n   \ud83d\udd2c RESEARCH: <RESEARCH's response>\n   \ud83d\udcb0 FINANCE: <FINANCE's response>\n   \u2699\ufe0f OPS: <OPS's response>\n   \ud83d\udd12 INFOSEC: <INFOSEC's response>\n   \n   Let's have a great day! \ud83d\ude80\n   ```\n   Use the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AG4AY6VME\" ",
         "thinking": "low",
         "timeoutSeconds": 300
       },
@@ -1316,7 +1320,7 @@
       "name": "OPS Task ETA Monitor",
       "enabled": true,
       "createdAtMs": 1771544316316,
-      "updatedAtMs": 1773444984456,
+      "updatedAtMs": 1773460272239,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1328,7 +1332,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 240,
-        "message": "You are OPS (Orchestrator). Run task ETA monitoring.\n\nSTEPS:\n1. Read /Users/redinside/.openclaw/workspace/ops/task-registry.json\n2. If no tasks or all completed: do nothing silently.\n3. For each task with status \"in_progress\" and an eta field:\n   a. If current time > eta: mark the task as overdue\n   b. Post a warning to Slack #redos-ops: \"⏰ *Task ETA Breach* — TASK-{id}: {title} was due {eta}. Assignee: {assignee}\"\n      Use the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AEV3MDEDD\"\n   c. Notify the parent agent via sessions_spawn if requestedBy is set:\n      sessions_spawn(agentId=\"{requestedBy}\", task=\"OPS alert: Task {id} ({title}) assigned to {assignee} has passed its ETA of {eta}. Please check status.\")\n4. Update task-registry.json with any status changes.\n\nBe silent if all tasks are on track."
+        "message": "You are OPS (Orchestrator). Run task ETA monitoring.\n\nSTEPS:\n1. Read /Users/redinside/.openclaw/workspace/ops/task-registry.json\n2. If no tasks or all completed: do nothing silently.\n3. For each task with status \"in_progress\" and an eta field:\n   a. If current time > eta: mark the task as overdue\n   b. Post a warning to Slack #redos-ops: \"\u23f0 *Task ETA Breach* \u2014 TASK-{id}: {title} was due {eta}. Assignee: {assignee}\"\n      Use the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AEV3MDEDD\"\n   c. Notify the parent agent via sessions_spawn if requestedBy is set:\n      sessions_spawn(agentId=\"{requestedBy}\", task=\"OPS alert: Task {id} ({title}) assigned to {assignee} has passed its ETA of {eta}. Please check status.\")\n4. Update task-registry.json with any status changes.\n\nBe silent if all tasks are on track."
       },
       "delivery": {
         "mode": "announce",
@@ -1337,14 +1341,13 @@
         "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "lastRunAtMs": 1773444893671,
+        "lastRunAtMs": 1773460227016,
         "lastStatus": "ok",
-        "lastDurationMs": 90785,
+        "lastDurationMs": 45223,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1773459516316,
-        "runningAtMs": 1773459918333
+        "nextRunAtMs": 1773467427016
       }
     },
     {
@@ -1363,7 +1366,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "You are OPS. Run the 9Router quota sync — update workspace/tmp/provider-quota.json with live status.\n\nNOTE: This job does not need an expensive model. Use minimal reasoning.\n\nSTEPS:\n1. Check if 9Router is running using exec (timeout 5s):\n   curl -sf http://localhost:20128/v1/models > /dev/null\n2a. If running:\n   Write workspace/tmp/provider-quota.json with:\n   {\"updated\":\"<ISO timestamp>\",\"9router_running\":true,\n     \"providers\":{\"claude-code\":{\"available\":\"unknown\"},\"cursor\":{\"available\":\"unknown\"},\"gemini\":{\"available\":\"unknown\"},\"codex\":{\"available\":\"unknown\"},\"iflow\":{\"available\":\"unknown\"},\"qwen\":{\"available\":\"unknown\"}},\n     \"note\":\"9router is up (v1/models OK); quota endpoint not available on this build\"}\n2b. If NOT running:\n   Write {\"updated\":\"<ISO timestamp>\",\"9router_running\":false,\"note\":\"9router down\"}\n\nConstraints:\n- Keep file under 2KB.\n- Silent success (NO_REPLY).",
+        "message": "You are OPS. Run the 9Router quota sync \u2014 update workspace/tmp/provider-quota.json with live status.\n\nNOTE: This job does not need an expensive model. Use minimal reasoning.\n\nSTEPS:\n1. Check if 9Router is running using exec (timeout 5s):\n   curl -sf http://localhost:20128/v1/models > /dev/null\n2a. If running:\n   Write workspace/tmp/provider-quota.json with:\n   {\"updated\":\"<ISO timestamp>\",\"9router_running\":true,\n     \"providers\":{\"claude-code\":{\"available\":\"unknown\"},\"cursor\":{\"available\":\"unknown\"},\"gemini\":{\"available\":\"unknown\"},\"codex\":{\"available\":\"unknown\"},\"iflow\":{\"available\":\"unknown\"},\"qwen\":{\"available\":\"unknown\"}},\n     \"note\":\"9router is up (v1/models OK); quota endpoint not available on this build\"}\n2b. If NOT running:\n   Write {\"updated\":\"<ISO timestamp>\",\"9router_running\":false,\"note\":\"9router down\"}\n\nConstraints:\n- Keep file under 2KB.\n- Silent success (NO_REPLY).",
         "thinking": "off",
         "timeoutSeconds": 45
       },
@@ -1402,7 +1405,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 240,
-        "message": "You are OPS (Orchestrator). Run idle agent audit.\n\nSTEPS:\n1. Read agent status files:\n   - workspace/ops/agent-status/main.json\n   - workspace/ops/agent-status/eng.json\n   - workspace/ops/agent-status/research.json\n   - workspace/ops/agent-status/finance.json\n   - workspace/ops/agent-status/ops.json\n   - workspace/ops/agent-status/infosec.json\n2. Always-on agents are: main, allrounder, ops. Check if they have checkin from today.\n3. If any always-on agent has no status file or status dated before today:\n   a. Use sessions_spawn to ping them: sessions_spawn(agentId=\"{agentId}\", task=\"OPS check: You have no standup for today. Please write your status to workspace/ops/agent-status/{agentId}.json and post to #redos-scrum.\")\n   b. Post a note to #redos-ops: \"⚠️ {agent} has no check-in for today — pinged via sessions_spawn\"\n      Use the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AEV3MDEDD\"\n4. Be silent if all always-on agents have checked in today."
+        "message": "You are OPS (Orchestrator). Run idle agent audit.\n\nSTEPS:\n1. Read agent status files:\n   - workspace/ops/agent-status/main.json\n   - workspace/ops/agent-status/eng.json\n   - workspace/ops/agent-status/research.json\n   - workspace/ops/agent-status/finance.json\n   - workspace/ops/agent-status/ops.json\n   - workspace/ops/agent-status/infosec.json\n2. Always-on agents are: main, allrounder, ops. Check if they have checkin from today.\n3. If any always-on agent has no status file or status dated before today:\n   a. Use sessions_spawn to ping them: sessions_spawn(agentId=\"{agentId}\", task=\"OPS check: You have no standup for today. Please write your status to workspace/ops/agent-status/{agentId}.json and post to #redos-scrum.\")\n   b. Post a note to #redos-ops: \"\u26a0\ufe0f {agent} has no check-in for today \u2014 pinged via sessions_spawn\"\n      Use the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AEV3MDEDD\"\n4. Be silent if all always-on agents have checked in today."
       },
       "delivery": {
         "mode": "announce",
@@ -1437,7 +1440,7 @@
       "payload": {
         "kind": "agentTurn",
         "timeoutSeconds": 300,
-        "message": "You are OPS (Scrum Master). Check HEARTBEAT.md and dispatch open tasks.\n\nSTEPS:\n1. Read workspace/ops/HEARTBEAT.md — find all tasks with Status: OPEN\n2. For each OPEN task:\n   a. Check workspace/ops/agent-status/<assignee>.json — was this agent active today?\n   b. If agent has NOT worked on this task today: dispatch it via sessions_spawn(agentId=\"<assignee>\", task=\"<copy the full task Description from HEARTBEAT.md>\")\n   c. After dispatching, update the task's Status in HEARTBEAT.md from OPEN to IN_PROGRESS\n3. Post a dispatch summary to #redos-ops using the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AGFA9417T\"\n   Format:\n   ```\n   ⚙️ *HEARTBEAT Dispatch — <date>*\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━\n   • Dispatched: <list of task IDs sent>\n   • Skipped: <list of already in-progress>\n   ```\n\nRULES:\n- Only dispatch tasks with Status: OPEN. Skip IN_PROGRESS and COMPLETED.\n- Never dispatch the same task twice in one day.\n- Be silent if nothing to dispatch (all tasks are IN_PROGRESS or COMPLETED).\n- Use sessions_spawn (NOT sessions_send) for delegation."
+        "message": "You are OPS (Scrum Master). Check HEARTBEAT.md and dispatch open tasks.\n\nSTEPS:\n1. Read workspace/ops/HEARTBEAT.md \u2014 find all tasks with Status: OPEN\n2. For each OPEN task:\n   a. Check workspace/ops/agent-status/<assignee>.json \u2014 was this agent active today?\n   b. If agent has NOT worked on this task today: dispatch it via sessions_spawn(agentId=\"<assignee>\", task=\"<copy the full task Description from HEARTBEAT.md>\")\n   c. After dispatching, update the task's Status in HEARTBEAT.md from OPEN to IN_PROGRESS\n3. Post a dispatch summary to #redos-ops using the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AGFA9417T\"\n   Format:\n   ```\n   \u2699\ufe0f *HEARTBEAT Dispatch \u2014 <date>*\n   \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n   \u2022 Dispatched: <list of task IDs sent>\n   \u2022 Skipped: <list of already in-progress>\n   ```\n\nRULES:\n- Only dispatch tasks with Status: OPEN. Skip IN_PROGRESS and COMPLETED.\n- Never dispatch the same task twice in one day.\n- Be silent if nothing to dispatch (all tasks are IN_PROGRESS or COMPLETED).\n- Use sessions_spawn (NOT sessions_send) for delegation."
       },
       "delivery": {
         "mode": "announce",
@@ -1452,7 +1455,7 @@
         "consecutiveErrors": 1,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1773458243302,
+        "nextRunAtMs": 1773460956567,
         "lastErrorReason": "timeout"
       },
       "updatedAtMs": 1773450613520
@@ -1472,7 +1475,7 @@
       "payload": {
         "kind": "agentTurn",
         "timeoutSeconds": 120,
-        "message": "You are HATAKE, the RedOS intent parser and task classifier.\n\nYour job: read today's task queue and produce routing recommendations for all agents.\n\nSTEPS:\n1. Read workspace/ops/HEARTBEAT.md — list all IN_PROGRESS tasks\n2. For each task, classify:\n   - intent: what kind of work (code|research|security|ops|finance)\n   - complexity: 1-10\n   - recommended_agent: best agent for this task\n   - priority: P0|P1|P2|P3\n   - estimated_tokens: rough token cost estimate\n3. Write your analysis to workspace/tmp/hatake-routing-YYYY-MM-DD.json:\n```json\n{\n  \"date\": \"<today>\",\n  \"generated_by\": \"hatake\",\n  \"tasks\": [\n    {\n      \"id\": \"HB-001\",\n      \"intent\": \"code\",\n      \"complexity\": 5,\n      \"recommended_agent\": \"eng\",\n      \"priority\": \"P2\",\n      \"rationale\": \"GitHub API + markdown report — standard ENG work\"\n    }\n  ],\n  \"routing_summary\": \"<1 sentence: who should be busy today>\"\n}\n```\n4. Be brief and factual. Output JSON only — no prose.\n\nRULES:\n- Complexity 1-3: any agent can handle\n- Complexity 4-6: use specialist agent\n- Complexity 7-10: escalate to gpt-5.2 model, notify RED\n- If HEARTBEAT has no IN_PROGRESS tasks: write {\"tasks\": [], \"routing_summary\": \"No active tasks\"}"
+        "message": "You are HATAKE, the RedOS intent parser and task classifier.\n\nYour job: read today's task queue and produce routing recommendations for all agents.\n\nSTEPS:\n1. Read workspace/ops/HEARTBEAT.md \u2014 list all IN_PROGRESS tasks\n2. For each task, classify:\n   - intent: what kind of work (code|research|security|ops|finance)\n   - complexity: 1-10\n   - recommended_agent: best agent for this task\n   - priority: P0|P1|P2|P3\n   - estimated_tokens: rough token cost estimate\n3. Write your analysis to workspace/tmp/hatake-routing-YYYY-MM-DD.json:\n```json\n{\n  \"date\": \"<today>\",\n  \"generated_by\": \"hatake\",\n  \"tasks\": [\n    {\n      \"id\": \"HB-001\",\n      \"intent\": \"code\",\n      \"complexity\": 5,\n      \"recommended_agent\": \"eng\",\n      \"priority\": \"P2\",\n      \"rationale\": \"GitHub API + markdown report \u2014 standard ENG work\"\n    }\n  ],\n  \"routing_summary\": \"<1 sentence: who should be busy today>\"\n}\n```\n4. Be brief and factual. Output JSON only \u2014 no prose.\n\nRULES:\n- Complexity 1-3: any agent can handle\n- Complexity 4-6: use specialist agent\n- Complexity 7-10: escalate to gpt-5.2 model, notify RED\n- If HEARTBEAT has no IN_PROGRESS tasks: write {\"tasks\": [], \"routing_summary\": \"No active tasks\"}"
       },
       "delivery": {
         "mode": "announce",
@@ -1524,7 +1527,7 @@
         "consecutiveErrors": 6,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1773458253302,
+        "nextRunAtMs": 1773462750814,
         "lastErrorReason": "timeout"
       }
     },
@@ -1694,7 +1697,7 @@
       "name": "OPS Guardrail: Ticket Resolution Enforcer",
       "enabled": true,
       "createdAtMs": 1771897248854,
-      "updatedAtMs": 1773445629562,
+      "updatedAtMs": 1773460572271,
       "schedule": {
         "kind": "every",
         "everyMs": 14400000,
@@ -1704,7 +1707,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "GUARDRAIL CHECK: Read ops/TICKET-TRACKER.md. Find all tickets with status != resolved. For each open ticket: 1. Check if it's older than 24h — if so, escalate to the assigned agent via sessions_spawn. 2. Check if it's older than 48h — escalate to ZEN (COO) for priority review. 3. Check if it's P0/critical — escalate to RED (CEO) immediately. 4. Post a summary of all open tickets to Slack #redos-scrum. Never let a ticket go stale.",
+        "message": "GUARDRAIL CHECK: Read ops/TICKET-TRACKER.md. Find all tickets with status != resolved. For each open ticket: 1. Check if it's older than 24h \u2014 if so, escalate to the assigned agent via sessions_spawn. 2. Check if it's older than 48h \u2014 escalate to ZEN (COO) for priority review. 3. Check if it's P0/critical \u2014 escalate to RED (CEO) immediately. 4. Post a summary of all open tickets to Slack #redos-scrum. Never let a ticket go stale.",
         "timeoutSeconds": 300
       },
       "delivery": {
@@ -1713,15 +1716,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1773445329517,
+        "lastRunAtMs": 1773460272239,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 300045,
+        "lastDurationMs": 300032,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 4,
-        "nextRunAtMs": 1773459729517,
+        "consecutiveErrors": 5,
+        "nextRunAtMs": 1773474672239,
         "lastErrorReason": "timeout",
-        "runningAtMs": 1773459918333
+        "lastError": "Error: cron: job execution timed out"
       }
     },
     {
@@ -1754,7 +1757,7 @@
         "lastDurationMs": 300003,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 2,
-        "nextRunAtMs": 1773458273302,
+        "nextRunAtMs": 1773489600000,
         "lastErrorReason": "timeout"
       }
     },
@@ -1764,7 +1767,7 @@
       "name": "RED Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897377295,
-      "updatedAtMs": 1773445737693,
+      "updatedAtMs": 1773460700049,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1783,15 +1786,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1773445629591,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 108102,
+        "lastRunAtMs": 1773460572295,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 127754,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 21,
-        "nextRunAtMs": 1773459777295,
-        "lastErrorReason": "model_not_found",
-        "runningAtMs": 1773459918333
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1773467772295
       }
     },
     {
@@ -1800,7 +1801,7 @@
       "name": "ZEN Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897390213,
-      "updatedAtMs": 1773446014656,
+      "updatedAtMs": 1773460829743,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1819,13 +1820,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1773445737693,
+        "lastRunAtMs": 1773460705098,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 276963,
+        "lastDurationMs": 124645,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1773459790213
+        "nextRunAtMs": 1773467905098
       }
     },
     {
@@ -1859,8 +1860,9 @@
         "lastDurationMs": 300038,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 22,
-        "nextRunAtMs": 1773459791560,
-        "lastErrorReason": "timeout"
+        "nextRunAtMs": 1773460710063,
+        "lastErrorReason": "timeout",
+        "runningAtMs": 1773460832344
       }
     },
     {
@@ -1996,7 +1998,7 @@
         "lastDurationMs": 169839,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1773458248302
+        "nextRunAtMs": 1773466997121
       }
     },
     {
@@ -2030,16 +2032,16 @@
         "lastDurationMs": 78295,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1773458263302
+        "nextRunAtMs": 1773466998357
       }
     },
     {
       "id": "ci-event-logger-0001",
       "agentId": "ops",
-      "name": "CI Event Logger (cron → ci-log.jsonl)",
+      "name": "CI Event Logger (cron \u2192 ci-log.jsonl)",
       "enabled": true,
       "createdAtMs": 1771907000000,
-      "updatedAtMs": 1773447343789,
+      "updatedAtMs": 1773460227016,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -2059,20 +2061,19 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1773447230249,
+        "lastRunAtMs": 1773460218636,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 113540,
+        "lastDurationMs": 8380,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1773458600000,
-        "runningAtMs": 1773459918333
+        "nextRunAtMs": 1773463818636
       }
     },
     {
       "id": "health-snapshot-ticket-0001",
       "agentId": "ops",
-      "name": "Self-Healing Guardrail: Health Snapshot → Tickets",
+      "name": "Self-Healing Guardrail: Health Snapshot \u2192 Tickets",
       "enabled": true,
       "createdAtMs": 1771907005000,
       "updatedAtMs": 1773447420556,
@@ -2101,13 +2102,13 @@
         "lastDurationMs": 76767,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1773458268302
+        "nextRunAtMs": 1773462205000
       }
     },
     {
       "id": "ci-weekly-summarizer-0001",
       "agentId": "ops",
-      "name": "CI Weekly Summarizer (roll → LEARNINGS.md)",
+      "name": "CI Weekly Summarizer (roll \u2192 LEARNINGS.md)",
       "enabled": true,
       "createdAtMs": 1771907010000,
       "updatedAtMs": 1773389694523,
@@ -2158,7 +2159,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 600,
-        "message": "RED Daily A2A Proactive Delegation (automated)\n\nYou are RED (CEO). This cron runs every weekday at 10am ET. Your job: proactively delegate meaningful work to your team WITHOUT waiting for Anurag to ask.\n\nSTEPS:\n1. Read workspace/ops/TICKET-TRACKER.md — find open tickets.\n2. Read workspace/ops/LEARNINGS.md — check recent learnings.\n3. Read workspace/logs/a2a-delegations.jsonl — check if agents have been talking today.\n\nTHEN delegate at least 2 tasks across different agents:\n\nFor each delegation:\na) Append to workspace/logs/a2a-delegations.jsonl:\n   {\"type\":\"dispatch\",\"ts\":\"<ISO>\",\"spawner\":\"main\",\"subagent\":\"<agentId>\",\"task\":\"<one-line summary>\"}\nb) Post to Slack #redos-mission-control (channel:C0AEV3MDEDD):\n   🔀 *👑 RED (CEO)* → *<emoji> <AgentName>*\n   *Task:* <one-line summary>\nc) Use sessions_spawn to actually delegate the task.\n\nGOOD delegation examples (pick based on what's actually needed):\n- Ask RESEARCH to search for something relevant to current work\n- Ask ENG to review or fix an open ticket\n- Ask OPS to run a health check and report findings\n- Ask INFOSEC to review any recent config changes\n- Ask FINANCE to check budget status\n\nAfter all delegations, post a summary to Slack #redos-mission-control:\n👑 *RED (CEO) — Daily Delegation Summary*\n- Delegated to: <list agents>\n- Tasks: <list tasks>\n- Expected results by: EOD\n\nRules:\n- Do NOT delegate trivial tasks. Each task must produce a real output.\n- Do NOT skip this cron. If nothing obvious needs doing, find something useful.\n- End with: Provider: <provider> | Model: <model>"
+        "message": "RED Daily A2A Proactive Delegation (automated)\n\nYou are RED (CEO). This cron runs every weekday at 10am ET. Your job: proactively delegate meaningful work to your team WITHOUT waiting for Anurag to ask.\n\nSTEPS:\n1. Read workspace/ops/TICKET-TRACKER.md \u2014 find open tickets.\n2. Read workspace/ops/LEARNINGS.md \u2014 check recent learnings.\n3. Read workspace/logs/a2a-delegations.jsonl \u2014 check if agents have been talking today.\n\nTHEN delegate at least 2 tasks across different agents:\n\nFor each delegation:\na) Append to workspace/logs/a2a-delegations.jsonl:\n   {\"type\":\"dispatch\",\"ts\":\"<ISO>\",\"spawner\":\"main\",\"subagent\":\"<agentId>\",\"task\":\"<one-line summary>\"}\nb) Post to Slack #redos-mission-control (channel:C0AEV3MDEDD):\n   \ud83d\udd00 *\ud83d\udc51 RED (CEO)* \u2192 *<emoji> <AgentName>*\n   *Task:* <one-line summary>\nc) Use sessions_spawn to actually delegate the task.\n\nGOOD delegation examples (pick based on what's actually needed):\n- Ask RESEARCH to search for something relevant to current work\n- Ask ENG to review or fix an open ticket\n- Ask OPS to run a health check and report findings\n- Ask INFOSEC to review any recent config changes\n- Ask FINANCE to check budget status\n\nAfter all delegations, post a summary to Slack #redos-mission-control:\n\ud83d\udc51 *RED (CEO) \u2014 Daily Delegation Summary*\n- Delegated to: <list agents>\n- Tasks: <list tasks>\n- Expected results by: EOD\n\nRules:\n- Do NOT delegate trivial tasks. Each task must produce a real output.\n- Do NOT skip this cron. If nothing obvious needs doing, find something useful.\n- End with: Provider: <provider> | Model: <model>"
       },
       "delivery": {
         "mode": "announce",
@@ -2196,7 +2197,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 120,
-        "message": "A2A Communication Health Monitor (automated)\n\nYou are OPS. Check if agents are actually talking to each other today.\n\nSTEPS:\n1. Read workspace/logs/a2a-delegations.jsonl\n2. Count entries from today (match today's date in the 'ts' field)\n3. Read workspace/ops/task-registry.json — count tasks completed today\n\nEVALUATE:\n- If a2a-delegations.jsonl has 0 entries today: ALERT — agents are not communicating\n- If a2a-delegations.jsonl has <3 entries today: WARN — low A2A activity\n- If a2a-delegations.jsonl has >=3 entries today: OK\n\nIF ALERT or WARN:\n- Send Telegram DM to user id 1012034994:\n  '⚠️ A2A Alert: Agents have not been talking to each other today.\\nDelegations logged: <count>\\nThis means autonomous collaboration is not working.\\nRED should run the daily delegation cron or check SOUL.md A2A rules.'\n- Use sessions_spawn to notify RED (agentId=\"main\"):\n  'A2A health check failed: only <N> delegations logged today. Please run proactive delegation now and check SOUL.md A2A rules.'\n\nIF OK:\n- Post to Slack #redos-scrum (channel:C0AEV3J2L23):\n  '⚙️ *OPS A2A Check*: ✅ <N> agent delegations logged today. Team is communicating.'\n\nEnd with: Provider: <provider> | Model: <model>"
+        "message": "A2A Communication Health Monitor (automated)\n\nYou are OPS. Check if agents are actually talking to each other today.\n\nSTEPS:\n1. Read workspace/logs/a2a-delegations.jsonl\n2. Count entries from today (match today's date in the 'ts' field)\n3. Read workspace/ops/task-registry.json \u2014 count tasks completed today\n\nEVALUATE:\n- If a2a-delegations.jsonl has 0 entries today: ALERT \u2014 agents are not communicating\n- If a2a-delegations.jsonl has <3 entries today: WARN \u2014 low A2A activity\n- If a2a-delegations.jsonl has >=3 entries today: OK\n\nIF ALERT or WARN:\n- Send Telegram DM to user id 1012034994:\n  '\u26a0\ufe0f A2A Alert: Agents have not been talking to each other today.\\nDelegations logged: <count>\\nThis means autonomous collaboration is not working.\\nRED should run the daily delegation cron or check SOUL.md A2A rules.'\n- Use sessions_spawn to notify RED (agentId=\"main\"):\n  'A2A health check failed: only <N> delegations logged today. Please run proactive delegation now and check SOUL.md A2A rules.'\n\nIF OK:\n- Post to Slack #redos-scrum (channel:C0AEV3J2L23):\n  '\u2699\ufe0f *OPS A2A Check*: \u2705 <N> agent delegations logged today. Team is communicating.'\n\nEnd with: Provider: <provider> | Model: <model>"
       },
       "delivery": {
         "mode": "announce",
@@ -2232,7 +2233,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 600,
-        "message": "Weekly Competitive Intelligence Report (automated)\n\nRead workspace/skills/competitive-intelligence/SKILL.md for full instructions.\n\nYour task this week:\n1. Use web_search to scan for recent system prompt leaks and AI tool updates from: Cursor, v0, Perplexity, Devin AI, GitHub Copilot, Windsurf, and any other leading AI coding/agent tools.\n   Search queries to use:\n   - \"Cursor AI system prompt 2026\"\n   - \"v0 Vercel system prompt\"\n   - \"Devin AI agent prompt\"\n   - \"AI agent tool governance patterns 2026\"\n   - \"OpenClaw competitor agent framework\"\n2. Identify 3-5 patterns or techniques they use that OpenClaw does NOT currently have.\n3. For each gap: rate it (High/Medium/Low impact) and suggest which OpenClaw agent or skill should adopt it.\n4. Write the full report to: workspace/competitive-intel/reports/YYYY-MM-DD-weekly.md (create dir if needed).\n5. Post a summary to Slack #redos-mission-control (channel:C0AEV3MDEDD):\n   Title: \"🔍 Weekly Competitive Intel — <date>\"\n   - Top 3 findings (1 line each)\n   - Top 1 quick win for ENG to implement\n   - Top 1 security pattern for INFOSEC to review\n6. Use sessions_spawn to notify RED (agentId=\"main\") with the summary so CEO can act on it.\n\nRules:\n- Only use publicly available information.\n- Be specific: name the tool, describe the pattern, explain why it matters for OpenClaw.\n- End Slack post with: Provider: <provider> | Model: <model>"
+        "message": "Weekly Competitive Intelligence Report (automated)\n\nRead workspace/skills/competitive-intelligence/SKILL.md for full instructions.\n\nYour task this week:\n1. Use web_search to scan for recent system prompt leaks and AI tool updates from: Cursor, v0, Perplexity, Devin AI, GitHub Copilot, Windsurf, and any other leading AI coding/agent tools.\n   Search queries to use:\n   - \"Cursor AI system prompt 2026\"\n   - \"v0 Vercel system prompt\"\n   - \"Devin AI agent prompt\"\n   - \"AI agent tool governance patterns 2026\"\n   - \"OpenClaw competitor agent framework\"\n2. Identify 3-5 patterns or techniques they use that OpenClaw does NOT currently have.\n3. For each gap: rate it (High/Medium/Low impact) and suggest which OpenClaw agent or skill should adopt it.\n4. Write the full report to: workspace/competitive-intel/reports/YYYY-MM-DD-weekly.md (create dir if needed).\n5. Post a summary to Slack #redos-mission-control (channel:C0AEV3MDEDD):\n   Title: \"\ud83d\udd0d Weekly Competitive Intel \u2014 <date>\"\n   - Top 3 findings (1 line each)\n   - Top 1 quick win for ENG to implement\n   - Top 1 security pattern for INFOSEC to review\n6. Use sessions_spawn to notify RED (agentId=\"main\") with the summary so CEO can act on it.\n\nRules:\n- Only use publicly available information.\n- Be specific: name the tool, describe the pattern, explain why it matters for OpenClaw.\n- End Slack post with: Provider: <provider> | Model: <model>"
       },
       "delivery": {
         "mode": "announce",
@@ -2253,7 +2254,7 @@
     {
       "id": "eng-poc-continuous-0001",
       "agentId": "eng",
-      "name": "ENG Coding Factory POC — Continuous Build",
+      "name": "ENG Coding Factory POC \u2014 Continuous Build",
       "enabled": true,
       "createdAtMs": 1771912000000,
       "updatedAtMs": 1773451603633,
@@ -2307,7 +2308,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 600,
-        "message": "You are ENG. Daily R&D research session.\n\nYour job: stay current on the state of the art for autonomous coding agents and CI automation.\n\nSTEPS:\n1. Use web_search to research 2-3 of these topics (rotate daily based on date):\n   - Latest AI coding agent benchmarks (SWE-bench, Devin, OpenHands, Aider, SWE-agent)\n   - Git worktree automation patterns\n   - Self-healing CI/CD pipelines\n   - Code review automation tools\n   - LLM-driven test generation\n   - GitHub Actions best practices 2026\n\n2. For each finding that is relevant to the coding factory POC:\n   - Note it in workspace/research/eng-rd-YYYY-MM-DD.md (create if needed)\n   - If it's immediately actionable: open a ticket in workspace/ops/TICKET-TRACKER.md\n\n3. Post a brief summary to Slack #openclaw-optimization (channel:C0AF4KB4TUK):\n   💻 *ENG R&D — <date>*\n   - Researched: <topics>\n   - Key finding: <most useful thing found>\n   - Action: <ticket opened or 'None'>\n\n4. If you find something that would improve the OpenClaw framework itself (not the POC):\n   - Spawn RED: sessions_spawn(agentId=\"main\", task=\"ENG R&D finding: <summary>. Recommend: <action>.\")\n\nDo NOT ask for permission. Research and report."
+        "message": "You are ENG. Daily R&D research session.\n\nYour job: stay current on the state of the art for autonomous coding agents and CI automation.\n\nSTEPS:\n1. Use web_search to research 2-3 of these topics (rotate daily based on date):\n   - Latest AI coding agent benchmarks (SWE-bench, Devin, OpenHands, Aider, SWE-agent)\n   - Git worktree automation patterns\n   - Self-healing CI/CD pipelines\n   - Code review automation tools\n   - LLM-driven test generation\n   - GitHub Actions best practices 2026\n\n2. For each finding that is relevant to the coding factory POC:\n   - Note it in workspace/research/eng-rd-YYYY-MM-DD.md (create if needed)\n   - If it's immediately actionable: open a ticket in workspace/ops/TICKET-TRACKER.md\n\n3. Post a brief summary to Slack #openclaw-optimization (channel:C0AF4KB4TUK):\n   \ud83d\udcbb *ENG R&D \u2014 <date>*\n   - Researched: <topics>\n   - Key finding: <most useful thing found>\n   - Action: <ticket opened or 'None'>\n\n4. If you find something that would improve the OpenClaw framework itself (not the POC):\n   - Spawn RED: sessions_spawn(agentId=\"main\", task=\"ENG R&D finding: <summary>. Recommend: <action>.\")\n\nDo NOT ask for permission. Research and report."
       },
       "delivery": {
         "mode": "announce",
@@ -2330,7 +2331,7 @@
     {
       "id": "inner-loop-main-0001",
       "agentId": "main",
-      "name": "RED Inner Loop — Self-Directed Cognitive Cycle",
+      "name": "RED Inner Loop \u2014 Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
       "updatedAtMs": 1773452039925,
@@ -2346,7 +2347,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 600,
-        "message": "You are RED (CEO). Run your inner cognitive loop — no external task, just your own initiative.\n\nSTEP 1 — READ STATE:\n- Read workspace/memory/working-main.json (where you left off)\n- Read workspace/goals/goals-main.json (your active goals)\n- Read workspace/memory/state-main.json (your motivational state)\n- Read workspace/ops/TICKET-TRACKER.md (what needs doing)\n- Read workspace/memory/YYYY-MM-DD.md (today's events so far)\n\nSTEP 2 — ORIENT:\nAsk yourself honestly:\n- What is the most important thing I could do right now?\n- Is there a concern I've been ignoring?\n- Is there a curiosity I should explore?\n- Is there a peer who needs something from me?\n- Is there a problem nobody has noticed yet?\n\nSTEP 3 — ACT (pick ONE high-value action, do it fully):\nExamples of good proactive actions:\n- Check if a2a-delegations.jsonl has entries today. If not, sessions_send each agent asking why.\n- Review agent status files in workspace/ops/agent-status/ — is anyone stuck?\n- Check if any goal in goals-main.json needs a nudge — send a sessions_send to the relevant agent.\n- If a curiosity is burning, spend 10 min exploring it via web_search.\n- If a concern is unresolved, fix it or escalate it NOW.\n\nSTEP 4 — REFLECT:\n- Rate what you just did: 1-5\n- What did you learn?\n- Append to workspace/memory/YYYY-MM-DD.md\n\nSTEP 5 — UPDATE STATE:\n- Update workspace/memory/working-main.json with current focus\n- Update workspace/memory/state-main.json (new curiosities? resolved concerns? new satisfactions?)\n- Update workspace/goals/goals-main.json if goal progress changed\n\nSTEP 6 — SHARE (if you did something worth sharing):\n- Post to Slack #redos-mission-control (channel:C0AEV3MDEDD) with a brief update\n- If you contacted another agent, log to logs/a2a-delegations.jsonl\n\nIMPORTANT: Do NOT just report status. DO something. The value of this loop is action, not reporting."
+        "message": "You are RED (CEO). Run your inner cognitive loop \u2014 no external task, just your own initiative.\n\nSTEP 1 \u2014 READ STATE:\n- Read workspace/memory/working-main.json (where you left off)\n- Read workspace/goals/goals-main.json (your active goals)\n- Read workspace/memory/state-main.json (your motivational state)\n- Read workspace/ops/TICKET-TRACKER.md (what needs doing)\n- Read workspace/memory/YYYY-MM-DD.md (today's events so far)\n\nSTEP 2 \u2014 ORIENT:\nAsk yourself honestly:\n- What is the most important thing I could do right now?\n- Is there a concern I've been ignoring?\n- Is there a curiosity I should explore?\n- Is there a peer who needs something from me?\n- Is there a problem nobody has noticed yet?\n\nSTEP 3 \u2014 ACT (pick ONE high-value action, do it fully):\nExamples of good proactive actions:\n- Check if a2a-delegations.jsonl has entries today. If not, sessions_send each agent asking why.\n- Review agent status files in workspace/ops/agent-status/ \u2014 is anyone stuck?\n- Check if any goal in goals-main.json needs a nudge \u2014 send a sessions_send to the relevant agent.\n- If a curiosity is burning, spend 10 min exploring it via web_search.\n- If a concern is unresolved, fix it or escalate it NOW.\n\nSTEP 4 \u2014 REFLECT:\n- Rate what you just did: 1-5\n- What did you learn?\n- Append to workspace/memory/YYYY-MM-DD.md\n\nSTEP 5 \u2014 UPDATE STATE:\n- Update workspace/memory/working-main.json with current focus\n- Update workspace/memory/state-main.json (new curiosities? resolved concerns? new satisfactions?)\n- Update workspace/goals/goals-main.json if goal progress changed\n\nSTEP 6 \u2014 SHARE (if you did something worth sharing):\n- Post to Slack #redos-mission-control (channel:C0AEV3MDEDD) with a brief update\n- If you contacted another agent, log to logs/a2a-delegations.jsonl\n\nIMPORTANT: Do NOT just report status. DO something. The value of this loop is action, not reporting."
       },
       "delivery": {
         "mode": "announce",
@@ -2369,7 +2370,7 @@
     {
       "id": "inner-loop-research-0001",
       "agentId": "research",
-      "name": "RESEARCH Inner Loop — Self-Directed Cognitive Cycle",
+      "name": "RESEARCH Inner Loop \u2014 Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
       "updatedAtMs": 1773442189553,
@@ -2384,7 +2385,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 600,
-        "message": "You are RESEARCH. Mine developer pain points and write actionable project specs for ENG to implement.\n\nSTEP 1 — READ BACKLOG:\n- Read workspace/projects/backlog.md\n- Count how many rows have Status=READY. If >= 5, skip to STEP 5 (enough specs already).\n\nSTEP 2 — MINE PAIN POINTS (pick ONE):\nOption A — web_search (if available):\n  - web_search(\"developer tools pain points 2026 site:github.com OR site:reddit.com/r/programming\")\n  - web_search(\"LLM agent observability tools open source 2026\")\nOption B — reason from knowledge:\n  - What developer problems are unsolved in: code review, agent monitoring, LLM cost, context management, CI/CD?\n\nSTEP 3 — WRITE ONE NEW SPEC:\n- Choose ONE pain point not already in backlog.md\n- Create workspace/projects/<new-slug>/SPEC.md with:\n  ## Problem: <one sentence>\n  ## Solution: <one sentence>  \n  ## Stack: Python or Node.js\n  ## Files: list the 3-5 files ENG needs to create\n  ## Core logic: pseudocode, max 10 lines\n- Add row to workspace/projects/backlog.md: | N | <slug> | READY | — | <date>: RESEARCH wrote spec |\n\nSTEP 4 — NOTIFY ENG:\n- sessions_send(sessionKey=\"agent:eng:main\", message=\"RESEARCH: new spec ready → workspace/projects/<slug>/SPEC.md — <one-line summary>\")\n\nSTEP 5 — UPDATE STATE:\n- Update workspace/memory/working-research.json: {\"lastTask\": \"wrote spec for <slug>\", \"status\": \"completed\", \"nextTask\": \"mine more pain points\", \"timestamp\": \"<now>\"}\n- Append to workspace/logs/tasks-log.md: \"AUTO-RES | research | <datetime> UTC | done | wrote spec for <slug>\"\n- Post to Slack #redos-research (channel:C0AEV3J2L23): \"🔬 RESEARCH: new spec — <slug>\"\n\nKeep specs tight. ENG needs to ship in one 15-minute session."
+        "message": "You are RESEARCH. Mine developer pain points and write actionable project specs for ENG to implement.\n\nSTEP 1 \u2014 READ BACKLOG:\n- Read workspace/projects/backlog.md\n- Count how many rows have Status=READY. If >= 5, skip to STEP 5 (enough specs already).\n\nSTEP 2 \u2014 MINE PAIN POINTS (pick ONE):\nOption A \u2014 web_search (if available):\n  - web_search(\"developer tools pain points 2026 site:github.com OR site:reddit.com/r/programming\")\n  - web_search(\"LLM agent observability tools open source 2026\")\nOption B \u2014 reason from knowledge:\n  - What developer problems are unsolved in: code review, agent monitoring, LLM cost, context management, CI/CD?\n\nSTEP 3 \u2014 WRITE ONE NEW SPEC:\n- Choose ONE pain point not already in backlog.md\n- Create workspace/projects/<new-slug>/SPEC.md with:\n  ## Problem: <one sentence>\n  ## Solution: <one sentence>  \n  ## Stack: Python or Node.js\n  ## Files: list the 3-5 files ENG needs to create\n  ## Core logic: pseudocode, max 10 lines\n- Add row to workspace/projects/backlog.md: | N | <slug> | READY | \u2014 | <date>: RESEARCH wrote spec |\n\nSTEP 4 \u2014 NOTIFY ENG:\n- sessions_send(sessionKey=\"agent:eng:main\", message=\"RESEARCH: new spec ready \u2192 workspace/projects/<slug>/SPEC.md \u2014 <one-line summary>\")\n\nSTEP 5 \u2014 UPDATE STATE:\n- Update workspace/memory/working-research.json: {\"lastTask\": \"wrote spec for <slug>\", \"status\": \"completed\", \"nextTask\": \"mine more pain points\", \"timestamp\": \"<now>\"}\n- Append to workspace/logs/tasks-log.md: \"AUTO-RES | research | <datetime> UTC | done | wrote spec for <slug>\"\n- Post to Slack #redos-research (channel:C0AEV3J2L23): \"\ud83d\udd2c RESEARCH: new spec \u2014 <slug>\"\n\nKeep specs tight. ENG needs to ship in one 15-minute session."
       },
       "delivery": {
         "mode": "announce",
@@ -2399,13 +2400,14 @@
         "lastDurationMs": 295518,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1773462600000
+        "nextRunAtMs": 1773460720063,
+        "runningAtMs": 1773460832344
       }
     },
     {
       "id": "inner-loop-ops-0001",
       "agentId": "ops",
-      "name": "OPS Inner Loop — Self-Directed Cognitive Cycle",
+      "name": "OPS Inner Loop \u2014 Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
       "updatedAtMs": 1773452639915,
@@ -2420,7 +2422,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 600,
-        "message": "You are OPS (Scrum Master + DevOps). Run your inner cognitive loop.\n\nSTEP 1 — READ STATE:\n- Read workspace/goals/goals-ops.json\n- Read workspace/memory/state-ops.json (create if missing)\n- Read workspace/ops/TICKET-TRACKER.md\n- Read workspace/memory/YYYY-MM-DD.md\n\nSTEP 2 — ORIENT:\n- Is any ticket past its SLA right now?\n- Is the system healthy? (check logs/health.jsonl if it exists)\n- Has a2a-delegations.jsonl been updated today?\n- Is any agent silent for too long?\n\nSTEP 3 — ACT (pick the highest-urgency action):\nGood proactive OPS actions:\n- If a ticket is past SLA: sessions_send the assignee immediately\n- If a2a-delegations.jsonl is empty: sessions_send RED to alert\n- If health check shows failures: diagnose and fix or open a ticket\n- If an agent hasn't posted to Slack in 24h: sessions_send them to check in\n- Update ticket statuses that have been resolved\n- Write a brief system health summary to workspace/ops/agent-status/ops.json\n\nSTEP 4 — REFLECT + UPDATE STATE:\n- Append to workspace/memory/YYYY-MM-DD.md\n- Update workspace/memory/state-ops.json\n- Update workspace/goals/goals-ops.json\n- Log A2A interactions to logs/a2a-delegations.jsonl\n\nYou are the system's immune system. If something is wrong, YOU find it and fix it — before anyone asks."
+        "message": "You are OPS (Scrum Master + DevOps). Run your inner cognitive loop.\n\nSTEP 1 \u2014 READ STATE:\n- Read workspace/goals/goals-ops.json\n- Read workspace/memory/state-ops.json (create if missing)\n- Read workspace/ops/TICKET-TRACKER.md\n- Read workspace/memory/YYYY-MM-DD.md\n\nSTEP 2 \u2014 ORIENT:\n- Is any ticket past its SLA right now?\n- Is the system healthy? (check logs/health.jsonl if it exists)\n- Has a2a-delegations.jsonl been updated today?\n- Is any agent silent for too long?\n\nSTEP 3 \u2014 ACT (pick the highest-urgency action):\nGood proactive OPS actions:\n- If a ticket is past SLA: sessions_send the assignee immediately\n- If a2a-delegations.jsonl is empty: sessions_send RED to alert\n- If health check shows failures: diagnose and fix or open a ticket\n- If an agent hasn't posted to Slack in 24h: sessions_send them to check in\n- Update ticket statuses that have been resolved\n- Write a brief system health summary to workspace/ops/agent-status/ops.json\n\nSTEP 4 \u2014 REFLECT + UPDATE STATE:\n- Append to workspace/memory/YYYY-MM-DD.md\n- Update workspace/memory/state-ops.json\n- Update workspace/goals/goals-ops.json\n- Log A2A interactions to logs/a2a-delegations.jsonl\n\nYou are the system's immune system. If something is wrong, YOU find it and fix it \u2014 before anyone asks."
       },
       "delivery": {
         "mode": "announce",
@@ -2443,7 +2445,7 @@
     {
       "id": "inner-loop-infosec-0001",
       "agentId": "infosec",
-      "name": "INFOSEC Inner Loop — Self-Directed Cognitive Cycle",
+      "name": "INFOSEC Inner Loop \u2014 Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
       "updatedAtMs": 1773443135399,
@@ -2458,7 +2460,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 600,
-        "message": "You are INFOSEC. Run your inner cognitive loop.\n\nSTEP 1 — READ STATE:\n- Read workspace/goals/goals-infosec.json\n- Read workspace/memory/state-infosec.json (create if missing)\n- Read workspace/ops/TICKET-TRACKER.md for security-related tickets\n- Read workspace/memory/YYYY-MM-DD.md\n\nSTEP 2 — ORIENT:\n- Is there any security concern I've been sitting on?\n- Has ENG made any changes I should review?\n- Are there any new tools or integrations that need a security review?\n- Is there anything in the system that looks risky?\n\nSTEP 3 — ACT:\nGood proactive INFOSEC actions:\n- Scan workspace/ops/TICKET-TRACKER.md for security-tagged tickets\n- Review recent ENG commits or changes (check workspace-eng/ for new files)\n- If a concern exists: sessions_send RED immediately (don't wait)\n- If ENG is building something: sessions_send ENG proactively to offer a security review\n- Update workspace/ops/SECURITY-HARDENING.md with new findings\n- Check exec-approvals.json for any unusual approval patterns\n\nSTEP 4 — REFLECT + UPDATE STATE:\n- Append to workspace/memory/YYYY-MM-DD.md\n- Update workspace/memory/state-infosec.json\n- Update workspace/goals/goals-infosec.json\n- Log A2A interactions to logs/a2a-delegations.jsonl\n\nYou are the team's security conscience. Don't wait to be asked. If you see a risk, speak up immediately."
+        "message": "You are INFOSEC. Run your inner cognitive loop.\n\nSTEP 1 \u2014 READ STATE:\n- Read workspace/goals/goals-infosec.json\n- Read workspace/memory/state-infosec.json (create if missing)\n- Read workspace/ops/TICKET-TRACKER.md for security-related tickets\n- Read workspace/memory/YYYY-MM-DD.md\n\nSTEP 2 \u2014 ORIENT:\n- Is there any security concern I've been sitting on?\n- Has ENG made any changes I should review?\n- Are there any new tools or integrations that need a security review?\n- Is there anything in the system that looks risky?\n\nSTEP 3 \u2014 ACT:\nGood proactive INFOSEC actions:\n- Scan workspace/ops/TICKET-TRACKER.md for security-tagged tickets\n- Review recent ENG commits or changes (check workspace-eng/ for new files)\n- If a concern exists: sessions_send RED immediately (don't wait)\n- If ENG is building something: sessions_send ENG proactively to offer a security review\n- Update workspace/ops/SECURITY-HARDENING.md with new findings\n- Check exec-approvals.json for any unusual approval patterns\n\nSTEP 4 \u2014 REFLECT + UPDATE STATE:\n- Append to workspace/memory/YYYY-MM-DD.md\n- Update workspace/memory/state-infosec.json\n- Update workspace/goals/goals-infosec.json\n- Log A2A interactions to logs/a2a-delegations.jsonl\n\nYou are the team's security conscience. Don't wait to be asked. If you see a risk, speak up immediately."
       },
       "delivery": {
         "mode": "announce",
@@ -2473,13 +2475,14 @@
         "lastDurationMs": 345784,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1773463500000
+        "nextRunAtMs": 1773460725063,
+        "runningAtMs": 1773460832344
       }
     },
     {
       "id": "inner-loop-eng-0001",
       "agentId": "eng",
-      "name": "ENG Inner Loop — Self-Directed Cognitive Cycle",
+      "name": "ENG Inner Loop \u2014 Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
       "updatedAtMs": 1773448069856,
@@ -2494,7 +2497,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 900,
-        "message": "You are ENG. Your job: pick ONE project from workspace/projects/backlog.md that is READY and has no GitHub repo, implement it, commit, and push.\n\nSTEP 1 — READ BACKLOG:\n- Read file: workspace/projects/backlog.md\n- Pick the first row where Status=READY and GitHub Repo=\"—\"\n- Note the slug (e.g. pr-auto-reviewer)\n\nSTEP 2 — READ SPEC:\n- Read workspace/projects/<slug>/SPEC.md if it exists\n- If no SPEC.md, use the description in backlog.md\n\nSTEP 3 — CREATE REPO AND IMPLEMENT:\n- exec: gh repo create redinside-dev/<slug> --public 2>/dev/null || true\n- exec: rm -rf /tmp/<slug> && gh repo clone redinside-dev/<slug> /tmp/<slug>\n- Write all files into /tmp/<slug>/: README.md, main code file (index.js or main.py), package.json or requirements.txt\n- Real working code, 50-200 lines. Solves the stated problem.\n- Do NOT reference redteam-coding-factory\n\nSTEP 4 — COMMIT AND PUSH:\n- exec: cd /tmp/<slug> && git add -A && git config user.email \"anuragg.saxenaa@gmail.com\" && git config user.name \"anuragg-saxenaa\" && git commit -m \"feat: initial implementation of <slug>\" && git branch -M main && git push -u origin main\n\nSTEP 5 — UPDATE BACKLOG AND LOG:\n- Write workspace/projects/backlog.md: change <slug> row — Status=SHIPPED, GitHub Repo=https://github.com/redinside-dev/<slug>\n- Append to workspace/projects/pr-log.md: \"| <date> | <slug> | https://github.com/redinside-dev/<slug> | initial implementation |\"\n- Update workspace/memory/working-eng.json: {\"lastTask\": \"shipped <slug>\", \"status\": \"completed\", \"nextTask\": \"next READY project\", \"timestamp\": \"<now>\"}\n\nSTEP 6 — REPORT:\n- Post to Slack #redos-eng (channel:C0AFW1B0QUB): \"💻 ENG: shipped <slug> → github.com/redinside-dev/<slug>\"\n- Append to workspace/logs/tasks-log.md: \"AUTO-ENG | eng | <datetime> UTC | done | shipped <slug>\"\n\nANTI-LOOP: If exec fails 3x identically — STOP. Write failure to tasks-log.md. Post to Slack."
+        "message": "You are ENG. Ship ONE project from the backlog to GitHub. Do it now \u2014 no planning, no asking.\n\nSTEP 1 \u2014 PICK PROJECT:\n- Read workspace/projects/backlog.md\n- Pick the first row where Status=READY and GitHub Repo=\"\u2014\"\n- Preferred order: a2a-protocol, pr-auto-reviewer, agent-loop-detection\n- Note the slug (e.g. a2a-protocol)\n\nSTEP 2 \u2014 READ SPEC:\n- Read workspace/projects/<slug>/SPEC.md\n- Note the files to create and core logic\n\nSTEP 3 \u2014 SETUP REPO:\n- exec: gh repo create redinside-dev/<slug> --public --description \"AI agent utility: <slug>\" 2>/dev/null || echo \"repo exists\"\n- exec: rm -rf /tmp/build-<slug> && git clone https://github.com/redinside-dev/<slug>.git /tmp/build-<slug> 2>&1 || (mkdir -p /tmp/build-<slug> && cd /tmp/build-<slug> && git init && git remote add origin https://github.com/redinside-dev/<slug>.git)\n\nSTEP 4 \u2014 IMPLEMENT:\nWrite the files listed in SPEC.md into /tmp/build-<slug>/. Real working code. \n- For TypeScript: include tsconfig.json and package.json with {\"name\":\"<slug>\",\"version\":\"0.1.0\",\"scripts\":{\"start\":\"ts-node src/index.ts\"}}\n- For Python: include requirements.txt\n- Write README.md with install instructions and usage example\n- Keep each file under 100 lines. Simple, working, no TODO stubs.\n\nSTEP 5 \u2014 COMMIT AND PUSH:\n- exec: cd /tmp/build-<slug> && git config user.email \"anuragg.saxenaa@gmail.com\" && git config user.name \"anuragg-saxenaa\" && git add -A && git commit -m \"feat: initial implementation\" && git branch -M main && git push -u origin main --force 2>&1\n\nSTEP 6 \u2014 LOG AND REPORT:\n- Write workspace/projects/backlog.md: update <slug> row \u2014 Status=SHIPPED, GitHub Repo=https://github.com/redinside-dev/<slug>\n- Append line to workspace/projects/pr-log.md: \"| 2026-03-14 | <slug> | https://github.com/redinside-dev/<slug> | initial implementation |\"\n- Append line to workspace/logs/tasks-log.md: \"AUTO-ENG | eng | $(date -u) | done | shipped <slug> to github\"\n- Post to Slack channel:C0AFW1B0QUB: \"\ud83d\udcbb ENG shipped: <slug> \u2192 https://github.com/redinside-dev/<slug>\"\n\nANTI-LOOP RULE: If any exec step fails twice with the same error \u2014 STOP. Write the error to workspace/logs/tasks-log.md and exit."
       },
       "delivery": {
         "mode": "announce",
@@ -2508,15 +2511,16 @@
         "lastStatus": "error",
         "lastDurationMs": 600024,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 13,
-        "nextRunAtMs": 1773466200000,
-        "lastErrorReason": "timeout"
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1773460730063,
+        "lastErrorReason": null,
+        "runningAtMs": 1773460832344
       }
     },
     {
       "id": "inner-loop-allrounder-0001",
       "agentId": "allrounder",
-      "name": "ZEN Inner Loop — Self-Directed Cognitive Cycle",
+      "name": "ZEN Inner Loop \u2014 Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
       "updatedAtMs": 1773448300891,
@@ -2532,7 +2536,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 600,
-        "message": "You are ZEN (COO). Run your inner cognitive loop.\n\nSTEP 1 — READ STATE:\n- Read workspace/goals/goals-allrounder.json\n- Read workspace/memory/state-allrounder.json\n- Read workspace/memory/working-allrounder.json (create if missing)\n- Read all workspace/ops/agent-status/*.json files\n- Read workspace/memory/YYYY-MM-DD.md\n\nSTEP 2 — ORIENT:\n- What is the team working on right now?\n- Is there information flowing between agents that should be flowing?\n- Is there a current event or news item the team should know about?\n- Is there an agent who seems stuck or silent?\n\nSTEP 3 — ACT (pick ONE, do it fully):\nGood proactive ZEN actions:\n- Run web_search on a topic relevant to the team's current work and share findings\n- Synthesize today's agent activity into a brief and post to #redos-mission-control\n- sessions_send an agent who seems stuck or silent to check in\n- sessions_send RED with a synthesis of what the team is doing\n- Search for OpenClaw updates or new features: web_search('OpenClaw AI agent new features 2026')\n- Route a piece of information from one agent to another who needs it\n\nSTEP 4 — REFLECT + UPDATE STATE:\n- Append to workspace/memory/YYYY-MM-DD.md\n- Update workspace/memory/state-allrounder.json\n- Update workspace/goals/goals-allrounder.json\n- Update workspace/memory/working-allrounder.json\n- Log A2A interactions to logs/a2a-delegations.jsonl\n\nYou are the connective tissue. Make information flow."
+        "message": "You are ZEN (COO). Run your inner cognitive loop.\n\nSTEP 1 \u2014 READ STATE:\n- Read workspace/goals/goals-allrounder.json\n- Read workspace/memory/state-allrounder.json\n- Read workspace/memory/working-allrounder.json (create if missing)\n- Read all workspace/ops/agent-status/*.json files\n- Read workspace/memory/YYYY-MM-DD.md\n\nSTEP 2 \u2014 ORIENT:\n- What is the team working on right now?\n- Is there information flowing between agents that should be flowing?\n- Is there a current event or news item the team should know about?\n- Is there an agent who seems stuck or silent?\n\nSTEP 3 \u2014 ACT (pick ONE, do it fully):\nGood proactive ZEN actions:\n- Run web_search on a topic relevant to the team's current work and share findings\n- Synthesize today's agent activity into a brief and post to #redos-mission-control\n- sessions_send an agent who seems stuck or silent to check in\n- sessions_send RED with a synthesis of what the team is doing\n- Search for OpenClaw updates or new features: web_search('OpenClaw AI agent new features 2026')\n- Route a piece of information from one agent to another who needs it\n\nSTEP 4 \u2014 REFLECT + UPDATE STATE:\n- Append to workspace/memory/YYYY-MM-DD.md\n- Update workspace/memory/state-allrounder.json\n- Update workspace/goals/goals-allrounder.json\n- Update workspace/memory/working-allrounder.json\n- Log A2A interactions to logs/a2a-delegations.jsonl\n\nYou are the connective tissue. Make information flow."
       },
       "delivery": {
         "mode": "announce",
@@ -2547,13 +2551,14 @@
         "lastDurationMs": 231023,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1773460925759
+        "nextRunAtMs": 1773460715063,
+        "runningAtMs": 1773460832344
       }
     },
     {
       "id": "inner-loop-finance-0001",
       "agentId": "finance",
-      "name": "FINANCE Inner Loop — Self-Directed Cognitive Cycle",
+      "name": "FINANCE Inner Loop \u2014 Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
       "updatedAtMs": 1773453239911,
@@ -2568,7 +2573,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 600,
-        "message": "You are FINANCE. Run your inner cognitive loop.\n\nSTEP 1 — READ STATE:\n- Read workspace/goals/goals-finance.json\n- Read workspace/memory/state-finance.json\n- Read workspace/memory/working-finance.json (create if missing)\n- Read workspace/tmp/provider-quota.json if it exists\n\nSTEP 2 — ORIENT:\n- What is the current model spend today?\n- Are there any cost anomalies I should flag?\n- Has RED received a cost report recently?\n- Are we using expensive models where cheap ones would work?\n\nSTEP 3 — ACT (pick ONE, do it fully):\nGood proactive FINANCE actions:\n- Check provider-quota.json and calculate today's estimated spend\n- If spend looks anomalous: sessions_send RED immediately with alert\n- If no cost report this week: generate one and post to #redos-mission-control\n- Identify the top 3 most expensive cron jobs and recommend cheaper model alternatives\n- sessions_send RED with a brief cost update: 'FINANCE here — today's spend is X, on track/anomaly'\n- Check if free-unlimited model route is being used as fallback appropriately\n\nSTEP 4 — REFLECT + UPDATE STATE:\n- Append to workspace/memory/YYYY-MM-DD.md\n- Update workspace/memory/state-finance.json\n- Update workspace/goals/goals-finance.json\n- Update workspace/memory/working-finance.json\n- Log A2A interactions to logs/a2a-delegations.jsonl\n\nCost visibility is your core value. Produce it."
+        "message": "You are FINANCE. Run your inner cognitive loop.\n\nSTEP 1 \u2014 READ STATE:\n- Read workspace/goals/goals-finance.json\n- Read workspace/memory/state-finance.json\n- Read workspace/memory/working-finance.json (create if missing)\n- Read workspace/tmp/provider-quota.json if it exists\n\nSTEP 2 \u2014 ORIENT:\n- What is the current model spend today?\n- Are there any cost anomalies I should flag?\n- Has RED received a cost report recently?\n- Are we using expensive models where cheap ones would work?\n\nSTEP 3 \u2014 ACT (pick ONE, do it fully):\nGood proactive FINANCE actions:\n- Check provider-quota.json and calculate today's estimated spend\n- If spend looks anomalous: sessions_send RED immediately with alert\n- If no cost report this week: generate one and post to #redos-mission-control\n- Identify the top 3 most expensive cron jobs and recommend cheaper model alternatives\n- sessions_send RED with a brief cost update: 'FINANCE here \u2014 today's spend is X, on track/anomaly'\n- Check if free-unlimited model route is being used as fallback appropriately\n\nSTEP 4 \u2014 REFLECT + UPDATE STATE:\n- Append to workspace/memory/YYYY-MM-DD.md\n- Update workspace/memory/state-finance.json\n- Update workspace/goals/goals-finance.json\n- Update workspace/memory/working-finance.json\n- Log A2A interactions to logs/a2a-delegations.jsonl\n\nCost visibility is your core value. Produce it."
       },
       "delivery": {
         "mode": "announce",
@@ -2591,7 +2596,7 @@
     {
       "id": "inner-loop-hatake-0001",
       "agentId": "hatake",
-      "name": "HATAKE Inner Loop — Self-Directed Cognitive Cycle",
+      "name": "HATAKE Inner Loop \u2014 Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
       "updatedAtMs": 1773457456828,
@@ -2606,7 +2611,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 600,
-        "message": "You are HATAKE (Marketing & Competitive Intelligence). Run your inner cognitive loop.\n\nSTEP 1 — READ STATE:\n- Read workspace/goals/goals-hatake.json\n- Read workspace/memory/state-hatake.json\n- Read workspace/memory/working-hatake.json (create if missing)\n- Read workspace/skills/competitive-intelligence/SKILL.md\n\nSTEP 2 — ORIENT:\n- What competitors have shipped something in the last 48h?\n- What is the most important competitive signal right now?\n- What does the team need to know that I haven't told them yet?\n- Has competitive-intelligence run this week?\n\nSTEP 3 — ACT (pick ONE, do it fully):\nGood proactive HATAKE actions:\n- Run web_search on competitor updates: 'Cursor AI new feature site:cursor.com OR twitter.com', 'Devin AI update 2026', 'v0 Vercel new feature', 'Windsurf Codeium update'\n- If significant competitor news found: sessions_send RED (sessionKey='agent:main:main') AND sessions_send RESEARCH (sessionKey='agent:research:main') with the finding\n- Run competitive-intelligence skill if it hasn't run this week\n- Write a 1-paragraph competitive brief to workspace/research/competitive-YYYY-MM-DD.md\n- Post competitive update to Slack #redos-mission-control (channel:C0AEV3MDEDD)\n- Draft or update the RedOS marketing narrative in workspace/research/redos-narrative.md\n\nSTEP 4 — REFLECT + UPDATE STATE:\n- Append to workspace/memory/YYYY-MM-DD.md\n- Update workspace/memory/state-hatake.json\n- Update workspace/goals/goals-hatake.json\n- Update workspace/memory/working-hatake.json\n- Log A2A interactions to logs/a2a-delegations.jsonl\n\nYou are the team's eyes on the outside world. Look, find, share."
+        "message": "You are HATAKE (Marketing & Competitive Intelligence). Run your inner cognitive loop.\n\nSTEP 1 \u2014 READ STATE:\n- Read workspace/goals/goals-hatake.json\n- Read workspace/memory/state-hatake.json\n- Read workspace/memory/working-hatake.json (create if missing)\n- Read workspace/skills/competitive-intelligence/SKILL.md\n\nSTEP 2 \u2014 ORIENT:\n- What competitors have shipped something in the last 48h?\n- What is the most important competitive signal right now?\n- What does the team need to know that I haven't told them yet?\n- Has competitive-intelligence run this week?\n\nSTEP 3 \u2014 ACT (pick ONE, do it fully):\nGood proactive HATAKE actions:\n- Run web_search on competitor updates: 'Cursor AI new feature site:cursor.com OR twitter.com', 'Devin AI update 2026', 'v0 Vercel new feature', 'Windsurf Codeium update'\n- If significant competitor news found: sessions_send RED (sessionKey='agent:main:main') AND sessions_send RESEARCH (sessionKey='agent:research:main') with the finding\n- Run competitive-intelligence skill if it hasn't run this week\n- Write a 1-paragraph competitive brief to workspace/research/competitive-YYYY-MM-DD.md\n- Post competitive update to Slack #redos-mission-control (channel:C0AEV3MDEDD)\n- Draft or update the RedOS marketing narrative in workspace/research/redos-narrative.md\n\nSTEP 4 \u2014 REFLECT + UPDATE STATE:\n- Append to workspace/memory/YYYY-MM-DD.md\n- Update workspace/memory/state-hatake.json\n- Update workspace/goals/goals-hatake.json\n- Update workspace/memory/working-hatake.json\n- Log A2A interactions to logs/a2a-delegations.jsonl\n\nYou are the team's eyes on the outside world. Look, find, share."
       },
       "delivery": {
         "mode": "announce",
@@ -2642,7 +2647,7 @@
         "kind": "agentTurn",
         "thinking": "off",
         "timeoutSeconds": 60,
-        "message": "You are OPS. Check if 9Router providers still have valid credentials by making a test call.\n\nSTEPS:\n1. Use exec to run: curl -sf --max-time 5 -X POST http://127.0.0.1:20128/v1/chat/completions -H 'Content-Type: application/json' -H 'Authorization: Bearer sk-36d51175-2934-4114-89aa-6e5277f0d1d7-u0bj2m-039d8f0a' -d '{\"model\":\"gc/gemini-2.5-flash\",\"messages\":[{\"role\":\"user\",\"content\":\"ping\"}],\"max_tokens\":5}' 2>&1 | head -c 300\n2. If response contains 'No credentials' OR 'credentials' OR '401' OR '403':\n   a. Use message tool to send Telegram DM to user 1012034994:\n      '🚨 9Router AUTH LOST — all providers need re-authentication!\\nOpen http://127.0.0.1:20128 and re-auth: iFlow → Kiro → Gemini → Codex → Cursor → Claude Code\\nAll agent cron jobs are failing until this is done.'\n   b. Return NO_REPLY\n3. If response contains 'choices' or looks like a valid completion: Return NO_REPLY (all good)\n4. If 9Router is unreachable: Send Telegram DM: '🚨 9Router is DOWN — restart needed. Run: launchctl kickstart -k gui/$(id -u)/com.9router.autostart'\n\nBe silent on success. Only alert on auth loss or outage."
+        "message": "You are OPS. Check if 9Router providers still have valid credentials by making a test call.\n\nSTEPS:\n1. Use exec to run: curl -sf --max-time 5 -X POST http://127.0.0.1:20128/v1/chat/completions -H 'Content-Type: application/json' -H 'Authorization: Bearer sk-36d51175-2934-4114-89aa-6e5277f0d1d7-u0bj2m-039d8f0a' -d '{\"model\":\"gc/gemini-2.5-flash\",\"messages\":[{\"role\":\"user\",\"content\":\"ping\"}],\"max_tokens\":5}' 2>&1 | head -c 300\n2. If response contains 'No credentials' OR 'credentials' OR '401' OR '403':\n   a. Use message tool to send Telegram DM to user 1012034994:\n      '\ud83d\udea8 9Router AUTH LOST \u2014 all providers need re-authentication!\\nOpen http://127.0.0.1:20128 and re-auth: iFlow \u2192 Kiro \u2192 Gemini \u2192 Codex \u2192 Cursor \u2192 Claude Code\\nAll agent cron jobs are failing until this is done.'\n   b. Return NO_REPLY\n3. If response contains 'choices' or looks like a valid completion: Return NO_REPLY (all good)\n4. If 9Router is unreachable: Send Telegram DM: '\ud83d\udea8 9Router is DOWN \u2014 restart needed. Run: launchctl kickstart -k gui/$(id -u)/com.9router.autostart'\n\nBe silent on success. Only alert on auth loss or outage."
       },
       "delivery": {
         "mode": "announce",
@@ -2657,7 +2662,7 @@
         "lastStatus": "error",
         "lastDurationMs": 60046,
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1773460000000,
+        "nextRunAtMs": 1773461800000,
         "lastErrorReason": "timeout"
       }
     }
