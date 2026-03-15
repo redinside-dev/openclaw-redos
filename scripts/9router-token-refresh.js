@@ -785,11 +785,10 @@ async function main() {
   refreshed += claudeResult.refreshed;
   if (claudeResult.dbChanged) dbChanged = true;
 
-  // ── Codex: direct OpenAI token endpoint (~10d tokens, 120min buffer) ────────
-  const codexResult = await handleCodexAccounts(conns, alerts);
-  skipped   += codexResult.skipped;
-  refreshed += codexResult.refreshed;
-  if (codexResult.dbChanged) dbChanged = true;
+  // ── Codex: 9Router handles codex refresh internally — skip to avoid refresh_token_reused conflict
+  // codex tokens last ~10 days; 9Router auto-refreshes them. Script must not touch them.
+  const codexConns = conns.filter(c => c.provider === 'codex');
+  skipped += codexConns.length;
 
   for (const conn of conns) {
     const provider  = conn.provider;

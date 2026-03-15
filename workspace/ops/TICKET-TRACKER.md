@@ -1045,3 +1045,363 @@
 - **Resolution:** 
 - **Learnings:** 
 - **Resolved At:** 
+
+### TICKET-20260315-026
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-15T16:23:46+00:00
+- **SLA Deadline:** 2026-03-16T00:23:46+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (242x): <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+- **Details:** Detected 242 occurrences in the last window. Examples:
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260315-027
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-15T16:23:46+00:00
+- **SLA Deadline:** 2026-03-16T00:23:46+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (210x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+- **Details:** Detected 210 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260315-028
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-15T16:23:46+00:00
+- **SLA Deadline:** 2026-03-16T00:23:46+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (32x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/groq/llama-3.3-70b-v
+- **Details:** Detected 32 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/groq/llama-3.3-70b-v
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/groq/llama-3.3-70b-v
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/groq/llama-3.3-70b-v
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/groq/llama-3.3-70b-v
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260315-029
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-15T16:23:46+00:00
+- **SLA Deadline:** 2026-03-16T00:23:46+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (30x): <ts>-04:00 [tools] message failed: channel is required when multiple channels are configured: telegram, slack
+- **Details:** Detected 30 occurrences in the last window. Examples:
+  - <ts>-04:00 [tools] message failed: channel is required when multiple channels are configured: telegram, slack
+  - <ts>-04:00 [tools] message failed: channel is required when multiple channels are configured: telegram, slack
+  - <ts>-04:00 [tools] message failed: channel is required when multiple channels are configured: telegram, slack
+  - <ts>-04:00 [tools] message failed: channel is required when multiple channels are configured: telegram, slack
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260315-030
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-15T16:23:46+00:00
+- **SLA Deadline:** 2026-03-16T00:23:46+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (27x): <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=rate_limit provider=9router/groq/llama-3.3-70b-vers
+- **Details:** Detected 27 occurrences in the last window. Examples:
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=rate_limit provider=9router/groq/llama-3.3-70b-vers
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=rate_limit provider=9router/groq/llama-3.3-70b-vers
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=rate_limit provider=9router/groq/llama-3.3-70b-vers
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=rate_limit provider=9router/groq/llama-3.3-70b-vers
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260315-031
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-15T18:29:05+00:00
+- **SLA Deadline:** 2026-03-16T02:29:05+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (265x): <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+- **Details:** Detected 265 occurrences in the last window. Examples:
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260315-032
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-15T18:29:05+00:00
+- **SLA Deadline:** 2026-03-16T02:29:05+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (234x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+- **Details:** Detected 234 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260315-033
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-15T18:29:05+00:00
+- **SLA Deadline:** 2026-03-16T02:29:05+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (33x): <ts>-04:00 [tools] message failed: action read is not supported for provider telegram.
+- **Details:** Detected 33 occurrences in the last window. Examples:
+  - <ts>-04:00 [tools] message failed: action read is not supported for provider telegram.
+  - <ts>-04:00 [tools] message failed: action read is not supported for provider telegram.
+  - <ts>-04:00 [tools] message failed: action read is not supported for provider telegram.
+  - <ts>-04:00 [tools] message failed: action read is not supported for provider telegram.
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260315-034
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-15T18:29:05+00:00
+- **SLA Deadline:** 2026-03-16T02:29:05+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (33x): <ts>-04:00 [tools] message failed: channel is required when multiple channels are configured: telegram, slack
+- **Details:** Detected 33 occurrences in the last window. Examples:
+  - <ts>-04:00 [tools] message failed: channel is required when multiple channels are configured: telegram, slack
+  - <ts>-04:00 [tools] message failed: channel is required when multiple channels are configured: telegram, slack
+  - <ts>-04:00 [tools] message failed: channel is required when multiple channels are configured: telegram, slack
+  - <ts>-04:00 [tools] message failed: channel is required when multiple channels are configured: telegram, slack
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260315-035
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-15T18:29:05+00:00
+- **SLA Deadline:** 2026-03-16T02:29:05+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (32x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/groq/llama-3.3-70b-v
+- **Details:** Detected 32 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/groq/llama-3.3-70b-v
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/groq/llama-3.3-70b-v
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/groq/llama-3.3-70b-v
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/groq/llama-3.3-70b-v
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260315-036
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-15T20:29:07+00:00
+- **SLA Deadline:** 2026-03-16T04:29:07+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (289x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+- **Details:** Detected 289 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260315-037
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-15T20:29:07+00:00
+- **SLA Deadline:** 2026-03-16T04:29:07+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (288x): <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+- **Details:** Detected 288 occurrences in the last window. Examples:
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260315-038
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-15T20:29:07+00:00
+- **SLA Deadline:** 2026-03-16T04:29:07+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (40x): <ts>-04:00 [tools] message failed: action read is not supported for provider telegram.
+- **Details:** Detected 40 occurrences in the last window. Examples:
+  - <ts>-04:00 [tools] message failed: action read is not supported for provider telegram.
+  - <ts>-04:00 [tools] message failed: action read is not supported for provider telegram.
+  - <ts>-04:00 [tools] message failed: action read is not supported for provider telegram.
+  - <ts>-04:00 [tools] message failed: action read is not supported for provider telegram.
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260315-039
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-15T20:29:07+00:00
+- **SLA Deadline:** 2026-03-16T04:29:07+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (40x): <ts>-04:00 [tools] message failed: channel is required when multiple channels are configured: telegram, slack
+- **Details:** Detected 40 occurrences in the last window. Examples:
+  - <ts>-04:00 [tools] message failed: channel is required when multiple channels are configured: telegram, slack
+  - <ts>-04:00 [tools] message failed: channel is required when multiple channels are configured: telegram, slack
+  - <ts>-04:00 [tools] message failed: channel is required when multiple channels are configured: telegram, slack
+  - <ts>-04:00 [tools] message failed: channel is required when multiple channels are configured: telegram, slack
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260315-040
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-15T20:29:07+00:00
+- **SLA Deadline:** 2026-03-16T04:29:07+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (37x): <ts>-04:00 [tools] message failed: action read requires a target.
+- **Details:** Detected 37 occurrences in the last window. Examples:
+  - <ts>-04:00 [tools] message failed: action read requires a target.
+  - <ts>-04:00 [tools] message failed: action read requires a target.
+  - <ts>-04:00 [tools] message failed: action read requires a target.
+  - <ts>-04:00 [tools] message failed: action read requires a target.
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260315-041
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-15T22:29:13+00:00
+- **SLA Deadline:** 2026-03-16T06:29:13+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (291x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+- **Details:** Detected 291 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260315-042
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-15T22:29:13+00:00
+- **SLA Deadline:** 2026-03-16T06:29:13+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (289x): <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+- **Details:** Detected 289 occurrences in the last window. Examples:
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260315-043
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-15T22:29:13+00:00
+- **SLA Deadline:** 2026-03-16T06:29:13+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (46x): <ts>-04:00 [tools] message failed: channel is required when multiple channels are configured: telegram, slack
+- **Details:** Detected 46 occurrences in the last window. Examples:
+  - <ts>-04:00 [tools] message failed: channel is required when multiple channels are configured: telegram, slack
+  - <ts>-04:00 [tools] message failed: channel is required when multiple channels are configured: telegram, slack
+  - <ts>-04:00 [tools] message failed: channel is required when multiple channels are configured: telegram, slack
+  - <ts>-04:00 [tools] message failed: channel is required when multiple channels are configured: telegram, slack
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260315-044
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-15T22:29:13+00:00
+- **SLA Deadline:** 2026-03-16T06:29:13+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (42x): <ts>-04:00 [tools] message failed: action read is not supported for provider telegram.
+- **Details:** Detected 42 occurrences in the last window. Examples:
+  - <ts>-04:00 [tools] message failed: action read is not supported for provider telegram.
+  - <ts>-04:00 [tools] message failed: action read is not supported for provider telegram.
+  - <ts>-04:00 [tools] message failed: action read is not supported for provider telegram.
+  - <ts>-04:00 [tools] message failed: action read is not supported for provider telegram.
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260315-045
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-15T22:29:13+00:00
+- **SLA Deadline:** 2026-03-16T06:29:13+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (39x): <ts>-04:00 [tools] message failed: action read requires a target.
+- **Details:** Detected 39 occurrences in the last window. Examples:
+  - <ts>-04:00 [tools] message failed: action read requires a target.
+  - <ts>-04:00 [tools] message failed: action read requires a target.
+  - <ts>-04:00 [tools] message failed: action read requires a target.
+  - <ts>-04:00 [tools] message failed: action read requires a target.
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 

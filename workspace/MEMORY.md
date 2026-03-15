@@ -137,17 +137,23 @@ All agents run periodic inner loops (every 2-4h):
 - **Cache hit rate target:** >60%
 - **Tracking:** `workspace/costs/*.json`
 
-### Model Routing Strategy
-1. **Tier 1:** Local Ollama (free)
-2. **Tier 2:** 9router hosted models (Claude Haiku, GPT-4o-mini)
-3. **Tier 3:** Premium models (Claude Opus, GPT-5.2) - only for complex tasks
-4. **Last resort:** PAYG models (removed from most fallback chains)
+### Model Routing Strategy (updated 2026-03-15)
+1. **Tier 1:** MiniMax M2.5 via 9router (unlimited $20/mo coding plan — Opus-level quality, zero per-token cost)
+2. **Tier 2:** groq/llama-3.3-70b (free API key), openrouter free tier models
+3. **Tier 3:** gc/gemini-*, kr/kiro OAuth models (free subscription)
+4. **Tier 4:** openrouter/auto ($10 PAYG credit), if/iflow models (when authenticated)
+- **Ollama REMOVED** 2026-03-14 — freed 3.5GB RAM. No local models.
 
-### Cost Reduction Tactics
-- Prompt caching enabled (`cache_control: ephemeral`)
-- Batch API for nightly/weekly jobs
-- PAYG models removed from fallback chains
-- Agent-specific model routing (FINANCE uses cheaper models)
+### OpenClaw → 9Router Failover Chain
+```
+Primary:    9router/free-unlimited   (MiniMax first inside 9router)
+Fallback 1: minimax/MiniMax-M2.5    (direct — bypasses 9router)
+Fallback 2: glm/glm-4.7             (ZAI direct — bypasses 9router)
+```
+
+### 9router COMBO Priority (all combos start with MiniMax)
+free-unlimited, heartbeat-cheap, subagent-reliable, always-on-premium, coding-factory, research-deep
+→ All start with `minimax/MiniMax-M2.5` then free providers as rotation.
 
 ---
 
@@ -227,16 +233,16 @@ All agents run periodic inner loops (every 2-4h):
 ## Cron Jobs
 
 ### Status: ✅ GOAL-005 COMPLETE
-- **Active:** 30 enabled / 85 disabled / 115 total
-- **Reduction:** 110 → 30 (73% reduction), achieved 2026-03-02
+- **Active:** 30 enabled / 76 total (as of 2026-03-15)
 - **Strategy:** Polling jobs replaced by n8n event-driven workflows
 
 ### Critical Active Crons
-- **Autonomous Task Dispatcher:** Every 15min, dispatches tasks from AUTONOMOUS.md
-- **Session Warmup:** Keeps specialist agents warm for A2A
-- **Context Health Check:** 30min memory flush heartbeat
+- **Autonomous Task Dispatcher:** Every 15min
+- **9router-token-refresh-0001:** Every 4min — auto-refreshes iflow (48h), kiro (1h), claude (8h), cursor sync. Zero human intervention needed.
+- **9router-auth-watchdog-0001:** Every 5min — self-heals if 9router goes dark
+- **openclaw-backup-weekly-0001:** Sundays 3am — `openclaw backup create`
+- **openclaw-sessions-cleanup-0001:** Sundays 4am — clears orphan transcripts
 - **Telegram Approval Monitor:** Checks for approve/deny replies
-- **9router Token Refresh:** Every 6h, refreshes Kiro/Claude tokens
 
 ---
 
@@ -330,6 +336,19 @@ All agents run periodic inner loops (every 2-4h):
 ---
 
 ## Changes Log
+
+### 2026-03-15
+- **MiniMax M2.5 promoted to primary model** — unlimited $20/mo coding plan = Opus-level quality at zero per-token cost. All 6 9router COMBOs now start with MiniMax. All agents: primary=9router/free-unlimited, fallback1=minimax direct, fallback2=glm/ZAI direct.
+- **iflow re-authenticated** — both accounts active. Token auto-refresh cron (`9router-token-refresh-0001`) added, runs every 4min. iflow/kiro/claude/cursor all auto-refresh with zero human intervention.
+- **Codex accounts** — 9router handles internally. Script updated to skip codex to avoid `refresh_token_reused` conflict.
+- **Ollama fully removed** — all ollama/llama3.1:8b/qwen2.5-coder references cleared. 3.5GB RAM freed.
+- **9 missing skills added** — `autonomous-a2a`, `context-window-policy`, `cost-optimization`, `policy-gate`, `website-auditor`, `website-builder`, `lead-gen-maps`, `outreach-automation`, `event-driven-patterns` now in skills.entries (57 total).
+- **Telegram dmPolicy locked** — all 7 bots changed from `open` to `owner` with allowFrom=[1012034994]. Prompt injection surface eliminated.
+- **ENG + OPS heartbeats added** — 60min heartbeat on both high-throughput agents.
+- **Backup + cleanup crons added** — weekly `openclaw backup create` (Sun 3am) + `openclaw sessions cleanup` (Sun 4am).
+- **memory-lancedb plugin enabled** — vector memory now active.
+- **11/11 OSS repos shipped** — costwatch, redos-website, a2a-protocol, pr-auto-reviewer, agent-loop-detection, session-memory, llm-gateway-proxy, agent-eval-harness, context-window-optimizer, llm-observability-hub, codebase-onboarding-agent. All at anuragg-saxenaa on GitHub with CI.
+- **OpenClaw audit complete** — audit report at `workspace/ops/openclaw-audit-2026-03-15.md`.
 
 ### 2026-03-04
 - **Scrapling MCP installed**: `scrapling[ai]` v0.4.1 via pipx at `/Users/redinside/.local/bin/scrapling`. Browser deps installed. Wrapper script at `~/.openclaw/scripts/scrapling-fetch.sh`. SKILL at `workspace/skills/scrapling-mcp/SKILL.md`. All 8 agents can scrape via exec.
@@ -451,11 +470,12 @@ cat ~/.openclaw/workspace/n8n/queues/eng.json
 - **flock fix**: `telegram-deadman.sh` used Linux-only `flock`; replaced with `mkdir`-based atomic lock.
 - **refresh_token_reused fix**: Removed `--all` flag from `9router-token-refresh.js` call in restart script.
 
-### Model Providers
-- **Primary**: `9router/free-unlimited` (all agents)
-- **Fallback**: `minimax/MiniMax-M2.5` via `sk-cp-...` Coding Plan key (OpenAI-compat endpoint `https://api.minimax.io/v1`)
-- **ZAI**: Never use in crons or fallbacks (PAYG, expensive)
-- **MiniMax Anthropic endpoint** (`/anthropic`): Has balance issue — use OpenAI endpoint instead
+### Model Providers (updated 2026-03-15)
+- **Primary**: `9router/free-unlimited` (MiniMax M2.5 first inside 9router)
+- **Fallback 1**: `minimax/MiniMax-M2.5` direct (unlimited $20/mo coding plan — same as Opus 4.6)
+- **Fallback 2**: `glm/glm-4.7` direct (ZAI key — PAYG backup)
+- **Ollama**: REMOVED — freed 3.5GB RAM
+- **iflow**: Re-authenticated 2026-03-15, auto-refreshes every 4min via cron
 
 ### Slack Channel Routing
 | Agent | Channel |
