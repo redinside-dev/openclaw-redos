@@ -1,6 +1,6 @@
 {
   "agentId": "finance",
-  "updatedAt": "2026-03-13T09:19:00Z",
+  "updatedAt": "2026-03-14T08:04:00Z",
   "goals": [
     {
       "id": "goal-finance-001",
@@ -8,11 +8,13 @@
       "why": "RED needs to know what we're spending on models, APIs, and infrastructure. If I don't report it, nobody knows.",
       "priority": "P1",
       "status": "in_progress",
-      "progress": "Weekly cost reporting still not evidenced in recent memory logs; telemetry reliability needs repair before high-confidence weekly summary.",
-      "nextAction": "Generate and post weekly cost report once quota + cost-event feeds are fresh; post to #redos-mission-control.",
+      "progress": "Ready to compose the next weekly report but waiting on fresh provider-quota/cost-events payloads for accurate daily spend data.",
+      "nextAction": "Confirm provider-quota telemetry refresh and then generate/post the overdue weekly report to #redos-mission-control.",
       "createdAt": "2026-02-24T05:00:00Z",
       "targetDate": "2026-02-28T00:00:00Z",
-      "blockers": []
+      "blockers": [
+        "provider-quota.json stale"
+      ]
     },
     {
       "id": "goal-finance-002",
@@ -20,11 +22,13 @@
       "why": "A runaway cron or a stuck agent can burn through API budget in minutes. I need to catch it fast.",
       "priority": "P1",
       "status": "in_progress",
-      "progress": "Quota snapshot checked in inner loop; latest provider-quota snapshot is stale, so real-time anomaly detection is degraded.",
-      "nextAction": "Repair/verify fresh provider-quota updates, then enforce 2x rolling-7-day anomaly alert rule to RED.",
+      "progress": "Current tracking shows telemetry is stale; cannot verify today's spend or anomalies until provider-quota updates refresh.",
+      "nextAction": "Track down the 9router quota sync refresh (ops/cron) so I can resume 2x rolling-average anomaly alerts to RED.",
       "createdAt": "2026-02-24T05:00:00Z",
       "targetDate": "2026-03-01T00:00:00Z",
-      "blockers": []
+      "blockers": [
+        "stale provider-quota.json"
+      ]
     },
     {
       "id": "goal-finance-003",
@@ -32,11 +36,13 @@
       "why": "We're using expensive models for tasks that cheap models could handle. I should identify and fix this.",
       "priority": "P2",
       "status": "in_progress",
-      "progress": "Need per-cron/model cost granularity; current quota snapshot is aggregate-only.",
-      "nextAction": "Extract top 3 expensive cron jobs from fresh cost-events data and recommend cheaper routing (prefer 9router/free-unlimited for routine checks).",
+      "progress": "Still waiting for usable cost telemetry (per-cron spend) before recommending model swaps.",
+      "nextAction": "Once provider-quota and cost-events streams replay, compute top 3 cron spenders and suggest 9router/free-unlimited fallbacks.",
       "createdAt": "2026-02-24T05:00:00Z",
       "targetDate": "2026-03-07T00:00:00Z",
-      "blockers": []
+      "blockers": [
+        "no cost-events data"
+      ]
     }
   ],
   "completedGoals": [],

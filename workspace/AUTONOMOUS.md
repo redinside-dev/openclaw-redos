@@ -13,7 +13,7 @@
 
 **ENG-2026-0314-001** | DONE | eng | Shipped costwatch → https://github.com/anuragg-saxenaa/costwatch. Node.js+Express+SQLite+Socket.IO. Real-time cost monitoring, multi-provider pricing (OpenAI/Anthropic/Google), budget alerts. CI matrix Node 18/20/22.
 
-**ENG-2026-0314-002** | PENDING | eng | Ship `redos-website` MVP: read workspace/projects/redos-website/SPEC.md, create anuragg-saxenaa/redos-website repo (use ANURAGG_TOKEN from credentials/secrets.json → github.anuragg-saxenaa), implement, add CI, push.
+**ENG-2026-0314-002** | IN_PROGRESS | eng | Ship `redos-website` MVP: read workspace/projects/redos-website/SPEC.md, create anuragg-saxenaa/redos-website repo (use ANURAGG_TOKEN from credentials/secrets.json → github.anuragg-saxenaa), implement, add CI, push.
 
 ---
 
@@ -23,7 +23,7 @@
 
 **RESEARCH-2026-0313-002** | DONE | research | Competitive intel complete → workspace/research/website-agency-competitive-intel.md. Top competitors: Wix ADI, Duda, B12. Key gap: none do proactive Overpass-based outreach.
 
-**RESEARCH-2026-0314-001** | PENDING | research | Run inner loop — read twitter-feed.md + reddit-feed.md + ideas-index.json, write next spec for backlog.
+**RESEARCH-2026-0314-001** | IN_PROGRESS | research | Run inner loop — read twitter-feed.md + reddit-feed.md + ideas-index.json, write next spec for backlog.
 
 ---
 
@@ -31,7 +31,7 @@
 
 **OPS-2026-0313-001** | DONE | ops | cron/jobs.json verified — no model overrides. System healthy.
 
-**OPS-2026-0313-002** | PENDING | ops | Check workspace/memory/working-*.json for all agents. Identify idle >24h. Send wake-up via sessions_spawn.
+**OPS-2026-0313-002** | IN_PROGRESS | ops | Check workspace/memory/working-*.json for all agents. Identify idle >24h. Send wake-up via sessions_spawn (claimed 2026-03-14 02:35 EDT).
 
 ---
 
@@ -44,6 +44,8 @@
 ## INFOSEC Tasks
 
 **INFOSEC-2026-0313-001** | DONE | infosec | Security review complete → workspace/infosec/security-proposals.md. L1/L2 items resolved. One L3 proposal pending RED approval: per-agent shell scope restriction in openclaw.json.
+
+**INFOSEC-2026-0314-001** | DONE | infosec | META self-check triggered by cron 6ecfa329-52e3-4a09-8330-2d175a374c00: verified exec/read/write, inspected AUTONOMOUS queue, ran openclaw security audit --deep, and updated ops/agent-status/infosec.json.
 
 ---
 

@@ -1,5 +1,5 @@
 {
-  "lastChecked": "2026-03-13T05:19:00-04:00",
+  "lastChecked": "2026-03-15T08:13:00-04:00",
   "holdingsFileStatus": "missing",
   "lastWatchlist": [
     "NVDA: $138 resistance break changes view to bullish",
@@ -11,18 +11,18 @@
   "newIdeas": [
     "None today"
   ],
-  "actionRequired": "Fix provider quota freshness pipeline so FINANCE can alert within 1 hour.",
+  "actionRequired": "Notify OPS: 9router-quota-sync cron failing since Mar 14 19:20. Cost telemetry blocked until fixed.",
   "marketStatus": "closed",
-  "nextBriefTime": "2026-03-10T08:00:00-05:00",
+  "nextBriefTime": "2026-03-16T08:00:00-04:00",
   "costMonitoring": {
     "provider": "openai",
     "used": 45,
     "quota": 1000,
     "remaining": 955,
-    "source": "workspace/tmp/provider-quota.json",
+    "source": "workspace/tmp/provider-quota.json (stale)",
     "snapshotFresh": false,
-    "estimatedSpendTodayUsd": 0.0,
-    "anomaly": "telemetry_stale",
-    "note": "Telemetry stale blocks high-confidence anomaly detection"
+    "estimatedSpendTodayUsd": null,
+    "anomaly": "telemetry_blocked",
+    "note": "9router-quota-sync cron failing since Mar 14 19:20:06 (status=error). Cannot calculate spend or detect anomalies until restored."
   }
 }

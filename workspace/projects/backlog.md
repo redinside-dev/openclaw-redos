@@ -13,6 +13,8 @@
 | 9 | agent-eval-harness | ✅ SHIPPED | https://github.com/anuragg-saxenaa/agent-eval-harness | — | 2026-03-14: shipped Python eval harness + CI |
 | 10 | context-window-optimizer | ✅ SHIPPED | https://github.com/anuragg-saxenaa/context-window-optimizer | — | 2026-03-14: shipped Python optimizer + CI |
 | 11 | llm-observability-hub | ✅ SHIPPED | https://github.com/anuragg-saxenaa/llm-observability-hub | — | 2026-03-14: shipped FastAPI + SQLite + tests + CI |
+| 12 | context-directory-manager | READY | — | 2026-03-14: RESEARCH wrote spec (source: https://github.com/volcengine/OpenViking/issues/596) |
+| 13 | pr-toxicity-detector | READY | — | 2026-03-15: RESEARCH wrote spec (source: https://www.reddit.com/r/singularity/comments/1r3fy5s/) |
 
 ## Current Status
 - **Shipped:** 10/11 (all with GitHub Actions CI + anuragg-saxenaa as collaborator)

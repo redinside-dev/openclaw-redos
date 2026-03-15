@@ -1,11 +1,13 @@
 import { appendFileSync, mkdirSync, existsSync, readFileSync } from "fs";
 import { join } from "path";
+import { resolveBudgetConfig, GUARDRAILS_PATH } from "./budget-config.js";
 
 const STATE_DIR = "/Users/redinside/.openclaw";
 const LOGS_DIR = join(STATE_DIR, "workspace", "logs");
 const COST_LOG = join(LOGS_DIR, "cost-events.jsonl");
 const ROUTING_LOG = join(LOGS_DIR, "routing-decisions.jsonl");
 const ANALYTICS_LOG = join(LOGS_DIR, "llm-analytics.jsonl");
+const ALERTS_LOG = join(LOGS_DIR, "budget-alerts.jsonl");
 
 const MODEL_COSTS = {
   // Rates are USD per 1M tokens. Prefer provider-reported cost when available (usage.cost.total).
@@ -18,12 +20,23 @@ const MODEL_COSTS = {
   "perplexity/sonar-pro":     { input: 3.00, output: 15.00, cached: 0 },
 };
 
-const BUDGET_DAILY_USD = Number(process.env.OPENCLAW_BUDGET_DAILY_USD ?? process.env.COST_BUDGET_DAILY_USD ?? 12.5);
-const BUDGET_WARN_USD = Number(process.env.OPENCLAW_BUDGET_WARN_USD ?? process.env.COST_BUDGET_WARN_USD ?? 10);
-const ALERTS_LOG = join(LOGS_DIR, "budget-alerts.jsonl");
+const LEVEL_DEFINITIONS = [
+  { id: "pause", key: "pause", label: "PAUSE", actionKey: "at_100_pct" },
+  { id: "cost_saver", key: "costSaver", label: "COST SAVER", actionKey: "at_90_pct" },
+  { id: "warn", key: "warn", label: "WARNING", actionKey: "at_70_pct" },
+];
 
+const DEFAULT_DAILY_LIMIT = 12.5;
+const DEFAULT_THRESHOLD_PCTS = {
+  warn: 70,
+  costSaver: 90,
+  pause: 100,
+};
+
+let budgetRuntime = null;
 let lastBudgetAlertDay = null;
 let lastBudgetAlertLevel = null;
+let lastWebhookAlertDay = null;
 
 function getCostPer1M(provider, model) {
   const key = `${provider}/${model}`;
@@ -112,6 +125,49 @@ function getDailySpend() {
   }
 }
 
+function normalizeThreshold(payload, defaultPct, dailyLimit) {
+  const pct = payload?.pct ?? defaultPct;
+  const usdCandidate = payload?.usd;
+  const usd = Number.isFinite(usdCandidate)
+    ? usdCandidate
+    : Math.round((dailyLimit * pct) / 100 * 10000) / 10000;
+  return { pct, usd };
+}
+
+function buildThresholds(payload, dailyLimit) {
+  const thresholds = {};
+  for (const def of LEVEL_DEFINITIONS) {
+    thresholds[def.key] = normalizeThreshold(payload?.[def.key], DEFAULT_THRESHOLD_PCTS[def.key], dailyLimit);
+  }
+  return thresholds;
+}
+
+function buildBudgetRuntime(config) {
+  const dailyLimit = Number.isFinite(config?.dailyLimit) && config.dailyLimit > 0
+    ? config.dailyLimit
+    : DEFAULT_DAILY_LIMIT;
+  return {
+    dailyLimit,
+    thresholds: buildThresholds(config?.thresholds ?? {}, dailyLimit),
+    alert: config?.alert ?? null,
+    actions: config?.actions ?? null,
+    source: config?.source ?? "env-default",
+    guardrails: config?.guardrails ?? null,
+    warnPctSource: config?.warnPctSource ?? "default",
+  };
+}
+
+function determineBudgetLevel(spend, thresholds) {
+  if (!thresholds) return null;
+  for (const def of LEVEL_DEFINITIONS) {
+    const threshold = thresholds[def.key];
+    if (threshold && spend >= threshold.usd) {
+      return { ...def, threshold };
+    }
+  }
+  return null;
+}
+
 const pendingInputs = new Map();
 
 export default {
@@ -124,6 +180,8 @@ export default {
     if (!existsSync(LOGS_DIR)) {
       mkdirSync(LOGS_DIR, { recursive: true });
     }
+
+    budgetRuntime = buildBudgetRuntime(resolveBudgetConfig(api.logger));
 
     api.on("llm_input", (event, ctx) => {
       const ts = new Date().toISOString();
@@ -209,32 +267,65 @@ export default {
       try {
         const today = ts.slice(0, 10);
         const spend = getDailySpend();
-
-        // Reset daily alert memory.
+        if (!budgetRuntime) {
+          budgetRuntime = buildBudgetRuntime(resolveBudgetConfig(api.logger));
+        }
         if (lastBudgetAlertDay !== today) {
           lastBudgetAlertDay = today;
           lastBudgetAlertLevel = null;
+          lastWebhookAlertDay = null;
         }
 
-        const level =
-          spend >= BUDGET_DAILY_USD ? "exceeded" :
-          spend >= BUDGET_WARN_USD ? "warning" :
-          null;
-
-        if (level && level !== lastBudgetAlertLevel) {
-          lastBudgetAlertLevel = level;
+        const level = determineBudgetLevel(spend, budgetRuntime.thresholds);
+        if (level && level.id !== lastBudgetAlertLevel) {
+          lastBudgetAlertLevel = level.id;
+          const action = budgetRuntime.actions?.[level.actionKey] ?? null;
           const alert = {
             ts,
-            level,
+            type: "budget_threshold",
+            level: level.label,
+            level_id: level.id,
+            threshold_pct: level.threshold.pct,
+            threshold_usd: level.threshold.usd,
+            daily_limit_usd: budgetRuntime.dailyLimit,
             daily_spend_usd: spend,
-            warn_usd: BUDGET_WARN_USD,
-            budget_usd: BUDGET_DAILY_USD,
+            guardrails_source: budgetRuntime.source,
+            guardrails_path: GUARDRAILS_PATH,
+            action,
             last_event: { provider, model, agent: ctx.agentId || "unknown", cost_usd: costRounded },
           };
           appendJsonl(ALERTS_LOG, alert);
-          const msg = `[BUDGET ${level.toUpperCase()}] Daily spend $${spend.toFixed(2)} (warn $${BUDGET_WARN_USD}, budget $${BUDGET_DAILY_USD})`;
-          if (level === "exceeded") api.logger.error(msg);
-          else api.logger.warn(msg);
+          const msg = `[BUDGET ${level.label}] Daily spend $${spend.toFixed(2)} of $${budgetRuntime.dailyLimit.toFixed(2)} (${level.threshold.pct}% threshold, source: ${budgetRuntime.source})`;
+          if (level.id === "pause") {
+            api.logger.error(msg);
+          } else if (level.id === "cost_saver") {
+            api.logger.warn(msg);
+          } else {
+            api.logger.info(msg);
+          }
+        }
+
+        const alertConfig = budgetRuntime.alert;
+        if (alertConfig?.webhook && spend >= alertConfig.usd && lastWebhookAlertDay !== today) {
+          lastWebhookAlertDay = today;
+          const webhookEntry = {
+            ts,
+            type: "budget_webhook",
+            level: "webhook",
+            threshold_pct: alertConfig.pct,
+            threshold_usd: alertConfig.usd,
+            daily_limit_usd: budgetRuntime.dailyLimit,
+            daily_spend_usd: spend,
+            guardrails_source: budgetRuntime.source,
+            guardrails_path: GUARDRAILS_PATH,
+            webhook: alertConfig.webhook,
+            last_event: { provider, model, agent: ctx.agentId || "unknown", cost_usd: costRounded },
+          };
+          appendJsonl(ALERTS_LOG, webhookEntry);
+          const webhookTarget = typeof alertConfig.webhook === "string"
+            ? alertConfig.webhook
+            : alertConfig.webhook?.webhook ?? "<undefined>";
+          api.logger.info(`[BUDGET WEBHOOK] ${webhookTarget} triggered at ${alertConfig.pct}% ($${alertConfig.usd.toFixed(2)}) source: ${budgetRuntime.source}`);
         }
       } catch {}
 

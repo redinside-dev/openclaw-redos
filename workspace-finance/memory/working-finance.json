@@ -1,12 +1,12 @@
 {
-  "currentFocus": "Cost telemetry freshness + anomaly readiness",
-  "status": "monitoring_with_data_freshness_risk",
-  "lastMarketUpdate": "2026-03-13T05:19:00-04:00",
+  "currentFocus": "Cost telemetry blocked - 9router-quota-sync cron failing",
+  "status": "blocked_stale_telemetry",
+  "lastMarketUpdate": "2026-03-14T07:36:00-04:00",
   "nextActions": [
-    "Repair provider-quota freshness (stale >24h)",
-    "Compute rolling 7-day baseline once fresh daily points exist",
-    "Prepare weekly cost report for RED/#redos-mission-control",
-    "Identify top 3 expensive cron jobs and cheaper model swaps"
+    "Notify OPS that 9router-quota-sync cron is failing (last run: Mar 14 19:20)",
+    "Wait for fresh quota snapshot, then calculate rolling baseline",
+    "Prepare weekly cost report once telemetry is restored",
+    "Identify top cron spenders and cheaper model options once cost-events stream recovers"
   ],
   "watchlist": {
     "NVDA": "$138 resistance break changes view to bullish",
@@ -24,6 +24,7 @@
     "quota": 1000,
     "remaining": 955,
     "snapshotFresh": false,
-    "estimatedSpendTodayUsd": 0.0
+    "estimatedSpendTodayUsd": null,
+    "note": "provider-quota.json last updated Feb 27 or missing. 9router-quota-sync failing since Mar 14."
   }
 }

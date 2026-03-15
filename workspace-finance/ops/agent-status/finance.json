@@ -1,53 +1,23 @@
 {
-  "timestamp": "2026-03-13T06:33:00-04:00",
-  "timezone": "America/Toronto",
-  "meta": {
-    "cron": "f82c8284-c348-46b5-b9f2-c393148778ba",
-    "agent": "finance",
-    "check_type": "meta-self-check"
+  "agent": "finance",
+  "timestamp": "2026-03-15T07:44:00Z",
+  "status": "operational",
+  "checks": {
+    "web_search": "ok",
+    "exec": "ok",
+    "read_write": "ok"
   },
-  "tool_checks": {
-    "exec": {
-      "ok": true,
-      "note": "Shell commands executed successfully (workspace listing, queue checks, stat/tail tests)."
-    },
-    "read_write": {
-      "ok": true,
-      "write_path": "ops/_toolcheck_write_test.txt",
-      "readback_ok": true,
-      "readback": "finance meta self-check write test 2026-03-13T06:33 America/Toronto"
-    },
-    "web_search": {
-      "ok": false,
-      "error": "Perplexity API 401 insufficient_quota",
-      "note": "Tool callable but provider quota exhausted; cannot fetch results until billing/quota is restored."
-    }
+  "last_activity": "2026-03-15T07:44Z",
+  "notes": "Self-check completed at 3:44 AM EST. Tools verified OK.",
+  "cost_telemetry": {
+    "provider_quota_fresh": false,
+    "last_update": "2026-02-27T23:39:11Z",
+    "issue": "9router-quota-sync not updating provider-quota.json"
   },
-  "task_queue": {
-    "finance_queue_file": "~/.openclaw/workspace/n8n/queues/finance.json",
-    "finance_queue_present": false,
-    "task_registry_checked": "/Users/redinside/.openclaw/workspace/ops/task-registry.json",
-    "finance_assigned_tasks": [],
-    "status": "idle"
-  },
-  "cost_analysis": {
-    "ran": true,
-    "idle_triggered": true,
-    "provider_quota_file": "/Users/redinside/.openclaw/workspace-finance/workspace/tmp/provider-quota.json",
-    "provider": "openai",
-    "quota": 1000,
-    "used": 45,
-    "remaining": 955,
-    "estimated_utilization_pct": 4.5,
-    "data_freshness": {
-      "provider_quota_mtime_local": "2026-03-10 10:49:55 EDT",
-      "stale_over_24h": true
-    },
-    "cost_event_logs": {
-      "workspace_tmp_cost_events_jsonl": "missing",
-      "finance_workspace_tmp_cost_events_jsonl": "missing"
-    },
-    "assessment": "No active spend spike detectable from current data, but anomaly detection confidence is degraded due to stale/missing telemetry."
-  },
-  "next_action": "Restore web_search quota and refresh provider/cost event telemetry to re-enable high-confidence anomaly monitoring."
+  "concerns": [
+    "Cost telemetry stale (last update Feb 27)",
+    "inner-loop-finance failing with iflow credentials error",
+    "No fresh cost data to analyze"
+  ],
+  "recommendation": "Alert OPS to fix 9router-quota-sync cron job or credential issue"
 }
