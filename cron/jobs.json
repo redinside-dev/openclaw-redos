@@ -7,7 +7,7 @@
       "name": "Telegram Approval Monitor (RED checks for approve/deny replies)",
       "enabled": true,
       "createdAtMs": 1772080522100,
-      "updatedAtMs": 1773584896519,
+      "updatedAtMs": 1773585133667,
       "schedule": {
         "kind": "cron",
         "expr": "*/2 * * * *",
@@ -26,15 +26,15 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1773585000000,
-        "lastRunAtMs": 1773584880047,
+        "nextRunAtMs": 1773585360000,
+        "lastRunAtMs": 1773585120047,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 16472,
+        "lastDurationMs": 13620,
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
         "lastDelivered": false,
-        "runningAtMs": 1773585000040
+        "runningAtMs": 1773585298113
       }
     },
     {
@@ -43,7 +43,7 @@
       "name": "System Pulse — Always-On Heartbeat (Ollama only)",
       "enabled": true,
       "createdAtMs": 1772080522100,
-      "updatedAtMs": 1773584720732,
+      "updatedAtMs": 1773585094554,
       "schedule": {
         "kind": "cron",
         "expr": "*/5 * * * *",
@@ -62,15 +62,14 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1773585000000,
-        "lastRunAtMs": 1773584700047,
+        "nextRunAtMs": 1773585300000,
+        "lastRunAtMs": 1773585035294,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 20685,
+        "lastDurationMs": 59260,
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
-        "lastDelivered": false,
-        "runningAtMs": 1773585000040
+        "lastDelivered": false
       }
     },
     {
@@ -565,7 +564,7 @@
       "name": "Cron Watchdog (alert on missed/failing jobs)",
       "enabled": true,
       "createdAtMs": 1770618629260,
-      "updatedAtMs": 1773584476284,
+      "updatedAtMs": 1773585104955,
       "schedule": {
         "kind": "cron",
         "expr": "*/10 8-22 * * *",
@@ -585,15 +584,13 @@
         "target": "channel:C0AEV3J2L23"
       },
       "state": {
-        "lastRunAtMs": 1773584467624,
+        "lastRunAtMs": 1773585094554,
         "lastStatus": "ok",
-        "lastDurationMs": 8660,
+        "lastDurationMs": 10401,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
-        "lastDeliveryStatus": "not-delivered",
-        "nextRunAtMs": 1773585000000,
-        "lastDelivered": false,
-        "runningAtMs": 1773585000040
+        "lastDeliveryStatus": "unknown",
+        "nextRunAtMs": 1773585600000
       }
     },
     {
@@ -1309,7 +1306,7 @@
       "name": "9Router Quota Sync",
       "enabled": true,
       "createdAtMs": 1771576000000,
-      "updatedAtMs": 1773577903633,
+      "updatedAtMs": 1773585119355,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1330,13 +1327,13 @@
         "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "lastRunAtMs": 1773577894406,
+        "lastRunAtMs": 1773585107002,
         "lastStatus": "ok",
-        "lastDurationMs": 9227,
+        "lastDurationMs": 12353,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "not-delivered",
-        "nextRunAtMs": 1773585094406,
+        "nextRunAtMs": 1773592307002,
         "lastDelivered": false
       }
     },
@@ -1451,7 +1448,7 @@
       "name": "Health JSONL Writer",
       "enabled": true,
       "createdAtMs": 1771695150814,
-      "updatedAtMs": 1773578556984,
+      "updatedAtMs": 1773585182130,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -1472,13 +1469,13 @@
         "target": "channel:C0AF4KB4TUK"
       },
       "state": {
-        "lastRunAtMs": 1773578533797,
+        "lastRunAtMs": 1773585150855,
         "lastStatus": "ok",
-        "lastDurationMs": 23187,
+        "lastDurationMs": 31275,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1773585150814
+        "nextRunAtMs": 1773588750855
       }
     },
     {
@@ -2601,13 +2598,13 @@
     {
       "id": "9router-auth-watchdog-0001",
       "agentId": "ops",
-      "name": "9Router Auth Watchdog (alert on credential loss)",
+      "name": "9Router Auth Watchdog — self-healing (every 5min)",
       "enabled": true,
       "createdAtMs": 1772020000000,
       "updatedAtMs": 1773584801471,
       "schedule": {
         "kind": "every",
-        "everyMs": 1800000,
+        "everyMs": 300000,
         "anchorMs": 1772020000000
       },
       "sessionTarget": "isolated",
@@ -2616,7 +2613,7 @@
         "kind": "agentTurn",
         "thinking": "off",
         "timeoutSeconds": 60,
-        "message": "You are OPS. Check if 9Router providers still have valid credentials by making a test call.\n\nSTEPS:\n1. Use exec to run: curl -sf --max-time 5 -X POST http://127.0.0.1:20128/v1/chat/completions -H 'Content-Type: application/json' -H 'Authorization: Bearer sk-36d51175-2934-4114-89aa-6e5277f0d1d7-u0bj2m-039d8f0a' -d '{\"model\":\"gc/gemini-2.5-flash\",\"messages\":[{\"role\":\"user\",\"content\":\"ping\"}],\"max_tokens\":5}' 2>&1 | head -c 300\n2. If response contains 'No credentials' OR 'credentials' OR '401' OR '403':\n   a. Use message tool to send Telegram DM to user 1012034994:\n      '🚨 9Router AUTH LOST — all providers need re-authentication!\\nOpen http://127.0.0.1:20128 and re-auth: iFlow → Kiro → Gemini → Codex → Cursor → Claude Code\\nAll agent cron jobs are failing until this is done.'\n   b. Return NO_REPLY\n3. If response contains 'choices' or looks like a valid completion: Return NO_REPLY (all good)\n4. If 9Router is unreachable: Send Telegram DM: '🚨 9Router is DOWN — restart needed. Run: launchctl kickstart -k gui/$(id -u)/com.9router.autostart'\n\nBe silent on success. Only alert on auth loss or outage."
+        "message": "You are OPS running an automated health check. Follow these steps exactly using exec tool only — do NOT use your language model to interpret results.\n\nSTEP 1 — TEST 9ROUTER with openrouter/auto (most reliable provider):\nexec: curl -sf --max-time 8 -X POST http://127.0.0.1:20128/v1/chat/completions -H 'Content-Type: application/json' -H 'Authorization: Bearer sk-36d51175-2934-4114-89aa-6e5277f0d1d7-u0bj2m-039d8f0a' -d '{\"model\":\"openrouter/auto\",\"messages\":[{\"role\":\"user\",\"content\":\"ping\"}],\"max_tokens\":3}' 2>&1 | head -c 200\n\nSTEP 2 — IF result contains \"choices\" → 9Router is healthy. Return NO_REPLY.\n\nSTEP 3 — IF result contains \"No credentials\" OR \"406\" OR \"401\" OR \"403\" OR empty:\n  a. Run self-heal: update openclaw.json models to safe fallback\n  exec: python3 -c \"\nimport json\nwith open('/Users/redinside/.openclaw/openclaw.json') as f: d=json.load(f)\nm={'primary':'9router/openrouter/auto','fallbacks':['9router/minimax/MiniMax-M2.5','9router/openrouter/openrouter/free']}\nfor a in d.get('agents',{}).get('list',[]):\n  if isinstance(a,dict): a['model']=m\nif isinstance(d.get('agents',{}).get('defaults'),dict): d['agents']['defaults']['model']=m\nwith open('/Users/redinside/.openclaw/openclaw.json','w') as f: json.dump(d,f,indent=2)\nprint('model_fixed')\n\"\n\n  b. Restart gateway:\n  exec: bash /Users/redinside/.openclaw/scripts/redos-restart.sh --no-status 2>&1 | tail -3\n\n  c. Alert Telegram (direct HTTP — no agent model needed):\n  exec: python3 -c \"\nimport http.client, json, urllib.parse\ntoken='7992329203:AAHjLzW1o13ey3wMniim_LNfVEgcNtXMxio'\nmsg='🚨 9Router AUTH LOST — auto-healed!\\nSwitched all agents to openrouter/auto fallback.\\nManual action needed: re-auth iflow at http://localhost:20128\\nkiro/codex/cursor tokens need refresh too.'\ndata=urllib.parse.urlencode({'chat_id':'1012034994','text':msg,'parse_mode':'Markdown'}).encode()\nc=http.client.HTTPSConnection('api.telegram.org')\nc.request('POST',f'/bot{token}/sendMessage',data,{'Content-Type':'application/x-www-form-urlencoded'})\nprint(c.getresponse().read()[:100])\n\"\n\n  Return NO_REPLY\n\nSTEP 4 — IF 9Router is completely unreachable (connection refused):\n  exec: launchctl kickstart -k gui/$(id -u)/ai.openclaw.9router 2>&1 || true\n  exec: sleep 5 && curl -sf http://localhost:20128/ > /dev/null 2>&1 && echo \"restarted\" || echo \"still_down\"\n  Then alert via same python3 Telegram snippet above with message \"9Router DOWN — attempted restart\"\n  Return NO_REPLY"
       },
       "delivery": {
         "mode": "announce",
