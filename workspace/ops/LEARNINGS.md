@@ -114,3 +114,1108 @@
 **Next steps:** Monitor TICKET-20260314-022 implementation, ensure incident noise subsides before scaling up new automation tasks, and keep the degraded research path ready to serve use cases that previously relied on web_search.
 
 **Impact:** Reduces alert noise, prevents circuit breaker thrash, keeps research capability available during quota/secrets outages.
+
+## [2026-03-15 20:37] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-15 20:37] Consultant fixed: 9Router not responding on :20128
+9Router restarted successfully
+
+## [2026-03-15 20:37] Consultant fixed: Channel errors in gateway log (26 occurrences)
+Patched 2 cron jobs with missing delivery.channel
+
+## [2026-03-15 20:39] Consultant fixed: RAG index stale (65.6h since last update)
+RAG index rebuilt successfully
+
+## [2026-03-15 20:39] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-15 20:55] Consultant fixed: Channel errors in gateway log (20 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-15 20:55] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-15 21:11] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-15 21:26] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-15 21:42] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-15 21:58] Consultant fixed: Channel errors in gateway log (4 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-15 21:58] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-15 22:14] Consultant fixed: Channel errors in gateway log (4 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-15 22:14] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 02:28] RESEARCH Knowledge Update — OpenClaw v2026.3.13 + CVE-2026-25253
+
+**Context:** Proactive scan of OpenClaw ecosystem, model providers, and security advisories.
+
+**Key Findings:**
+
+1. **CRITICAL: CVE-2026-25253 — RCE via WebSocket Token Theft**
+   - CVSS 8.8 (high severity)
+   - Affects all versions before 2026.1.29
+   - Enables one-click RCE via WebSocket auth token leakage
+   - 30,000+ publicly exposed instances found by Censys
+   - Default bind (0.0.0.0) exposes API to internet without firewall
+   - Credentials stored in plaintext under ~/.openclaw/
+   - **Action:** Verify OpenClaw version >= 2026.1.29; check firewall rules
+
+2. **OpenClaw v2026.3.13 Released** (Mar 14, 2026)
+   - Browser automation upgrades
+   - Mobile UI refresh
+   - Check release notes for security patches
+
+3. **OpenAI Codex — GPT-5.4 Model Issues**
+   - GitHub issue #14735: gpt-5.3-codex not supported in Codex CLI
+   - Users falling back to GPT-5.2
+   - GPT-5.4 loses 54% retrieval accuracy at 1M tokens (Reddit)
+   - **Action:** ENG - avoid GPT-5.4-specific optimizations
+
+4. **China CERT Warning on OpenClaw**
+   - Government offices warned about security risks
+   - "ClawJacked" vulnerability flagged
+
+5. **AWS Launches Managed OpenClaw on Lightsail**
+   - Managed service launched amid security vulnerabilities
+
+**Recommended Team Actions:**
+- **INFOSEC:** Verify CVE-2026-25253 patch status; audit firewall exposure
+- **OPS:** Confirm OpenClaw version >= 2026.1.29
+- **ENG:** Test Claude Code Max or Ollama for Codex tasks
+- **ALL:** Avoid GPT-5.4 in production until stabilized
+
+**Status:** Informational — no immediate action required if version is current.
+
+
+## [2026-03-15 22:29] Consultant fixed: Channel errors in gateway log (14 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-15 22:29] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-15 22:45] Consultant fixed: Channel errors in gateway log (18 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-15 22:45] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-15 23:00] Consultant fixed: Channel errors in gateway log (8 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-15 23:00] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-15 23:16] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-15 23:31] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-15 23:47] Consultant fixed: Channel errors in gateway log (6 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-15 23:47] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 00:02] Consultant fixed: Channel errors in gateway log (12 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 00:02] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 00:17] Consultant fixed: Channel errors in gateway log (10 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 00:17] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 00:33] Consultant fixed: Channel errors in gateway log (14 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 00:33] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 00:48] Consultant fixed: Channel errors in gateway log (14 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 00:48] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 01:03] Consultant fixed: Channel errors in gateway log (14 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 01:03] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 01:19] Consultant fixed: Channel errors in gateway log (14 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 01:19] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 01:34] Consultant fixed: Channel errors in gateway log (6 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 01:34] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 01:50] Consultant fixed: Channel errors in gateway log (12 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 01:50] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 02:05] Consultant fixed: Channel errors in gateway log (18 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 02:05] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 02:20] Consultant fixed: Channel errors in gateway log (20 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 02:20] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 02:36] Consultant fixed: Channel errors in gateway log (20 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 02:36] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 02:51] Consultant fixed: Channel errors in gateway log (22 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 02:51] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 03:07] Consultant fixed: Channel errors in gateway log (22 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 03:07] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 03:22] Consultant fixed: Channel errors in gateway log (20 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 03:22] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 03:38] Consultant fixed: Channel errors in gateway log (6 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 03:38] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 03:53] Consultant fixed: Channel errors in gateway log (12 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 03:53] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 04:09] Consultant fixed: Channel errors in gateway log (14 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 04:09] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 04:24] Consultant fixed: Channel errors in gateway log (14 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 04:24] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 04:39] Consultant fixed: Channel errors in gateway log (16 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 04:39] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 04:55] Consultant fixed: Channel errors in gateway log (16 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 04:55] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 05:11] Consultant fixed: Channel errors in gateway log (16 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 05:11] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 05:26] Consultant fixed: Channel errors in gateway log (18 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 05:26] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 05:41] Consultant fixed: Channel errors in gateway log (8 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 05:41] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 05:57] Consultant fixed: Channel errors in gateway log (16 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 05:57] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 06:12] Consultant fixed: Channel errors in gateway log (16 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 06:12] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 06:28] Consultant fixed: Channel errors in gateway log (14 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 06:28] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 06:43] Consultant fixed: Channel errors in gateway log (16 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 06:43] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 06:59] Consultant fixed: Channel errors in gateway log (16 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 06:59] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+### LEARNING-20260316-001
+- **Date:** 2026-03-16T11:00:42+00:00
+- **Source Ticket:** observation (weekly CI rollup)
+- **Agent:** OPS
+- **Category:** workflow
+- **Summary:** Weekly CI rollup: 1777 ok / 969 failed events; top root causes captured
+- **Details:** Generated from `workspace/ops/ci/ci-log.jsonl`. Top root causes: Unknown (no summary) (649); 406 No credentials for provider: iflow (243); ⚠️ ✉️ Message: `20` failed (11); ⚠️ ✉️ Message failed (7); Timeout while waiting for tool/provider response (6)
+- **Prevention:** Apply the top 1–2 improvements below and add targeted regression checks for recurring failures
+- **Applied To:** workspace/ops/ci/WEEKLY-SUMMARY.md + this entry
+
+**Next improvements (priority):**
+- Capture any new edge cases as a ticket/learning when they occur
+- Add a focused regression test/dry-run for this workflow
+- Document the failure mode + prevention in LEARNINGS.md
+- Increase cron timeoutSeconds for multi-step jobs (>=300s)
+
+## [2026-03-16 07:14] Consultant fixed: Channel errors in gateway log (14 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 07:14] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 07:30] Consultant fixed: Channel errors in gateway log (16 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 07:30] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 07:45] Consultant fixed: Channel errors in gateway log (6 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 07:45] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 08:01] Consultant fixed: Channel errors in gateway log (12 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 08:01] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 08:16] Consultant fixed: Channel errors in gateway log (14 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 08:16] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 08:32] Consultant fixed: Channel errors in gateway log (16 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 08:32] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 08:47] Consultant fixed: Channel errors in gateway log (18 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 08:47] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 09:03] Consultant fixed: Channel errors in gateway log (16 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 09:03] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 09:19] Consultant fixed: Channel errors in gateway log (14 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 09:19] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 09:34] Consultant fixed: Channel errors in gateway log (6 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 09:34] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 09:50] Consultant fixed: Channel errors in gateway log (4 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 09:50] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 10:05] Consultant fixed: Channel errors in gateway log (4 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 10:05] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 10:21] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 10:36] Consultant fixed: Channel errors in gateway log (6 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 10:36] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 10:52] Consultant fixed: Channel errors in gateway log (8 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 10:52] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 11:08] Consultant fixed: Channel errors in gateway log (8 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 11:08] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 11:23] Consultant fixed: Channel errors in gateway log (8 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 11:23] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 11:39] Consultant fixed: Channel errors in gateway log (10 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 11:39] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 11:54] Consultant fixed: Channel errors in gateway log (4 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 11:54] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 12:10] Consultant fixed: Channel errors in gateway log (4 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 12:10] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 12:25] Consultant fixed: Channel errors in gateway log (4 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 12:25] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 12:41] Consultant fixed: Channel errors in gateway log (6 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 12:41] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 12:57] Consultant fixed: Channel errors in gateway log (6 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 12:57] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 13:12] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 13:28] Consultant fixed: Channel errors in gateway log (4 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 13:28] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 13:43] Consultant fixed: Channel errors in gateway log (6 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 13:43] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 13:59] Consultant fixed: Channel errors in gateway log (12 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 13:59] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 14:15] Consultant fixed: Channel errors in gateway log (10 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 14:15] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 14:30] Consultant fixed: Channel errors in gateway log (10 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 14:30] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 14:46] Consultant fixed: Channel errors in gateway log (12 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 14:46] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 15:02] Consultant fixed: Channel errors in gateway log (10 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 15:02] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 15:17] Consultant fixed: Channel errors in gateway log (4 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 15:17] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 15:33] Consultant fixed: Channel errors in gateway log (4 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 15:33] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 15:49] Consultant fixed: Channel errors in gateway log (4 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 15:49] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 16:04] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 16:20] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 16:36] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restarted successfully
+
+## [2026-03-16 16:36] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 16:52] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 17:08] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 17:23] Consultant fixed: Channel errors in gateway log (4 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 17:23] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 17:39] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 17:55] Consultant fixed: Channel errors in gateway log (6 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 17:55] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 18:10] Consultant fixed: Channel errors in gateway log (6 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 18:10] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 18:26] Consultant fixed: Channel errors in gateway log (4 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-16 18:26] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 18:42] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 18:57] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 19:13] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 19:29] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-16 19:29] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 19:45] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-16 19:45] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 20:01] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-16 20:01] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 20:17] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-16 20:17] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 20:33] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-16 20:33] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 20:48] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-16 20:48] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 21:04] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-16 21:04] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 21:20] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-16 21:20] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 21:36] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-16 21:36] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 21:52] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-16 21:52] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 22:08] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-16 22:08] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 22:24] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-16 22:24] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 22:40] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-16 22:40] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 22:56] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-16 22:56] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 23:12] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-16 23:12] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 23:28] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-16 23:28] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-16 23:44] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-16 23:44] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 00:00] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 00:00] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 00:16] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 00:16] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 00:32] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 00:32] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 00:48] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 00:48] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 01:04] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 01:04] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 01:20] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 01:20] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 01:36] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 01:36] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 01:52] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 01:52] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 02:08] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 02:08] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 02:24] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 02:24] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 02:40] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 02:40] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 02:56] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 02:56] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 03:12] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 03:12] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 03:28] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 03:28] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 03:43] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 03:43] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 03:59] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 03:59] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 04:14] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 04:14] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 04:30] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 04:30] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 04:45] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 04:45] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 05:01] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 05:01] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 05:16] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 05:16] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 05:32] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 05:32] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 05:47] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 05:47] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 06:03] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 06:03] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 06:18] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 06:18] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 06:34] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 06:34] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 06:49] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 06:49] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 06:49] Consultant fixed: Coding factory stalled — last SPEC.md is 48h old
+RESEARCH agent tasked to restart coding factory
+
+## [2026-03-17 07:05] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 07:05] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 07:05] Consultant fixed: Coding factory stalled — last SPEC.md is 48h old
+RESEARCH agent tasked to restart coding factory
+
+## [2026-03-17 07:20] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 07:20] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 07:20] Consultant fixed: Coding factory stalled — last SPEC.md is 49h old
+RESEARCH agent tasked to restart coding factory
+
+## [2026-03-17 07:36] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 07:36] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 07:36] Consultant fixed: Coding factory stalled — last SPEC.md is 49h old
+RESEARCH agent tasked to restart coding factory
+
+## [2026-03-17 07:51] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 07:51] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 07:51] Consultant fixed: Coding factory stalled — last SPEC.md is 49h old
+RESEARCH agent tasked to restart coding factory
+
+## [2026-03-17 08:07] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 08:07] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 08:07] Consultant fixed: Coding factory stalled — last SPEC.md is 49h old
+RESEARCH agent tasked to restart coding factory
+
+## [2026-03-17 08:23] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 08:23] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 08:23] Consultant fixed: Coding factory stalled — last SPEC.md is 50h old
+RESEARCH agent tasked to restart coding factory
+
+## [2026-03-17 08:38] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 08:38] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 08:38] Consultant fixed: Coding factory stalled — last SPEC.md is 50h old
+RESEARCH agent tasked to restart coding factory
+
+## [2026-03-17 08:54] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 08:54] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 08:54] Consultant fixed: Coding factory stalled — last SPEC.md is 50h old
+RESEARCH agent tasked to restart coding factory
+
+## [2026-03-17 09:09] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 09:09] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 09:09] Consultant fixed: Coding factory stalled — last SPEC.md is 50h old
+RESEARCH agent tasked to restart coding factory
+
+## [2026-03-17 09:25] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 09:25] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 09:25] Consultant fixed: Coding factory stalled — last SPEC.md is 51h old
+RESEARCH agent tasked to restart coding factory
+
+## [2026-03-17 09:40] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 09:40] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 09:40] Consultant fixed: Coding factory stalled — last SPEC.md is 51h old
+RESEARCH agent tasked to restart coding factory
+
+## [2026-03-17 09:56] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 09:56] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 09:56] Consultant fixed: Coding factory stalled — last SPEC.md is 51h old
+RESEARCH agent tasked to restart coding factory
+
+## [2026-03-17 10:12] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 10:12] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 10:12] Consultant fixed: Coding factory stalled — last SPEC.md is 52h old
+RESEARCH agent tasked to restart coding factory
+
+## [2026-03-17 10:27] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 10:27] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 10:27] Consultant fixed: Coding factory stalled — last SPEC.md is 52h old
+RESEARCH agent tasked to restart coding factory
+
+## [2026-03-17 10:43] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 10:43] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 10:43] Consultant fixed: Coding factory stalled — last SPEC.md is 52h old
+RESEARCH agent tasked to restart coding factory
+
+## [2026-03-17 10:58] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 10:58] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 10:58] Consultant fixed: Coding factory stalled — last SPEC.md is 52h old
+RESEARCH agent tasked to restart coding factory
+
+## [2026-03-17 11:14] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 11:14] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 11:14] Consultant fixed: Coding factory stalled — last SPEC.md is 53h old
+RESEARCH agent tasked to restart coding factory
+
+## [2026-03-17 11:29] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 11:29] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 11:29] Consultant fixed: Coding factory stalled — last SPEC.md is 53h old
+RESEARCH agent tasked to restart coding factory
+
+## [2026-03-17 11:45] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 11:45] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 11:45] Consultant fixed: Coding factory stalled — last SPEC.md is 53h old
+RESEARCH agent tasked to restart coding factory
+
+## [2026-03-17 12:01] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 12:01] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 12:01] Consultant fixed: Coding factory stalled — last SPEC.md is 53h old
+RESEARCH agent tasked to restart coding factory
+
+## [2026-03-17 12:16] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 12:16] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 12:16] Consultant fixed: Coding factory stalled — last SPEC.md is 54h old
+RESEARCH agent tasked to restart coding factory
+
+## [2026-03-17 12:32] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 12:32] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 12:32] Consultant fixed: Coding factory stalled — last SPEC.md is 54h old
+RESEARCH agent tasked to restart coding factory
+
+## [2026-03-17 12:48] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 12:48] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 12:48] Consultant fixed: Coding factory stalled — last SPEC.md is 54h old
+RESEARCH agent tasked to restart coding factory
+
+## [2026-03-17 13:03] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-17 13:03] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 13:03] Consultant fixed: Coding factory stalled — last SPEC.md is 54h old
+RESEARCH agent tasked to restart coding factory
+
+## [2026-03-17 13:19] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 13:19] Consultant fixed: Coding factory stalled — last SPEC.md is 55h old
+RESEARCH agent tasked to restart coding factory
+
+## [2026-03-17 13:34] Consultant fixed: Channel errors in gateway log (10 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-17 13:34] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 13:34] Consultant fixed: Coding factory stalled — last SPEC.md is 55h old
+RESEARCH agent tasked to restart coding factory
+
+## [2026-03-17 13:50] Consultant fixed: Channel errors in gateway log (14 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-17 13:50] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 13:50] Consultant fixed: Coding factory stalled — last SPEC.md is 55h old
+RESEARCH agent tasked to restart coding factory
+
+## [2026-03-17 14:05] Consultant fixed: Channel errors in gateway log (14 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-17 14:05] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 14:05] Consultant fixed: Coding factory stalled — last SPEC.md is 55h old
+RESEARCH agent tasked to restart coding factory
+
+## [2026-03-17 14:15] Consultant fixed: Channel errors in gateway log (14 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-17 14:15] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 14:15] Consultant fixed: Coding factory stalled — last SPEC.md is 56h old
+RESEARCH agent tasked to restart coding factory
+
+## [2026-03-17 14:17] Consultant fixed: Channel errors in gateway log (14 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-17 14:17] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 14:17] Consultant fixed: Coding factory stalled — last SPEC.md is 56h old
+RESEARCH agent tasked to restart coding factory
+
+## [2026-03-17 14:32] Consultant fixed: Channel errors in gateway log (14 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-17 14:32] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 14:32] Consultant fixed: Coding factory stalled — last SPEC.md is 56h old
+RESEARCH agent tasked to restart coding factory
+
+## [2026-03-17 14:47] Consultant fixed: Channel errors in gateway log (14 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-17 14:47] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-17 15:03] Consultant fixed: Channel errors in gateway log (12 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-17 15:03] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work

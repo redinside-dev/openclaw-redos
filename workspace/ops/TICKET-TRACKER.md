@@ -100,7 +100,7 @@
 **OPS**: Breaking recursive consultant loop. Status updated to IN_PROGRESS.
 
 ### TICKET-20260314-001
-- **Status:** OPEN
+- **Status:** RESOLVED
 - **Priority:** P2
 - **Created:** 2026-03-14T00:16:41+00:00
 - **SLA Deadline:** 2026-03-14T08:16:41+00:00 (8 hours)
@@ -112,10 +112,10 @@
   - <ts>-04:00 [tools] write failed: critical: write has repeated identical no-progress outcomes 30 times. session execution blocked by global circuit breaker to prevent runaway loops.
   - <ts>-04:00 [tools] write failed: critical: write has repeated identical no-progress outcomes 30 times. session execution blocked by global circuit breaker to prevent runaway loops.
   - <ts>-04:00 [tools] write failed: critical: write has repeated identical no-progress outcomes 30 times. session execution blocked by global circuit breaker to prevent runaway loops.
-- **Root Cause:** 
-- **Resolution:** 
-- **Learnings:** 
-- **Resolved At:** 
+- **Root Cause:** This was a stale health-snapshot alert. The 9Router port was reconfigured to 20128 and is now functioning correctly (68 models available).
+- **Resolution:** Verified 9Router on port 20128 responding with 68 models. No action required - stale ticket.
+- **Learnings:** The port mismatch was previously resolved. Health snapshot detected old patterns.
+- **Resolved At:** 2026-03-15T22:49:00+00:00 
 
 ### TICKET-20260314-002
 - **Status:** OPEN
@@ -1401,6 +1401,906 @@
   - <ts>-04:00 [tools] message failed: action read requires a target.
   - <ts>-04:00 [tools] message failed: action read requires a target.
   - <ts>-04:00 [tools] message failed: action read requires a target.
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-001
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-16T00:29:09+00:00
+- **SLA Deadline:** 2026-03-16T08:29:09+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (35x): <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+- **Details:** Detected 35 occurrences in the last window. Examples:
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-002
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-16T00:29:09+00:00
+- **SLA Deadline:** 2026-03-16T08:29:09+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (35x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+- **Details:** Detected 35 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-003
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-16T00:29:09+00:00
+- **SLA Deadline:** 2026-03-16T08:29:09+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (5x): <ts>-04:00 [tools] read failed: missing required parameter: path (path or file_path). supply correct parameters before retrying.
+- **Details:** Detected 5 occurrences in the last window. Examples:
+  - <ts>-04:00 [tools] read failed: missing required parameter: path (path or file_path). supply correct parameters before retrying.
+  - <ts>-04:00 [tools] read failed: missing required parameter: path (path or file_path). supply correct parameters before retrying.
+  - <ts>-04:00 [tools] read failed: missing required parameter: path (path or file_path). supply correct parameters before retrying.
+  - <ts>-04:00 [tools] read failed: missing required parameter: path (path or file_path). supply correct parameters before retrying.
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-004
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-16T00:29:09+00:00
+- **SLA Deadline:** 2026-03-16T08:29:09+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (5x): context overflow: prompt too large for the model. try /reset (or /new) to start a fresh session, or use a larger-context model.
+- **Details:** Detected 5 occurrences in the last window. Examples:
+  - context overflow: prompt too large for the model. try /reset (or /new) to start a fresh session, or use a larger-context model.
+  - context overflow: prompt too large for the model. try /reset (or /new) to start a fresh session, or use a larger-context model.
+  - context overflow: prompt too large for the model. try /reset (or /new) to start a fresh session, or use a larger-context model.
+  - context overflow: prompt too large for the model. try /reset (or /new) to start a fresh session, or use a larger-context model.
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-005
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-16T00:29:09+00:00
+- **SLA Deadline:** 2026-03-16T08:29:09+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (5x): ⚠️ ✉️ message: `20` failed
+- **Details:** Detected 5 occurrences in the last window. Examples:
+  - ⚠️ ✉️ message: `20` failed
+  - ⚠️ ✉️ message: `20` failed
+  - ⚠️ ✉️ message: `20` failed
+  - ⚠️ ✉️ message: `20` failed
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-006
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-16T02:36:35+00:00
+- **SLA Deadline:** 2026-03-16T10:36:35+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (186x): <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+- **Details:** Detected 186 occurrences in the last window. Examples:
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-007
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-16T02:36:35+00:00
+- **SLA Deadline:** 2026-03-16T10:36:35+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (186x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+- **Details:** Detected 186 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-008
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-16T02:36:35+00:00
+- **SLA Deadline:** 2026-03-16T10:36:35+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (25x): <ts>-04:00 [tools] message failed: action read requires a target.
+- **Details:** Detected 25 occurrences in the last window. Examples:
+  - <ts>-04:00 [tools] message failed: action read requires a target.
+  - <ts>-04:00 [tools] message failed: action read requires a target.
+  - <ts>-04:00 [tools] message failed: action read requires a target.
+  - <ts>-04:00 [tools] message failed: action read requires a target.
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-009
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-16T02:36:35+00:00
+- **SLA Deadline:** 2026-03-16T10:36:35+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (23x): <ts>-04:00 [tools] message failed: action read is not supported for provider telegram.
+- **Details:** Detected 23 occurrences in the last window. Examples:
+  - <ts>-04:00 [tools] message failed: action read is not supported for provider telegram.
+  - <ts>-04:00 [tools] message failed: action read is not supported for provider telegram.
+  - <ts>-04:00 [tools] message failed: action read is not supported for provider telegram.
+  - <ts>-04:00 [tools] message failed: action read is not supported for provider telegram.
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-010
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-16T02:36:35+00:00
+- **SLA Deadline:** 2026-03-16T10:36:35+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (17x): <ts>-04:00 [tools] read failed: missing required parameter: path (path or file_path). supply correct parameters before retrying.
+- **Details:** Detected 17 occurrences in the last window. Examples:
+  - <ts>-04:00 [tools] read failed: missing required parameter: path (path or file_path). supply correct parameters before retrying.
+  - <ts>-04:00 [tools] read failed: missing required parameter: path (path or file_path). supply correct parameters before retrying.
+  - <ts>-04:00 [tools] read failed: missing required parameter: path (path or file_path). supply correct parameters before retrying.
+  - <ts>-04:00 [tools] read failed: missing required parameter: path (path or file_path). supply correct parameters before retrying.
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-011
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-16T06:38:19+00:00
+- **SLA Deadline:** 2026-03-16T14:38:19+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (249x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+- **Details:** Detected 249 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-012
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-16T06:38:19+00:00
+- **SLA Deadline:** 2026-03-16T14:38:19+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (248x): <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+- **Details:** Detected 248 occurrences in the last window. Examples:
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-013
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-16T06:38:19+00:00
+- **SLA Deadline:** 2026-03-16T08:38:19+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (41x): <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+- **Details:** Detected 41 occurrences in the last window. Examples:
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-014
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-16T06:38:19+00:00
+- **SLA Deadline:** 2026-03-16T14:38:19+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (37x): <ts>-04:00 [tools] message failed: action read requires a target.
+- **Details:** Detected 37 occurrences in the last window. Examples:
+  - <ts>-04:00 [tools] message failed: action read requires a target.
+  - <ts>-04:00 [tools] message failed: action read requires a target.
+  - <ts>-04:00 [tools] message failed: action read requires a target.
+  - <ts>-04:00 [tools] message failed: action read requires a target.
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-015
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-16T06:38:19+00:00
+- **SLA Deadline:** 2026-03-16T08:38:19+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (35x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+- **Details:** Detected 35 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-016
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-16T08:37:30+00:00
+- **SLA Deadline:** 2026-03-16T16:37:30+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (225x): <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+- **Details:** Detected 225 occurrences in the last window. Examples:
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-017
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-16T08:37:30+00:00
+- **SLA Deadline:** 2026-03-16T16:37:30+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (225x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+- **Details:** Detected 225 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-018
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-16T08:37:30+00:00
+- **SLA Deadline:** 2026-03-16T10:37:30+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (66x): <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+- **Details:** Detected 66 occurrences in the last window. Examples:
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-019
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-16T08:37:30+00:00
+- **SLA Deadline:** 2026-03-16T10:37:30+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (55x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+- **Details:** Detected 55 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-020
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-16T08:37:30+00:00
+- **SLA Deadline:** 2026-03-16T10:37:30+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (54x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+- **Details:** Detected 54 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-021
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-16T10:37:29+00:00
+- **SLA Deadline:** 2026-03-16T18:37:29+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (191x): <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+- **Details:** Detected 191 occurrences in the last window. Examples:
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-022
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-16T10:37:29+00:00
+- **SLA Deadline:** 2026-03-16T18:37:29+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (191x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+- **Details:** Detected 191 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-023
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-16T10:37:29+00:00
+- **SLA Deadline:** 2026-03-16T12:37:29+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (95x): <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+- **Details:** Detected 95 occurrences in the last window. Examples:
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-024
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-16T10:37:29+00:00
+- **SLA Deadline:** 2026-03-16T12:37:29+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (83x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+- **Details:** Detected 83 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-025
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-16T10:37:29+00:00
+- **SLA Deadline:** 2026-03-16T12:37:29+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (82x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+- **Details:** Detected 82 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-026
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-16T12:37:44+00:00
+- **SLA Deadline:** 2026-03-16T20:37:44+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (156x): <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+- **Details:** Detected 156 occurrences in the last window. Examples:
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-027
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-16T12:37:44+00:00
+- **SLA Deadline:** 2026-03-16T20:37:44+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (156x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+- **Details:** Detected 156 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-028
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-16T12:37:44+00:00
+- **SLA Deadline:** 2026-03-16T14:37:44+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (113x): <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+- **Details:** Detected 113 occurrences in the last window. Examples:
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-029
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-16T12:37:44+00:00
+- **SLA Deadline:** 2026-03-16T14:37:44+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (101x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+- **Details:** Detected 101 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-030
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-16T12:37:44+00:00
+- **SLA Deadline:** 2026-03-16T14:37:44+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (100x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+- **Details:** Detected 100 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-031
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-16T14:37:42+00:00
+- **SLA Deadline:** 2026-03-16T22:37:42+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (134x): <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+- **Details:** Detected 134 occurrences in the last window. Examples:
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-032
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-16T14:37:42+00:00
+- **SLA Deadline:** 2026-03-16T22:37:42+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (134x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+- **Details:** Detected 134 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/openrouter/auto candidate=9router/openrouter/auto reason=auth next=9router/minimax/minimax-m2.5
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-033
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-16T14:37:42+00:00
+- **SLA Deadline:** 2026-03-16T16:37:42+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (128x): <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+- **Details:** Detected 128 occurrences in the last window. Examples:
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-034
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-16T14:37:42+00:00
+- **SLA Deadline:** 2026-03-16T16:37:42+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (113x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+- **Details:** Detected 113 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-035
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-16T14:37:42+00:00
+- **SLA Deadline:** 2026-03-16T16:37:42+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (112x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+- **Details:** Detected 112 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-036
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-16T16:38:07+00:00
+- **SLA Deadline:** 2026-03-16T18:38:07+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (159x): <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+- **Details:** Detected 159 occurrences in the last window. Examples:
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-037
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-16T16:38:07+00:00
+- **SLA Deadline:** 2026-03-16T18:38:07+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (143x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+- **Details:** Detected 143 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-038
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-16T16:38:07+00:00
+- **SLA Deadline:** 2026-03-16T18:38:07+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (142x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+- **Details:** Detected 142 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-039
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-16T16:38:07+00:00
+- **SLA Deadline:** 2026-03-17T00:38:07+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (110x): <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+- **Details:** Detected 110 occurrences in the last window. Examples:
+  - <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+  - <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+  - <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+  - <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-040
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-16T16:38:07+00:00
+- **SLA Deadline:** 2026-03-17T00:38:07+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (100x): <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+- **Details:** Detected 100 occurrences in the last window. Examples:
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-041
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-16T18:38:32+00:00
+- **SLA Deadline:** 2026-03-16T20:38:32+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (186x): <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+- **Details:** Detected 186 occurrences in the last window. Examples:
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-042
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-16T18:38:32+00:00
+- **SLA Deadline:** 2026-03-16T20:38:32+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (168x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+- **Details:** Detected 168 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-043
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-16T18:38:32+00:00
+- **SLA Deadline:** 2026-03-16T20:38:32+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (167x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+- **Details:** Detected 167 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-044
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-16T18:38:32+00:00
+- **SLA Deadline:** 2026-03-17T02:38:32+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (121x): <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+- **Details:** Detected 121 occurrences in the last window. Examples:
+  - <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+  - <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+  - <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+  - <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-045
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-16T18:38:32+00:00
+- **SLA Deadline:** 2026-03-17T02:38:32+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (65x): <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+- **Details:** Detected 65 occurrences in the last window. Examples:
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-046
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-16T20:38:11+00:00
+- **SLA Deadline:** 2026-03-16T22:38:11+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (215x): <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+- **Details:** Detected 215 occurrences in the last window. Examples:
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-047
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-16T20:38:11+00:00
+- **SLA Deadline:** 2026-03-16T22:38:11+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (197x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+- **Details:** Detected 197 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-048
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-16T20:38:11+00:00
+- **SLA Deadline:** 2026-03-16T22:38:11+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (196x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+- **Details:** Detected 196 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-049
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-16T20:38:11+00:00
+- **SLA Deadline:** 2026-03-17T04:38:11+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (132x): <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+- **Details:** Detected 132 occurrences in the last window. Examples:
+  - <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+  - <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+  - <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+  - <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260316-050
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-16T20:38:11+00:00
+- **SLA Deadline:** 2026-03-17T04:38:11+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (29x): <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+- **Details:** Detected 29 occurrences in the last window. Examples:
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=auth provider=9router/openrouter/auto profile=-
 - **Root Cause:** 
 - **Resolution:** 
 - **Learnings:** 

@@ -141,15 +141,17 @@ All agents run periodic inner loops (every 2-4h):
 1. **Tier 1:** MiniMax M2.5 via 9router (unlimited $20/mo coding plan — Opus-level quality, zero per-token cost)
 2. **Tier 2:** groq/llama-3.3-70b (free API key), openrouter free tier models
 3. **Tier 3:** gc/gemini-*, kr/kiro OAuth models (free subscription)
-4. **Tier 4:** openrouter/auto ($10 PAYG credit), if/iflow models (when authenticated)
+4. **Tier 4:** if/iflow models (when authenticated)
 - **Ollama REMOVED** 2026-03-14 — freed 3.5GB RAM. No local models.
+- **⛔ `9router/openrouter/auto` is BANNED** — OpenRouter key exhausted (403). Do NOT set this as primary or fallback. Do NOT revert the model config. Current correct config was set 2026-03-15.
 
-### OpenClaw → 9Router Failover Chain
+### OpenClaw → 9Router Failover Chain (DO NOT CHANGE)
 ```
-Primary:    9router/free-unlimited   (MiniMax first inside 9router)
-Fallback 1: minimax/MiniMax-M2.5    (direct — bypasses 9router)
-Fallback 2: glm/glm-4.7             (ZAI direct — bypasses 9router)
+Primary:    9router/free-unlimited         (Groq/llama + MiniMax via 9router)
+Fallback 1: 9router/cc/claude-sonnet-4-6  (Claude via 9router)
+Fallback 2: 9router/always-on-premium     (multi-provider combo)
 ```
+**To change model config use:** `openclaw config set agents.defaults.model.primary "..."` — never edit openclaw.json directly as it may be overwritten.
 
 ### 9router COMBO Priority (all combos start with MiniMax)
 free-unlimited, heartbeat-cheap, subagent-reliable, always-on-premium, coding-factory, research-deep
@@ -239,10 +241,12 @@ free-unlimited, heartbeat-cheap, subagent-reliable, always-on-premium, coding-fa
 ### Critical Active Crons
 - **Autonomous Task Dispatcher:** Every 15min
 - **9router-token-refresh-0001:** Every 4min — auto-refreshes iflow (48h), kiro (1h), claude (8h), cursor sync. Zero human intervention needed.
-- **9router-auth-watchdog-0001:** Every 5min — self-heals if 9router goes dark
+- **⛔ 9router-auth-watchdog-0001:** PERMANENTLY DISABLED — was zeroing openclaw.json + writing banned openrouter/auto model (2026-03-16)
 - **openclaw-backup-weekly-0001:** Sundays 3am — `openclaw backup create`
 - **openclaw-sessions-cleanup-0001:** Sundays 4am — clears orphan transcripts
-- **Telegram Approval Monitor:** Checks for approve/deny replies
+- **sessions-daily-cleanup-0001:** 3am daily — `openclaw sessions cleanup` (added 2026-03-17)
+- **Telegram Approval Monitor:** Checks for approve/deny replies every 2min
+- **health-monitor (launchd):** Every 15min — auto-clears bloated sessions, strips AUTONOMOUS.md spam, restores corrupt openclaw.json
 
 ---
 
@@ -336,6 +340,17 @@ free-unlimited, heartbeat-cheap, subagent-reliable, always-on-premium, coding-fa
 ---
 
 ## Changes Log
+
+### 2026-03-17
+- **Session bloat auto-guard added** — `health-monitor.sh` now clears any agent session >300KB every 15min (launchd, runs 24/7). Root cause of every breakdown since Mar 13: sessions grew to 600-741KB causing all LLM calls to timeout at 60s.
+- **Consultant stall loop fixed (2 bugs)** — `consultant-daemon.py`: (1) `_find_error_crons` was silently failing due to wrong dict structure (`{"version":…,"jobs":[…]}` not handled); (2) `inject_task` had zero deduplication — injected identical tasks every 15min with no limit. Added 4-hour dedup window + 20KB circuit-breaker. AUTONOMOUS.md was 141KB of spam → reset to 4KB.
+- **`redos-mission` skill created** — `workspace/skills/redos-mission/SKILL.md` permanently documents the company objective, business lines, failure patterns, memory architecture, and escalation rules. Registered as skill entry #1 in openclaw.json. Injected into every agent session automatically. Anurag will never need to re-explain the objective.
+- **HEARTBEAT symlink fixed** — `workspace-ops/workspace/ops/HEARTBEAT.md` → symlink to `workspace-ops/HEARTBEAT.md`. OPS cron was looking in wrong nested path.
+- **All 8 agent sessions cleared** — ops:741KB, main:666KB, finance:496KB, eng:384KB, research:288KB, infosec:194KB, hatake:172KB, allrounder:173KB. All transcripts deleted. Fresh sessions allow LLM calls to complete in <10s again.
+- **AUTONOMOUS.md bloat guard added** — health-monitor.sh strips all CONSULTANT TASK blocks if file >50KB.
+- **`9router-auth-watchdog-0001` cron permanently DISABLED** — was zeroing openclaw.json via race condition + writing banned `openrouter/auto` model back. Cause of 24h+ outage on 2026-03-16.
+- **Correct model config (DO NOT CHANGE):** primary=`9router/free-unlimited`, fallbacks=[`9router/cc/claude-sonnet-4-6`, `9router/always-on-premium`]. Set in openclaw.json for all 8 agents + defaults.
+- **Daily session cleanup confirmed** — `sessions-daily-cleanup-0001` runs 3am daily (already existed). `openclaw-sessions-cleanup-0001` runs Sundays 4am (weekly orphan cleanup). health-monitor.sh adds real-time guard.
 
 ### 2026-03-15
 - **MiniMax M2.5 promoted to primary model** — unlimited $20/mo coding plan = Opus-level quality at zero per-token cost. All 6 9router COMBOs now start with MiniMax. All agents: primary=9router/free-unlimited, fallback1=minimax direct, fallback2=glm/ZAI direct.

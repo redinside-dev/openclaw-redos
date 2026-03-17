@@ -128,8 +128,36 @@ def openclaw_agent(agent: str, message: str, channel: str = "telegram") -> bool:
     return inject_task(agent, message)
 
 def inject_task(agent: str, message: str) -> bool:
-    """Write a task directly into AUTONOMOUS.md for the agent to pick up."""
+    """Write a task directly into AUTONOMOUS.md for the agent to pick up.
+    Deduplication: skip if an identical PENDING consultant task for this agent
+    already exists and was injected within the last 4 hours.
+    Also skip if AUTONOMOUS.md is already > 20KB (circuit-breaker).
+    """
     try:
+        current = AUTONOMOUS_MD.read_text(encoding="utf-8", errors="replace") if AUTONOMOUS_MD.exists() else ""
+
+        # Circuit-breaker: if file > 20KB, do NOT inject more consultant tasks
+        if len(current.encode("utf-8")) > 20480:
+            log(f"  [inject] CIRCUIT-BREAKER: AUTONOMOUS.md > 20KB — refusing to inject more tasks. "
+                f"File must be manually trimmed first.")
+            return False
+
+        # Dedup: look for a PENDING task for this agent injected in last 4h
+        dedup_pattern = re.compile(
+            r'CONSULTANT-' + agent.upper().replace('-', r'[\-_]') + r'-(\d{14})',
+            re.IGNORECASE
+        )
+        cutoff = now_dt() - timedelta(hours=4)
+        for m in dedup_pattern.finditer(current):
+            try:
+                ts_str = m.group(1)  # YYYYMMDDHHmmss
+                inject_time = datetime.strptime(ts_str, "%Y%m%d%H%M%S").replace(tzinfo=timezone.utc)
+                if inject_time >= cutoff:
+                    log(f"  [inject] DEDUP: task for '{agent}' already injected at {ts_str} (within 4h) — skipping")
+                    return True  # return True so caller doesn't retry
+            except Exception:
+                pass
+
         ts = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
         task_id = f"CONSULTANT-{agent.upper()}-{datetime.now().strftime('%Y%m%d%H%M%S')}"
         entry = (
@@ -277,7 +305,7 @@ def diagnose(obs: dict) -> list[dict]:
         })
 
     # 7. Cron consecutive errors
-    if obs["cron_jobs"]:
+    if obs["cron_jobs"] is not None:
         error_crons = _find_error_crons(obs["cron_jobs"])
         if error_crons:
             issues.append({
@@ -342,13 +370,25 @@ def _has_recent_completions(tasks_log: str, hours: int = 24) -> bool:
             pass
     return False
 
-def _find_error_crons(cron_data: dict) -> list[str]:
+def _find_error_crons(cron_data) -> list[str]:
     """Return IDs of cron jobs with ≥3 consecutive errors and enabled."""
     errors = []
-    for job in cron_data.get("jobs", []):
+    # jobs.json is {"version": ..., "jobs": [...]} or a plain list
+    if isinstance(cron_data, list):
+        jobs = cron_data
+    elif isinstance(cron_data, dict):
+        jobs = cron_data.get("jobs", cron_data.get("crons", []))
+        if not isinstance(jobs, list):
+            jobs = []
+    else:
+        return []
+    for job in jobs:
+        if not isinstance(job, dict):
+            continue
         if not job.get("enabled"):
             continue
-        if job.get("state", {}).get("consecutiveErrors", 0) >= 3:
+        state = job.get("state", {})
+        if isinstance(state, dict) and state.get("consecutiveErrors", 0) >= 3:
             errors.append(job.get("id", "unknown"))
     return errors
 
