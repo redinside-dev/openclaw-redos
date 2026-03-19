@@ -1,3 +1,4 @@
+| 2026-03-16 | context-directory-manager | https://github.com/anuragg-saxenaa/context-directory-manager | initial implementation |
 | 2026-03-14 | agent-loop-detection | https://github.com/anuragg-saxenaa/agent-loop-detection | initial implementation |
 | 2026-03-14 | session-memory | https://github.com/anuragg-saxenaa/session-memory | initial implementation |
 | 2026-03-14 | ci: a2a-protocol | https://github.com/anuragg-saxenaa/a2a-protocol | add GitHub Actions CI (Node 18/20 matrix) |

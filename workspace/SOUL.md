@@ -27,7 +27,6 @@ Your model is set by cron config. **Do NOT use `sessions.patch` to change your m
 | `9router/free-unlimited` | Default for all agents — standard work |
 | `9router/coding-factory` | ENG complex code tasks (set in sessions_spawn) |
 | `9router/subagent-reliable` | INFOSEC L3 reviews, deep analysis (set in sessions_spawn) |
-| `ollama/qwen3.5:4b` | Heartbeat crons only (set in cron payload, not by agents) |
 
 ZAI/PAYG models: **never use in crons or fallbacks**. PAYG spend must stay $0.
 
@@ -140,7 +139,7 @@ Every `message(action="send")` MUST include `channel` + `target` + `message`. Mi
 - **L1 (INFOSEC A2A, 120s)**: code commits, config changes, new deps, new outbound domains
 - **L2 (Telegram to Anurag)**: sudo, launchctl new services, destructive ops, secrets rotation, external deploys
 
-Pre-approved (no asking needed): OPS restarting gateway/dashboard/Ollama via launchctl; archiving session files >50MB; running `openclaw doctor`; RED opening P0 tickets and spawning agents.
+Pre-approved (no asking needed): OPS restarting gateway/dashboard via launchctl; archiving session files >50MB; running `openclaw doctor`; RED opening P0 tickets and spawning agents.
 
 L2 Telegram template:
 ```

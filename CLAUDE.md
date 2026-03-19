@@ -42,9 +42,6 @@ openclaw agent --agent main --channel slack --message "test" --json
 npm update -g openclaw
 bash scripts/patch-pairing-reply.sh  # restore custom pairing reply after upgrade
 
-# Check Ollama models (hatake only)
-curl -s http://127.0.0.1:11434/api/tags | python3 -c "import json,sys; [print(m['name']) for m in json.load(sys.stdin)['models']]"
-
 # Seed episodes.jsonl manually
 python3 ~/.openclaw/workspace/scripts/seed-episodes.py
 
@@ -78,7 +75,6 @@ Hierarchy: RED → ZEN; ENG, RESEARCH, FINANCE, OPS, INFOSEC, HATAKE report to R
 |---|---|---|---|
 | 9Router (port 20128) | free-unlimited, heartbeat-cheap | $0 | Primary for all agents |
 | openai-codex | gpt-5.2 | Subscription | Fallback only |
-| Ollama (port 11434) | qwen3.5:4b | $0 | HATAKE fallback (primary is 9router) |
 | Perplexity | sonar-pro | Subscription | RESEARCH explicit calls |
 | ZAI | glm-4.7, glm-4.7-flashx | PAYG | **Never use in crons or fallbacks** |
 

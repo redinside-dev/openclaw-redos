@@ -23,7 +23,6 @@
 | Dashboard | `http://127.0.0.1:19000` | launchd `ai.openclaw.dashboard` | auth: red/redos2026 |
 | 9Router | `http://127.0.0.1:20128` | launchd `ai.openclaw.9router` | Multi-provider proxy |
 | n8n | `http://127.0.0.1:5678` | v2.9.4 · launchd `ai.openclaw.n8n` | Webhook delegation |
-| Ollama | `http://127.0.0.1:11434` | homebrew managed | HATAKE only |
 
 ---
 
@@ -38,7 +37,7 @@
 | `finance` (FINANCE) | Finance analyst | 9router/free-unlimited | heartbeat-cheap → gpt-5.2 |
 | `ops` (OPS) | Scrum Master, health monitoring | 9router/free-unlimited | heartbeat-cheap → gpt-5.2 |
 | `infosec` (INFOSEC) | Security officer, L3 approvals | 9router/free-unlimited | heartbeat-cheap → gpt-5.2 |
-| `hatake` (HATAKE) | Intent parser (internal only) | ollama/qwen2.5-coder:7b | *(none)* |
+| `hatake` (HATAKE) | Intent parser (internal only) | 9router/free-unlimited | *(none)* |
 
 ---
 

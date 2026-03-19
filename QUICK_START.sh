@@ -36,37 +36,7 @@ fi
 echo "✅ Dependencies installed"
 echo ""
 
-# Step 2: Check Ollama
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "Step 2: Checking Ollama models..."
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo ""
-
-if ! command -v ollama &> /dev/null; then
-  echo "⚠️  Ollama not found. Please install:"
-  echo "   https://ollama.ai"
-  exit 1
-fi
-
-echo "Checking required models..."
-
-# Check for llama3.1:8b
-if ! ollama list | grep -q "llama3.1:8b"; then
-  echo "📥 Pulling llama3.1:8b..."
-  ollama pull llama3.1:8b
-fi
-
-# Check for llama3.1:70b
-if ! ollama list | grep -q "llama3.1:70b"; then
-  echo "📥 Pulling llama3.1:70b (large, ~40GB)..."
-  echo "   This may take a while..."
-  ollama pull llama3.1:70b
-fi
-
-echo "✅ Ollama models ready"
-echo ""
-
-# Step 3: Setup Google Drive backup
+# Step 2: Setup Google Drive backup
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo "Step 3: Setting up Google Drive backup..."
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
@@ -99,24 +69,7 @@ else
   echo ""
 fi
 
-# Step 4: Test the system
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "Step 4: Testing system..."
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo ""
-
-# Test ollama
-echo "Testing Ollama..."
-echo "What is 2+2?" | ollama run llama3.1:8b > /dev/null 2>&1
-if [ $? -eq 0 ]; then
-  echo "✅ Ollama working"
-else
-  echo "⚠️  Ollama test failed"
-fi
-
-echo ""
-
-# Step 5: Instructions
+# Step 3: Instructions
 echo "╔════════════════════════════════════════════════════════════════╗"
 echo "║                                                                ║"
 echo "║                    ✅ SETUP COMPLETE! ✅                       ║"

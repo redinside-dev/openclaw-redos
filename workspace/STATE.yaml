@@ -22,9 +22,6 @@ overview:
 security_audit:
   summary: 8 critical · 1 warn · 2 info
   critical_issues:
-    - Small models require sandboxing and web tools disabled
-      - ollama/qwen3.5:4b (4B) @ agents.list.ops.model.fallbacks (unsafe; sandbox=off; web=[web_search, web_fetch, browser])
-      - Fix: If you must use small models, enable sandboxing for all sessions (agents.defaults.sandbox.mode="all") and disable web_search/web_fetch/browser (tools.deny=["group:web","browser"])
     - Telegram DMs are open (7 accounts)
       - channels.telegram.accounts.default.dmPolicy="open" allows anyone to DM the bot
       - channels.telegram.accounts.allrounder.dmPolicy="open" allows anyone to DM the bot

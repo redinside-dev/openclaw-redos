@@ -4,6 +4,13 @@ This file tracks tasks assigned to autonomous agents. Agents check here for work
 
 ## P1 - PENDING
 
+### MAIN-001: Restart consultant daemon and OPS agent to clear stall
+**Agent:** main
+**Created:** 2026-03-18T23:10:00Z
+**Assigned to:** main
+**Description:** Consultant daemon reported no task completions in 24h. OPS agent is idle with no standup today. Restart the consultant daemon and OPS agent to restore autonomy. If OPS is unresponsive, use `kill` and restart the agent process. Verify agent status after restart and ensure cron jobs are running.
+**Status:** PENDING
+
 ## P2 - PENDING
 
 ### OPS-024: Reclaim A2A delegation timeout for ops agent

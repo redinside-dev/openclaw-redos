@@ -57,7 +57,7 @@ Sub-goals:
 Sub-goals:
 - [x] Budget guardrails configured (`workspace/config/budget-guardrails.json`)
 - [x] PAYG models removed from fallback chains
-- [x] 3-tier model routing added (Haiku/Sonnet/Opus + local Ollama) — see `routing-profiles.json`
+- [x] 3-tier model routing added (Haiku/Sonnet/Opus) — see `routing-profiles.json`
 - [x] Prompt caching config added (`cache_control: ephemeral` in routing-profiles.json)
 - [x] Cost charts added to dashboard-v2 Cost Estimator tab
 - [x] New gateway endpoints for cost visibility (`/api/mission-control/costs`, `/api/mission-control/savings`)

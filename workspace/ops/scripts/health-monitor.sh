@@ -73,9 +73,9 @@ check_disk() {
 
 # Check OpenClaw services
 check_services() {
-    local services=("gateway" "dashboard" "n8n" "nine_router" "ollama" "cloudflared")
+    local services=("gateway" "dashboard" "n8n" "nine_router" "cloudflared")
     local failed_services=()
-    
+
     for service in "${services[@]}"; do
         if ! pgrep -f "$service" >/dev/null 2>&1; then
             log "Service $service is not running"
@@ -126,9 +126,6 @@ remediate_service() {
         "n8n")
             exec /opt/homebrew/bin/n8n restart
             ;;
-        "ollama")
-            exec /opt/homebrew/bin/ollama serve &
-            ;;
         *)
             log "No automatic restart for $service"
             return 1
@@ -161,7 +158,7 @@ main() {
     # Automatic remediation for services
     if ! check_services; then
         local failed_services=()
-        local services=("gateway" "n8n" "ollama" "nine_router" "dashboard" "cloudflared")
+        local services=("gateway" "n8n" "nine_router" "dashboard" "cloudflared")
         
         for service in "${services[@]}"; do
             if ! pgrep -f "$service" >/dev/null 2>&1; then

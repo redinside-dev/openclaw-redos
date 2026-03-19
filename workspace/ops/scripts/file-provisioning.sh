@@ -68,7 +68,6 @@ create_config_files() {
   },
   "env": {
     "vars": {
-      "OLLAMA_API_KEY": "ollama-local",
       "XAI_API_KEY": "<YOUR_XAI_KEY>",
       "ZAI_API_KEY": "7d6b2c47525542558519b40878820eac.WorBrewofFf4Rifb"
     },

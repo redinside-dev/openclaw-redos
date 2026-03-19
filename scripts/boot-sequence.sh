@@ -31,7 +31,6 @@ wait_for() {
   log "OK: $name ready (${waited}s)"
 }
 
-wait_for "Ollama"       "http://127.0.0.1:11434/api/tags"  90
 wait_for "OpenClaw"     "http://127.0.0.1:18789/health"    90
 wait_for "9Router"      "http://127.0.0.1:20128/v1/models" 90
 wait_for "Dashboard"    "http://127.0.0.1:19000"           60
@@ -66,7 +65,6 @@ fi
 log "=== Boot sequence complete ==="
 
 SERVICES=(
-  "Ollama|http://127.0.0.1:11434/api/tags"
   "OpenClaw|http://127.0.0.1:18789/health"
   "9Router|http://127.0.0.1:20128/v1/models"
   "Dashboard|http://127.0.0.1:19000"

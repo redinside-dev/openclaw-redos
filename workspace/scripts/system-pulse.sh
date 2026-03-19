@@ -21,7 +21,6 @@ alert_telegram() {
 }
 
 GATEWAY_OK=false
-OLLAMA_OK=false
 ROUTER_OK=false
 N8N_OK=false
 RESTARTED=""
@@ -36,18 +35,6 @@ else
   alert_telegram "🔴 SYSTEM PULSE: Gateway was DOWN — auto-restarted at $TS"
   sleep 5
   curl -sf --max-time 3 http://127.0.0.1:18789/health > /dev/null 2>&1 && GATEWAY_OK=true || true
-fi
-
-# ── Ollama check ──────────────────────────────────────────────────────────────
-if curl -sf --max-time 3 http://127.0.0.1:11434/api/tags > /dev/null 2>&1; then
-  OLLAMA_OK=true
-else
-  echo "{\"ts\":\"$TS\",\"event\":\"ollama_down\",\"action\":\"restart\"}" >> "$LOG"
-  launchctl start homebrew.mxcl.ollama 2>/dev/null || true
-  RESTARTED="${RESTARTED:+$RESTARTED,}ollama"
-  alert_telegram "🔴 SYSTEM PULSE: Ollama was DOWN — auto-restarted at $TS"
-  sleep 5
-  curl -sf --max-time 3 http://127.0.0.1:11434/api/tags > /dev/null 2>&1 && OLLAMA_OK=true || true
 fi
 
 # ── 9Router check ─────────────────────────────────────────────────────────────
@@ -74,10 +61,9 @@ python3 -c "
 import json
 result = {
   'ts': '$TS',
-  'status': 'ok' if ($GATEWAY_OK and $OLLAMA_OK) else 'degraded',
+  'status': 'ok' if $GATEWAY_OK else 'degraded',
   'agent': 'ops',
   'gateway': $GATEWAY_OK,
-  'ollama': $OLLAMA_OK,
   'router': $ROUTER_OK,
   'n8n': $N8N_OK,
   'restarted': '$RESTARTED' or None

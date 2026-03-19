@@ -89,8 +89,6 @@ echo ""
 echo -e "${CYAN}[4/8] System Scripts${NC}"
 check "gateway-wrapper.sh exists" "[ -f '$WORKSPACE/scripts/gateway-wrapper.sh' ]"
 check "gateway-wrapper.sh is executable" "[ -x '$WORKSPACE/scripts/gateway-wrapper.sh' ]"
-check "ollama-health.sh exists" "[ -f '$WORKSPACE/scripts/ollama-health.sh' ]"
-check "ollama-health.sh is executable" "[ -x '$WORKSPACE/scripts/ollama-health.sh' ]"
 check "di[REDACTED] exists" "[ -f '$WORKSPACE/scripts/di[REDACTED] ]"
 check "backup-to-cloud.sh exists" "[ -f '$WORKSPACE/scripts/backup-to-cloud.sh' ]"
 check "Slack schema drift lint passes" "python3 '$WORKSPACE/scripts/lint_slack_schema.py'"
@@ -101,7 +99,6 @@ echo -e "${CYAN}[5/8] Log Files${NC}"
 check "routing-decisions.jsonl exists" "[ -f '$WORKSPACE/logs/routing-decisions.jsonl' ]"
 check "cost-events.jsonl exists" "[ -f '$WORKSPACE/logs/cost-events.jsonl' ]"
 check "audit.jsonl exists" "[ -f '$WORKSPACE/logs/audit.jsonl' ]"
-check "ollama-status.json exists" "[ -f '$WORKSPACE/tmp/ollama-status.json' ]"
 echo ""
 
 # ── 6. PROJECT TEMPLATE ──────────────────────────────────────
@@ -122,9 +119,7 @@ echo ""
 
 # ── 7. EXTERNAL SERVICES ─────────────────────────────────────
 echo -e "${CYAN}[7/8] External Services${NC}"
-warn_check "Ollama is running" "curl -s --connect-timeout 3 http://127.0.0.1:11434/api/tags"
 warn_check "OpenClaw gateway is running" "curl -s --connect-timeout 3 http://127.0.0.1:18789/"
-warn_check "ollama-health.sh runs" "bash '$WORKSPACE/scripts/ollama-health.sh'"
 warn_check "calculate-costs.sh runs" "bash '$WORKSPACE/skills/cost-tracker/scripts/calculate-costs.sh'"
 echo ""
 

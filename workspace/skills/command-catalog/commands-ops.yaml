@@ -16,15 +16,13 @@ tier_overrides:
   L2_auto:
     - pattern: "launchctl (stop|start) ai\\.openclaw\\.(gateway|node|dashboard)"
       description: "OpenClaw service restart (pre-approved)"
-    - pattern: "launchctl (stop|start) homebrew\\.mxcl\\.ollama"
-      description: "Ollama restart (pre-approved)"
     - pattern: "openclaw (status|gateway probe|logs|doctor)"
       description: "Read-only status and diagnostics"
     - pattern: "curl -s --max-time \\d+ http://localhost:\\d+/health"
       description: "Local health check"
     - pattern: "git (log|status|diff|show)"
       description: "Read-only git operations"
-    - pattern: "bash ~/.openclaw/workspace/scripts/(hourly-snapshot|ollama-health|disk-watchdog)\\.sh"
+    - pattern: "bash ~/.openclaw/workspace/scripts/(hourly-snapshot|disk-watchdog)\\.sh"
       description: "Pre-approved maintenance scripts"
     - pattern: "bash ~/.openclaw/scripts/redos-restart\\.sh"
       description: "Pre-approved full stack restart"
@@ -32,7 +30,7 @@ tier_overrides:
       description: "Log tailing (read-only)"
 
   L3_infosec:
-    - pattern: "launchctl (stop|start) (?!ai\\.openclaw|homebrew\\.mxcl\\.ollama)"
+    - pattern: "launchctl (stop|start) (?!ai\\.openclaw)"
       description: "Non-openclaw service control — requires INFOSEC review"
     - pattern: "crontab"
       description: "Cron modification"

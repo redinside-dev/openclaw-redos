@@ -2305,3 +2305,723 @@
 - **Resolution:** 
 - **Learnings:** 
 - **Resolved At:** 
+
+### TICKET-20260318-001
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-18T00:26:20+00:00
+- **SLA Deadline:** 2026-03-18T08:26:20+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (65x): - <root>: json5 parse failed: syntaxerror: json5: invalid end of input at 1:1
+- **Details:** Detected 65 occurrences in the last window. Examples:
+  - - <root>: json5 parse failed: syntaxerror: json5: invalid end of input at 1:1
+  - - <root>: json5 parse failed: syntaxerror: json5: invalid end of input at 1:1
+  - - <root>: json5 parse failed: syntaxerror: json5: invalid end of input at 1:1
+  - - <root>: json5 parse failed: syntaxerror: json5: invalid end of input at 1:1
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260318-002
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-18T00:26:20+00:00
+- **SLA Deadline:** 2026-03-18T08:26:20+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (64x): at syntaxerror (/opt/homebrew/lib/node_modules/openclaw/node_modules/json5/lib/parse.js:1110:17)
+- **Details:** Detected 64 occurrences in the last window. Examples:
+  - at syntaxerror (/opt/homebrew/lib/node_modules/openclaw/node_modules/json5/lib/parse.js:1110:17)
+  - at syntaxerror (/opt/homebrew/lib/node_modules/openclaw/node_modules/json5/lib/parse.js:1110:17)
+  - at syntaxerror (/opt/homebrew/lib/node_modules/openclaw/node_modules/json5/lib/parse.js:1110:17)
+  - at syntaxerror (/opt/homebrew/lib/node_modules/openclaw/node_modules/json5/lib/parse.js:1110:17)
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260318-003
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-18T00:26:20+00:00
+- **SLA Deadline:** 2026-03-18T08:26:20+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (64x): failed to read config at /users/redinside/.openclaw/openclaw.json syntaxerror: json5: invalid end of input at 1:1
+- **Details:** Detected 64 occurrences in the last window. Examples:
+  - failed to read config at /users/redinside/.openclaw/openclaw.json syntaxerror: json5: invalid end of input at 1:1
+  - failed to read config at /users/redinside/.openclaw/openclaw.json syntaxerror: json5: invalid end of input at 1:1
+  - failed to read config at /users/redinside/.openclaw/openclaw.json syntaxerror: json5: invalid end of input at 1:1
+  - failed to read config at /users/redinside/.openclaw/openclaw.json syntaxerror: json5: invalid end of input at 1:1
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260318-004
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-18T00:26:20+00:00
+- **SLA Deadline:** 2026-03-18T02:26:20+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (61x): <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+- **Details:** Detected 61 occurrences in the last window. Examples:
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260318-005
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-18T00:26:20+00:00
+- **SLA Deadline:** 2026-03-18T08:26:20+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (57x): <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+- **Details:** Detected 57 occurrences in the last window. Examples:
+  - <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+  - <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+  - <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+  - <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260318-006
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-18T02:26:15+00:00
+- **SLA Deadline:** 2026-03-18T04:26:15+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (84x): <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+- **Details:** Detected 84 occurrences in the last window. Examples:
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260318-007
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-18T02:26:15+00:00
+- **SLA Deadline:** 2026-03-18T10:26:15+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (74x): <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+- **Details:** Detected 74 occurrences in the last window. Examples:
+  - <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+  - <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+  - <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+  - <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260318-008
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-18T02:26:15+00:00
+- **SLA Deadline:** 2026-03-18T04:26:15+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (73x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+- **Details:** Detected 73 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260318-009
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-18T02:26:15+00:00
+- **SLA Deadline:** 2026-03-18T04:26:15+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (73x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+- **Details:** Detected 73 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260318-010
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-18T02:26:15+00:00
+- **SLA Deadline:** 2026-03-18T10:26:15+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (55x): - <root>: json5 parse failed: syntaxerror: json5: invalid end of input at 1:1
+- **Details:** Detected 55 occurrences in the last window. Examples:
+  - - <root>: json5 parse failed: syntaxerror: json5: invalid end of input at 1:1
+  - - <root>: json5 parse failed: syntaxerror: json5: invalid end of input at 1:1
+  - - <root>: json5 parse failed: syntaxerror: json5: invalid end of input at 1:1
+  - - <root>: json5 parse failed: syntaxerror: json5: invalid end of input at 1:1
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260318-011
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-18T04:31:49+00:00
+- **SLA Deadline:** 2026-03-18T06:31:49+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (108x): <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+- **Details:** Detected 108 occurrences in the last window. Examples:
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260318-012
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-18T04:31:49+00:00
+- **SLA Deadline:** 2026-03-18T06:31:49+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (96x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+- **Details:** Detected 96 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260318-013
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-18T04:31:49+00:00
+- **SLA Deadline:** 2026-03-18T06:31:49+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (96x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+- **Details:** Detected 96 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260318-014
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-18T04:31:49+00:00
+- **SLA Deadline:** 2026-03-18T12:31:49+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (91x): <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+- **Details:** Detected 91 occurrences in the last window. Examples:
+  - <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+  - <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+  - <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+  - <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260318-015
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-18T04:31:49+00:00
+- **SLA Deadline:** 2026-03-18T12:31:49+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (45x): - <root>: json5 parse failed: syntaxerror: json5: invalid end of input at 1:1
+- **Details:** Detected 45 occurrences in the last window. Examples:
+  - - <root>: json5 parse failed: syntaxerror: json5: invalid end of input at 1:1
+  - - <root>: json5 parse failed: syntaxerror: json5: invalid end of input at 1:1
+  - - <root>: json5 parse failed: syntaxerror: json5: invalid end of input at 1:1
+  - - <root>: json5 parse failed: syntaxerror: json5: invalid end of input at 1:1
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260318-016
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-18T06:23:29+00:00
+- **SLA Deadline:** 2026-03-18T08:23:29+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (129x): <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+- **Details:** Detected 129 occurrences in the last window. Examples:
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260318-017
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-18T06:23:29+00:00
+- **SLA Deadline:** 2026-03-18T08:23:29+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (114x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+- **Details:** Detected 114 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260318-018
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-18T06:23:29+00:00
+- **SLA Deadline:** 2026-03-18T08:23:29+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (114x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+- **Details:** Detected 114 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260318-019
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-18T06:23:29+00:00
+- **SLA Deadline:** 2026-03-18T14:23:29+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (111x): <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+- **Details:** Detected 111 occurrences in the last window. Examples:
+  - <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+  - <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+  - <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+  - <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260318-020
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-18T06:23:29+00:00
+- **SLA Deadline:** 2026-03-18T14:23:29+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (37x): - <root>: json5 parse failed: syntaxerror: json5: invalid end of input at 1:1
+- **Details:** Detected 37 occurrences in the last window. Examples:
+  - - <root>: json5 parse failed: syntaxerror: json5: invalid end of input at 1:1
+  - - <root>: json5 parse failed: syntaxerror: json5: invalid end of input at 1:1
+  - - <root>: json5 parse failed: syntaxerror: json5: invalid end of input at 1:1
+  - - <root>: json5 parse failed: syntaxerror: json5: invalid end of input at 1:1
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260318-021
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-18T08:25:44+00:00
+- **SLA Deadline:** 2026-03-18T10:25:44+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (146x): <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+- **Details:** Detected 146 occurrences in the last window. Examples:
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260318-022
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-18T08:25:44+00:00
+- **SLA Deadline:** 2026-03-18T10:25:44+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (130x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+- **Details:** Detected 130 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260318-023
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-18T08:25:44+00:00
+- **SLA Deadline:** 2026-03-18T10:25:44+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (130x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+- **Details:** Detected 130 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260318-024
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-18T08:25:44+00:00
+- **SLA Deadline:** 2026-03-18T16:25:44+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (117x): <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+- **Details:** Detected 117 occurrences in the last window. Examples:
+  - <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+  - <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+  - <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+  - <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260318-025
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-18T08:25:44+00:00
+- **SLA Deadline:** 2026-03-18T16:25:44+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (30x): - <root>: json5 parse failed: syntaxerror: json5: invalid end of input at 1:1
+- **Details:** Detected 30 occurrences in the last window. Examples:
+  - - <root>: json5 parse failed: syntaxerror: json5: invalid end of input at 1:1
+  - - <root>: json5 parse failed: syntaxerror: json5: invalid end of input at 1:1
+  - - <root>: json5 parse failed: syntaxerror: json5: invalid end of input at 1:1
+  - - <root>: json5 parse failed: syntaxerror: json5: invalid end of input at 1:1
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260318-026
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-18T22:52:37+00:00
+- **SLA Deadline:** 2026-03-19T00:52:37+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (211x): <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+- **Details:** Detected 211 occurrences in the last window. Examples:
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260318-027
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-18T22:52:37+00:00
+- **SLA Deadline:** 2026-03-19T00:52:37+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (197x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+- **Details:** Detected 197 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260318-028
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-18T22:52:37+00:00
+- **SLA Deadline:** 2026-03-19T00:52:37+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (197x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+- **Details:** Detected 197 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260318-029
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-18T22:52:37+00:00
+- **SLA Deadline:** 2026-03-19T06:52:37+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (111x): <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+- **Details:** Detected 111 occurrences in the last window. Examples:
+  - <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+  - <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+  - <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+  - <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260318-030
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-18T22:52:37+00:00
+- **SLA Deadline:** 2026-03-19T00:52:37+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (15x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/free-unlimited reason=timeout next=9router/cc/claude-sonnet-4-
+- **Details:** Detected 15 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/free-unlimited reason=timeout next=9router/cc/claude-sonnet-4-
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/free-unlimited reason=timeout next=9router/cc/claude-sonnet-4-
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/free-unlimited reason=timeout next=9router/cc/claude-sonnet-4-
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/free-unlimited reason=timeout next=9router/cc/claude-sonnet-4-
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260319-001
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-19T02:30:35+00:00
+- **SLA Deadline:** 2026-03-19T04:30:35+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (207x): <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+- **Details:** Detected 207 occurrences in the last window. Examples:
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260319-002
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-19T02:30:35+00:00
+- **SLA Deadline:** 2026-03-19T04:30:35+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (188x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+- **Details:** Detected 188 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260319-003
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-19T02:30:35+00:00
+- **SLA Deadline:** 2026-03-19T04:30:35+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (188x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+- **Details:** Detected 188 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260319-004
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-19T02:30:35+00:00
+- **SLA Deadline:** 2026-03-19T10:30:35+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (125x): <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+- **Details:** Detected 125 occurrences in the last window. Examples:
+  - <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+  - <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+  - <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+  - <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260319-005
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-19T02:30:35+00:00
+- **SLA Deadline:** 2026-03-19T04:30:35+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (19x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/free-unlimited reason=timeout next=9router/cc/claude-sonnet-4-
+- **Details:** Detected 19 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/free-unlimited reason=timeout next=9router/cc/claude-sonnet-4-
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/free-unlimited reason=timeout next=9router/cc/claude-sonnet-4-
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/free-unlimited reason=timeout next=9router/cc/claude-sonnet-4-
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/free-unlimited reason=timeout next=9router/cc/claude-sonnet-4-
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260319-006
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-19T04:35:20+00:00
+- **SLA Deadline:** 2026-03-19T06:35:20+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (201x): <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+- **Details:** Detected 201 occurrences in the last window. Examples:
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+  - <ts>-04:00 [agent/embedded] embedded run failover decision: runid=<uuid> stage=assistant decision=fallback_model reason=timeout provider=9router/free-unlimited profile=-
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260319-007
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-19T04:35:20+00:00
+- **SLA Deadline:** 2026-03-19T06:35:20+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (182x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+- **Details:** Detected 182 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/always-on-premium reason=timeout next=none
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260319-008
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-19T04:35:20+00:00
+- **SLA Deadline:** 2026-03-19T06:35:20+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (182x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+- **Details:** Detected 182 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/cc/claude-sonnet-4-6 reason=timeout next=9router/always-on-pre
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260319-009
+- **Status:** OPEN
+- **Priority:** P2
+- **Created:** 2026-03-19T04:35:20+00:00
+- **SLA Deadline:** 2026-03-19T12:35:20+00:00 (8 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (112x): <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+- **Details:** Detected 112 occurrences in the last window. Examples:
+  - <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+  - <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+  - <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+  - <ts>-04:00 [tools] read failed: eisdir: illegal operation on a directory, read
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 
+
+### TICKET-20260319-010
+- **Status:** OPEN
+- **Priority:** P1
+- **Created:** 2026-03-19T04:35:20+00:00
+- **SLA Deadline:** 2026-03-19T06:35:20+00:00 (2 hours)
+- **Reporter:** ops (health-snapshot)
+- **Assignee:** ops
+- **Summary:** Recurring failure pattern detected (18x): <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/free-unlimited reason=timeout next=9router/cc/claude-sonnet-4-
+- **Details:** Detected 18 occurrences in the last window. Examples:
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/free-unlimited reason=timeout next=9router/cc/claude-sonnet-4-
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/free-unlimited reason=timeout next=9router/cc/claude-sonnet-4-
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/free-unlimited reason=timeout next=9router/cc/claude-sonnet-4-
+  - <ts>-04:00 [model-fallback/decision] model fallback decision: decision=candidate_failed requested=9router/free-unlimited candidate=9router/free-unlimited reason=timeout next=9router/cc/claude-sonnet-4-
+- **Root Cause:** 
+- **Resolution:** 
+- **Learnings:** 
+- **Resolved At:** 

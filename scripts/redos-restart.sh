@@ -9,7 +9,6 @@
 #   bash scripts/redos-restart.sh --status  # show status without restarting
 #
 # Services managed:
-#   - Ollama          (brew/launchd: homebrew.mxcl.ollama)
 #   - OpenClaw node   (launchd: ai.openclaw.node)
 #   - OpenClaw gateway (launchd: ai.openclaw.gateway)
 #   - Dashboard       (launchd: ai.openclaw.dashboard)
@@ -49,13 +48,6 @@ check_status() {
   echo ""
   echo "=== RedOS Stack Status ==="
   echo ""
-
-  # Ollama
-  if curl -sf http://127.0.0.1:11434/api/tags > /dev/null 2>&1; then
-    ok "Ollama         → http://127.0.0.1:11434 (running)"
-  else
-    fail "Ollama         → not responding"
-  fi
 
   # OpenClaw
   if curl -sf http://127.0.0.1:18789/health > /dev/null 2>&1 || \
@@ -113,16 +105,7 @@ echo ""
 echo "=== Restarting RedOS Stack ==="
 echo ""
 
-# 1. Ollama — managed by brew, just ensure it's running
-info "Checking Ollama..."
-if ! curl -sf http://127.0.0.1:11434/api/tags > /dev/null 2>&1; then
-  info "Ollama not responding — starting via brew services..."
-  brew services start ollama 2>/dev/null || launchctl load "$HOME/Library/LaunchAgents/homebrew.mxcl.ollama.plist" 2>/dev/null || true
-  sleep 3
-fi
-ok "Ollama ready"
-
-# 2. OpenClaw node (main process)
+# 1. OpenClaw node (main process)
 info "Restarting OpenClaw node..."
 if launchctl list ai.openclaw.node > /dev/null 2>&1; then
   launchctl unload "$HOME/Library/LaunchAgents/ai.openclaw.node.plist" 2>/dev/null || true

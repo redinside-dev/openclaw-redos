@@ -33,7 +33,6 @@ pipeline:
 dependencies:
   libuv: outdated (pending update)
   maven: outdated (pending update)
-  ollama: outdated (v0.4.5 → v1.2.0-patched)
   uv: outdated (pending update)
   ngrok: outdated (pending update)
   n8n: "2.10.3 → 2.10.4"

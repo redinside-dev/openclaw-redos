@@ -142,7 +142,6 @@ All agents run periodic inner loops (every 2-4h):
 2. **Tier 2:** groq/llama-3.3-70b (free API key), openrouter free tier models
 3. **Tier 3:** gc/gemini-*, kr/kiro OAuth models (free subscription)
 4. **Tier 4:** if/iflow models (when authenticated)
-- **Ollama REMOVED** 2026-03-14 — freed 3.5GB RAM. No local models.
 - **⛔ `9router/openrouter/auto` is BANNED** — OpenRouter key exhausted (403). Do NOT set this as primary or fallback. Do NOT revert the model config. Current correct config was set 2026-03-15.
 
 ### OpenClaw → 9Router Failover Chain (DO NOT CHANGE)
@@ -284,7 +283,7 @@ free-unlimited, heartbeat-cheap, subagent-reliable, always-on-premium, coding-fa
 - **Pushed:** All gitignore + doc changes pushed to `origin/main`; repo is clean
 
 ### Auto-Refresh Verification
-- `9router-keepfresh-0001` cron (every 4min, OPS, ollama) → calls `scripts/9router-token-refresh.js`
+- `9router-keepfresh-0001` cron (every 4min, OPS) → calls `scripts/9router-token-refresh.js`
 - **Claude Pro** auto-refreshes via `/api/providers/{id}/test` in last 5min window — CONFIRMED working
 - **Kiro** refreshes via AWS OIDC automatically — CONFIRMED working
 - **iFlow** `testStatus: error` = known false positive (health endpoint broken, inference fine) — script explicitly skips iFlow + openr
@@ -356,7 +355,6 @@ free-unlimited, heartbeat-cheap, subagent-reliable, always-on-premium, coding-fa
 - **MiniMax M2.5 promoted to primary model** — unlimited $20/mo coding plan = Opus-level quality at zero per-token cost. All 6 9router COMBOs now start with MiniMax. All agents: primary=9router/free-unlimited, fallback1=minimax direct, fallback2=glm/ZAI direct.
 - **iflow re-authenticated** — both accounts active. Token auto-refresh cron (`9router-token-refresh-0001`) added, runs every 4min. iflow/kiro/claude/cursor all auto-refresh with zero human intervention.
 - **Codex accounts** — 9router handles internally. Script updated to skip codex to avoid `refresh_token_reused` conflict.
-- **Ollama fully removed** — all ollama/llama3.1:8b/qwen2.5-coder references cleared. 3.5GB RAM freed.
 - **9 missing skills added** — `autonomous-a2a`, `context-window-policy`, `cost-optimization`, `policy-gate`, `website-auditor`, `website-builder`, `lead-gen-maps`, `outreach-automation`, `event-driven-patterns` now in skills.entries (57 total).
 - **Telegram dmPolicy locked** — all 7 bots changed from `open` to `owner` with allowFrom=[1012034994]. Prompt injection surface eliminated.
 - **ENG + OPS heartbeats added** — 60min heartbeat on both high-throughput agents.
@@ -375,10 +373,8 @@ free-unlimited, heartbeat-cheap, subagent-reliable, always-on-premium, coding-fa
 ### 2026-03-03
 - **delivery.to fix**: 19 cron jobs used `delivery.target` (wrong field). OpenClaw requires `delivery.to`. All fixed.
 - **HEARTBEAT.md rewrites**: main (was vague/dead refs), ops (was raw JSON — broken), infosec (was stale fake data). All 3 now have concrete tool-call cycles matching allrounder/eng/research/finance pattern.
-- **Heartbeat model**: `ollama/qwen3.5:4b` → `ollama/qwen3.5:4b` for all agents (newer, better reasoning).
 - **Tailscale disabled**: `gateway.tailscale.mode: off` — was generating errors on every restart.
 - **memory-core duplicate**: Deleted `extensions/memory-core/` — error log now clean on restart.
-- **llama3.1:8b removed**: 4GB freed from Ollama. Active models: qwen3.5:4b, qwen3.5:4b, gpt-oss:20b, kimi-k2.5:cloud.
 - **OPS bot token rotated**: @OPSRED_BOT live. All 8 agent Telegram bots confirmed active.
 - **workspace-agent-*/ gitignored**: Per-agent nested git workspaces excluded from main repo.
 - **HEARTBEAT.md unignored**: Removed `workspace-*/HEARTBEAT.md` from .gitignore — these are instruction files, not runtime state.
@@ -489,7 +485,6 @@ cat ~/.openclaw/workspace/n8n/queues/eng.json
 - **Primary**: `9router/free-unlimited` (MiniMax M2.5 first inside 9router)
 - **Fallback 1**: `minimax/MiniMax-M2.5` direct (unlimited $20/mo coding plan — same as Opus 4.6)
 - **Fallback 2**: `glm/glm-4.7` direct (ZAI key — PAYG backup)
-- **Ollama**: REMOVED — freed 3.5GB RAM
 - **iflow**: Re-authenticated 2026-03-15, auto-refreshes every 4min via cron
 
 ### Slack Channel Routing
