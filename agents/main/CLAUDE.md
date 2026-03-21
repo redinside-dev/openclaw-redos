@@ -148,6 +148,26 @@ A Telegram bot token was leaked in a git commit on 2026-03-04. This MUST NEVER h
 - **Gateway**: stable on port 18789. If it fails: check `logs/gateway.err.log`. Auto-restart via launchd.
 - **RAG**: `python3 ~/.openclaw/workspace/scripts/rag_query.py` — run before every non-trivial task.
 
+## Delegating 9router Issues to the Autonomous Coding Factory
+
+The coding factory is FULLY BUILT and wired to `decolua/9router`. To assign any GitHub issue to it:
+
+```bash
+# Step 1: Label the issue — factory picks it up within 15 minutes
+GH_TOKEN=$ANURAGG_TOKEN gh issue edit <number> --repo decolua/9router --add-label factory-ready
+
+# Step 2: Monitor progress
+GH_TOKEN=$ANURAGG_TOKEN gh issue list --repo decolua/9router --label factory-in-progress
+GH_TOKEN=$ANURAGG_TOKEN gh pr list --repo decolua/9router --author anuragg-saxenaa
+```
+
+**For urgent processing (can't wait 15 min), spawn ENG:**
+```
+sessions_spawn(agentId="eng", task="Process 9router issue #<N> through the coding factory now. Label it factory-ready and run the factory one-shot: cd ~/Development/Codebase/projects/RedTeam/github/redteam-coding-factory && GH_TOKEN=$ANURAGG_TOKEN node src/cli.js watch --config factory-9router.config.json --once --push --pr --remediate --agent claude. Report back the PR URL.")
+```
+
+**Factory is automatic after labeling** — no further action needed unless CI fails or issue gets stuck in `factory-in-progress` for >2h (ENG's `eng-poc-continuous-0001` cron handles self-healing).
+
 ## CLAUDE.md Self-Update Rule
 
 **After any infrastructure change you make or witness:**

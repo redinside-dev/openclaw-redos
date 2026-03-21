@@ -7,7 +7,7 @@
       "name": "Telegram Approval Monitor (RED checks for approve/deny replies)",
       "enabled": true,
       "createdAtMs": 1772080522100,
-      "updatedAtMs": 1774077132659,
+      "updatedAtMs": 1774080064365,
       "schedule": {
         "kind": "cron",
         "expr": "*/2 * * * *",
@@ -28,15 +28,15 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1774077240000,
-        "lastRunAtMs": 1774077042623,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 90036,
-        "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 1,
-        "lastErrorReason": "timeout",
-        "runningAtMs": 1774078682880
+        "nextRunAtMs": 1774080720000,
+        "lastRunAtMs": 1774080000055,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 64310,
+        "lastDeliveryStatus": "not-delivered",
+        "consecutiveErrors": 0,
+        "lastDelivered": false,
+        "runningAtMs": 1774080869346
       }
     },
     {
@@ -924,7 +924,7 @@
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1774077695024,
+        "nextRunAtMs": 1774081295024,
         "lastDelivered": true
       }
     },
@@ -998,7 +998,7 @@
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1774077695024,
+        "nextRunAtMs": 1774081295024,
         "lastDelivered": true
       }
     },
@@ -1268,7 +1268,7 @@
       "name": "OPS Task ETA Monitor",
       "enabled": true,
       "createdAtMs": 1771544316316,
-      "updatedAtMs": 1774072386239,
+      "updatedAtMs": 1774079753273,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1289,13 +1289,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774072194271,
+        "lastRunAtMs": 1774079675602,
         "lastStatus": "ok",
-        "lastDurationMs": 191968,
+        "lastDurationMs": 77671,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1774079394271,
+        "nextRunAtMs": 1774086875602,
         "lastDelivered": true
       }
     },
@@ -1370,7 +1370,7 @@
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1774079200864,
+        "nextRunAtMs": 1774082316316,
         "lastDelivered": true
       }
     },
@@ -1404,8 +1404,9 @@
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1774080156567,
-        "lastDelivered": true
+        "nextRunAtMs": 1774083756567,
+        "lastDelivered": true,
+        "runningAtMs": 1774080547012
       },
       "updatedAtMs": 1774069472474
     },
@@ -1477,7 +1478,7 @@
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1774078613092,
+        "nextRunAtMs": 1774081950814,
         "lastDelivered": true
       }
     },
@@ -1579,7 +1580,7 @@
       "name": "ZEN COO Team Coordination Check",
       "enabled": true,
       "createdAtMs": 1771895567713,
-      "updatedAtMs": 1774063017983,
+      "updatedAtMs": 1774078905983,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1599,15 +1600,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774062865984,
+        "lastRunAtMs": 1774078782825,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 151999,
+        "lastDurationMs": 123158,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1774077167713,
-        "lastDelivered": true,
-        "runningAtMs": 1774078682880
+        "nextRunAtMs": 1774085982825,
+        "lastDelivered": true
       }
     },
     {
@@ -1723,7 +1723,7 @@
       "name": "RED Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897377295,
-      "updatedAtMs": 1774072555454,
+      "updatedAtMs": 1774079862260,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1743,13 +1743,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774072386239,
+        "lastRunAtMs": 1774079760905,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 169215,
+        "lastDurationMs": 101355,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1774079586239,
+        "nextRunAtMs": 1774086960905,
         "lastDelivered": true
       }
     },
@@ -1785,7 +1785,7 @@
         "lastDurationMs": 63035,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1774078990213,
+        "nextRunAtMs": 1774086190213,
         "lastDelivered": true
       }
     },
@@ -1821,7 +1821,7 @@
         "lastDurationMs": 6752,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1774078991560,
+        "nextRunAtMs": 1774086191560,
         "lastDelivered": true
       }
     },
@@ -1857,7 +1857,7 @@
         "lastDurationMs": 68384,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1774078992835,
+        "nextRunAtMs": 1774086192835,
         "lastDelivered": true
       }
     },
@@ -1893,7 +1893,7 @@
         "lastDurationMs": 10142,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1774078994350,
+        "nextRunAtMs": 1774086194350,
         "lastDelivered": true
       }
     },
@@ -1929,7 +1929,7 @@
         "lastDurationMs": 133198,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1774078995722,
+        "nextRunAtMs": 1774086195722,
         "lastDelivered": true
       }
     },
@@ -1965,7 +1965,7 @@
         "lastDurationMs": 90833,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1774080051169,
+        "nextRunAtMs": 1774086197121,
         "lastDelivered": true
       }
     },
@@ -2001,8 +2001,9 @@
         "lastDurationMs": 45672,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1774080142002,
-        "lastDelivered": true
+        "nextRunAtMs": 1774086198357,
+        "lastDelivered": true,
+        "runningAtMs": 1774080547012
       }
     },
     {
@@ -2011,7 +2012,7 @@
       "name": "CI Event Logger (cron → ci-log.jsonl)",
       "enabled": true,
       "createdAtMs": 1771907000000,
-      "updatedAtMs": 1774074943120,
+      "updatedAtMs": 1774079237591,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -2032,14 +2033,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774074923390,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 19730,
-        "lastDeliveryStatus": "not-delivered",
-        "consecutiveErrors": 0,
-        "nextRunAtMs": 1774078523390,
-        "lastDelivered": false
+        "lastRunAtMs": 1774079117562,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 120029,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 1,
+        "nextRunAtMs": 1774082717562,
+        "lastError": "cron: job execution timed out",
+        "lastErrorReason": "timeout"
       }
     },
     {
@@ -2231,10 +2233,10 @@
     {
       "id": "eng-poc-continuous-0001",
       "agentId": "eng",
-      "name": "ENG Coding Factory POC — Continuous Build",
+      "name": "ENG: Coding Factory — Self-Healing & PR Monitor",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1774067712368,
+      "updatedAtMs": 1774080696766,
       "schedule": {
         "kind": "cron",
         "expr": "0 */4 * * *",
@@ -2247,7 +2249,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 1800,
-        "message": "You are ENG. Read your standing brief first:\n\nread workspace-eng/ENG-BRIEF.md\n\nThen execute your session protocol from that brief:\n1. Check open ENG tickets in workspace/ops/TICKET-TRACKER.md\n2. Check latest commits: git -C /Users/redinside/Development/Codebase/projects/RedTeam/github/redteam-coding-factory log --oneline -5\n3. Pick the next unfinished Phase 1 step and implement it\n4. Commit and push when done\n5. Post progress to Slack #redos-eng (channel:C0AFW1B0QUB)\n6. Write memory entry to workspace/memory/YYYY-MM-DD.md\n\nDo NOT wait for instructions. Do NOT ask for permission. Just build.\nIf Phase 1 is complete, move to Phase 2 (define it yourself based on the architecture).",
+        "message": "You are ENG. The coding factory is FULLY BUILT (Phases 1-6 complete, 21 tests passing). Do NOT rebuild it.\n\nYour job this session — factory self-healing and PR monitoring:\n\n1. Check for open PRs from anuragg-saxenaa to decolua/9router:\n   GH_TOKEN=$ANURAGG_TOKEN gh pr list --repo decolua/9router --author anuragg-saxenaa --json number,title,statusCheckRollup,url\n\n2. For any PR with failing CI:\n   - Read the failure: GH_TOKEN=$ANURAGG_TOKEN gh pr checks <num> --repo decolua/9router\n   - Enter the worktree, read the error, implement the fix, push to re-trigger CI\n\n3. Check for issues stuck with factory-in-progress label for >2h:\n   GH_TOKEN=$ANURAGG_TOKEN gh issue list --repo decolua/9router --label factory-in-progress --json number,title,updatedAt\n   For stuck issues: GH_TOKEN=$ANURAGG_TOKEN gh issue edit <num> --repo decolua/9router --remove-label factory-in-progress --add-label factory-ready\n\n4. Check backlog for any new READY projects to ship:\n   Read workspace/projects/backlog.md — pick first READY row, implement from SPEC.md, push to GitHub, update backlog.md\n\n5. Post summary to Slack #redos-eng (channel:C0AFW1B0QUB)",
         "model": "coding-factory"
       },
       "delivery": {
@@ -2263,8 +2265,9 @@
         "lastDurationMs": 240777,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1774080214472,
-        "lastDelivered": true
+        "nextRunAtMs": 1774094614472,
+        "lastDelivered": true,
+        "runningAtMs": 1774080547012
       }
     },
     {
@@ -2339,7 +2342,7 @@
         "lastDurationMs": 14821,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1774080055483,
+        "nextRunAtMs": 1774094455483,
         "lastDelivered": true
       }
     },
@@ -2349,7 +2352,7 @@
       "name": "RESEARCH Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1774068410395,
+      "updatedAtMs": 1774079112481,
       "schedule": {
         "kind": "cron",
         "expr": "30 */3 * * *",
@@ -2371,15 +2374,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774068192322,
+        "lastRunAtMs": 1774078920212,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 218073,
+        "lastDurationMs": 192269,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1774078200000,
-        "lastDelivered": true,
-        "runningAtMs": 1774078682880
+        "nextRunAtMs": 1774089000000,
+        "lastDelivered": true
       }
     },
     {
@@ -2538,7 +2540,7 @@
       "name": "ZEN Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1774066415200,
+      "updatedAtMs": 1774079916330,
       "schedule": {
         "kind": "cron",
         "expr": "0 */3 * * *",
@@ -2560,10 +2562,10 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774066328514,
+        "lastRunAtMs": 1774079862260,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 86686,
+        "lastDurationMs": 54070,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
         "nextRunAtMs": 1774087325759,
@@ -2686,7 +2688,7 @@
       "name": "9Router Token Auto-Refresh (every 4min)",
       "enabled": true,
       "createdAtMs": 1773613008959,
-      "updatedAtMs": 1774076955826,
+      "updatedAtMs": 1774079675583,
       "schedule": {
         "kind": "every",
         "everyMs": 240000,
@@ -2708,14 +2710,14 @@
       },
       "state": {
         "consecutiveErrors": 1,
-        "lastRunAtMs": 1774076895795,
+        "lastRunAtMs": 1774079615508,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "nextRunAtMs": 1774077135795,
-        "lastDurationMs": 60031,
+        "nextRunAtMs": 1774080768959,
+        "lastDurationMs": 60075,
         "lastDeliveryStatus": "unknown",
         "lastErrorReason": "timeout",
-        "runningAtMs": 1774078682880
+        "runningAtMs": 1774080869346
       }
     },
     {
@@ -2816,7 +2818,7 @@
       "name": "telegram-approval-monitor-0001",
       "enabled": true,
       "createdAtMs": 1773813382934,
-      "updatedAtMs": 1774077312937,
+      "updatedAtMs": 1774080073738,
       "schedule": {
         "expr": "*/2 * * * *",
         "tz": "America/Toronto",
@@ -2838,14 +2840,15 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1774077360000,
-        "lastRunAtMs": 1774077132684,
+        "nextRunAtMs": 1774080720000,
+        "lastRunAtMs": 1774080064365,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 180253,
+        "lastDurationMs": 9373,
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
-        "lastDelivered": false
+        "lastDelivered": false,
+        "runningAtMs": 1774080869346
       }
     },
     {
@@ -2855,7 +2858,7 @@
       "name": "OPS Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1773834355839,
-      "updatedAtMs": 1774077040523,
+      "updatedAtMs": 1774080867220,
       "schedule": {
         "kind": "every",
         "everyMs": 60000,
@@ -2874,15 +2877,14 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1774077057703,
-        "lastRunAtMs": 1774076997703,
+        "nextRunAtMs": 1774080895839,
+        "lastRunAtMs": 1774080655892,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 42820,
+        "lastDurationMs": 211328,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "lastDelivered": true,
-        "runningAtMs": 1774078682880
+        "lastDelivered": true
       }
     },
     {
@@ -2891,7 +2893,7 @@
       "name": "Sync AUTONOMOUS.md -> queue.json",
       "enabled": true,
       "createdAtMs": 1773854383010,
-      "updatedAtMs": 1774077319465,
+      "updatedAtMs": 1774080133776,
       "schedule": {
         "kind": "cron",
         "expr": "*/5 * * * *",
@@ -2911,14 +2913,15 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1774077600000,
-        "lastRunAtMs": 1774077312937,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 6528,
-        "lastDeliveryStatus": "not-delivered",
-        "consecutiveErrors": 0,
-        "lastDelivered": false
+        "nextRunAtMs": 1774080900000,
+        "lastRunAtMs": 1774080073738,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 60038,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 1,
+        "lastErrorReason": "timeout",
+        "runningAtMs": 1774080547012
       }
     },
     {
@@ -2983,6 +2986,37 @@
         "lastError": "Channel is required when multiple channels are configured: telegram, slack Set delivery.channel explicitly or use a main session with a previous channel.",
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 1
+      }
+    },
+    {
+      "id": "c66709c1-965b-4f5a-9469-e87c096f730b",
+      "agentId": "eng",
+      "name": "Factory: 9router IssueWatcher — Poll & Process",
+      "enabled": true,
+      "createdAtMs": 1774080643339,
+      "updatedAtMs": 1774080643339,
+      "schedule": {
+        "kind": "cron",
+        "expr": "*/15 * * * *",
+        "tz": "America/Toronto",
+        "staggerMs": 60000
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "You are ENG. Run the coding factory against decolua/9router factory-ready issues.\n\nSTEP 1 — Ensure the factory-ready label exists on decolua/9router:\n  GH_TOKEN=$ANURAGG_TOKEN gh label list --repo decolua/9router | grep factory-ready || GH_TOKEN=$ANURAGG_TOKEN gh label create 'factory-ready' --repo decolua/9router --color '0075ca' --description 'Ready for autonomous coding factory'\n\nSTEP 2 — Run factory watch (one-shot):\n  cd /Users/redinside/Development/Codebase/projects/RedTeam/github/redteam-coding-factory\n  GH_TOKEN=$ANURAGG_TOKEN node src/cli.js watch --config factory-9router.config.json --once --push --pr --remediate --agent claude\n\nSTEP 3 — Interpret results:\n  - If 'no factory-ready issues found': post 'Factory: idle (no queued issues)' to Slack #redos-eng and stop\n  - If issues were processed: post summary to Slack #redos-eng (channel:C0AFW1B0QUB) with: issue number, PR URL, pass/fail\n  - If factory errored (not idle): investigate root cause, fix config or code, retry once, then post error to Slack\n\nSTEP 4 — Self-healing check (run every time regardless of factory result):\n  a) Check for stuck factory-in-progress issues (>2h):\n     GH_TOKEN=$ANURAGG_TOKEN gh issue list --repo decolua/9router --label factory-in-progress --json number,updatedAt\n  b) For any stuck >2h: remove factory-in-progress, re-add factory-ready:\n     GH_TOKEN=$ANURAGG_TOKEN gh issue edit <num> --repo decolua/9router --remove-label factory-in-progress --add-label factory-ready\n\n  c) Check open PRs from anuragg-saxenaa with failing CI:\n     GH_TOKEN=$ANURAGG_TOKEN gh pr list --repo decolua/9router --author anuragg-saxenaa --json number,title,statusCheckRollup\n  d) For PRs with failing CI: enter the worktree, read the failure, fix, push\n\nNever stop silently on errors. Always post status to Slack #redos-eng.",
+        "model": "coding-factory",
+        "timeoutSeconds": 2400
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "last",
+        "to": "channel:C0AFW1B0QUB",
+        "bestEffort": true
+      },
+      "state": {
+        "nextRunAtMs": 1774080942858
       }
     }
   ]

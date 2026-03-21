@@ -31,36 +31,39 @@ An autonomous system where a coding agent can:
 4. Open a PR, respond to review comments, fix CI failures
 5. Merge when green + approved
 
-### Current Status (as of 2026-02-24)
-- Repo bootstrapped with skeleton structure
-- `README.md` has architecture diagram
-- `scripts/`, `docs/`, `ops/`, `integrations/` folders exist but are mostly empty
-- **Phase 1 POC is not yet implemented**
+### Current Status (as of 2026-03-21)
 
-### Phase 1 — What to Build Next
+- **FULLY BUILT** — Phases 1-6 complete, 21 tests passing
+- IssueWatcher, worktree isolation, Claude Code integration, PR creation, self-healing CI all working
+- Config for 9router: `factory-9router.config.json` — watches `factory-ready` issues on decolua/9router
+- Cron `factory-9router-watcher-0001` (every 15 min) runs the factory in one-shot mode automatically
 
-Implement these in order. Commit after each one.
+### Running the Factory Against 9router Issues
 
-**Step 1: Task intake**
-- `scripts/factory-run.sh` — accepts a task description, creates a git worktree, runs a coding agent on it
-- Start simple: hardcode one task, prove the worktree isolation works
+**Label an issue to queue it:**
+```bash
+GH_TOKEN=$ANURAGG_TOKEN gh issue edit <number> --repo decolua/9router --add-label factory-ready
+```
 
-**Step 2: Coding agent integration**
-- Wire up OpenClaw's `exec` tool to run `claude` or `codex` CLI inside the worktree
-- Agent writes code, runs `npm test` or `pytest`, reports pass/fail
+**Run factory manually (one-shot):**
+```bash
+cd /Users/redinside/Development/Codebase/projects/RedTeam/github/redteam-coding-factory
+GH_TOKEN=$ANURAGG_TOKEN node src/cli.js watch --config factory-9router.config.json --once --push --pr --remediate --agent claude
+```
 
-**Step 3: PR creation**
-- On success: `gh pr create` with a summary of what was done
-- On failure: log the error, attempt one self-fix, then escalate
+**Check factory status:**
+```bash
+# Issues currently being processed
+GH_TOKEN=$ANURAGG_TOKEN gh issue list --repo decolua/9router --label factory-in-progress
 
-**Step 4: CI reaction loop**
-- Poll PR status via `gh pr checks`
-- If CI fails: re-enter the worktree, read the failure, attempt fix, push
-- Max 3 attempts before escalating to RED
+# Open PRs from anuragg-saxenaa
+GH_TOKEN=$ANURAGG_TOKEN gh pr list --repo decolua/9router --author anuragg-saxenaa
+```
 
-**Step 5: Metrics**
-- Write `ops/metrics.json` after each run: task, duration, pass/fail, attempts
-- Post summary to Slack `#redos-eng` after each completed task
+**Self-healing rules:**
+- Stuck `factory-in-progress` >2h → remove label, re-add `factory-ready` to retry
+- PR with failing CI → read failure, fix in worktree, push to re-trigger
+- Factory crash → check `data/9router/` for error logs, fix config/code, retry
 
 ---
 
