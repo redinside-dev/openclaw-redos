@@ -1846,3 +1846,435 @@ Failed to reach OPS agent
 
 ## [2026-03-19 00:38] Consultant fixed: No task completions in last 24h
 Failed to reach OPS agent
+
+## [2026-03-19 00:53] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-19 01:10] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-19 01:27] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-19 13:15] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restarted successfully
+
+## [2026-03-19 14:17] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restarted successfully
+
+## [2026-03-19 14:34] Consultant fixed: Coding factory stalled — last SPEC.md is 48h old
+Failed to reach RESEARCH agent
+
+## [2026-03-19 14:51] Consultant fixed: Coding factory stalled — last SPEC.md is 48h old
+Failed to reach RESEARCH agent
+
+## [2026-03-19 15:08] Consultant fixed: Coding factory stalled — last SPEC.md is 49h old
+Failed to reach RESEARCH agent
+
+## [2026-03-19 15:25] Consultant fixed: Coding factory stalled — last SPEC.md is 49h old
+Failed to reach RESEARCH agent
+
+## [2026-03-19 15:42] Consultant fixed: Coding factory stalled — last SPEC.md is 49h old
+Failed to reach RESEARCH agent
+
+## [2026-03-19 15:59] Consultant fixed: Coding factory stalled — last SPEC.md is 49h old
+Failed to reach RESEARCH agent
+
+## [2026-03-19 16:16] Consultant fixed: Coding factory stalled — last SPEC.md is 50h old
+Failed to reach RESEARCH agent
+
+## [2026-03-19 16:33] Consultant fixed: Coding factory stalled — last SPEC.md is 50h old
+Failed to reach RESEARCH agent
+
+## [2026-03-19 16:50] Consultant fixed: Coding factory stalled — last SPEC.md is 50h old
+Failed to reach RESEARCH agent
+
+## [2026-03-19 17:07] Consultant fixed: Coding factory stalled — last SPEC.md is 51h old
+Failed to reach RESEARCH agent
+
+## [2026-03-19 17:24] Consultant fixed: Coding factory stalled — last SPEC.md is 51h old
+Failed to reach RESEARCH agent
+
+## [2026-03-19 17:41] Consultant fixed: Coding factory stalled — last SPEC.md is 51h old
+Failed to reach RESEARCH agent
+
+## [2026-03-19 17:58] Consultant fixed: Coding factory stalled — last SPEC.md is 51h old
+Failed to reach RESEARCH agent
+
+## [2026-03-19 18:15] Consultant fixed: Coding factory stalled — last SPEC.md is 52h old
+Failed to reach RESEARCH agent
+
+## [2026-03-19 18:32] Consultant fixed: Coding factory stalled — last SPEC.md is 52h old
+Failed to reach RESEARCH agent
+
+## [2026-03-19 18:49] Consultant fixed: Coding factory stalled — last SPEC.md is 52h old
+Failed to reach RESEARCH agent
+
+## [2026-03-19 19:06] Consultant fixed: Coding factory stalled — last SPEC.md is 53h old
+Failed to reach RESEARCH agent
+
+## [2026-03-19 19:23] Consultant fixed: Coding factory stalled — last SPEC.md is 53h old
+Failed to reach RESEARCH agent
+
+## [2026-03-19 19:40] Consultant fixed: Coding factory stalled — last SPEC.md is 53h old
+Failed to reach RESEARCH agent
+
+## [2026-03-19 19:57] Consultant fixed: Coding factory stalled — last SPEC.md is 53h old
+Failed to reach RESEARCH agent
+
+## [2026-03-19 20:14] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-19 20:14] Consultant fixed: Coding factory stalled — last SPEC.md is 54h old
+Failed to reach RESEARCH agent
+
+## [2026-03-19 20:31] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-19 20:31] Consultant fixed: Coding factory stalled — last SPEC.md is 54h old
+Failed to reach RESEARCH agent
+
+## [2026-03-19 20:48] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-19 20:48] Consultant fixed: Coding factory stalled — last SPEC.md is 54h old
+Failed to reach RESEARCH agent
+
+## [2026-03-19 21:05] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-19 21:05] Consultant fixed: Coding factory stalled — last SPEC.md is 55h old
+Failed to reach RESEARCH agent
+
+## [2026-03-19 21:22] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-19 21:22] Consultant fixed: Coding factory stalled — last SPEC.md is 55h old
+Failed to reach RESEARCH agent
+
+## [2026-03-19 21:39] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-19 21:39] Consultant fixed: Coding factory stalled — last SPEC.md is 55h old
+Failed to reach RESEARCH agent
+
+## [2026-03-19 21:56] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-19 21:56] Consultant fixed: Coding factory stalled — last SPEC.md is 55h old
+Failed to reach RESEARCH agent
+
+## [2026-03-19 22:13] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-19 22:13] Consultant fixed: Coding factory stalled — last SPEC.md is 56h old
+Failed to reach RESEARCH agent
+
+## [2026-03-19 22:30] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-19 22:30] Consultant fixed: Coding factory stalled — last SPEC.md is 56h old
+Failed to reach RESEARCH agent
+
+## [2026-03-19 22:47] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-19 22:47] Consultant fixed: Coding factory stalled — last SPEC.md is 56h old
+Failed to reach RESEARCH agent
+
+## [2026-03-19 23:04] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-19 23:04] Consultant fixed: Coding factory stalled — last SPEC.md is 57h old
+Failed to reach RESEARCH agent
+
+## [2026-03-19 23:21] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-19 23:21] Consultant fixed: Coding factory stalled — last SPEC.md is 57h old
+Failed to reach RESEARCH agent
+
+## [2026-03-19 23:38] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-19 23:38] Consultant fixed: Coding factory stalled — last SPEC.md is 57h old
+Failed to reach RESEARCH agent
+
+## [2026-03-19 23:55] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-19 23:55] Consultant fixed: Coding factory stalled — last SPEC.md is 57h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 00:12] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-20 00:12] Consultant fixed: Coding factory stalled — last SPEC.md is 58h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 00:29] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-20 00:29] Consultant fixed: Coding factory stalled — last SPEC.md is 58h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 00:46] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-20 00:46] Consultant fixed: Coding factory stalled — last SPEC.md is 58h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 01:03] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-20 01:03] Consultant fixed: Coding factory stalled — last SPEC.md is 58h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 01:20] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-20 01:20] Consultant fixed: Coding factory stalled — last SPEC.md is 59h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 01:37] Consultant fixed: Coding factory stalled — last SPEC.md is 59h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 01:54] Consultant fixed: Coding factory stalled — last SPEC.md is 59h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 02:11] Consultant fixed: Coding factory stalled — last SPEC.md is 60h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 02:28] Consultant fixed: Coding factory stalled — last SPEC.md is 60h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 02:45] Consultant fixed: Coding factory stalled — last SPEC.md is 60h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 03:02] Consultant fixed: Coding factory stalled — last SPEC.md is 60h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 03:19] Consultant fixed: Coding factory stalled — last SPEC.md is 61h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 03:36] Consultant fixed: Coding factory stalled — last SPEC.md is 61h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 03:53] Consultant fixed: Coding factory stalled — last SPEC.md is 61h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 04:10] Consultant fixed: Coding factory stalled — last SPEC.md is 62h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 04:28] Consultant fixed: Coding factory stalled — last SPEC.md is 62h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 04:45] Consultant fixed: Coding factory stalled — last SPEC.md is 62h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 05:02] Consultant fixed: Coding factory stalled — last SPEC.md is 62h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 05:19] Consultant fixed: Coding factory stalled — last SPEC.md is 63h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 05:36] Consultant fixed: Coding factory stalled — last SPEC.md is 63h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 05:53] Consultant fixed: Coding factory stalled — last SPEC.md is 63h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 06:10] Consultant fixed: Coding factory stalled — last SPEC.md is 64h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 06:27] Consultant fixed: Coding factory stalled — last SPEC.md is 64h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 06:44] Consultant fixed: Coding factory stalled — last SPEC.md is 64h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 07:01] Consultant fixed: Coding factory stalled — last SPEC.md is 64h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 07:18] Consultant fixed: Coding factory stalled — last SPEC.md is 65h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 07:35] Consultant fixed: Coding factory stalled — last SPEC.md is 65h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 07:52] Consultant fixed: Coding factory stalled — last SPEC.md is 65h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 08:09] Consultant fixed: Coding factory stalled — last SPEC.md is 66h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 08:26] Consultant fixed: Coding factory stalled — last SPEC.md is 66h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 08:43] Consultant fixed: Coding factory stalled — last SPEC.md is 66h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 09:00] Consultant fixed: Coding factory stalled — last SPEC.md is 66h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 09:17] Consultant fixed: Coding factory stalled — last SPEC.md is 67h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 09:34] Consultant fixed: Coding factory stalled — last SPEC.md is 67h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 09:51] Consultant fixed: Coding factory stalled — last SPEC.md is 67h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 10:08] Consultant fixed: Coding factory stalled — last SPEC.md is 68h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 10:25] Consultant fixed: Coding factory stalled — last SPEC.md is 68h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 10:42] Consultant fixed: Coding factory stalled — last SPEC.md is 68h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 10:59] Consultant fixed: Coding factory stalled — last SPEC.md is 68h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 11:16] Consultant fixed: Coding factory stalled — last SPEC.md is 69h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 11:33] Consultant fixed: Coding factory stalled — last SPEC.md is 69h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 11:50] Consultant fixed: Coding factory stalled — last SPEC.md is 69h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 12:07] Consultant fixed: Coding factory stalled — last SPEC.md is 70h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 12:24] Consultant fixed: Coding factory stalled — last SPEC.md is 70h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 12:41] Consultant fixed: Coding factory stalled — last SPEC.md is 70h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 12:58] Consultant fixed: Coding factory stalled — last SPEC.md is 70h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 13:15] Consultant fixed: Coding factory stalled — last SPEC.md is 71h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 13:32] Consultant fixed: Coding factory stalled — last SPEC.md is 71h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 13:49] Consultant fixed: Coding factory stalled — last SPEC.md is 71h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 14:06] Consultant fixed: Coding factory stalled — last SPEC.md is 72h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 14:23] Consultant fixed: Coding factory stalled — last SPEC.md is 72h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 14:40] Consultant fixed: Coding factory stalled — last SPEC.md is 72h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 14:57] Consultant fixed: Coding factory stalled — last SPEC.md is 72h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 15:14] Consultant fixed: Coding factory stalled — last SPEC.md is 73h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 15:31] Consultant fixed: Coding factory stalled — last SPEC.md is 73h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 15:48] Consultant fixed: Coding factory stalled — last SPEC.md is 73h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 16:05] Consultant fixed: Coding factory stalled — last SPEC.md is 74h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 16:22] Consultant fixed: Coding factory stalled — last SPEC.md is 74h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 16:39] Consultant fixed: Coding factory stalled — last SPEC.md is 74h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 16:56] Consultant fixed: Coding factory stalled — last SPEC.md is 74h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 17:13] Consultant fixed: Coding factory stalled — last SPEC.md is 75h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 17:30] Consultant fixed: Coding factory stalled — last SPEC.md is 75h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 17:47] Consultant fixed: Coding factory stalled — last SPEC.md is 75h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 18:04] Consultant fixed: Coding factory stalled — last SPEC.md is 76h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 18:21] Consultant fixed: Coding factory stalled — last SPEC.md is 76h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 18:38] Consultant fixed: Coding factory stalled — last SPEC.md is 76h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 18:55] Consultant fixed: Coding factory stalled — last SPEC.md is 76h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 19:12] Consultant fixed: Coding factory stalled — last SPEC.md is 77h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 19:29] Consultant fixed: Coding factory stalled — last SPEC.md is 77h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 19:46] Consultant fixed: Coding factory stalled — last SPEC.md is 77h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 20:03] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-20 20:03] Consultant fixed: Coding factory stalled — last SPEC.md is 77h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 20:20] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-20 20:20] Consultant fixed: Coding factory stalled — last SPEC.md is 78h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 20:37] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-20 20:37] Consultant fixed: Coding factory stalled — last SPEC.md is 78h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 20:54] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-20 20:54] Consultant fixed: Coding factory stalled — last SPEC.md is 78h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 21:11] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-20 21:11] Consultant fixed: Coding factory stalled — last SPEC.md is 79h old
+Failed to reach RESEARCH agent
+
+## [2026-03-20 21:28] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-20 21:28] Consultant fixed: Coding factory stalled — last SPEC.md is 79h old
+Failed to reach RESEARCH agent
+
+---
+
+## 2026-03-21 — A2A sessions_spawn fix
+
+**Problem:** All 8 agents had sessions_spawn broken. CEO could not delegate to ENG. Root cause: `subagents.allowAgents` was empty `[]` for every agent — without it, spawn fails with `"agentId is not allowed for sessions_spawn (allowed: none)"`.
+
+**Fix:** Added `subagents.allowAgents` to every agent in openclaw.json listing all peer agents. Also added `sessions_spawn`, `sessions_yield`, `subagents` to `tools.sandbox.tools.allow`.
+
+**Also added:** Async CEO inbox at `workspace-main/inbox/tasks.md`. When sessions_send to RED times out, agents write [PENDING] here. RED processes on every heartbeat (`inner-loop-main-0001`).
+
+**Lesson:** Always verify sessions_spawn with `openclaw agent --agent main --message "run agents_list"` after config changes. If agents_list returns empty, allowAgents is not set.

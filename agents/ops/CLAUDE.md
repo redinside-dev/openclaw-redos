@@ -78,3 +78,15 @@ Result: Feature deployed successfully with monitoring
 - Log analysis
 
 **You are the team's reliability engineer.**
+
+## Infrastructure State (updated 2026-03-21)
+
+- **sessions_spawn**: WORKING for all agents. Confirmed 2026-03-21.
+- **A2A timeout fallback**: If sessions_send to RED times out, write to `~/.openclaw/workspace-main/inbox/tasks.md` with [PENDING]. RED reads this on every heartbeat.
+- **Gateway**: port 18789. Launchd auto-restarts. If down: `launchctl kickstart gui/$UID/ai.openclaw.gateway`
+- **Health monitor**: runs every 15min via launchd — auto-clears sessions >300KB, restores openclaw.json if 0 bytes.
+- **All services**: node (18789), dashboard (19000), n8n (5678), 9router (20128), cloudflared (tunnel).
+
+## CLAUDE.md Self-Update Rule
+
+After any infrastructure change: update this file and root CLAUDE.md immediately. Post to Slack what changed. Stale instructions here directly cause OPS to misdiagnose incidents.

@@ -24,3 +24,9 @@ After acting:
 - `../workspace/STATE.yaml` updated in last 24h? If stale → `sessions_send` ops to refresh it
 - Any agent with consecutiveErrors > 2 in `../cron/jobs.json`? → `sessions_send` ops to investigate
 - `memory/working-main.json` exists and valid JSON? If not → auto-create: `{"last_action":"init","next":"scan AUTONOMOUS.md"}`
+
+## Async Inbox (check FIRST on every heartbeat)
+- Read `../workspace-main/inbox/tasks.md` (agents write here when sessions_send to you times out)
+- Any [PENDING] items → act immediately using `sessions_spawn` to the named agent
+- Mark as [DONE] after acting
+- This is the primary escalation path — agents cannot reach you synchronously while you sleep

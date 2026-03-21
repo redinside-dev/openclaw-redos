@@ -12,6 +12,7 @@ LOG="$HOME/.openclaw/logs/telegram-deadman.log"
 GATEWAY_LOG="$HOME/.openclaw/logs/gateway.log"
 ALERT_STATE="/tmp/openclaw-telegram-deadman-alerted.txt"
 DEAD_THRESHOLD=900   # 15 minutes in seconds
+STARTUP_GRACE=180    # 3 minutes — don't kill a gateway that just started
 OPENCLAW="/opt/homebrew/bin/openclaw"
 
 TS() { date -u +%Y-%m-%dT%H:%M:%SZ; }
@@ -38,7 +39,8 @@ if ! is_gateway_up; then
 fi
 
 # Find most recent Telegram activity in gateway.log
-LAST_LINE=$(grep -E '\[telegram\] (sendMessage ok|starting provider|messageReceived)' \
+# Note: starting provider lines include accountId: "[telegram] [default] starting provider"
+LAST_LINE=$(grep -E '\[telegram\].*(sendMessage ok|starting provider|messageReceived)' \
   "$GATEWAY_LOG" 2>/dev/null | tail -1)
 
 if [[ -z "$LAST_LINE" ]]; then
@@ -58,10 +60,11 @@ AGE=$(( NOW_EPOCH - LAST_EPOCH ))
 
 log "Last Telegram activity: $CLEAN_TS (${AGE}s ago, threshold=${DEAD_THRESHOLD}s)"
 
-# ── HEALTHY PATH ─────────────────────────────────────────────────────────────
-if [[ $AGE -lt $DEAD_THRESHOLD ]]; then
-  log "OK: Telegram active ${AGE}s ago"
-  # Clear alert state if recovered
+# ── STARTUP GRACE: never kill a gateway that just started ─────────────────────
+# If the most recent telegram line is a "starting provider" within STARTUP_GRACE,
+# the gateway is still initialising — give it time, don't restart.
+if [[ $AGE -lt $STARTUP_GRACE ]]; then
+  log "OK: Telegram active ${AGE}s ago (within startup grace ${STARTUP_GRACE}s)"
   if [[ -f "$ALERT_STATE" ]]; then
     log "RECOVERY: Telegram reconnected at $(TS)"
     send_telegram_direct "✅ <b>[OpenClaw]</b> Telegram bots reconnected at $(TS). Last activity was ${AGE}s ago."
@@ -71,20 +74,33 @@ if [[ $AGE -lt $DEAD_THRESHOLD ]]; then
   exit 0
 fi
 
-# ── TELEGRAM SILENT > 15 MIN WITH GATEWAY UP ─────────────────────────────────
+# ── HEALTHY PATH ──────────────────────────────────────────────────────────────
+if [[ $AGE -lt $DEAD_THRESHOLD ]]; then
+  log "OK: Telegram active ${AGE}s ago"
+  if [[ -f "$ALERT_STATE" ]]; then
+    log "RECOVERY: Telegram reconnected at $(TS)"
+    send_telegram_direct "✅ <b>[OpenClaw]</b> Telegram bots reconnected at $(TS). Last activity was ${AGE}s ago."
+    send_slack_direct "✅ [OpenClaw] Telegram reconnected at $(TS). Was silent, now active."
+    rm -f "$ALERT_STATE"
+  fi
+  exit 0
+fi
+
+# ── TELEGRAM SILENT > 15 MIN WITH GATEWAY UP ──────────────────────────────────
 log "ALERT: Telegram silent ${AGE}s — restarting gateway to reconnect providers"
 
 # Attempt: SIGTERM gateway so launchd restarts it → providers reinitialize
 pkill -f "openclaw.*gateway" >> "$LOG" 2>&1 || true
-sleep 20
+sleep 30
 
-# Check if Telegram providers came back up
-NEW_LINE=$(grep -E '\[telegram\] starting provider' "$GATEWAY_LOG" 2>/dev/null | tail -1)
+# Check if Telegram providers came back up (fix: use .* like the detection above)
+NEW_LINE=$(grep -E '\[telegram\].*(sendMessage ok|starting provider|messageReceived)' \
+  "$GATEWAY_LOG" 2>/dev/null | tail -1)
 NEW_TS=$(echo "$NEW_LINE" | awk '{print $1}')
 NEW_CLEAN="${NEW_TS%%.*}"
 NEW_CLEAN="${NEW_CLEAN%Z}"
 NEW_EPOCH=$(date -j -f "%Y-%m-%dT%H:%M:%S" "$NEW_CLEAN" +%s 2>/dev/null || echo 0)
-NEW_AGE=$(( NOW_EPOCH - NEW_EPOCH ))
+NEW_AGE=$(( $(date +%s) - NEW_EPOCH ))
 
 if [[ $NEW_AGE -lt 60 ]]; then
   log "FIXED: Telegram providers reconnected after gateway restart"

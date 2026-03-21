@@ -51,6 +51,7 @@ const CCS_SETTINGS = (name) => `${process.env.HOME}/.ccs/${name}.settings.json`;
 
 // MiniMax model IDs — included in merged /v1/models list; request body is forwarded as-is when model is in this list
 const MINIMAX_MODEL_IDS = [
+  'MiniMax-M2.7',
   'MiniMax-M2.5',
   'MiniMax-M2.5-highspeed',
   'MiniMax-M2.5-lightning',

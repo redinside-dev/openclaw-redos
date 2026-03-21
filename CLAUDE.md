@@ -108,7 +108,21 @@ Skills are declarative `SKILL.md` files in `workspace/skills/` — no code. Open
 
 ### Cron Jobs
 
-115 cron definitions in `cron/jobs.json` — **30 enabled / 85 disabled**. Reduced from 110 active via event-driven migration (2026-03-02). **Never hardcode `model` in cron payloads** — omit it and let agent defaults apply. Runs logged to `workspace/logs/`.
+82 cron definitions in `cron/jobs.json` (as of 2026-03-21). **Never hardcode `model` in cron payloads** — omit it and let agent defaults apply. Runs logged to `workspace/logs/`.
+
+### Agent-to-Agent (A2A) — WORKING as of 2026-03-21
+
+`sessions_spawn` is fully wired. Every agent has `subagents.allowAgents` listing all peers. `sandbox.tools.allow` includes `sessions_spawn`, `sessions_yield`, `subagents`.
+
+**CEO → ENG delegation**: RED uses `sessions_spawn(agentId="eng", ...)`. Confirmed working.
+
+**Async escalation**: agents write to `workspace-main/inbox/tasks.md` when `sessions_send` to RED times out. RED processes inbox on every heartbeat (`inner-loop-main-0001`, every 4h).
+
+**Key fix applied**: `subagents.allowAgents` must be set per-agent in `openclaw.json` — without it, spawn fails with `"agentId is not allowed (allowed: none)"`.
+
+### CEO Async Inbox
+
+`~/.openclaw/workspace-main/inbox/tasks.md` — any agent writes [PENDING] items here when RED is unreachable. RED clears on heartbeat.
 
 ### n8n Webhook Delegation
 
@@ -123,7 +137,8 @@ Port 19000 — basic auth `red` / `redos2026`. launchd managed (`ai.openclaw.das
 | File | Purpose |
 |---|---|
 | `openclaw.json` | Master runtime config — **Never commit** |
-| `cron/jobs.json` | 115 cron definitions (30 enabled / 85 disabled) |
+| `cron/jobs.json` | 82 cron definitions — A2A crons, inner loops, health monitors |
+| `workspace-main/inbox/tasks.md` | Async CEO inbox — agents write here when sessions_send times out |
 | `workspace/SOUL.md` | Company OS — injected into every agent session |
 | `workspace/MEMORY.md` | Curated long-term memory |
 | `workspace/GOALS.md` | Active company goals (RED only writes) |

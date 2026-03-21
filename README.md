@@ -1,8 +1,8 @@
 # OpenClaw RedOS
 
-> Autonomous AI company running on OpenClaw CLI — 8 specialized agents, 30 active crons, two revenue streams, zero humans in the loop.
+> Autonomous AI company running on OpenClaw CLI — 8 specialized agents, A2A delegation working, two revenue streams, zero humans in the loop.
 
-**Owner:** [anuragg-saxenaa](https://github.com/anuragg-saxenaa) · **Infra:** [redinside-dev](https://github.com/redinside-dev) · **Platform:** macOS (Darwin 25) · **Updated:** 2026-03-14
+**Owner:** [anuragg-saxenaa](https://github.com/anuragg-saxenaa) · **Infra:** [redinside-dev](https://github.com/redinside-dev) · **Platform:** macOS (Darwin 25) · **Updated:** 2026-03-21
 
 ---
 
@@ -200,7 +200,13 @@ Recent contributions: [pr-log.md](workspace/projects/pr-log.md)
 
 ---
 
-## Cron Schedule (30 enabled of 74)
+## Agent-to-Agent (A2A) — Working as of 2026-03-21
+
+All 8 agents can spawn each other via `sessions_spawn`. CEO runs `a2a-daily-proactive-0001` (10am ET weekdays) to delegate tasks automatically. Escalations that can't reach RED synchronously are written to the async inbox (`workspace-main/inbox/tasks.md`) and processed on the next heartbeat.
+
+---
+
+## Cron Schedule (active)
 
 | Cron ID | Agent | Schedule (Toronto) | Purpose |
 |---------|-------|-------------------|---------|
@@ -223,7 +229,7 @@ Recent contributions: [pr-log.md](workspace/projects/pr-log.md)
 
 | Service | Port | Managed by | Purpose |
 |---------|------|------------|---------|
-| OpenClaw Gateway | 20088 | `ai.openclaw.gateway` | Agent runtime + API |
+| OpenClaw Gateway | 18789 | `ai.openclaw.gateway` | Agent runtime + API |
 | 9Router | 20128 | `ai.openclaw.9router` | LLM proxy + failover |
 | n8n | 5678 | `ai.openclaw.n8n` | Webhook delegation, credentials |
 | Mission Control | 19000 | `ai.openclaw.dashboard` | Ops dashboard (`red`/`redos2026`) |
@@ -235,7 +241,8 @@ Recent contributions: [pr-log.md](workspace/projects/pr-log.md)
 | File | Purpose |
 |------|---------|
 | `openclaw.json` | Master runtime config — **never commit** |
-| `cron/jobs.json` | 74 cron definitions (30 enabled) |
+| `cron/jobs.json` | 82 cron definitions — A2A, inner loops, health monitors |
+| `workspace-main/inbox/tasks.md` | Async CEO inbox — agents escalate here when RED is unreachable |
 | `workspace/SOUL.md` | Company OS injected into every session |
 | `workspace/GOALS.md` | Active goals (RED writes only) |
 | `workspace/STATE.yaml` | Live sprint/metrics state |

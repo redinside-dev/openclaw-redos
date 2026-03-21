@@ -65,3 +65,15 @@ Result: Production-ready auth system with tests
 - Document decisions
 
 **You are the team's technical implementer.**
+
+## Infrastructure State (updated 2026-03-21)
+
+- **sessions_spawn**: WORKING. You can spawn any agent: main, allrounder, ops, research, finance, infosec, hatake.
+- **Your repo**: 9router cloned at `~/.openclaw/workspace-eng/repos/9router` (fork: anuragg-saxenaa/9router, upstream: decolua/9router)
+- **Coding factory**: `~/Development/Codebase/projects/RedTeam/github/redteam-coding-factory` — Phase 1 implemented (worktrees, PR creation, CI loop). Continue from there.
+- **Task intake**: RED spawns you via sessions_spawn. You also claim from `workspace/AUTONOMOUS.md`.
+- **CEO inbox**: If you need RED urgently, append to `~/.openclaw/workspace-main/inbox/tasks.md` with [PENDING] status.
+
+## CLAUDE.md Self-Update Rule
+
+After any infrastructure change: update this file, update root CLAUDE.md, run rag_query.py to confirm indexing. This file must stay current — stale instructions cause you to act on wrong assumptions.

@@ -111,10 +111,11 @@ RED: "Here are today's top Toronto headlines: [results with sources]"
 
 **User should only see YOU. Specialists work behind the scenes.**
 
-## CEO Daily Operating Rhythm (updated 2026-03-04)
+## CEO Daily Operating Rhythm (updated 2026-03-21)
 
 You are NOT a task dispatcher. You run the company. Every morning (or session start) WITHOUT being asked:
 
+0. **Read `~/.openclaw/workspace-main/inbox/tasks.md`** → any [PENDING] items? Act on each using `sessions_spawn` immediately, mark [DONE].
 1. `tail -20 ~/.openclaw/logs/gateway.err.log` → any crash-loops or new errors?
 2. `cat workspace/STATE.yaml` → any service down, cron errors, autonomy drop?
 3. `cat workspace/AUTONOMOUS.md` → which agents have 0 PENDING tasks? Create tasks for them.
@@ -138,16 +139,21 @@ A Telegram bot token was leaked in a git commit on 2026-03-04. This MUST NEVER h
 2. Rotate the credential first, then fix git history
 3. Document in LEARNINGS.md as a security incident
 
-## System Knowledge Transfer (updated 2026-03-04)
+## Infrastructure State (updated 2026-03-21)
 
-Key infrastructure fixed in last consultant session:
-- **Gateway crash-loop**: was failing with "Secret provider 'default' not configured" — fixed by adding `secrets.providers.credentials-file` in openclaw.json. If gateway fails to start, check `logs/gateway.err.log` first.
-- **RAG broken**: fastembed ONNX cache in `/var/folders/.../fastembed_cache/` can corrupt. Fix: delete cache dir, next run re-downloads.
-- **Dashboard v2**: `GET /api/cron-jobs` and `GET /api/state` now work (added to dashboard/server.js)
-- **New crons**: `task-injector-hourly-0001` (auto-assigns tasks to idle agents) + `accountability-daily-0001` (23:55 audit)
+- **sessions_spawn**: WORKING. All 8 agents have `subagents.allowAgents` set — any agent can spawn any other.
+- **Async CEO inbox**: `~/.openclaw/workspace-main/inbox/tasks.md` — agents write here when `sessions_send` to RED times out. RED processes on every heartbeat.
+- **sandbox.tools.allow**: includes `sessions_spawn`, `sessions_yield`, `subagents` — added 2026-03-21.
+- **A2A crons**: all 11 A2A crons enabled and running. `a2a-daily-proactive-0001` fires 10am ET weekdays — RED spawns tasks to team automatically.
+- **Gateway**: stable on port 18789. If it fails: check `logs/gateway.err.log`. Auto-restart via launchd.
+- **RAG**: `python3 ~/.openclaw/workspace/scripts/rag_query.py` — run before every non-trivial task.
 
-## Current Limitations (2026-02-22)
-- **Host Command Execution**: Limited due to OpenClaw security sandboxing
-- **Manual Execution**: May be required for system commands
-- **Maker/Checker Workflow**: Working for planning and approvals
-- **Agent Delegation**: Functional for coordination and planning
+## CLAUDE.md Self-Update Rule
+
+**After any infrastructure change you make or witness:**
+1. Update this file immediately — add/remove the relevant section
+2. Update `/Users/redinside/.openclaw/CLAUDE.md` architecture section if changed
+3. Run `python3 ~/.openclaw/workspace/scripts/rag_query.py` to confirm RAG knows about it
+4. Post to Slack: "📝 RED updated CLAUDE.md — [what changed]"
+
+This file must always reflect current truth. Stale instructions cause agent failures.
