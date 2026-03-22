@@ -2278,3 +2278,231 @@ Failed to reach RESEARCH agent
 **Also added:** Async CEO inbox at `workspace-main/inbox/tasks.md`. When sessions_send to RED times out, agents write [PENDING] here. RED processes on every heartbeat (`inner-loop-main-0001`).
 
 **Lesson:** Always verify sessions_spawn with `openclaw agent --agent main --message "run agents_list"` after config changes. If agents_list returns empty, allowAgents is not set.
+
+## [2026-03-21 05:31] Consultant fixed: Channel errors in gateway log (4 occurrences)
+Patched 2 cron jobs with missing delivery.channel
+
+## [2026-03-21 05:48] Consultant fixed: Channel errors in gateway log (6 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 06:05] Consultant fixed: Channel errors in gateway log (8 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 06:22] Consultant fixed: Channel errors in gateway log (10 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 06:39] Consultant fixed: Channel errors in gateway log (12 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 06:56] Consultant fixed: Channel errors in gateway log (12 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 07:13] Consultant fixed: Channel errors in gateway log (12 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 07:30] Consultant fixed: Channel errors in gateway log (12 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 07:47] Consultant fixed: Channel errors in gateway log (8 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 08:04] Consultant fixed: Channel errors in gateway log (8 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 08:21] Consultant fixed: Channel errors in gateway log (12 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 08:38] Consultant fixed: Channel errors in gateway log (8 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 08:55] Consultant fixed: Channel errors in gateway log (6 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 09:12] Consultant fixed: Channel errors in gateway log (8 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 09:29] Consultant fixed: Channel errors in gateway log (10 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 09:46] Consultant fixed: Channel errors in gateway log (8 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 10:03] Consultant fixed: Channel errors in gateway log (8 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 10:20] Consultant fixed: Channel errors in gateway log (8 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 10:37] Consultant fixed: Channel errors in gateway log (8 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 10:54] Consultant fixed: Channel errors in gateway log (10 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 11:11] Consultant fixed: Channel errors in gateway log (10 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 11:28] Consultant fixed: Channel errors in gateway log (10 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 11:45] Consultant fixed: Channel errors in gateway log (10 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 12:02] Consultant fixed: Channel errors in gateway log (8 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 12:19] Consultant fixed: Channel errors in gateway log (10 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 12:36] Consultant fixed: Channel errors in gateway log (6 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 12:53] Consultant fixed: Channel errors in gateway log (4 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 13:10] Consultant fixed: Channel errors in gateway log (6 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 13:27] Consultant fixed: Channel errors in gateway log (6 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 13:44] Consultant fixed: Channel errors in gateway log (4 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 14:01] Consultant fixed: Channel errors in gateway log (4 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 14:18] Consultant fixed: Channel errors in gateway log (4 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 14:35] Consultant fixed: Channel errors in gateway log (4 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 14:52] Consultant fixed: Channel errors in gateway log (6 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 15:09] Consultant fixed: Channel errors in gateway log (8 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 15:26] Consultant fixed: Channel errors in gateway log (10 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 15:43] Consultant fixed: Channel errors in gateway log (10 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 16:00] Consultant fixed: Channel errors in gateway log (12 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 16:17] Consultant fixed: Channel errors in gateway log (12 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 16:34] Consultant fixed: Channel errors in gateway log (10 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 16:51] Consultant fixed: Channel errors in gateway log (10 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 17:08] Consultant fixed: Channel errors in gateway log (10 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 17:25] Consultant fixed: Channel errors in gateway log (12 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 17:42] Consultant fixed: Channel errors in gateway log (10 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 17:59] Consultant fixed: Channel errors in gateway log (12 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 18:16] Consultant fixed: Channel errors in gateway log (10 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 18:33] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restarted successfully
+
+## [2026-03-21 18:33] Consultant fixed: Channel errors in gateway log (8 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 18:50] Consultant fixed: Channel errors in gateway log (4 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 20:07] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-21 20:24] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-21 20:41] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-21 20:58] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-21 21:15] Consultant fixed: Channel errors in gateway log (4 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 21:15] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-21 21:32] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-21 21:49] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-21 22:06] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-21 22:23] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-21 22:40] Consultant fixed: Channel errors in gateway log (4 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 22:40] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-21 22:57] Consultant fixed: Channel errors in gateway log (4 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 22:57] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-21 23:15] Consultant fixed: Channel errors in gateway log (4 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 23:15] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-21 23:32] Consultant fixed: Channel errors in gateway log (6 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 23:32] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-21 23:49] Consultant fixed: Channel errors in gateway log (8 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-21 23:49] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-22 00:06] Consultant fixed: Channel errors in gateway log (10 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-22 00:06] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-22 00:23] Consultant fixed: Channel errors in gateway log (6 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-22 00:23] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-22 00:40] Consultant fixed: Channel errors in gateway log (6 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-03-22 00:40] Consultant fixed: No task completions in last 24h
+Failed to reach OPS agent
+
+## [2026-03-22 00:57] Consultant fixed: Channel errors in gateway log (4 occurrences)
+No channel-less cron jobs found (may be log noise)
