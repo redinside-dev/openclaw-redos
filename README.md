@@ -2,7 +2,7 @@
 
 > Autonomous AI company running on OpenClaw CLI — 8 specialized agents, A2A delegation working, two revenue streams, zero humans in the loop.
 
-**Owner:** [anuragg-saxenaa](https://github.com/anuragg-saxenaa) · **Infra:** [redinside-dev](https://github.com/redinside-dev) · **Platform:** macOS (Darwin 25) · **Updated:** 2026-03-21
+**Owner:** [anuragg-saxenaa](https://github.com/anuragg-saxenaa) · **Infra:** [redinside-dev](https://github.com/redinside-dev) · **Platform:** macOS (Darwin 25) · **Updated:** 2026-03-22
 
 ---
 
@@ -206,16 +206,64 @@ All 8 agents can spawn each other via `sessions_spawn`. CEO runs `a2a-daily-proa
 
 ---
 
+## Autonomous Coding Factory (decolua/9router)
+
+CEO labels a GitHub issue `factory-ready` → fully autonomous pipeline:
+
+```
+CEO labels issue "factory-ready" on decolua/9router
+        ↓
+OpenClaw cron (every 15min) → ENG runs factory --once
+        ↓
+IssueWatcher claims issue, creates git worktree
+        ↓
+Claude Code agent implements fix (up to 10 min)
+        ↓
+Self-heals CI failures (up to 3 retries)
+        ↓
+Opens PR: anuragg-saxenaa/9router → decolua/9router
+        ↓
+Posts result to Slack #redos-eng
+```
+
+**Label an issue to queue it:**
+```bash
+GH_TOKEN=$ANURAGG_TOKEN gh issue edit <number> --repo decolua/9router --add-label factory-ready
+```
+
+**Config:** `~/Development/Codebase/projects/RedTeam/github/redteam-coding-factory/factory-9router.config.json`
+
+---
+
+## Self-Healing Layer (LLM-independent)
+
+Two bash scripts run via system crontab, independent of OpenClaw/LLM — they fix things even when the whole AI stack is down:
+
+| Script | Frequency | What it fixes |
+|--------|-----------|---------------|
+| `scripts/autonomous-healer.sh` | every 5 min | 9Router down → restart via launchd; Gateway down → restart; Codex tokens expired → auto-refresh; stale IN_PROGRESS tasks → reset to PENDING; factory not run in 20min → trigger |
+| `scripts/agent-self-healer.sh` | every 15 min | Missing workspace files → create stubs; stuck consultant daemons → kill; bloated session files (>2MB) → clear; cron with >5 consecutive errors → alert |
+
+Install (run once on a new machine):
+```bash
+(crontab -l; echo "*/5 * * * * bash ~/.openclaw/scripts/autonomous-healer.sh >> ~/.openclaw/logs/healer.log 2>&1") | crontab -
+(crontab -l; echo "*/15 * * * * bash ~/.openclaw/scripts/agent-self-healer.sh >> ~/.openclaw/logs/agent-healer.log 2>&1") | crontab -
+```
+
+---
+
 ## Cron Schedule (active)
 
 | Cron ID | Agent | Schedule (Toronto) | Purpose |
 |---------|-------|-------------------|---------|
 | `telegram-approval-monitor-0001` | RED | every 2 min | Watch approve/deny replies |
 | `system-pulse-always-on-0001` | OPS | every 5 min | Health heartbeat |
-| `inner-loop-research-0001` | RESEARCH | every 3h at :30 | Mine pain points → specs |
-| `inner-loop-eng-0001` | ENG | 6x/day | Ship projects from backlog |
-| `inner-loop-ops-0001` | OPS | every 4h | Monitor SLA + tickets |
-| `inner-loop-allrounder-0001` | ZEN | every 3h | Cross-agent coordination |
+| `inner-loop-research-0001` | RESEARCH | every 3h at :30 | Mine pain points → specs; claim AUTONOMOUS.md tasks |
+| `inner-loop-eng-0001` | ENG | 6x/day | Ship projects from backlog; claim AUTONOMOUS.md tasks |
+| `inner-loop-ops-0001` | OPS | every 4h | Monitor SLA + tickets; claim AUTONOMOUS.md tasks |
+| `inner-loop-allrounder-0001` | ZEN | every 3h | Cross-agent coordination; claim AUTONOMOUS.md tasks |
+| `eng-poc-continuous-0001` | ENG | every 4h | Factory self-healing + PR monitor (decolua/9router) |
+| `factory-9router-watcher` | ENG | every 15 min | Process factory-ready issues on decolua/9router |
 | `oss-contributor-0001` | ENG | 11am daily | OSS PR as anuragg-saxenaa |
 | `website-agency-leads-daily` | HATAKE | 9am daily | 50 real leads via Overpass API |
 | `website-agency-audit-cycle` | RESEARCH | every 4h | Audit pending leads |
@@ -250,7 +298,7 @@ All 8 agents can spawn each other via `sessions_spawn`. CEO runs `a2a-daily-proa
 | `workspace/projects/backlog.md` | OSS project pipeline |
 | `workspace/projects/pr-log.md` | All shipped + contributed PRs |
 | `workspace-website-agency/` | Ontario Website Agency pipeline |
-| `credentials/secrets.json` | API keys — **never commit** |
+| `secrets.json` | API keys — **never commit** |
 | `identity/device.json` | Ed25519 keypair — **never delete** |
 
 ---

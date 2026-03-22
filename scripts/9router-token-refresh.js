@@ -679,7 +679,8 @@ async function applyCodexRefresh(conn) {
 }
 
 async function handleCodexAccounts(conns, alerts) {
-  const codexConns = conns.filter(c => c.provider === 'codex' && c.isActive);
+  // Include inactive accounts — they may just have an expired token that we can refresh
+  const codexConns = conns.filter(c => c.provider === 'codex' && c.refreshToken);
   if (codexConns.length === 0) return { skipped: 0, refreshed: 0, dbChanged: false };
 
   const bufferHours = CODEX_BUFFER_MINS / 60;
@@ -785,10 +786,25 @@ async function main() {
   refreshed += claudeResult.refreshed;
   if (claudeResult.dbChanged) dbChanged = true;
 
-  // ── Codex: 9Router handles codex refresh internally — skip to avoid refresh_token_reused conflict
-  // codex tokens last ~10 days; 9Router auto-refreshes them. Script must not touch them.
-  const codexConns = conns.filter(c => c.provider === 'codex');
-  skipped += codexConns.length;
+  // ── Codex: auto-refresh via OpenAI OAuth (same as kiro/claude) ──────────────
+  // Tokens expire every ~10 days. Refresh in the last 120min before expiry.
+  // NOTE: We run this BEFORE 9Router's internal refresh fires — if 9Router refreshes
+  // first and doesn't save, the refresh_token gets consumed and we can't use it.
+  // Running here ensures the token is saved to db.json reliably.
+  const codexResult = await handleCodexAccounts(conns, alerts);
+  skipped   += codexResult.skipped;
+  refreshed += codexResult.refreshed;
+  if (codexResult.dbChanged) dbChanged = true;
+  // Alert if ALL codex accounts are expired (need manual re-auth)
+  {
+    const codexAll = conns.filter(c => c.provider === 'codex');
+    if (codexAll.length > 0) {
+      const active = codexAll.filter(c => c.isActive && !['unavailable','error'].includes(c.testStatus));
+      if (active.length === 0 && codexAll.some(c => hoursUntilExpiry(c) < 0)) {
+        alerts.push(`⛔ [codex] ALL ${codexAll.length} accounts expired — re-authenticate at http://localhost:20128 → Providers → Codex`);
+      }
+    }
+  }
 
   for (const conn of conns) {
     const provider  = conn.provider;

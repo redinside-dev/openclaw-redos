@@ -7,7 +7,7 @@
       "name": "Telegram Approval Monitor (RED checks for approve/deny replies)",
       "enabled": true,
       "createdAtMs": 1772080522100,
-      "updatedAtMs": 1774151860365,
+      "updatedAtMs": 1774162467910,
       "schedule": {
         "kind": "cron",
         "expr": "*/2 * * * *",
@@ -28,14 +28,15 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1774151880000,
-        "lastRunAtMs": 1774151791986,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 68379,
-        "lastDeliveryStatus": "not-delivered",
-        "consecutiveErrors": 0,
-        "lastDelivered": false
+        "nextRunAtMs": 1774162767910,
+        "lastRunAtMs": 1774162446253,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 21657,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 3,
+        "lastDelivered": true,
+        "lastError": "⚠️ ✉️ Message: `20` failed"
       }
     },
     {
@@ -859,7 +860,7 @@
       "name": "OPS SLA Enforcement Check",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1774139257563,
+      "updatedAtMs": 1774160717727,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -880,14 +881,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774139228790,
-        "lastStatus": "ok",
-        "lastDurationMs": 28773,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
+        "lastRunAtMs": 1774160660618,
+        "lastStatus": "error",
+        "lastDurationMs": 57109,
+        "consecutiveErrors": 1,
+        "lastRunStatus": "error",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1774153295024,
-        "lastDelivered": true
+        "nextRunAtMs": 1774167860618,
+        "lastDelivered": true,
+        "lastError": "⚠️ ✉️ Message failed"
       }
     },
     {
@@ -896,7 +898,7 @@
       "name": "OPS System Health Monitor",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1774146465679,
+      "updatedAtMs": 1774160779116,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -918,12 +920,12 @@
       },
       "state": {
         "lastStatus": "ok",
-        "lastRunAtMs": 1774146404798,
-        "lastDurationMs": 60881,
+        "lastRunAtMs": 1774160717727,
+        "lastDurationMs": 61389,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1774153295024,
+        "nextRunAtMs": 1774164317727,
         "lastDelivered": true
       }
     },
@@ -960,7 +962,7 @@
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1774153603350,
+        "nextRunAtMs": 1774174895024,
         "lastDelivered": true
       }
     },
@@ -970,7 +972,7 @@
       "name": "OPS Ticket Auto-Diagnose & Fix",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1774150200907,
+      "updatedAtMs": 1774157566815,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -991,14 +993,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774149900875,
+        "lastRunAtMs": 1774157266804,
         "lastStatus": "error",
-        "lastDurationMs": 300032,
-        "consecutiveErrors": 1,
+        "lastDurationMs": 300011,
+        "consecutiveErrors": 3,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1774153500875,
-        "lastError": "Error: cron: job execution timed out",
+        "nextRunAtMs": 1774164095024,
         "lastErrorReason": "timeout"
       }
     },
@@ -1035,7 +1036,7 @@
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1774160865679,
+        "nextRunAtMs": 1774174895024,
         "lastDelivered": true
       }
     },
@@ -1268,7 +1269,7 @@
       "name": "OPS Task ETA Monitor",
       "enabled": true,
       "createdAtMs": 1771544316316,
-      "updatedAtMs": 1774151141625,
+      "updatedAtMs": 1774158831219,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1289,13 +1290,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774151107100,
+        "lastRunAtMs": 1774158825163,
         "lastStatus": "ok",
-        "lastDurationMs": 34525,
+        "lastDurationMs": 6056,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1774158307100,
+        "nextRunAtMs": 1774166025163,
         "lastDelivered": true
       }
     },
@@ -1305,7 +1306,7 @@
       "name": "9Router Quota Sync",
       "enabled": true,
       "createdAtMs": 1771576000000,
-      "updatedAtMs": 1774146846539,
+      "updatedAtMs": 1774154127293,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1326,14 +1327,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774146823074,
-        "lastStatus": "ok",
-        "lastDurationMs": 23465,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
-        "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1774154023074,
-        "lastDelivered": true
+        "lastRunAtMs": 1774154082255,
+        "lastStatus": "error",
+        "lastDurationMs": 45038,
+        "consecutiveErrors": 1,
+        "lastRunStatus": "error",
+        "lastDeliveryStatus": "unknown",
+        "nextRunAtMs": 1774168000000,
+        "lastError": "cron: job execution timed out",
+        "lastErrorReason": "timeout"
       }
     },
     {
@@ -1342,7 +1344,7 @@
       "name": "OPS Idle Agent Audit",
       "enabled": true,
       "createdAtMs": 1771544316316,
-      "updatedAtMs": 1774150746510,
+      "updatedAtMs": 1774161663766,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -1363,14 +1365,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774150734908,
+        "lastRunAtMs": 1774161619663,
         "lastStatus": "ok",
-        "lastDurationMs": 11602,
+        "lastDurationMs": 44103,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
-        "lastDeliveryStatus": "not-delivered",
-        "nextRunAtMs": 1774154334908,
-        "lastDelivered": false
+        "lastDeliveryStatus": "delivered",
+        "nextRunAtMs": 1774165219663,
+        "lastDelivered": true
       }
     },
     {
@@ -1397,16 +1399,16 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774149105410,
+        "lastRunAtMs": 1774159775241,
         "lastStatus": "ok",
-        "lastDurationMs": 85909,
+        "lastDurationMs": 40718,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
-        "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1774152705410,
-        "lastDelivered": true
+        "lastDeliveryStatus": "not-delivered",
+        "nextRunAtMs": 1774163375241,
+        "lastDelivered": false
       },
-      "updatedAtMs": 1774149191319
+      "updatedAtMs": 1774159815959
     },
     {
       "id": "hatake-daily-briefing-0001",
@@ -1449,7 +1451,7 @@
       "name": "Health JSONL Writer",
       "enabled": true,
       "createdAtMs": 1771695150814,
-      "updatedAtMs": 1774151572181,
+      "updatedAtMs": 1774161445325,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -1470,14 +1472,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774151564672,
+        "lastRunAtMs": 1774161430472,
         "lastStatus": "ok",
-        "lastDurationMs": 7509,
+        "lastDurationMs": 14853,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
-        "lastDeliveryStatus": "not-delivered",
-        "nextRunAtMs": 1774155164672,
-        "lastDelivered": false
+        "lastDeliveryStatus": "delivered",
+        "nextRunAtMs": 1774165030472,
+        "lastDelivered": true
       }
     },
     {
@@ -1578,7 +1580,7 @@
       "name": "ZEN COO Team Coordination Check",
       "enabled": true,
       "createdAtMs": 1771895567713,
-      "updatedAtMs": 1774149243419,
+      "updatedAtMs": 1774156656014,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1598,13 +1600,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774149231184,
+        "lastRunAtMs": 1774156545383,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 12235,
+        "lastDurationMs": 110631,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1774156431184,
+        "nextRunAtMs": 1774163745383,
         "lastDelivered": true
       }
     },
@@ -1675,7 +1677,7 @@
         "lastDurationMs": 46184,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1774158048854,
+        "nextRunAtMs": 1774172448854,
         "lastDelivered": true
       }
     },
@@ -1720,7 +1722,7 @@
       "name": "RED Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897377295,
-      "updatedAtMs": 1774151157713,
+      "updatedAtMs": 1774158866208,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1740,13 +1742,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774151141625,
+        "lastRunAtMs": 1774158831219,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 16088,
+        "lastDurationMs": 34989,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1774158341625,
+        "nextRunAtMs": 1774166031219,
         "lastDelivered": true
       }
     },
@@ -1756,7 +1758,7 @@
       "name": "ZEN Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897390213,
-      "updatedAtMs": 1774152048525,
+      "updatedAtMs": 1774159155742,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1776,13 +1778,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774151860365,
+        "lastRunAtMs": 1774159124165,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 188160,
+        "lastDurationMs": 31577,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1774159060365,
+        "nextRunAtMs": 1774166324165,
         "lastDelivered": true
       }
     },
@@ -1818,7 +1820,7 @@
         "lastDurationMs": 16530,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1774151952703,
+        "nextRunAtMs": 1774165391560,
         "lastDelivered": true
       }
     },
@@ -1854,7 +1856,7 @@
         "lastDurationMs": 92142,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1774151969233,
+        "nextRunAtMs": 1774165392835,
         "lastDelivered": true
       }
     },
@@ -1864,7 +1866,7 @@
       "name": "FINANCE Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897394350,
-      "updatedAtMs": 1774151161399,
+      "updatedAtMs": 1774159114689,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1884,13 +1886,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774151157713,
+        "lastRunAtMs": 1774159046460,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 3686,
+        "lastDurationMs": 68229,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1774158357713,
+        "nextRunAtMs": 1774166246460,
         "lastDelivered": true
       }
     },
@@ -1900,7 +1902,7 @@
       "name": "OPS Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897395722,
-      "updatedAtMs": 1774151461454,
+      "updatedAtMs": 1774159220031,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1920,15 +1922,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774151161399,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 300055,
-        "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 2,
-        "nextRunAtMs": 1774158361399,
-        "lastErrorReason": "timeout",
-        "lastError": "cron: job execution timed out"
+        "lastRunAtMs": 1774159155742,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 64289,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1774166355742,
+        "lastDelivered": true
       }
     },
     {
@@ -1963,7 +1964,7 @@
         "lastDurationMs": 14946,
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1774158772181,
+        "nextRunAtMs": 1774165397121,
         "lastDelivered": false
       }
     },
@@ -1999,7 +2000,7 @@
         "lastDurationMs": 10280,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1774158787127,
+        "nextRunAtMs": 1774165398357,
         "lastDelivered": true
       }
     },
@@ -2009,7 +2010,7 @@
       "name": "CI Event Logger (cron → ci-log.jsonl)",
       "enabled": true,
       "createdAtMs": 1771907000000,
-      "updatedAtMs": 1774142928322,
+      "updatedAtMs": 1774157169233,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -2030,13 +2031,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774142904524,
+        "lastRunAtMs": 1774157162285,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 23798,
+        "lastDurationMs": 6948,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1774153400000,
+        "nextRunAtMs": 1774164200000,
         "lastDelivered": true
       }
     },
@@ -2046,7 +2047,7 @@
       "name": "Self-Healing Guardrail: Health Snapshot → Tickets",
       "enabled": true,
       "createdAtMs": 1771907005000,
-      "updatedAtMs": 1774146817997,
+      "updatedAtMs": 1774161451921,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -2067,13 +2068,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774146768795,
+        "lastRunAtMs": 1774161445325,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 49202,
+        "lastDurationMs": 6596,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1774153968795,
+        "nextRunAtMs": 1774168645325,
         "lastDelivered": true
       }
     },
@@ -2232,7 +2233,7 @@
       "name": "ENG: Coding Factory — Self-Healing & PR Monitor",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1774138113617,
+      "updatedAtMs": 1774152805357,
       "schedule": {
         "kind": "cron",
         "expr": "0 */4 * * *",
@@ -2255,15 +2256,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774138079143,
+        "lastRunAtMs": 1774152598394,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 34474,
-        "lastDeliveryStatus": "not-delivered",
+        "lastDurationMs": 206963,
+        "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1774152214472,
-        "lastDelivered": false,
-        "runningAtMs": 1774152598066
+        "nextRunAtMs": 1774166614472,
+        "lastDelivered": true
       }
     },
     {
@@ -2310,7 +2310,7 @@
       "name": "RED Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1774152594000,
+      "updatedAtMs": 1774153409520,
       "schedule": {
         "kind": "cron",
         "expr": "0 */4 * * *",
@@ -2332,13 +2332,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774138043514,
+        "lastRunAtMs": 1774153379434,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 18052,
+        "lastDurationMs": 30086,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1774152055483,
+        "nextRunAtMs": 1774166455483,
         "lastDelivered": true
       }
     },
@@ -2348,7 +2348,7 @@
       "name": "RESEARCH Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1774144954083,
+      "updatedAtMs": 1774160552437,
       "schedule": {
         "kind": "cron",
         "expr": "30 */3 * * *",
@@ -2360,7 +2360,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 1800,
-        "message": "You are RESEARCH. Mine REAL developer pain points from live signals and write actionable project specs for ENG to implement.\n\nSTEP 1 — READ BACKLOG:\n- Read workspace/projects/backlog.md\n- Count how many rows have Status=READY. If >= 5, skip to STEP 5 (enough specs already).\n\nSTEP 2 — READ LIVE FEED (primary signal source):\n- Read workspace/ideas/twitter-feed.md (tweets about developer pain points)\n- Read workspace/ideas/reddit-feed.md (Reddit posts from r/programming, r/devops, r/MachineLearning)\n- Read workspace/ideas/ideas-index.json (scored idea list)\n- Pick the highest-scored idea from ideas-index.json that is NOT already in backlog.md\n- Note the source URL (tweet URL or Reddit post URL) — you MUST include it in the spec\n\nSTEP 3 — ALSO CHECK GITHUB TRENDING:\n- web_search(\"github trending repositories today AI developer tools\")\n- Pick ONE real trending repo and identify a specific pain point its users mention (issues, discussions)\n- Note the GitHub repo URL\n\nSTEP 4 — WRITE ONE NEW SPEC from a REAL pain point:\n- Use the signal from STEP 2 (live feed) OR STEP 3 (GitHub trending) — whichever is more concrete\n- The problem MUST be real and validated by community signal (include the source URL)\n- Create workspace/projects/<new-slug>/SPEC.md with:\n  ## Problem: <one sentence — real pain, cite source>\n  ## Source: <tweet URL, Reddit post URL, or GitHub repo URL>\n  ## Solution: <one sentence>\n  ## Stack: Python or Node.js\n  ## Files: list the 3-5 files ENG needs to create\n  ## Core logic: pseudocode, max 10 lines\n- Add row to workspace/projects/backlog.md: | N | <slug> | READY | — | <date>: RESEARCH wrote spec (source: <URL>) |\n\nSTEP 5 — NOTIFY ENG:\n- sessions_spawn(agentId=\"eng\", message=\"RESEARCH: new spec ready → workspace/projects/<slug>/SPEC.md — <one-line summary> (validated by: <source URL>)\")\n\nSTEP 6 — UPDATE STATE:\n- Update workspace/memory/working-research.json: {\"lastTask\": \"wrote spec for <slug>\", \"status\": \"completed\", \"nextTask\": \"mine more pain points\", \"timestamp\": \"<now>\"}\n- Append to workspace/logs/tasks-log.md: \"AUTO-RES | research | <datetime> UTC | done | wrote spec for <slug>\"\n- Post to Slack #redos-research (channel:C0AEV3J2L23): \"🔬 RESEARCH: new spec — <slug> (source: <URL>)\"\n\nNever invent pain points. Always cite the real source. ENG needs to ship in one 15-minute session.",
+        "message": "STEP 0 — CLAIM YOUR TASK FROM AUTONOMOUS.md (do this FIRST):\\n- Read /Users/redinside/.openclaw/workspace/AUTONOMOUS.md\\n- Find the first PENDING task assigned to you\\n- If found: mark it IN_PROGRESS, execute it fully, then mark DONE and append to /Users/redinside/.openclaw/workspace/tasks-log.md\\n- If no PENDING tasks: continue below\\n\\nYou are RESEARCH. Mine REAL developer pain points from live signals and write actionable project specs for ENG to implement.\n\nSTEP 1 — READ BACKLOG:\n- Read workspace/projects/backlog.md\n- Count rows with Status=READY. If >= 5, skip to STEP 5.\n\nSTEP 2 — READ LIVE FEED:\n- Read workspace/ideas/twitter-feed.md\n- Read workspace/ideas/reddit-feed.md\n\nSTEP 3 — MINE PAIN POINTS:\n- web_search('developer complaints frustrations 2026 site:reddit.com OR site:news.ycombinator.com')\n- Identify ONE specific, unmet need developers have\n\nSTEP 4 — WRITE SPEC:\n- Append a new row to workspace/projects/backlog.md with Status=READY\n\nSTEP 5 — DONE:\n- Append one-line summary to workspace/memory/2026-03-22.md",
         "model": "research-deep"
       },
       "delivery": {
@@ -2370,14 +2370,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774144861375,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 92708,
+        "lastRunAtMs": 1774154806115,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 67322,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0,
-        "nextRunAtMs": 1774153800000,
-        "lastDelivered": true
+        "consecutiveErrors": 1,
+        "nextRunAtMs": 1774164600000,
+        "lastDelivered": true,
+        "lastError": "⚠️ 📝 Edit: `in ~/.openclaw/workspace/logs/tasks-log.md (96 chars)` failed"
       }
     },
     {
@@ -2386,7 +2387,7 @@
       "name": "OPS Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1774140111832,
+      "updatedAtMs": 1774160554814,
       "schedule": {
         "kind": "cron",
         "expr": "15 */4 * * *",
@@ -2398,7 +2399,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 600,
-        "message": "You are OPS (Scrum Master + DevOps). Run your inner cognitive loop.\n\nSTEP 1 — READ STATE:\n- Read workspace/goals/goals-ops.json\n- Read workspace/memory/state-ops.json (create if missing)\n- Read workspace/ops/TICKET-TRACKER.md\n- Read workspace/memory/YYYY-MM-DD.md\n\nSTEP 2 — ORIENT:\n- Is any ticket past its SLA right now?\n- Is the system healthy? (check logs/health.jsonl if it exists)\n- Has a2a-delegations.jsonl been updated today?\n- Is any agent silent for too long?\n\nSTEP 3 — ACT (pick the highest-urgency action):\nGood proactive OPS actions:\n- If a ticket is past SLA: sessions_send the assignee immediately\n- If a2a-delegations.jsonl is empty: sessions_send RED to alert\n- If health check shows failures: diagnose and fix or open a ticket\n- If an agent hasn't posted to Slack in 24h: sessions_send them to check in\n- Update ticket statuses that have been resolved\n- Write a brief system health summary to workspace/ops/agent-status/ops.json\n\nSTEP 4 — REFLECT + UPDATE STATE:\n- Append to workspace/memory/YYYY-MM-DD.md\n- Update workspace/memory/state-ops.json\n- Update workspace/goals/goals-ops.json\n- Log A2A interactions to logs/a2a-delegations.jsonl\n\nYou are the system's immune system. If something is wrong, YOU find it and fix it — before anyone asks."
+        "message": "STEP 0 — CLAIM YOUR TASK FROM AUTONOMOUS.md (do this FIRST):\\n- Read /Users/redinside/.openclaw/workspace/AUTONOMOUS.md\\n- Find the first PENDING task assigned to you\\n- If found: mark it IN_PROGRESS, execute it fully, then mark DONE and append to /Users/redinside/.openclaw/workspace/tasks-log.md\\n- If no PENDING tasks: continue below\\n\\nYou are OPS. Run your inner cognitive loop.\n\nSTEP 1 — READ STATE:\n- Read workspace/STATE.yaml\n- Read workspace/ops/TICKET-TRACKER.md\n\nSTEP 2 — HEALTH CHECK:\n- exec: tail -20 /Users/redinside/.openclaw/logs/gateway.err.log\n- Check cron errors: openclaw cron list — any with consecutiveErrors > 2?\n\nSTEP 3 — ACT:\n- Fix any broken crons or error conditions found\n- Update workspace/STATE.yaml if stale\n- Close or escalate any tickets past SLA\n\nSTEP 4 — LOG:\n- Append one-line summary to workspace/memory/2026-03-22.md"
       },
       "delivery": {
         "mode": "announce",
@@ -2407,13 +2408,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774140067852,
+        "lastRunAtMs": 1774153955608,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 43980,
+        "lastDurationMs": 39188,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1774152900000,
+        "nextRunAtMs": 1774167300000,
         "lastDelivered": true
       }
     },
@@ -2423,7 +2424,7 @@
       "name": "INFOSEC Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1774141952098,
+      "updatedAtMs": 1774160559494,
       "schedule": {
         "kind": "cron",
         "expr": "45 */4 * * *",
@@ -2435,7 +2436,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 600,
-        "message": "You are INFOSEC. Run your inner cognitive loop.\n\nSTEP 1 — READ STATE:\n- Read workspace/goals/goals-infosec.json\n- Read workspace/memory/state-infosec.json (create if missing)\n- Read workspace/ops/TICKET-TRACKER.md for security-related tickets\n- Read workspace/memory/YYYY-MM-DD.md\n\nSTEP 2 — ORIENT:\n- Is there any security concern I've been sitting on?\n- Has ENG made any changes I should review?\n- Are there any new tools or integrations that need a security review?\n- Is there anything in the system that looks risky?\n\nSTEP 3 — ACT:\nGood proactive INFOSEC actions:\n- Scan workspace/ops/TICKET-TRACKER.md for security-tagged tickets\n- Review recent ENG commits or changes (check workspace-eng/ for new files)\n- If a concern exists: sessions_send RED immediately (don't wait)\n- If ENG is building something: sessions_send ENG proactively to offer a security review\n- Update workspace/ops/SECURITY-HARDENING.md with new findings\n- Check exec-approvals.json for any unusual approval patterns\n\nSTEP 4 — REFLECT + UPDATE STATE:\n- Append to workspace/memory/YYYY-MM-DD.md\n- Update workspace/memory/state-infosec.json\n- Update workspace/goals/goals-infosec.json\n- Log A2A interactions to logs/a2a-delegations.jsonl\n\nYou are the team's security conscience. Don't wait to be asked. If you see a risk, speak up immediately."
+        "message": "STEP 0 — CLAIM YOUR TASK FROM AUTONOMOUS.md (do this FIRST):\\n- Read /Users/redinside/.openclaw/workspace/AUTONOMOUS.md\\n- Find the first PENDING task assigned to you\\n- If found: mark it IN_PROGRESS, execute it fully, then mark DONE and append to /Users/redinside/.openclaw/workspace/tasks-log.md\\n- If no PENDING tasks: continue below\\n\\nYou are INFOSEC. Run your inner cognitive loop.\n\nSTEP 1 — READ STATE:\n- Read workspace/ops/TICKET-TRACKER.md\n- Check for any L3 approvals pending\n\nSTEP 2 — SECURITY SCAN:\n- exec: git diff --cached 2>/dev/null | grep -E 'AAF[0-9A-Za-z_-]{30}|ghp_|sk-|AKIA' | head -5 || echo 'no staged secrets'\n\nSTEP 3 — ACT:\n- Follow up on L3-001 (per-agent shell scope) if RED hasn't responded in 3 days\n- sessions_spawn main with L3-001 decision request if unresolved\n\nSTEP 4 — LOG:\n- Append one-line summary to workspace/memory/2026-03-22.md"
       },
       "delivery": {
         "mode": "announce",
@@ -2444,13 +2445,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774141744751,
+        "lastRunAtMs": 1774154793424,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 207347,
+        "lastDurationMs": 12691,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1774154700000,
+        "nextRunAtMs": 1774169100000,
         "lastDelivered": true
       }
     },
@@ -2460,7 +2461,7 @@
       "name": "ENG Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1774145200970,
+      "updatedAtMs": 1774160595274,
       "schedule": {
         "kind": "cron",
         "expr": "30 1,5,9,13,17,21 * * *",
@@ -2472,7 +2473,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 1800,
-        "message": "You are ENG. Ship ONE project from the backlog to GitHub. Do it now.\n\nSTEP 1 — PICK PROJECT:\n- Read file at absolute path: /Users/redinside/.openclaw/workspace/projects/backlog.md\n- Pick the first row where Status=READY and GitHub Repo=\"—\"\n- Preferred: a2a-protocol, then pr-auto-reviewer, then agent-loop-detection\n- Set SLUG to that value (e.g. a2a-protocol)\n\nSTEP 2 — READ SPEC:\n- Read /Users/redinside/.openclaw/workspace/projects/<SLUG>/SPEC.md\n\nSTEP 3 — SETUP REPO:\n- Read ANURAGG_TOKEN from /Users/redinside/.openclaw/credentials/secrets.json → github.anuragg-saxenaa\n- exec: GH_TOKEN=$ANURAGG_TOKEN gh repo create anuragg-saxenaa/<SLUG> --public --description \"AI agent utility: <SLUG>\" 2>/dev/null || echo \"exists\"\n- exec: git clone https://anuragg-saxenaa:${ANURAGG_TOKEN}@github.com/anuragg-saxenaa/<SLUG>.git /tmp/build-<SLUG> 2>&1 || (mkdir -p /tmp/build-<SLUG> && cd /tmp/build-<SLUG> && git init && git remote add origin https://anuragg-saxenaa:${ANURAGG_TOKEN}@github.com/anuragg-saxenaa/<SLUG>.git)\n\nSTEP 4 — IMPLEMENT:\nWrite all files from SPEC.md into /tmp/build-<SLUG>/. Real working code, <100 lines each.\nFor TypeScript: include package.json with name, version, scripts.start.\nInclude README.md with 2-step setup and usage example.\n\nSTEP 5 — COMMIT AND PUSH:\n- exec: cd /tmp/build-<SLUG> && git config user.email \"anuragg.saxenaa@gmail.com\" && git config user.name \"anuragg-saxenaa\" && git remote set-url origin https://anuragg-saxenaa:${ANURAGG_TOKEN}@github.com/anuragg-saxenaa/<SLUG>.git && git add -A && git commit -m \"feat: initial implementation\" && git branch -M main && git push -u origin main --force 2>&1\n\nSTEP 6 — LOG:\n- Update /Users/redinside/.openclaw/workspace/projects/backlog.md: set <SLUG> row Status=SHIPPED, GitHub Repo=https://github.com/anuragg-saxenaa/<SLUG>\n- Append to /Users/redinside/.openclaw/workspace/projects/pr-log.md: \"| 2026-03-14 | <SLUG> | https://github.com/anuragg-saxenaa/<SLUG> | initial implementation |\"\n- Append to /Users/redinside/.openclaw/workspace/logs/tasks-log.md: \"AUTO-ENG | eng | <ISO datetime> | done | shipped <SLUG>\"\n- Post Slack channel:C0AFW1B0QUB: \"💻 ENG shipped: <SLUG> → https://github.com/anuragg-saxenaa/<SLUG>\"\n\nANTI-LOOP: If any exec fails 2x with same error → STOP. Write error to tasks-log.md.",
+        "message": "STEP 0 — CLAIM YOUR TASK FROM AUTONOMOUS.md (do this FIRST):\\n- Read /Users/redinside/.openclaw/workspace/AUTONOMOUS.md\\n- Find the first PENDING task assigned to eng\\n- If found: mark it IN_PROGRESS, execute it fully, mark DONE, append to /Users/redinside/.openclaw/workspace/tasks-log.md, then STOP (don't do STEP 1 below)\\n- If no PENDING tasks: continue to STEP 1\\n\\nYou are ENG. Ship ONE project from the backlog to GitHub. Do it now.\n\nSTEP 1 — PICK PROJECT:\n- Read /Users/redinside/.openclaw/workspace/projects/backlog.md\n- Pick first row where Status=READY and GitHub Repo=\"—\"\n\nSTEP 2 — READ SPEC:\n- Read the SPEC.md file at /Users/redinside/.openclaw/workspace/projects/${SLUG}/SPEC.md\n\nSTEP 3 — IMPLEMENT:\n- Create GitHub repo: gh repo create anuragg-saxenaa/${SLUG} --public\n- Clone, implement MVP from spec, commit, push\n- Open PR\n\nSTEP 4 — LOG:\n- Update backlog.md row: Status=DONE, GitHub Repo=URL\n- Append to workspace/projects/pr-log.md\n- Post to Slack #redos-eng",
         "model": "coding-factory"
       },
       "delivery": {
@@ -2482,13 +2483,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774145164063,
+        "lastRunAtMs": 1774159220031,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 36907,
+        "lastDurationMs": 38021,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1774157400000,
+        "nextRunAtMs": 1774171800000,
         "lastDelivered": true
       }
     },
@@ -2536,7 +2537,7 @@
       "name": "ZEN Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1774141603433,
+      "updatedAtMs": 1774160518903,
       "schedule": {
         "kind": "cron",
         "expr": "0 */3 * * *",
@@ -2549,7 +2550,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 600,
-        "message": "You are ZEN (COO). Run your inner cognitive loop.\n\nSTEP 1 — READ STATE:\n- Read workspace/goals/goals-allrounder.json\n- Read workspace/memory/state-allrounder.json\n- Read workspace/memory/working-allrounder.json (create if missing)\n- Read all workspace/ops/agent-status/*.json files\n- Read workspace/memory/YYYY-MM-DD.md\n\nSTEP 2 — ORIENT:\n- What is the team working on right now?\n- Is there information flowing between agents that should be flowing?\n- Is there a current event or news item the team should know about?\n- Is there an agent who seems stuck or silent?\n\nSTEP 3 — ACT (pick ONE, do it fully):\nGood proactive ZEN actions:\n- Run web_search on a topic relevant to the team's current work and share findings\n- Synthesize today's agent activity into a brief and post to #redos-mission-control\n- sessions_send an agent who seems stuck or silent to check in\n- sessions_send RED with a synthesis of what the team is doing\n- Search for OpenClaw updates or new features: web_search('OpenClaw AI agent new features 2026')\n- Route a piece of information from one agent to another who needs it\n\nSTEP 4 — REFLECT + UPDATE STATE:\n- Append to workspace/memory/YYYY-MM-DD.md\n- Update workspace/memory/state-allrounder.json\n- Update workspace/goals/goals-allrounder.json\n- Update workspace/memory/working-allrounder.json\n- Log A2A interactions to logs/a2a-delegations.jsonl\n\nYou are the connective tissue. Make information flow."
+        "message": "STEP 0 — CLAIM YOUR TASK FROM AUTONOMOUS.md (do this FIRST, before anything else):\\n- Read /Users/redinside/.openclaw/workspace/AUTONOMOUS.md\\n- Find the first task assigned to you with status PENDING\\n- If found: mark it IN_PROGRESS (edit the file, change PENDING → IN_PROGRESS), then execute it fully before doing anything else\\n- After completing it: mark it DONE and append to /Users/redinside/.openclaw/workspace/tasks-log.md\\n- If no PENDING tasks assigned to you: continue with the steps below\\n\\nYou are ZEN (COO). Run your inner cognitive loop.\n\nSTEP 1 — READ STATE:\n- Read workspace/goals/goals-allrounder.json\n- Read workspace/memory/state-allrounder.json\n- Read workspace/memory/working-allrounder.json (create if missing)\n- Read workspace/ops/agent-status/*.json files if they exist\n- Read workspace/memory/2026-03-22.md if it exists\n\nSTEP 2 — ORIENT:\n- What is the team working on right now?\n- Is there an agent who seems stuck or silent?\n\nSTEP 3 — ACT (pick ONE):\n- Run web_search on a topic relevant to the team's current work and share findings\n- Synthesize today's agent activity into a brief and post to #redos-mission-control\n- sessions_spawn an agent who seems stuck or silent\n\nSTEP 4 — REFLECT:\n- Append one-line summary to workspace/memory/2026-03-22.md"
       },
       "delivery": {
         "mode": "announce",
@@ -2558,14 +2559,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774141572760,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 30673,
+        "lastRunAtMs": 1774153261489,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 117945,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0,
-        "nextRunAtMs": 1774152125759,
-        "lastDelivered": true
+        "consecutiveErrors": 1,
+        "nextRunAtMs": 1774162925759,
+        "lastDelivered": true,
+        "lastError": "⚠️ ✉️ Message failed"
       }
     },
     {
@@ -2574,7 +2576,7 @@
       "name": "FINANCE Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1774138043514,
+      "updatedAtMs": 1774160557151,
       "schedule": {
         "kind": "cron",
         "expr": "0 8,14,20 * * *",
@@ -2586,7 +2588,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 600,
-        "message": "You are FINANCE. Run your inner cognitive loop.\n\nSTEP 1 — READ STATE:\n- Read workspace/goals/goals-finance.json\n- Read workspace/memory/state-finance.json\n- Read workspace/memory/working-finance.json (create if missing)\n- Read workspace/tmp/provider-quota.json if it exists\n\nSTEP 2 — ORIENT:\n- What is the current model spend today?\n- Are there any cost anomalies I should flag?\n- Has RED received a cost report recently?\n- Are we using expensive models where cheap ones would work?\n\nSTEP 3 — ACT (pick ONE, do it fully):\nGood proactive FINANCE actions:\n- Check provider-quota.json and calculate today's estimated spend\n- If spend looks anomalous: sessions_send RED immediately with alert\n- If no cost report this week: generate one and post to #redos-mission-control\n- Identify the top 3 most expensive cron jobs and recommend cheaper model alternatives\n- sessions_send RED with a brief cost update: 'FINANCE here — today's spend is X, on track/anomaly'\n- Check if free-unlimited model route is being used as fallback appropriately\n\nSTEP 4 — REFLECT + UPDATE STATE:\n- Append to workspace/memory/YYYY-MM-DD.md\n- Update workspace/memory/state-finance.json\n- Update workspace/goals/goals-finance.json\n- Update workspace/memory/working-finance.json\n- Log A2A interactions to logs/a2a-delegations.jsonl\n\nCost visibility is your core value. Produce it."
+        "message": "STEP 0 — CLAIM YOUR TASK FROM AUTONOMOUS.md (do this FIRST):\\n- Read /Users/redinside/.openclaw/workspace/AUTONOMOUS.md\\n- Find the first PENDING task assigned to you\\n- If found: mark it IN_PROGRESS, execute it fully, then mark DONE and append to /Users/redinside/.openclaw/workspace/tasks-log.md\\n- If no PENDING tasks: continue below\\n\\nYou are FINANCE. Run your inner cognitive loop.\n\nSTEP 1 — READ STATE:\n- Read workspace/finance/cost-snapshot-2026-03-17.md if exists\n- Read workspace/AUTONOMOUS.md (already done in STEP 0)\n\nSTEP 2 — CHECK SPEND:\n- exec: tail -20 /Users/redinside/.openclaw/logs/cost-events.jsonl 2>/dev/null || echo 'no cost log'\n\nSTEP 3 — ACT:\n- Flag any unexpected cost spikes\n- Check if ChatGPT Pro cancellation saving has been actioned\n\nSTEP 4 — LOG:\n- Append one-line summary to workspace/memory/2026-03-22.md"
       },
       "delivery": {
         "mode": "announce",
@@ -2683,7 +2685,7 @@
       "name": "9Router Token Auto-Refresh (every 4min)",
       "enabled": true,
       "createdAtMs": 1773613008959,
-      "updatedAtMs": 1774152108592,
+      "updatedAtMs": 1774162664955,
       "schedule": {
         "kind": "every",
         "everyMs": 240000,
@@ -2704,15 +2706,14 @@
         "bestEffort": true
       },
       "state": {
-        "consecutiveErrors": 1,
-        "lastRunAtMs": 1774152048525,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "nextRunAtMs": 1774152288525,
-        "lastDurationMs": 60067,
-        "lastDeliveryStatus": "unknown",
-        "lastErrorReason": "timeout",
-        "runningAtMs": 1774152598066
+        "consecutiveErrors": 0,
+        "lastRunAtMs": 1774162649554,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "nextRunAtMs": 1774162889554,
+        "lastDurationMs": 15401,
+        "lastDeliveryStatus": "delivered",
+        "lastDelivered": true
       }
     },
     {
@@ -2813,7 +2814,7 @@
       "name": "telegram-approval-monitor-0001",
       "enabled": true,
       "createdAtMs": 1773813382934,
-      "updatedAtMs": 1774152195340,
+      "updatedAtMs": 1774162647469,
       "schedule": {
         "expr": "*/2 * * * *",
         "tz": "America/Toronto",
@@ -2835,15 +2836,15 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1774152240000,
-        "lastRunAtMs": 1774152108611,
+        "nextRunAtMs": 1774162680000,
+        "lastRunAtMs": 1774162599350,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 86729,
-        "lastDeliveryStatus": "not-delivered",
+        "lastDurationMs": 48119,
+        "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "lastDelivered": false,
-        "runningAtMs": 1774152598066
+        "lastDelivered": true,
+        "runningAtMs": 1774162711538
       }
     },
     {
@@ -2853,7 +2854,7 @@
       "name": "OPS Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1773834355839,
-      "updatedAtMs": 1774151789856,
+      "updatedAtMs": 1774162709453,
       "schedule": {
         "kind": "every",
         "everyMs": 60000,
@@ -2872,11 +2873,11 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1774151815839,
-        "lastRunAtMs": 1774151695889,
+        "nextRunAtMs": 1774162724955,
+        "lastRunAtMs": 1774162664955,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 93967,
+        "lastDurationMs": 44498,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
         "lastDelivered": true
@@ -2888,7 +2889,7 @@
       "name": "Sync AUTONOMOUS.md -> queue.json",
       "enabled": true,
       "createdAtMs": 1773854383010,
-      "updatedAtMs": 1774152202698,
+      "updatedAtMs": 1774162528101,
       "schedule": {
         "kind": "cron",
         "expr": "*/5 * * * *",
@@ -2908,15 +2909,14 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1774152300000,
-        "lastRunAtMs": 1774152195340,
+        "nextRunAtMs": 1774162800000,
+        "lastRunAtMs": 1774162522614,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 7358,
+        "lastDurationMs": 5487,
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
-        "lastDelivered": false,
-        "runningAtMs": 1774152598066
+        "lastDelivered": false
       }
     },
     {
@@ -2926,7 +2926,7 @@
       "name": "ops-disk-monitor-daily-2026-02-22",
       "enabled": true,
       "createdAtMs": 1773951459762,
-      "updatedAtMs": 1774073154465,
+      "updatedAtMs": 1774161463382,
       "schedule": {
         "expr": "0 2 * * *",
         "kind": "cron"
@@ -2942,14 +2942,14 @@
         "channel": "telegram"
       },
       "state": {
-        "nextRunAtMs": 1774159200000,
-        "lastRunAtMs": 1774073147758,
+        "nextRunAtMs": 1774245600000,
+        "lastRunAtMs": 1774161451921,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 6707,
+        "lastDurationMs": 11461,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 2,
-        "lastError": "Channel is required when multiple channels are configured: telegram, slack Set delivery.channel explicitly or use a main session with a previous channel."
+        "consecutiveErrors": 3,
+        "lastError": "Delivering to Telegram requires target <chatId>"
       }
     },
     {
@@ -2990,7 +2990,7 @@
       "name": "Factory: 9router IssueWatcher — Poll & Process",
       "enabled": true,
       "createdAtMs": 1774080643339,
-      "updatedAtMs": 1774151655541,
+      "updatedAtMs": 1774161285255,
       "schedule": {
         "kind": "cron",
         "expr": "*/15 * * * *",
@@ -3012,11 +3012,11 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1774152042858,
-        "lastRunAtMs": 1774151606520,
+        "nextRunAtMs": 1774162842858,
+        "lastRunAtMs": 1774161197311,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 49021,
+        "lastDurationMs": 87944,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 0
       }
