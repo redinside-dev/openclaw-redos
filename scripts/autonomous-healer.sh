@@ -18,7 +18,7 @@ set -euo pipefail
 OPENCLAW="$HOME/.openclaw"
 LOG="$OPENCLAW/logs/healer.log"
 TELEGRAM_CHAT="1012034994"
-TELEGRAM_TOKEN=$(cat "$OPENCLAW/workspace/config/telegram-bot-token.txt" 2>/dev/null || echo "")
+TELEGRAM_TOKEN=$(python3 -c "import json; d=json.load(open('$OPENCLAW/credentials/secrets.json')); print(d['channels']['telegram']['accounts']['default'])" 2>/dev/null || echo "")
 NINE_ROUTER_DB="$HOME/.9router/db.json"
 
 ts() { date -u +"%Y-%m-%dT%H:%M:%SZ"; }
@@ -69,12 +69,18 @@ check_gateway() {
   local code
   code=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:18789/health --max-time 5 2>/dev/null || echo "000")
   if [ "$code" != "200" ]; then
-    log "OpenClaw gateway down (HTTP $code) — restarting"
+    log "OpenClaw gateway down (HTTP $code) — checking config first"
+    # Auto-fix invalid config keys before trying to restart
+    local doctor_out
+    doctor_out=$(openclaw doctor --fix 2>&1 || true)
+    if echo "$doctor_out" | grep -q "Unrecognized key\|Config invalid\|Updated"; then
+      log "Config issues detected and fixed by doctor --fix"
+    fi
     bash "$OPENCLAW/scripts/redos-restart.sh" > /dev/null 2>&1 || true
     sleep 8
     code=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:18789/health --max-time 5 2>/dev/null || echo "000")
     if [ "$code" = "200" ]; then
-      fixed "OpenClaw gateway restarted"
+      fixed "OpenClaw gateway restarted (config fixed + stack restarted)"
     else
       alert "⛔ *OpenClaw Gateway DOWN* — restart attempted but still not responding."
     fi

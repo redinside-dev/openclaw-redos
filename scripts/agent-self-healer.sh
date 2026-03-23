@@ -13,7 +13,7 @@
 
 OPENCLAW="$HOME/.openclaw"
 TELEGRAM_CHAT="1012034994"
-TELEGRAM_TOKEN=$(cat "$OPENCLAW/workspace/config/telegram-bot-token.txt" 2>/dev/null || echo "")
+TELEGRAM_TOKEN=$(python3 -c "import json; d=json.load(open('$OPENCLAW/credentials/secrets.json')); print(d['channels']['telegram']['accounts']['default'])" 2>/dev/null || echo "")
 
 ts() { date -u +"%Y-%m-%dT%H:%M:%SZ"; }
 log() { echo "[$(ts)] $*"; }
