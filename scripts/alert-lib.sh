@@ -7,11 +7,13 @@ TELEGRAM_CHAT="${TELEGRAM_CHAT:-1012034994}"
 TOKEN_FILE="${TOKEN_FILE:-$HOME/.openclaw/workspace/config/telegram-bot-token.txt}"
 N8N_SLACK_WEBHOOK="${N8N_SLACK_WEBHOOK:-http://127.0.0.1:5678/webhook/slack-post}"
 OPS_SLACK_CHANNEL="${OPS_SLACK_CHANNEL:-C0AGFA9417T}"
+# Resolve live token from credentials/secrets.json (authoritative source)
+TELEGRAM_TOKEN=$(python3 -c "import json; d=json.load(open('$HOME/.openclaw/credentials/secrets.json')); print(d['channels']['telegram']['accounts']['default'])" 2>/dev/null || cat "$TOKEN_FILE" 2>/dev/null | tr -d '\n' || echo "")
 
 send_telegram_direct() {
   local msg="$1"
   local token
-  token="${TELEGRAM_TOKEN:-$(cat "$TOKEN_FILE" 2>/dev/null | tr -d '\n')}"
+  token="${TELEGRAM_TOKEN:-}"
   [[ -z "$token" ]] && return 1
   local tmpfile
   tmpfile=$(mktemp /tmp/tg-alert-XXXXXX.json)

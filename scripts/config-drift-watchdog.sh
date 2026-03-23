@@ -29,11 +29,28 @@ if echo "$RESULT" | grep -q "Config valid"; then
   exit 0
 fi
 
-# Config is invalid
+# Config is invalid — AUTO-FIX FIRST, then alert if still broken
 ERRORS=$(echo "$RESULT" | grep -E "Unrecognized|invalid|Missing" | head -5 | tr '\n' ' ')
-log "ALERT: config invalid — $ERRORS"
+log "Config invalid — attempting auto-fix via doctor --fix: $ERRORS"
 
-# Cooldown check
+openclaw doctor --fix >> "$LOG" 2>&1 || true
+
+# Re-check after fix
+RESULT2=$(openclaw config validate 2>&1)
+if echo "$RESULT2" | grep -q "Config valid"; then
+  log "FIXED: doctor --fix resolved config issues"
+  # Restart gateway so it picks up the fixed config
+  bash "$HOME/.openclaw/scripts/redos-restart.sh" > /dev/null 2>&1 || true
+  send_telegram_direct "✅ <b>[OpenClaw AutoFix]</b> Config drift detected and auto-fixed.
+Invalid keys removed, gateway restarted.
+Was: <code>$ERRORS</code>"
+  rm -f "$ALERT_STATE"
+  exit 0
+fi
+
+# Still broken after fix — escalate
+log "ALERT: doctor --fix could not resolve — $ERRORS"
+
 NOW=$(date +%s)
 LAST_ALERT=0
 [[ -f "$ALERT_STATE" ]] && LAST_ALERT=$(cat "$ALERT_STATE" 2>/dev/null || echo 0)
@@ -46,15 +63,12 @@ fi
 echo "$NOW" > "$ALERT_STATE"
 
 OPENCLAW_VER=$(openclaw --version 2>/dev/null || echo "unknown")
-send_telegram_direct "🚨 <b>[OpenClaw Config Drift]</b>
-Config schema is INVALID after update to <code>${OPENCLAW_VER}</code>.
-Agents will crash-loop until fixed.
+send_telegram_direct "🚨 <b>[OpenClaw Config Drift — NEEDS MANUAL FIX]</b>
+Config is INVALID and auto-fix failed (v<code>${OPENCLAW_VER}</code>).
 
 Errors: <code>${ERRORS}</code>
 
-Run on Mac Mini:
-<code>openclaw doctor</code>
-<code>bash ~/.openclaw/scripts/redos-restart.sh</code>"
+Run: <code>openclaw doctor --fix &amp;&amp; bash ~/.openclaw/scripts/redos-restart.sh</code>"
 
 log "ALERT sent"
 exit 1
