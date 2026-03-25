@@ -356,14 +356,17 @@ def _find_stale_tasks(content: str) -> list[str]:
     return stale
 
 def _has_recent_completions(tasks_log: str, hours: int = 24) -> bool:
-    """Check if tasks-log.md has entries from the last N hours."""
+    """Check if tasks-log.md has entries from the last N hours.
+    Compares by date only (not midnight UTC) so yesterday's entries count
+    when hours=24 and the cutoff falls partway through the prior day.
+    """
     if not tasks_log:
         return False
-    cutoff = now_dt() - timedelta(hours=hours)
+    cutoff = (now_dt() - timedelta(hours=hours)).date()
     date_pattern = re.compile(r'(\d{4}-\d{2}-\d{2})')
     for m in date_pattern.finditer(tasks_log[-5000:]):
         try:
-            d = datetime.strptime(m.group(1), "%Y-%m-%d").replace(tzinfo=timezone.utc)
+            d = datetime.strptime(m.group(1), "%Y-%m-%d").date()
             if d >= cutoff:
                 return True
         except Exception:
