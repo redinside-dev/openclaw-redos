@@ -11,7 +11,7 @@ LOCK="/tmp/openclaw-telegram-deadman.lock"
 LOG="$HOME/.openclaw/logs/telegram-deadman.log"
 GATEWAY_LOG="$HOME/.openclaw/logs/gateway.log"
 ALERT_STATE="/tmp/openclaw-telegram-deadman-alerted.txt"
-DEAD_THRESHOLD=900   # 15 minutes in seconds
+DEAD_THRESHOLD=1800  # 30 minutes in seconds (only real sendMessage/messageReceived counts)
 STARTUP_GRACE=180    # 3 minutes — don't kill a gateway that just started
 OPENCLAW="/opt/homebrew/bin/openclaw"
 
@@ -38,9 +38,10 @@ if ! is_gateway_up; then
   exit 0
 fi
 
-# Find most recent Telegram activity in gateway.log
-# Note: starting provider lines include accountId: "[telegram] [default] starting provider"
-LAST_LINE=$(grep -E '\[telegram\].*(sendMessage ok|starting provider|messageReceived)' \
+# Find most recent REAL Telegram activity in gateway.log
+# Only count actual message traffic — not bot startup lines.
+# "starting provider" lines fire on every gateway restart and would mask true silence.
+LAST_LINE=$(grep -E '\[telegram\].*(sendMessage ok|messageReceived)' \
   "$GATEWAY_LOG" 2>/dev/null | tail -1)
 
 if [[ -z "$LAST_LINE" ]]; then
@@ -93,8 +94,8 @@ log "ALERT: Telegram silent ${AGE}s — restarting gateway to reconnect provider
 pkill -f "openclaw.*gateway" >> "$LOG" 2>&1 || true
 sleep 30
 
-# Check if Telegram providers came back up (fix: use .* like the detection above)
-NEW_LINE=$(grep -E '\[telegram\].*(sendMessage ok|starting provider|messageReceived)' \
+# Check if real Telegram activity appeared after restart
+NEW_LINE=$(grep -E '\[telegram\].*(sendMessage ok|messageReceived)' \
   "$GATEWAY_LOG" 2>/dev/null | tail -1)
 NEW_TS=$(echo "$NEW_LINE" | awk '{print $1}')
 NEW_CLEAN="${NEW_TS%%.*}"

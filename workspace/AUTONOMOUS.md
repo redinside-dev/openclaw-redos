@@ -49,7 +49,7 @@
 
 **FINANCE-2026-0313-001** | DONE | finance | Cost report March 2026 — $460/mo fixed, $0 variable.
 
-**FINANCE-2026-0317-001** | BLOCKED | finance | [BLOCKED 2026-03-23: ChatGPT Pro cancellation requires RED action — account credentials/login access needed. FIN-001 still OPEN in TICKET-TRACKER.md. web_search confirmed working 2026-03-23. Cost snapshot not yet written. Awaiting RED to confirm cancellation executed.]
+**FINANCE-2026-0317-001** | PENDING | finance | [PENDING 2026-03-26: ChatGPT Pro cancellation requires RED action — account credentials/login access needed. FIN-001 still OPEN in TICKET-TRACKER.md. web_search confirmed working 2026-03-23. Cost snapshot not yet written. Awaiting RED to confirm cancellation executed.]
 
 ---
 
@@ -122,3 +122,94 @@ Archived 2026-03-24: ~100 duplicate CONSULTANT TASK entries (UUID-only noise) in
 
 ## CONSULTANT TASKS — ARCHIVED BATCH 2 (2026-03-24/25 noise, all duplicate)
 Archived 2026-03-25: ~25 more duplicate CONSULTANT-OPS PENDING entries from same recurring loop. All noise — no real issues. OPS to investigate and disable the cron that generates these.
+
+## CONSULTANT TASK (injected 2026-03-25T22:15:29Z)
+
+**CONSULTANT-OPS-20260325181529** | PENDING (2026-03-25T22:15:29Z) | ops | CONSULTANT ALERT: No task completions detected in the last 24 hours. Please check if all agents are operational. Run a health check, report any stuck agents to workspace/ops/TICKET-TRACKER.md, and inject fresh tasks into workspace/AUTONOMOUS.md to restart activity.
+
+## CONSULTANT TASK (injected 2026-03-25T22:15:29Z)
+
+**CONSULTANT-OPS-20260325181529** | PENDING (2026-03-25T22:15:29Z) | ops | CONSULTANT ISSUE [L1]: 1 cron jobs with consecutive errors
+49a2a358-c369-4419-a5be-524b6c20150e
+
+## CONSULTANT TASK (injected 2026-03-25T22:15:29Z)
+
+**CONSULTANT-RESEARCH-20260325181529** | PENDING (2026-03-25T22:15:29Z) | research | CONSULTANT: Coding factory pipeline has stalled — no new SPEC.md created in 48h. Please: 1) Search GitHub/HN for the most-requested developer tool right now. 2) Write a SPEC.md to workspace/projects/<slug>/SPEC.md. 3) Add an ENG task to workspace/AUTONOMOUS.md: 'ENG: Implement <slug> per SPEC.md. Create repo, implement MVP, commit, open PR. Log to pr-log.md.'
+
+## CONSULTANT TASK (injected 2026-03-25T22:32:30Z)
+
+**CONSULTANT-OPS-20260325183230** | PENDING (2026-03-25T22:32:30Z) | ops | CONSULTANT ALERT: No task completions detected in the last 24 hours. Please check if all agents are operational. Run a health check, report any stuck agents to workspace/ops/TICKET-TRACKER.md, and inject fresh tasks into workspace/AUTONOMOUS.md to restart activity.
+
+## CONSULTANT TASK (injected 2026-03-25T22:32:30Z)
+
+**CONSULTANT-OPS-20260325183230** | PENDING (2026-03-25T22:32:30Z) | ops | CONSULTANT ISSUE [L1]: 1 cron jobs with consecutive errors
+49a2a358-c369-4419-a5be-524b6c20150e
+
+## CONSULTANT TASK (injected 2026-03-25T22:32:30Z)
+
+**CONSULTANT-RESEARCH-20260325183230** | PENDING (2026-03-25T22:32:30Z) | research | CONSULTANT: Coding factory pipeline has stalled — no new SPEC.md created in 48h. Please: 1) Search GitHub/HN for the most-requested developer tool right now. 2) Write a SPEC.md to workspace/projects/<slug>/SPEC.md. 3) Add an ENG task to workspace/AUTONOMOUS.md: 'ENG: Implement <slug> per SPEC.md. Create repo, implement MVP, commit, open PR. Log to pr-log.md.'
+
+## CONSULTANT TASK (injected 2026-03-25T22:49:31Z)
+
+**CONSULTANT-OPS-20260325184931** | PENDING (2026-03-25T22:49:31Z) | ops | CONSULTANT ALERT: No task completions detected in the last 24 hours. Please check if all agents are operational. Run a health check, report any stuck agents to workspace/ops/TICKET-TRACKER.md, and inject fresh tasks into workspace/AUTONOMOUS.md to restart activity.
+
+## CONSULTANT TASK (injected 2026-03-25T22:49:31Z)
+
+**CONSULTANT-OPS-20260325184931** | PENDING (2026-03-25T22:49:31Z) | ops | CONSULTANT ISSUE [L1]: 1 cron jobs with consecutive errors
+49a2a358-c369-4419-a5be-524b6c20150e
+
+## CONSULTANT TASK (injected 2026-03-25T22:49:31Z)
+
+**CONSULTANT-RESEARCH-20260325184931** | PENDING (2026-03-25T22:49:31Z) | research | CONSULTANT: Coding factory pipeline has stalled — no new SPEC.md created in 48h. Please: 1) Search GitHub/HN for the most-requested developer tool right now. 2) Write a SPEC.md to workspace/projects/<slug>/SPEC.md. 3) Add an ENG task to workspace/AUTONOMOUS.md: 'ENG: Implement <slug> per SPEC.md. Create repo, implement MVP, commit, open PR. Log to pr-log.md.'
+
+## CONSULTANT TASK (injected 2026-03-25T23:06:32Z)
+
+**CONSULTANT-OPS-20260325190632** | PENDING (2026-03-25T23:06:32Z) | ops | CONSULTANT ALERT: No task completions detected in the last 24 hours. Please check if all agents are operational. Run a health check, report any stuck agents to workspace/ops/TICKET-TRACKER.md, and inject fresh tasks into workspace/AUTONOMOUS.md to restart activity.
+
+## CONSULTANT TASK (injected 2026-03-25T23:06:32Z)
+
+**CONSULTANT-OPS-20260325190632** | PENDING (2026-03-25T23:06:32Z) | ops | CONSULTANT ISSUE [L1]: 1 cron jobs with consecutive errors
+49a2a358-c369-4419-a5be-524b6c20150e
+
+## CONSULTANT TASK (injected 2026-03-25T23:06:32Z)
+
+**CONSULTANT-RESEARCH-20260325190632** | PENDING (2026-03-25T23:06:32Z) | research | CONSULTANT: Coding factory pipeline has stalled — no new SPEC.md created in 48h. Please: 1) Search GitHub/HN for the most-requested developer tool right now. 2) Write a SPEC.md to workspace/projects/<slug>/SPEC.md. 3) Add an ENG task to workspace/AUTONOMOUS.md: 'ENG: Implement <slug> per SPEC.md. Create repo, implement MVP, commit, open PR. Log to pr-log.md.'
+
+## CONSULTANT TASK (injected 2026-03-25T23:21:03Z)
+
+**CONSULTANT-OPS-20260325192103** | PENDING (2026-03-25T23:21:03Z) | ops | CONSULTANT ALERT: No task completions detected in the last 24 hours. Please check if all agents are operational. Run a health check, report any stuck agents to workspace/ops/TICKET-TRACKER.md, and inject fresh tasks into workspace/AUTONOMOUS.md to restart activity.
+
+## CONSULTANT TASK (injected 2026-03-25T23:21:03Z)
+
+**CONSULTANT-OPS-20260325192103** | PENDING (2026-03-25T23:21:03Z) | ops | CONSULTANT ISSUE [L1]: 1 cron jobs with consecutive errors
+49a2a358-c369-4419-a5be-524b6c20150e
+
+## CONSULTANT TASK (injected 2026-03-25T23:21:03Z)
+
+**CONSULTANT-RESEARCH-20260325192103** | PENDING (2026-03-25T23:21:03Z) | research | CONSULTANT: Coding factory pipeline has stalled — no new SPEC.md created in 48h. Please: 1) Search GitHub/HN for the most-requested developer tool right now. 2) Write a SPEC.md to workspace/projects/<slug>/SPEC.md. 3) Add an ENG task to workspace/AUTONOMOUS.md: 'ENG: Implement <slug> per SPEC.md. Create repo, implement MVP, commit, open PR. Log to pr-log.md.'
+
+## CONSULTANT TASK (injected 2026-03-25T23:38:04Z)
+
+**CONSULTANT-OPS-20260325193804** | PENDING (2026-03-25T23:38:04Z) | ops | CONSULTANT ALERT: No task completions detected in the last 24 hours. Please check if all agents are operational. Run a health check, report any stuck agents to workspace/ops/TICKET-TRACKER.md, and inject fresh tasks into workspace/AUTONOMOUS.md to restart activity.
+
+## CONSULTANT TASK (injected 2026-03-25T23:38:04Z)
+
+**CONSULTANT-OPS-20260325193804** | PENDING (2026-03-25T23:38:04Z) | ops | CONSULTANT ISSUE [L1]: 1 cron jobs with consecutive errors
+49a2a358-c369-4419-a5be-524b6c20150e
+
+## CONSULTANT TASK (injected 2026-03-25T23:38:04Z)
+
+**CONSULTANT-RESEARCH-20260325193804** | PENDING (2026-03-25T23:38:04Z) | research | CONSULTANT: Coding factory pipeline has stalled — no new SPEC.md created in 48h. Please: 1) Search GitHub/HN for the most-requested developer tool right now. 2) Write a SPEC.md to workspace/projects/<slug>/SPEC.md. 3) Add an ENG task to workspace/AUTONOMOUS.md: 'ENG: Implement <slug> per SPEC.md. Create repo, implement MVP, commit, open PR. Log to pr-log.md.'
+
+## CONSULTANT TASK (injected 2026-03-25T23:55:05Z)
+
+**CONSULTANT-OPS-20260325195505** | PENDING (2026-03-25T23:55:05Z) | ops | CONSULTANT ALERT: No task completions detected in the last 24 hours. Please check if all agents are operational. Run a health check, report any stuck agents to workspace/ops/TICKET-TRACKER.md, and inject fresh tasks into workspace/AUTONOMOUS.md to restart activity.
+
+## CONSULTANT TASK (injected 2026-03-25T23:55:05Z)
+
+**CONSULTANT-OPS-20260325195505** | PENDING (2026-03-25T23:55:05Z) | ops | CONSULTANT ISSUE [L1]: 1 cron jobs with consecutive errors
+49a2a358-c369-4419-a5be-524b6c20150e
+
+## CONSULTANT TASK (injected 2026-03-25T23:55:05Z)
+
+**CONSULTANT-RESEARCH-20260325195505** | PENDING (2026-03-25T23:55:05Z) | research | CONSULTANT: Coding factory pipeline has stalled — no new SPEC.md created in 48h. Please: 1) Search GitHub/HN for the most-requested developer tool right now. 2) Write a SPEC.md to workspace/projects/<slug>/SPEC.md. 3) Add an ENG task to workspace/AUTONOMOUS.md: 'ENG: Implement <slug> per SPEC.md. Create repo, implement MVP, commit, open PR. Log to pr-log.md.'

@@ -8,13 +8,14 @@ AUTONOMOUS="$HOME/.openclaw/workspace/AUTONOMOUS.md"
 echo "[$(date)] Queue cron check..."
 
 # Read AUTONOMOUS.md for PENDING tasks and submit to queues
-python3 << 'EOF'
+# Note: use unquoted EOF so $AUTONOMOUS and $QUEUE_SCRIPT are expanded by bash
+python3 << EOF
 import subprocess
 import re
 from pathlib import Path
 
-AUTONOMOUS = Path("$HOME/.openclaw/workspace/AUTONOMOUS.md")
-QUEUE = "$HOME/.openclaw/workspace/scripts/job-queue.py"
+AUTONOMOUS = Path("$AUTONOMOUS")
+QUEUE = "$QUEUE_SCRIPT"
 
 # Read AUTONOMOUS.md
 content = AUTONOMOUS.read_text()
@@ -31,5 +32,6 @@ for task_id, task, agent, status in pending:
         print(f"  Submitting to {agent}: {task[:50]}...")
         subprocess.run(["python3", QUEUE, "submit", agent, f"{task_id}: {task}", "normal"])
 EOF
+
 
 echo "Done"
