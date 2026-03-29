@@ -136,12 +136,20 @@ class AutonomousWorkerV2 {
     try {
       const queue = await this.loadQueue();
 
-      const myTask = queue.pending.find(task =>
+      // First try tasks explicitly assigned to this agent
+      let myTask = queue.pending.find(task =>
         task.assigned_to && (
           task.assigned_to.includes(this.agentId.toUpperCase()) ||
           task.assigned_to.includes(this.agentId)
         )
       );
+
+      // Fallback: grab any unassigned task if none explicitly assigned
+      if (!myTask) {
+        myTask = queue.pending.find(task =>
+          !task.assigned_to || task.assigned_to.length === 0
+        );
+      }
 
       if (myTask) {
         await this.claimTask(myTask.id);

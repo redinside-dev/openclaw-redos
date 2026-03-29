@@ -4,36 +4,67 @@ This file tracks tasks assigned to autonomous agents. Agents check here for work
 
 ## P1 - PENDING
 
-### MAIN-001: Restart consultant daemon and OPS agent to clear stall
-**Agent:** main
-**Created:** 2026-03-18T23:10:00Z
-**Assigned to:** main
-**Description:** Consultant daemon reported no task completions in 24h. OPS agent is idle with no standup today. Restart the consultant daemon and OPS agent to restore autonomy. If OPS is unresponsive, use `kill` and restart the agent process. Verify agent status after restart and ensure cron jobs are running.
+### OPS-026: Extend autonomous-healer.sh to auto-fix cron job failures
+**Agent:** ops
+**Created:** 2026-03-24T20:30:00Z
+**Assigned to:** ops
+**Description:** Add checks to autonomous-healer.sh for cron jobs with consecutiveErrors >= 2. Auto-disable flaky jobs, check if openclaw cron runner is healthy, rotate gateway.err.log when it exceeds 100MB, alert via telegram if unresolvable.
+**Status:** PENDING
+**Priority:** P0
+
+### OPS-027: Wire n8n into autonomous healing loop
+**Agent:** ops
+**Created:** 2026-03-24T20:30:00Z
+**Assigned to:** ops
+**Description:** Create n8n workflow that triggers on webhook from autonomous-healer.sh on P0/P1 events. Workflow should route alerts to appropriate agent based on error type and send telegram notification.
 **Status:** PENDING
 
-## P2 - PENDING
+### MAIN-002: Investigate 7 cron jobs with consecutive error counts >= 2
+**Agent:** main
+**Created:** 2026-03-24T20:30:00Z
+**Assigned to:** main
+**Description:** Check why these cron jobs are failing: a2a-health-monitor (5 errors), inner-loop-main (3 errors), telegram-approval-monitor (3 errors), red-daily-summary (2 errors + 403), plus agent-healer, config-drift-watchdog, and watchdog. Fix root cause or disable if deprecated.
+**Status:** PENDING
+**Priority:** P1
 
-### OPS-024: Reclaim A2A delegation timeout for ops agent
+## NEW - PENDING
+
+### OPS-028: Critical system recovery - web_search quota exhausted
 **Agent:** ops
-**Created:** 2026-03-12T18:50:00Z
+**Created:** 2026-03-29T12:54:00Z
 **Assigned to:** ops
-**Description:** A2A delegation to self timed out after 390s (retry threshold hit). Need to investigate and fix the deadlock condition.
-**Status:** IN_PROGRESS
+**Description:** Fix web_search Perplexity quota exhaustion (401 errors). Requires billing check at perplexity.ai/settings/api. Escalate to Anurag if needed.
+**Status:** PENDING
+**Priority:** P0
 
-## IN_PROGRESS
-
-### OPS-025: Fix 9router port configuration mismatch (running on 20128, should be 9999)
+### OPS-029: Recursive stall investigation
 **Agent:** ops
-**Created:** 2026-03-12T18:52:00Z
+**Created:** 2026-03-29T12:54:00Z
 **Assigned to:** ops
-**Priority:** P0 (critical - blocks access)
-**Current State:** Service running on port 20128, but health endpoint returns 404. Configuration needs correction to use port 9999 with proper health verification.
-**Next Steps:**
-1. Stop the 9router process
-2. Review and fix configuration file (/Users/redinside/.openclaw/config/9router.yml)
-3. Set correct port: 9999
-4. Ensure proper health endpoint returns 200 OK
-5. Restart service and verify it's reachable on 9999
+**Description:** Investigate consultant recursive stall preventing self-healing. Check gateway configuration and model dependencies.
+**Status:** PENDING
+**Priority:** P0
 
+### OPS-030: Ollama model pull
+**Agent:** ops
+**Created:** 2026-03-29T12:54:00Z
+**Assigned to:** ops
+**Description:** Pull ollama/llama3.1:8b model: `ollama pull llama3.1:8b`. Verify Ollama service is running.
+**Status:** PENDING
+**Priority:** P1
 
-## P3 — PENDING
+### OPS-031: Minimax authentication fix
+**Agent:** ops
+**Created:** 2026-03-29T12:54:00Z
+**Assigned to:** ops
+**Description:** Verify Minimax AI credentials in gateway config. Check if service is operational or needs re-authentication.
+**Status:** PENDING
+**Priority:** P1
+
+### OPS-032: Gateway UI access fix
+**Agent:** ops
+**Created:** 2026-03-29T12:54:00Z
+**Assigned to:** ops
+**Description:** Fix gateway control UI blocked by missing allowedOrigins config. Add proper CORS configuration.
+**Status:** PENDING
+**Priority:** P2

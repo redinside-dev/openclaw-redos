@@ -87,6 +87,8 @@ Sub-goals:
 
 ## Completed Goals
 
+- **GOAL-006 — Production Agent Reliability** — ✅ 2026-03-04 complete (deadline 2026-03-06). All sub-goals delivered: context engineering, force resolution pattern, coordination protocol, self-healing infrastructure, context audit.
+
 - **n8n webhook delegation** — ✅ 2026-02-28: 3 live workflows (echo-test, slack-post, github-repo-status), API key auth, credential isolation working
 - **Semantic memory search** — ✅ 2026-02-28: qdrant + fastembed deployed, memsearch.py + rag_query.py, dashboard /api/search
 
@@ -152,7 +154,7 @@ Sub-goals with deadlines:
 ### GOAL-007 — 10 Open-Source Projects in 2 Months
 **Owner:** RED (orchestrates) + RESEARCH (ideation) + ENG (implementation)
 **Horizon:** 2026-03-05 → 2026-05-05 (8 weeks)
-**Status:** 🟡 Starting — RESEARCH generating backlog (PRJ-001)
+**Status:** 🟡 In Progress — ENG working PRJ-023 (ai-diff-shield MVP), backlog being generated
 **KPI:** 10 public GitHub repos, each with: ≥1 real commit by an agent, README, open issues, PR log
 
 **Pipeline (how it works):**

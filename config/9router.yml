@@ -3,7 +3,7 @@
 
 nodes:
   - host: "127.0.0.1"      # Internal routing to localhost only
-    port: "9999"          # Corrected port (consensus requirement)
+    port: "20128"         # Actual 9router listening port (not the gateway)
     protocol: "tcp4"
     weight: 1.0
     healthCheck:

@@ -69,6 +69,16 @@
 **Impact:** L3 — modifies agent execution permissions in master config.
 **Requires:** RED Telegram approval before implementation.
 
+**Status: ✅ APPROVED + IMPLEMENTED (2026-03-22 by INFOSEC subagent)**
+- `tools.exec.security` changed from `"full"` to `"allowlist"` in openclaw.json
+- `allowExec` added to all agent profiles:
+  - eng: ["git", "gh", "npm", "python3", "node"]
+  - ops: ["bash", "curl", "ps", "tail", "df", "grep", "awk", "sed", "cat", "ls", "cd", "mkdir", "rm", "cp", "mv", "head", "nc", "wget"]
+  - hatake: ["node"]
+  - research, finance, allrounder, infosec: []
+- Config validated: valid JSON ✅
+- Completion logged: workspace/ops/TICKET-TRACKER.md + AUTONOMOUS.md RED-2026-0314-001 → DONE
+
 ---
 
 ## Summary

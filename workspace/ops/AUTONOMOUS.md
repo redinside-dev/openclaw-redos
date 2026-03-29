@@ -53,14 +53,10 @@ Tasks are tracked using status labels:
 **Next Run:** 2025-01-01 12:10:00
 ```
 
-## P1 — PENDING
+## ARCHIVED
 
-### RES-TRENDS-20260310 | research | Run web_search for: 'AI agents trends March 2026', 'agentic AI frameworks 2026'. Check HN, Reddit r/LocalLLaMA. Document in workspace/research/trends/YYYY-MM-DD.md. Then research 1 developer pain point from: LLM cost tracking, agent watchdog, A2A protocol, multi-agent queue, PR auto-reviewer, session memory, model router, cron-as-code, dev onboarding, LLM loop detector. Pick highest HN/Reddit traction. Write SPEC.md to workspace/projects/<slug>/. Mark as READY or PENDING. | **Status:** IN_PROGRESS
-
-### OPS-HEALTH-20260310 | ops | Run system health check. |
-**Status:** IN_PROGRESS
-
-## P2 — PENDING
+### RES-TRENDS-20260310 | research | — Stale task from 2026-03-10 (15+ days old, never executed). Archived 2026-03-25.
+### OPS-HEALTH-20260310 | ops | — Stale task from 2026-03-10 (15+ days old, never executed). Archived 2026-03-25.
 
 ## P3 — PENDING
 

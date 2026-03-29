@@ -150,6 +150,13 @@ check_factory() {
   if [ ! -d "$factory_dir" ]; then return; fi
   local now_ts last_ts elapsed
   now_ts=$(date +%s)
+
+  # Init on first run so elapsed time is accurate, not from epoch 0
+  if [ ! -f "$last_run_file" ]; then
+    echo "$now_ts" > "$last_run_file"
+    log "Factory watcher initialized (last-run set to now)"
+  fi
+
   last_ts=$(cat "$last_run_file" 2>/dev/null || echo "0")
   elapsed=$((now_ts - last_ts))
   if [ "$elapsed" -gt 1200 ]; then  # 20 minutes

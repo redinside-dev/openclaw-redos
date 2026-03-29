@@ -165,4 +165,4 @@ main() {
 }
 
 # Run main function
-main "$@"
+main "$@"0 0 * * * cd $SCRIPT_DIR && /usr/bin/python3 9router-quota-sync.py >> $LOG_DIR/cron-9router-quota.log 2>&1

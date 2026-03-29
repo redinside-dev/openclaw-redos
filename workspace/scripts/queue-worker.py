@@ -20,7 +20,7 @@ def run_agent(agent_id: str, task: str) -> tuple[bool, str]:
     """Execute agent task via OpenClaw"""
     try:
         result = subprocess.run(
-            ["openclaw", "agent", "--agent", agent_id, "--message", task],
+            ["openclaw", "agent", "--agent", agent_id, "--message", task, "--channel", "telegram"],
             capture_output=True,
             text=True,
             timeout=600,  # 10 min max

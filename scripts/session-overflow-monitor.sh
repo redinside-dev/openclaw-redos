@@ -99,6 +99,21 @@ ARCHIVE_LINES=""
 while IFS= read -r -d '' SESSION_FILE; do
   FILE_SIZE=$(stat -f%z "$SESSION_FILE" 2>/dev/null || echo "0")
 
+  # Skip locked sessions — a lock file means the session is currently in use
+  LOCK_FILE="${SESSION_FILE}.lock"
+  if [ -f "$LOCK_FILE" ]; then
+    continue
+  fi
+
+  # Skip sessions that have been updated in the last 30 minutes
+  # (they may be in use by a running worker even without a lock file)
+  LAST_MOD=$(stat -f%m "$SESSION_FILE" 2>/dev/null || echo "0")
+  NOW_SEC=$(date +%s)
+  AGE_SEC=$((NOW_SEC - LAST_MOD))
+  if [ "$AGE_SEC" -lt 1800 ]; then
+    continue
+  fi
+
   if [ "$FILE_SIZE" -gt "$ARCHIVE_BYTES" ]; then
     SIZE_KB=$(echo "scale=1; $FILE_SIZE / 1024" | bc 2>/dev/null || echo "?")
     AGENT_DIR=$(dirname "$SESSION_FILE")

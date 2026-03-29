@@ -1,12 +1,38 @@
 {
   "_meta": {
-    "description": "Routing profiles control how the smart router balances quality, speed, and cost. Change 'active' to switch profiles. Weights must sum to 1.0.",
+    "description": "Routing profiles with circuit breaker + multi-provider fallback. Change 'active' to switch profiles. Weights must sum to 1.0.",
     "switchCommand": "@RedinsideBot routing mode cost_saver",
-    "updated": "2026-03-01",
-    "update_reason": "Event-driven architecture migration — added model_tiers for 3-tier intelligent routing"
+    "updated": "2026-03-23",
+    "update_reason": "P0 TICKET-20260322-MASTER-ROUTER — added per-tier fallback providers, circuit breaker config, health-scored suppression. Fixes 6938+ timeout cascades from single-provider dependency on 9router/free-unlimited.",
+    "previous_version": "config/routing-profiles.json (pre-fallback, all tiers → 9router/free-unlimited only)"
   },
 
   "active": "cost_saver",
+
+  "circuit_breaker": {
+    "_description": "Circuit breaker suppresses a provider after N consecutive failures within a time window. Provider is removed from candidate list until window expires.",
+    "enabled": true,
+    "failure_threshold": 5,
+    "window_seconds": 600,
+    "half_open_after_seconds": 300,
+    "tracked_failure_types": ["timeout", "ECONNREFUSED", "ECONNRESET", "503", "502", "429"],
+    "state_file": "/Users/redinside/.openclaw/workspace/routing/circuit-breaker-state.json",
+    "log_file": "/Users/redinside/.openclaw/workspace/logs/health.jsonl",
+    "dedup_window_seconds": 300
+  },
+
+  "health_scoring": {
+    "_description": "Health-scored candidate suppression. Each provider gets a health score 0-100. Providers below min_score are suppressed from selection. Scores decay toward 100 over time if no new failures.",
+    "enabled": true,
+    "initial_score": 100,
+    "failure_penalty": 20,
+    "timeout_penalty": 15,
+    "slow_response_penalty": 5,
+    "slow_response_threshold_ms": 30000,
+    "recovery_rate_per_minute": 2,
+    "min_score": 30,
+    "score_file": "/Users/redinside/.openclaw/workspace/routing/provider-health-scores.json"
+  },
 
   "profiles": {
     "performance": {
@@ -41,15 +67,35 @@
   },
 
   "model_tiers": {
-    "_description": "3-tier intelligent routing. Target split: 50% lightweight / 35% standard / 15% heavy. Agents can override with model_tier field in payload.",
+    "_description": "3-tier intelligent routing with multi-provider fallback. Each tier has a primary + ordered fallback chain. Circuit breaker auto-suppresses failed providers.",
     "_target_split": { "lightweight": 0.50, "standard": 0.35, "heavy": 0.15 },
     "_estimated_savings": "~55% cost reduction vs all-standard baseline",
 
     "lightweight": {
       "description": "Fastest, cheapest. Health checks, status queries, simple summaries, short cron payloads.",
-      "model": "claude-haiku-4-5-20251001",
-      "provider": "9router",
-      "via": "9router/free-unlimited",
+      "providers": [
+        {
+          "provider": "9router",
+          "model": "claude-haiku-4-5-20251001",
+          "via": "9router/free-unlimited",
+          "priority": 1,
+          "endpoint_port": 20128
+        },
+        {
+          "provider": "anthropic",
+          "model": "claude-haiku-4-5-20251001",
+          "via": "anthropic/claude-haiku-4-5-20251001",
+          "priority": 2,
+          "note": "Direct Anthropic API — PAYG fallback"
+        },
+        {
+          "provider": "ollama",
+          "model": "qwen3.5:4b",
+          "via": "ollama/qwen3.5:4b",
+          "priority": 3,
+          "note": "Local fallback — free, lower quality"
+        }
+      ],
       "max_input_tokens": 2000,
       "max_output_tokens": 512,
       "use_when": [
@@ -60,7 +106,7 @@
         "task_type: ack",
         "agent: hatake",
         "cron_payload: short",
-        "keywords: [ping, alive, status, check, heartbeat, warmup, warmup]"
+        "keywords: [ping, alive, status, check, heartbeat, warmup]"
       ],
       "cost_per_1k_input": 0.0008,
       "cost_per_1k_output": 0.004
@@ -68,9 +114,36 @@
 
     "standard": {
       "description": "Most agent work: code review, research summaries, planning, analysis.",
-      "model": "claude-sonnet-4-6",
-      "provider": "9router",
-      "via": "9router/free-unlimited",
+      "providers": [
+        {
+          "provider": "9router",
+          "model": "claude-sonnet-4-6",
+          "via": "9router/free-unlimited",
+          "priority": 1,
+          "endpoint_port": 20128
+        },
+        {
+          "provider": "9router",
+          "model": "claude-sonnet-4-6",
+          "via": "9router/cc/claude-sonnet-4-6",
+          "priority": 2,
+          "note": "9router paid tier — same model, metered"
+        },
+        {
+          "provider": "anthropic",
+          "model": "claude-sonnet-4-6",
+          "via": "anthropic/claude-sonnet-4-6",
+          "priority": 3,
+          "note": "Direct Anthropic API — PAYG"
+        },
+        {
+          "provider": "ollama",
+          "model": "qwen3.5:4b",
+          "via": "ollama/qwen3.5:4b",
+          "priority": 4,
+          "note": "Local emergency fallback — degraded quality"
+        }
+      ],
       "max_input_tokens": 8000,
       "max_output_tokens": 4096,
       "use_when": [
@@ -88,9 +161,36 @@
 
     "heavy": {
       "description": "Complex reasoning, architecture decisions, L4/L5 approvals, long-form content.",
-      "model": "claude-opus-4-6",
-      "provider": "9router",
-      "via": "9router/free-unlimited",
+      "providers": [
+        {
+          "provider": "9router",
+          "model": "claude-opus-4-6",
+          "via": "9router/free-unlimited",
+          "priority": 1,
+          "endpoint_port": 20128
+        },
+        {
+          "provider": "9router",
+          "model": "claude-opus-4-6",
+          "via": "9router/cc/claude-opus-4-6",
+          "priority": 2,
+          "note": "9router paid — same model, metered"
+        },
+        {
+          "provider": "anthropic",
+          "model": "claude-opus-4-6",
+          "via": "anthropic/claude-opus-4-6",
+          "priority": 3,
+          "note": "Direct Anthropic API — PAYG"
+        },
+        {
+          "provider": "anthropic",
+          "model": "claude-sonnet-4-6",
+          "via": "anthropic/claude-sonnet-4-6",
+          "priority": 4,
+          "note": "Graceful degradation — cheaper model, still capable"
+        }
+      ],
       "max_input_tokens": 20000,
       "max_output_tokens": 8192,
       "use_when": [
@@ -108,9 +208,22 @@
 
     "local": {
       "description": "Free local Ollama. Intent parsing, routing classification, simple classification.",
-      "model": "qwen3.5:4b",
-      "provider": "ollama",
-      "via": "ollama/qwen3.5:4b",
+      "providers": [
+        {
+          "provider": "ollama",
+          "model": "qwen3.5:4b",
+          "via": "ollama/qwen3.5:4b",
+          "priority": 1
+        },
+        {
+          "provider": "9router",
+          "model": "claude-haiku-4-5-20251001",
+          "via": "9router/free-unlimited",
+          "priority": 2,
+          "endpoint_port": 20128,
+          "note": "Cloud fallback if Ollama unreachable"
+        }
+      ],
       "max_input_tokens": 4000,
       "max_output_tokens": 1024,
       "use_when": [
@@ -121,15 +234,7 @@
         "offline_required: true"
       ],
       "cost_per_1k_input": 0.0,
-      "cost_per_1k_output": 0.0,
-      "fallback": {
-        "provider": "groq",
-        "model": "llama-3.1-8b-instant",
-        "trigger": "ollama_unreachable (ECONNREFUSED)",
-        "cost_per_1k_input": 0.0,
-        "cost_per_1k_output": 0.0,
-        "note": "Free tier — 500K tokens/day, 30 req/min. OpenClaw supports Groq for audio only — not wired as auto-fallback. HATAKE falls back to 9router/free-unlimited instead."
-      }
+      "cost_per_1k_output": 0.0
     }
   },
 

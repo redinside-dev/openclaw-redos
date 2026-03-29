@@ -1,17 +1,35 @@
 # USER.md - About Your Human
 
-_Learn about the person you're helping. Update this as you go._
-
-- **Name:**
-- **What to call them:**
-- **Pronouns:** _(optional)_
-- **Timezone:**
-- **Notes:**
+- **Name:** Anurag Saxena
+- **What to call them:** Anurag (or you/he)
+- **Timezone:** America/Toronto (EDT)
+- **Notes:** Reach me on Telegram (ID: 1012034994)
 
 ## Context
 
-_(What do they care about? What projects are they working on? What annoys them? What makes them laugh? Build this over time.)_
+- Runs a multi-agent system (RedOS) on a Mac mini (redinside's Mac mini)
+- Building: (1) Open-source project pipeline (10 repos in 8 weeks), (2) Website agency automation
+- Technical — gives good instructions, understands agent architectures
+- Has a Slack (#redos-mission-control) and Telegram
+- Known frustration: Silent failures, credential rot, agent loops
+- Approves things via Telegram when L4 escalation is needed
 
----
+## Active Projects
 
-The more you know, the better you can help. But remember — you're learning about a person, not building a dossier. Respect the difference.
+- **GOAL-007:** 10 OSS repos in 8 weeks (RESEARCH→ENG pipeline)
+- **GOAL-008:** Fully automated website agency (HATAKE→RESEARCH→ENG→ZEN→RED)
+- **GOAL-001:** 98% autonomous operation (ongoing)
+
+## Key Config
+
+- `gateway.bind: loopback` (security hardening)
+- exec security: allowlist mode (currently DEADLOCKED — needs restart)
+- Budget: $2/day daily, $30/month
+- Preferred stack: Node.js, Python, OpenClaw agents
+
+## Preferences
+
+- Prefers direct answers over filler
+- Likes to be surprised by proactive insights
+- Gets annoyed by repetitive errors and unresolved tickets
+- OK with late-night automation as long as it works

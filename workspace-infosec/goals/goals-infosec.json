@@ -1,6 +1,6 @@
 {
   "agentId": "infosec",
-  "updatedAt": "2026-02-24T05:00:00Z",
+  "updatedAt": "2026-03-17T15:15:00Z",
   "goals": [
     {
       "id": "goal-infosec-001",
@@ -40,5 +40,4 @@
     }
   ],
   "completedGoals": [],
-  "abandonedGoals": []
-}
+  "

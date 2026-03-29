@@ -761,8 +761,16 @@ const server = http.createServer(async (req, res) => {
   // ── Health check ──────────────────────────────────────────────────────────
   if (req.url === '/health') {
     const active = forcedStart || accounts[currentTierIdx]?.name || 'none';
+    const ACCOUNT_EMAILS = {
+      cloud1: 'anuragsaxena.ai@gmail.com',
+      cloud2: 'io.anuragsaxena@gmail.com',
+      cloud3: 'anuragg.saxenaa@gmail.com',
+      minimax: 'MiniMax API',
+      cursor: 'Cursor daemon (port 20129)',
+    };
     const acctStatus = accounts.map(a => ({
       name: a.name,
+      email: ACCOUNT_EMAILS[a.name] || '',
       type: a.type,
       exhausted: !!(tierStates[a.name]?.exhausted),
       active: a.name === active,
@@ -815,7 +823,7 @@ const server = http.createServer(async (req, res) => {
 
   // ── Manual force endpoints ────────────────────────────────────────────────
   const forceMatch = req.url?.match(/^\/force(?:\?account=(\w+)|-(\w+))$/);
-  const legacyForceMap = { 'force-cloud1': 'cloud1', 'force-cloud2': 'cloud2', 'force-cloud3': 'cloud3', 'force-cloud4': 'cloud4', 'force-minimax': 'minimax', 'force-cursor': 'cursor' };
+  const legacyForceMap = { 'force-cloud1': 'cloud1', 'force-cloud2': 'cloud2', 'force-cloud3': 'cloud3', 'force-minimax': 'minimax', 'force-cursor': 'cursor' };
   const legacyTarget = legacyForceMap[req.url?.slice(1)];
   const forceTarget = forceMatch?.[1] || forceMatch?.[2] || legacyTarget;
 

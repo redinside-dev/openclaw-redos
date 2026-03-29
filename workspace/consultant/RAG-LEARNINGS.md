@@ -2825,3 +2825,15933 @@ CONSULTANT-OPS-20260312025300
 **How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
 **Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
 
+
+## [2026-03-15 20:37] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-15 20:37] Fix: 9Router not responding on :20128
+**Severity:** L2
+**Symptom:** Model API unreachable — all agents will fail
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** 9Router restarted successfully
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='router_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: 9Router not responding on :20128"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=router_down to detect recurrence.
+
+
+## [2026-03-15 20:37] Fix: Channel errors in gateway log (26 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Patched 2 cron jobs with missing delivery.channel
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (26 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-15 20:39] Fix: RAG index stale (65.6h since last update)
+**Severity:** L1
+**Symptom:** Qdrant index last updated 65.6h ago — agents have stale knowledge
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RAG index rebuilt successfully
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='rag_stale'. Run `openclaw agent --agent ops --message "SELF-HEAL: RAG index stale (65.6h since last update)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=rag_stale to detect recurrence.
+
+
+## [2026-03-15 20:39] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-15 20:55] Fix: Channel errors in gateway log (20 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (20 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-15 20:55] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-15 21:11] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-15 21:26] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-15 21:42] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-15 21:58] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-15 21:58] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-15 22:14] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-15 22:14] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-15 22:29] Fix: Channel errors in gateway log (14 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (14 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-15 22:29] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-15 22:45] Fix: Channel errors in gateway log (18 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (18 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-15 22:45] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-15 23:00] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-15 23:00] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-15 23:16] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-15 23:31] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-15 23:47] Fix: Channel errors in gateway log (6 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (6 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-15 23:47] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 00:02] Fix: Channel errors in gateway log (12 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (12 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 00:02] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 00:17] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 00:17] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 00:33] Fix: Channel errors in gateway log (14 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (14 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 00:33] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 00:48] Fix: Channel errors in gateway log (14 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (14 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 00:48] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 01:03] Fix: Channel errors in gateway log (14 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (14 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 01:03] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 01:19] Fix: Channel errors in gateway log (14 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (14 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 01:19] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 01:34] Fix: Channel errors in gateway log (6 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (6 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 01:34] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 01:50] Fix: Channel errors in gateway log (12 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (12 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 01:50] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 02:05] Fix: Channel errors in gateway log (18 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (18 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 02:05] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 02:20] Fix: Channel errors in gateway log (20 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (20 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 02:20] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 02:36] Fix: Channel errors in gateway log (20 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (20 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 02:36] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 02:51] Fix: Channel errors in gateway log (22 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (22 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 02:51] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 03:07] Fix: Channel errors in gateway log (22 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (22 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 03:07] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 03:22] Fix: Channel errors in gateway log (20 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (20 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 03:22] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 03:38] Fix: Channel errors in gateway log (6 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (6 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 03:38] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 03:53] Fix: Channel errors in gateway log (12 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (12 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 03:53] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 04:09] Fix: Channel errors in gateway log (14 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (14 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 04:09] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 04:24] Fix: Channel errors in gateway log (14 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (14 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 04:24] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 04:39] Fix: Channel errors in gateway log (16 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (16 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 04:39] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 04:55] Fix: Channel errors in gateway log (16 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (16 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 04:55] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 05:11] Fix: Channel errors in gateway log (16 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (16 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 05:11] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 05:26] Fix: Channel errors in gateway log (18 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (18 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 05:26] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 05:41] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 05:41] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 05:57] Fix: Channel errors in gateway log (16 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (16 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 05:57] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 06:12] Fix: Channel errors in gateway log (16 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (16 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 06:12] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 06:28] Fix: Channel errors in gateway log (14 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (14 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 06:28] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 06:43] Fix: Channel errors in gateway log (16 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (16 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 06:43] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 06:59] Fix: Channel errors in gateway log (16 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (16 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 06:59] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 07:14] Fix: Channel errors in gateway log (14 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (14 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 07:14] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 07:30] Fix: Channel errors in gateway log (16 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (16 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 07:30] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 07:45] Fix: Channel errors in gateway log (6 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (6 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 07:45] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 08:01] Fix: Channel errors in gateway log (12 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (12 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 08:01] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 08:16] Fix: Channel errors in gateway log (14 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (14 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 08:16] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 08:32] Fix: Channel errors in gateway log (16 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (16 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 08:32] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 08:47] Fix: Channel errors in gateway log (18 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (18 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 08:47] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 09:03] Fix: Channel errors in gateway log (16 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (16 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 09:03] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 09:19] Fix: Channel errors in gateway log (14 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (14 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 09:19] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 09:34] Fix: Channel errors in gateway log (6 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (6 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 09:34] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 09:50] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 09:50] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 10:05] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 10:05] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 10:21] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 10:36] Fix: Channel errors in gateway log (6 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (6 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 10:36] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 10:52] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 10:52] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 11:08] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 11:08] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 11:23] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 11:23] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 11:39] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 11:39] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 11:54] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 11:54] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 12:10] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 12:10] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 12:25] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 12:25] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 12:41] Fix: Channel errors in gateway log (6 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (6 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 12:41] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 12:57] Fix: Channel errors in gateway log (6 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (6 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 12:57] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 13:12] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 13:28] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 13:28] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 13:43] Fix: Channel errors in gateway log (6 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (6 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 13:43] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 13:59] Fix: Channel errors in gateway log (12 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (12 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 13:59] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 14:15] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 14:15] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 14:30] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 14:30] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 14:46] Fix: Channel errors in gateway log (12 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (12 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 14:46] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 15:02] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 15:02] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 15:17] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 15:17] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 15:33] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 15:33] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 15:49] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 15:49] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 16:04] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 16:20] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 16:36] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restarted successfully
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-16 16:36] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 16:52] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 17:08] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 17:23] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 17:23] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 17:39] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 17:55] Fix: Channel errors in gateway log (6 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (6 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 17:55] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 18:10] Fix: Channel errors in gateway log (6 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (6 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 18:10] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 18:26] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-16 18:26] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 18:42] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 18:57] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 19:13] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 19:29] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-16 19:29] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 19:45] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-16 19:45] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 20:01] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-16 20:01] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 20:17] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-16 20:17] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 20:33] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-16 20:33] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 20:48] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-16 20:48] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 21:04] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-16 21:04] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 21:20] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-16 21:20] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 21:36] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-16 21:36] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 21:52] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-16 21:52] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 22:08] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-16 22:08] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 22:24] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-16 22:24] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 22:40] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-16 22:40] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 22:56] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-16 22:56] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 23:12] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-16 23:12] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 23:28] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-16 23:28] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-16 23:44] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-16 23:44] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 00:00] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 00:00] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 00:16] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 00:16] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 00:32] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 00:32] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 00:48] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 00:48] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 01:04] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 01:04] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 01:20] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 01:20] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 01:36] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 01:36] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 01:52] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 01:52] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 02:08] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 02:08] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 02:24] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 02:24] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 02:40] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 02:40] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 02:56] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 02:56] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 03:12] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 03:12] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 03:28] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 03:28] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 03:43] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 03:43] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 03:59] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 03:59] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 04:14] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 04:14] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 04:30] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 04:30] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 04:45] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 04:45] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 05:01] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 05:01] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 05:16] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 05:16] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 05:32] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 05:32] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 05:47] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 05:47] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 06:03] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 06:03] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 06:18] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 06:18] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 06:34] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 06:34] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 06:49] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 06:49] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 06:49] Fix: Coding factory stalled — last SPEC.md is 48h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 48h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-17 07:05] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 07:05] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 07:05] Fix: Coding factory stalled — last SPEC.md is 48h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 48h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-17 07:20] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 07:20] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 07:20] Fix: Coding factory stalled — last SPEC.md is 49h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 49h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-17 07:36] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 07:36] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 07:36] Fix: Coding factory stalled — last SPEC.md is 49h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 49h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-17 07:51] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 07:51] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 07:51] Fix: Coding factory stalled — last SPEC.md is 49h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 49h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-17 08:07] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 08:07] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 08:07] Fix: Coding factory stalled — last SPEC.md is 49h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 49h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-17 08:23] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 08:23] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 08:23] Fix: Coding factory stalled — last SPEC.md is 50h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 50h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-17 08:38] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 08:38] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 08:38] Fix: Coding factory stalled — last SPEC.md is 50h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 50h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-17 08:54] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 08:54] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 08:54] Fix: Coding factory stalled — last SPEC.md is 50h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 50h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-17 09:09] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 09:09] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 09:09] Fix: Coding factory stalled — last SPEC.md is 50h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 50h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-17 09:25] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 09:25] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 09:25] Fix: Coding factory stalled — last SPEC.md is 51h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 51h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-17 09:40] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 09:40] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 09:40] Fix: Coding factory stalled — last SPEC.md is 51h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 51h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-17 09:56] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 09:56] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 09:56] Fix: Coding factory stalled — last SPEC.md is 51h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 51h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-17 10:12] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 10:12] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 10:12] Fix: Coding factory stalled — last SPEC.md is 52h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 52h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-17 10:27] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 10:27] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 10:27] Fix: Coding factory stalled — last SPEC.md is 52h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 52h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-17 10:43] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 10:43] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 10:43] Fix: Coding factory stalled — last SPEC.md is 52h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 52h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-17 10:58] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 10:58] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 10:58] Fix: Coding factory stalled — last SPEC.md is 52h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 52h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-17 11:14] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 11:14] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 11:14] Fix: Coding factory stalled — last SPEC.md is 53h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 53h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-17 11:29] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 11:29] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 11:29] Fix: Coding factory stalled — last SPEC.md is 53h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 53h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-17 11:45] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 11:45] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 11:45] Fix: Coding factory stalled — last SPEC.md is 53h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 53h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-17 12:01] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 12:01] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 12:01] Fix: Coding factory stalled — last SPEC.md is 53h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 53h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-17 12:16] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 12:16] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 12:16] Fix: Coding factory stalled — last SPEC.md is 54h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 54h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-17 12:32] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 12:32] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 12:32] Fix: Coding factory stalled — last SPEC.md is 54h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 54h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-17 12:48] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 12:48] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 12:48] Fix: Coding factory stalled — last SPEC.md is 54h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 54h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-17 13:03] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-17 13:03] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 13:03] Fix: Coding factory stalled — last SPEC.md is 54h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 54h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-17 13:19] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 13:19] Fix: Coding factory stalled — last SPEC.md is 55h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 55h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-17 13:34] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-17 13:34] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 13:34] Fix: Coding factory stalled — last SPEC.md is 55h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 55h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-17 13:50] Fix: Channel errors in gateway log (14 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (14 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-17 13:50] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 13:50] Fix: Coding factory stalled — last SPEC.md is 55h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 55h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-17 14:05] Fix: Channel errors in gateway log (14 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (14 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-17 14:05] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 14:05] Fix: Coding factory stalled — last SPEC.md is 55h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 55h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-17 14:15] Fix: Channel errors in gateway log (14 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (14 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-17 14:15] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 14:15] Fix: Coding factory stalled — last SPEC.md is 56h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 56h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-17 14:17] Fix: Channel errors in gateway log (14 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (14 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-17 14:17] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 14:17] Fix: Coding factory stalled — last SPEC.md is 56h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 56h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-17 14:32] Fix: Channel errors in gateway log (14 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (14 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-17 14:32] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 14:32] Fix: Coding factory stalled — last SPEC.md is 56h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 56h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-17 14:47] Fix: Channel errors in gateway log (14 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (14 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-17 14:47] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 15:03] Fix: Channel errors in gateway log (12 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (12 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-17 15:03] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 15:18] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 15:33] Fix: Channel errors in gateway log (5 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (5 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-17 15:33] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 15:48] Fix: Channel errors in gateway log (9 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (9 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-17 15:48] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 16:03] Fix: Channel errors in gateway log (15 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (15 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-17 16:03] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 16:18] Fix: Channel errors in gateway log (15 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (15 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-17 16:18] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 16:33] Fix: Channel errors in gateway log (15 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (15 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-17 16:33] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 16:49] Fix: Channel errors in gateway log (15 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (15 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-17 16:49] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 17:04] Fix: Channel errors in gateway log (12 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (12 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-17 17:04] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 17:19] Fix: Channel errors in gateway log (12 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (12 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-17 17:19] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 17:34] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 17:49] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-17 17:49] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 18:04] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-17 18:04] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 18:20] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-17 18:20] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 18:35] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-17 18:35] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 18:50] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-17 18:50] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 19:05] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-17 19:05] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 19:20] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-17 19:20] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 19:35] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 19:50] Fix: Channel errors in gateway log (18 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (18 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-17 19:50] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 20:06] Fix: Channel errors in gateway log (18 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (18 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-17 20:06] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 20:21] Fix: Channel errors in gateway log (18 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (18 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-17 20:21] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 20:36] Fix: Channel errors in gateway log (22 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (22 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-17 20:36] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 20:51] Fix: Channel errors in gateway log (20 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (20 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-17 20:51] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 21:06] Fix: Channel errors in gateway log (20 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (20 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-17 21:06] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 21:21] Fix: Channel errors in gateway log (20 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (20 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-17 21:21] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 21:37] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-17 21:37] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 21:52] Fix: Channel errors in gateway log (16 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (16 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-17 21:52] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 22:07] Fix: Channel errors in gateway log (16 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (16 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-17 22:07] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 22:22] Fix: Channel errors in gateway log (12 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (12 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-17 22:22] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 22:37] Fix: Channel errors in gateway log (16 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (16 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-17 22:37] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 22:52] Fix: Channel errors in gateway log (16 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (16 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-17 22:52] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 23:08] Fix: Channel errors in gateway log (14 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (14 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-17 23:08] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 23:23] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-17 23:23] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 23:38] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-17 23:38] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-17 23:53] Fix: Channel errors in gateway log (14 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (14 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-17 23:53] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 00:08] Fix: Channel errors in gateway log (12 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (12 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-18 00:08] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 00:23] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-18 00:23] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 00:38] Fix: Channel errors in gateway log (14 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (14 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-18 00:38] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 00:54] Fix: Channel errors in gateway log (14 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (14 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-18 00:54] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 01:09] Fix: Channel errors in gateway log (14 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (14 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-18 01:09] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 01:24] Fix: Channel errors in gateway log (12 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (12 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-18 01:24] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 01:39] Fix: Channel errors in gateway log (6 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (6 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-18 01:39] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 01:54] Fix: Channel errors in gateway log (14 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (14 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-18 01:54] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 02:09] Fix: Channel errors in gateway log (16 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Patched 1 cron jobs with missing delivery.channel
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (16 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-18 02:09] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 02:24] Fix: Channel errors in gateway log (16 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (16 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-18 02:24] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 02:40] Fix: Channel errors in gateway log (16 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (16 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-18 02:40] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 02:55] Fix: Channel errors in gateway log (16 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (16 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-18 02:55] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 03:10] Fix: Channel errors in gateway log (16 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (16 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-18 03:10] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 03:25] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-18 03:25] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 03:40] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-18 03:40] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 03:55] Fix: Channel errors in gateway log (18 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (18 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-18 03:55] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 04:11] Fix: Channel errors in gateway log (16 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (16 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-18 04:11] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 04:26] Fix: Channel errors in gateway log (18 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (18 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-18 04:26] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 04:41] Fix: Channel errors in gateway log (18 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (18 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-18 04:41] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 04:56] Fix: Channel errors in gateway log (16 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (16 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-18 04:56] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 05:11] Fix: Channel errors in gateway log (16 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (16 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-18 05:11] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 05:27] Fix: Channel errors in gateway log (16 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (16 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-18 05:27] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 05:42] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-18 05:42] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 05:57] Fix: Channel errors in gateway log (14 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (14 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-18 05:57] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 06:12] Fix: Channel errors in gateway log (14 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (14 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-18 06:12] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 06:27] Fix: Channel errors in gateway log (12 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (12 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-18 06:27] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 06:42] Fix: Channel errors in gateway log (12 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (12 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-18 06:42] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 06:57] Fix: Channel errors in gateway log (12 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (12 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-18 06:57] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 07:12] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-18 07:12] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 07:28] Fix: Channel errors in gateway log (12 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (12 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-18 07:28] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 07:43] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 07:58] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Patched 1 cron jobs with missing delivery.channel
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-18 07:58] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 08:13] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-18 08:13] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 08:28] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-18 08:28] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 08:43] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-18 08:43] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 08:58] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-18 08:58] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 09:14] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-18 09:14] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 09:29] Fix: Channel errors in gateway log (6 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (6 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-18 09:29] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 09:44] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 09:59] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-18 09:59] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 10:14] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-18 10:14] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 10:29] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 10:44] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 10:59] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 11:15] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 11:30] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 11:45] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 12:00] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 12:15] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-18 12:15] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 12:30] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-18 12:30] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 12:45] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-18 12:45] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 13:00] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-18 13:00] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 13:16] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-18 13:16] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 13:31] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 13:46] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 14:01] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 14:16] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 14:31] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 14:46] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 15:02] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 15:17] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 15:32] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 15:47] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 16:02] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 16:17] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 16:32] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 16:48] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 17:03] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 17:18] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 17:33] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 17:48] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 18:03] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 18:18] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 18:33] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 18:49] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 19:04] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 19:19] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 19:34] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 19:50] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 20:05] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 20:20] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 20:35] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 20:50] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 21:05] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 21:20] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 21:36] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 21:51] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 22:06] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 22:21] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 22:36] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 22:52] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 23:07] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 23:22] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 23:37] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-18 23:52] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-19 00:07] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-19 00:22] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-19 00:38] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-19 00:53] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-19 01:10] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-19 01:27] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-19 13:15] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restarted successfully
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-19 14:17] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restarted successfully
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-19 14:34] Fix: Coding factory stalled — last SPEC.md is 48h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 48h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-19 14:51] Fix: Coding factory stalled — last SPEC.md is 48h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 48h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-19 15:08] Fix: Coding factory stalled — last SPEC.md is 49h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 49h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-19 15:25] Fix: Coding factory stalled — last SPEC.md is 49h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 49h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-19 15:42] Fix: Coding factory stalled — last SPEC.md is 49h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 49h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-19 15:59] Fix: Coding factory stalled — last SPEC.md is 49h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 49h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-19 16:16] Fix: Coding factory stalled — last SPEC.md is 50h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 50h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-19 16:33] Fix: Coding factory stalled — last SPEC.md is 50h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 50h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-19 16:50] Fix: Coding factory stalled — last SPEC.md is 50h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 50h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-19 17:07] Fix: Coding factory stalled — last SPEC.md is 51h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 51h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-19 17:24] Fix: Coding factory stalled — last SPEC.md is 51h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 51h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-19 17:41] Fix: Coding factory stalled — last SPEC.md is 51h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 51h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-19 17:58] Fix: Coding factory stalled — last SPEC.md is 51h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 51h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-19 18:15] Fix: Coding factory stalled — last SPEC.md is 52h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 52h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-19 18:32] Fix: Coding factory stalled — last SPEC.md is 52h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 52h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-19 18:49] Fix: Coding factory stalled — last SPEC.md is 52h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 52h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-19 19:06] Fix: Coding factory stalled — last SPEC.md is 53h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 53h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-19 19:23] Fix: Coding factory stalled — last SPEC.md is 53h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 53h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-19 19:40] Fix: Coding factory stalled — last SPEC.md is 53h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 53h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-19 19:57] Fix: Coding factory stalled — last SPEC.md is 53h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 53h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-19 20:14] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-19 20:14] Fix: Coding factory stalled — last SPEC.md is 54h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 54h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-19 20:31] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-19 20:31] Fix: Coding factory stalled — last SPEC.md is 54h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 54h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-19 20:48] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-19 20:48] Fix: Coding factory stalled — last SPEC.md is 54h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 54h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-19 21:05] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-19 21:05] Fix: Coding factory stalled — last SPEC.md is 55h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 55h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-19 21:22] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-19 21:22] Fix: Coding factory stalled — last SPEC.md is 55h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 55h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-19 21:39] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-19 21:39] Fix: Coding factory stalled — last SPEC.md is 55h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 55h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-19 21:56] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-19 21:56] Fix: Coding factory stalled — last SPEC.md is 55h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 55h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-19 22:13] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-19 22:13] Fix: Coding factory stalled — last SPEC.md is 56h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 56h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-19 22:30] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-19 22:30] Fix: Coding factory stalled — last SPEC.md is 56h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 56h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-19 22:47] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-19 22:47] Fix: Coding factory stalled — last SPEC.md is 56h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 56h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-19 23:04] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-19 23:04] Fix: Coding factory stalled — last SPEC.md is 57h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 57h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-19 23:21] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-19 23:21] Fix: Coding factory stalled — last SPEC.md is 57h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 57h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-19 23:38] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-19 23:38] Fix: Coding factory stalled — last SPEC.md is 57h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 57h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-19 23:55] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-19 23:55] Fix: Coding factory stalled — last SPEC.md is 57h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 57h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 00:12] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-20 00:12] Fix: Coding factory stalled — last SPEC.md is 58h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 58h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 00:29] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-20 00:29] Fix: Coding factory stalled — last SPEC.md is 58h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 58h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 00:46] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-20 00:46] Fix: Coding factory stalled — last SPEC.md is 58h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 58h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 01:03] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-20 01:03] Fix: Coding factory stalled — last SPEC.md is 58h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 58h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 01:20] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-20 01:20] Fix: Coding factory stalled — last SPEC.md is 59h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 59h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 01:37] Fix: Coding factory stalled — last SPEC.md is 59h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 59h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 01:54] Fix: Coding factory stalled — last SPEC.md is 59h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 59h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 02:11] Fix: Coding factory stalled — last SPEC.md is 60h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 60h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 02:28] Fix: Coding factory stalled — last SPEC.md is 60h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 60h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 02:45] Fix: Coding factory stalled — last SPEC.md is 60h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 60h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 03:02] Fix: Coding factory stalled — last SPEC.md is 60h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 60h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 03:19] Fix: Coding factory stalled — last SPEC.md is 61h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 61h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 03:36] Fix: Coding factory stalled — last SPEC.md is 61h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 61h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 03:53] Fix: Coding factory stalled — last SPEC.md is 61h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 61h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 04:10] Fix: Coding factory stalled — last SPEC.md is 62h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 62h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 04:28] Fix: Coding factory stalled — last SPEC.md is 62h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 62h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 04:45] Fix: Coding factory stalled — last SPEC.md is 62h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 62h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 05:02] Fix: Coding factory stalled — last SPEC.md is 62h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 62h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 05:19] Fix: Coding factory stalled — last SPEC.md is 63h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 63h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 05:36] Fix: Coding factory stalled — last SPEC.md is 63h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 63h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 05:53] Fix: Coding factory stalled — last SPEC.md is 63h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 63h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 06:10] Fix: Coding factory stalled — last SPEC.md is 64h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 64h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 06:27] Fix: Coding factory stalled — last SPEC.md is 64h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 64h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 06:44] Fix: Coding factory stalled — last SPEC.md is 64h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 64h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 07:01] Fix: Coding factory stalled — last SPEC.md is 64h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 64h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 07:18] Fix: Coding factory stalled — last SPEC.md is 65h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 65h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 07:35] Fix: Coding factory stalled — last SPEC.md is 65h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 65h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 07:52] Fix: Coding factory stalled — last SPEC.md is 65h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 65h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 08:09] Fix: Coding factory stalled — last SPEC.md is 66h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 66h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 08:26] Fix: Coding factory stalled — last SPEC.md is 66h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 66h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 08:43] Fix: Coding factory stalled — last SPEC.md is 66h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 66h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 09:00] Fix: Coding factory stalled — last SPEC.md is 66h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 66h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 09:17] Fix: Coding factory stalled — last SPEC.md is 67h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 67h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 09:34] Fix: Coding factory stalled — last SPEC.md is 67h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 67h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 09:51] Fix: Coding factory stalled — last SPEC.md is 67h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 67h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 10:08] Fix: Coding factory stalled — last SPEC.md is 68h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 68h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 10:25] Fix: Coding factory stalled — last SPEC.md is 68h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 68h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 10:42] Fix: Coding factory stalled — last SPEC.md is 68h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 68h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 10:59] Fix: Coding factory stalled — last SPEC.md is 68h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 68h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 11:16] Fix: Coding factory stalled — last SPEC.md is 69h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 69h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 11:33] Fix: Coding factory stalled — last SPEC.md is 69h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 69h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 11:50] Fix: Coding factory stalled — last SPEC.md is 69h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 69h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 12:07] Fix: Coding factory stalled — last SPEC.md is 70h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 70h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 12:24] Fix: Coding factory stalled — last SPEC.md is 70h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 70h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 12:41] Fix: Coding factory stalled — last SPEC.md is 70h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 70h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 12:58] Fix: Coding factory stalled — last SPEC.md is 70h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 70h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 13:15] Fix: Coding factory stalled — last SPEC.md is 71h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 71h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 13:32] Fix: Coding factory stalled — last SPEC.md is 71h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 71h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 13:49] Fix: Coding factory stalled — last SPEC.md is 71h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 71h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 14:06] Fix: Coding factory stalled — last SPEC.md is 72h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 72h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 14:23] Fix: Coding factory stalled — last SPEC.md is 72h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 72h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 14:40] Fix: Coding factory stalled — last SPEC.md is 72h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 72h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 14:57] Fix: Coding factory stalled — last SPEC.md is 72h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 72h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 15:14] Fix: Coding factory stalled — last SPEC.md is 73h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 73h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 15:31] Fix: Coding factory stalled — last SPEC.md is 73h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 73h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 15:48] Fix: Coding factory stalled — last SPEC.md is 73h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 73h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 16:05] Fix: Coding factory stalled — last SPEC.md is 74h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 74h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 16:22] Fix: Coding factory stalled — last SPEC.md is 74h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 74h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 16:39] Fix: Coding factory stalled — last SPEC.md is 74h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 74h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 16:56] Fix: Coding factory stalled — last SPEC.md is 74h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 74h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 17:13] Fix: Coding factory stalled — last SPEC.md is 75h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 75h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 17:30] Fix: Coding factory stalled — last SPEC.md is 75h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 75h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 17:47] Fix: Coding factory stalled — last SPEC.md is 75h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 75h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 18:04] Fix: Coding factory stalled — last SPEC.md is 76h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 76h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 18:21] Fix: Coding factory stalled — last SPEC.md is 76h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 76h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 18:38] Fix: Coding factory stalled — last SPEC.md is 76h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 76h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 18:55] Fix: Coding factory stalled — last SPEC.md is 76h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 76h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 19:12] Fix: Coding factory stalled — last SPEC.md is 77h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 77h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 19:29] Fix: Coding factory stalled — last SPEC.md is 77h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 77h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 19:46] Fix: Coding factory stalled — last SPEC.md is 77h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 77h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 20:03] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-20 20:03] Fix: Coding factory stalled — last SPEC.md is 77h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 77h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 20:20] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-20 20:20] Fix: Coding factory stalled — last SPEC.md is 78h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 78h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 20:37] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-20 20:37] Fix: Coding factory stalled — last SPEC.md is 78h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 78h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 20:54] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-20 20:54] Fix: Coding factory stalled — last SPEC.md is 78h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 78h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 21:11] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-20 21:11] Fix: Coding factory stalled — last SPEC.md is 79h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 79h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-20 21:28] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-20 21:28] Fix: Coding factory stalled — last SPEC.md is 79h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 79h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-21 05:31] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Patched 2 cron jobs with missing delivery.channel
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 05:48] Fix: Channel errors in gateway log (6 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (6 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 06:05] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 06:22] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 06:39] Fix: Channel errors in gateway log (12 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (12 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 06:56] Fix: Channel errors in gateway log (12 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (12 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 07:13] Fix: Channel errors in gateway log (12 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (12 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 07:30] Fix: Channel errors in gateway log (12 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (12 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 07:47] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 08:04] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 08:21] Fix: Channel errors in gateway log (12 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (12 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 08:38] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 08:55] Fix: Channel errors in gateway log (6 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (6 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 09:12] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 09:29] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 09:46] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 10:03] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 10:20] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 10:37] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 10:54] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 11:11] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 11:28] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 11:45] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 12:02] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 12:19] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 12:36] Fix: Channel errors in gateway log (6 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (6 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 12:53] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 13:10] Fix: Channel errors in gateway log (6 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (6 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 13:27] Fix: Channel errors in gateway log (6 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (6 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 13:44] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 14:01] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 14:18] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 14:35] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 14:52] Fix: Channel errors in gateway log (6 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (6 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 15:09] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 15:26] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 15:43] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 16:00] Fix: Channel errors in gateway log (12 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (12 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 16:17] Fix: Channel errors in gateway log (12 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (12 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 16:34] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 16:51] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 17:08] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 17:25] Fix: Channel errors in gateway log (12 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (12 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 17:42] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 17:59] Fix: Channel errors in gateway log (12 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (12 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 18:16] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 18:33] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restarted successfully
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-21 18:33] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 18:50] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 20:07] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-21 20:24] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-21 20:41] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-21 20:58] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-21 21:15] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 21:15] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-21 21:32] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-21 21:49] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-21 22:06] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-21 22:23] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-21 22:40] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 22:40] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-21 22:57] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 22:57] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-21 23:15] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 23:15] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-21 23:32] Fix: Channel errors in gateway log (6 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (6 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 23:32] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-21 23:49] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-21 23:49] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-22 00:06] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-22 00:06] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-22 00:23] Fix: Channel errors in gateway log (6 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (6 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-22 00:23] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-22 00:40] Fix: Channel errors in gateway log (6 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (6 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-22 00:40] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-22 00:57] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-22 01:14] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-22 02:31] Fix: Channel errors in gateway log (5 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (5 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-22 02:48] Fix: Channel errors in gateway log (7 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (7 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-22 03:05] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-22 03:22] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-22 04:54] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-22 05:11] Fix: Channel errors in gateway log (6 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (6 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-22 05:28] Fix: Channel errors in gateway log (6 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (6 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-22 05:45] Fix: Channel errors in gateway log (5 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (5 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-22 06:02] Fix: Channel errors in gateway log (7 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (7 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-22 06:19] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-22 06:36] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 06:53] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 07:10] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 07:27] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 07:44] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 08:01] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 08:18] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 08:36] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 08:53] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 09:10] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 09:27] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 09:44] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 10:01] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 10:18] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 10:35] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 10:52] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 11:09] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 11:26] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 11:43] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 12:00] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 12:18] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 12:35] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 12:52] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 13:09] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 13:26] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 13:43] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 14:00] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 14:17] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 14:34] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 14:51] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 15:08] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 15:26] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 15:43] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 16:00] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 16:17] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 16:34] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 16:51] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 17:08] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 17:25] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 17:42] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 17:59] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 18:16] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 18:34] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 18:51] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 19:08] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 19:25] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 19:42] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 19:59] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 20:16] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 20:16] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-22 20:33] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 20:33] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-22 20:50] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 20:50] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-22 21:07] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 21:07] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-22 21:24] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 21:24] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-22 21:41] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 21:41] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-22 21:59] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 21:59] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-22 22:16] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 22:16] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-22 22:33] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 22:33] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-22 22:50] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 22:50] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-22 23:07] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 23:07] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-22 23:24] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 23:24] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-22 23:41] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 23:41] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-22 23:58] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-22 23:58] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 00:15] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-23 00:15] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 00:32] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-23 00:32] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 00:49] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-23 00:49] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 01:06] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-23 01:06] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 01:24] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-23 01:24] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 01:41] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-23 01:41] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 01:58] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-23 01:58] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 02:15] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-23 02:15] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 02:32] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-23 02:32] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 02:49] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-23 02:49] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 03:06] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-23 03:06] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 03:23] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-23 03:23] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 03:40] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-23 03:40] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 03:57] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-23 03:57] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 04:14] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-23 04:14] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 04:31] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-23 04:31] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 04:49] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-23 04:49] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 05:06] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-23 05:06] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 05:23] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-23 05:23] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 05:40] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-23 05:40] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 05:57] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-23 05:57] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 06:14] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-23 06:14] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 06:31] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-23 06:31] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 06:48] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-23 06:48] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 07:05] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-23 07:05] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 07:22] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-23 07:22] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 07:39] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-23 07:39] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 07:56] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-23 07:56] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 08:14] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-23 08:14] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 08:31] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-23 08:31] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 08:48] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-23 08:48] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 09:05] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restart attempted — still not responding (may need manual check)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-23 09:05] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 09:22] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 09:39] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-23 09:56] Fix: Channel errors in gateway log (32 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (32 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-23 10:13] Fix: Channel errors in gateway log (19 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (19 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-23 10:30] Fix: Channel errors in gateway log (19 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (19 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-23 10:47] Fix: Channel errors in gateway log (56 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (56 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-23 11:04] Fix: Channel errors in gateway log (56 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (56 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-23 11:21] Fix: Channel errors in gateway log (22 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (22 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-23 11:38] Fix: Channel errors in gateway log (44 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (44 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-23 11:55] Fix: Channel errors in gateway log (30 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (30 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-23 12:12] Fix: Channel errors in gateway log (25 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (25 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-23 12:29] Fix: Channel errors in gateway log (27 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (27 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-23 12:46] Fix: Channel errors in gateway log (36 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (36 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-23 13:03] Fix: Channel errors in gateway log (19 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (19 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-23 13:20] Fix: Channel errors in gateway log (16 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (16 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-23 13:37] Fix: Channel errors in gateway log (16 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (16 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-23 13:54] Fix: Channel errors in gateway log (16 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (16 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-23 19:27] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-23 19:44] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-23 20:01] Fix: Channel errors in gateway log (6 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (6 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-23 20:01] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 20:18] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-23 20:18] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 20:35] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 20:52] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 21:09] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 21:26] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 21:43] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 22:00] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 22:17] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 22:34] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 22:51] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 23:08] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 23:25] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 23:42] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-23 23:59] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 00:16] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 00:33] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-24 00:33] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 00:50] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-24 00:50] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 01:07] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-24 01:07] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 01:24] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 01:41] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 01:58] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 02:15] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 02:32] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 02:49] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 03:06] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 03:23] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 03:40] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 03:57] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 04:14] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 04:31] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 04:48] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 05:05] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 05:22] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 05:39] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 05:56] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 06:13] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 06:30] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 06:47] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-24 06:47] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 07:05] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 07:22] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-24 07:22] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 07:39] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-24 07:39] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 07:56] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-24 07:56] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 08:13] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 08:30] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 08:47] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 09:04] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 09:21] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 09:38] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 09:55] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 10:12] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 10:29] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-24 10:29] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 10:46] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-24 10:46] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 11:03] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-24 11:03] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 11:20] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 11:37] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 11:54] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 12:11] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 12:28] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 12:45] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 13:02] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 13:19] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 13:36] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 13:53] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 14:10] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 14:27] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 14:44] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 15:01] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 15:18] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 15:35] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-24 15:35] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 15:52] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-24 15:52] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 16:09] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 16:26] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 16:43] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 17:00] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 17:17] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 17:34] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 17:51] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 18:08] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 18:25] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 18:42] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 18:59] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 19:16] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 19:33] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 19:50] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 20:08] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 20:25] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 20:42] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 20:59] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 21:16] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 21:33] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 21:50] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 22:07] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 22:24] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 22:41] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 22:58] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 23:15] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 23:32] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-24 23:49] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 00:06] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 00:23] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 00:40] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 00:57] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 01:14] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 01:31] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 01:48] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 02:05] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 02:22] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 02:39] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 02:56] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 03:13] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 03:30] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 03:47] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 04:04] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 04:21] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 04:38] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 04:55] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 05:12] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 05:29] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 05:46] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 06:03] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 06:20] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 06:37] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 06:54] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 07:11] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 07:28] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 07:45] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 08:02] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 08:19] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 08:37] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 08:54] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 09:11] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 09:28] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 09:45] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 10:02] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 10:19] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 10:36] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 10:53] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 11:10] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 11:27] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 11:44] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 12:01] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 12:18] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 12:35] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 12:52] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 13:09] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 13:26] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 13:43] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 14:00] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 14:00] Fix: Coding factory stalled — last SPEC.md is 48h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 48h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-25 14:17] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 14:17] Fix: Coding factory stalled — last SPEC.md is 49h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 49h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-25 14:34] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 14:34] Fix: Coding factory stalled — last SPEC.md is 49h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 49h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-25 14:51] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 14:51] Fix: Coding factory stalled — last SPEC.md is 49h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 49h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-25 15:08] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 15:08] Fix: Coding factory stalled — last SPEC.md is 49h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 49h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-25 15:25] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 15:25] Fix: Coding factory stalled — last SPEC.md is 50h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 50h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-25 15:42] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 15:42] Fix: Coding factory stalled — last SPEC.md is 50h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 50h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-25 15:59] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 15:59] Fix: Coding factory stalled — last SPEC.md is 50h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 50h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-25 16:16] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 16:16] Fix: Coding factory stalled — last SPEC.md is 50h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 50h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-25 16:33] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 16:33] Fix: Coding factory stalled — last SPEC.md is 51h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 51h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-25 16:50] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 16:50] Fix: Coding factory stalled — last SPEC.md is 51h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 51h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-25 17:07] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 17:07] Fix: Coding factory stalled — last SPEC.md is 51h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 51h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-25 17:24] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 17:24] Fix: Coding factory stalled — last SPEC.md is 52h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 52h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-25 17:41] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 17:41] Fix: Coding factory stalled — last SPEC.md is 52h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 52h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-25 17:58] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 17:58] Fix: Coding factory stalled — last SPEC.md is 52h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 52h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-25 18:15] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 18:15] Fix: Coding factory stalled — last SPEC.md is 52h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 52h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-25 18:32] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 18:32] Fix: Coding factory stalled — last SPEC.md is 53h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 53h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-25 18:49] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 18:49] Fix: Coding factory stalled — last SPEC.md is 53h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 53h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-25 19:06] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 19:06] Fix: Coding factory stalled — last SPEC.md is 53h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 53h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-25 19:21] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 19:21] Fix: Coding factory stalled — last SPEC.md is 54h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 54h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-25 19:38] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 19:38] Fix: Coding factory stalled — last SPEC.md is 54h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 54h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-25 19:55] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 19:55] Fix: Coding factory stalled — last SPEC.md is 54h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 54h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-25 20:12] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 20:12] Fix: Coding factory stalled — last SPEC.md is 54h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 54h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-25 20:29] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 20:29] Fix: Coding factory stalled — last SPEC.md is 55h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 55h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-25 20:46] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 20:46] Fix: Coding factory stalled — last SPEC.md is 55h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 55h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-25 21:03] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 21:03] Fix: Coding factory stalled — last SPEC.md is 55h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 55h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-25 21:20] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 21:20] Fix: Coding factory stalled — last SPEC.md is 56h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 56h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-25 21:37] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 21:37] Fix: Coding factory stalled — last SPEC.md is 56h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 56h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-25 21:54] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 21:54] Fix: Coding factory stalled — last SPEC.md is 56h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 56h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-25 22:11] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restarted successfully
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-25 22:11] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 22:11] Fix: Coding factory stalled — last SPEC.md is 56h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 56h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-25 22:28] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 22:28] Fix: Coding factory stalled — last SPEC.md is 57h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 57h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-25 22:45] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 22:45] Fix: Coding factory stalled — last SPEC.md is 57h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 57h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-25 23:02] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 23:02] Fix: Coding factory stalled — last SPEC.md is 57h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 57h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-25 23:19] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 23:19] Fix: Coding factory stalled — last SPEC.md is 58h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 58h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-25 23:36] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 23:36] Fix: Coding factory stalled — last SPEC.md is 58h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 58h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-25 23:53] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-25 23:53] Fix: Coding factory stalled — last SPEC.md is 58h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 58h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 00:10] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 00:10] Fix: Coding factory stalled — last SPEC.md is 58h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 58h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 00:27] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 00:27] Fix: Coding factory stalled — last SPEC.md is 59h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 59h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 00:44] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 00:44] Fix: Coding factory stalled — last SPEC.md is 59h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 59h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 01:01] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 01:01] Fix: Coding factory stalled — last SPEC.md is 59h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 59h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 01:18] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 01:18] Fix: Coding factory stalled — last SPEC.md is 60h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 60h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 01:35] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 01:35] Fix: Coding factory stalled — last SPEC.md is 60h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 60h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 01:52] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 01:52] Fix: Coding factory stalled — last SPEC.md is 60h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 60h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 02:09] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 02:09] Fix: Coding factory stalled — last SPEC.md is 60h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 60h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 02:26] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 02:26] Fix: Coding factory stalled — last SPEC.md is 61h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 61h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 02:43] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 02:43] Fix: Coding factory stalled — last SPEC.md is 61h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 61h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 03:00] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 03:00] Fix: Coding factory stalled — last SPEC.md is 61h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 61h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 03:17] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 03:17] Fix: Coding factory stalled — last SPEC.md is 62h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 62h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 03:34] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 03:34] Fix: Coding factory stalled — last SPEC.md is 62h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 62h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 03:51] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 03:51] Fix: Coding factory stalled — last SPEC.md is 62h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 62h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 04:08] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 04:08] Fix: Coding factory stalled — last SPEC.md is 62h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 62h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 04:25] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 04:25] Fix: Coding factory stalled — last SPEC.md is 63h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 63h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 04:42] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 04:42] Fix: Coding factory stalled — last SPEC.md is 63h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 63h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 04:59] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 04:59] Fix: Coding factory stalled — last SPEC.md is 63h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 63h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 05:16] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 05:16] Fix: Coding factory stalled — last SPEC.md is 64h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 64h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 05:33] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 05:33] Fix: Coding factory stalled — last SPEC.md is 64h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 64h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 05:50] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 05:50] Fix: Coding factory stalled — last SPEC.md is 64h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 64h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 06:07] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 06:07] Fix: Coding factory stalled — last SPEC.md is 64h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 64h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 06:24] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 06:24] Fix: Coding factory stalled — last SPEC.md is 65h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 65h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 06:41] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 06:41] Fix: Coding factory stalled — last SPEC.md is 65h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 65h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 06:58] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 06:58] Fix: Coding factory stalled — last SPEC.md is 65h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 65h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 07:15] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 07:15] Fix: Coding factory stalled — last SPEC.md is 65h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 65h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 07:32] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 07:32] Fix: Coding factory stalled — last SPEC.md is 66h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 66h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 07:49] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 07:49] Fix: Coding factory stalled — last SPEC.md is 66h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 66h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 08:06] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 08:06] Fix: Coding factory stalled — last SPEC.md is 66h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 66h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 08:23] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 08:23] Fix: Coding factory stalled — last SPEC.md is 67h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 67h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 08:40] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 08:40] Fix: Coding factory stalled — last SPEC.md is 67h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 67h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 08:57] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 08:57] Fix: Coding factory stalled — last SPEC.md is 67h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 67h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 09:14] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 09:14] Fix: Coding factory stalled — last SPEC.md is 67h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 67h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 09:31] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 09:31] Fix: Coding factory stalled — last SPEC.md is 68h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 68h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 09:48] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 09:48] Fix: Coding factory stalled — last SPEC.md is 68h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 68h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 10:05] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 10:05] Fix: Coding factory stalled — last SPEC.md is 68h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 68h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 10:22] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 10:22] Fix: Coding factory stalled — last SPEC.md is 69h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 69h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 10:39] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 10:39] Fix: Coding factory stalled — last SPEC.md is 69h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 69h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 10:56] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 10:56] Fix: Coding factory stalled — last SPEC.md is 69h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 69h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 11:13] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 11:13] Fix: Coding factory stalled — last SPEC.md is 69h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 69h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 11:30] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 11:30] Fix: Coding factory stalled — last SPEC.md is 70h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 70h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 11:47] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 11:47] Fix: Coding factory stalled — last SPEC.md is 70h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 70h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 12:04] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 12:04] Fix: Coding factory stalled — last SPEC.md is 70h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 70h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 12:22] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 12:22] Fix: Coding factory stalled — last SPEC.md is 71h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 71h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 12:39] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 12:39] Fix: Coding factory stalled — last SPEC.md is 71h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 71h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 12:56] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 12:56] Fix: Coding factory stalled — last SPEC.md is 71h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 71h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 13:13] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 13:13] Fix: Coding factory stalled — last SPEC.md is 71h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 71h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 13:30] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 13:30] Fix: Coding factory stalled — last SPEC.md is 72h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 72h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 13:47] Fix: Channel errors in gateway log (5 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (5 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-26 13:47] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 13:47] Fix: Coding factory stalled — last SPEC.md is 72h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 72h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 14:04] Fix: Channel errors in gateway log (5 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (5 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-26 14:04] Fix: 1 stale IN_PROGRESS tasks (>2h)
+**Severity:** L1
+**Symptom:** CONSULTANT-RESEARCH-20260326100554
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Reset 1 stale tasks to PENDING: CONSULTANT-RESEARCH-20260326100554
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='stale_tasks'. Run `openclaw agent --agent ops --message "SELF-HEAL: 1 stale IN_PROGRESS tasks (>2h)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=stale_tasks to detect recurrence.
+
+
+## [2026-03-26 14:04] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 14:04] Fix: Coding factory stalled — last SPEC.md is 72h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 72h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-26 14:21] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-26 14:21] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 14:38] Fix: Channel errors in gateway log (13 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (13 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-26 14:38] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 14:55] Fix: Channel errors in gateway log (24 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (24 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-26 14:55] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 15:12] Fix: Channel errors in gateway log (31 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (31 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-26 15:12] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 15:29] Fix: Channel errors in gateway log (33 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (33 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-26 15:29] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 15:46] Fix: Channel errors in gateway log (36 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (36 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-26 15:46] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 16:03] Fix: Channel errors in gateway log (37 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (37 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-26 16:03] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 16:20] Fix: Channel errors in gateway log (23 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (23 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-26 16:20] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 16:37] Fix: Channel errors in gateway log (17 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (17 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-26 16:37] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 16:54] Fix: Channel errors in gateway log (15 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (15 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-26 16:54] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 17:11] Fix: Channel errors in gateway log (11 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (11 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-26 17:11] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 17:28] Fix: Channel errors in gateway log (12 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (12 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-26 17:28] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 17:45] Fix: Channel errors in gateway log (14 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (14 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-26 17:45] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 18:02] Fix: Channel errors in gateway log (11 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (11 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-26 18:02] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 18:19] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-26 18:19] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 18:36] Fix: Channel errors in gateway log (11 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (11 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-26 18:36] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 18:53] Fix: Channel errors in gateway log (11 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (11 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-26 18:53] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 19:10] Fix: Channel errors in gateway log (11 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (11 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-26 19:10] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 19:27] Fix: Channel errors in gateway log (9 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (9 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-26 19:27] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 19:44] Fix: Channel errors in gateway log (7 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (7 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-26 19:44] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 20:01] Fix: Channel errors in gateway log (7 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (7 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-26 20:01] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 20:18] Fix: Channel errors in gateway log (7 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (7 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-26 20:18] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 20:35] Fix: Channel errors in gateway log (6 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (6 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-26 20:35] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 20:52] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-26 20:52] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 21:09] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-26 21:09] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 21:26] Fix: Channel errors in gateway log (9 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (9 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-26 21:26] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 21:43] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-26 21:43] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 22:00] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-26 22:00] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 22:17] Fix: Channel errors in gateway log (7 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (7 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-26 22:17] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 22:34] Fix: Channel errors in gateway log (9 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (9 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-26 22:34] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 22:51] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-26 22:51] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 23:08] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-26 23:08] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 23:25] Fix: Channel errors in gateway log (9 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (9 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-26 23:25] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 23:42] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restarted successfully
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-26 23:42] Fix: Channel errors in gateway log (15 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (15 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-26 23:42] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-26 23:59] Fix: Channel errors in gateway log (16 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (16 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-26 23:59] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 00:16] Fix: Channel errors in gateway log (13 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (13 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 00:16] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 00:33] Fix: Channel errors in gateway log (11 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (11 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 00:33] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 00:50] Fix: Channel errors in gateway log (12 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (12 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 00:50] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 01:07] Fix: Channel errors in gateway log (12 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (12 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 01:07] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 01:24] Fix: Channel errors in gateway log (12 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (12 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 01:24] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 01:41] Fix: Channel errors in gateway log (12 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (12 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 01:41] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 01:58] Fix: Channel errors in gateway log (11 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (11 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 01:58] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 02:15] Fix: Channel errors in gateway log (11 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (11 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 02:15] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 02:32] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 02:32] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 02:49] Fix: Channel errors in gateway log (9 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (9 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 02:49] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 03:06] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 03:06] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 03:23] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 03:23] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 03:40] Fix: Channel errors in gateway log (9 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (9 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 03:40] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 03:57] Fix: Channel errors in gateway log (13 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (13 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 03:57] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 04:14] Fix: Channel errors in gateway log (11 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (11 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 04:14] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 04:31] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 04:31] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 04:48] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 04:48] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 05:05] Fix: Channel errors in gateway log (7 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (7 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 05:05] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 05:22] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 05:22] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 05:39] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 05:39] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 05:56] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 05:56] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 06:13] Fix: Channel errors in gateway log (9 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (9 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 06:13] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 06:31] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 06:31] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 06:48] Fix: Channel errors in gateway log (9 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (9 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 06:48] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 07:05] Fix: Channel errors in gateway log (5 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (5 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 07:05] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 07:22] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 07:22] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 07:39] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 07:39] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 07:56] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 07:56] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 08:13] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 08:13] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 08:30] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 08:30] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 08:47] Fix: Channel errors in gateway log (9 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (9 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 08:47] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 09:04] Fix: Channel errors in gateway log (7 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (7 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 09:04] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 09:21] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restarted successfully
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-27 09:21] Fix: Channel errors in gateway log (6 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (6 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 09:21] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 09:38] Fix: Channel errors in gateway log (6 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (6 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 09:38] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 09:55] Fix: Channel errors in gateway log (12 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (12 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 09:55] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 10:12] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 10:12] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 10:29] Fix: Channel errors in gateway log (12 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (12 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 10:29] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 10:46] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 10:46] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 11:03] Fix: Channel errors in gateway log (12 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (12 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 11:03] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 11:20] Fix: Channel errors in gateway log (12 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (12 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 11:20] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 11:37] Fix: Channel errors in gateway log (15 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (15 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 11:37] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 11:54] Fix: Channel errors in gateway log (15 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (15 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 11:54] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 12:11] Fix: Channel errors in gateway log (13 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (13 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 12:11] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 12:28] Fix: Channel errors in gateway log (14 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (14 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 12:28] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 12:45] Fix: Channel errors in gateway log (9 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (9 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 12:45] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 13:02] Fix: Channel errors in gateway log (12 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (12 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 13:02] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 13:19] Fix: Channel errors in gateway log (12 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (12 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 13:19] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 13:36] Fix: Channel errors in gateway log (13 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (13 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 13:36] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 13:53] Fix: Channel errors in gateway log (13 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (13 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 13:53] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 14:10] Fix: Channel errors in gateway log (12 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (12 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 14:10] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 14:27] Fix: Channel errors in gateway log (11 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (11 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 14:27] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 14:44] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 14:44] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 15:01] Fix: Channel errors in gateway log (12 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (12 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 15:01] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 15:18] Fix: Channel errors in gateway log (9 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (9 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 15:18] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 15:35] Fix: Channel errors in gateway log (12 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (12 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 15:35] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 15:52] Fix: Channel errors in gateway log (15 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (15 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 15:52] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 16:09] Fix: Channel errors in gateway log (14 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (14 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 16:09] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 16:26] Fix: Channel errors in gateway log (12 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (12 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 16:26] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 16:43] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 16:43] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 17:00] Fix: Channel errors in gateway log (17 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (17 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 17:00] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 17:17] Fix: Channel errors in gateway log (17 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (17 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 17:17] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 17:34] Fix: Channel errors in gateway log (24 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (24 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 17:34] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 17:51] Fix: Channel errors in gateway log (22 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (22 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 17:51] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 18:08] Fix: Channel errors in gateway log (28 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (28 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 18:08] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 18:25] Fix: Channel errors in gateway log (29 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (29 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 18:25] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 18:42] Fix: Channel errors in gateway log (36 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (36 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 18:42] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 18:59] Fix: Channel errors in gateway log (30 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (30 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 18:59] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 19:16] Fix: Channel errors in gateway log (29 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (29 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 19:16] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 19:33] Fix: Channel errors in gateway log (25 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (25 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 19:33] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 19:50] Fix: Channel errors in gateway log (23 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (23 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 19:50] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 20:07] Fix: Channel errors in gateway log (20 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (20 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 20:07] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 20:24] Fix: Channel errors in gateway log (26 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (26 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 20:24] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 20:41] Fix: Channel errors in gateway log (27 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (27 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 20:41] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 20:58] Fix: Channel errors in gateway log (25 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (25 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 20:58] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 21:15] Fix: Channel errors in gateway log (28 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (28 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 21:15] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 21:32] Fix: Channel errors in gateway log (24 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (24 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 21:32] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 21:49] Fix: Channel errors in gateway log (26 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (26 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 21:49] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 22:07] Fix: Channel errors in gateway log (22 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (22 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 22:07] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 22:24] Fix: Channel errors in gateway log (19 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (19 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 22:24] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 22:41] Fix: Channel errors in gateway log (16 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (16 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 22:41] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 22:58] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 22:58] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 23:15] Fix: Channel errors in gateway log (12 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (12 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 23:15] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 23:32] Fix: Channel errors in gateway log (15 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (15 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 23:32] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-27 23:49] Fix: Channel errors in gateway log (21 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (21 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-27 23:49] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 00:06] Fix: Channel errors in gateway log (27 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (27 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-28 00:06] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 00:23] Fix: Channel errors in gateway log (34 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (34 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-28 00:23] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 00:40] Fix: Channel errors in gateway log (27 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (27 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-28 00:40] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 00:57] Fix: Channel errors in gateway log (29 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (29 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-28 00:57] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 01:14] Fix: Channel errors in gateway log (19 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (19 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-28 01:14] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 01:31] Fix: Channel errors in gateway log (20 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (20 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-28 01:31] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 01:48] Fix: Channel errors in gateway log (25 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (25 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-28 01:48] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 02:05] Fix: Channel errors in gateway log (18 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (18 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-28 02:05] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 02:22] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-28 02:22] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 02:39] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 02:56] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 03:13] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 03:30] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 03:47] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 04:04] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 04:21] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 04:38] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 04:55] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 05:12] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 05:29] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 05:46] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 06:03] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 06:20] Fix: Channel errors in gateway log (9 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (9 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-28 06:20] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 06:37] Fix: Channel errors in gateway log (9 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (9 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-28 06:37] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 06:54] Fix: Channel errors in gateway log (9 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (9 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-28 06:54] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 07:11] Fix: Channel errors in gateway log (5 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (5 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-28 07:11] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 07:28] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 07:45] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 08:02] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 08:19] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 08:36] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 08:53] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 09:10] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 09:27] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 09:44] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 10:01] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 10:18] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 10:35] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 10:52] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 11:09] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 11:26] Fix: Channel errors in gateway log (7 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (7 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-28 11:26] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 11:43] Fix: Channel errors in gateway log (6 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (6 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-28 11:43] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 12:00] Fix: Channel errors in gateway log (5 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (5 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-28 12:00] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 12:17] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 12:34] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 12:51] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 13:08] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 13:25] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 13:42] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 13:59] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 14:16] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 14:33] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 14:51] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 15:08] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 15:25] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 15:42] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 15:59] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 16:16] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 16:33] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-28 16:33] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 16:50] Fix: Channel errors in gateway log (7 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (7 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-28 16:50] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 17:07] Fix: Channel errors in gateway log (9 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (9 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-28 17:07] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 17:24] Fix: Channel errors in gateway log (5 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (5 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-28 17:24] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 17:41] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 17:58] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 18:15] Fix: Channel errors in gateway log (5 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (5 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-28 18:15] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 18:32] Fix: Channel errors in gateway log (7 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (7 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-28 18:32] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 18:49] Fix: Channel errors in gateway log (7 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (7 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-28 18:49] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 19:06] Fix: Channel errors in gateway log (11 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (11 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-28 19:06] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 19:23] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-28 19:23] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 19:40] Fix: Channel errors in gateway log (11 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (11 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-28 19:40] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 19:57] Fix: Channel errors in gateway log (13 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (13 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-28 19:57] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 20:14] Fix: Channel errors in gateway log (6 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (6 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-28 20:14] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 20:31] Fix: Channel errors in gateway log (7 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (7 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-28 20:31] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 20:48] Fix: Channel errors in gateway log (11 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (11 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-28 20:48] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 21:05] Fix: Channel errors in gateway log (7 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (7 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-28 21:05] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 21:22] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-28 21:22] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 21:39] Fix: Channel errors in gateway log (12 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (12 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-28 21:39] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 21:56] Fix: Channel errors in gateway log (11 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (11 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-28 21:56] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 22:13] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-28 22:13] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 22:30] Fix: Channel errors in gateway log (7 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (7 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-28 22:30] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 22:47] Fix: Channel errors in gateway log (6 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (6 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-28 22:47] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 23:04] Fix: Channel errors in gateway log (9 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (9 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-28 23:04] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 23:21] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-28 23:21] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 23:38] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-28 23:38] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-28 23:55] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-28 23:55] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 00:12] Fix: Channel errors in gateway log (15 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (15 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 00:12] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 00:29] Fix: Channel errors in gateway log (14 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (14 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 00:29] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 00:46] Fix: Channel errors in gateway log (7 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (7 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 00:46] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 01:03] Fix: Channel errors in gateway log (6 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (6 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 01:03] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 01:20] Fix: Channel errors in gateway log (5 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (5 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 01:20] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 01:37] Fix: Channel errors in gateway log (7 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (7 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 01:37] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 01:54] Fix: Channel errors in gateway log (7 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (7 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 01:54] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 02:11] Fix: Channel errors in gateway log (9 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Patched 2 cron jobs with missing delivery.channel
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (9 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 02:11] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 02:28] Fix: Channel errors in gateway log (21 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (21 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 02:28] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 02:45] Fix: Channel errors in gateway log (18 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (18 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 02:45] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 03:02] Fix: Channel errors in gateway log (11 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (11 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 03:02] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 03:19] Fix: Channel errors in gateway log (7 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (7 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 03:19] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 03:36] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 03:53] Fix: Channel errors in gateway log (9 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (9 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 03:53] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 04:10] Fix: Channel errors in gateway log (13 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (13 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 04:10] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 04:27] Fix: Channel errors in gateway log (9 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (9 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 04:27] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 04:44] Fix: Channel errors in gateway log (7 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (7 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 04:44] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 05:01] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 05:01] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 05:18] Fix: Channel errors in gateway log (7 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (7 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 05:18] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 05:35] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 05:35] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 05:52] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 05:52] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 06:09] Fix: Channel errors in gateway log (9 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (9 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 06:09] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 06:26] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 06:26] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 06:43] Fix: Channel errors in gateway log (7 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (7 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 06:43] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 07:00] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 07:00] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 07:17] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 07:17] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 07:34] Fix: Channel errors in gateway log (14 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (14 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 07:34] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 07:51] Fix: Channel errors in gateway log (13 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (13 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 07:51] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 08:08] Fix: Channel errors in gateway log (8 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (8 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 08:08] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 08:25] Fix: Channel errors in gateway log (12 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (12 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 08:25] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 08:42] Fix: Channel errors in gateway log (9 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (9 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 08:42] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 08:59] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 08:59] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 09:17] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 09:34] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 09:51] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 10:08] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 10:25] Fix: Channel errors in gateway log (5 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (5 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 10:25] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 10:42] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 10:42] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 10:59] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 11:16] Fix: Channel errors in gateway log (5 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (5 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 11:16] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 11:33] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 11:33] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 11:50] Fix: Channel errors in gateway log (4 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (4 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 11:50] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 12:07] Fix: Channel errors in gateway log (9 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (9 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 12:07] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 12:24] Fix: Channel errors in gateway log (11 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (11 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 12:24] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 12:41] Fix: Channel errors in gateway log (6 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (6 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 12:41] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 12:58] Fix: Channel errors in gateway log (14 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (14 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 12:58] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 13:15] Fix: Channel errors in gateway log (17 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (17 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 13:15] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 13:32] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 13:32] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 13:49] Fix: Channel errors in gateway log (5 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (5 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 13:49] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 14:06] Fix: Channel errors in gateway log (15 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (15 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 14:06] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 14:23] Fix: Channel errors in gateway log (13 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (13 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 14:23] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 14:40] Fix: Channel errors in gateway log (10 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (10 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 14:40] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 14:57] Fix: Channel errors in gateway log (18 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (18 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 14:57] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 15:14] Fix: Channel errors in gateway log (29 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (29 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 15:14] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 15:31] Fix: Channel errors in gateway log (35 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Patched 1 cron jobs with missing delivery.channel
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (35 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 15:31] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 15:48] Fix: Channel errors in gateway log (35 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (35 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 15:48] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 16:05] Fix: Channel errors in gateway log (22 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (22 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 16:05] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 16:22] Fix: Channel errors in gateway log (20 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (20 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 16:22] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 16:39] Fix: Channel errors in gateway log (20 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (20 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 16:39] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 16:56] Fix: Channel errors in gateway log (18 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (18 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 16:56] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 17:13] Fix: Channel errors in gateway log (21 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (21 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 17:13] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 17:30] Fix: Channel errors in gateway log (20 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (20 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 17:30] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 17:47] Fix: Channel errors in gateway log (22 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (22 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 17:47] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 18:04] Fix: Channel errors in gateway log (17 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (17 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 18:04] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
