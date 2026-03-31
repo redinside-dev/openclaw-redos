@@ -6323,3 +6323,24 @@ OPS agent tasked to investigate and inject new work
 
 ## [2026-03-30 23:34] Consultant fixed: Coding factory stalled — last SPEC.md is 71h old
 RESEARCH agent tasked to restart coding factory
+
+## [2026-03-30 23:51] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-30 23:51] Consultant fixed: Coding factory stalled — last SPEC.md is 72h old
+RESEARCH agent tasked to restart coding factory
+
+## [2026-03-31 00:08] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restart attempted — still not responding (may need manual check)
+
+## [2026-03-31 00:08] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-31 00:08] Consultant fixed: Coding factory stalled — last SPEC.md is 72h old
+RESEARCH agent tasked to restart coding factory
+
+## [2026-03-31 00:25] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-31 00:42] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work

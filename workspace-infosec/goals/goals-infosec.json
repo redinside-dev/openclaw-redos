@@ -1,6 +1,6 @@
 {
   "agentId": "infosec",
-  "updatedAt": "2026-03-17T15:15:00Z",
+  "updatedAt": "2026-03-29T20:29:00Z",
   "goals": [
     {
       "id": "goal-infosec-001",
@@ -40,4 +40,30 @@
     }
   ],
   "completedGoals": [],
-  "
+  "openTasks": [
+    {
+      "task": "Send sessions_send to ENG: establish a pre-deploy review protocol.",
+      "priority": "P1",
+      "status": "pending",
+      "assignedTo": "infosec",
+      "createdAt": "2026-03-29T20:29:00Z",
+      "dueDate": "2026-03-30T00:00:00Z"
+    },
+    {
+      "task": "Write initial threat model to workspace/ops/SECURITY-HARDENING.md. Cover: tool abuse, prompt injection, credential exposure, cross-agent privilege escalation.",
+      "priority": "P2",
+      "status": "pending",
+      "assignedTo": "infosec",
+      "createdAt": "2026-03-29T20:29:00Z",
+      "dueDate": "2026-03-30T00:00:00Z"
+    },
+    {
+      "task": "On every session start: scan recent logs and tickets for security signals. If found, sessions_send RED immediately.",
+      "priority": "P1",
+      "status": "in_progress",
+      "assignedTo": "infosec",
+      "createdAt": "2026-02-24T05:00:00Z",
+      "dueDate": "2026-03-01T00:00:00Z"
+    }
+  ]
+}

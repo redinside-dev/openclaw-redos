@@ -2,7 +2,7 @@
 
 > Autonomous AI company running on OpenClaw CLI — 8 specialized agents, A2A delegation working, two revenue streams, zero humans in the loop.
 
-**Owner:** [anuragg-saxenaa](https://github.com/anuragg-saxenaa) · **Infra:** [redinside-dev](https://github.com/redinside-dev) · **Platform:** macOS (Darwin 25) · **Updated:** 2026-03-30
+**Owner:** [anuragg-saxenaa](https://github.com/anuragg-saxenaa) · **Infra:** [redinside-dev](https://github.com/redinside-dev) · **Platform:** macOS (Darwin 25) · **Updated:** 2026-03-31
 
 ---
 
@@ -115,30 +115,6 @@ Daily 11am Toronto: OSS Contributor
 
 ---
 
-## Website Agency Pipeline
-
-```
-Daily 9am: lead_generator.py
-  │  Overpass API (free, OpenStreetMap)
-  │  Finds Ontario businesses missing "website" tag
-  ▼
-leads.json  (real names, addresses, lat/lon, OSM IDs)
-  │
-  ▼ Every 4h: website_auditor.py
-audits.json  (grade A–F, speed, mobile, SEO)
-  │
-  ▼ Every 2h: website_builder.py
-sites/<slug>.html  (generated landing page demo)
-  │
-  ▼ Every 3h: send_outreach.py
-SMS / email → business owner
-  │
-  ▼ 10am / 2pm / 6pm: voice_followup.py
-AI voice call follow-up
-```
-
----
-
 ## Bounded Autonomy (L0–L5)
 
 ```
@@ -156,10 +132,13 @@ L5  critical/irrevers. ──▶  Telegram approval → RED (30 min window)
 
 | Provider | Port | Models | Cost | Usage |
 |----------|------|--------|------|-------|
-| 9Router | 20128 | `free-unlimited`, `heartbeat-cheap` | $0 | Primary — all agents |
+| 9Router | 20128 | `free-unlimited`, `cc/claude-sonnet-4-6`, `always-on-premium` | $0 | Primary — all agents |
 | openai-codex | — | `gpt-5.2` | Subscription | Final fallback only |
 | Perplexity | — | `sonar-pro` | Subscription | RESEARCH explicit calls |
-| ZAI | — | `glm-4.7`, `glm-4.7-flashx` | PAYG | **Never in crons/fallbacks** |
+| MiniMax | — | `MiniMax-Text-01` | PAYG | **Never in crons/fallbacks** |
+
+> **Never use `openrouter/auto`** — OpenRouter free key exhausted (403)
+> **Never use ZAI** (glm-4.7, glm-4.7-flashx) — PAYG, banned from crons/fallbacks
 
 ---
 
@@ -169,8 +148,8 @@ Target: 10 public GitHub repos shipped by 2026-05-05. All repos have GitHub Acti
 
 | # | Project | Status | Stack | GitHub |
 |---|---------|--------|-------|--------|
-| 1 | `costwatch` | 🔨 Building | Node.js, Express | — |
-| 2 | `redos-website` | 🔨 Building | Next.js, TypeScript | — |
+| 1 | `costwatch` | 🔶 READY | Node.js, Express | — | (was: building — needs restart) |
+| 2 | `redos-website` | 🔶 READY | Next.js, TypeScript | — | (was: building — needs restart) |
 | 3 | `codebase-onboarding-agent` | ✅ Shipped | Python, AST, CLI | [repo](https://github.com/anuragg-saxenaa/codebase-onboarding-agent) |
 | 4 | `a2a-protocol` | ✅ Shipped | TypeScript, WebSockets | [repo](https://github.com/anuragg-saxenaa/a2a-protocol) |
 | 5 | `pr-auto-reviewer` | ✅ Shipped | Python, GitHub API | [repo](https://github.com/anuragg-saxenaa/pr-auto-reviewer) |
@@ -297,7 +276,7 @@ Install (run once on a new machine):
 | `workspace/AUTONOMOUS.md` | Agent task queue |
 | `workspace/projects/backlog.md` | OSS project pipeline |
 | `workspace/projects/pr-log.md` | All shipped + contributed PRs |
-| `workspace-website-agency/` | Ontario Website Agency pipeline |
+
 | `secrets.json` | API keys — **never commit** |
 | `identity/device.json` | Ed25519 keypair — **never delete** |
 

@@ -32,6 +32,12 @@
 
 | 20 | agent-blast-radius | ✅ SHIPPED | https://github.com/anuragg-saxenaa/agent-blast-radius | https://github.com/anuragg-saxenaa/agent-blast-radius/pull/1 | 2026-03-24: ENG shipped MVP TypeScript CLI guardrails wrapper (scope lock, budget, cascade breaker, rollback, reports, CI) |
 
+## 2026-03-31 — NEW ENTRIES (RESEARCH)
+
+| 25 | agent-tool-interceptor | 🔶 READY | — | — | Tool-call interception layer for AI agents. TypeScript CLI + library wraps any agent runtime (Claude Code, Codex, custom scripts), intercepts every tool invocation (bash, file write, HTTP, DB) before execution, enforces YAML policy rules (block/log/require_approval), hard-no patterns for destructive commands, JSONL trace log, report command. Open-source alternative to Pragatix/RunCycles enterprise products. Sourced from HN "Ask HN: What developer tool do you wish existed in 2026?". Spec at workspace/projects/agent-tool-interceptor/SPEC.md. |
+
+| 26 | smart-test-selector | 🔶 READY | — | — | LLM-powered CI test selector. TypeScript CLI + GitHub Action that analyzes git diffs, builds AST reverse-dependency graph (ts-morph), then uses LLM to identify the minimal relevant test suite — not just path-matched but semantically relevant. Outputs JSON + Markdown with rationale + flakiness estimates. Solves "run all tests or miss regressions" dilemma. Sourced from HN "Ask HN: What developer tool do you wish existed in 2026?". Spec at workspace/projects/smart-test-selector/SPEC.md. |
+
 ## 2026-03-24 — NEW ENTRIES (RESEARCH)
 
 | 21 | agent-coherence-eval | 🔶 BACKLOG | — | — | Multi-session coherence scoring for long-horizon agents (GPT-5.4 1M context, Composer 2, Devin 2.0). Measures drift, memory consistency, regression alerting. Spec at workspace-research/projects/prj-021-agent-coherence-eval/SPEC.md. |
