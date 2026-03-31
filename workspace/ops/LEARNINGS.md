@@ -6317,3 +6317,9 @@ Failed to reach OPS agent
 
 ## [2026-03-30 23:17] Consultant fixed: Coding factory stalled — last SPEC.md is 71h old
 Failed to reach RESEARCH agent
+
+## [2026-03-30 23:34] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-03-30 23:34] Consultant fixed: Coding factory stalled — last SPEC.md is 71h old
+RESEARCH agent tasked to restart coding factory

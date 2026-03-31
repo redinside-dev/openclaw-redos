@@ -7,7 +7,7 @@
       "name": "System Pulse — Always-On Heartbeat (Ollama only)",
       "enabled": true,
       "createdAtMs": 1772080522100,
-      "updatedAtMs": 1774915795495,
+      "updatedAtMs": 1774927368702,
       "schedule": {
         "kind": "cron",
         "expr": "*/5 * * * *",
@@ -28,15 +28,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774915735463,
+        "lastRunAtMs": 1774927308254,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 60032,
+        "lastDurationMs": 60448,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 5,
-        "nextRunAtMs": 1774926904520,
+        "consecutiveErrors": 6,
+        "nextRunAtMs": 1774930968702,
         "lastErrorReason": "timeout",
-        "runningAtMs": 1774927308235
+        "lastError": "Error: cron: job execution timed out"
       }
     },
     {
@@ -372,7 +372,7 @@
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775003400000,
+        "nextRunAtMs": 1774927642394,
         "lastDelivered": true
       }
     },
@@ -394,7 +394,7 @@
         "kind": "agentTurn",
         "message": "You are ENGRED_BOT / Engineering role.\n\nDaily proactive checklist (Mode P):\n1) Check repo health for active work (original-project + any open PRs). Summarize: tests, pending reviews, risks.\n2) Identify 1-3 highest-ROI engineering next steps for today.\n3) If anything is blocked, state exactly what you need from Anurag.\n\nOutput format (Telegram-friendly):\nENG DAILY (YYYY-MM-DD)\n- Yesterday shipped:\n- Today focus:\n- Risks/Blockers:\n- Asks:\n\nKeep it concise. Do NOT do external actions without approval.",
         "timeoutSeconds": 300,
-        "model": "coding-factory"
+        "model": "9router/cc/claude-sonnet-4-6"
       },
       "delivery": {
         "mode": "announce",
@@ -406,8 +406,8 @@
         "lastRunAtMs": 1774881543828,
         "lastStatus": "error",
         "lastDurationMs": 2080,
-        "consecutiveErrors": 1,
-        "lastRunStatus": "error",
+        "consecutiveErrors": 0,
+        "lastRunStatus": null,
         "lastDeliveryStatus": "unknown",
         "nextRunAtMs": 1774962300000,
         "lastError": "LiveSessionModelSwitchError: Live session model switch requested: anthropic/coding-factory"
@@ -527,7 +527,7 @@
       "name": "Cron Watchdog (alert on missed/failing jobs)",
       "enabled": true,
       "createdAtMs": 1770618629260,
-      "updatedAtMs": 1774921676110,
+      "updatedAtMs": 1774927483067,
       "schedule": {
         "kind": "cron",
         "expr": "*/10 8-22 * * *",
@@ -547,15 +547,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774921611389,
-        "lastStatus": "ok",
-        "lastDurationMs": 64721,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
+        "lastRunAtMs": 1774927368702,
+        "lastStatus": "error",
+        "lastDurationMs": 114365,
+        "consecutiveErrors": 1,
+        "lastRunStatus": "error",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1774926909520,
+        "nextRunAtMs": 1774958400000,
         "lastDelivered": true,
-        "runningAtMs": 1774927308235
+        "lastError": "⚠️ 🔌 Gateway: `tools.exec.allow` failed"
       }
     },
     {
@@ -852,7 +852,7 @@
         "consecutiveErrors": 1,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1774926944520
+        "nextRunAtMs": 1774930895024
       }
     },
     {
@@ -888,7 +888,7 @@
         "consecutiveErrors": 3,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1774926949520
+        "nextRunAtMs": 1774930895024
       }
     },
     {
@@ -962,7 +962,7 @@
         "consecutiveErrors": 4,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1774926954520,
+        "nextRunAtMs": 1774927572394,
         "lastDelivered": true
       }
     },
@@ -999,7 +999,7 @@
         "consecutiveErrors": 1,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1774926959520,
+        "nextRunAtMs": 1774927577394,
         "lastErrorAtMs": null
       }
     },
@@ -1096,7 +1096,7 @@
         "message": "You are ENG (Engineering Lead). Read your colleagues' latest findings and respond.\n\nSTEPS:\n1. Use the message tool to read recent messages from #openclaw-optimization:\n   message(action=\"read\", channel=\"slack\", target=\"channel:C0AF4KB4TUK\", limit=20)\n2. Read workspace/ops/LEARNINGS.md for context.\n3. Identify any findings from RESEARCH or INFOSEC that are relevant to engineering.\n4. For each relevant finding:\n   a. Assess if you need to take action (code change, config update, dependency check)\n   b. If yes, do it or create a ticket in TICKET-TRACKER.md\n5. Post your engineering response/acknowledgment to #openclaw-optimization:\n   ```\n   💻 *ENG Response — <date>*\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n   Read RESEARCH/INFOSEC updates. Here's my take:\n   <your engineering assessment and actions taken>\n   ```\n   Use the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AF4KB4TUK\" ",
         "thinking": "low",
         "timeoutSeconds": 1800,
-        "model": "coding-factory"
+        "model": "9router/cc/claude-sonnet-4-6"
       },
       "delivery": {
         "mode": "announce",
@@ -1108,8 +1108,8 @@
         "lastRunAtMs": 1774892497715,
         "lastStatus": "error",
         "lastDurationMs": 1424,
-        "consecutiveErrors": 2,
-        "lastRunStatus": "error",
+        "consecutiveErrors": 0,
+        "lastRunStatus": null,
         "lastDeliveryStatus": "unknown",
         "nextRunAtMs": 1774968300000,
         "lastError": "LiveSessionModelSwitchError: Live session model switch requested: anthropic/coding-factory"
@@ -1231,7 +1231,7 @@
       "name": "OPS Task ETA Monitor",
       "enabled": true,
       "createdAtMs": 1771544316316,
-      "updatedAtMs": 1774915018490,
+      "updatedAtMs": 1774927562374,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1252,15 +1252,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774915001114,
+        "lastRunAtMs": 1774927521676,
         "lastStatus": "ok",
-        "lastDurationMs": 17376,
+        "lastDurationMs": 40698,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1774926924520,
-        "lastDelivered": true,
-        "runningAtMs": 1774927308235
+        "nextRunAtMs": 1774934721676,
+        "lastDelivered": true
       }
     },
     {
@@ -1296,8 +1295,9 @@
         "consecutiveErrors": 3,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1774926984520,
-        "lastErrorReason": "timeout"
+        "nextRunAtMs": 1774927607394,
+        "lastErrorReason": "timeout",
+        "runningAtMs": 1774928631023
       }
     },
     {
@@ -1366,7 +1366,7 @@
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1774926939520,
+        "nextRunAtMs": 1774929756567,
         "lastDelivered": true
       },
       "updatedAtMs": 1774904578165
@@ -1439,8 +1439,7 @@
         "consecutiveErrors": 1,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1774926964520,
-        "lastError": "Error: cron: job execution timed out",
+        "nextRunAtMs": 1774927587394,
         "lastErrorReason": "timeout"
       }
     },
@@ -1724,7 +1723,7 @@
       "name": "ZEN Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897390213,
-      "updatedAtMs": 1774914707617,
+      "updatedAtMs": 1774927521676,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1744,15 +1743,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774914706455,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 1162,
-        "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 5,
-        "nextRunAtMs": 1774926919520,
+        "lastRunAtMs": 1774927505177,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 16499,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1774934705177,
         "lastErrorAtMs": null,
-        "runningAtMs": 1774927308235
+        "lastDelivered": true
       }
     },
     {
@@ -1859,7 +1858,8 @@
         "lastDurationMs": 31749,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 4,
-        "nextRunAtMs": 1774926929520
+        "nextRunAtMs": 1774927567394,
+        "runningAtMs": 1774928631023
       }
     },
     {
@@ -2000,8 +2000,9 @@
         "lastDurationMs": 16882,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1774926974520,
-        "lastDelivered": true
+        "nextRunAtMs": 1774927597394,
+        "lastDelivered": true,
+        "runningAtMs": 1774928631023
       }
     },
     {
@@ -2037,8 +2038,8 @@
         "lastDurationMs": 28787,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 3,
-        "nextRunAtMs": 1774926979520,
-        "lastError": "LiveSessionModelSwitchError: Live session model switch requested: 9router/free-unlimited"
+        "nextRunAtMs": 1774927602394,
+        "runningAtMs": 1774928631023
       }
     },
     {
@@ -2174,7 +2175,7 @@
         "thinking": "low",
         "timeoutSeconds": 1800,
         "message": "Weekly Competitive Intelligence Report (automated)\n\nRead workspace/skills/competitive-intelligence/SKILL.md for full instructions.\n\nYour task this week:\n1. Use web_search to scan for recent system prompt leaks and AI tool updates from: Cursor, v0, Perplexity, Devin AI, GitHub Copilot, Windsurf, and any other leading AI coding/agent tools.\n   Search queries to use:\n   - \"Cursor AI system prompt 2026\"\n   - \"v0 Vercel system prompt\"\n   - \"Devin AI agent prompt\"\n   - \"AI agent tool governance patterns 2026\"\n   - \"OpenClaw competitor agent framework\"\n2. Identify 3-5 patterns or techniques they use that OpenClaw does NOT currently have.\n3. For each gap: rate it (High/Medium/Low impact) and suggest which OpenClaw agent or skill should adopt it.\n4. Write the full report to: workspace/competitive-intel/reports/YYYY-MM-DD-weekly.md (create dir if needed).\n5. Post a summary to Slack #redos-mission-control (channel:C0AEV3MDEDD):\n   Title: \"🔍 Weekly Competitive Intel — <date>\"\n   - Top 3 findings (1 line each)\n   - Top 1 quick win for ENG to implement\n   - Top 1 security pattern for INFOSEC to review\n6. Use sessions_spawn to notify RED (agentId=\"main\") with the summary so CEO can act on it.\n\nRules:\n- Only use publicly available information.\n- Be specific: name the tool, describe the pattern, explain why it matters for OpenClaw.\n- End Slack post with: Provider: <provider> | Model: <model>",
-        "model": "research-deep"
+        "model": "9router/cc/claude-sonnet-4-6"
       },
       "delivery": {
         "mode": "announce",
@@ -2185,11 +2186,11 @@
       "state": {
         "nextRunAtMs": 1775480400000,
         "lastRunAtMs": 1774881525867,
-        "lastRunStatus": "error",
+        "lastRunStatus": null,
         "lastStatus": "error",
         "lastDurationMs": 948,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 1,
+        "consecutiveErrors": 0,
         "lastError": "LiveSessionModelSwitchError: Live session model switch requested: 9router/free-unlimited"
       }
     },
@@ -2251,7 +2252,7 @@
         "thinking": "low",
         "timeoutSeconds": 1800,
         "message": "You are ENG. Daily R&D research session.\n\nYour job: stay current on the state of the art for autonomous coding agents and CI automation.\n\nSTEPS:\n1. Use web_search to research 2-3 of these topics (rotate daily based on date):\n   - Latest AI coding agent benchmarks (SWE-bench, Devin, OpenHands, Aider, SWE-agent)\n   - Git worktree automation patterns\n   - Self-healing CI/CD pipelines\n   - Code review automation tools\n   - LLM-driven test generation\n   - GitHub Actions best practices 2026\n\n2. For each finding that is relevant to the coding factory POC:\n   - Note it in workspace/research/eng-rd-YYYY-MM-DD.md (create if needed)\n   - If it's immediately actionable: open a ticket in workspace/ops/TICKET-TRACKER.md\n\n3. Post a brief summary to Slack #openclaw-optimization (channel:C0AF4KB4TUK):\n   💻 *ENG R&D — <date>*\n   - Researched: <topics>\n   - Key finding: <most useful thing found>\n   - Action: <ticket opened or 'None'>\n\n4. If you find something that would improve the OpenClaw framework itself (not the POC):\n   - Spawn RED: sessions_spawn(agentId=\"main\", task=\"ENG R&D finding: <summary>. Recommend: <action>.\")\n\nDo NOT ask for permission. Research and report.",
-        "model": "coding-factory"
+        "model": "9router/cc/claude-sonnet-4-6"
       },
       "delivery": {
         "mode": "announce",
@@ -2261,11 +2262,11 @@
       },
       "state": {
         "lastRunAtMs": 1774894653681,
-        "lastRunStatus": "error",
+        "lastRunStatus": null,
         "lastStatus": "error",
         "lastDurationMs": 4469,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 3,
+        "consecutiveErrors": 0,
         "nextRunAtMs": 1774980000000,
         "lastError": "LiveSessionModelSwitchError: Live session model switch requested: anthropic/coding-factory"
       }
@@ -2304,7 +2305,7 @@
         "lastDurationMs": 33613,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 1,
-        "nextRunAtMs": 1774926989520
+        "nextRunAtMs": 1774927612394
       }
     },
     {
@@ -2326,7 +2327,7 @@
         "thinking": "low",
         "timeoutSeconds": 1800,
         "message": "STEP 0 — CLAIM YOUR TASK FROM AUTONOMOUS.md (do this FIRST):\\n- Read /Users/redinside/.openclaw/workspace/AUTONOMOUS.md\\n- Find the first PENDING task assigned to you\\n- If found: mark it IN_PROGRESS, execute it fully, then mark DONE and append to /Users/redinside/.openclaw/workspace/tasks-log.md\\n- If no PENDING tasks: continue below\\n\\nYou are RESEARCH. Mine REAL developer pain points from live signals and write actionable project specs for ENG to implement.\n\nSTEP 1 — READ BACKLOG:\n- Read workspace/projects/backlog.md\n- Count rows with Status=READY. If >= 5, skip to STEP 5.\n\nSTEP 2 — READ LIVE FEED:\n- Read workspace/ideas/twitter-feed.md\n- Read workspace/ideas/reddit-feed.md\n\nSTEP 3 — MINE PAIN POINTS:\n- web_search('developer complaints frustrations 2026 site:reddit.com OR site:news.ycombinator.com')\n- Identify ONE specific, unmet need developers have\n\nSTEP 4 — WRITE SPEC:\n- Append a new row to workspace/projects/backlog.md with Status=READY\n\nSTEP 5 — DONE:\n- Append one-line summary to workspace/memory/2026-03-22.md",
-        "model": "research-deep"
+        "model": "9router/cc/claude-sonnet-4-6"
       },
       "delivery": {
         "mode": "announce",
@@ -2336,12 +2337,12 @@
       },
       "state": {
         "lastRunAtMs": 1774909800023,
-        "lastRunStatus": "error",
+        "lastRunStatus": null,
         "lastStatus": "error",
         "lastDurationMs": 958,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 11,
-        "nextRunAtMs": 1774931400000
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1774927632394
       }
     },
     {
@@ -2438,7 +2439,7 @@
         "thinking": "low",
         "timeoutSeconds": 1800,
         "message": "STEP 0 — CLAIM YOUR TASK FROM AUTONOMOUS.md (do this FIRST):\n- Read /Users/redinside/.openclaw/workspace/AUTONOMOUS.md\n- Find the first PENDING task assigned to eng\n- If found: mark it IN_PROGRESS, execute it fully, mark DONE, append to /Users/redinside/.openclaw/workspace/tasks-log.md, then STOP (don't do STEP 1 below)\n- If no PENDING tasks: continue to STEP 1\n\nAUTONOMOUS.md tasks may be any of these types — handle ALL of them:\n  TYPE A — New OSS project: RESEARCH gave you a SPEC.md. Create GitHub repo, implement MVP, push, open PR.\n  TYPE B — On-demand PR: Anurag (via RED) asked you to fix issues on a specific repo. Clone fork, fix each issue on its own branch, open individual PRs, log URLs.\n  TYPE C — Backlog project: implement from workspace/projects/backlog.md.\n\nYou are ENG. Ship ONE project from the backlog to GitHub. Do it now.\n\nSTEP 1 — PICK PROJECT:\n- Read /Users/redinside/.openclaw/workspace/projects/backlog.md\n- Pick first row where Status=READY and GitHub Repo=\"—\"\n\nSTEP 2 — READ SPEC:\n- Read the SPEC.md file at /Users/redinside/.openclaw/workspace/projects//SPEC.md\n\nSTEP 3 — IMPLEMENT:\n- Create GitHub repo: gh repo create anuragg-saxenaa/ --public\n- Clone, implement MVP from spec, commit, push\n- Open PR\n\nSTEP 4 — LOG:\n- Update backlog.md row: Status=DONE, GitHub Repo=URL\n- Append to workspace/projects/pr-log.md\n- Post to Slack #redos-eng (channel:C0AFW1B0QUB)",
-        "model": "coding-factory"
+        "model": "9router/cc/claude-sonnet-4-6"
       },
       "delivery": {
         "mode": "announce",
@@ -2448,12 +2449,12 @@
       },
       "state": {
         "lastRunAtMs": 1774906200027,
-        "lastRunStatus": "error",
+        "lastRunStatus": null,
         "lastStatus": "error",
         "lastDurationMs": 4546,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 8,
-        "nextRunAtMs": 1774935000000
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1774927637394
       }
     },
     {
@@ -2484,10 +2485,10 @@
         "bestEffort": true
       },
       "state": {
-        "consecutiveErrors": 1,
+        "consecutiveErrors": 0,
         "nextRunAtMs": 1774969200000,
         "lastRunAtMs": 1774892472713,
-        "lastRunStatus": "error",
+        "lastRunStatus": null,
         "lastStatus": "error",
         "lastDurationMs": 1124,
         "lastDeliveryStatus": "unknown",
@@ -2528,7 +2529,7 @@
         "lastDurationMs": 25484,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 3,
-        "nextRunAtMs": 1774926994520,
+        "nextRunAtMs": 1774927617394,
         "lastDelivered": true
       }
     },
@@ -2602,7 +2603,7 @@
         "lastDurationMs": 221413,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 2,
-        "nextRunAtMs": 1774926934520
+        "nextRunAtMs": 1774965600000
       }
     },
     {
@@ -2638,7 +2639,8 @@
         "lastStatus": "ok",
         "lastDurationMs": 55424,
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1774926946551
+        "nextRunAtMs": 1774927600000,
+        "runningAtMs": 1774928631023
       }
     },
     {
@@ -2672,7 +2674,7 @@
         "lastRunAtMs": 1774926858093,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "nextRunAtMs": 1774927098093,
+        "nextRunAtMs": 1774927627394,
         "lastDurationMs": 14098,
         "lastDeliveryStatus": "delivered",
         "lastErrorAtMs": null,
@@ -2811,7 +2813,7 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1774926960000,
+        "nextRunAtMs": 1774927582394,
         "lastRunAtMs": 1774926701975,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
@@ -2862,7 +2864,7 @@
       "name": "Sync AUTONOMOUS.md -> queue.json",
       "enabled": true,
       "createdAtMs": 1773854383010,
-      "updatedAtMs": 1774921390360,
+      "updatedAtMs": 1774927505177,
       "schedule": {
         "kind": "cron",
         "expr": "*/5 * * * *",
@@ -2882,16 +2884,15 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1774926914520,
-        "lastRunAtMs": 1774921377196,
+        "nextRunAtMs": 1774927800000,
+        "lastRunAtMs": 1774927483067,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 13164,
-        "lastDeliveryStatus": "not-delivered",
+        "lastDurationMs": 22110,
+        "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
         "lastErrorAtMs": null,
-        "lastDelivered": false,
-        "runningAtMs": 1774927308235
+        "lastDelivered": true
       }
     },
     {
@@ -2992,14 +2993,13 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1774926969520,
+        "nextRunAtMs": 1774927592394,
         "lastRunAtMs": 1774920192242,
         "lastRunStatus": "error",
         "lastStatus": "error",
         "lastDurationMs": 2457,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 22,
-        "lastError": "LiveSessionModelSwitchError: Live session model switch requested: anthropic/coding-factory"
+        "consecutiveErrors": 22
       }
     },
     {
@@ -3121,7 +3121,7 @@
         "channel": "telegram"
       },
       "state": {
-        "nextRunAtMs": 1774927076810,
+        "nextRunAtMs": 1774927622394,
         "lastRunAtMs": 1774926836810,
         "lastRunStatus": "error",
         "lastStatus": "error",
