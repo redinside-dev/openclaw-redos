@@ -20537,3 +20537,30 @@ CONSULTANT-OPS-20260312025300
 **How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
 **Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
 
+
+## [2026-03-31 00:59] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-31 01:16] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restarted successfully
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-31 01:16] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+

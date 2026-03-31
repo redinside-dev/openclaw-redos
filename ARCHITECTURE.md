@@ -1,6 +1,6 @@
 # RedOS Architecture
 
-> Last updated: 2026-03-29
+> Last updated: 2026-04-02
 
 ## Overview
 
@@ -117,7 +117,7 @@ L5  critical/irrevers. → Telegram approval (30 min window)
 | File | Purpose |
 |---|---|
 | `openclaw.json` | Master runtime config — **gitignored, never commit** |
-| `cron/jobs.json` | 82 cron definitions |
+| `cron/jobs.json` | 87 cron definitions |
 | `exec-approvals.json` | Exec allowlist per agent — **gitignored** |
 | `workspace/SOUL.md` | Company OS — injected into every agent |
 | `workspace/MEMORY.md` | Long-term shared memory |

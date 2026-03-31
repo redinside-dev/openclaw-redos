@@ -2,7 +2,7 @@
 
 > Autonomous AI company running on OpenClaw CLI — 8 specialized agents, A2A delegation working, two revenue streams, zero humans in the loop.
 
-**Owner:** [anuragg-saxenaa](https://github.com/anuragg-saxenaa) · **Infra:** [redinside-dev](https://github.com/redinside-dev) · **Platform:** macOS (Darwin 25) · **Updated:** 2026-03-31
+**Owner:** [anuragg-saxenaa](https://github.com/anuragg-saxenaa) · **Infra:** [redinside-dev](https://github.com/redinside-dev) · **Platform:** macOS (Darwin 25) · **Updated:** 2026-04-02
 
 ---
 
@@ -268,7 +268,7 @@ Install (run once on a new machine):
 | File | Purpose |
 |------|---------|
 | `openclaw.json` | Master runtime config — **never commit** |
-| `cron/jobs.json` | 82 cron definitions — A2A, inner loops, health monitors |
+| `cron/jobs.json` | 87 cron definitions — A2A, inner loops, health monitors |
 | `workspace-main/inbox/tasks.md` | Async CEO inbox — agents escalate here when RED is unreachable |
 | `workspace/SOUL.md` | Company OS injected into every session |
 | `workspace/GOALS.md` | Active goals (RED writes only) |
