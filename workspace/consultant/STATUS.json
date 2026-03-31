@@ -1,10 +1,10 @@
 {
   "phase": "INTENSIVE",
-  "phase_started_at": "2026-03-29T22:06:29.255689+00:00",
+  "phase_started_at": "2026-03-31T03:19:20.850832+00:00",
   "stable_days": 0,
-  "last_incident_at": "2026-03-29T22:04:29.076575+00:00",
-  "incidents_fixed": 2076,
-  "checks_run": 1421,
+  "last_incident_at": "2026-03-31T03:17:20.516566+00:00",
+  "incidents_fixed": 2265,
+  "checks_run": 1524,
   "autonomy_score_avg": 5.16,
-  "last_check_at": "2026-03-29T22:06:29.255696+00:00"
+  "last_check_at": "2026-03-31T03:19:20.850839+00:00"
 }

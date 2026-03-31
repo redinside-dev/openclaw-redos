@@ -7,7 +7,7 @@
       "name": "System Pulse — Always-On Heartbeat (Ollama only)",
       "enabled": true,
       "createdAtMs": 1772080522100,
-      "updatedAtMs": 1774820920556,
+      "updatedAtMs": 1774915795495,
       "schedule": {
         "kind": "cron",
         "expr": "*/5 * * * *",
@@ -28,15 +28,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774820860514,
+        "lastRunAtMs": 1774915735463,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 60042,
+        "lastDurationMs": 60032,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 6,
-        "nextRunAtMs": 1774824520556,
+        "consecutiveErrors": 5,
+        "nextRunAtMs": 1774926904520,
         "lastErrorReason": "timeout",
-        "lastError": "Error: cron: job execution timed out"
+        "runningAtMs": 1774927308235
       }
     },
     {
@@ -45,7 +45,7 @@
       "name": "Daily Portfolio Review (Pre-Market)",
       "enabled": true,
       "createdAtMs": 1770267281600,
-      "updatedAtMs": 1774677383896,
+      "updatedAtMs": 1774890455153,
       "schedule": {
         "kind": "cron",
         "expr": "45 8 * * 1-5",
@@ -60,13 +60,13 @@
         "timeoutSeconds": 600
       },
       "state": {
-        "lastRunAtMs": 1774677191032,
+        "lastRunAtMs": 1774890343929,
         "lastStatus": "ok",
-        "lastDurationMs": 192864,
+        "lastDurationMs": 111224,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1774874700000,
+        "nextRunAtMs": 1774961100000,
         "lastDelivered": true
       },
       "delivery": {
@@ -82,7 +82,7 @@
       "name": "Trading Window Brief (8am-4pm ET)",
       "enabled": true,
       "createdAtMs": 1770392652158,
-      "updatedAtMs": 1774677191032,
+      "updatedAtMs": 1774899024032,
       "schedule": {
         "kind": "cron",
         "expr": "0,30 8-15 * * 1-5",
@@ -103,17 +103,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774677169515,
-        "lastStatus": "ok",
-        "lastDurationMs": 21517,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
-        "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1774872000000,
-        "lastError": null,
-        "lastDelivered": true,
-        "lastErrorReason": null,
-        "lastErrorAtMs": null
+        "lastRunAtMs": 1774899000223,
+        "lastStatus": "error",
+        "lastDurationMs": 23809,
+        "consecutiveErrors": 5,
+        "lastRunStatus": "error",
+        "lastDeliveryStatus": "unknown",
+        "nextRunAtMs": 1774958400000,
+        "lastErrorAtMs": null,
+        "lastError": "LiveSessionModelSwitchError: Live session model switch requested: 9router/free-unlimited"
       }
     },
     {
@@ -122,7 +120,7 @@
       "name": "Trading Window Brief (4:00pm ET)",
       "enabled": true,
       "createdAtMs": 1770392732884,
-      "updatedAtMs": 1774808361004,
+      "updatedAtMs": 1774901431369,
       "schedule": {
         "kind": "cron",
         "expr": "0 16 * * 1-5",
@@ -143,14 +141,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774808284437,
-        "lastStatus": "ok",
-        "lastDurationMs": 76567,
-        "lastRunStatus": "ok",
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0,
-        "nextRunAtMs": 1774900800000,
-        "lastDelivered": true
+        "lastRunAtMs": 1774901415612,
+        "lastStatus": "error",
+        "lastDurationMs": 15757,
+        "lastRunStatus": "error",
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 1,
+        "nextRunAtMs": 1774987200000,
+        "lastError": "LiveSessionModelSwitchError: Live session model switch requested: 9router/free-unlimited"
       }
     },
     {
@@ -159,7 +157,7 @@
       "name": "QQQ Profit/Stop Watch (intraday)",
       "enabled": true,
       "createdAtMs": 1770399961842,
-      "updatedAtMs": 1774802111755,
+      "updatedAtMs": 1774902216120,
       "schedule": {
         "kind": "cron",
         "expr": "*/5 12-15 * * 1-5",
@@ -180,15 +178,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774802051712,
+        "lastRunAtMs": 1774902178676,
         "lastStatus": "error",
-        "lastDurationMs": 60043,
+        "lastDurationMs": 37444,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 1,
-        "nextRunAtMs": 1774886400000,
-        "lastError": "Error: cron: job execution timed out",
-        "lastErrorReason": "timeout"
+        "consecutiveErrors": 7,
+        "nextRunAtMs": 1774972800000,
+        "lastError": "LiveSessionModelSwitchError: Live session model switch requested: 9router/free-unlimited"
       }
     },
     {
@@ -197,7 +194,7 @@
       "name": "Gmail Unread Summary (Telegram)",
       "enabled": true,
       "createdAtMs": 1770402245398,
-      "updatedAtMs": 1774807159584,
+      "updatedAtMs": 1774911786323,
       "schedule": {
         "kind": "cron",
         "expr": "*/15 8-18 * * 1-5",
@@ -218,16 +215,16 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774807067201,
-        "lastStatus": "ok",
-        "lastDurationMs": 92383,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
-        "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1774872000000,
+        "lastRunAtMs": 1774911769631,
+        "lastStatus": "error",
+        "lastDurationMs": 16692,
+        "consecutiveErrors": 9,
+        "lastRunStatus": "error",
+        "lastDeliveryStatus": "unknown",
+        "nextRunAtMs": 1774958400000,
         "lastErrorAt": null,
         "lastErrorAtMs": null,
-        "lastDelivered": true
+        "lastError": "LiveSessionModelSwitchError: Live session model switch requested: 9router/free-unlimited"
       }
     },
     {
@@ -236,7 +233,7 @@
       "name": "GitHub Repo Updates (2 repos, 4x/day)",
       "enabled": true,
       "createdAtMs": 1770406640940,
-      "updatedAtMs": 1774801118650,
+      "updatedAtMs": 1774911602090,
       "schedule": {
         "kind": "cron",
         "expr": "0 10,13,16,19 * * 1-5",
@@ -257,16 +254,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774801118030,
+        "lastRunAtMs": 1774911600016,
         "lastStatus": "error",
-        "lastDurationMs": 620,
-        "consecutiveErrors": 1,
+        "lastDurationMs": 2074,
+        "consecutiveErrors": 5,
         "lastRunStatus": "error",
-        "lastDeliveryStatus": "delivered",
+        "lastDeliveryStatus": "unknown",
         "lastErrorAtMs": null,
-        "nextRunAtMs": 1774879200000,
-        "lastError": "402 [kiro/claude-sonnet-4.5] [402]: You have reached the limit. (reset after 33s)",
-        "lastDelivered": true
+        "nextRunAtMs": 1774965600000,
+        "lastError": "LiveSessionModelSwitchError: Live session model switch requested: anthropic/coding-factory"
       }
     },
     {
@@ -275,7 +271,7 @@
       "name": "Market Leads (Alpha Vantage, 4x/day)",
       "enabled": true,
       "createdAtMs": 1770408691799,
-      "updatedAtMs": 1774802019444,
+      "updatedAtMs": 1774897718233,
       "schedule": {
         "kind": "cron",
         "expr": "0 10,12,14,15 * * 1-5",
@@ -296,14 +292,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774801811395,
-        "lastStatus": "ok",
-        "lastDurationMs": 208049,
-        "lastRunStatus": "ok",
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0,
-        "nextRunAtMs": 1774879200000,
-        "lastDelivered": true
+        "lastRunAtMs": 1774897687542,
+        "lastStatus": "error",
+        "lastDurationMs": 30691,
+        "lastRunStatus": "error",
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 3,
+        "nextRunAtMs": 1774965600000,
+        "lastError": "LiveSessionModelSwitchError: Live session model switch requested: 9router/free-unlimited"
       }
     },
     {
@@ -312,7 +308,7 @@
       "name": "System Health Watch (OpenClaw)",
       "enabled": true,
       "createdAtMs": 1770410528466,
-      "updatedAtMs": 1774810959409,
+      "updatedAtMs": 1774912791337,
       "schedule": {
         "kind": "cron",
         "expr": "*/30 8-18 * * 1-5",
@@ -333,15 +329,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774810934224,
-        "lastStatus": "ok",
-        "lastDurationMs": 25185,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
-        "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1774872000000,
+        "lastRunAtMs": 1774912760938,
+        "lastStatus": "error",
+        "lastDurationMs": 30399,
+        "consecutiveErrors": 9,
+        "lastRunStatus": "error",
+        "lastDeliveryStatus": "unknown",
+        "nextRunAtMs": 1774958400000,
         "lastErrorAtMs": null,
-        "lastDelivered": true
+        "lastError": "LiveSessionModelSwitchError: Live session model switch requested: 9router/free-unlimited"
       }
     },
     {
@@ -350,7 +346,7 @@
       "name": "Daily AI + OpenClaw Trends Brief (Telegram DM)",
       "enabled": true,
       "createdAtMs": 1770593929748,
-      "updatedAtMs": 1774801092190,
+      "updatedAtMs": 1774847068512,
       "schedule": {
         "kind": "cron",
         "expr": "30 20 * * *",
@@ -370,14 +366,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774801040782,
+        "lastRunAtMs": 1774847051507,
         "lastStatus": "ok",
-        "lastDurationMs": 51408,
+        "lastDurationMs": 17005,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
-        "lastDeliveryStatus": "not-delivered",
-        "nextRunAtMs": 1774830600000,
-        "lastDelivered": false
+        "lastDeliveryStatus": "delivered",
+        "nextRunAtMs": 1775003400000,
+        "lastDelivered": true
       }
     },
     {
@@ -386,7 +382,7 @@
       "name": "ENG Daily Proactive (Mode P)",
       "enabled": true,
       "createdAtMs": 1770618290688,
-      "updatedAtMs": 1774677429901,
+      "updatedAtMs": 1774881545908,
       "schedule": {
         "kind": "cron",
         "expr": "5 9 * * 1-5",
@@ -407,14 +403,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774677383896,
-        "lastStatus": "ok",
-        "lastDurationMs": 46005,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
-        "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1774875900000,
-        "lastDelivered": true
+        "lastRunAtMs": 1774881543828,
+        "lastStatus": "error",
+        "lastDurationMs": 2080,
+        "consecutiveErrors": 1,
+        "lastRunStatus": "error",
+        "lastDeliveryStatus": "unknown",
+        "nextRunAtMs": 1774962300000,
+        "lastError": "LiveSessionModelSwitchError: Live session model switch requested: anthropic/coding-factory"
       }
     },
     {
@@ -423,7 +419,7 @@
       "name": "OPS Daily Proactive (Mode P)",
       "enabled": true,
       "createdAtMs": 1770618296899,
-      "updatedAtMs": 1774677482627,
+      "updatedAtMs": 1774892478094,
       "schedule": {
         "kind": "cron",
         "expr": "10 9 * * 1-5",
@@ -443,14 +439,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774677476513,
-        "lastStatus": "ok",
-        "lastDurationMs": 6114,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
-        "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1774876200000,
-        "lastDelivered": true
+        "lastRunAtMs": 1774892477710,
+        "lastStatus": "error",
+        "lastDurationMs": 384,
+        "consecutiveErrors": 1,
+        "lastRunStatus": "error",
+        "lastDeliveryStatus": "unknown",
+        "nextRunAtMs": 1774962600000,
+        "lastError": "LiveSessionModelSwitchError: Live session model switch requested: 9router/free-unlimited"
       }
     },
     {
@@ -459,7 +455,7 @@
       "name": "RESEARCH Daily Proactive (Mode P)",
       "enabled": true,
       "createdAtMs": 1770618303701,
-      "updatedAtMs": 1774677621525,
+      "updatedAtMs": 1774892495174,
       "schedule": {
         "kind": "cron",
         "expr": "15 9 * * 1-5",
@@ -479,14 +475,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774677582743,
-        "lastStatus": "ok",
-        "lastDurationMs": 38782,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
-        "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1774876500000,
-        "lastDelivered": true
+        "lastRunAtMs": 1774892492713,
+        "lastStatus": "error",
+        "lastDurationMs": 2461,
+        "consecutiveErrors": 1,
+        "lastRunStatus": "error",
+        "lastDeliveryStatus": "unknown",
+        "nextRunAtMs": 1774962900000,
+        "lastError": "LiveSessionModelSwitchError: Live session model switch requested: 9router/free-unlimited"
       }
     },
     {
@@ -495,7 +491,7 @@
       "name": "FINANCE Daily Proactive (Mode P)",
       "enabled": true,
       "createdAtMs": 1770618311025,
-      "updatedAtMs": 1774677802903,
+      "updatedAtMs": 1774881936045,
       "schedule": {
         "kind": "cron",
         "expr": "20 9 * * 1-5",
@@ -515,13 +511,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774677761418,
+        "lastRunAtMs": 1774881862543,
         "lastStatus": "ok",
-        "lastDurationMs": 41485,
+        "lastDurationMs": 73502,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1774876800000,
+        "nextRunAtMs": 1774963200000,
         "lastDelivered": true
       }
     },
@@ -531,7 +527,7 @@
       "name": "Cron Watchdog (alert on missed/failing jobs)",
       "enabled": true,
       "createdAtMs": 1770618629260,
-      "updatedAtMs": 1774821076497,
+      "updatedAtMs": 1774921676110,
       "schedule": {
         "kind": "cron",
         "expr": "*/10 8-22 * * *",
@@ -551,14 +547,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774820982283,
+        "lastRunAtMs": 1774921611389,
         "lastStatus": "ok",
-        "lastDurationMs": 94214,
+        "lastDurationMs": 64721,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1774821600000,
-        "lastDelivered": true
+        "nextRunAtMs": 1774926909520,
+        "lastDelivered": true,
+        "runningAtMs": 1774927308235
       }
     },
     {
@@ -567,7 +564,7 @@
       "name": "RED Morning Check-in (standup)",
       "enabled": true,
       "createdAtMs": 1771344956120,
-      "updatedAtMs": 1774677457545,
+      "updatedAtMs": 1774881569068,
       "schedule": {
         "kind": "cron",
         "expr": "5 9 * * 1-5",
@@ -588,13 +585,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774677429901,
+        "lastRunAtMs": 1774881545908,
         "lastStatus": "ok",
-        "lastDurationMs": 27644,
+        "lastDurationMs": 23160,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1774875900000,
+        "nextRunAtMs": 1774962300000,
         "lastDelivered": true
       }
     },
@@ -604,7 +601,7 @@
       "name": "ENG Morning Check-in (standup)",
       "enabled": true,
       "createdAtMs": 1771344956120,
-      "updatedAtMs": 1774808275731,
+      "updatedAtMs": 1774881575495,
       "schedule": {
         "kind": "cron",
         "expr": "7 9 * * 1-5",
@@ -625,13 +622,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774808272983,
+        "lastRunAtMs": 1774881574101,
         "lastStatus": "error",
-        "lastDurationMs": 2748,
-        "consecutiveErrors": 1,
+        "lastDurationMs": 1394,
+        "consecutiveErrors": 2,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1774876020000,
+        "nextRunAtMs": 1774962420000,
         "lastErrorAtMs": null,
         "lastError": "LiveSessionModelSwitchError: Live session model switch requested: anthropic/coding-factory"
       }
@@ -642,7 +639,7 @@
       "name": "RESEARCH Morning Check-in (standup)",
       "enabled": true,
       "createdAtMs": 1771344956120,
-      "updatedAtMs": 1774808284437,
+      "updatedAtMs": 1774881601906,
       "schedule": {
         "kind": "cron",
         "expr": "9 9 * * 1-5",
@@ -663,13 +660,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774808275731,
+        "lastRunAtMs": 1774881579105,
         "lastStatus": "ok",
-        "lastDurationMs": 8706,
+        "lastDurationMs": 22801,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1774876140000,
+        "nextRunAtMs": 1774962540000,
         "lastDelivered": true
       }
     },
@@ -679,7 +676,7 @@
       "name": "FINANCE Morning Check-in (standup)",
       "enabled": true,
       "createdAtMs": 1771344956120,
-      "updatedAtMs": 1774736859193,
+      "updatedAtMs": 1774892483814,
       "schedule": {
         "kind": "cron",
         "expr": "11 9 * * 1-5",
@@ -700,14 +697,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774736678789,
-        "lastStatus": "ok",
-        "lastDurationMs": 180404,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
-        "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1774876260000,
-        "lastDelivered": true
+        "lastRunAtMs": 1774892482713,
+        "lastStatus": "error",
+        "lastDurationMs": 1101,
+        "consecutiveErrors": 1,
+        "lastRunStatus": "error",
+        "lastDeliveryStatus": "unknown",
+        "nextRunAtMs": 1774962660000,
+        "lastError": "LiveSessionModelSwitchError: Live session model switch requested: 9router/free-unlimited"
       }
     },
     {
@@ -716,7 +713,7 @@
       "name": "OPS Morning Check-in (standup)",
       "enabled": true,
       "createdAtMs": 1771344956120,
-      "updatedAtMs": 1774677582743,
+      "updatedAtMs": 1774892488092,
       "schedule": {
         "kind": "cron",
         "expr": "13 9 * * 1-5",
@@ -737,14 +734,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774677499590,
-        "lastStatus": "ok",
-        "lastDurationMs": 83153,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
-        "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1774876380000,
-        "lastDelivered": true
+        "lastRunAtMs": 1774892487712,
+        "lastStatus": "error",
+        "lastDurationMs": 380,
+        "consecutiveErrors": 1,
+        "lastRunStatus": "error",
+        "lastDeliveryStatus": "unknown",
+        "nextRunAtMs": 1774962780000,
+        "lastError": "LiveSessionModelSwitchError: Live session model switch requested: 9router/free-unlimited"
       }
     },
     {
@@ -753,7 +750,7 @@
       "name": "INFOSEC Morning Check-in (standup)",
       "enabled": true,
       "createdAtMs": 1771344956120,
-      "updatedAtMs": 1774677701650,
+      "updatedAtMs": 1774881825780,
       "schedule": {
         "kind": "cron",
         "expr": "15 9 * * 1-5",
@@ -774,14 +771,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774677621525,
-        "lastStatus": "ok",
-        "lastDurationMs": 80125,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
+        "lastRunAtMs": 1774881672447,
+        "lastStatus": "error",
+        "lastDurationMs": 153333,
+        "consecutiveErrors": 1,
+        "lastRunStatus": "error",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1774876500000,
-        "lastDelivered": true
+        "nextRunAtMs": 1774962900000,
+        "lastDelivered": true,
+        "lastError": "⚠️ ✉️ Message failed"
       }
     },
     {
@@ -790,7 +788,7 @@
       "name": "OPS Scrum Master — Morning Standup",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1774677761418,
+      "updatedAtMs": 1774881862543,
       "schedule": {
         "kind": "cron",
         "expr": "15 9 * * 1-5",
@@ -811,13 +809,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774677701650,
+        "lastRunAtMs": 1774881825780,
         "lastStatus": "ok",
-        "lastDurationMs": 59768,
+        "lastDurationMs": 36763,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1774876500000,
+        "nextRunAtMs": 1774962900000,
         "lastDelivered": true
       }
     },
@@ -827,7 +825,7 @@
       "name": "OPS SLA Enforcement Check",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1774643216302,
+      "updatedAtMs": 1774893113228,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -848,14 +846,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774643179199,
-        "lastStatus": "ok",
-        "lastDurationMs": 37103,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
-        "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1774822895024,
-        "lastDelivered": true
+        "lastRunAtMs": 1774893091981,
+        "lastStatus": "error",
+        "lastDurationMs": 21247,
+        "consecutiveErrors": 1,
+        "lastRunStatus": "error",
+        "lastDeliveryStatus": "unknown",
+        "nextRunAtMs": 1774926944520
       }
     },
     {
@@ -864,7 +861,7 @@
       "name": "OPS System Health Monitor",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1774775822437,
+      "updatedAtMs": 1774905748830,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -885,14 +882,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastStatus": "ok",
-        "lastRunAtMs": 1774775762585,
-        "lastDurationMs": 59852,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
-        "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1774822895024,
-        "lastDelivered": true
+        "lastStatus": "error",
+        "lastRunAtMs": 1774905695043,
+        "lastDurationMs": 53787,
+        "consecutiveErrors": 3,
+        "lastRunStatus": "error",
+        "lastDeliveryStatus": "unknown",
+        "nextRunAtMs": 1774926949520
       }
     },
     {
@@ -901,7 +897,7 @@
       "name": "RED Self-Improvement Reflection",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1774741878490,
+      "updatedAtMs": 1774914826848,
       "schedule": {
         "kind": "every",
         "everyMs": 21600000,
@@ -922,16 +918,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774549841809,
-        "lastStatus": "ok",
-        "lastDurationMs": 300002,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
+        "lastRunAtMs": 1774914767012,
+        "lastStatus": "error",
+        "lastDurationMs": 59836,
+        "consecutiveErrors": 2,
+        "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1774822895024,
-        "lastErrorReason": null,
+        "nextRunAtMs": 1774936367012,
         "lastErrorAtMs": null,
-        "lastError": null
+        "lastError": "LiveSessionModelSwitchError: Live session model switch requested: 9router/free-unlimited"
       }
     },
     {
@@ -940,7 +935,7 @@
       "name": "OPS Ticket Auto-Diagnose & Fix",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1774775834376,
+      "updatedAtMs": 1774905749720,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -961,13 +956,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774775822437,
-        "lastStatus": "ok",
-        "lastDurationMs": 11939,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
+        "lastRunAtMs": 1774905748830,
+        "lastStatus": "error",
+        "lastDurationMs": 890,
+        "consecutiveErrors": 4,
+        "lastRunStatus": "error",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1774822895024,
+        "nextRunAtMs": 1774926954520,
         "lastDelivered": true
       }
     },
@@ -977,7 +972,7 @@
       "name": "RESEARCH Proactive Knowledge Update",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1774538286508,
+      "updatedAtMs": 1774896337936,
       "schedule": {
         "kind": "every",
         "everyMs": 14400000,
@@ -998,14 +993,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774537986505,
-        "lastStatus": "ok",
-        "lastDurationMs": 300003,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
+        "lastRunAtMs": 1774896336069,
+        "lastStatus": "error",
+        "lastDurationMs": 1867,
+        "consecutiveErrors": 1,
+        "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1774822895024,
-        "lastErrorReason": null,
+        "nextRunAtMs": 1774926959520,
         "lastErrorAtMs": null
       }
     },
@@ -1015,7 +1009,7 @@
       "name": "RED CEO Daily Summary to Anurag",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1774764520382,
+      "updatedAtMs": 1774908162168,
       "schedule": {
         "kind": "cron",
         "expr": "0 18 * * 1-5",
@@ -1035,17 +1029,16 @@
         "to": "-1002877650781:1012034994"
       },
       "state": {
-        "lastRunAtMs": 1774764460909,
+        "lastRunAtMs": 1774908160673,
         "lastStatus": "error",
-        "lastDurationMs": 59473,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
+        "lastDurationMs": 1495,
+        "consecutiveErrors": 1,
+        "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
         "lastErrorAt": null,
-        "lastErrorReason": null,
         "lastErrorAtMs": null,
-        "nextRunAtMs": 1774908000000,
-        "lastError": null
+        "nextRunAtMs": 1774994400000,
+        "lastError": "Error: Telegram send failed: chat not found (chat_id=-1002877650781). Likely: bot not started in DM, bot removed from group/channel, group migrated (new -100… id), or wrong bot token. Input was: \"-1002877650781\"."
       }
     },
     {
@@ -1054,7 +1047,7 @@
       "name": "RED Daily Brief (Telegram)",
       "enabled": true,
       "createdAtMs": 1771202886122,
-      "updatedAtMs": 1774810332050,
+      "updatedAtMs": 1774893167609,
       "schedule": {
         "kind": "cron",
         "expr": "0 9 * * *",
@@ -1073,15 +1066,15 @@
         "to": "1012034994"
       },
       "state": {
-        "lastRunAtMs": 1774810228510,
-        "lastStatus": "ok",
-        "lastDurationMs": 103540,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
-        "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1774875600000,
+        "lastRunAtMs": 1774893167325,
+        "lastStatus": "error",
+        "lastDurationMs": 284,
+        "consecutiveErrors": 1,
+        "lastRunStatus": "error",
+        "lastDeliveryStatus": "unknown",
+        "nextRunAtMs": 1774962000000,
         "lastErrorAtMs": null,
-        "lastDelivered": true
+        "lastError": "LiveSessionModelSwitchError: Live session model switch requested: 9router/free-unlimited"
       }
     },
     {
@@ -1090,7 +1083,7 @@
       "name": "ENG ← RESEARCH: Read & Apply Learnings",
       "enabled": true,
       "createdAtMs": 1771380089656,
-      "updatedAtMs": 1774802051712,
+      "updatedAtMs": 1774892499139,
       "schedule": {
         "kind": "cron",
         "expr": "45 10 * * 1-5",
@@ -1112,15 +1105,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774802051172,
+        "lastRunAtMs": 1774892497715,
         "lastStatus": "error",
-        "lastDurationMs": 540,
-        "consecutiveErrors": 1,
+        "lastDurationMs": 1424,
+        "consecutiveErrors": 2,
         "lastRunStatus": "error",
-        "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1774881900000,
-        "lastDelivered": true,
-        "lastError": "402 [kiro/claude-sonnet-4.5] [402]: You have reached the limit. (reset after 18s)"
+        "lastDeliveryStatus": "unknown",
+        "nextRunAtMs": 1774968300000,
+        "lastError": "LiveSessionModelSwitchError: Live session model switch requested: anthropic/coding-factory"
       }
     },
     {
@@ -1239,7 +1231,7 @@
       "name": "OPS Task ETA Monitor",
       "enabled": true,
       "createdAtMs": 1771544316316,
-      "updatedAtMs": 1774813974452,
+      "updatedAtMs": 1774915018490,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1260,14 +1252,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774813866654,
+        "lastRunAtMs": 1774915001114,
         "lastStatus": "ok",
-        "lastDurationMs": 107798,
+        "lastDurationMs": 17376,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1774827516316,
-        "lastDelivered": true
+        "nextRunAtMs": 1774926924520,
+        "lastDelivered": true,
+        "runningAtMs": 1774927308235
       }
     },
     {
@@ -1276,7 +1269,7 @@
       "name": "9Router Quota Sync",
       "enabled": true,
       "createdAtMs": 1771576000000,
-      "updatedAtMs": 1774810128680,
+      "updatedAtMs": 1774909645064,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1297,13 +1290,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774810083676,
+        "lastRunAtMs": 1774909600036,
         "lastStatus": "error",
-        "lastDurationMs": 45004,
-        "consecutiveErrors": 1,
+        "lastDurationMs": 45028,
+        "consecutiveErrors": 3,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1774823200000,
+        "nextRunAtMs": 1774926984520,
         "lastErrorReason": "timeout"
       }
     },
@@ -1313,7 +1306,7 @@
       "name": "OPS Idle Agent Audit",
       "enabled": true,
       "createdAtMs": 1771544316316,
-      "updatedAtMs": 1774774617838,
+      "updatedAtMs": 1774906718817,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -1334,14 +1327,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774774515000,
-        "lastStatus": "ok",
-        "lastDurationMs": 102838,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
-        "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1774823916316,
-        "lastDelivered": true
+        "lastRunAtMs": 1774906716353,
+        "lastStatus": "error",
+        "lastDurationMs": 2464,
+        "consecutiveErrors": 4,
+        "lastRunStatus": "error",
+        "lastDeliveryStatus": "unknown",
+        "nextRunAtMs": 1774928316316
       }
     },
     {
@@ -1368,16 +1360,16 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774815052206,
+        "lastRunAtMs": 1774904557073,
         "lastStatus": "ok",
-        "lastDurationMs": 27343,
+        "lastDurationMs": 21092,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1774821756567,
+        "nextRunAtMs": 1774926939520,
         "lastDelivered": true
       },
-      "updatedAtMs": 1774815079549
+      "updatedAtMs": 1774904578165
     },
     {
       "id": "hatake-daily-briefing-0001",
@@ -1403,16 +1395,16 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774810332050,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 38767,
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0,
-        "nextRunAtMs": 1774875600000,
-        "lastDelivered": true
+        "lastRunAtMs": 1774893167940,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 952,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 1,
+        "nextRunAtMs": 1774962000000,
+        "lastError": "LiveSessionModelSwitchError: Live session model switch requested: 9router/free-unlimited"
       },
-      "updatedAtMs": 1774810370817
+      "updatedAtMs": 1774893168892
     },
     {
       "id": "health-jsonl-writer-0001",
@@ -1420,7 +1412,7 @@
       "name": "Health JSONL Writer",
       "enabled": true,
       "createdAtMs": 1771695150814,
-      "updatedAtMs": 1774818156191,
+      "updatedAtMs": 1774920192242,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -1441,14 +1433,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774818138705,
-        "lastStatus": "ok",
-        "lastDurationMs": 17486,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
-        "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1774821738705,
-        "lastDelivered": true
+        "lastRunAtMs": 1774920102193,
+        "lastStatus": "error",
+        "lastDurationMs": 90049,
+        "consecutiveErrors": 1,
+        "lastRunStatus": "error",
+        "lastDeliveryStatus": "unknown",
+        "nextRunAtMs": 1774926964520,
+        "lastError": "Error: cron: job execution timed out",
+        "lastErrorReason": "timeout"
       }
     },
     {
@@ -1467,7 +1460,7 @@
         "consecutiveErrors": 0,
         "lastStatus": "pending",
         "lastRunStatus": "pending",
-        "nextRunAtMs": 1774875600000
+        "nextRunAtMs": 1774962000000
       },
       "wakeMode": "now",
       "sessionTarget": "main",
@@ -1482,7 +1475,7 @@
       "name": "Daily Disk Space Monitor (Telegram)",
       "enabled": true,
       "createdAtMs": 1771747423771,
-      "updatedAtMs": 1774810392113,
+      "updatedAtMs": 1774892423805,
       "schedule": {
         "kind": "cron",
         "expr": "0 9 * * *",
@@ -1503,13 +1496,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774810370817,
+        "lastRunAtMs": 1774892373650,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 21296,
+        "lastDurationMs": 50155,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1774875600000,
+        "nextRunAtMs": 1774962000000,
         "lastDelivered": true
       }
     },
@@ -1519,7 +1512,7 @@
       "name": "HATAKE Competitive Intelligence Weekly",
       "enabled": true,
       "createdAtMs": 1771895556789,
-      "updatedAtMs": 1774313076072,
+      "updatedAtMs": 1774890343929,
       "schedule": {
         "kind": "cron",
         "expr": "0 10 * * 1"
@@ -1538,16 +1531,15 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1774879200000,
-        "lastRunAtMs": 1774312776034,
+        "nextRunAtMs": 1775484000000,
+        "lastRunAtMs": 1774890267719,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 300038,
-        "lastDeliveryStatus": "unknown",
+        "lastDurationMs": 76210,
+        "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "lastError": null,
-        "lastErrorReason": null,
-        "lastErrorAtMs": null
+        "lastErrorAtMs": null,
+        "lastDelivered": true
       }
     },
     {
@@ -1591,7 +1583,7 @@
       "name": "ZEN COO Morning Delegation Brief",
       "enabled": true,
       "createdAtMs": 1771895576881,
-      "updatedAtMs": 1774808272983,
+      "updatedAtMs": 1774892457691,
       "schedule": {
         "kind": "cron",
         "expr": "0 9 * * *"
@@ -1610,14 +1602,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774808244599,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 28384,
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0,
-        "nextRunAtMs": 1774875600000,
-        "lastDelivered": true
+        "lastRunAtMs": 1774892423805,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 33886,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 1,
+        "nextRunAtMs": 1774962000000,
+        "lastError": "LiveSessionModelSwitchError: Live session model switch requested: 9router/free-unlimited"
       }
     },
     {
@@ -1626,7 +1618,7 @@
       "name": "OPS Guardrail: Ticket Resolution Enforcer",
       "enabled": true,
       "createdAtMs": 1771897248854,
-      "updatedAtMs": 1774550669454,
+      "updatedAtMs": 1774906936046,
       "schedule": {
         "kind": "every",
         "everyMs": 14400000,
@@ -1646,14 +1638,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774550579086,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 90368,
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0,
-        "nextRunAtMs": 1774834848854,
-        "lastDelivered": true
+        "lastRunAtMs": 1774906848877,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 87169,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 1,
+        "nextRunAtMs": 1774935648854
       }
     },
     {
@@ -1662,7 +1653,7 @@
       "name": "OPS Daily OpenClaw Update Check",
       "enabled": true,
       "createdAtMs": 1771897250922,
-      "updatedAtMs": 1774806109968,
+      "updatedAtMs": 1774893169221,
       "schedule": {
         "kind": "cron",
         "expr": "0 8 * * *"
@@ -1681,14 +1672,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774806021536,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 88432,
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0,
-        "nextRunAtMs": 1774872000000,
-        "lastDelivered": true
+        "lastRunAtMs": 1774893168892,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 329,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 1,
+        "nextRunAtMs": 1774958400000,
+        "lastError": "LiveSessionModelSwitchError: Live session model switch requested: 9router/free-unlimited"
       }
     },
     {
@@ -1697,7 +1688,7 @@
       "name": "RED Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897377295,
-      "updatedAtMs": 1774821107575,
+      "updatedAtMs": 1774926894506,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1717,13 +1708,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774821076497,
+        "lastRunAtMs": 1774926872191,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 31078,
+        "lastDurationMs": 22315,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1774828276497,
+        "nextRunAtMs": 1774934072191,
         "lastDelivered": true
       }
     },
@@ -1733,7 +1724,7 @@
       "name": "ZEN Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897390213,
-      "updatedAtMs": 1774775136238,
+      "updatedAtMs": 1774914707617,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1753,15 +1744,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774775024280,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 111958,
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0,
-        "nextRunAtMs": 1774821112587,
-        "lastDelivered": true,
-        "lastErrorAtMs": null
+        "lastRunAtMs": 1774914706455,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 1162,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 5,
+        "nextRunAtMs": 1774926919520,
+        "lastErrorAtMs": null,
+        "runningAtMs": 1774927308235
       }
     },
     {
@@ -1770,7 +1761,7 @@
       "name": "ENG Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897391560,
-      "updatedAtMs": 1774763983557,
+      "updatedAtMs": 1774906996567,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1790,16 +1781,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774389386864,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 300031,
+        "lastRunAtMs": 1774906995096,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 1471,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 0,
-        "lastErrorReason": null,
+        "consecutiveErrors": 6,
         "lastErrorAtMs": null,
-        "nextRunAtMs": 1774821117587,
-        "runningAtMs": 1774821804050
+        "nextRunAtMs": 1774928591560
       }
     },
     {
@@ -1808,7 +1797,7 @@
       "name": "RESEARCH Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897392835,
-      "updatedAtMs": 1774389826475,
+      "updatedAtMs": 1774914208492,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1828,15 +1817,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774389686895,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 139580,
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0,
-        "nextRunAtMs": 1774821122587,
-        "lastDelivered": true,
-        "runningAtMs": 1774821804050
+        "lastRunAtMs": 1774914192852,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 15640,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 2,
+        "nextRunAtMs": 1774928592835,
+        "lastError": "LiveSessionModelSwitchError: Live session model switch requested: 9router/free-unlimited"
       }
     },
     {
@@ -1845,7 +1833,7 @@
       "name": "FINANCE Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897394350,
-      "updatedAtMs": 1774399095607,
+      "updatedAtMs": 1774915155691,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1865,15 +1853,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774398978102,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 117505,
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0,
-        "nextRunAtMs": 1774821127587,
-        "lastDelivered": true,
-        "runningAtMs": 1774821804050
+        "lastRunAtMs": 1774915123942,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 31749,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 4,
+        "nextRunAtMs": 1774926929520
       }
     },
     {
@@ -1882,7 +1868,7 @@
       "name": "OPS Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897395722,
-      "updatedAtMs": 1774389856052,
+      "updatedAtMs": 1774900328861,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1902,15 +1888,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774389826475,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 29577,
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0,
-        "nextRunAtMs": 1774821132587,
-        "lastDelivered": true,
-        "runningAtMs": 1774821804050
+        "lastRunAtMs": 1774900320667,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 8194,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 1,
+        "nextRunAtMs": 1774928595722
       }
     },
     {
@@ -1919,7 +1903,7 @@
       "name": "INFOSEC Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897397121,
-      "updatedAtMs": 1774775203311,
+      "updatedAtMs": 1774900380113,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1939,14 +1923,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774775136238,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 67073,
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0,
-        "nextRunAtMs": 1774821137587,
-        "lastDelivered": true
+        "lastRunAtMs": 1774900364964,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 15149,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 1,
+        "nextRunAtMs": 1774928597121
       }
     },
     {
@@ -1955,7 +1938,7 @@
       "name": "HATAKE Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897398357,
-      "updatedAtMs": 1774775216574,
+      "updatedAtMs": 1774907013633,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1975,14 +1958,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774775203311,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 13263,
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0,
-        "nextRunAtMs": 1774821142587,
-        "lastDelivered": true
+        "lastRunAtMs": 1774906998374,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 15259,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 3,
+        "nextRunAtMs": 1774928598357
       }
     },
     {
@@ -1991,7 +1973,7 @@
       "name": "CI Event Logger (cron → ci-log.jsonl)",
       "enabled": true,
       "createdAtMs": 1771907000000,
-      "updatedAtMs": 1774809993249,
+      "updatedAtMs": 1774913107063,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -2012,13 +1994,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774809903686,
+        "lastRunAtMs": 1774913090181,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 89563,
+        "lastDurationMs": 16882,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1774823000000,
+        "nextRunAtMs": 1774926974520,
         "lastDelivered": true
       }
     },
@@ -2028,7 +2010,7 @@
       "name": "Self-Healing Guardrail: Health Snapshot → Tickets",
       "enabled": true,
       "createdAtMs": 1771907005000,
-      "updatedAtMs": 1774810023623,
+      "updatedAtMs": 1774909481971,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -2049,14 +2031,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774809993249,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 30374,
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0,
-        "nextRunAtMs": 1774823005000,
-        "lastDelivered": true
+        "lastRunAtMs": 1774909453184,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 28787,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 3,
+        "nextRunAtMs": 1774926979520,
+        "lastError": "LiveSessionModelSwitchError: Live session model switch requested: 9router/free-unlimited"
       }
     },
     {
@@ -2065,7 +2047,7 @@
       "name": "CI Weekly Summarizer (roll → LEARNINGS.md)",
       "enabled": true,
       "createdAtMs": 1771907010000,
-      "updatedAtMs": 1774311224725,
+      "updatedAtMs": 1774869596470,
       "schedule": {
         "kind": "cron",
         "expr": "0 7 * * 1",
@@ -2086,11 +2068,11 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1774868400000,
-        "lastRunAtMs": 1774311216038,
+        "nextRunAtMs": 1775473200000,
+        "lastRunAtMs": 1774869551918,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 8687,
+        "lastDurationMs": 44552,
         "lastDelivered": true,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0
@@ -2102,7 +2084,7 @@
       "name": "RED Daily A2A Proactive Delegation",
       "enabled": true,
       "createdAtMs": 1771910000000,
-      "updatedAtMs": 1774802051172,
+      "updatedAtMs": 1774893169569,
       "schedule": {
         "kind": "cron",
         "expr": "0 10 * * 1-5",
@@ -2123,15 +2105,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774802019444,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 31728,
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0,
-        "nextRunAtMs": 1774879200000,
-        "lastDelivered": true,
-        "lastErrorAtMs": null
+        "lastRunAtMs": 1774893169221,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 348,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 1,
+        "nextRunAtMs": 1774965600000,
+        "lastErrorAtMs": null,
+        "lastError": "LiveSessionModelSwitchError: Live session model switch requested: 9router/free-unlimited"
       }
     },
     {
@@ -2140,7 +2122,7 @@
       "name": "A2A Communication Health Monitor",
       "enabled": true,
       "createdAtMs": 1771910000000,
-      "updatedAtMs": 1774764640426,
+      "updatedAtMs": 1774908163334,
       "schedule": {
         "kind": "cron",
         "expr": "0 18 * * 1-5",
@@ -2161,16 +2143,16 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774764520382,
-        "lastRunStatus": "ok",
+        "lastRunAtMs": 1774908162168,
+        "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 120044,
-        "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 0,
-        "lastErrorReason": null,
-        "lastError": null,
+        "lastDurationMs": 1166,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 1,
+        "lastError": "400 [openrouter/auto] [404]: No endpoints found that support tool use. To learn more about provider routing, visit: https: (reset after 1s)",
         "lastErrorAtMs": null,
-        "nextRunAtMs": 1774908000000
+        "nextRunAtMs": 1774994400000,
+        "lastDelivered": true
       }
     },
     {
@@ -2179,7 +2161,7 @@
       "name": "Weekly Competitive Intelligence (AI Tools)",
       "enabled": true,
       "createdAtMs": 1771908000000,
-      "updatedAtMs": 1774311465749,
+      "updatedAtMs": 1774881526815,
       "schedule": {
         "kind": "cron",
         "expr": "0 9 * * 1",
@@ -2201,14 +2183,14 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1774875600000,
-        "lastRunAtMs": 1774311229791,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 235958,
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0,
-        "lastDelivered": true
+        "nextRunAtMs": 1775480400000,
+        "lastRunAtMs": 1774881525867,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 948,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 1,
+        "lastError": "LiveSessionModelSwitchError: Live session model switch requested: 9router/free-unlimited"
       }
     },
     {
@@ -2217,7 +2199,7 @@
       "name": "ENG: Coding Factory — Self-Healing & PR Monitor",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1774815678795,
+      "updatedAtMs": 1774915888138,
       "schedule": {
         "kind": "cron",
         "expr": "0 */4 * * *",
@@ -2240,13 +2222,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774815677001,
+        "lastRunAtMs": 1774915884954,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 1794,
+        "lastDurationMs": 3184,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 1,
-        "nextRunAtMs": 1774829014472,
+        "consecutiveErrors": 8,
+        "nextRunAtMs": 1774929814472,
         "lastError": "LiveSessionModelSwitchError: Live session model switch requested: anthropic/coding-factory"
       }
     },
@@ -2256,7 +2238,7 @@
       "name": "ENG Daily R&D Research Session",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1774808941981,
+      "updatedAtMs": 1774894658150,
       "schedule": {
         "kind": "cron",
         "expr": "0 14 * * *",
@@ -2278,13 +2260,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774808939847,
+        "lastRunAtMs": 1774894653681,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 2134,
+        "lastDurationMs": 4469,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 2,
-        "nextRunAtMs": 1774893600000,
+        "consecutiveErrors": 3,
+        "nextRunAtMs": 1774980000000,
         "lastError": "LiveSessionModelSwitchError: Live session model switch requested: anthropic/coding-factory"
       }
     },
@@ -2294,7 +2276,7 @@
       "name": "RED Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1774814992182,
+      "updatedAtMs": 1774900890408,
       "schedule": {
         "kind": "cron",
         "expr": "0 */4 * * *",
@@ -2316,14 +2298,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774814908740,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 83442,
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0,
-        "nextRunAtMs": 1774828855483,
-        "lastDelivered": true
+        "lastRunAtMs": 1774900856795,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 33613,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 1,
+        "nextRunAtMs": 1774926989520
       }
     },
     {
@@ -2332,7 +2313,7 @@
       "name": "RESEARCH Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1774814289019,
+      "updatedAtMs": 1774909800981,
       "schedule": {
         "kind": "cron",
         "expr": "30 */3 * * *",
@@ -2354,14 +2335,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774814288059,
+        "lastRunAtMs": 1774909800023,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 960,
+        "lastDurationMs": 958,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 2,
-        "nextRunAtMs": 1774823400000,
-        "lastError": "LiveSessionModelSwitchError: Live session model switch requested: 9router/free-unlimited"
+        "consecutiveErrors": 11,
+        "nextRunAtMs": 1774931400000
       }
     },
     {
@@ -2370,7 +2350,7 @@
       "name": "OPS Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1774815847123,
+      "updatedAtMs": 1774916634878,
       "schedule": {
         "kind": "cron",
         "expr": "15 */4 * * *",
@@ -2391,13 +2371,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774815678795,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 168328,
+        "lastRunAtMs": 1774916396249,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 238629,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0,
-        "nextRunAtMs": 1774829700000,
+        "consecutiveErrors": 6,
+        "nextRunAtMs": 1774930500000,
+        "lastError": "⚠️ ⏰ Cron failed",
         "lastDelivered": true
       }
     },
@@ -2407,7 +2388,7 @@
       "name": "INFOSEC Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1774818331033,
+      "updatedAtMs": 1774920205044,
       "schedule": {
         "kind": "cron",
         "expr": "45 */4 * * *",
@@ -2428,13 +2409,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774818295633,
+        "lastRunAtMs": 1774920194699,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 35400,
+        "lastDurationMs": 10345,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1774831500000,
+        "nextRunAtMs": 1774932300000,
         "lastDelivered": true
       }
     },
@@ -2444,7 +2425,7 @@
       "name": "ENG Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1774806187731,
+      "updatedAtMs": 1774906204573,
       "schedule": {
         "kind": "cron",
         "expr": "30 1,5,9,13,17,21 * * *",
@@ -2466,14 +2447,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774806186155,
+        "lastRunAtMs": 1774906200027,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 1576,
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 1,
-        "nextRunAtMs": 1774821147587,
-        "lastDelivered": true
+        "lastDurationMs": 4546,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 8,
+        "nextRunAtMs": 1774935000000
       }
     },
     {
@@ -2482,7 +2462,7 @@
       "name": "OSS Contributor — Daily Good-First-Issue PR",
       "enabled": true,
       "createdAtMs": 1773900000000,
-      "updatedAtMs": 1774801040310,
+      "updatedAtMs": 1774892473837,
       "schedule": {
         "kind": "cron",
         "expr": "0 11 * * *",
@@ -2504,14 +2484,14 @@
         "bestEffort": true
       },
       "state": {
-        "consecutiveErrors": 0,
-        "nextRunAtMs": 1774882800000,
-        "lastRunAtMs": 1774800954405,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 85905,
-        "lastDeliveryStatus": "not-delivered",
-        "lastDelivered": false
+        "consecutiveErrors": 1,
+        "nextRunAtMs": 1774969200000,
+        "lastRunAtMs": 1774892472713,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 1124,
+        "lastDeliveryStatus": "unknown",
+        "lastError": "LiveSessionModelSwitchError: Live session model switch requested: anthropic/coding-factory"
       }
     },
     {
@@ -2520,7 +2500,7 @@
       "name": "ZEN Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1774811485277,
+      "updatedAtMs": 1774908156746,
       "schedule": {
         "kind": "cron",
         "expr": "0 */3 * * *",
@@ -2542,13 +2522,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774811451090,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 34187,
+        "lastRunAtMs": 1774908131262,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 25484,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0,
-        "nextRunAtMs": 1774821725759,
+        "consecutiveErrors": 3,
+        "nextRunAtMs": 1774926994520,
         "lastDelivered": true
       }
     },
@@ -2558,7 +2538,7 @@
       "name": "FINANCE Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1774808949390,
+      "updatedAtMs": 1774915884954,
       "schedule": {
         "kind": "cron",
         "expr": "0 8,14,20 * * *",
@@ -2579,13 +2559,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774808941981,
+        "lastRunAtMs": 1774915815115,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 7409,
+        "lastDurationMs": 69839,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1774828800000,
+        "nextRunAtMs": 1774958400000,
         "lastDelivered": true
       }
     },
@@ -2595,7 +2575,7 @@
       "name": "HATAKE Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1774815343322,
+      "updatedAtMs": 1774901415612,
       "schedule": {
         "kind": "cron",
         "expr": "0 10,16,22 * * *",
@@ -2616,14 +2596,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1774815312414,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 30908,
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0,
-        "nextRunAtMs": 1774836000000,
-        "lastDelivered": true
+        "lastRunAtMs": 1774901194199,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 221413,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 2,
+        "nextRunAtMs": 1774926934520
       }
     },
     {
@@ -2632,7 +2611,7 @@
       "name": "9Router Auth Watchdog — self-healing (every 5min)",
       "enabled": true,
       "createdAtMs": 1772020000000,
-      "updatedAtMs": 1774818463913,
+      "updatedAtMs": 1774926701975,
       "schedule": {
         "kind": "every",
         "everyMs": 300000,
@@ -2653,14 +2632,13 @@
         "target": "channel:C0AEV3MDEDD"
       },
       "state": {
-        "consecutiveErrors": 2,
-        "lastRunAtMs": 1774818403872,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 60041,
+        "consecutiveErrors": 0,
+        "lastRunAtMs": 1774926646551,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 55424,
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1774821400000,
-        "lastErrorReason": "timeout"
+        "nextRunAtMs": 1774926946551
       }
     },
     {
@@ -2669,7 +2647,7 @@
       "name": "9Router Token Auto-Refresh (every 4min)",
       "enabled": true,
       "createdAtMs": 1773613008959,
-      "updatedAtMs": 1774820860514,
+      "updatedAtMs": 1774926872191,
       "schedule": {
         "kind": "every",
         "everyMs": 240000,
@@ -2691,11 +2669,11 @@
       },
       "state": {
         "consecutiveErrors": 0,
-        "lastRunAtMs": 1774820812288,
+        "lastRunAtMs": 1774926858093,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "nextRunAtMs": 1774821168959,
-        "lastDurationMs": 48226,
+        "nextRunAtMs": 1774927098093,
+        "lastDurationMs": 14098,
         "lastDeliveryStatus": "delivered",
         "lastErrorAtMs": null,
         "lastDelivered": true
@@ -2785,14 +2763,14 @@
         "kind": "agentTurn"
       },
       "state": {
-        "nextRunAtMs": 1774854000000,
-        "lastRunAtMs": 1774768322716,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 73149,
-        "lastDelivered": false,
-        "lastDeliveryStatus": "not-delivered",
-        "consecutiveErrors": 0
+        "nextRunAtMs": 1774940400000,
+        "lastRunAtMs": 1774863318103,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 376,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 1,
+        "lastError": "LiveSessionModelSwitchError: Live session model switch requested: 9router/free-unlimited"
       },
       "wakeMode": "now",
       "sessionTarget": "isolated",
@@ -2802,7 +2780,7 @@
         "to": "channel:C0AEV3J2L23",
         "bestEffort": true
       },
-      "updatedAtMs": 1774768395865
+      "updatedAtMs": 1774863318479
     },
     {
       "id": "c858a544-569e-44fd-94c2-5425c75da8ed",
@@ -2811,7 +2789,7 @@
       "name": "telegram-approval-monitor-0001",
       "enabled": true,
       "createdAtMs": 1773813382934,
-      "updatedAtMs": 1774819171431,
+      "updatedAtMs": 1774926836810,
       "schedule": {
         "expr": "*/2 * * * *",
         "tz": "America/Toronto",
@@ -2833,15 +2811,14 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1774821120000,
-        "lastRunAtMs": 1774819157747,
+        "nextRunAtMs": 1774926960000,
+        "lastRunAtMs": 1774926701975,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 13684,
+        "lastDurationMs": 134835,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "lastDelivered": true,
-        "runningAtMs": 1774821804050
+        "lastDelivered": true
       }
     },
     {
@@ -2885,7 +2862,7 @@
       "name": "Sync AUTONOMOUS.md -> queue.json",
       "enabled": true,
       "createdAtMs": 1773854383010,
-      "updatedAtMs": 1774820982283,
+      "updatedAtMs": 1774921390360,
       "schedule": {
         "kind": "cron",
         "expr": "*/5 * * * *",
@@ -2905,15 +2882,16 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1774821300000,
-        "lastRunAtMs": 1774820920556,
+        "nextRunAtMs": 1774926914520,
+        "lastRunAtMs": 1774921377196,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 61727,
-        "lastDeliveryStatus": "delivered",
+        "lastDurationMs": 13164,
+        "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
         "lastErrorAtMs": null,
-        "lastDelivered": true
+        "lastDelivered": false,
+        "runningAtMs": 1774927308235
       }
     },
     {
@@ -2923,7 +2901,7 @@
       "name": "ops-disk-monitor-daily-2026-02-22",
       "enabled": true,
       "createdAtMs": 1773951459762,
-      "updatedAtMs": 1774801113003,
+      "updatedAtMs": 1774864829876,
       "schedule": {
         "expr": "0 2 * * *",
         "kind": "cron"
@@ -2939,14 +2917,14 @@
         "channel": "ops"
       },
       "state": {
-        "lastRunAtMs": 1774801092190,
+        "lastRunAtMs": 1774864812160,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 20813,
+        "lastDurationMs": 17716,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 1,
+        "consecutiveErrors": 2,
         "lastErrorAtMs": null,
-        "nextRunAtMs": 1774850400000,
+        "nextRunAtMs": 1774936800000,
         "lastError": "Channel is required when multiple channels are configured: telegram, slack Set delivery.channel explicitly or use a main session with a previous channel."
       },
       "target": "telegram"
@@ -2992,7 +2970,7 @@
       "name": "Factory: 9router IssueWatcher — Poll & Process",
       "enabled": true,
       "createdAtMs": 1774080643339,
-      "updatedAtMs": 1774819200404,
+      "updatedAtMs": 1774920194699,
       "schedule": {
         "kind": "cron",
         "expr": "*/15 * * * *",
@@ -3014,13 +2992,13 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1774822800404,
-        "lastRunAtMs": 1774819197957,
+        "nextRunAtMs": 1774926969520,
+        "lastRunAtMs": 1774920192242,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 2447,
+        "lastDurationMs": 2457,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 6,
+        "consecutiveErrors": 22,
         "lastError": "LiveSessionModelSwitchError: Live session model switch requested: anthropic/coding-factory"
       }
     },
@@ -3126,7 +3104,7 @@
       "name": "9router-token-refresh-0001",
       "enabled": true,
       "createdAtMs": 1774811974733,
-      "updatedAtMs": 1774819566901,
+      "updatedAtMs": 1774926858093,
       "schedule": {
         "kind": "every",
         "everyMs": 240000,
@@ -3143,13 +3121,49 @@
         "channel": "telegram"
       },
       "state": {
-        "nextRunAtMs": 1774821334733,
-        "lastRunAtMs": 1774819489072,
+        "nextRunAtMs": 1774927076810,
+        "lastRunAtMs": 1774926836810,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 77829,
+        "lastDurationMs": 21283,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 4
+        "consecutiveErrors": 2,
+        "lastError": "Delivering to Telegram requires target <chatId>"
+      }
+    },
+    {
+      "id": "d1415e17-2bfb-48e7-8658-09a3c1f25796",
+      "agentId": "ops",
+      "sessionKey": "agent:ops:cron:9router-token-refresh-0001",
+      "name": "9router-token-refresh-0001",
+      "enabled": true,
+      "createdAtMs": 1774867545660,
+      "updatedAtMs": 1774926929550,
+      "schedule": {
+        "everyMs": 240000,
+        "kind": "every",
+        "anchorMs": 1774867545660
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "cd /Users/redinside/.openclaw && node scripts/9router-token-refresh.js 2>&1 | tail -20",
+        "timeoutSeconds": 30
+      },
+      "delivery": {
+        "mode": "none"
+      },
+      "state": {
+        "nextRunAtMs": 1774930529550,
+        "lastRunAtMs": 1774926899540,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 30010,
+        "lastDeliveryStatus": "not-requested",
+        "consecutiveErrors": 12,
+        "lastErrorReason": "timeout",
+        "lastError": "cron: job execution timed out"
       }
     }
   ]

@@ -18755,3 +18755,1704 @@ CONSULTANT-OPS-20260312025300
 **How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
 **Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
 
+
+## [2026-03-29 18:21] Fix: Channel errors in gateway log (9 occurrences)
+**Severity:** L1
+**Symptom:** Cron jobs missing delivery.channel field
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** No channel-less cron jobs found (may be log noise)
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='channel_errors'. Run `openclaw agent --agent ops --message "SELF-HEAL: Channel errors in gateway log (9 occurrences)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=channel_errors to detect recurrence.
+
+
+## [2026-03-29 18:21] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 18:38] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 18:55] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 19:12] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 19:29] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 19:46] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 20:03] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 20:20] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 20:37] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 20:54] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 21:11] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 21:28] Fix: 1 stale IN_PROGRESS tasks (>2h)
+**Severity:** L1
+**Symptom:** CONSULTANT-OPS-20260329182129
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Reset 1 stale tasks to PENDING: CONSULTANT-OPS-20260329182129
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='stale_tasks'. Run `openclaw agent --agent ops --message "SELF-HEAL: 1 stale IN_PROGRESS tasks (>2h)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=stale_tasks to detect recurrence.
+
+
+## [2026-03-29 21:28] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 21:45] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 22:02] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 22:19] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 22:36] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 22:53] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 23:10] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 23:27] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-29 23:44] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 00:01] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 00:18] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 00:18] Fix: Coding factory stalled — last SPEC.md is 48h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 48h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 00:35] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 00:35] Fix: Coding factory stalled — last SPEC.md is 48h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 48h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 00:52] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 00:52] Fix: Coding factory stalled — last SPEC.md is 49h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 49h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 01:09] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 01:09] Fix: Coding factory stalled — last SPEC.md is 49h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 49h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 01:26] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 01:26] Fix: Coding factory stalled — last SPEC.md is 49h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 49h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 01:43] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 01:43] Fix: Coding factory stalled — last SPEC.md is 50h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 50h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 02:00] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 02:00] Fix: Coding factory stalled — last SPEC.md is 50h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 50h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 02:17] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 02:17] Fix: Coding factory stalled — last SPEC.md is 50h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 50h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 02:34] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 02:34] Fix: Coding factory stalled — last SPEC.md is 50h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 50h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 02:51] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 02:51] Fix: Coding factory stalled — last SPEC.md is 51h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 51h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 03:09] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 03:09] Fix: Coding factory stalled — last SPEC.md is 51h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 51h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 03:26] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 03:26] Fix: Coding factory stalled — last SPEC.md is 51h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 51h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 03:43] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 03:43] Fix: Coding factory stalled — last SPEC.md is 52h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 52h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 04:00] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 04:00] Fix: Coding factory stalled — last SPEC.md is 52h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 52h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 04:17] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 04:17] Fix: Coding factory stalled — last SPEC.md is 52h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 52h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 04:34] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 04:34] Fix: Coding factory stalled — last SPEC.md is 52h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 52h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 04:51] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 04:51] Fix: Coding factory stalled — last SPEC.md is 53h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 53h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 05:08] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 05:08] Fix: Coding factory stalled — last SPEC.md is 53h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 53h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 05:25] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 05:25] Fix: Coding factory stalled — last SPEC.md is 53h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 53h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 05:42] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 05:42] Fix: Coding factory stalled — last SPEC.md is 54h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 54h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 05:59] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 05:59] Fix: Coding factory stalled — last SPEC.md is 54h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 54h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 06:16] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 06:16] Fix: Coding factory stalled — last SPEC.md is 54h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 54h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 06:33] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 06:33] Fix: Coding factory stalled — last SPEC.md is 54h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 54h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 06:50] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 06:50] Fix: Coding factory stalled — last SPEC.md is 55h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 55h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 07:07] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 07:07] Fix: Coding factory stalled — last SPEC.md is 55h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 55h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 07:24] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 07:24] Fix: Coding factory stalled — last SPEC.md is 55h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 55h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 07:41] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 07:41] Fix: Coding factory stalled — last SPEC.md is 56h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 56h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 07:58] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 07:58] Fix: Coding factory stalled — last SPEC.md is 56h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 56h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 08:15] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 08:15] Fix: Coding factory stalled — last SPEC.md is 56h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 56h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 08:32] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 08:32] Fix: Coding factory stalled — last SPEC.md is 56h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 56h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 08:49] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 08:49] Fix: Coding factory stalled — last SPEC.md is 57h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 57h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 09:06] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 09:06] Fix: Coding factory stalled — last SPEC.md is 57h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 57h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 09:23] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 09:23] Fix: Coding factory stalled — last SPEC.md is 57h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 57h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 09:40] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 09:40] Fix: Coding factory stalled — last SPEC.md is 57h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 57h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 09:57] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 09:57] Fix: Coding factory stalled — last SPEC.md is 58h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 58h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 10:14] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 10:14] Fix: Coding factory stalled — last SPEC.md is 58h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 58h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 10:31] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 10:31] Fix: Coding factory stalled — last SPEC.md is 58h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 58h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 10:48] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 10:48] Fix: Coding factory stalled — last SPEC.md is 59h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 59h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 11:05] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 11:05] Fix: Coding factory stalled — last SPEC.md is 59h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 59h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 11:22] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 11:22] Fix: Coding factory stalled — last SPEC.md is 59h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 59h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 11:39] Fix: 1 stale IN_PROGRESS tasks (>2h)
+**Severity:** L1
+**Symptom:** CONSULTANT-RESEARCH-20260330005252
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Reset 1 stale tasks to PENDING: CONSULTANT-RESEARCH-20260330005252
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='stale_tasks'. Run `openclaw agent --agent ops --message "SELF-HEAL: 1 stale IN_PROGRESS tasks (>2h)"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=stale_tasks to detect recurrence.
+
+
+## [2026-03-30 11:39] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 11:39] Fix: Coding factory stalled — last SPEC.md is 59h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 59h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 11:56] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 11:56] Fix: Coding factory stalled — last SPEC.md is 60h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 60h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 12:13] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 12:13] Fix: Coding factory stalled — last SPEC.md is 60h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 60h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 12:30] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 12:30] Fix: Coding factory stalled — last SPEC.md is 60h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 60h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 12:47] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 12:47] Fix: Coding factory stalled — last SPEC.md is 61h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 61h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 13:04] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 13:04] Fix: Coding factory stalled — last SPEC.md is 61h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 61h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 13:21] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 13:21] Fix: Coding factory stalled — last SPEC.md is 61h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 61h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 13:38] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 13:38] Fix: Coding factory stalled — last SPEC.md is 61h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 61h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 13:55] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 13:55] Fix: Coding factory stalled — last SPEC.md is 62h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 62h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 14:12] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 14:12] Fix: Coding factory stalled — last SPEC.md is 62h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 62h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 14:29] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 14:29] Fix: Coding factory stalled — last SPEC.md is 62h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 62h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 14:46] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 14:46] Fix: Coding factory stalled — last SPEC.md is 63h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 63h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 15:03] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 15:03] Fix: Coding factory stalled — last SPEC.md is 63h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 63h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 15:20] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 15:20] Fix: Coding factory stalled — last SPEC.md is 63h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 63h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 15:37] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 15:37] Fix: Coding factory stalled — last SPEC.md is 63h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 63h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 15:54] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 15:54] Fix: Coding factory stalled — last SPEC.md is 64h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 64h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 16:11] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 16:11] Fix: Coding factory stalled — last SPEC.md is 64h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 64h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 16:28] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 16:28] Fix: Coding factory stalled — last SPEC.md is 64h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 64h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 16:45] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 16:45] Fix: Coding factory stalled — last SPEC.md is 65h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 65h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 17:02] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 17:02] Fix: Coding factory stalled — last SPEC.md is 65h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 65h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 17:19] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 17:19] Fix: Coding factory stalled — last SPEC.md is 65h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 65h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 17:36] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 17:36] Fix: Coding factory stalled — last SPEC.md is 65h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 65h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 17:53] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 17:53] Fix: Coding factory stalled — last SPEC.md is 66h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 66h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 18:10] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 18:10] Fix: Coding factory stalled — last SPEC.md is 66h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 66h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 18:27] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 18:27] Fix: Coding factory stalled — last SPEC.md is 66h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 66h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 18:44] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 18:44] Fix: Coding factory stalled — last SPEC.md is 67h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 67h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 19:01] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 19:01] Fix: Coding factory stalled — last SPEC.md is 67h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 67h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 19:19] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 19:19] Fix: Coding factory stalled — last SPEC.md is 67h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 67h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 19:36] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 19:36] Fix: Coding factory stalled — last SPEC.md is 67h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 67h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 19:53] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 19:53] Fix: Coding factory stalled — last SPEC.md is 68h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 68h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 20:10] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 20:10] Fix: Coding factory stalled — last SPEC.md is 68h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 68h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 20:27] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 20:27] Fix: Coding factory stalled — last SPEC.md is 68h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 68h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 20:44] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 20:44] Fix: Coding factory stalled — last SPEC.md is 69h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 69h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 21:01] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 21:01] Fix: Coding factory stalled — last SPEC.md is 69h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 69h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 21:18] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 21:18] Fix: Coding factory stalled — last SPEC.md is 69h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 69h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 21:35] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 21:35] Fix: Coding factory stalled — last SPEC.md is 69h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** RESEARCH agent tasked to restart coding factory
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 69h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 21:52] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** OPS agent tasked to investigate and inject new work
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 21:52] Fix: Coding factory stalled — last SPEC.md is 70h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 70h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 22:09] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 22:09] Fix: Coding factory stalled — last SPEC.md is 70h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 70h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 22:26] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 22:26] Fix: Coding factory stalled — last SPEC.md is 70h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 70h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 22:43] Fix: OpenClaw gateway not responding on :18789
+**Severity:** L2
+**Symptom:** HTTP health check failed
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Gateway restarted successfully
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='gateway_down'. Run `openclaw agent --agent ops --message "SELF-HEAL: OpenClaw gateway not responding on :18789"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=gateway_down to detect recurrence.
+
+
+## [2026-03-30 22:43] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 22:43] Fix: Coding factory stalled — last SPEC.md is 71h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 71h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 23:00] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 23:00] Fix: Coding factory stalled — last SPEC.md is 71h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 71h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+
+
+## [2026-03-30 23:17] Fix: No task completions in last 24h
+**Severity:** L3
+**Symptom:** Agents may be stuck — no entries added to tasks-log.md
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach OPS agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='no_completions'. Run `openclaw agent --agent ops --message "SELF-HEAL: No task completions in last 24h"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=no_completions to detect recurrence.
+
+
+## [2026-03-30 23:17] Fix: Coding factory stalled — last SPEC.md is 71h old
+**Severity:** L3
+**Symptom:** RESEARCH → ENG pipeline needs a trigger
+**Root cause:** Auto-detected by consultant-daemon.py
+**Fix applied:** Failed to reach RESEARCH agent
+**How agents can self-fix:** See fix_dispatch in consultant-daemon.py for issue_id='factory_stalled'. Run `openclaw agent --agent ops --message "SELF-HEAL: Coding factory stalled — last SPEC.md is 71h old"`.
+**Pattern to watch:** Re-run diagnostic check for issue_id=factory_stalled to detect recurrence.
+

@@ -2,7 +2,7 @@
 
 > Autonomous AI company running on OpenClaw CLI — 8 specialized agents, A2A delegation working, two revenue streams, zero humans in the loop.
 
-**Owner:** [anuragg-saxenaa](https://github.com/anuragg-saxenaa) · **Infra:** [redinside-dev](https://github.com/redinside-dev) · **Platform:** macOS (Darwin 25) · **Updated:** 2026-03-22
+**Owner:** [anuragg-saxenaa](https://github.com/anuragg-saxenaa) · **Infra:** [redinside-dev](https://github.com/redinside-dev) · **Platform:** macOS (Darwin 25) · **Updated:** 2026-03-30
 
 ---
 
@@ -337,6 +337,8 @@ python3 workspace-website-agency/scripts/lead_generator.py --count 50
 - **Never commit** `openclaw.json`, `identity/`, `credentials/`
 - **Never hardcode `model`** in cron payloads — omit it, use agent defaults
 - **Never use ZAI** in crons or fallback chains (PAYG = runaway cost risk)
+- **Never use `openrouter/auto`** — OpenRouter free key exhausted (403)
+- **exec-approvals.json** must have `ask: off` for all agents — `ask: on-miss` causes 120s hangs and agent-wide stalls
 - **L4/L5 actions** require Telegram approval from RED before execution
 - **Run `openclaw doctor`** after any `openclaw.json` change
 
