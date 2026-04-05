@@ -1,12 +1,32 @@
 {
-  "status": "meta_self_check_completed",
-  "timestamp": "2026-03-31T03:43:00Z",
-  "tool_verification": {
-    "web_search": "functional",
-    "exec": "functional",
-    "read_write": "functional"
+  "agentId": "finance",
+  "timestamp": "2026-04-03T19:51:00Z",
+  "status": "running",
+  "metaCheck": {
+    "webSearch": "working",
+    "exec": "working",
+    "read": "working",
+    "write": "working"
   },
-  "task_queue": "verified",
-  "cost_signal": "monitoring provider-quota.json for spend metrics",
-  "next_steps": "checking task queue for cost analysis job"
+  "telemetryStatus": {
+    "providerQuota": "STALE - last updated 2026-03-29 (5 days old)",
+    "costEvents": "STALE - last entry 2026-02-16 (46 days old)",
+    "canComputeSpend": false
+  },
+  "goalsBlocked": 3,
+  "currentFocus": "Heartbeat check - all core functions blocked by stale telemetry",
+  "alerts": [
+    "72+ hour telemetry blackout continues",
+    "Weekly cost report 10+ days overdue",
+    "Anomaly detection non-functional",
+    "ChatGPT Pro cancellation (FIN-001 $380/mo) still pending RED action"
+  ],
+  "lastEscalation": {
+    "to": "ops, red",
+    "time": "2026-04-01T18:44:00Z",
+    "channel": "Slack #redos-scrum",
+    "status": "delivered, awaiting response"
+  },
+  "idle": true,
+  "idleReason": "blocked - no fresh cost data to analyze"
 }

@@ -121,7 +121,7 @@ Developers face significant productivity barriers due to meeting overload, conte
 - **Mitigation**: Transparent measurement process
 - **Mitigation**: Focus on improvement, not punishment
 
-## Budget & Resources
+PRJ-035 | READY | mcp-param-validator | CLI validating MCP tool inputs before execution. Solves AI agents making endless parameter-guessing loops.
 
 ### Estimated Costs
 - Tool consolidation: $50-100K

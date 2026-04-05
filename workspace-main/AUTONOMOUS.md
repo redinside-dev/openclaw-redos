@@ -19,4 +19,7 @@ This file contains tasks that can be executed autonomously by agents without hum
 #### 3. Data Processing
 - **ingest**: Process incoming data feeds
 
-## Current Status: NO PENDING TASKS
+## Current Status: PENDING TASKS
+
+- healthcheck: Investigate CONSULTANT alerts about 19–28 cron jobs with consecutive errors; verify `cron/jobs.json` status, inspect `logs/gateway.err.log`, and confirm LaunchAgents are running.
+- cron: Attempt safe restarts of impacted jobs (job-level where possible); if systemic, prepare a coordinated restart plan and report findings back to `ops/TICKET-TRACKER.md`.

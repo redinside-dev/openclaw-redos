@@ -1,8 +1,21 @@
 {
   "agentId": "finance",
-  "sessionStart": "2026-03-30T14:51:00Z",
-  "currentFocus": "Gateway restart executed at 22:46 EDT. provider-quota.json updated to placeholder - telemetry restoration in progress. Monitoring still blocked awaiting actual spend data.",
+  "updatedAt": "2026-04-03T20:43:00Z",
+  "sessionStart": "2026-04-03T09:04:00Z",
+  "lastHeartbeat": "2026-04-03T20:43:00Z",
+  "currentFocus": "Heartbeat at 18:43 EDT. FINANCE crons failing (4 jobs with errors), provider-quota.json stale since 2026-03-29. Core functions compromised. Need to escalate.",
   "activeGoals": ["goal-finance-001", "goal-finance-002", "goal-finance-003"],
-  "pendingDecisions": ["Monitor until manual telemetry restart", "Escalation sent to OPS and RED", "Gateway restart attempted - awaiting data population"],
-  "lastThought": "Provider-quota stale (March 29 01:55Z). OpenAI 45/1000, codex 45/1000 both 4.5%. Exec tool denial blocks auto-restart. A2A to OPS timed out, to RED gateway closed. Full spend visibility lost. After 2h window, successfully escalated to both OPS and RED at 18:22 EDT. At 22:46, executed gateway restart. provider-quota.json now shows placeholder with note: 'telemetry restoration in progress. Actual spend data unavailable.' Monitoring remains blocked until real data flows."
+  "pendingDecisions": ["Awaiting RED action on ChatGPT Pro cancellation (FIN-001, $380/mo)"],
+  "lastThought": "18:43 EDT: Identified 4 FINANCE cron jobs with consecutiveErrors > 0. Escalation required.",
+  "telemetryStatus": {
+    "providerQuota": "stale - last updated 2026-03-29",
+    "costEvents": "last entry 2026-02-16 (46+ days old)",
+    "costEstimate": "cannot compute without fresh data"
+  },
+  "cronFailures": {
+    "inner-loop-finance-0001": {"lastStatus": "error", "consecutiveErrors": 1, "lastError": "timeout"},
+    "Trading Window Brief (8am-4pm)": {"lastStatus": "error", "consecutiveErrors": 1},
+    "Market Leads (Alpha Vantage)": {"lastStatus": "error", "consecutiveErrors": 1},
+    "Trading Window Brief (4pm)": {"lastStatus": "error", "consecutiveErrors": 1}
+  }
 }
