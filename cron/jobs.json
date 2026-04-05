@@ -7,7 +7,7 @@
       "name": "System Pulse — Always-On Heartbeat (Ollama only)",
       "enabled": true,
       "createdAtMs": 1772080522100,
-      "updatedAtMs": 1775364216469,
+      "updatedAtMs": 1775416496134,
       "schedule": {
         "kind": "cron",
         "expr": "*/5 * * * *",
@@ -28,15 +28,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775363916453,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 300016,
-        "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 1,
-        "nextRunAtMs": 1775365800000,
-        "lastErrorReason": "timeout",
-        "runningAtMs": 1775365718433
+        "lastRunAtMs": 1775416435769,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 60365,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1775417100000,
+        "lastDelivered": true,
+        "runningAtMs": 1775418576730
       }
     },
     {
@@ -530,7 +530,7 @@
       "name": "Cron Watchdog (alert on missed/failing jobs)",
       "enabled": true,
       "createdAtMs": 1770618629260,
-      "updatedAtMs": 1775357402961,
+      "updatedAtMs": 1775412015015,
       "schedule": {
         "kind": "cron",
         "expr": "*/10 8-22 * * *",
@@ -550,16 +550,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775357400020,
-        "lastStatus": "error",
-        "lastDurationMs": 2941,
-        "consecutiveErrors": 4,
-        "lastRunStatus": "error",
-        "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775390400000,
-        "lastDelivered": true,
-        "lastErrorReason": "billing",
-        "lastError": "⚠️ minimax (MiniMax-M2.5) returned a billing error — your API key has run out of credits or has an insufficient balance. Check your minimax billing dashboard and top up or switch to a different API key."
+        "lastRunAtMs": 1775411997098,
+        "lastStatus": "ok",
+        "lastDurationMs": 17917,
+        "consecutiveErrors": 0,
+        "lastRunStatus": "ok",
+        "lastDeliveryStatus": "not-delivered",
+        "nextRunAtMs": 1775417400000,
+        "lastDelivered": false,
+        "runningAtMs": 1775418576730
       }
     },
     {
@@ -830,7 +829,7 @@
       "name": "OPS SLA Enforcement Check",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1775357858624,
+      "updatedAtMs": 1775409842974,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -851,15 +850,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775357855774,
-        "lastStatus": "error",
-        "lastDurationMs": 2850,
-        "consecutiveErrors": 4,
-        "lastRunStatus": "error",
+        "lastRunAtMs": 1775409788661,
+        "lastStatus": "ok",
+        "lastDurationMs": 54313,
+        "consecutiveErrors": 0,
+        "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775370095024,
-        "lastDelivered": true,
-        "lastErrorReason": "billing"
+        "nextRunAtMs": 1775416988661,
+        "lastDelivered": true
       }
     },
     {
@@ -868,7 +866,7 @@
       "name": "OPS System Health Monitor",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1775362904977,
+      "updatedAtMs": 1775409873908,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -889,16 +887,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastStatus": "error",
-        "lastRunAtMs": 1775362902330,
-        "lastDurationMs": 2647,
-        "consecutiveErrors": 4,
-        "lastRunStatus": "error",
+        "lastStatus": "ok",
+        "lastRunAtMs": 1775409842974,
+        "lastDurationMs": 30934,
+        "consecutiveErrors": 0,
+        "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775366502330,
-        "lastDelivered": true,
-        "lastErrorReason": "billing",
-        "lastError": "⚠️ minimax (MiniMax-M2.5) returned a billing error — your API key has run out of credits or has an insufficient balance. Check your minimax billing dashboard and top up or switch to a different API key."
+        "nextRunAtMs": 1775416895024,
+        "lastDelivered": true
       }
     },
     {
@@ -907,7 +903,7 @@
       "name": "RED Self-Improvement Reflection",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1775362898043,
+      "updatedAtMs": 1775385286851,
       "schedule": {
         "kind": "every",
         "everyMs": 21600000,
@@ -928,17 +924,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775362895112,
+        "lastRunAtMs": 1775385222471,
         "lastStatus": "error",
-        "lastDurationMs": 2931,
-        "consecutiveErrors": 0,
-        "lastRunStatus": null,
-        "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775384495112,
+        "lastDurationMs": 64380,
+        "consecutiveErrors": 1,
+        "lastRunStatus": "error",
+        "lastDeliveryStatus": "unknown",
+        "nextRunAtMs": 1775427695024,
         "lastErrorAtMs": null,
-        "lastDelivered": true,
-        "lastErrorReason": "billing",
-        "lastError": "⚠️ minimax (MiniMax-M2.5) returned a billing error — your API key has run out of credits or has an insufficient balance. Check your minimax billing dashboard and top up or switch to a different API key."
+        "lastErrorReason": "timeout"
       }
     },
     {
@@ -947,7 +941,7 @@
       "name": "OPS Ticket Auto-Diagnose & Fix",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1775362919117,
+      "updatedAtMs": 1775393193073,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -968,16 +962,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775362916381,
-        "lastStatus": "error",
-        "lastDurationMs": 2736,
-        "consecutiveErrors": 4,
-        "lastRunStatus": "error",
-        "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775366516381,
-        "lastDelivered": true,
-        "lastErrorReason": "billing",
-        "lastError": "⚠️ minimax (MiniMax-M2.5) returned a billing error — your API key has run out of credits or has an insufficient balance. Check your minimax billing dashboard and top up or switch to a different API key."
+        "lastRunAtMs": 1775393092729,
+        "lastStatus": "ok",
+        "lastDurationMs": 100344,
+        "consecutiveErrors": 0,
+        "lastRunStatus": "ok",
+        "lastDeliveryStatus": "not-delivered",
+        "nextRunAtMs": 1775416895024,
+        "lastDelivered": false
       }
     },
     {
@@ -986,7 +978,7 @@
       "name": "RESEARCH Proactive Knowledge Update",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1775355709935,
+      "updatedAtMs": 1775385205135,
       "schedule": {
         "kind": "every",
         "everyMs": 14400000,
@@ -1007,17 +999,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775355707226,
-        "lastStatus": "error",
-        "lastDurationMs": 2709,
-        "consecutiveErrors": 2,
-        "lastRunStatus": "error",
+        "lastRunAtMs": 1775385151894,
+        "lastStatus": "ok",
+        "lastDurationMs": 53241,
+        "consecutiveErrors": 0,
+        "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775370107226,
+        "nextRunAtMs": 1775427695024,
         "lastErrorAtMs": null,
-        "lastDelivered": true,
-        "lastErrorReason": "billing",
-        "lastError": "⚠️ minimax (MiniMax-M2.5) returned a billing error — your API key has run out of credits or has an insufficient balance. Check your minimax billing dashboard and top up or switch to a different API key."
+        "lastDelivered": true
       }
     },
     {
@@ -1064,7 +1054,7 @@
       "name": "RED Daily Brief (Telegram)",
       "enabled": true,
       "createdAtMs": 1771202886122,
-      "updatedAtMs": 1775307968992,
+      "updatedAtMs": 1775402436042,
       "schedule": {
         "kind": "cron",
         "expr": "0 9 * * *",
@@ -1083,17 +1073,15 @@
         "to": "1012034994"
       },
       "state": {
-        "lastRunAtMs": 1775307964145,
-        "lastStatus": "error",
-        "lastDurationMs": 4847,
-        "consecutiveErrors": 1,
-        "lastRunStatus": "error",
+        "lastRunAtMs": 1775402415956,
+        "lastStatus": "ok",
+        "lastDurationMs": 20086,
+        "consecutiveErrors": 0,
+        "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775394000000,
+        "nextRunAtMs": 1775480400000,
         "lastErrorAtMs": null,
-        "lastDelivered": true,
-        "lastError": "⚠️ minimax (MiniMax-M2.5) returned a billing error — your API key has run out of credits or has an insufficient balance. Check your minimax billing dashboard and top up or switch to a different API key.",
-        "lastErrorReason": "billing"
+        "lastDelivered": true
       }
     },
     {
@@ -1249,7 +1237,7 @@
       "name": "OPS Task ETA Monitor",
       "enabled": true,
       "createdAtMs": 1771544316316,
-      "updatedAtMs": 1775360750443,
+      "updatedAtMs": 1775375745284,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1270,16 +1258,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775360747832,
+        "lastRunAtMs": 1775375682805,
         "lastStatus": "error",
-        "lastDurationMs": 2611,
-        "consecutiveErrors": 0,
-        "lastRunStatus": null,
-        "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775367947832,
-        "lastDelivered": true,
-        "lastErrorReason": "billing",
-        "lastError": "⚠️ minimax (MiniMax-M2.5) returned a billing error — your API key has run out of credits or has an insufficient balance. Check your minimax billing dashboard and top up or switch to a different API key."
+        "lastDurationMs": 62479,
+        "consecutiveErrors": 2,
+        "lastRunStatus": "error",
+        "lastDeliveryStatus": "unknown",
+        "nextRunAtMs": 1775417916316,
+        "lastErrorReason": "timeout"
       }
     },
     {
@@ -1326,7 +1312,7 @@
       "name": "OPS Idle Agent Audit",
       "enabled": true,
       "createdAtMs": 1771544316316,
-      "updatedAtMs": 1775360769133,
+      "updatedAtMs": 1775383127892,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -1347,15 +1333,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775360766274,
+        "lastRunAtMs": 1775383043623,
         "lastStatus": "error",
-        "lastDurationMs": 2859,
-        "consecutiveErrors": 4,
+        "lastDurationMs": 84269,
+        "consecutiveErrors": 1,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775367516316,
-        "lastDelivered": true,
-        "lastErrorReason": "billing"
+        "nextRunAtMs": 1775417916316,
+        "lastDelivered": true
       }
     },
     {
@@ -1382,18 +1367,16 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775362365722,
-        "lastStatus": "error",
-        "lastDurationMs": 4715,
-        "consecutiveErrors": 4,
-        "lastRunStatus": "error",
+        "lastRunAtMs": 1775408033546,
+        "lastStatus": "ok",
+        "lastDurationMs": 16198,
+        "consecutiveErrors": 0,
+        "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775365965722,
-        "lastDelivered": true,
-        "lastErrorReason": "billing",
-        "lastError": "⚠️ minimax (MiniMax-M2.5) returned a billing error — your API key has run out of credits or has an insufficient balance. Check your minimax billing dashboard and top up or switch to a different API key."
+        "nextRunAtMs": 1775419356567,
+        "lastDelivered": true
       },
-      "updatedAtMs": 1775362370437
+      "updatedAtMs": 1775408049744
     },
     {
       "id": "hatake-daily-briefing-0001",
@@ -1419,18 +1402,16 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775307968992,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 5670,
+        "lastRunAtMs": 1775402436042,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 33516,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 1,
-        "nextRunAtMs": 1775394000000,
-        "lastDelivered": true,
-        "lastError": "⚠️ minimax (MiniMax-M2.5) returned a billing error — your API key has run out of credits or has an insufficient balance. Check your minimax billing dashboard and top up or switch to a different API key.",
-        "lastErrorReason": "billing"
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1775480400000,
+        "lastDelivered": true
       },
-      "updatedAtMs": 1775307974662
+      "updatedAtMs": 1775402469558
     },
     {
       "id": "health-jsonl-writer-0001",
@@ -1438,7 +1419,7 @@
       "name": "Health JSONL Writer",
       "enabled": true,
       "createdAtMs": 1771695150814,
-      "updatedAtMs": 1775363793781,
+      "updatedAtMs": 1775411420673,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -1459,13 +1440,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775363727623,
+        "lastRunAtMs": 1775411396547,
         "lastStatus": "ok",
-        "lastDurationMs": 66158,
+        "lastDurationMs": 24126,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775367327623,
+        "nextRunAtMs": 1775417550814,
         "lastDelivered": true
       }
     },
@@ -1485,9 +1466,9 @@
         "consecutiveErrors": 0,
         "lastStatus": "skipped",
         "lastRunStatus": "skipped",
-        "nextRunAtMs": 1775394000000,
-        "lastRunAtMs": 1775307974662,
-        "lastDurationMs": 5,
+        "nextRunAtMs": 1775480400000,
+        "lastRunAtMs": 1775402469558,
+        "lastDurationMs": 4,
         "lastDeliveryStatus": "unknown",
         "lastError": "main job requires payload.kind=\"systemEvent\""
       },
@@ -1497,7 +1478,7 @@
         "channel": "telegram",
         "mode": "announce"
       },
-      "updatedAtMs": 1775307974667
+      "updatedAtMs": 1775402469562
     },
     {
       "id": "ops-disk-monitor-daily-2026-02-22",
@@ -1505,7 +1486,7 @@
       "name": "Daily Disk Space Monitor (Telegram)",
       "enabled": true,
       "createdAtMs": 1771747423771,
-      "updatedAtMs": 1775307978377,
+      "updatedAtMs": 1775402522355,
       "schedule": {
         "kind": "cron",
         "expr": "0 9 * * *",
@@ -1526,16 +1507,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775307974667,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 3710,
+        "lastRunAtMs": 1775402474591,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 47764,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 1,
-        "nextRunAtMs": 1775394000000,
-        "lastDelivered": true,
-        "lastError": "⚠️ minimax (MiniMax-M2.5) returned a billing error — your API key has run out of credits or has an insufficient balance. Check your minimax billing dashboard and top up or switch to a different API key.",
-        "lastErrorReason": "billing"
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1775480400000,
+        "lastDelivered": true
       }
     },
     {
@@ -1615,7 +1594,7 @@
       "name": "ZEN COO Morning Delegation Brief",
       "enabled": true,
       "createdAtMs": 1771895576881,
-      "updatedAtMs": 1775307987049,
+      "updatedAtMs": 1775394856672,
       "schedule": {
         "kind": "cron",
         "expr": "0 9 * * *"
@@ -1634,16 +1613,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775307983434,
-        "lastRunStatus": null,
-        "lastStatus": "error",
-        "lastDurationMs": 3615,
+        "lastRunAtMs": 1775394834233,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 22439,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1775394000000,
-        "lastDelivered": true,
-        "lastError": "⚠️ minimax (MiniMax-M2.5) returned a billing error — your API key has run out of credits or has an insufficient balance. Check your minimax billing dashboard and top up or switch to a different API key.",
-        "lastErrorReason": "billing"
+        "nextRunAtMs": 1775480400000,
+        "lastDelivered": true
       }
     },
     {
@@ -1652,7 +1629,7 @@
       "name": "OPS Guardrail: Ticket Resolution Enforcer",
       "enabled": true,
       "createdAtMs": 1771897248854,
-      "updatedAtMs": 1775353251807,
+      "updatedAtMs": 1775382128268,
       "schedule": {
         "kind": "every",
         "everyMs": 14400000,
@@ -1672,16 +1649,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775353248966,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 2841,
+        "lastRunAtMs": 1775382111329,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 16939,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 2,
-        "nextRunAtMs": 1775367648966,
-        "lastDelivered": true,
-        "lastErrorReason": "billing",
-        "lastError": "⚠️ minimax (MiniMax-M2.5) returned a billing error — your API key has run out of credits or has an insufficient balance. Check your minimax billing dashboard and top up or switch to a different API key."
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1775425248854,
+        "lastDelivered": true
       }
     },
     {
@@ -1690,7 +1665,7 @@
       "name": "OPS Daily OpenClaw Update Check",
       "enabled": true,
       "createdAtMs": 1771897250922,
-      "updatedAtMs": 1775304125048,
+      "updatedAtMs": 1775391344629,
       "schedule": {
         "kind": "cron",
         "expr": "0 8 * * *"
@@ -1709,16 +1684,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775304062663,
-        "lastRunStatus": null,
-        "lastStatus": "error",
-        "lastDurationMs": 62385,
+        "lastRunAtMs": 1775391302860,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 41769,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1775390400000,
-        "lastDelivered": true,
-        "lastError": "Request timed out before a response was generated. Please try again, or increase `agents.defaults.timeoutSeconds` in your config.",
-        "lastErrorReason": "timeout"
+        "nextRunAtMs": 1775476800000,
+        "lastDelivered": true
       }
     },
     {
@@ -1727,7 +1700,7 @@
       "name": "RED Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897377295,
-      "updatedAtMs": 1775360583454,
+      "updatedAtMs": 1775412191944,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1747,16 +1720,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775360578912,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 4542,
+        "lastRunAtMs": 1775412017922,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 174022,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 3,
-        "nextRunAtMs": 1775367778912,
-        "lastDelivered": true,
-        "lastErrorReason": "billing",
-        "lastError": "⚠️ minimax (MiniMax-M2.5) returned a billing error — your API key has run out of credits or has an insufficient balance. Check your minimax billing dashboard and top up or switch to a different API key."
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1775419217922,
+        "lastDelivered": true
       }
     },
     {
@@ -1765,7 +1736,7 @@
       "name": "ZEN Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897390213,
-      "updatedAtMs": 1775360592985,
+      "updatedAtMs": 1775412213192,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1785,17 +1756,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775360590341,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 2644,
+        "lastRunAtMs": 1775412191944,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 21248,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 3,
-        "nextRunAtMs": 1775367790341,
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1775419391944,
         "lastErrorAtMs": null,
-        "lastDelivered": true,
-        "lastErrorReason": "billing",
-        "lastError": "⚠️ minimax (MiniMax-M2.5) returned a billing error — your API key has run out of credits or has an insufficient balance. Check your minimax billing dashboard and top up or switch to a different API key."
+        "lastDelivered": true
       }
     },
     {
@@ -1804,7 +1773,7 @@
       "name": "ENG Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897391560,
-      "updatedAtMs": 1775360598966,
+      "updatedAtMs": 1775409881668,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1824,17 +1793,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775360596217,
-        "lastRunStatus": "error",
+        "lastRunAtMs": 1775409878941,
+        "lastRunStatus": null,
         "lastStatus": "error",
-        "lastDurationMs": 2749,
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 3,
+        "lastDurationMs": 2727,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 0,
         "lastErrorAtMs": null,
-        "nextRunAtMs": 1775367796217,
-        "lastDelivered": true,
-        "lastErrorReason": "billing",
-        "lastError": "⚠️ minimax (MiniMax-M2.7) returned a billing error — your API key has run out of credits or has an insufficient balance. Check your minimax billing dashboard and top up or switch to a different API key."
+        "nextRunAtMs": 1775417078941,
+        "lastErrorReason": "model_not_found"
       }
     },
     {
@@ -1843,7 +1810,7 @@
       "name": "RESEARCH Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897392835,
-      "updatedAtMs": 1775358828312,
+      "updatedAtMs": 1775408033546,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1863,16 +1830,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775358825475,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 2837,
+        "lastRunAtMs": 1775407979459,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 54087,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 4,
-        "nextRunAtMs": 1775366025475,
-        "lastDelivered": true,
-        "lastErrorReason": "billing",
-        "lastError": "⚠️ minimax (MiniMax-M2.5) returned a billing error — your API key has run out of credits or has an insufficient balance. Check your minimax billing dashboard and top up or switch to a different API key."
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1775418192835,
+        "lastDelivered": true
       }
     },
     {
@@ -1881,7 +1846,7 @@
       "name": "FINANCE Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897394350,
-      "updatedAtMs": 1775358860906,
+      "updatedAtMs": 1775400260412,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1901,16 +1866,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775358858055,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 2851,
+        "lastRunAtMs": 1775400206689,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 53723,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 4,
-        "nextRunAtMs": 1775366058055,
-        "lastDelivered": true,
-        "lastErrorReason": "billing",
-        "lastError": "⚠️ minimax (MiniMax-M2.5) returned a billing error — your API key has run out of credits or has an insufficient balance. Check your minimax billing dashboard and top up or switch to a different API key."
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1775418194350,
+        "lastDelivered": true
       }
     },
     {
@@ -1919,7 +1882,7 @@
       "name": "OPS Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897395722,
-      "updatedAtMs": 1775358885082,
+      "updatedAtMs": 1775412267356,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1939,16 +1902,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775358882297,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 2785,
+        "lastRunAtMs": 1775412219650,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 47706,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 4,
-        "nextRunAtMs": 1775366082297,
-        "lastDelivered": true,
-        "lastErrorReason": "billing",
-        "lastError": "⚠️ minimax (MiniMax-M2.5) returned a billing error — your API key has run out of credits or has an insufficient balance. Check your minimax billing dashboard and top up or switch to a different API key."
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1775419419650,
+        "lastDelivered": true
       }
     },
     {
@@ -1957,7 +1918,7 @@
       "name": "INFOSEC Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897397121,
-      "updatedAtMs": 1775360606603,
+      "updatedAtMs": 1775400321615,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1977,16 +1938,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775360604081,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 2522,
+        "lastRunAtMs": 1775400260412,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 61203,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 4,
-        "nextRunAtMs": 1775367804081,
-        "lastDelivered": true,
-        "lastErrorReason": "billing",
-        "lastError": "⚠️ minimax (MiniMax-M2.5) returned a billing error — your API key has run out of credits or has an insufficient balance. Check your minimax billing dashboard and top up or switch to a different API key."
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1775418197121,
+        "lastDelivered": true
       }
     },
     {
@@ -1995,7 +1954,7 @@
       "name": "HATAKE Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897398357,
-      "updatedAtMs": 1775358931104,
+      "updatedAtMs": 1775411450068,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -2015,16 +1974,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775358928151,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 2953,
+        "lastRunAtMs": 1775411420673,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 29395,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 4,
-        "nextRunAtMs": 1775366128151,
-        "lastDelivered": true,
-        "lastErrorReason": "billing",
-        "lastError": "⚠️ minimax (MiniMax-M2.5) returned a billing error — your API key has run out of credits or has an insufficient balance. Check your minimax billing dashboard and top up or switch to a different API key."
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1775418620673,
+        "lastDelivered": true
       }
     },
     {
@@ -2033,7 +1990,7 @@
       "name": "CI Event Logger (cron → ci-log.jsonl)",
       "enabled": true,
       "createdAtMs": 1771907000000,
-      "updatedAtMs": 1775363026719,
+      "updatedAtMs": 1775403094881,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -2054,16 +2011,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775363023838,
-        "lastRunStatus": null,
-        "lastStatus": "error",
-        "lastDurationMs": 2881,
+        "lastRunAtMs": 1775403020164,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 74717,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1775366626719,
-        "lastDelivered": true,
-        "lastErrorReason": "billing",
-        "lastError": "⚠️ minimax (MiniMax-M2.5) returned a billing error — your API key has run out of credits or has an insufficient balance. Check your minimax billing dashboard and top up or switch to a different API key."
+        "nextRunAtMs": 1775417000000,
+        "lastDelivered": true
       }
     },
     {
@@ -2072,7 +2027,7 @@
       "name": "Self-Healing Guardrail: Health Snapshot → Tickets",
       "enabled": true,
       "createdAtMs": 1771907005000,
-      "updatedAtMs": 1775363015725,
+      "updatedAtMs": 1775411396547,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -2093,16 +2048,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775363012682,
-        "lastRunStatus": null,
-        "lastStatus": "error",
-        "lastDurationMs": 3043,
-        "lastDeliveryStatus": "delivered",
+        "lastRunAtMs": 1775411366839,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 29708,
+        "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1775370212682,
-        "lastDelivered": true,
-        "lastErrorReason": "billing",
-        "lastError": "⚠️ minimax (MiniMax-M2.5) returned a billing error — your API key has run out of credits or has an insufficient balance. Check your minimax billing dashboard and top up or switch to a different API key."
+        "nextRunAtMs": 1775418566839,
+        "lastDelivered": false
       }
     },
     {
@@ -2264,7 +2217,7 @@
       "name": "ENG: Coding Factory — Self-Healing & PR Monitor",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1775361817309,
+      "updatedAtMs": 1775416036508,
       "schedule": {
         "kind": "cron",
         "expr": "0 */4 * * *",
@@ -2286,15 +2239,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775361814488,
+        "lastRunAtMs": 1775416034562,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 2821,
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 3,
-        "nextRunAtMs": 1775376214472,
-        "lastDelivered": true,
-        "lastErrorReason": "billing"
+        "lastDurationMs": 1946,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 2,
+        "nextRunAtMs": 1775419414472,
+        "lastErrorReason": "model_not_found",
+        "lastError": "FallbackSummaryError: All models failed (3): 9router/coding-factory: 401 [claude/claude-sonnet-4-6] [400]: Third-party apps now draw from your extra usage, not your plan limits. We've added a $20 cred (reset after 27s) (auth) | 9router/cu/default: HTTP 400: [cursor/default] [400]: AI Model Not Found (reset after 30s) (model_not_found) | 9router/cc/claude-haiku-4-5-20251001: 400 [claude/claude-haiku-4-5-20251001] [400]: Third-party apps now draw from your extra usage, not your plan limits. We've added a $20 credit to get you started. Claim it at claude.ai/settings/usage and keep going. (reset after 26s) (format)"
       }
     },
     {
@@ -2303,7 +2256,7 @@
       "name": "ENG Daily R&D Research Session",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1775325604510,
+      "updatedAtMs": 1775416884155,
       "schedule": {
         "kind": "cron",
         "expr": "0 14 * * *",
@@ -2324,16 +2277,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775325600016,
+        "lastRunAtMs": 1775416818741,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 4494,
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 1,
-        "nextRunAtMs": 1775412000000,
-        "lastDelivered": true,
-        "lastError": "⚠️ minimax (MiniMax-M2.7) returned a billing error — your API key has run out of credits or has an insufficient balance. Check your minimax billing dashboard and top up or switch to a different API key.",
-        "lastErrorReason": "billing"
+        "lastDurationMs": 65414,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 2,
+        "nextRunAtMs": 1775498400000,
+        "lastErrorReason": "auth",
+        "lastError": "FallbackSummaryError: All models failed (3): 9router/coding-factory: 401 [claude/claude-sonnet-4-6] [400]: Third-party apps now draw from your extra usage, not your plan limits. We've added a $20 cred (reset after 17s) (auth) | 9router/cu/default: 401 [claude/claude-sonnet-4-6] [400]: Third-party apps now draw from your extra usage, not your plan limits. We've added a $20 cred (reset after 17s) (auth) | 9router/cc/claude-haiku-4-5-20251001: 400 [claude/claude-haiku-4-5-20251001] [400]: Third-party apps now draw from your extra usage, not your plan limits. We've added a $20 credit to get you started. Claim it at claude.ai/settings/usage and keep going. (reset after 25s) (format)"
       }
     },
     {
@@ -2342,7 +2294,7 @@
       "name": "RED Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1775361659892,
+      "updatedAtMs": 1775411607729,
       "schedule": {
         "kind": "cron",
         "expr": "0 */4 * * *",
@@ -2364,16 +2316,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775361655498,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 4394,
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 4,
-        "nextRunAtMs": 1775376055483,
-        "lastDelivered": true,
-        "lastErrorReason": "billing",
-        "lastError": "⚠️ minimax (MiniMax-M2.5) returned a billing error — your API key has run out of credits or has an insufficient balance. Check your minimax billing dashboard and top up or switch to a different API key."
+        "lastRunAtMs": 1775411492896,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 114833,
+        "lastDeliveryStatus": "not-delivered",
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1775419255483,
+        "lastDelivered": false
       }
     },
     {
@@ -2382,7 +2332,7 @@
       "name": "RESEARCH Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1775363597602,
+      "updatedAtMs": 1775416034562,
       "schedule": {
         "kind": "cron",
         "expr": "30 */3 * * *",
@@ -2394,7 +2344,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 1800,
-        "message": "STEP 0 — CLAIM YOUR TASK FROM AUTONOMOUS.md (do this FIRST):\\n- Read /Users/redinside/.openclaw/workspace/AUTONOMOUS.md\\n- Find the first PENDING task assigned to you\\n- If found: mark it IN_PROGRESS, execute it fully, then mark DONE and append to /Users/redinside/.openclaw/workspace/tasks-log.md\\n- If no PENDING tasks: continue below\\n\\nYou are RESEARCH. Mine REAL developer pain points from live signals and write actionable project specs for ENG to implement.\n\nSTEP 1 — READ BACKLOG:\n- Read workspace/projects/backlog.md\n- Count rows with Status=READY. If >= 5, skip to STEP 5.\n\nSTEP 2 — READ LIVE FEED:\n- Read workspace/ideas/twitter-feed.md\n- Read workspace/ideas/reddit-feed.md\n\nSTEP 3 — MINE PAIN POINTS:\n- web_search('developer complaints frustrations 2026 site:reddit.com OR site:news.ycombinator.com')\n- Identify ONE specific, unmet need developers have\n\nSTEP 4 — WRITE SPEC:\n- Append a new row to workspace/projects/backlog.md with Status=READY\n\nSTEP 5 — DONE:\n- Append one-line summary to workspace/memory/2026-03-22.md"
+        "message": "STEP 0 — CLAIM YOUR TASK FROM AUTONOMOUS.md (do this FIRST):\n- Read /Users/redinside/.openclaw/workspace/AUTONOMOUS.md\n- Find the first PENDING task assigned to you\n- If found: mark it IN_PROGRESS, execute it fully, then mark DONE and append to /Users/redinside/.openclaw/workspace/tasks-log.md\n- If no PENDING tasks: continue below\n\nYou are RESEARCH. Mine REAL developer pain points from live signals and write actionable project specs for ENG to implement.\n\nSTEP 1 — READ BACKLOG:\n- Read workspace/projects/backlog.md\n- Count rows with Status=READY. If >= 5, skip to STEP 4.\n\nSTEP 2 — OSS DISCOVERY (when backlog has < 5 READY items):\nSearch for trending OSS repos worth contributing to. ANY language or framework counts.\n\nRun these searches:\n- web_search('trending github repositories 2026 AI developer tools')\n- web_search('new open source project 2026 popular github stars 10000')\n- web_search('github trending week 2026 any language')\n\nFor each candidate repo, evaluate:\n- Stars: 5k+ minimum, 10k+ preferred\n- Active: commits in last 30 days\n- Has open issues tagged 'good first issue', 'help wanted', or 'bug'\n- Stack: Java→StreamA, TypeScript/JS→StreamB, Python→StreamC, Swift/ReactNative→StreamD\n\nIf a good candidate found, append spec to workspace/projects/backlog.md:\n## <N> | <repo-name>\n⭐ READY\n\n**Stack:** <detected stack>\n**Repo:** <github org/repo>\n**Stars:** <count>\n**Pain source:** <why developers want this fixed — cite GitHub issue or discussion URL>\n**What to do:** Fix issue #N: <description> OR Add feature: <description>\n**Stream:** <A/B/C/D>\n\nThen IMMEDIATELY delegate to ENG:\nsessions_spawn({agentId: \"eng\", message: \"OSS discovery brief ready. New READY item added to workspace/projects/backlog.md: <repo-name>. Implement it using Stream <X>. Full implementation, real tests, PR with --no-edit.\"})\n\nSTEP 3 — MINE PAIN POINTS (if no good OSS repo found):\n- web_search('developer complaints frustrations 2026 site:reddit.com OR site:news.ycombinator.com')\n- Identify ONE specific, unmet developer need\n- Append new spec to workspace/projects/backlog.md with Status=READY\n\nSTEP 4 — DONE:\n- Append one-line summary to workspace/memory/2026-03-22.md"
       },
       "delivery": {
         "mode": "announce",
@@ -2403,15 +2353,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775363400015,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 197587,
+        "lastRunAtMs": 1775416001027,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 33535,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 1,
-        "nextRunAtMs": 1775374200000,
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1775417400000,
         "lastDelivered": true,
-        "lastError": "⚠️ 📝 Edit: `in /` failed"
+        "runningAtMs": 1775418576730
       }
     },
     {
@@ -2420,7 +2370,7 @@
       "name": "OPS Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1775362503377,
+      "updatedAtMs": 1775408289074,
       "schedule": {
         "kind": "cron",
         "expr": "15 */4 * * *",
@@ -2441,16 +2391,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775362500016,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 3361,
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 3,
-        "nextRunAtMs": 1775376900000,
-        "lastDelivered": true,
-        "lastErrorReason": "billing",
-        "lastError": "⚠️ minimax (MiniMax-M2.5) returned a billing error — your API key has run out of credits or has an insufficient balance. Check your minimax billing dashboard and top up or switch to a different API key."
+        "lastRunAtMs": 1775408261196,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 27878,
+        "lastDeliveryStatus": "not-delivered",
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1775420100000,
+        "lastDelivered": false
       }
     },
     {
@@ -2459,7 +2407,7 @@
       "name": "INFOSEC Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1775349904291,
+      "updatedAtMs": 1775408141835,
       "schedule": {
         "kind": "cron",
         "expr": "45 */4 * * *",
@@ -2480,16 +2428,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775349900029,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 4262,
+        "lastRunAtMs": 1775408049744,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 92091,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 2,
-        "nextRunAtMs": 1775378700000,
-        "lastDelivered": true,
-        "lastErrorReason": "billing",
-        "runningAtMs": 1775365718433
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1775421900000,
+        "lastDelivered": true
       }
     },
     {
@@ -2498,7 +2444,7 @@
       "name": "ENG Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1775352963763,
+      "updatedAtMs": 1775412017922,
       "schedule": {
         "kind": "cron",
         "expr": "30 1,5,9,13,17,21 * * *",
@@ -2519,16 +2465,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775352960421,
+        "lastRunAtMs": 1775412015015,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 3342,
-        "lastDeliveryStatus": "delivered",
+        "lastDurationMs": 2907,
+        "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 2,
-        "nextRunAtMs": 1775367000000,
-        "lastDelivered": true,
-        "lastErrorReason": "billing",
-        "lastError": "⚠️ minimax (MiniMax-M2.7) returned a billing error — your API key has run out of credits or has an insufficient balance. Check your minimax billing dashboard and top up or switch to a different API key."
+        "nextRunAtMs": 1775424600000,
+        "lastErrorReason": "model_not_found",
+        "lastError": "FallbackSummaryError: All models failed (3): 9router/coding-factory: 401 [claude/claude-sonnet-4-6] [400]: Third-party apps now draw from your extra usage, not your plan limits. We've added a $20 cred (reset after 21s) (auth) | 9router/cu/default: HTTP 400: [cursor/default] [400]: AI Model Not Found (reset after 6s) (model_not_found) | 9router/cc/claude-haiku-4-5-20251001: 400 [claude/claude-haiku-4-5-20251001] [400]: Third-party apps now draw from your extra usage, not your plan limits. We've added a $20 credit to get you started. Claim it at claude.ai/settings/usage and keep going. (reset after 20s) (format)"
       }
     },
     {
@@ -2537,7 +2482,7 @@
       "name": "OSS Contributor — Daily Good-First-Issue PR",
       "enabled": true,
       "createdAtMs": 1773900000000,
-      "updatedAtMs": 1775365496571,
+      "updatedAtMs": 1775408243270,
       "schedule": {
         "kind": "cron",
         "expr": "0 11 * * *",
@@ -2558,15 +2503,15 @@
         "bestEffort": true
       },
       "state": {
-        "consecutiveErrors": 3,
-        "nextRunAtMs": 1775401200000,
-        "lastRunAtMs": 1775365399211,
+        "consecutiveErrors": 4,
+        "nextRunAtMs": 1775487600000,
+        "lastRunAtMs": 1775408141835,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 97360,
+        "lastDurationMs": 101435,
         "lastDeliveryStatus": "unknown",
-        "lastErrorReason": "timeout",
-        "lastError": "FallbackSummaryError: All models failed (3): minimax/MiniMax-M2.7: Provider minimax has billing issue (skipping all models) (billing) | 9router/cu/default: LLM request timed out. (unknown) | 9router/cc/claude-haiku-4-5-20251001: 400 [claude/claude-haiku-4-5-20251001] [400]: Third-party apps now draw from your extra usage, not your plan limits. We've added a $20 cred (reset after 27s) (format)"
+        "lastErrorReason": "auth",
+        "lastError": "FallbackSummaryError: All models failed (3): 9router/coding-factory: 401 [claude/claude-sonnet-4-6] [400]: Third-party apps now draw from your extra usage, not your plan limits. We've added a $20 credit to get you started. Claim it at claude.ai/settings/usage and keep going. (reset after 30s) (auth) | 9router/cu/default: 401 [claude/claude-sonnet-4-6] [400]: Third-party apps now draw from your extra usage, not your plan limits. We've added a $20 credit to get you started. Claim it at claude.ai/settings/usage and keep going. (reset after 30s) (auth) | 9router/cc/claude-haiku-4-5-20251001: 400 [claude/claude-haiku-4-5-20251001] [400]: Third-party apps now draw from your extra usage, not your plan limits. We've added a $20 credit to get you started. Claim it at claude.ai/settings/usage and keep going. (reset after 30s) (format)"
       }
     },
     {
@@ -2575,7 +2520,7 @@
       "name": "ZEN Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1775361728574,
+      "updatedAtMs": 1775416435769,
       "schedule": {
         "kind": "cron",
         "expr": "0 */3 * * *",
@@ -2597,16 +2542,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775361725783,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 2791,
+        "lastRunAtMs": 1775416254142,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 181627,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 2,
-        "nextRunAtMs": 1775372525759,
-        "lastDelivered": true,
-        "lastErrorReason": "billing",
-        "lastError": "⚠️ minimax (MiniMax-M2.5) returned a billing error — your API key has run out of credits or has an insufficient balance. Check your minimax billing dashboard and top up or switch to a different API key."
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1775426525759,
+        "lastDelivered": true
       }
     },
     {
@@ -2615,7 +2558,7 @@
       "name": "FINANCE Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1775347208313,
+      "updatedAtMs": 1775416818741,
       "schedule": {
         "kind": "cron",
         "expr": "0 8,14,20 * * *",
@@ -2636,16 +2579,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775347205730,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 2583,
+        "lastRunAtMs": 1775416772082,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 46659,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 4,
-        "nextRunAtMs": 1775390400000,
-        "lastDelivered": true,
-        "lastErrorReason": "billing",
-        "lastError": "⚠️ minimax (MiniMax-M2.5) returned a billing error — your API key has run out of credits or has an insufficient balance. Check your minimax billing dashboard and top up or switch to a different API key."
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1775433600000,
+        "lastDelivered": true
       }
     },
     {
@@ -2654,7 +2595,7 @@
       "name": "HATAKE Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1775354525097,
+      "updatedAtMs": 1775402415956,
       "schedule": {
         "kind": "cron",
         "expr": "0 10,16,22 * * *",
@@ -2675,16 +2616,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775354462488,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 62609,
+        "lastRunAtMs": 1775402380098,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 35858,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 4,
-        "nextRunAtMs": 1775397600000,
-        "lastDelivered": true,
-        "lastErrorReason": "timeout",
-        "lastError": "Request timed out before a response was generated. Please try again, or increase `agents.defaults.timeoutSeconds` in your config."
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1775419200000,
+        "lastDelivered": true
       }
     },
     {
@@ -2769,7 +2708,7 @@
       "name": "OpenClaw Weekly Backup",
       "enabled": true,
       "createdAtMs": 1773614703453,
-      "updatedAtMs": 1773893596309,
+      "updatedAtMs": 1775374370068,
       "schedule": {
         "kind": "cron",
         "expr": "0 3 * * 0"
@@ -2789,9 +2728,15 @@
         "bestEffort": true
       },
       "state": {
-        "consecutiveErrors": 0,
-        "lastRunAtMs": null,
-        "nextRunAtMs": 1775372400000
+        "consecutiveErrors": 1,
+        "lastRunAtMs": 1775374304272,
+        "nextRunAtMs": 1775977200000,
+        "lastError": "FallbackSummaryError: All models failed (3): minimax/MiniMax-M2.5: Provider minimax has billing issue (skipping all models) (billing) | 9router/cu/default: LLM request timed out. (unknown) | 9router/cc/claude-haiku-4-5-20251001: 400 [claude/claude-haiku-4-5-20251001] [400]: Third-party apps now draw from your extra usage, not your plan limits. We've added a $20 credit to get you started. Claim it at claude.ai/settings/usage and keep going. (reset after 30s) (format)",
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 65796,
+        "lastErrorReason": "timeout",
+        "lastDeliveryStatus": "unknown"
       }
     },
     {
@@ -2800,7 +2745,7 @@
       "name": "OpenClaw Sessions Cleanup (weekly)",
       "enabled": true,
       "createdAtMs": 1773614703453,
-      "updatedAtMs": 1774775282239,
+      "updatedAtMs": 1775376474080,
       "schedule": {
         "kind": "cron",
         "expr": "0 4 * * 0"
@@ -2820,14 +2765,15 @@
         "bestEffort": true
       },
       "state": {
-        "consecutiveErrors": 0,
-        "lastRunAtMs": 1774775216574,
-        "nextRunAtMs": 1775376000000,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 65665,
-        "lastDelivered": true,
-        "lastDeliveryStatus": "delivered"
+        "consecutiveErrors": 1,
+        "lastRunAtMs": 1775376410723,
+        "nextRunAtMs": 1775980800000,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 63357,
+        "lastDeliveryStatus": "unknown",
+        "lastError": "FallbackSummaryError: All models failed (3): minimax/MiniMax-M2.5: Provider minimax has billing issue (skipping all models) (billing) | 9router/cu/default: LLM request timed out. (unknown) | 9router/cc/claude-haiku-4-5-20251001: 400 [claude/claude-haiku-4-5-20251001] [400]: Third-party apps now draw from your extra usage, not your plan limits. We've added a $20 credit to get you started. Claim it at claude.ai/settings/usage and keep going. (reset after 30s) (format)",
+        "lastErrorReason": "timeout"
       }
     },
     {
@@ -2847,16 +2793,14 @@
         "kind": "agentTurn"
       },
       "state": {
-        "nextRunAtMs": 1775372400000,
-        "lastRunAtMs": 1775286000390,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 62535,
+        "nextRunAtMs": 1775458800000,
+        "lastRunAtMs": 1775374370068,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 17543,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 1,
-        "lastDelivered": true,
-        "lastError": "Request timed out before a response was generated. Please try again, or increase `agents.defaults.timeoutSeconds` in your config.",
-        "lastErrorReason": "timeout"
+        "consecutiveErrors": 0,
+        "lastDelivered": true
       },
       "wakeMode": "now",
       "sessionTarget": "isolated",
@@ -2866,7 +2810,7 @@
         "to": "channel:C0AEV3J2L23",
         "bestEffort": true
       },
-      "updatedAtMs": 1775286062925
+      "updatedAtMs": 1775374387611
     },
     {
       "id": "c858a544-569e-44fd-94c2-5425c75da8ed",
@@ -2875,7 +2819,7 @@
       "name": "telegram-approval-monitor-0001",
       "enabled": true,
       "createdAtMs": 1773813382934,
-      "updatedAtMs": 1775364338987,
+      "updatedAtMs": 1775411997098,
       "schedule": {
         "expr": "*/2 * * * *",
         "tz": "America/Toronto",
@@ -2896,14 +2840,15 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1775365680000,
-        "lastRunAtMs": 1775364308535,
+        "nextRunAtMs": 1775416920000,
+        "lastRunAtMs": 1775411967955,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 30452,
-        "lastDeliveryStatus": "delivered",
+        "lastDurationMs": 29143,
+        "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
-        "lastDelivered": true
+        "lastDelivered": false,
+        "runningAtMs": 1775418576730
       }
     },
     {
@@ -2947,7 +2892,7 @@
       "name": "Sync AUTONOMOUS.md -> queue.json",
       "enabled": true,
       "createdAtMs": 1773854383010,
-      "updatedAtMs": 1775364262043,
+      "updatedAtMs": 1775416564626,
       "schedule": {
         "kind": "cron",
         "expr": "*/5 * * * *",
@@ -2967,16 +2912,16 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1775365800000,
-        "lastRunAtMs": 1775364216469,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 45574,
+        "nextRunAtMs": 1775417100000,
+        "lastRunAtMs": 1775416496134,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 68492,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0,
+        "consecutiveErrors": 1,
         "lastErrorAtMs": null,
         "lastDelivered": true,
-        "runningAtMs": 1775365718433
+        "runningAtMs": 1775418576730
       }
     },
     {
@@ -2986,7 +2931,7 @@
       "name": "ops-disk-monitor-daily-2026-02-22",
       "enabled": true,
       "createdAtMs": 1773951459762,
-      "updatedAtMs": 1775282461989,
+      "updatedAtMs": 1775369074186,
       "schedule": {
         "expr": "0 2 * * *",
         "kind": "cron"
@@ -3002,15 +2947,16 @@
         "channel": "last"
       },
       "state": {
-        "lastRunAtMs": 1775282400014,
-        "lastRunStatus": "error",
+        "lastRunAtMs": 1775369009903,
+        "lastRunStatus": null,
         "lastStatus": "error",
-        "lastDurationMs": 61975,
+        "lastDurationMs": 64283,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 4,
+        "consecutiveErrors": 0,
         "lastErrorAtMs": null,
-        "nextRunAtMs": 1775368800000,
-        "lastError": "Delivering to Slack requires target <channelId|user:ID|channel:ID>"
+        "nextRunAtMs": 1775455200000,
+        "lastError": "FallbackSummaryError: All models failed (3): minimax/MiniMax-M2.5: Provider minimax has billing issue (skipping all models) (billing) | 9router/cu/default: LLM request timed out. (unknown) | 9router/cc/claude-haiku-4-5-20251001: 400 [claude/claude-haiku-4-5-20251001] [400]: Third-party apps now draw from your extra usage, not your plan limits. We've added a $20 credit to get you started. Claim it at claude.ai/settings/usage and keep going. (reset after 30s) (format)",
+        "lastErrorReason": "timeout"
       },
       "target": "telegram"
     },
@@ -3055,7 +3001,7 @@
       "name": "Factory: 9router IssueWatcher — Poll & Process",
       "enabled": true,
       "createdAtMs": 1774080643339,
-      "updatedAtMs": 1775364882365,
+      "updatedAtMs": 1775416001027,
       "schedule": {
         "kind": "cron",
         "expr": "*/15 * * * *",
@@ -3076,15 +3022,14 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1775366142858,
-        "lastRunAtMs": 1775364639441,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 242924,
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0,
-        "lastDelivered": true,
-        "runningAtMs": 1775365718433
+        "nextRunAtMs": 1775417442858,
+        "lastRunAtMs": 1775415989089,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 11938,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 2,
+        "lastErrorReason": "model_not_found"
       }
     },
     {
@@ -3249,6 +3194,64 @@
         "lastErrorReason": "model_not_found",
         "lastDeliveryError": "HTTP 404: 404 page not found",
         "lastError": "HTTP 404: 404 page not found"
+      }
+    },
+    {
+      "id": "47f9ee84-2132-4744-91a9-dc58fe0fdceb",
+      "agentId": "ops",
+      "sessionKey": "agent:ops:cron:ops-disk-monitor-daily-2026-02-22",
+      "name": "ops-disk-monitor-daily-2026-02-22",
+      "enabled": true,
+      "createdAtMs": 1775402506719,
+      "updatedAtMs": 1775402506719,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 2 * * *",
+        "tz": "UTC"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "python3 ../scripts/simple_disk_check.py"
+      },
+      "delivery": {
+        "mode": "announce"
+      },
+      "state": {
+        "nextRunAtMs": 1775440800000
+      }
+    },
+    {
+      "id": "33650f19-2a08-4a3b-a652-b6d78cda58f6",
+      "agentId": "ops",
+      "sessionKey": "agent:ops:cron:ci-event-logger-0001",
+      "name": "python3 /Users/redinside/.openclaw/workspace/scripts/ci_eve…",
+      "enabled": false,
+      "deleteAfterRun": true,
+      "createdAtMs": 1775415795850,
+      "updatedAtMs": 1775415878243,
+      "schedule": {
+        "at": "2026-04-05T19:03:00.000Z",
+        "kind": "at"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "python3 /Users/redinside/.openclaw/workspace/scripts/ci_event_logger.py"
+      },
+      "delivery": {
+        "mode": "announce"
+      },
+      "state": {
+        "lastRunAtMs": 1775415797897,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 80346,
+        "lastError": "Channel is required when multiple channels are configured: telegram, slack Set delivery.channel explicitly or use a main session with a previous channel.",
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 1
       }
     }
   ]
