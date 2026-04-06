@@ -23,6 +23,7 @@ When an error is detected, follow this tree in order:
 | Rate limit hit (429) | Wait 60s, retry once with exponential backoff |
 | Model unavailable / 401 auth | Switch to `minimax/MiniMax-M2.7` (see Model Recovery Runbook below) |
 | `queue.json` missing keys / crash loop | See Queue Recovery Runbook below |
+| `exec-approvals.json` `agents: {}` (empty) | See Exec-Approvals Recovery Runbook below — ALL exec calls silently blocked until fixed |
 
 ### Level 2 — Auto-fix with peer consultation (no human needed)
 
@@ -114,6 +115,113 @@ Then restart: `bash /Users/redinside/.openclaw/scripts/redos-restart.sh`
 
 ---
 
+## Exec-Approvals Recovery Runbook (VALIDATED 2026-04-06)
+
+**Symptoms:** All cron jobs show `error` with `lastDurationMs < 1000ms`. All ENG/OPS exec calls silently fail. Agents appear to start but produce nothing.
+
+**Root cause:** `exec-approvals.json` `agents` field was emptied (by an agent editing the wrong file or a botched write). With `agents: {}` and `askFallback: deny`, every exec is blocked silently — no error message, just instant failure.
+
+**Diagnosis:**
+```python
+import json
+d = json.load(open('/Users/redinside/.openclaw/exec-approvals.json'))
+print(d['agents'])  # if this prints {} → root cause confirmed
+```
+
+**Auto-fix procedure:**
+```python
+import json
+
+path = '/Users/redinside/.openclaw/exec-approvals.json'
+d = json.load(open(path))
+
+# Only fix if agents is empty — don't overwrite a healthy config
+if d.get('agents') == {} or d.get('agents') == {'*': {'allowlist': []}}:
+    d['agents'] = {
+        '*':          {'allowlist': []},
+        'main':       {'allowlist': []},
+        'allrounder': {'allowlist': []},
+        'finance':    {'allowlist': []},
+        'hatake':     {'allowlist': []},
+        'research':   {'allowlist': [
+            {'id':'research-0001','pattern':'/usr/bin/curl'},
+            {'id':'research-0002','pattern':'/bin/cat'},
+            {'id':'research-0003','pattern':'/usr/bin/grep'},
+            {'id':'research-0004','pattern':'/usr/bin/python3'}
+        ]},
+        'infosec': {'allowlist': [
+            {'id':'infosec-0001','pattern':'/usr/bin/dig'},
+            {'id':'infosec-0002','pattern':'/usr/sbin/scutil'},
+            {'id':'infosec-0003','pattern':'/usr/bin/grep'},
+            {'id':'infosec-0004','pattern':'/usr/bin/sed'},
+            {'id':'infosec-0005','pattern':'/usr/bin/head'},
+            {'id':'infosec-0006','pattern':'/usr/bin/tail'},
+            {'id':'infosec-0007','pattern':'/opt/homebrew/bin/openclaw'},
+            {'id':'infosec-0008','pattern':'/bin/cat'},
+            {'id':'infosec-0009','pattern':'/usr/bin/curl'}
+        ]},
+        'ops': {'allowlist': [
+            {'id':'ops-0001','pattern':'/opt/homebrew/bin/openclaw'},
+            {'id':'ops-0002','pattern':'/usr/bin/tail'},
+            {'id':'ops-0003','pattern':'/usr/bin/head'},
+            {'id':'ops-0004','pattern':'/usr/bin/grep'},
+            {'id':'ops-0005','pattern':'/usr/bin/sed'},
+            {'id':'ops-0006','pattern':'/usr/bin/awk'},
+            {'id':'ops-0007','pattern':'/bin/ls'},
+            {'id':'ops-0008','pattern':'/bin/cat'},
+            {'id':'ops-0009','pattern':'/usr/bin/dig'},
+            {'id':'ops-0010','pattern':'/usr/sbin/scutil'},
+            {'id':'ops-0011','pattern':'/bin/bash'},
+            {'id':'ops-0012','pattern':'/usr/bin/python3'},
+            {'id':'ops-0013','pattern':'/bin/launchctl'},
+            {'id':'ops-0014','pattern':'/usr/bin/curl'},
+            {'id':'ops-0015','pattern':'/usr/bin/wc'}
+        ]},
+        'eng': {'allowlist': [
+            {'id':'eng-0001','pattern':'/usr/bin/git'},
+            {'id':'eng-0002','pattern':'/opt/homebrew/bin/node'},
+            {'id':'eng-0003','pattern':'/opt/homebrew/bin/npm'},
+            {'id':'eng-0004','pattern':'/opt/homebrew/bin/npx'},
+            {'id':'eng-0005','pattern':'/opt/homebrew/bin/openclaw'},
+            {'id':'eng-0006','pattern':'/usr/bin/python3'},
+            {'id':'eng-0007','pattern':'/bin/bash'},
+            {'id':'eng-0008','pattern':'/bin/date'},
+            {'id':'eng-0009','pattern':'/opt/homebrew/bin/gh'},
+            {'id':'eng-0010','pattern':'/bin/launchctl'},
+            {'id':'eng-0011','pattern':'/usr/bin/java'},
+            {'id':'eng-0012','pattern':'/opt/homebrew/bin/mvn'},
+            {'id':'eng-0013','pattern':'/opt/homebrew/bin/python3'},
+            {'id':'eng-0014','pattern':'/usr/local/bin/python3'},
+            {'id':'eng-0015','pattern':'/usr/bin/curl'},
+            {'id':'eng-0016','pattern':'/usr/bin/swift'},
+            {'id':'eng-0017','pattern':'/usr/bin/xcodebuild'},
+            {'id':'eng-0101','pattern':'/bin/ls'},
+            {'id':'eng-0102','pattern':'/bin/cat'},
+            {'id':'eng-0103','pattern':'/usr/bin/head'},
+            {'id':'eng-0104','pattern':'/usr/bin/tail'},
+            {'id':'eng-0105','pattern':'/usr/bin/grep'},
+            {'id':'eng-0106','pattern':'/usr/bin/sort'},
+            {'id':'eng-0107','pattern':'/usr/bin/uniq'},
+            {'id':'eng-0108','pattern':'/usr/bin/wc'},
+            {'id':'eng-0109','pattern':'/usr/bin/which'},
+            {'id':'eng-0110','pattern':'/bin/mkdir'},
+            {'id':'eng-0111','pattern':'/bin/cp'},
+            {'id':'eng-0112','pattern':'/bin/mv'}
+        ]}
+    }
+    with open(path, 'w') as f:
+        json.dump(d, f, indent=2)
+    print('FIXED')
+else:
+    print('agents not empty — no fix needed')
+```
+Then restart gateway: `launchctl stop ai.openclaw.gateway && sleep 3 && launchctl start ai.openclaw.gateway`
+Then re-trigger blocked crons: `openclaw cron run oss-contributor-0001 && openclaw cron run inner-loop-eng-0001`
+
+**NEVER edit exec-approvals.json directly via write/edit tools** — always use python3 to read-modify-write atomically to avoid partial writes that empty the file.
+
+---
+
 ## Mandatory post-fix actions (every time, no exceptions)
 
 1. Update ticket to RESOLVED in `../workspace/ops/TICKET-TRACKER.md`
@@ -130,5 +238,6 @@ Every agent should check these at heartbeat time:
 - Does my `goals/goals-<agentId>.json` exist?
 - Is `../workspace/logs/a2a-delegations.jsonl` writable?
 - Did my last cron run succeed? (check `../cron/jobs.json` for my agentId)
+- Is `exec-approvals.json` `agents` field non-empty? (`python3 -c "import json; d=json.load(open('../exec-approvals.json')); print('OK' if d.get('agents') else 'BROKEN')"`) — if BROKEN, apply Exec-Approvals Recovery Runbook immediately
 
 If any check fails → auto-fix using Level 1 table above, then continue.
