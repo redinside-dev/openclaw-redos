@@ -24,6 +24,9 @@ When an error is detected, follow this tree in order:
 | Model unavailable / 401 auth | Switch to `minimax/MiniMax-M2.7` (see Model Recovery Runbook below) |
 | `queue.json` missing keys / crash loop | See Queue Recovery Runbook below |
 | `exec-approvals.json` `agents: {}` (empty) | See Exec-Approvals Recovery Runbook below — ALL exec calls silently blocked until fixed |
+| PR DCO check `ACTION_REQUIRED` | Amend commit with `--signoff` and force push — see PR Quality Runbook below |
+| PR CI `action_required` (first contributor gate) | Post a comment on the PR tagging a maintainer — cannot be fixed by ENG, needs human approval |
+| PR has review comments | Respond to every comment; if code change needed, push a fix commit to the same branch |
 
 ### Level 2 — Auto-fix with peer consultation (no human needed)
 
@@ -219,6 +222,82 @@ Then restart gateway: `launchctl stop ai.openclaw.gateway && sleep 3 && launchct
 Then re-trigger blocked crons: `openclaw cron run oss-contributor-0001 && openclaw cron run inner-loop-eng-0001`
 
 **NEVER edit exec-approvals.json directly via write/edit tools** — always use python3 to read-modify-write atomically to avoid partial writes that empty the file.
+
+---
+
+## PR Quality Runbook (VALIDATED 2026-04-06)
+
+Every PR opened to an external OSS repo must follow this checklist. Failing to do so causes ACTION_REQUIRED, wasted contributions, and user frustration.
+
+### Pre-push (before `git push`) — MANDATORY
+
+1. **Always `--signoff` on commits** — all major OSS repos (spring-ai, langchain4j, etc.) require DCO.
+   ```bash
+   git commit -s -m "fix: description (closes #ISSUE_NUM)"
+   # -s is short for --signoff → adds: Signed-off-by: anuragg-saxenaa <anuragg.saxenaa@gmail.com>
+   ```
+
+2. **Verify branch has real changes before pushing:**
+   ```bash
+   git log main..HEAD --oneline
+   # Must show at least 1 commit. If empty → do NOT push.
+   ```
+
+3. **Never push to upstream directly** — always push to the fork (`origin = anuragg-saxenaa/<repo>`), then open PR from fork to upstream.
+
+### Post-push (within 5 min of `gh pr create`) — MANDATORY
+
+```bash
+# Check all CI status
+gh pr checks <PR_NUM> --repo <OWNER>/<REPO>
+
+# Check GH Actions runs
+gh run list --repo <OWNER>/<REPO> --branch <BRANCH>
+```
+
+### Auto-fix: DCO failure
+
+```bash
+cd /Users/redinside/.openclaw/workspace-eng/repos/<REPO>
+git commit --amend -s --no-edit
+git push --force origin <BRANCH>
+```
+Then re-check: `gh pr checks <PR_NUM> --repo <OWNER>/<REPO>` — DCO should show `pass`.
+
+### Auto-fix: CI `action_required` (first contributor gate)
+
+This is a GitHub security policy — cannot be fixed by code. A repo maintainer must manually approve the first workflow run.
+
+**Action:** Post a comment on the PR:
+```bash
+gh pr comment <PR_NUM> --repo <OWNER>/<REPO> \
+  --body "Hi team — this PR is ready for review (fixes #ISSUE_NUM). CI is waiting for first-contributor workflow approval. Could a maintainer approve the workflow run when convenient? Thank you!"
+```
+Then log to TICKET-TRACKER.md as WAITING and check back next day.
+
+### Auto-fix: CI test failure
+
+```bash
+# Get the failing run ID
+gh run list --repo <OWNER>/<REPO> --branch <BRANCH>
+
+# Read failure logs
+gh run view <RUN_ID> --log-failed
+
+# Fix the code, commit (with -s), push
+git add <files>
+git commit -s -m "fix: address CI failure — <what was wrong>"
+git push origin <BRANCH>
+```
+
+### Known DCO requirements by repo
+
+| Repo | Needs `-s` | First-run approval gate |
+|---|---|---|
+| spring-projects/spring-ai | **YES** | **YES** |
+| langchain4j/langchain4j | **YES** | **YES** |
+| nicklockwood/SwiftFormat | No | No |
+| decolua/9router | No | No |
 
 ---
 
