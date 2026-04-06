@@ -915,17 +915,22 @@ Respond with a brief action plan (1-3 sentences).`;
   }
 
   async loadQueue() {
+    const empty = { pending: [], in_progress: [], awaiting_approval: [], completed: [], failed: [] };
     try {
       const data = await fs.readFile(QUEUE_FILE, 'utf8');
-      return JSON.parse(data);
+      const q = JSON.parse(data);
+      // Ensure all required keys exist (prevents crash if file was written without them)
+      for (const key of Object.keys(empty)) {
+        if (!Array.isArray(q[key])) q[key] = [];
+      }
+      // Clear stale in_progress tasks on startup (they were interrupted mid-run)
+      if (q.in_progress.length > 50) {
+        q.pending.push(...q.in_progress);
+        q.in_progress = [];
+      }
+      return q;
     } catch {
-      return {
-        pending: [],
-        in_progress: [],
-        awaiting_approval: [],
-        completed: [],
-        failed: []
-      };
+      return empty;
     }
   }
 

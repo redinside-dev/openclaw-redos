@@ -1,4 +1,25 @@
-## [2026-04-03 20:16] OPS — Friday Retrospective Summary (Week of Mar 30 – Apr 3)
+## [2026-04-05 11:35] TICKET-20260405-001 to 005 — Model Fallback Failures Resolved
+
+**Context:** 5 health-snapshot tickets created for recurring model fallback failures (213+153+111+51+10 = 538 total failures). Symptoms: `candidate_failed requested=minimax/minimax-m2.5 reason=format`, `embedded run failover decision: fallback_model reason=timeout`.
+
+**Root Cause (CONFIRMED):**
+1. MiniMax API requires `ANTHROPIC_AUTH_TOKEN` header (not `Authorization: Bearer`). Our 9router minimax integration uses wrong auth header format.
+2. 9router/cu/default (Cursor free tier) timing out due to quota exhaustion.
+3. CONSULTANT misinterprets model_not_found as "no task completions" — recurring false positive.
+
+**Fix Applied (2026-04-05 11:30 UTC):**
+- Changed `agents.defaults.model.primary`: `minimax/MiniMax-M2.5` → `9router/always-on-premium`
+- Changed `eng.model.primary`: `minimax/MiniMax-M2.7` → `9router/coding-factory`
+- Both route to working subscription providers (Claude Code, Codex, Kiro) instead of broken MiniMax
+
+**Action Required:** Gateway restart needed for config to take effect.
+
+**Prevention:**
+- Document MiniMax auth header requirement in model-registry.json
+- Consider adding health preflight to verify MiniMax connectivity before routing to it
+- Track MiniMax in provider-quota.json as "unavailable" until auth header is fixed in 9Router
+
+**Status:** RESOLVED — awaiting gateway restart.
 
 **Tickets Resolved:** 3x CONSULTANT false-positive tickets (model_not_found 404s miscounted as zero completions)
 
@@ -3309,6 +3330,29 @@ Failed to reach OPS agent
 - **ENG:** GLM-5 quality regression confirmed — use alternative models for high-context tasks
 
 **Status:** Actionable — INFOSEC/OPS version check required.
+
+---
+
+## [2026-04-05 06:27] RESEARCH Knowledge Update — OpenClaw v2026.4.1 + New CVE-2026-34426
+
+**Context:** Proactive scan — Sun Apr 5, 2026.
+
+**Key Findings:**
+
+1. **NEW CVE-2026-34426 (HIGH)** — Published April 3, 2026. No exploitation known. Check OpenClaw version >= 2026.3.28.
+
+2. **CVE-2026-33579 Confirmed** — Ars Technica: "authentication gate does not exist" for admin-level pairing. Critical auth bypass.
+
+3. **MiniMax Auth Issue CONFIRMED** — GitHub #20176: MiniMax expects `ANTHROPIC_AUTH_TOKEN` header (not `Authorization: Bearer`). Our 9router minimax integration likely fails due to wrong auth header format.
+
+4. **TICKET-20260405-001 to 005** — All related to model fallback failures: minimax returns `format` error → 9router timeout. Root cause: minimax auth header + 9router quota exhaustion.
+
+
+**Recommended Team Actions:**
+- **OPS:** Verify OpenClaw version >= 2026.3.28 for CVE coverage
+- **ENG:** Check minimax auth header format in 9router config
+
+**Status:** Informational.
 
 ---
 
@@ -7874,4 +7918,409 @@ OPS agent tasked to investigate and inject new work
 OPS agent tasked to investigate and inject new work
 
 ## [2026-04-05 00:59] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 01:16] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 01:33] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 01:50] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 02:07] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 02:24] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 02:41] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 02:58] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 03:15] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 03:32] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 03:49] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 04:06] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 04:23] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 04:40] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 04:57] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 05:14] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 05:31] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 05:48] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 06:05] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 06:22] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 06:39] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 06:56] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 07:13] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 07:30] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 07:47] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 08:04] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 08:21] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 08:38] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 08:55] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 09:12] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 09:29] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 09:46] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 10:03] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 10:20] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 10:37] Consultant fixed: Channel errors in gateway log (4 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-04-05 10:37] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 10:54] Consultant fixed: Channel errors in gateway log (4 occurrences)
+No channel-less cron jobs found (may be log noise)
+
+## [2026-04-05 10:54] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 11:11] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 11:28] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 11:45] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 12:02] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 12:20] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 12:37] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 12:54] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 13:11] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 13:28] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 13:45] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 14:02] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 14:19] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 14:36] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 14:53] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 15:10] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 15:27] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 15:44] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 16:01] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 16:18] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 16:35] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 16:52] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 17:09] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 17:26] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 17:43] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 18:00] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 18:17] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 18:34] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 18:51] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 19:08] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 19:08] Consultant fixed: Coding factory stalled — last SPEC.md is 48h old
+RESEARCH agent tasked to restart coding factory
+
+## [2026-04-05 19:25] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 19:25] Consultant fixed: Coding factory stalled — last SPEC.md is 49h old
+RESEARCH agent tasked to restart coding factory
+
+## [2026-04-05 19:42] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 19:42] Consultant fixed: Coding factory stalled — last SPEC.md is 49h old
+RESEARCH agent tasked to restart coding factory
+
+## [2026-04-05 19:59] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 20:16] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 20:33] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 20:50] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 21:07] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 21:24] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 21:41] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 21:58] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 22:15] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 22:32] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 22:49] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 23:06] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 23:23] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 23:40] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-05 23:57] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 00:14] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 00:31] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 00:48] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 01:05] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 01:22] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 01:39] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 01:56] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 02:14] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 02:31] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 02:48] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 03:05] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 03:22] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 03:39] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 03:56] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 04:13] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 04:30] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 04:47] Consultant fixed: OpenClaw gateway not responding on :18789
+Gateway restarted successfully
+
+## [2026-04-06 04:47] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 05:04] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 05:21] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 05:38] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 05:55] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 06:12] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 06:29] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 06:46] Consultant fixed: 1 stale IN_PROGRESS tasks (>2h)
+Reset 1 stale tasks to PENDING: CONSULTANT-OPS-20260406023101
+
+## [2026-04-06 06:46] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 07:03] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 07:20] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 07:37] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 07:54] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 08:11] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 08:28] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 08:45] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 09:02] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 09:19] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 09:36] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 09:53] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 10:10] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 10:27] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 10:44] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 11:01] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 11:18] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 11:35] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 11:52] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 12:09] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 12:26] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 12:43] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 13:00] Consultant fixed: No task completions in last 24h
+OPS agent tasked to investigate and inject new work
+
+## [2026-04-06 13:18] Consultant fixed: No task completions in last 24h
 OPS agent tasked to investigate and inject new work

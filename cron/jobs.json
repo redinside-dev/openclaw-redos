@@ -7,7 +7,7 @@
       "name": "System Pulse — Always-On Heartbeat (Ollama only)",
       "enabled": true,
       "createdAtMs": 1772080522100,
-      "updatedAtMs": 1775416496134,
+      "updatedAtMs": 1775496137056,
       "schedule": {
         "kind": "cron",
         "expr": "*/5 * * * *",
@@ -28,15 +28,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775416435769,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 60365,
+        "lastRunAtMs": 1775496134243,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 2813,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0,
-        "nextRunAtMs": 1775417100000,
+        "consecutiveErrors": 1,
+        "nextRunAtMs": 1775496300000,
         "lastDelivered": true,
-        "runningAtMs": 1775418576730
+        "lastError": "404 No active credentials for provider: openai"
       }
     },
     {
@@ -45,7 +45,7 @@
       "name": "Daily Portfolio Review (Pre-Market)",
       "enabled": true,
       "createdAtMs": 1770267281600,
-      "updatedAtMs": 1775220574299,
+      "updatedAtMs": 1775496022985,
       "schedule": {
         "kind": "cron",
         "expr": "45 8 * * 1-5",
@@ -60,14 +60,15 @@
         "timeoutSeconds": 600
       },
       "state": {
-        "lastRunAtMs": 1775220495289,
-        "lastStatus": "ok",
-        "lastDurationMs": 79010,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
+        "lastRunAtMs": 1775496018068,
+        "lastStatus": "error",
+        "lastDurationMs": 4917,
+        "consecutiveErrors": 1,
+        "lastRunStatus": "error",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775479500000,
-        "lastDelivered": true
+        "nextRunAtMs": 1775565900000,
+        "lastDelivered": true,
+        "lastError": "404 No active credentials for provider: openai"
       },
       "delivery": {
         "mode": "announce",
@@ -82,7 +83,7 @@
       "name": "Trading Window Brief (8am-4pm ET)",
       "enabled": true,
       "createdAtMs": 1770392652158,
-      "updatedAtMs": 1775259705721,
+      "updatedAtMs": 1775495501484,
       "schedule": {
         "kind": "cron",
         "expr": "0,30 8-15 * * 1-5",
@@ -103,15 +104,16 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775259679240,
-        "lastStatus": "ok",
-        "lastDurationMs": 26481,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
+        "lastRunAtMs": 1775495498587,
+        "lastStatus": "error",
+        "lastDurationMs": 2897,
+        "consecutiveErrors": 1,
+        "lastRunStatus": "error",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775476800000,
+        "nextRunAtMs": 1775496600000,
         "lastErrorAtMs": null,
-        "lastDelivered": true
+        "lastDelivered": true,
+        "lastError": "404 No active credentials for provider: openai"
       }
     },
     {
@@ -158,7 +160,7 @@
       "name": "QQQ Profit/Stop Watch (intraday)",
       "enabled": true,
       "createdAtMs": 1770399961842,
-      "updatedAtMs": 1775246252824,
+      "updatedAtMs": 1775496155203,
       "schedule": {
         "kind": "cron",
         "expr": "*/5 12-15 * * 1-5",
@@ -179,14 +181,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775246238061,
-        "lastStatus": "ok",
-        "lastDurationMs": 14763,
-        "lastRunStatus": "ok",
+        "lastRunAtMs": 1775496148992,
+        "lastStatus": "error",
+        "lastDurationMs": 6211,
+        "lastRunStatus": "error",
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0,
-        "nextRunAtMs": 1775491200000,
-        "lastDelivered": true
+        "consecutiveErrors": 1,
+        "nextRunAtMs": 1775496300000,
+        "lastDelivered": true,
+        "lastError": "404 No active credentials for provider: openai"
       }
     },
     {
@@ -195,7 +198,7 @@
       "name": "Gmail Unread Summary (Telegram)",
       "enabled": true,
       "createdAtMs": 1770402245398,
-      "updatedAtMs": 1775257872282,
+      "updatedAtMs": 1775496162186,
       "schedule": {
         "kind": "cron",
         "expr": "*/15 8-18 * * 1-5",
@@ -216,16 +219,17 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775257708771,
-        "lastStatus": "ok",
-        "lastDurationMs": 163511,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
+        "lastRunAtMs": 1775496157375,
+        "lastStatus": "error",
+        "lastDurationMs": 4811,
+        "consecutiveErrors": 2,
+        "lastRunStatus": "error",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775476800000,
+        "nextRunAtMs": 1775496600000,
         "lastErrorAt": null,
         "lastErrorAtMs": null,
-        "lastDelivered": true
+        "lastDelivered": true,
+        "lastError": "404 No active credentials for provider: openai"
       }
     },
     {
@@ -262,8 +266,9 @@
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
         "lastErrorAtMs": null,
-        "nextRunAtMs": 1775484000000,
-        "lastDelivered": true
+        "nextRunAtMs": 1775496174231,
+        "lastDelivered": true,
+        "runningAtMs": 1775496177390
       }
     },
     {
@@ -272,7 +277,7 @@
       "name": "Market Leads (Alpha Vantage, 4x/day)",
       "enabled": true,
       "createdAtMs": 1770408691799,
-      "updatedAtMs": 1775246209327,
+      "updatedAtMs": 1775495510895,
       "schedule": {
         "kind": "cron",
         "expr": "0 10,12,14,15 * * 1-5",
@@ -293,15 +298,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775246182172,
+        "lastRunAtMs": 1775495508546,
         "lastStatus": "error",
-        "lastDurationMs": 27155,
+        "lastDurationMs": 2349,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 1,
-        "nextRunAtMs": 1775484000000,
+        "consecutiveErrors": 2,
+        "nextRunAtMs": 1775498400000,
         "lastDelivered": true,
-        "lastError": "⚠️ ✉️ Message failed"
+        "lastError": "404 No active credentials for provider: openai"
       }
     },
     {
@@ -310,7 +315,7 @@
       "name": "System Health Watch (OpenClaw)",
       "enabled": true,
       "createdAtMs": 1770410528466,
-      "updatedAtMs": 1775257906821,
+      "updatedAtMs": 1775495503809,
       "schedule": {
         "kind": "cron",
         "expr": "*/30 8-18 * * 1-5",
@@ -331,15 +336,16 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775257872282,
-        "lastStatus": "ok",
-        "lastDurationMs": 34539,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
+        "lastRunAtMs": 1775495501484,
+        "lastStatus": "error",
+        "lastDurationMs": 2325,
+        "consecutiveErrors": 1,
+        "lastRunStatus": "error",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775476800000,
+        "nextRunAtMs": 1775496600000,
         "lastErrorAtMs": null,
-        "lastDelivered": true
+        "lastDelivered": true,
+        "lastError": "404 No active credentials for provider: openai"
       }
     },
     {
@@ -348,7 +354,7 @@
       "name": "Daily AI + OpenClaw Trends Brief (Telegram DM)",
       "enabled": true,
       "createdAtMs": 1770593929748,
-      "updatedAtMs": 1775349067110,
+      "updatedAtMs": 1775438666161,
       "schedule": {
         "kind": "cron",
         "expr": "30 20 * * *",
@@ -368,16 +374,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775349003010,
-        "lastStatus": "error",
-        "lastDurationMs": 64100,
-        "consecutiveErrors": 2,
-        "lastRunStatus": "error",
+        "lastRunAtMs": 1775438632092,
+        "lastStatus": "ok",
+        "lastDurationMs": 34069,
+        "consecutiveErrors": 0,
+        "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775435400000,
-        "lastDelivered": true,
-        "lastErrorReason": "timeout",
-        "lastError": "Request timed out before a response was generated. Please try again, or increase `agents.defaults.timeoutSeconds` in your config."
+        "nextRunAtMs": 1775521800000,
+        "lastDelivered": true
       }
     },
     {
@@ -386,7 +390,7 @@
       "name": "ENG Daily Proactive (Mode P)",
       "enabled": true,
       "createdAtMs": 1770618290688,
-      "updatedAtMs": 1775222835061,
+      "updatedAtMs": 1775496069066,
       "schedule": {
         "kind": "cron",
         "expr": "5 9 * * 1-5",
@@ -406,14 +410,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775222792113,
-        "lastStatus": "ok",
-        "lastDurationMs": 42948,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
+        "lastRunAtMs": 1775496064807,
+        "lastStatus": "error",
+        "lastDurationMs": 4259,
+        "consecutiveErrors": 1,
+        "lastRunStatus": "error",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775480700000,
-        "lastDelivered": true
+        "nextRunAtMs": 1775567100000,
+        "lastDelivered": true,
+        "lastError": "404 No active credentials for provider: openai"
       }
     },
     {
@@ -422,7 +427,7 @@
       "name": "OPS Daily Proactive (Mode P)",
       "enabled": true,
       "createdAtMs": 1770618296899,
-      "updatedAtMs": 1775223863004,
+      "updatedAtMs": 1775496084331,
       "schedule": {
         "kind": "cron",
         "expr": "10 9 * * 1-5",
@@ -442,14 +447,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775223846685,
-        "lastStatus": "ok",
-        "lastDurationMs": 16319,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
+        "lastRunAtMs": 1775496083639,
+        "lastStatus": "error",
+        "lastDurationMs": 692,
+        "consecutiveErrors": 1,
+        "lastRunStatus": "error",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775481000000,
-        "lastDelivered": true
+        "nextRunAtMs": 1775567400000,
+        "lastDelivered": true,
+        "lastError": "404 No active credentials for provider: openai"
       }
     },
     {
@@ -458,7 +464,7 @@
       "name": "RESEARCH Daily Proactive (Mode P)",
       "enabled": true,
       "createdAtMs": 1770618303701,
-      "updatedAtMs": 1775222868707,
+      "updatedAtMs": 1775495333984,
       "schedule": {
         "kind": "cron",
         "expr": "15 9 * * 1-5",
@@ -478,14 +484,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775222858055,
-        "lastStatus": "ok",
-        "lastDurationMs": 10652,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
+        "lastRunAtMs": 1775495324760,
+        "lastStatus": "error",
+        "lastDurationMs": 9224,
+        "consecutiveErrors": 1,
+        "lastRunStatus": "error",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775481300000,
-        "lastDelivered": true
+        "nextRunAtMs": 1775567700000,
+        "lastDelivered": true,
+        "lastError": "404 No active credentials for provider: openai"
       }
     },
     {
@@ -494,7 +501,7 @@
       "name": "FINANCE Daily Proactive (Mode P)",
       "enabled": true,
       "createdAtMs": 1770618311025,
-      "updatedAtMs": 1775223875634,
+      "updatedAtMs": 1775496106082,
       "schedule": {
         "kind": "cron",
         "expr": "20 9 * * 1-5",
@@ -514,14 +521,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775223863004,
-        "lastStatus": "ok",
-        "lastDurationMs": 12630,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
+        "lastRunAtMs": 1775496105498,
+        "lastStatus": "error",
+        "lastDurationMs": 584,
+        "consecutiveErrors": 1,
+        "lastRunStatus": "error",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775481600000,
-        "lastDelivered": true
+        "nextRunAtMs": 1775568000000,
+        "lastDelivered": true,
+        "lastError": "404 No active credentials for provider: openai"
       }
     },
     {
@@ -530,7 +538,7 @@
       "name": "Cron Watchdog (alert on missed/failing jobs)",
       "enabled": true,
       "createdAtMs": 1770618629260,
-      "updatedAtMs": 1775412015015,
+      "updatedAtMs": 1775496172402,
       "schedule": {
         "kind": "cron",
         "expr": "*/10 8-22 * * *",
@@ -550,15 +558,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775411997098,
-        "lastStatus": "ok",
-        "lastDurationMs": 17917,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
-        "lastDeliveryStatus": "not-delivered",
-        "nextRunAtMs": 1775417400000,
-        "lastDelivered": false,
-        "runningAtMs": 1775418576730
+        "lastRunAtMs": 1775496168214,
+        "lastStatus": "error",
+        "lastDurationMs": 4188,
+        "consecutiveErrors": 1,
+        "lastRunStatus": "error",
+        "lastDeliveryStatus": "delivered",
+        "nextRunAtMs": 1775496600000,
+        "lastDelivered": true,
+        "lastError": "404 No active credentials for provider: openai"
       }
     },
     {
@@ -567,7 +575,7 @@
       "name": "RED Morning Check-in (standup)",
       "enabled": true,
       "createdAtMs": 1771344956120,
-      "updatedAtMs": 1775221989302,
+      "updatedAtMs": 1775496073055,
       "schedule": {
         "kind": "cron",
         "expr": "5 9 * * 1-5",
@@ -588,14 +596,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775221964347,
-        "lastStatus": "ok",
-        "lastDurationMs": 24955,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
+        "lastRunAtMs": 1775496069066,
+        "lastStatus": "error",
+        "lastDurationMs": 3989,
+        "consecutiveErrors": 1,
+        "lastRunStatus": "error",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775480700000,
-        "lastDelivered": true
+        "nextRunAtMs": 1775567100000,
+        "lastDelivered": true,
+        "lastError": "404 No active credentials for provider: openai"
       }
     },
     {
@@ -604,7 +613,7 @@
       "name": "ENG Morning Check-in (standup)",
       "enabled": true,
       "createdAtMs": 1771344956120,
-      "updatedAtMs": 1775222089666,
+      "updatedAtMs": 1775496073612,
       "schedule": {
         "kind": "cron",
         "expr": "7 9 * * 1-5",
@@ -625,15 +634,16 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775222030373,
-        "lastStatus": "ok",
-        "lastDurationMs": 59293,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
+        "lastRunAtMs": 1775496073055,
+        "lastStatus": "error",
+        "lastDurationMs": 557,
+        "consecutiveErrors": 1,
+        "lastRunStatus": "error",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775480820000,
+        "nextRunAtMs": 1775567220000,
         "lastErrorAtMs": null,
-        "lastDelivered": true
+        "lastDelivered": true,
+        "lastError": "404 No active credentials for provider: openai"
       }
     },
     {
@@ -642,7 +652,7 @@
       "name": "RESEARCH Morning Check-in (standup)",
       "enabled": true,
       "createdAtMs": 1771344956120,
-      "updatedAtMs": 1775226664470,
+      "updatedAtMs": 1775496083113,
       "schedule": {
         "kind": "cron",
         "expr": "9 9 * * 1-5",
@@ -663,16 +673,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775226598198,
+        "lastRunAtMs": 1775496078645,
         "lastStatus": "error",
-        "lastDurationMs": 66272,
-        "consecutiveErrors": 1,
+        "lastDurationMs": 4468,
+        "consecutiveErrors": 2,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775480940000,
+        "nextRunAtMs": 1775567340000,
         "lastDelivered": true,
-        "lastError": "Request timed out before a response was generated. Please try again, or increase `agents.defaults.timeoutSeconds` in your config.",
-        "lastErrorReason": "timeout"
+        "lastError": "404 No active credentials for provider: openai"
       }
     },
     {
@@ -681,7 +690,7 @@
       "name": "FINANCE Morning Check-in (standup)",
       "enabled": true,
       "createdAtMs": 1771344956120,
-      "updatedAtMs": 1775222395068,
+      "updatedAtMs": 1775496101552,
       "schedule": {
         "kind": "cron",
         "expr": "11 9 * * 1-5",
@@ -702,14 +711,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775222382762,
-        "lastStatus": "ok",
-        "lastDurationMs": 12306,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
+        "lastRunAtMs": 1775496090412,
+        "lastStatus": "error",
+        "lastDurationMs": 11140,
+        "consecutiveErrors": 1,
+        "lastRunStatus": "error",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775481060000,
-        "lastDelivered": true
+        "nextRunAtMs": 1775567460000,
+        "lastDelivered": true,
+        "lastError": "404 No active credentials for provider: openai"
       }
     },
     {
@@ -718,7 +728,7 @@
       "name": "OPS Morning Check-in (standup)",
       "enabled": true,
       "createdAtMs": 1771344956120,
-      "updatedAtMs": 1775222858055,
+      "updatedAtMs": 1775496105498,
       "schedule": {
         "kind": "cron",
         "expr": "13 9 * * 1-5",
@@ -739,14 +749,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775222835061,
-        "lastStatus": "ok",
-        "lastDurationMs": 22994,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
+        "lastRunAtMs": 1775496101552,
+        "lastStatus": "error",
+        "lastDurationMs": 3946,
+        "consecutiveErrors": 1,
+        "lastRunStatus": "error",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775481180000,
-        "lastDelivered": true
+        "nextRunAtMs": 1775567580000,
+        "lastDelivered": true,
+        "lastError": "404 No active credentials for provider: openai"
       }
     },
     {
@@ -755,7 +766,7 @@
       "name": "INFOSEC Morning Check-in (standup)",
       "enabled": true,
       "createdAtMs": 1771344956120,
-      "updatedAtMs": 1775222885460,
+      "updatedAtMs": 1775495336047,
       "schedule": {
         "kind": "cron",
         "expr": "15 9 * * 1-5",
@@ -776,14 +787,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775222868707,
-        "lastStatus": "ok",
-        "lastDurationMs": 16753,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
+        "lastRunAtMs": 1775495333984,
+        "lastStatus": "error",
+        "lastDurationMs": 2063,
+        "consecutiveErrors": 1,
+        "lastRunStatus": "error",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775481300000,
-        "lastDelivered": true
+        "nextRunAtMs": 1775567700000,
+        "lastDelivered": true,
+        "lastError": "404 No active credentials for provider: openai"
       }
     },
     {
@@ -792,7 +804,7 @@
       "name": "OPS Scrum Master — Morning Standup",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1775222936909,
+      "updatedAtMs": 1775495338539,
       "schedule": {
         "kind": "cron",
         "expr": "15 9 * * 1-5",
@@ -813,14 +825,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775222890494,
-        "lastStatus": "ok",
-        "lastDurationMs": 46415,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
+        "lastRunAtMs": 1775495336047,
+        "lastStatus": "error",
+        "lastDurationMs": 2492,
+        "consecutiveErrors": 1,
+        "lastRunStatus": "error",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775481300000,
-        "lastDelivered": true
+        "nextRunAtMs": 1775567700000,
+        "lastDelivered": true,
+        "lastError": "404 No active credentials for provider: openai"
       }
     },
     {
@@ -829,7 +842,7 @@
       "name": "OPS SLA Enforcement Check",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1775409842974,
+      "updatedAtMs": 1775468663541,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -850,13 +863,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775409788661,
+        "lastRunAtMs": 1775468624455,
         "lastStatus": "ok",
-        "lastDurationMs": 54313,
+        "lastDurationMs": 39086,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775416988661,
+        "nextRunAtMs": 1775499695024,
         "lastDelivered": true
       }
     },
@@ -866,7 +879,7 @@
       "name": "OPS System Health Monitor",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1775409873908,
+      "updatedAtMs": 1775471246063,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -888,12 +901,12 @@
       },
       "state": {
         "lastStatus": "ok",
-        "lastRunAtMs": 1775409842974,
-        "lastDurationMs": 30934,
+        "lastRunAtMs": 1775471207467,
+        "lastDurationMs": 38596,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775416895024,
+        "nextRunAtMs": 1775499695024,
         "lastDelivered": true
       }
     },
@@ -903,7 +916,7 @@
       "name": "RED Self-Improvement Reflection",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1775385286851,
+      "updatedAtMs": 1775471278960,
       "schedule": {
         "kind": "every",
         "everyMs": 21600000,
@@ -924,15 +937,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775385222471,
-        "lastStatus": "error",
-        "lastDurationMs": 64380,
-        "consecutiveErrors": 1,
-        "lastRunStatus": "error",
-        "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1775427695024,
+        "lastRunAtMs": 1775471246063,
+        "lastStatus": "ok",
+        "lastDurationMs": 32897,
+        "consecutiveErrors": 0,
+        "lastRunStatus": "ok",
+        "lastDeliveryStatus": "delivered",
+        "nextRunAtMs": 1775514095024,
         "lastErrorAtMs": null,
-        "lastErrorReason": "timeout"
+        "lastDelivered": true
       }
     },
     {
@@ -941,7 +954,7 @@
       "name": "OPS Ticket Auto-Diagnose & Fix",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1775393193073,
+      "updatedAtMs": 1775481826497,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -962,14 +975,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775393092729,
+        "lastRunAtMs": 1775481754544,
         "lastStatus": "ok",
-        "lastDurationMs": 100344,
+        "lastDurationMs": 71953,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
-        "lastDeliveryStatus": "not-delivered",
-        "nextRunAtMs": 1775416895024,
-        "lastDelivered": false
+        "lastDeliveryStatus": "delivered",
+        "nextRunAtMs": 1775499695024,
+        "lastDelivered": true
       }
     },
     {
@@ -978,7 +991,7 @@
       "name": "RESEARCH Proactive Knowledge Update",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1775385205135,
+      "updatedAtMs": 1775471333574,
       "schedule": {
         "kind": "every",
         "everyMs": 14400000,
@@ -999,13 +1012,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775385151894,
+        "lastRunAtMs": 1775471297936,
         "lastStatus": "ok",
-        "lastDurationMs": 53241,
+        "lastDurationMs": 35638,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775427695024,
+        "nextRunAtMs": 1775499695024,
         "lastErrorAtMs": null,
         "lastDelivered": true
       }
@@ -1054,7 +1067,7 @@
       "name": "RED Daily Brief (Telegram)",
       "enabled": true,
       "createdAtMs": 1771202886122,
-      "updatedAtMs": 1775402436042,
+      "updatedAtMs": 1775496030783,
       "schedule": {
         "kind": "cron",
         "expr": "0 9 * * *",
@@ -1073,15 +1086,16 @@
         "to": "1012034994"
       },
       "state": {
-        "lastRunAtMs": 1775402415956,
-        "lastStatus": "ok",
-        "lastDurationMs": 20086,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
+        "lastRunAtMs": 1775496028009,
+        "lastStatus": "error",
+        "lastDurationMs": 2774,
+        "consecutiveErrors": 1,
+        "lastRunStatus": "error",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775480400000,
+        "nextRunAtMs": 1775566800000,
         "lastErrorAtMs": null,
-        "lastDelivered": true
+        "lastDelivered": true,
+        "lastError": "404 No active credentials for provider: openai"
       }
     },
     {
@@ -1090,7 +1104,7 @@
       "name": "ENG ← RESEARCH: Read & Apply Learnings",
       "enabled": true,
       "createdAtMs": 1771380089656,
-      "updatedAtMs": 1775235816908,
+      "updatedAtMs": 1775496114215,
       "schedule": {
         "kind": "cron",
         "expr": "45 10 * * 1-5",
@@ -1111,14 +1125,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775235763939,
-        "lastStatus": "ok",
-        "lastDurationMs": 52969,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
+        "lastRunAtMs": 1775496110249,
+        "lastStatus": "error",
+        "lastDurationMs": 3966,
+        "consecutiveErrors": 1,
+        "lastRunStatus": "error",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775486700000,
-        "lastDelivered": true
+        "nextRunAtMs": 1775573100000,
+        "lastDelivered": true,
+        "lastError": "404 No active credentials for provider: openai"
       }
     },
     {
@@ -1237,7 +1252,7 @@
       "name": "OPS Task ETA Monitor",
       "enabled": true,
       "createdAtMs": 1771544316316,
-      "updatedAtMs": 1775375745284,
+      "updatedAtMs": 1775481191750,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1258,14 +1273,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775375682805,
-        "lastStatus": "error",
-        "lastDurationMs": 62479,
-        "consecutiveErrors": 2,
-        "lastRunStatus": "error",
-        "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1775417916316,
-        "lastErrorReason": "timeout"
+        "lastRunAtMs": 1775481158414,
+        "lastStatus": "ok",
+        "lastDurationMs": 33336,
+        "consecutiveErrors": 0,
+        "lastRunStatus": "ok",
+        "lastDeliveryStatus": "delivered",
+        "nextRunAtMs": 1775497116316,
+        "lastDelivered": true
       }
     },
     {
@@ -1312,7 +1327,7 @@
       "name": "OPS Idle Agent Audit",
       "enabled": true,
       "createdAtMs": 1771544316316,
-      "updatedAtMs": 1775383127892,
+      "updatedAtMs": 1775467471677,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -1333,14 +1348,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775383043623,
-        "lastStatus": "error",
-        "lastDurationMs": 84269,
-        "consecutiveErrors": 1,
-        "lastRunStatus": "error",
-        "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775417916316,
-        "lastDelivered": true
+        "lastRunAtMs": 1775467356245,
+        "lastStatus": "ok",
+        "lastDurationMs": 115432,
+        "consecutiveErrors": 0,
+        "lastRunStatus": "ok",
+        "lastDeliveryStatus": "not-delivered",
+        "nextRunAtMs": 1775497116316,
+        "lastDelivered": false
       }
     },
     {
@@ -1367,16 +1382,16 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775408033546,
+        "lastRunAtMs": 1775481148436,
         "lastStatus": "ok",
-        "lastDurationMs": 16198,
+        "lastDurationMs": 9978,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775419356567,
+        "nextRunAtMs": 1775498556567,
         "lastDelivered": true
       },
-      "updatedAtMs": 1775408049744
+      "updatedAtMs": 1775481158414
     },
     {
       "id": "hatake-daily-briefing-0001",
@@ -1402,16 +1417,17 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775402436042,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 33516,
+        "lastRunAtMs": 1775496033013,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 4805,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0,
-        "nextRunAtMs": 1775480400000,
-        "lastDelivered": true
+        "consecutiveErrors": 1,
+        "nextRunAtMs": 1775566800000,
+        "lastDelivered": true,
+        "lastError": "404 No active credentials for provider: openai"
       },
-      "updatedAtMs": 1775402469558
+      "updatedAtMs": 1775496037818
     },
     {
       "id": "health-jsonl-writer-0001",
@@ -1419,7 +1435,7 @@
       "name": "Health JSONL Writer",
       "enabled": true,
       "createdAtMs": 1771695150814,
-      "updatedAtMs": 1775411420673,
+      "updatedAtMs": 1775475812439,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -1440,13 +1456,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775411396547,
+        "lastRunAtMs": 1775475796783,
         "lastStatus": "ok",
-        "lastDurationMs": 24126,
+        "lastDurationMs": 15656,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775417550814,
+        "nextRunAtMs": 1775496750814,
         "lastDelivered": true
       }
     },
@@ -1466,9 +1482,9 @@
         "consecutiveErrors": 0,
         "lastStatus": "skipped",
         "lastRunStatus": "skipped",
-        "nextRunAtMs": 1775480400000,
-        "lastRunAtMs": 1775402469558,
-        "lastDurationMs": 4,
+        "nextRunAtMs": 1775566800000,
+        "lastRunAtMs": 1775496038009,
+        "lastDurationMs": 2,
         "lastDeliveryStatus": "unknown",
         "lastError": "main job requires payload.kind=\"systemEvent\""
       },
@@ -1478,7 +1494,7 @@
         "channel": "telegram",
         "mode": "announce"
       },
-      "updatedAtMs": 1775402469562
+      "updatedAtMs": 1775496038011
     },
     {
       "id": "ops-disk-monitor-daily-2026-02-22",
@@ -1486,7 +1502,7 @@
       "name": "Daily Disk Space Monitor (Telegram)",
       "enabled": true,
       "createdAtMs": 1771747423771,
-      "updatedAtMs": 1775402522355,
+      "updatedAtMs": 1775496060371,
       "schedule": {
         "kind": "cron",
         "expr": "0 9 * * *",
@@ -1507,14 +1523,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775402474591,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 47764,
+        "lastRunAtMs": 1775496045401,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 14970,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0,
-        "nextRunAtMs": 1775480400000,
-        "lastDelivered": true
+        "consecutiveErrors": 1,
+        "nextRunAtMs": 1775566800000,
+        "lastDelivered": true,
+        "lastError": "404 No active credentials for provider: openai"
       }
     },
     {
@@ -1523,7 +1540,7 @@
       "name": "HATAKE Competitive Intelligence Weekly",
       "enabled": true,
       "createdAtMs": 1771895556789,
-      "updatedAtMs": 1774890343929,
+      "updatedAtMs": 1775496133900,
       "schedule": {
         "kind": "cron",
         "expr": "0 10 * * 1"
@@ -1542,15 +1559,16 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1775484000000,
-        "lastRunAtMs": 1774890267719,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 76210,
+        "nextRunAtMs": 1776088800000,
+        "lastRunAtMs": 1775496129251,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 4649,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0,
+        "consecutiveErrors": 1,
         "lastErrorAtMs": null,
-        "lastDelivered": true
+        "lastDelivered": true,
+        "lastError": "404 No active credentials for provider: openai"
       }
     },
     {
@@ -1594,7 +1612,7 @@
       "name": "ZEN COO Morning Delegation Brief",
       "enabled": true,
       "createdAtMs": 1771895576881,
-      "updatedAtMs": 1775394856672,
+      "updatedAtMs": 1775496064807,
       "schedule": {
         "kind": "cron",
         "expr": "0 9 * * *"
@@ -1613,14 +1631,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775394834233,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 22439,
+        "lastRunAtMs": 1775496060371,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 4436,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0,
-        "nextRunAtMs": 1775480400000,
-        "lastDelivered": true
+        "consecutiveErrors": 1,
+        "nextRunAtMs": 1775566800000,
+        "lastDelivered": true,
+        "lastError": "404 No active credentials for provider: openai"
       }
     },
     {
@@ -1629,7 +1648,7 @@
       "name": "OPS Guardrail: Ticket Resolution Enforcer",
       "enabled": true,
       "createdAtMs": 1771897248854,
-      "updatedAtMs": 1775382128268,
+      "updatedAtMs": 1775470737985,
       "schedule": {
         "kind": "every",
         "everyMs": 14400000,
@@ -1649,13 +1668,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775382111329,
+        "lastRunAtMs": 1775470702815,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 16939,
+        "lastDurationMs": 35170,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1775425248854,
+        "nextRunAtMs": 1775497248854,
         "lastDelivered": true
       }
     },
@@ -1665,7 +1684,7 @@
       "name": "OPS Daily OpenClaw Update Check",
       "enabled": true,
       "createdAtMs": 1771897250922,
-      "updatedAtMs": 1775391344629,
+      "updatedAtMs": 1775496018068,
       "schedule": {
         "kind": "cron",
         "expr": "0 8 * * *"
@@ -1684,14 +1703,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775391302860,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 41769,
+        "lastRunAtMs": 1775496015417,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 2651,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0,
-        "nextRunAtMs": 1775476800000,
-        "lastDelivered": true
+        "consecutiveErrors": 1,
+        "nextRunAtMs": 1775563200000,
+        "lastDelivered": true,
+        "lastError": "404 No active credentials for provider: openai"
       }
     },
     {
@@ -1700,7 +1720,7 @@
       "name": "RED Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897377295,
-      "updatedAtMs": 1775412191944,
+      "updatedAtMs": 1775481245661,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1720,13 +1740,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775412017922,
+        "lastRunAtMs": 1775481191750,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 174022,
+        "lastDurationMs": 53911,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1775419217922,
+        "nextRunAtMs": 1775497377295,
         "lastDelivered": true
       }
     },
@@ -1736,7 +1756,7 @@
       "name": "ZEN Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897390213,
-      "updatedAtMs": 1775412213192,
+      "updatedAtMs": 1775475979442,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1756,13 +1776,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775412191944,
+        "lastRunAtMs": 1775475897921,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 21248,
+        "lastDurationMs": 81521,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1775419391944,
+        "nextRunAtMs": 1775497390213,
         "lastErrorAtMs": null,
         "lastDelivered": true
       }
@@ -1773,7 +1793,7 @@
       "name": "ENG Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897391560,
-      "updatedAtMs": 1775409881668,
+      "updatedAtMs": 1775481287558,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1793,15 +1813,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775409878941,
-        "lastRunStatus": null,
-        "lastStatus": "error",
-        "lastDurationMs": 2727,
-        "lastDeliveryStatus": "unknown",
+        "lastRunAtMs": 1775481245661,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 41897,
+        "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
         "lastErrorAtMs": null,
-        "nextRunAtMs": 1775417078941,
-        "lastErrorReason": "model_not_found"
+        "nextRunAtMs": 1775497391560,
+        "lastDelivered": true
       }
     },
     {
@@ -1810,7 +1830,7 @@
       "name": "RESEARCH Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897392835,
-      "updatedAtMs": 1775408033546,
+      "updatedAtMs": 1775468787784,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1830,13 +1850,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775407979459,
+        "lastRunAtMs": 1775468663541,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 54087,
+        "lastDurationMs": 124243,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1775418192835,
+        "nextRunAtMs": 1775497392835,
         "lastDelivered": true
       }
     },
@@ -1846,7 +1866,7 @@
       "name": "FINANCE Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897394350,
-      "updatedAtMs": 1775400260412,
+      "updatedAtMs": 1775468864680,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1866,13 +1886,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775400206689,
+        "lastRunAtMs": 1775468787784,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 53723,
+        "lastDurationMs": 76896,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1775418194350,
+        "nextRunAtMs": 1775497394350,
         "lastDelivered": true
       }
     },
@@ -1882,7 +1902,7 @@
       "name": "OPS Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897395722,
-      "updatedAtMs": 1775412267356,
+      "updatedAtMs": 1775470105299,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1902,13 +1922,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775412219650,
+        "lastRunAtMs": 1775470077345,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 47706,
+        "lastDurationMs": 27954,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1775419419650,
+        "nextRunAtMs": 1775497395722,
         "lastDelivered": true
       }
     },
@@ -1918,7 +1938,7 @@
       "name": "INFOSEC Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897397121,
-      "updatedAtMs": 1775400321615,
+      "updatedAtMs": 1775443539069,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1938,13 +1958,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775400260412,
+        "lastRunAtMs": 1775443478042,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 61203,
+        "lastDurationMs": 61027,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1775418197121,
+        "nextRunAtMs": 1775497397121,
         "lastDelivered": true
       }
     },
@@ -1954,7 +1974,7 @@
       "name": "HATAKE Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897398357,
-      "updatedAtMs": 1775411450068,
+      "updatedAtMs": 1775443577030,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1974,13 +1994,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775411420673,
+        "lastRunAtMs": 1775443539069,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 29395,
+        "lastDurationMs": 37961,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1775418620673,
+        "nextRunAtMs": 1775497398357,
         "lastDelivered": true
       }
     },
@@ -1990,7 +2010,7 @@
       "name": "CI Event Logger (cron → ci-log.jsonl)",
       "enabled": true,
       "createdAtMs": 1771907000000,
-      "updatedAtMs": 1775403094881,
+      "updatedAtMs": 1775474859465,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -2011,13 +2031,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775403020164,
+        "lastRunAtMs": 1775474803916,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 74717,
+        "lastDurationMs": 55549,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1775417000000,
+        "nextRunAtMs": 1775496200000,
         "lastDelivered": true
       }
     },
@@ -2027,7 +2047,7 @@
       "name": "Self-Healing Guardrail: Health Snapshot → Tickets",
       "enabled": true,
       "createdAtMs": 1771907005000,
-      "updatedAtMs": 1775411396547,
+      "updatedAtMs": 1775474979505,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -2048,14 +2068,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775411366839,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 29708,
-        "lastDeliveryStatus": "not-delivered",
-        "consecutiveErrors": 0,
-        "nextRunAtMs": 1775418566839,
-        "lastDelivered": false
+        "lastRunAtMs": 1775474859465,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 120040,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 1,
+        "nextRunAtMs": 1775499805000,
+        "lastErrorReason": "timeout"
       }
     },
     {
@@ -2064,7 +2084,7 @@
       "name": "CI Weekly Summarizer (roll → LEARNINGS.md)",
       "enabled": true,
       "createdAtMs": 1771907010000,
-      "updatedAtMs": 1774869596470,
+      "updatedAtMs": 1775475897921,
       "schedule": {
         "kind": "cron",
         "expr": "0 7 * * 1",
@@ -2085,13 +2105,13 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1775473200000,
-        "lastRunAtMs": 1774869551918,
+        "nextRunAtMs": 1776078000000,
+        "lastRunAtMs": 1775475885881,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 44552,
-        "lastDelivered": true,
-        "lastDeliveryStatus": "delivered",
+        "lastDurationMs": 12040,
+        "lastDelivered": false,
+        "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0
       }
     },
@@ -2101,7 +2121,7 @@
       "name": "RED Daily A2A Proactive Delegation",
       "enabled": true,
       "createdAtMs": 1771910000000,
-      "updatedAtMs": 1775237011363,
+      "updatedAtMs": 1775496110249,
       "schedule": {
         "kind": "cron",
         "expr": "0 10 * * 1-5",
@@ -2122,16 +2142,16 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775236948904,
+        "lastRunAtMs": 1775496106082,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 62459,
+        "lastDurationMs": 4167,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 4,
-        "nextRunAtMs": 1775484000000,
+        "consecutiveErrors": 1,
+        "nextRunAtMs": 1775570400000,
         "lastErrorAtMs": null,
         "lastDelivered": true,
-        "lastError": "⚠️ ✉️ Message failed"
+        "lastError": "404 No active credentials for provider: openai"
       }
     },
     {
@@ -2180,7 +2200,7 @@
       "name": "Weekly Competitive Intelligence (AI Tools)",
       "enabled": true,
       "createdAtMs": 1771908000000,
-      "updatedAtMs": 1775102846869,
+      "updatedAtMs": 1775496128578,
       "schedule": {
         "kind": "cron",
         "expr": "0 9 * * 1",
@@ -2201,14 +2221,15 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1775480400000,
-        "lastRunAtMs": 1774881525867,
-        "lastRunStatus": null,
+        "nextRunAtMs": 1776085200000,
+        "lastRunAtMs": 1775496124245,
+        "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 948,
-        "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 0,
-        "lastError": "LiveSessionModelSwitchError: Live session model switch requested: 9router/free-unlimited"
+        "lastDurationMs": 4333,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 1,
+        "lastError": "404 No active credentials for provider: openai",
+        "lastDelivered": true
       }
     },
     {
@@ -2217,7 +2238,7 @@
       "name": "ENG: Coding Factory — Self-Healing & PR Monitor",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1775416036508,
+      "updatedAtMs": 1775470192816,
       "schedule": {
         "kind": "cron",
         "expr": "0 */4 * * *",
@@ -2239,15 +2260,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775416034562,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 1946,
-        "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 2,
-        "nextRunAtMs": 1775419414472,
-        "lastErrorReason": "model_not_found",
-        "lastError": "FallbackSummaryError: All models failed (3): 9router/coding-factory: 401 [claude/claude-sonnet-4-6] [400]: Third-party apps now draw from your extra usage, not your plan limits. We've added a $20 cred (reset after 27s) (auth) | 9router/cu/default: HTTP 400: [cursor/default] [400]: AI Model Not Found (reset after 30s) (model_not_found) | 9router/cc/claude-haiku-4-5-20251001: 400 [claude/claude-haiku-4-5-20251001] [400]: Third-party apps now draw from your extra usage, not your plan limits. We've added a $20 credit to get you started. Claim it at claude.ai/settings/usage and keep going. (reset after 26s) (format)"
+        "lastRunAtMs": 1775470110325,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 82491,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1775496189231,
+        "lastDelivered": true
       }
     },
     {
@@ -2294,7 +2314,7 @@
       "name": "RED Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1775411607729,
+      "updatedAtMs": 1775476012204,
       "schedule": {
         "kind": "cron",
         "expr": "0 */4 * * *",
@@ -2316,14 +2336,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775411492896,
+        "lastRunAtMs": 1775475979442,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 114833,
-        "lastDeliveryStatus": "not-delivered",
+        "lastDurationMs": 32762,
+        "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1775419255483,
-        "lastDelivered": false
+        "nextRunAtMs": 1775496184231,
+        "lastDelivered": true
       }
     },
     {
@@ -2332,7 +2352,7 @@
       "name": "RESEARCH Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1775416034562,
+      "updatedAtMs": 1775478252707,
       "schedule": {
         "kind": "cron",
         "expr": "30 */3 * * *",
@@ -2353,15 +2373,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775416001027,
+        "lastRunAtMs": 1775478112811,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 33535,
-        "lastDeliveryStatus": "delivered",
+        "lastDurationMs": 139896,
+        "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1775417400000,
-        "lastDelivered": true,
-        "runningAtMs": 1775418576730
+        "nextRunAtMs": 1775496169231,
+        "lastDelivered": false,
+        "runningAtMs": 1775496177390
       }
     },
     {
@@ -2370,7 +2390,7 @@
       "name": "OPS Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1775408289074,
+      "updatedAtMs": 1775496010357,
       "schedule": {
         "kind": "cron",
         "expr": "15 */4 * * *",
@@ -2391,14 +2411,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775408261196,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 27878,
-        "lastDeliveryStatus": "not-delivered",
-        "consecutiveErrors": 0,
-        "nextRunAtMs": 1775420100000,
-        "lastDelivered": false
+        "lastRunAtMs": 1775496003951,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 6406,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 1,
+        "nextRunAtMs": 1775506500000,
+        "lastDelivered": true,
+        "lastError": "404 No active credentials for provider: openai"
       }
     },
     {
@@ -2407,7 +2428,7 @@
       "name": "INFOSEC Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1775408141835,
+      "updatedAtMs": 1775496015417,
       "schedule": {
         "kind": "cron",
         "expr": "45 */4 * * *",
@@ -2428,14 +2449,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775408049744,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 92091,
+        "lastRunAtMs": 1775496010357,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 5060,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0,
-        "nextRunAtMs": 1775421900000,
-        "lastDelivered": true
+        "consecutiveErrors": 1,
+        "nextRunAtMs": 1775508300000,
+        "lastDelivered": true,
+        "lastError": "404 No active credentials for provider: openai"
       }
     },
     {
@@ -2444,7 +2466,7 @@
       "name": "ENG Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1775412017922,
+      "updatedAtMs": 1775495508546,
       "schedule": {
         "kind": "cron",
         "expr": "30 1,5,9,13,17,21 * * *",
@@ -2465,15 +2487,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775412015015,
+        "lastRunAtMs": 1775495503809,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 2907,
-        "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 2,
-        "nextRunAtMs": 1775424600000,
-        "lastErrorReason": "model_not_found",
-        "lastError": "FallbackSummaryError: All models failed (3): 9router/coding-factory: 401 [claude/claude-sonnet-4-6] [400]: Third-party apps now draw from your extra usage, not your plan limits. We've added a $20 cred (reset after 21s) (auth) | 9router/cu/default: HTTP 400: [cursor/default] [400]: AI Model Not Found (reset after 6s) (model_not_found) | 9router/cc/claude-haiku-4-5-20251001: 400 [claude/claude-haiku-4-5-20251001] [400]: Third-party apps now draw from your extra usage, not your plan limits. We've added a $20 credit to get you started. Claim it at claude.ai/settings/usage and keep going. (reset after 20s) (format)"
+        "lastDurationMs": 4737,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 1,
+        "nextRunAtMs": 1775496600000,
+        "lastDelivered": true,
+        "lastError": "404 No active credentials for provider: openai"
       }
     },
     {
@@ -2482,7 +2504,7 @@
       "name": "OSS Contributor — Daily Good-First-Issue PR",
       "enabled": true,
       "createdAtMs": 1773900000000,
-      "updatedAtMs": 1775408243270,
+      "updatedAtMs": 1775496120099,
       "schedule": {
         "kind": "cron",
         "expr": "0 11 * * *",
@@ -2503,15 +2525,15 @@
         "bestEffort": true
       },
       "state": {
-        "consecutiveErrors": 4,
-        "nextRunAtMs": 1775487600000,
-        "lastRunAtMs": 1775408141835,
+        "consecutiveErrors": 5,
+        "nextRunAtMs": 1775574000000,
+        "lastRunAtMs": 1775496119248,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 101435,
-        "lastDeliveryStatus": "unknown",
-        "lastErrorReason": "auth",
-        "lastError": "FallbackSummaryError: All models failed (3): 9router/coding-factory: 401 [claude/claude-sonnet-4-6] [400]: Third-party apps now draw from your extra usage, not your plan limits. We've added a $20 credit to get you started. Claim it at claude.ai/settings/usage and keep going. (reset after 30s) (auth) | 9router/cu/default: 401 [claude/claude-sonnet-4-6] [400]: Third-party apps now draw from your extra usage, not your plan limits. We've added a $20 credit to get you started. Claim it at claude.ai/settings/usage and keep going. (reset after 30s) (auth) | 9router/cc/claude-haiku-4-5-20251001: 400 [claude/claude-haiku-4-5-20251001] [400]: Third-party apps now draw from your extra usage, not your plan limits. We've added a $20 credit to get you started. Claim it at claude.ai/settings/usage and keep going. (reset after 30s) (format)"
+        "lastDurationMs": 851,
+        "lastDeliveryStatus": "delivered",
+        "lastError": "404 No active credentials for provider: openai",
+        "lastDelivered": true
       }
     },
     {
@@ -2520,7 +2542,7 @@
       "name": "ZEN Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1775416435769,
+      "updatedAtMs": 1775495518386,
       "schedule": {
         "kind": "cron",
         "expr": "0 */3 * * *",
@@ -2542,14 +2564,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775416254142,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 181627,
+        "lastRunAtMs": 1775495515922,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 2464,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0,
-        "nextRunAtMs": 1775426525759,
-        "lastDelivered": true
+        "consecutiveErrors": 1,
+        "nextRunAtMs": 1775502125759,
+        "lastDelivered": true,
+        "lastError": "404 No active credentials for provider: openai"
       }
     },
     {
@@ -2558,7 +2581,7 @@
       "name": "FINANCE Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1775416818741,
+      "updatedAtMs": 1775481148436,
       "schedule": {
         "kind": "cron",
         "expr": "0 8,14,20 * * *",
@@ -2579,13 +2602,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775416772082,
+        "lastRunAtMs": 1775481092089,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 46659,
+        "lastDurationMs": 56347,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1775433600000,
+        "nextRunAtMs": 1775498400000,
         "lastDelivered": true
       }
     },
@@ -2595,7 +2618,7 @@
       "name": "HATAKE Inner Loop — Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1775402415956,
+      "updatedAtMs": 1775451959543,
       "schedule": {
         "kind": "cron",
         "expr": "0 10,16,22 * * *",
@@ -2616,13 +2639,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775402380098,
+        "lastRunAtMs": 1775451936866,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 35858,
+        "lastDurationMs": 22677,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1775419200000,
+        "nextRunAtMs": 1775496179231,
         "lastDelivered": true
       }
     },
@@ -2793,14 +2816,14 @@
         "kind": "agentTurn"
       },
       "state": {
-        "nextRunAtMs": 1775458800000,
-        "lastRunAtMs": 1775374370068,
+        "nextRunAtMs": 1775545200000,
+        "lastRunAtMs": 1775471161302,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 17543,
-        "lastDeliveryStatus": "delivered",
+        "lastDurationMs": 46165,
+        "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
-        "lastDelivered": true
+        "lastDelivered": false
       },
       "wakeMode": "now",
       "sessionTarget": "isolated",
@@ -2810,7 +2833,7 @@
         "to": "channel:C0AEV3J2L23",
         "bestEffort": true
       },
-      "updatedAtMs": 1775374387611
+      "updatedAtMs": 1775471207467
     },
     {
       "id": "c858a544-569e-44fd-94c2-5425c75da8ed",
@@ -2819,7 +2842,7 @@
       "name": "telegram-approval-monitor-0001",
       "enabled": true,
       "createdAtMs": 1773813382934,
-      "updatedAtMs": 1775411997098,
+      "updatedAtMs": 1775496146952,
       "schedule": {
         "expr": "*/2 * * * *",
         "tz": "America/Toronto",
@@ -2840,15 +2863,15 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1775416920000,
-        "lastRunAtMs": 1775411967955,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 29143,
-        "lastDeliveryStatus": "not-delivered",
-        "consecutiveErrors": 0,
-        "lastDelivered": false,
-        "runningAtMs": 1775418576730
+        "nextRunAtMs": 1775496240000,
+        "lastRunAtMs": 1775496139237,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 7715,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 2,
+        "lastDelivered": true,
+        "lastError": "404 No active credentials for provider: openai"
       }
     },
     {
@@ -2892,7 +2915,7 @@
       "name": "Sync AUTONOMOUS.md -> queue.json",
       "enabled": true,
       "createdAtMs": 1773854383010,
-      "updatedAtMs": 1775416564626,
+      "updatedAtMs": 1775496166186,
       "schedule": {
         "kind": "cron",
         "expr": "*/5 * * * *",
@@ -2912,16 +2935,16 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1775417100000,
-        "lastRunAtMs": 1775416496134,
+        "nextRunAtMs": 1775496300000,
+        "lastRunAtMs": 1775496162186,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 68492,
+        "lastDurationMs": 4000,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 1,
         "lastErrorAtMs": null,
         "lastDelivered": true,
-        "runningAtMs": 1775418576730
+        "lastError": "404 No active credentials for provider: openai"
       }
     },
     {
@@ -2931,7 +2954,7 @@
       "name": "ops-disk-monitor-daily-2026-02-22",
       "enabled": true,
       "createdAtMs": 1773951459762,
-      "updatedAtMs": 1775369074186,
+      "updatedAtMs": 1775467505290,
       "schedule": {
         "expr": "0 2 * * *",
         "kind": "cron"
@@ -2947,16 +2970,15 @@
         "channel": "last"
       },
       "state": {
-        "lastRunAtMs": 1775369009903,
-        "lastRunStatus": null,
+        "lastRunAtMs": 1775467500947,
+        "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 64283,
+        "lastDurationMs": 4343,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 0,
+        "consecutiveErrors": 1,
         "lastErrorAtMs": null,
-        "nextRunAtMs": 1775455200000,
-        "lastError": "FallbackSummaryError: All models failed (3): minimax/MiniMax-M2.5: Provider minimax has billing issue (skipping all models) (billing) | 9router/cu/default: LLM request timed out. (unknown) | 9router/cc/claude-haiku-4-5-20251001: 400 [claude/claude-haiku-4-5-20251001] [400]: Third-party apps now draw from your extra usage, not your plan limits. We've added a $20 credit to get you started. Claim it at claude.ai/settings/usage and keep going. (reset after 30s) (format)",
-        "lastErrorReason": "timeout"
+        "nextRunAtMs": 1775541600000,
+        "lastError": "Channel is required when multiple channels are configured: telegram, slack Set delivery.channel explicitly or use a main session with a previous channel."
       },
       "target": "telegram"
     },
@@ -3001,7 +3023,7 @@
       "name": "Factory: 9router IssueWatcher — Poll & Process",
       "enabled": true,
       "createdAtMs": 1774080643339,
-      "updatedAtMs": 1775416001027,
+      "updatedAtMs": 1775496175376,
       "schedule": {
         "kind": "cron",
         "expr": "*/15 * * * *",
@@ -3022,14 +3044,15 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1775417442858,
-        "lastRunAtMs": 1775415989089,
+        "nextRunAtMs": 1775496642858,
+        "lastRunAtMs": 1775496172402,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 11938,
-        "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 2,
-        "lastErrorReason": "model_not_found"
+        "lastDurationMs": 2974,
+        "lastDeliveryStatus": "delivered",
+        "consecutiveErrors": 3,
+        "lastDelivered": true,
+        "lastError": "404 No active credentials for provider: openai"
       }
     },
     {
@@ -3203,7 +3226,7 @@
       "name": "ops-disk-monitor-daily-2026-02-22",
       "enabled": true,
       "createdAtMs": 1775402506719,
-      "updatedAtMs": 1775402506719,
+      "updatedAtMs": 1775444101516,
       "schedule": {
         "kind": "cron",
         "expr": "0 2 * * *",
@@ -3219,7 +3242,14 @@
         "mode": "announce"
       },
       "state": {
-        "nextRunAtMs": 1775440800000
+        "nextRunAtMs": 1775527200000,
+        "lastError": "Delivering to Slack requires target <channelId|user:ID|channel:ID>",
+        "lastRunAtMs": 1775444044799,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 56717,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 1
       }
     },
     {
@@ -3252,6 +3282,34 @@
         "lastError": "Channel is required when multiple channels are configured: telegram, slack Set delivery.channel explicitly or use a main session with a previous channel.",
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 1
+      }
+    },
+    {
+      "id": "4bda5cb5-f2bd-4b8e-95f2-42a01fb02c49",
+      "agentId": "research",
+      "sessionKey": "agent:research:cron:45337086-6c37-4c11-97bc-92d824e3c71f",
+      "name": "Daily AI + OpenClaw Trends Brief",
+      "enabled": true,
+      "createdAtMs": 1775437733167,
+      "updatedAtMs": 1775437733167,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 86400000,
+        "anchorMs": 1775437733167
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Create a concise daily brief for Anurag (Telegram DM) about: (1) AI model/news trends, (2) OpenClaw ecosystem/tooling updates, (3) 2-3 actionable takeaways. Use web search via Perplexity (web_search). Keep it Telegram-friendly: bullets + links at end. Ignore crypto entirely; focus on AI tooling and relevant infra/security changes. Do not mention internal keys/tokens."
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "telegram",
+        "to": "Anurag"
+      },
+      "state": {
+        "nextRunAtMs": 1775524133167
       }
     }
   ]
