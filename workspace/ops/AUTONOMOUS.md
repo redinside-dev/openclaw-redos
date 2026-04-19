@@ -57,8 +57,24 @@ Tasks are tracked using status labels:
 
 ### RES-TRENDS-20260310 | research | — Stale task from 2026-03-10 (15+ days old, never executed). Archived 2026-03-25.
 ### OPS-HEALTH-20260310 | ops | — Stale task from 2026-03-10 (15+ days old, never executed). Archived 2026-03-25.
+### OPS-HEALTH-20260409-001 | ops | ✅ CLOSED 2026-04-17 — System healthy. Gateway✅ LaunchAgent✅ cron✅. Critical: MiniMax key returning 401; fallback to 9router/always-on-premium functional. New ticket OPS-MINIMAX-AUTH-20260417-001 created.
+### OPS-AGENT-AUDIT-20260409-001 | ops | ✅ CLOSED 2026-04-17 — All agents reachable (sessions_list confirmed). Cron list shows all agents active. No stuck agents.
+### OPS-LOGS-REVIEW-20260409-001 | ops | ✅ CLOSED 2026-04-17 — Log review done inline. Findings: (1) MiniMax 401 auth failures since 23:15 today, (2) Slack WebSocket pong timeout 5000ms, (3) announce delivery failure. Merged into new P1 ticket.
 
 ## P3 — PENDING
+
+_(none)_
+
+## P1 — PENDING
+
+### OPS-MINIMAX-AUTH-20260417-001 | P1 | ops | MiniMax API Key Auth Failure
+**ID:** OPS-MINIMAX-AUTH-20260417-001
+**Category:** system-maintenance
+**SLA:** 2 hours
+**Status:** PENDING
+**Description:** minimax/MiniMax-M2.7 returning HTTP 401 (invalid api key) since 2026-04-17 23:15. System falls back to 9router/always-on-premium (functional). MiniMax key needs renewal or config check. Affects all agents using default model.
+**Created:** 2026-04-17T23:17 UTC
+**Assigned To:** ops
 
 ## TODO
 

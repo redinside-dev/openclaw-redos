@@ -34,6 +34,20 @@
       "schedule": "*/5 * * * *",
       "enabled": true,
       "description": "A2A session warmup to prevent delegation deadlocks (120s timeout, 2x retry)"
+    },
+    {
+      "name": "9router-quota-sync",
+      "script": "/Users/redinside/.openclaw/workspace/cron/9router-quota-sync.js",
+      "schedule": "*/15 * * * *",
+      "enabled": true,
+      "description": "Syncs provider usage/cost data from 9router telemetry to provider-quota.json (Finance visibility)"
+    },
+    {
+      "name": "routing-decisions-writer",
+      "script": "/Users/redinside/.openclaw/workspace/cron/routing-decisions-writer.js",
+      "schedule": "* * * * *",
+      "enabled": true,
+      "description": "Reads OpenClaw a2a event logs and writes routing decisions to routing-decisions.jsonl (replaces broken 9router /api/routing-log poller)"
     }
   ]
 }

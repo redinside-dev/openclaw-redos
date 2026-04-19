@@ -50,7 +50,8 @@ check_status() {
   echo ""
 
   # OpenClaw
-  if curl -sf http://127.0.0.1:18789/health > /dev/null 2>&1 || \
+  _gw_tok=$(python3 -c "import json; print(json.load(open('$HOME/.openclaw/openclaw.json'))['gateway']['auth']['token'])" 2>/dev/null || echo "")
+  if curl -sf --max-time 15 -H "Authorization: Bearer ${_gw_tok}" http://127.0.0.1:18789/health > /dev/null 2>&1 || \
      launchctl list ai.openclaw.node > /dev/null 2>&1; then
     ok "OpenClaw node  → http://127.0.0.1:18789 (running)"
   else

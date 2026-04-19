@@ -12,7 +12,7 @@ export class ModelSelector {
     if (priority === 'urgent' && budgetRemaining > 0.50) {
       return {
         provider: 'anthropic',
-        model: 'claude-sonnet-4.5',
+        model: 'claude-sonnet-4-6',
         cost: 0.003,
         reason: 'urgent priority'
       };
@@ -22,7 +22,7 @@ export class ModelSelector {
     if (complexity >= 8 && budgetRemaining > 1.00) {
       return {
         provider: 'anthropic',
-        model: 'claude-sonnet-4.5',
+        model: 'claude-sonnet-4-6',
         cost: 0.003,
         reason: 'high complexity'
       };

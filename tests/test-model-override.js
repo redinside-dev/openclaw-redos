@@ -58,7 +58,7 @@ async function runTests() {
 
   await userPreferences.setModelOverride('user-1', 'ollama', 'llama3.1:8b');
   await userPreferences.setModelOverride('user-2', 'perplexity', 'llama-3.1-sonar-small-128k-online');
-  await userPreferences.setModelOverride('user-3', 'anthropic', 'claude-sonnet-4.5');
+  await userPreferences.setModelOverride('user-3', 'anthropic', 'claude-sonnet-4-6');
 
   const user1 = userPreferences.getModelOverride('user-1');
   const user2 = userPreferences.getModelOverride('user-2');

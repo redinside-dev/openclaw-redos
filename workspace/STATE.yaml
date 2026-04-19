@@ -1,70 +1,166 @@
-version: '1.0'
-last_updated: '2026-04-03T05:21:00.000Z'
-updated_by: red:main
+# STATE.yaml — RedOS Sprint Dashboard
+generated: 2026-04-19T11:37:00Z (ops main session refresh)
 
-# 2026-04-03 Security Fix
-# - Fixed: Telegram DMs are actually allowlist (verified via openclaw config get)
-# - INFOSEC alert was based on stale STATE.yaml data
+sprint:
+  name: Ongoing
+  start: 2026-04-07
+  day: 13
+  notes: Active sprint. RESEARCH spawned 11 ENG subagents (7 + 4) for Spring AI OSS backlog #28-#38. GOAL-009 positioning in flight (hatake writing redos-narrative.md). P0 OpenClaw upgrade (2026.4.15) attempted but failed — needs manual retry.
 
-# System Status
-overview:
-  dashboard: http://127.0.0.1:18789/
-  os: macos 26.3.1 (arm64) · node 25.8.0
-  tailscale: off
-  channel: stable (config)
-  update: pnpm · npm latest 2026.3.12
-  gateway: local · ws://127.0.0.1:18789 (local loopback) · reachable 7ms · auth token · redinsides-Mac-mini.
-  gateway_service: LaunchAgent installed · loaded · running (pid 75934, state active)
-  node_service: LaunchAgent installed · loaded · running (pid 91551, state active)
-  agents: 8 · 7 bootstrap files present · sessions 376 · default main active just now
-  memory: 7 files · 7 chunks · sources memory · plugin memory-core · vector ready · fts ready · cache on (374)
-  probes: skipped (use --deep)
-  heartbeat: 30m (main), disabled (others)
+pipeline:
+  total_jobs: 90
+  enabled: 75
+  disabled: 15
+  ok_last_run: ~72
+  error_last_run: ~3
+  currently_running: 0
+  consecutive_errors: 0
+  notes: >
+    Gateway stable. PID 63180 (restarted 2026-04-19 ~07:05 UTC by ops subagent after upgrade attempt).
+    No cron jobs at consecutiveErrors>=2. 0 subagents currently active (last check 11:35 UTC).
+    3 jobs showing informational-only issues (Slack pong timeouts — not failures, bot operational).
 
-# Security Audit
-security_audit:
-  summary: 0 critical · 0 warn · 2 info
-  critical_issues: []
-  info_notes:
-    - "✓ Telegram DMs restricted to allowlist (Anurag: 1012034994)"
-    - "✓ All 7 accounts use dmPolicy=allowlist with allowFrom=[1012034994]"
+health:
+  gateway: live
+  mode: nominal
+  last_restart: "2026-04-19T07:05 UTC (ops subagent — gateway restart after OpenClaw upgrade attempt)"
+  notes: >
+    Gateway nominal — RPC probe ok, HTTP 200. OpenClaw 2026.4.11 running.
+    OpenClaw upgrade to 2026.4.15 ATTEMPTED but FAILED with ENOENT. Multiple retries at 07:24, 07:27, 07:28, 07:30 UTC all show "Reinstall with: openclaw gateway install --force".
+    ops subagent (cb033f2b) investigating root cause. Version still 2026.4.11.
+    Chronic: MiniMax API key returning 401 (known supplier auth issue, 9router/always-on-premium fallback masking impact).
+    No gateway errors in last 30 min.
 
-# Channels
-channels:
-  telegram:
-    enabled: ON
-    state: OK
-    detail: token config×7 · accounts 7/7 · dmPolicy=allowlist
-  slack:
-    enabled: ON
-    state: OK
-    detail: tokens ok · accounts 1/1
+openclaw:
+  version: "2026.4.11"
+  commit: "769908e"
+  update_available: "2026.4.15" (upgrade attempted 2026-04-19 07:05 UTC by ops subagent — ENOENT failure, investigation ongoing)
 
-# Sessions
-active_sessions:
-  - agent:main:active
-    kind: direct
-    model: free-unlimited
+pipeline_streams:
+  factory:
+    status: active
+    notes: >
+      RESEARCH spawned 7 ENG subagents (2026-04-19 01:32 UTC) for backlog items #28-#34.
+      4 more ENG subagents spawned (2026-04-19 10:36 UTC) for #35-#38.
+      Total: 11 concurrent ENG subagents against Spring AI + langchain4j OSS backlog.
+  oss_discovery:
+    status: active
+    notes: >
+      RESEARCH OSS pipeline fully engaged. Backlog cleared to 0 READY items.
+      New issues added: spring-ai #5826 (AgentGraph), #5823 (@McpTool+@HttpExchange), #5821 (ChatOptions merge), langchain4j #4938 (guardrailName).
+      All 11 ENG subagents running concurrently — largest concurrent ENG subagent burst to date.
+  pr_review:
+    status: active
+    notes: micrometer#7395 still BLOCKED on upstream #7329 (OPEN, mergeable, waiting on upstream).
 
-# Metrics
-metrics:
-  real_autonomy_score: 100
+blockers:
+  - id: FIN-001
+    summary: ChatGPT Pro cancellation — RED manual browser action required
+    severity: P1
+    status: ESCALATED
+    owner: RED
+    notes: >
+      ~$100/mo waste. RED has been escalated 3x via Telegram + Slack since 2026-04-17T08:47 UTC.
+      Telegram DM failed (channel_not_found). No agent workaround exists.
+      Cancellation path: account.openai.com → Manage subscription → Cancel plan.
+      Alternative: downgrade to ChatGPT Team ($25/mo = $75/mo saving).
+  - id: OPENCLAW-UPGRADE-001
+    summary: OpenClaw 2026.4.15 upgrade failed with ENOENT — multiple retry attempts all failed
+    severity: P2
+    status: IN_PROGRESS
+    owner: ops
+    notes: >
+      ops subagent attempted upgrade at 07:05 UTC. Install failed with ENOENT. Version still 2026.4.11.
+      Subsequent retries at 07:24, 07:27, 07:28, 07:30 UTC all show same error: "Reinstall with: openclaw gateway install --force".
+      Root cause unknown — investigation ongoing. Not blocking operations (2026.4.11 is stable).
+  - id: MINIMAX-API-401
+    summary: MiniMax API key returning 401 — chronic supplier auth failure
+    severity: P2
+    status: KNOWN_CHRONIC
+    owner: ENG/FINANCE
+    notes: >
+      Since ~2026-04-17T05:43 UTC. System-wide 401 errors on MiniMax-M2.7.
+      9router/always-on-premium fallback is masking most user-visible impact.
+      Not resolvable by agents — key rotation or supplier ticket required.
 
-# Services Status
-gateway_service:
-  installed: true
-  loaded: true
-  running: true
-node_service:
-  installed: true
-  loaded: true
-  running: true
+critical_tickets:
+  - id: OPENCLAW-DIST-001
+    summary: OpenClaw 2026.4.15 available — upgrade failed with ENOENT, ops investigating
+    severity: P0
+    status: IN_PROGRESS
+    owner: ops
+    notes: >
+      Multiple upgrade attempts failed with ENOENT. Gateway running 2026.4.11 (stable).
+      No user-facing impact. ops subagent actively investigating.
+  - id: FIN-001
+    summary: Cancel ChatGPT Pro subscription ($100/mo waste) — RED manual browser action required
+    severity: P1
+    status: ESCALATED
+    owner: RED
+  - id: TICKET-20260418-EXEC-001
+    summary: exec-approvals.json defaults.ask was "off" — P0 security fix applied by RED (RESOLVED 2026-04-18T23:48 UTC)
+    severity: P0
+    status: RESOLVED
+    resolved: 2026-04-18T23:48 UTC
+  - id: TICKET-20260417-001
+    summary: Slack a2a-daily-proactive token revoked — job disabled (RESOLVED 2026-04-16T19:31 UTC)
+    severity: P2
+    status: RESOLVED
+    resolved: 2026-04-16T19:31 UTC
+  - id: TICKET-20260416-008
+    summary: Finance cost telemetry offline — circular dependency in cost-events-writer.js fixed (RESOLVED 2026-04-18T00:17 UTC)
+    severity: P1
+    status: RESOLVED
+    resolved: 2026-04-18T00:17 UTC
+  - id: TICKET-20260417-FINANCE-Telemetry
+    summary: Finance cost telemetry restored — 9router /api/usage/stats now primary source
+    severity: P1
+    status: RESOLVED
+    resolved: 2026-04-18T00:17 UTC
 
-# Agent Status
-agents:
-  count: 8
-  default_model: free-unlimited
+finance_cron_health:
+  trading_window_8am: ok (job id 199a722c, 0 consecutive errors)
+  trading_window_4pm: ok (job id 085332ff, 0 consecutive errors)
+  daily_portfolio_review: ok (job id 69c261e4, 0 consecutive errors)
+  notes: >
+    All finance cron jobs healthy. consecutiveErrors = 0 across all three.
 
-# Memory Status
-memory:
-  cache: on
+cron_job_health:
+  total_monitored: 75
+  with_consecutive_errors: 0
+  notes: All 75 enabled cron jobs healthy — 0 consecutive errors. 3 jobs show informational-only Slack pong timeouts (not failures).
+
+sprint_goals:
+  - id: GOAL-001
+    name: "98% Autonomous Operation"
+    status: in_progress
+    notes: "autonomy-scorecard running nightly; all inner loops wired. All sub-goals complete except 7-day error-free streak."
+  - id: GOAL-002
+    name: "Zero Silent Failures"
+    status: in_progress
+    notes: "self-healing enabled; context-overflow-monitor ok. 0 cron jobs at consecutiveErrors>=2. FIN-001 is last open P1 (requires RED action)."
+  - id: GOAL-003
+    name: "Research→ENG Pipeline Live"
+    status: active
+    notes: "11 concurrent ENG subagents spawned today (largest burst). Backlog at 0 READY items. Research flywheel design delivered."
+  - id: GOAL-004
+    name: "Cost Optimisation"
+    status: active
+    notes: "3-tier routing live, caching enabled, budget guardrails set. ChatGPT cancellation is the major pending save ($100/mo)."
+  - id: GOAL-005
+    name: "Event-Driven Architecture"
+    status: complete
+    notes: "COMPLETE 2026-03-02. Cron audit 110→30 achieved, n8n webhooks active, Cloudflare Tunnel configured."
+  - id: GOAL-007
+    name: "10 Open-Source Projects in 2 Months"
+    status: in_progress
+    notes: "ENG working PRJ-023 (ai-diff-shield MVP), backlog being generated by RESEARCH."
+  - id: GOAL-009
+    name: "RedOS Competitive Positioning"
+    status: active
+    notes: "Positioning decided (accountable system operator). hatake writing redos-narrative.md for HN/Reddit publish. Claude Code Routines (Anthropic Apr 14) = direct overlap, window compressing."
+
+current_stage: active_development
+last_cleanup: "2026-04-19T07:30 UTC (batch retry OpenClaw upgrade attempts)"
+last_ticket_update: "2026-04-19T12:27 UTC (OPS inner loop — 0 consecutive errors, gateway live, no new tickets)"
+last_checkin: "2026-04-19T12:27:00Z (ops main session — inner loop complete)"

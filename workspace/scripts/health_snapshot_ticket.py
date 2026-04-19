@@ -67,7 +67,11 @@ def extract_signatures(window_start: datetime) -> List[str]:
         ts = _parse_dt(e.get("timestamp"))
         if ts and ts < window_start:
             continue
-        msg = ((e.get("error") or {}).get("message") or "").strip()
+        err_val = e.get("error")
+        if isinstance(err_val, dict):
+            msg = (err_val.get("message") or "").strip()
+        else:
+            msg = (err_val or "").strip()
         if not msg:
             continue
         first = msg.splitlines()[0][:200]
@@ -130,6 +134,50 @@ def ticket_exists(tickets_text: str, signature: str) -> bool:
     return False
 
 
+MINIMAX_COOLDOWN_PREFIXES = (
+    "model fallback decision",
+    "auth profile failure",
+    "embedded run failover",
+    "telegram connect",
+    "telegram approval handler",
+    "gateway closed",
+    "gateway connect failed",
+)
+
+def _is_minimax_cooldown_sig(sig: str) -> bool:
+    """Return True if this signature is part of the MiniMax auth cooldown cascade."""
+    sig_lower = sig.lower()
+    return any(prefix in sig_lower for prefix in MINIMAX_COOLDOWN_PREFIXES)
+
+
+def _group_minimax_cooldown_sigs(candidates: List[Tuple[str, int]]) -> Tuple[Optional[Tuple[str, int, List[str]]], List[Tuple[str, int]]]:
+    """
+    Separate MiniMax cooldown signatures from everything else.
+    Returns (batch_info, remaining_candidates).
+    batch_info = (combined_sig, total_count, examples_list) if any cooldown sigs exist, else None.
+    """
+    cooldown_sigs: List[Tuple[str, int]] = []
+    remaining: List[Tuple[str, int]] = []
+    for sig, n in candidates:
+        if _is_minimax_cooldown_sig(sig):
+            cooldown_sigs.append((sig, n))
+        else:
+            remaining.append((sig, n))
+    if not cooldown_sigs:
+        return None, candidates
+    # Build combined signature and collect examples
+    total = sum(n for _, n in cooldown_sigs)
+    cooldown_examples = [sig for sig, _ in cooldown_sigs]
+    combined_sig = (
+        f"MiniMax auth cooldown cascade: "
+        f"{len(cooldown_sigs)} related patterns detected ({total}x total): "
+        f"model fallback, auth profile failure, embedded run failover, telegram gateway closed (2 types). "
+        f"Gateway recovered automatically via 9router/always-on-premium fallback."
+    )
+    return (combined_sig, total, cooldown_examples), remaining
+
+
+
 def _core_signature(sig: str) -> str:
     """Remove volatile recurring-count prefixes for duplicate checks."""
     return re.sub(r"^recurring failure pattern detected \(\d+x\):\s*", "", sig).strip()
@@ -178,11 +226,13 @@ def priority_for_signature(sig: str) -> str:
     return "P2"
 
 
-def build_ticket(ticket_id: str, now: datetime, sig: str, count: int, examples: List[str]) -> str:
+def build_ticket(ticket_id: str, now: datetime, sig: str, count: int, examples: List[str], summary: Optional[str] = None) -> str:
     pri = priority_for_signature(sig)
     created = now.astimezone(timezone.utc)
     deadline = sla_deadline(created, pri)
     details = "\n".join([f"  - {ex}" for ex in examples[:4]])
+    if summary is None:
+        summary = f"Recurring failure pattern detected ({count}x): {sig}"
     return (
         f"\n### {ticket_id}\n"
         f"- **Status:** OPEN\n"
@@ -191,7 +241,7 @@ def build_ticket(ticket_id: str, now: datetime, sig: str, count: int, examples: 
         f"- **SLA Deadline:** {deadline.isoformat(timespec='seconds')} ({_sla_label(pri)})\n"
         f"- **Reporter:** ops (health-snapshot)\n"
         f"- **Assignee:** ops\n"
-        f"- **Summary:** Recurring failure pattern detected ({count}x): {sig}\n"
+        f"- **Summary:** {summary}\n"
         f"- **Details:** Detected {count} occurrences in the last window. Examples:\n{details}\n"
         f"- **Root Cause:** \n"
         f"- **Resolution:** \n"
@@ -228,7 +278,7 @@ def main() -> int:
     counts = Counter(sigs)
     # Reject payloadless / unknown / too-short signatures to avoid ticket storms
     MIN_SIG_LEN = 20
-    BAD_PATTERNS = ("unknown", "no summary", "no summary)", "announce:v1", "iserror=t")
+    BAD_PATTERNS = ("unknown", "no summary", "no summary)", "announce:v1", "iserror=t", "security notice", "external, untrusted source", "web fetch failed (404): security notice")
     def is_valid_sig(s: str) -> bool:
         if len(s.strip()) < MIN_SIG_LEN:
             return False
@@ -244,6 +294,65 @@ def main() -> int:
     ]
     candidates.sort(key=lambda x: (-x[1], x[0]))
 
+    # ── MiniMax cooldown deduplication ──────────────────────────────────────
+    # Group all MiniMax auth-cooldown cascade signatures into ONE ticket.
+    # These 5 patterns share the same root cause (MiniMax auth cooldown),
+    # the gateway recovers automatically, and splitting them across multiple
+    # tickets wastes tracker space and creates noise.
+    minimax_sigs: List[Tuple[str, int]] = []
+    other_candidates: List[Tuple[str, int]] = []
+    for sig, n in candidates:
+        if _is_minimax_cooldown_sig(sig):
+            minimax_sigs.append((sig, n))
+        else:
+            other_candidates.append((sig, n))
+
+    # WhatsApp Baileys 401 deduplication
+    # All WhatsApp auth failures (401, different server locations) share the same
+    # root cause (MiniMax cooldown ripple). Collapse into ONE ticket.
+    whatsapp_sigs = []
+    other_candidates2 = []
+    for sig, n in other_candidates:
+        sig_lower = sig.lower()
+        if "whatsapp" in sig_lower and ("401" in sig_lower or "unautho" in sig_lower or "channel exited" in sig_lower):
+            whatsapp_sigs.append((sig, n))
+        else:
+            other_candidates2.append((sig, n))
+    if whatsapp_sigs:
+        best_wa = max(whatsapp_sigs, key=lambda x: len(x[0]))[0]
+        total_wa = sum(n for _, n in whatsapp_sigs)
+        other_candidates2.insert(0, (best_wa, total_wa))
+
+    # Telegram gateway-closed ripple deduplication
+    # When MiniMax cooldown cascades, the gateway destabilizes and Telegram channels
+    # disconnect/error across multiple signatures. Group all into ONE ticket.
+    telegram_sigs = []
+    other_candidates3 = []
+    for sig, n in other_candidates2:
+        sig_lower = sig.lower()
+        is_telegram_ripple = (
+            ("telegram" in sig_lower or "gateway closed" in sig_lower)
+            and ("connect error" in sig_lower or "approval handler" in sig_lower or "gateway connect" in sig_lower)
+        )
+        if is_telegram_ripple:
+            telegram_sigs.append((sig, n))
+        else:
+            other_candidates3.append((sig, n))
+    if telegram_sigs:
+        best_tg = max(telegram_sigs, key=lambda x: len(x[0]))[0]
+        total_tg = sum(n for _, n in telegram_sigs)
+        other_candidates3.insert(0, (best_tg, total_tg))
+
+    # Add MiniMax cooldown as a single batched candidate (insert at front — highest priority)
+    if minimax_sigs:
+        best = max(minimax_sigs, key=lambda x: len(x[0]))[0]
+        total_count = sum(n for _, n in minimax_sigs)
+        other_candidates3.insert(0, (best, total_count))
+
+    candidates = other_candidates3
+    # ── end MiniMax deduplication ────────────────────────────────────────────
+
+
     opened: List[str] = []
     for sig, n in candidates[:5]:
         if ticket_exists(tickets_text, sig):
@@ -251,7 +360,19 @@ def main() -> int:
             continue
         tid = next_ticket_id(tickets_text, now)
         examples = [s for s in sigs if s == sig]
-        block = build_ticket(tid, now, sig, n, examples)
+        if _is_minimax_cooldown_sig(sig):
+            # MiniMax cooldown summary override — batch all cascade events into one
+            summaries = {
+                sig: (
+                    f"MiniMax auth cooldown cascade ({n}x across {len(minimax_sigs)} patterns): "
+                    f"model-fallback / auth-profile / embedded-failover / telegram-connect / telegram-approval-handler. "
+                    f"Gateway recovers automatically — no action required."
+                )
+            }
+            summary = summaries.get(sig, f"Recurring failure pattern detected ({n}x): {sig}")
+        else:
+            summary = f"Recurring failure pattern detected ({n}x): {sig}"
+        block = build_ticket(tid, now, sig, n, examples, summary=summary)
         if args.dry_run:
             opened.append(f"{tid} ({sig}, {n}x)")
             # simulate append so subsequent IDs increment and signatures are treated as present

@@ -17,7 +17,10 @@ log() { echo "[$(TS)] [boot-guard] $*" | tee -a "$LOG"; }
 . "$HOME/.openclaw/scripts/alert-lib.sh"
 
 is_gateway_up() {
-  curl -sf --connect-timeout 2 --max-time 4 \
+  local token
+  token=$(python3 -c "import json; print(json.load(open('$HOME/.openclaw/openclaw.json'))['gateway']['auth']['token'])" 2>/dev/null || echo "")
+  curl -sf --connect-timeout 3 --max-time 15 \
+    -H "Authorization: Bearer ${token}" \
     "http://127.0.0.1:18789/health" > /dev/null 2>&1
 }
 

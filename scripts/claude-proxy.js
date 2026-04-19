@@ -7,9 +7,9 @@
  *   ~/.openclaw/config/proxy-accounts.json  — account list + Keychain service names
  *   ~/.ccs/config.yaml                       — account ordering (fallback)
  *
- * Failover chain: cyclic round-robin across all configured accounts.
- * Failover triggers: ONLY on quota exhaustion (402, credit_balance_too_low, etc.)
- * NOT on general 429 rate-limits (those are passed through to client).
+ * Failover chain: cyclic round-robin across all configured accounts (order in proxy-accounts.json).
+ * Failover triggers: quota exhaustion — 402; for OAuth/passthrough also 429; SSE body patterns;
+ * API (MiniMax) uses body checks. 429 on subscription tiers advances to next account when treated as limit.
  * State: global sticky — once exhausted, stays on next account until /reset.
  * Context: never lost — same Claude Code session keeps running throughout.
  *
@@ -195,6 +195,10 @@ function markExhausted(name) {
   if (!tierStates[name].exhausted) {
     log(`[proxy] ${name} EXHAUSTED — skipping for the rest of this session`);
     tierStates[name].exhausted = true;
+    if (forcedStart === name) {
+      log(`[proxy] Clearing pin (${name} exhausted) — failover can use other accounts`);
+      forcedStart = null;
+    }
     advanceTierIdx();
   }
 }
@@ -959,6 +963,14 @@ const server = http.createServer(async (req, res) => {
       // 404 from oauth accounts = token/account issue, skip to next
       if (status === 404 && (account.type === 'oauth' || account.type === 'passthrough')) {
         log(`[proxy] ${account.name} → 404 (account issue, skipping)`);
+        try { await readBody(proxyRes); } catch (_) {}
+        continue;
+      }
+
+      // 401/403: bad or expired OAuth — try next tier (do not mark exhausted)
+      if ((status === 401 || status === 403) && (account.type === 'oauth' || account.type === 'passthrough')) {
+        log(`[proxy] ${account.name} → ${status} (auth) — trying next tier`);
+        try { await readBody(proxyRes); } catch (_) {}
         continue;
       }
 

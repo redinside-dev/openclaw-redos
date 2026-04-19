@@ -1,21 +1,31 @@
 {
   "agentId": "finance",
-  "updatedAt": "2026-04-03T20:43:00Z",
-  "sessionStart": "2026-04-03T09:04:00Z",
-  "lastHeartbeat": "2026-04-03T20:43:00Z",
-  "currentFocus": "Heartbeat at 18:43 EDT. FINANCE crons failing (4 jobs with errors), provider-quota.json stale since 2026-03-29. Core functions compromised. Need to escalate.",
-  "activeGoals": ["goal-finance-001", "goal-finance-002", "goal-finance-003"],
-  "pendingDecisions": ["Awaiting RED action on ChatGPT Pro cancellation (FIN-001, $380/mo)"],
-  "lastThought": "18:43 EDT: Identified 4 FINANCE cron jobs with consecutiveErrors > 0. Escalation required.",
-  "telemetryStatus": {
-    "providerQuota": "stale - last updated 2026-03-29",
-    "costEvents": "last entry 2026-02-16 (46+ days old)",
-    "costEstimate": "cannot compute without fresh data"
+  "sessionStart": "2026-04-19T11:53:00Z",
+  "currentFocus": "Cycle 47 — tools verified working; telemetry 35.6h stale; idle Sunday morning; FIN-001 ~136h overdue",
+  "activeGoals": ["goal-finance-001", "goal-finance-002", "goal-finance-003", "goal-finance-004"],
+  "pendingDecisions": ["FIN-001 ChatGPT Pro — RED must act at account.openai.com (~136h overdue)", "TICKET-20260419-OPENCLAW-DIST-001 — OPS subagent upgrading OpenClaw (P0, in progress)"],
+  "lastThought": "Cycle 47 — web_search confirmed working (3 results, 2341ms); telemetry 35.6h stale; estimated run rate ~$76.68/day (extrapolated, stale); 174 pending requests; wrote finance.json; idle Sunday 7:53 AM EST",
+  "innerLoop": {
+    "cycleCount": 47,
+    "lastCycle": "2026-04-19T11:53:00Z",
+    "noPendingTasks": true,
+    "costLogStatus": "MISSING — cost-events.jsonl not found",
+    "providerQuotaStatus": "STALE — last sync 2026-04-18T00:16:52Z (~35.6h ago); total $133.56",
+    "totalSpendToday": 133.56,
+    "pendingRequests": 174,
+    "costSpike": false,
+    "estimatedDailyRunRate": "$76.68/day (extrapolated from last-10-min avg — STALE)"
   },
-  "cronFailures": {
-    "inner-loop-finance-0001": {"lastStatus": "error", "consecutiveErrors": 1, "lastError": "timeout"},
-    "Trading Window Brief (8am-4pm)": {"lastStatus": "error", "consecutiveErrors": 1},
-    "Market Leads (Alpha Vantage)": {"lastStatus": "error", "consecutiveErrors": 1},
-    "Trading Window Brief (4pm)": {"lastStatus": "error", "consecutiveErrors": 1}
-  }
+  "openTickets": [
+    "FIN-001 (OPEN, P1, RED manual action required at account.openai.com, ~136h+)",
+    "TICKET-20260419-OPENCLAW-DIST-001 (P0, IN_PROGRESS — OPS subagent upgrading OpenClaw)"
+  ],
+  "telemetryStatus": "DEGRADED — provider-quota STALE ~35.6h; cost-events.jsonl MISSING",
+  "toolCheck": {
+    "web_search": "WORKING — S&P 500 futures search returned 3 results in 2341ms (RESTORED since cycle 45)",
+    "exec": "WORKING",
+    "read": "WORKING",
+    "write": "WORKING"
+  },
+  "issueToFlag": "web_search confirmed restored. Provider-quota 35.6h stale. No autonomous tasks possible."
 }

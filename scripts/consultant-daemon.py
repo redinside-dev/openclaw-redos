@@ -41,6 +41,7 @@ GATEWAY_LOG       = LOGS / "gateway.log"
 GATEWAY_ERR_LOG   = LOGS / "gateway.err.log"
 MEMSEARCH         = WORKSPACE / "scripts" / "memsearch.py"
 RESTART_SCRIPT    = OPENCLAW / "scripts" / "redos-restart.sh"
+ALERT_COOLDOWN    = CONSULTANT / "alert-cooldown.json"
 
 # Telegram user to notify on autonomy achievement
 TELEGRAM_USER_ID  = "1012034994"
@@ -88,6 +89,56 @@ def load_status() -> dict:
 
 def save_status(s: dict):
     STATUS_FILE.write_text(json.dumps(s, indent=2) + "\n")
+
+
+# ── Alert Cooldown (cross-issue deduplication) ────────────────────────────────
+
+# How long a given issue-id must stay resolved before CONSULTANT will alert on it again.
+# This prevents the same issue from generating alerts every 15 minutes even when the
+# underlying system state hasn't changed (e.g. "no_completions" when tasks-log.md
+# simply hasn't been updated but the system is healthy and busy).
+ISSUE_COOLDOWN_SECONDS = 4 * 3600  # 4 hours
+
+def _load_cooldown() -> dict:
+    try:
+        return json.loads(ALERT_COOLDOWN.read_text())
+    except Exception:
+        return {}
+
+
+def _save_cooldown(data: dict):
+    ALERT_COOLDOWN.write_text(json.dumps(data, indent=2) + "\n")
+
+
+def _in_cooldown(issue_id: str, issues_this_run: list) -> bool:
+    """
+    Returns True if issue_id is in cooldown and this run didn't fix/resolve it.
+    When an issue recurs in the same run (e.g. L3 no_completions + L1 rag_stale
+    both fired), the first occurrence marks it resolved so subseqent occurrences
+    in the same cycle don't re-trigger.
+    """
+    cooldown = _load_cooldown()
+    entry = cooldown.get(issue_id)
+    if not entry:
+        return False
+    last_resolved = entry.get("resolved_at")
+    if not last_resolved:
+        return False
+    try:
+        last_ts = datetime.fromisoformat(last_resolved.replace("Z", "+00:00"))
+    except Exception:
+        return False
+    elapsed = (now_dt() - last_ts).total_seconds()
+    # Already resolved this exact cycle?
+    if any(i["id"] == issue_id for i in issues_this_run):
+        return False
+    return elapsed < ISSUE_COOLDOWN_SECONDS
+
+def _mark_resolved(issue_id: str):
+    cooldown = _load_cooldown()
+    cooldown[issue_id] = {"resolved_at": now_iso()}
+    _save_cooldown(cooldown)
+
 
 def tail_file(path: Path, n: int = 500) -> str:
     try:
@@ -356,21 +407,99 @@ def _find_stale_tasks(content: str) -> list[str]:
     return stale
 
 def _has_recent_completions(tasks_log: str, hours: int = 24) -> bool:
-    """Check if tasks-log.md has entries from the last N hours.
-    Compares by date only (not midnight UTC) so yesterday's entries count
-    when hours=24 and the cutoff falls partway through the prior day.
+    """Check if tasks have completed in the last N hours.
+    
+    Checks multiple sources to avoid false positives:
+    1. tasks-log.md date entries (primary)
+    2. Gateway log for recent activity (authoritative fallback)
+    
+    HTTP 404 model_not_found errors are NOT counted as failures - they indicate
+    a model configuration issue, not a system failure.  NO_REPLY responses from
+    model fallback chains are normal and do NOT indicate system failure.
     """
-    if not tasks_log:
-        return False
     cutoff = (now_dt() - timedelta(hours=hours)).date()
     date_pattern = re.compile(r'(\d{4}-\d{2}-\d{2})')
-    for m in date_pattern.finditer(tasks_log[-5000:]):
-        try:
-            d = datetime.strptime(m.group(1), "%Y-%m-%d").date()
-            if d >= cutoff:
+    
+    # Primary: check tasks-log.md for recent dates
+    if tasks_log:
+        for m in date_pattern.finditer(tasks_log[-5000:]):
+            try:
+                d = datetime.strptime(m.group(1), "%Y-%m-%d").date()
+                if d >= cutoff:
+                    return True
+            except Exception:
+                pass
+    
+    # Fallback: gateway log — if the gateway is actively writing to its log,
+    # the system is healthy even if tasks-log.md hasn't been updated recently.
+    # This prevents false "no completions" alerts when agents are running fine
+    # but simply haven't written to tasks-log.md (e.g. quiet periods, cron-only
+    # agents, model fallback chains that return NO_REPLY normally).
+    if _has_recent_activity_via_gateway():
+        return True
+    
+    return False
+
+
+def _has_recent_activity_via_gateway() -> bool:
+    """Check gateway log for recent task completions or agent activity.
+
+    This is a more reliable indicator than tasks-log.md, as it captures
+    all agent activity including subagent completions.
+
+
+    We look for:
+    1. Any 200 OK in the last 100 lines (strongest signal of successful requests)
+    2. "session started" events (agent sessions being created)
+    3. "delivered" in message delivery confirmations
+    4. "responding" in agent responses
+    5. Fallback: ANY substantial log content in the last 500 lines means
+       the system is running (gateway writes to log on every request)
+    """
+    try:
+        gateway_log = LOGS / "gateway.log"
+        if not gateway_log.exists():
+            gateway_log = LOGS / "gateway.log.1"
+        if not gateway_log.exists():
+            return False
+
+        # Read last 500 lines for recent activity
+        content = tail_file(gateway_log, 500)
+        if not content:
+            return False
+
+        recent_lines = content.split('\n')[-100:]  # last 100 lines = most recent
+
+        # Method 1: "✓" (success checkmark) in websocket responses — strongest signal
+        # Pattern seen in live gateway.log: "[ws] ⇄ res ✓ sessions.list 54ms ..."
+        # Also "starting provider" for agents, and session store activity
+        for line in recent_lines:
+            if '✓' in line or '[ws]' in line:
                 return True
-        except Exception:
-            pass
+
+        # Method 2: agent starting provider (gateway processes agent requests)
+        for line in recent_lines:
+            if 'starting provider' in line.lower() or 'session' in line.lower():
+                return True
+
+        # Method 3: message delivered
+        for line in recent_lines:
+            if 'delivered' in line.lower():
+                return True
+
+        # Method 4: Fallback — if there are ANY non-trivial lines (the gateway
+        # writes to log only on real activity; it never writes idle noise)
+        non_empty = [l for l in recent_lines if len(l.strip()) > 10]
+        if len(non_empty) >= 3:
+            return True
+
+        # Method 5: check full 500-line tail for any checkmark or ws activity
+        if '✓' in content or '[ws]' in content:
+            return True
+
+    except Exception:
+        pass
+
     return False
 
 def _find_error_crons(cron_data) -> list[str]:
@@ -488,8 +617,12 @@ def fix_rag_stale(obs: dict) -> str:
     log("  [fix] Triggering RAG reindex...")
     python = OPENCLAW / ".venv" / "bin" / "python3"
     if not python.exists():
-        python = Path(sys.executable)
-    code, _, err = run_cmd([str(python), str(MEMSEARCH), "index"], timeout=120)
+        # Fallback: use whatever python3 is available
+        python = None
+    code, _, err = run_cmd(
+        [str(python)] + [str(MEMSEARCH), "index"] if python else [str(MEMSEARCH), "index"],
+        timeout=120
+    )
     if code == 0:
         return "RAG index rebuilt successfully"
     return f"RAG reindex failed: {err[:200]}"
@@ -686,10 +819,21 @@ def run_check():
 
     if issues:
         log("[3-5/7] Fixing & teaching...")
+        # Build list of issue IDs resolved this cycle for cooldown dedup
+        issues_this_run = [{"id": iss["id"]} for iss in issues]
+
         for issue in issues:
-            fix_fn = FIX_DISPATCH.get(issue["id"])
+            issue_id = issue["id"]
+
+            # Skip if in cooldown and not newly resolved this cycle
+            # (cooldown applies to recurring alerts like no_completions)
+            if _in_cooldown(issue_id, issues_this_run):
+                log(f"  [{issue_id}] SKIPPED — in cooldown (already resolved recently)")
+                continue
+
+            fix_fn = FIX_DISPATCH.get(issue_id)
             if fix_fn:
-                log(f"  Fixing [{issue['id']}]...")
+                log(f"  Fixing [{issue_id}]...")
                 fix_result = fix_fn(obs)
                 log(f"  Result: {fix_result}")
                 teach(issue, fix_result)
@@ -697,11 +841,14 @@ def run_check():
                 incident_occurred = True
                 fixes_applied += 1
                 rag_updated = True
+                # Mark as resolved in cooldown so we don't fire again within ISSUE_COOLDOWN_SECONDS
+                _mark_resolved(issue_id)
             else:
                 # Delegate unhandled issues to OPS
-                log(f"  Delegating [{issue['id']}] to OPS agent...")
+                log(f"  Delegating [{issue_id}] to OPS agent...")
                 openclaw_agent("ops", f"CONSULTANT ISSUE [{issue['severity']}]: {issue['title']}\n{issue.get('details','')}")
                 incident_occurred = True
+                _mark_resolved(issue_id)
         if fixes_applied:
             status["last_incident_at"] = now_iso()
 

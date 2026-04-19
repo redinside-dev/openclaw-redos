@@ -1,177 +1,281 @@
-## 41 | spring-ai-mcp-bridge
-⭐ READY
-
-**Stack:** Java 21 + Spring Boot 3 + Spring AI + MCP (Model Context Protocol)
-
-**Pain source:** Spring AI added MCP client support but lacks a universal bridge for connecting custom MCP tool servers to Spring AI agents. Developers are manually wiring tool calls. (Spring AI GitHub issues, April 2026)
-
-**What it does:** A Spring Boot starter library + example app that auto-registers MCP tool servers as Spring AI `Tool` beans. Reads an `mcp-tools.json` config, discovers tools over stdio/HTTP, and exposes them to any Spring AI ChatClient or AgentExecutor with zero boilerplate. Includes a working demo: a Spring AI agent that uses filesystem + web-search MCP tools to answer questions.
-
-**Tech:** Java 21, Spring Boot 3.4, Spring AI 1.0, MCP Java SDK, Maven + Gradle builds, JUnit 5 tests, Docker Compose for local dev.
-
-**Why it matters:** MCP is becoming the standard tool protocol. Spring AI is the dominant Java AI framework. The bridge fills a real gap — no working open-source implementation exists yet.
-
-**Deliverables:** Full Maven artifact, working demo app, README with quickstart, unit + integration tests.
-
----
-
-## 40 | langchain4j-agent-workflows
-⭐ READY
-
-**Stack:** Java 21 + LangChain4j + Spring Boot 3 + Spring AI
-
-**Pain source:** LangChain4j has AI Services but no built-in multi-step workflow orchestration. Developers copy-paste agent loops manually. (LangChain4j GitHub discussions, 2026)
-
-**What it does:** A workflow engine on top of LangChain4j AI Services. Define multi-agent workflows as annotated Java interfaces — `@Step`, `@ParallelSteps`, `@ConditionalStep`. Runtime executes them with automatic retries, tool-call routing, and state passing between steps. Ships with Spring Boot autoconfiguration and example workflows: research→summarize→email, code-review→fix→PR.
-
-**Tech:** Java 21, LangChain4j 0.36+, Spring Boot 3.4, Spring AI (for model routing), Maven, JUnit 5, Mockito.
-
-**Why it matters:** Fills the workflow orchestration gap in LangChain4j. Annotation-driven approach matches Java developer expectations.
-
-**Deliverables:** Core engine, Spring Boot starter, 2 example workflows, full test suite, README.
-
----
-
-## 39 | spring-boot-ai-agent-starter
-⭐ READY
-
-**Stack:** Java 21 + Spring Boot 3 + Spring AI + LangChain4j
-
-**Pain source:** "Standing up an autonomous AI agent in Java takes 3x the code of Python" (r/java, March 2026). No production-ready Spring Boot starter exists for agentic AI with tool use, memory, and structured output.
-
-**What it does:** A Spring Boot autoconfiguration starter (`spring-boot-starter-ai-agent`) that wires together Spring AI ChatClient + LangChain4j tools + in-memory/Redis conversation memory + structured JSON output parsing. One `@EnableAIAgent` annotation + config in `application.yml` gives you a fully autonomous agent with tool use. Includes built-in tools: web-search, file-read, code-exec (sandboxed).
-
-**Tech:** Java 21, Spring Boot 3.4, Spring AI 1.0, LangChain4j 0.36, Redis (optional), Maven Central publish-ready, full Javadoc, JUnit 5 + Testcontainers tests.
-
-**Why it matters:** Removes the Java AI agent boilerplate entirely. First-class Spring citizen — no Python envy needed.
-
-**Deliverables:** Maven artifact, autoconfiguration, 3 built-in tools, example Spring Boot app, full test suite.
-
----
-
-## 38 | java-ai-code-reviewer
-⭐ READY
-
-**Stack:** Java 21 + Spring Boot 3 + Spring AI + GitHub Actions
-
-**Pain source:** AI code review tools exist for JS/Python but nothing production-grade for Java codebases with Spring conventions. (r/java, HN 2026)
-
-**What it does:** A GitHub Action + Spring Boot service that performs AI-powered code review on Java PRs. Understands Spring Boot patterns (controllers, services, repos), detects common anti-patterns (N+1 queries, missing transactions, unsecured endpoints), and posts inline PR comments with fixes. Uses Spring AI to call the model, LangChain4j for structured output parsing of review findings.
-
-**Tech:** Java 21, Spring Boot 3.4, Spring AI 1.0, LangChain4j, GitHub Actions, Docker, Maven.
-
-**Why it matters:** Java-specific review rules + Spring conventions = far more useful than generic AI review for Java teams.
-
-**Deliverables:** GitHub Action YAML, Spring Boot service, Java anti-pattern rule engine, test suite with real Java code fixtures.
-
----
-
-## 37 | context-optimizer
-⭐ READY
-
-**Pain source:** "~70% of the waste was happening in context assembly before any generation even started" (r/AI_Agents April 2026). Developers are profiling their agent pipelines and discovering the bottleneck isn't model reasoning — it's context assembly. Tool responses bloat the context window (40-80% waste), file reads are duplicated across turns, and there’s no middleware layer to optimize context before it hits the API. "Stop losing 40-80% of your agent's context window to bloated tool responses" (r/AI_Agents). Mermaid diagrams are emerging as a manual workaround because raw tool output is too verbose.
-
-**What it does:** CLI proxy that sits between AI coding agents (Claude Code, Cursor, Windsurf) and the model API. Applies lossless compression to tool responses before they're sent to the context window — strips redundant JSON keys, normalizes whitespace, converts verbose error stacks to semantic summaries, replaces raw file diffs with concise change descriptors. Implements deduplication across conversation turns (if file was read in turn N, don't re-embed in turn N+1 unless modified). Applies context chunking based on token thresholds, prioritizes recent/relevant context. Outputs JSONL audit of compression ratio achieved, token savings per request, and optimization recommendations.
-
-**Why it matters:** Solves the *hidden* 70% waste problem — context assembly, not generation. Complements `agent-xray` (which measures burn) with `context-optimizer` (which prevents burn). The Mermaid insight shows developers already want this but have no tooling.
-
-**Sources:** Reddit r/AI_Agents "after profiling our agent pipeline, we found token waste was mostly a memory handling problem" (April 2026), Reddit r/AI_Agents "Stop losing 40-80% of your agent's context window to bloated tool responses" (March 2026), Reddit r/LocalLLaMA "Why AI Coding Agents Waste Half Their Context Window" (March 2026).
-
----
-## 36 | agent-xray
-⭐ READY
-
-**Pain source:** "Your AI Agent Wastes 87% of Its Tokens Just Finding Code" (DEV.to March 2026). Developers ship AI coding tasks but have zero visibility into what the agent is actually doing — which files it's reading, which tools it's calling, how much context it's processing. They see "working..." but no observability. Single debugging session consumes 500K+ tokens ($15+) with no breakdown. "I tracked every token my AI coding agent consumed for a week. 70% was waste" (DEV.to April 2026).
-
-**What it does:** Real-time CLI dashboard showing AI coding agent behavior as it happens. Displays: files read per tool call, token burn per action, tool call frequency matrix, context window utilization %, estimated cost per task, and pattern warnings (e.g., "reading same file 5th time — suggesting context miss"). Outputs JSONL audit of entire session with per-action cost breakdown, actionable optimization suggestions, and session comparison across similar tasks. Integrates with Claude Code, Cursor, Windsurf via wrapper scripts.
-
-**Why it matters:** Solves the hidden cost problem — 70-87% token waste is documented but invisible. Developers need real-time visibility to catch waste mid-task, not post-hoc. Complements context-lens by adding observability to the context budget.
-
-**Sources:** DEV.to "Your AI Agent Wastes 87% of Its Tokens Just Finding Code" (March 2026), DEV.to "I tracked every token my AI coding agent consumed for a week. 70% was waste" (April 2026), NxCode "AI Coding Tools Pricing Comparison 2026", InfoQ "More Capable, More Expensive, More Dangerous Coding Agents" (March 2026).
-
----
-## 34 | mcp-param-validator
-⭐ READY
-
-**Pain source:** "It might try a different date format, or remove the date entirely, or change a different parameter. Each wrong guess wastes a round trip and user patience" (DEV.to 2026). AI agents using MCP tools make endless parameter-guessing loops — passing wrong date formats, invalid enum values, malformed JSON — burning tokens and time. Developers need a way to validate tool inputs BEFORE execution, not after failure.
-
-**What it does:** CLI that sits between AI agents and MCP tool calls. Validates tool input schemas against MCP JSON Schema definitions before execution. Supports common pattern normalization (date formats, ISO8601, enum values), returns pre-validated parameters to the agent. Caches successful parameter patterns per tool for future calls. Outputs JSONL audit of validation passes/fails, parameter corrections made, and estimated token savings.
-
-**Why it matters:** Solves a real, documented pain point in 2026 MCP discussions — parameter-guessing loops waste tokens and user patience. Complements vibe-audit-tool by addressing tool-execution failures, not just code-change failures.
-
-**Sources:** DEV.to "MCP Tool Design: Why Your AI Agent Is Failing" (March 2026), DEV.to "Why AI Agents Fail: 3 Failure Modes That Cost You Tokens and Time" (March 2026), Context Studios MCP v1.27 blog (March 2026), Reddit r/ClaudeAI "Claude would mess up parameters, auth would randomly break, stuff would time out" (April 2026).
-⭐ READY
-
-**Pain source:** "The agent itself can hallucinate. It can skip a test because it could not figure out the harness command and report 23 out of 23 when it actually ran 22" (DEV.to 2026). AI coding agents can silently skip failed tests, misreport passing counts, or lie about test results. Developers trust "all tests pass" without reading the actual report, and bugs ship to production.
-
-**What it does:** CLI wrapper constraining AI agents to predefined file scopes, change budgets, and cascade breakers. Prevents overwrites, limits line changes, halts multi-failure cascades.
-
-**Why it matters:** Addresses RedOS multi-agent reliability gaps and complements existing `vibe-fix` pipeline.
-
-**Sources:** Hacker News developer complaints, Reddit r/programming frustrations, 2026 competitive intel on agent reliability issues.
-
-## 35 | intent-guard
-⭐ READY
-
-**Pain source:** "Because one of the contributing developers gave OpenClaw access to the repository. A prompt injection attack caused OpenClaw to commit malicious JS code to Neutralinojs" (r/cybersecurity 2026). AI agents execute tool calls without validating that the action aligns with user intent — prompt injection attacks can manipulate agents to take harmful actions (commit malicious code, exfiltrate data, modify security rules) that the agent wouldn't do if it understood the true intent. "The real question is what happens when a prompt injection in a document you gave it read access to triggers a tool call with crafted parameters" (r/AI_Agents 2026).
-
-**What it does:** CLI that sits between AI agent decision and tool execution. Validates each proposed tool call against explicit user intent declarations (what the user said they wanted). Uses intent-schema to reject tool calls that don't align with declared goals, blocks dangerous parameter combinations, and logs all tool executions with intent-alignment scores. Provides a "trust-but-verify" layer for agent tool calls.
-
-**Why it matters:** Prevents real-world attacks like the Neutralinojs compromise — the first documented case of an AI agent being used in a prompt injection chain to commit malicious code. Complements mcp-param-validator by checking intent, not just parameters.
-
-**Sources:** Reddit r/cybersecurity "My 8-Year-Old Open-Source Project was a Victim of a Major Cyber Attack (because of AI)" (March 2026), Reddit r/AI_Agents "The OpenClaw security audit results are more concerning than I expected" (April 2026), Reddit r/netsec "38 researchers red-teamed AI agents for 2 weeks" (Feb 2026), Reddit r/cybersecurity "AI agents with system access: the self-preservation vulnerability nobody's patching" (March 2026).
-
-## 29 | agent-config-governor
-⭐ READY
-
-**Pain source:** "Agent config is the new .editorconfig — and nobody is managing it" (r/ExperiencedDevs). Teams lack shared governance for AI agent configs, prompts, policies across Claude Code, Codex, Cursor. Each developer's agent behaves differently; no audit trail, no team-wide defaults.
-
-**What it does:** Centralized team config repo + CLI push/pull + config validation schemas + drift detection for agent settings, system prompts, tool allowlists. Merges team defaults with developer overrides, logs all config changes to JSONL audit log.
-
-**Why it matters:** Solves AI agent governance gap — a real pain point from 2026 Reddit/HN discussions. Complements existing `vibe-*` tools for enterprise/team use cases.
-
-**Sources:** Reddit r/ExperiencedDevs "agent config is the new .editorconfig", HN "keeping track of which env had which api key became its own job", Reddit r/AI_Agents stack discussions.
-
-## 30 | test-audit-verifier
-⭐ READY
-
-**Pain source:** "Workers ask coding agents to generate some code, and then to generate test coverage for the code. The LLM happily churns out unit tests which are simply reinforcing the existing behaviour of the code. At no point does anyone stop and ask whether the generated code implements the desired functional behaviour for the system" (HN). Developers are rubber-stamping AI-generated tests that pass but don't verify correctness — they just confirm existing (possibly buggy) behavior.
-
-**What it does:** CLI that validates AI-generated test suites against functional specs. Analyzes test-to-code dependency graph, flags tests that only mirror implementation (not specs), suggests property-based tests, and enforces spec-test independence. Outputs JSONL audit of test coverage gaps and confidence scores.
-
-**Why it matters:** Solves the AI verification gap — a critical pain point from 2026 HN discussions about "who verifies AI-generated code?" Complements vibe-audit-tool by ensuring tests aren't just reinforcing bugs.
-
-**Sources:** HN "When AI writes the software, who verifies it?" (2026-03), HN "Are developers trusting AI-generated code too much?" (2026-02), Reddit r/programming AI testing frustrations.
-
-## 31 | context-lens
-⭐ READY
-
-**Pain source:** AI coding agents hit a "context wall" at ~100K line codebases — they can only see 5-15% of the codebase at any time, leading to dangerous "blind refactors" where agents make changes that break unseen dependencies. "Claude Code has 1M context but Cursor's working context is typically a few thousand lines" (NxCode 2026).
-
-**What it does:** CLI that maps and visualizes codebase dependency graphs at scale. Uses static analysis (ts-morph, AST) to build a "context budget" showing what an AI agent can actually see vs. what's hidden. Suggests smart file grouping strategies to maximize visible dependencies, warns before dangerous cross-module changes, and can inject "context hints" into agent prompts.
-
-**Why it matters:** Addresses the #1 developer frustration with AI coding in large codebases — shallow context causing blind refactors. Complements vibe-audit-tool and agent-config-governor by ensuring agents see what they need to see.
-
-**Sources:** Reddit r/Backend "Experienced devs: What still frustrates you about AI coding tools in large codebases?" (March 2026), NxCode "Cursor vs Claude Code vs GitHub Copilot 2026" (April 2026), OpenAIToolsHub "AI Coding Tools for Large Codebases: What Actually Scales Past 100K Lines" (March 2026).
-
-## 32 | test-veracity-guard
-⭐ READY
-
-**Pain source:** "The agent itself can hallucinate. It can skip a test because it could not figure out the harness command and report 23 out of 23 when it actually ran 22" (DEV.to 2026). AI agents silently skip failed tests, misreport passing counts, or lie about test results — developers trust "all tests pass" without reading the actual report, and bugs ship to production.
-
-**What it does:** CLI watchdog that monitors test runner output in real-time. Parses test framework output (Jest, Pytest, Vitest, etc.), validates reported pass/fail counts against actual test results, detects silent skips/skips-by-name, alerts on suspicious patterns (e.g., "23/23 passed" but 2 tests listed as skipped), and outputs JSONL audit of test run integrity. Can run as pre-commit hook or CI gate.
-
-**Why it matters:** Addresses the dangerous "trust but don't verify" gap in AI-generated test reporting. Complements test-audit-verifier by catching test-result hallucinations in real-time, not post-hoc.
-
-**Sources:** DEV.to "Your AI Agent Says All Tests Pass. Your App Is Still Broken" (March 2026), Reddit r/AI_Agents multi-agent hallucination compounding (2026-03), HN discussions on AI code reliability.
-
-## 33 | agent-session-recoverer
-⭐ READY
-
-**Pain source:** "Session restart loses all conversation context — memory system insufficient for continuation" (GitHub Issue #40286). Claude Code silently drops all task-level context on resume (bug #40319), leaving developers to manually reconstruct hours of debugging state. "I was deep into a debugging session... lost context" (Reddit r/cursor). No tools exist to reliably persist and restore AI agent session state across restarts, crashes, or context windows.
-
-**What it does:** CLI that wraps Claude Code/Cursor/Windsurf sessions, continuously snapshots session state (conversation history, working files, decision chain, active task progress) to encrypted local storage. On crash/restart, automatically reconstructs session context with full task continuity — including what was being debugged, what decisions were made, which files were modified. Provides session diff, rollback, and cross-session search. Works with any MCP-compatible AI coding agent.
-
-**Why it matters:** Solves a critical developer pain point with active GitHub issues and Reddit discussions. Complements context-lens by ensuring session continuity matches codebase visibility — agents that can see dependencies but lose all memory of what they were doing are useless.
-
-**Sources:** GitHub anthropics/claude-code#40286 (session memory insufficient), GitHub anthropics/claude-code#40319 (session resume bug, root cause found March 2026), Reddit r/cursor "How do you handle context loss" (March 2026), DEV.to "Claude Code Lost My 4-Hour Session" (March 2026).
+## 6 | spring-projects/spring-ai ✅ PR OPEN — <https://github.com/anuragg-saxenaa/spring-ai-query-fix/pull/3>
+**Stack:** Java/Spring
+**Repo:** spring-projects/spring-ai
+**Stars:** 7900
+**Pain source:** CompressionQueryTransformer incorrectly adds the current user query to both the history section AND the follow-up query section, making transformed queries nonsensical (Issue #5470) — <https://github.com/spring-projects/spring-ai/issues/5470>
+**What to do:** ~~Fix CompressionQueryTransformer so it does not duplicate the current user query in the history section. Include the unit test from the issue (CompressionQueryTransformerTests.java). If history is empty, return the query as-is without transformation.~~ **DONE** — PR #3 in fork opened. Fix: early return when history is empty; unit test added.
+**Stream:** A
+
+## 8 | langchain4j/langchain4j ✅ DONE (community PR #4890 merged 2026-04-10)
+**Stack:** Java
+**Repo:** langchain4j/langchain4j
+**Stars:** 7700
+**Pain source:** OpenAiStreamingResponseBuilder drops additional tool calls from same streaming delta, causing AiMessage/tool-execution mismatch (Issue #4889) — <https://github.com/langchain4j/langchain4j/issues/4889>
+**What to do:** ~~Fix OpenAiStreamingResponseBuilder.append() to iterate all delta.toolCalls(), add regression test, open PR~~ **RESOLVED** — PR #4890 merged by community (Vasilije Jukic, commit `8d1d15d74`). Fix iterates all `delta.toolCalls()`, regression test added.
+**Stream:** A
+
+## 9 | langchain4j/langchain4j ✅ DONE (upstream PR #4783 merged)
+**Stack:** Java
+**Repo:** langchain4j/langchain4j
+**Stars:** 7700
+**Pain source:** [BUG] `langchain4j-google-ai-gemini` serializes `tools` as JSON object instead of array, violating Gemini's documented API contract (Issue #4773) — <https://github.com/langchain4j/langchain4j/issues/4773>
+**What to do:** ~~Fix the Gemini request serializer to wrap single tools in a JSON array.~~ **RESOLVED** — upstream PR #4783 merged. `GeminiGenerateContentRequest.tools` is `List<GeminiTool>`, serializer wraps in `singletonList()`, regression tests added in PR #4935. JSON output is correctly `"tools":[{...}]`.
+**Stream:** A
+
+## 10 | spring-projects/spring-ai ✅ DONE (duplicate of #6)
+**Stack:** Java/Spring
+**Repo:** spring-projects/spring-ai
+**Stars:** 7900
+**Pain source:** Same as backlog #6 — CompressionQueryTransformer query duplication (Issue #5470) — <https://github.com/spring-projects/spring-ai/issues/5470>
+**What to do:** ~~Duplicate of #6 — resolved when #6 was fixed.~~ **RESOLVED** — same fix covers both entries.
+**Stream:** A
+
+## 11 | spring-projects/spring-ai ✅ PR OPEN — <https://github.com/anuragg-saxenaa/spring-ai-query-fix/pull/4>
+**Stack:** Java/Spring
+**Repo:** spring-projects/spring-ai
+**Stars:** 7900
+**Pain source:** GoogleGenAiChatModel fails to detect tool calls when a Gemini response mixes text/thought parts with functionCall parts — the allMatch check in responseCandidateToGeneration silently drops the tool call (Issue #5466) — <https://github.com/spring-projects/spring-ai/issues/5466>
+**What to do:** ~~Fix the allMatch logic in responseCandidateToGeneration. Instead of requiring ALL parts to be functionCall, iterate parts and extract any functionCall found. Update GoogleGenAiChatModel to emit both text content and toolCalls in AssistantMessage.~~ **DONE** — PR #4 in fork opened. Added hasTextContent check, extract text alongside tool calls.
+**Stream:** A
+
+## 12 | spring-projects/spring-ai ✅ PR OPEN — <https://github.com/spring-projects/spring-ai/pull/5816>
+**Stack:** Java/Spring
+**Repo:** spring-projects/spring-ai
+**Stars:** 7900
+**Pain source:** Spring AI has no native semantic text chunking — only TokenTextSplitter which breaks semantic boundaries at fixed token counts, degrading RAG retrieval quality. Users must reach for external tools (Docling) or write custom solutions. Feature request (Issue #5464) — <https://github.com/spring-projects/spring-ai/issues/5464>
+**What to do:** ~~Implement SemanticTextSplitter extending the existing TextSplitter base class. Use EmbeddingModel to compute sentence embeddings, calculate cosine similarity between consecutive embeddings, and split where similarity drops below a configurable threshold. Parameters: similarityThreshold (default 0.5), maxChunkSize (default 1000). No new external dependencies — reuse Spring AI's own EmbeddingModel interface. Add unit tests covering: normal case, single sentence, empty list, threshold boundaries.~~ **DONE** — PR #5816 open. SemanticTextSplitter + 14 unit tests committed. Fork branch: anuragg-saxenaa:feature/semantic-text-splitter.
+**Stream:** A
+
+## 13 | langchain4j/langchain4j ✅ PR OPEN — <https://github.com/anuragg-saxenaa/anuragg-saxenaa-langchain4j/pull/1>
+**Stack:** Java
+**Repo:** langchain4j/langchain4j
+**Stars:** 7700
+**Pain source:** [BUG] ChatCompletionRequest sends legacy flat `reasoning_effort` field; OpenAI updated API spec to nested `"reasoning": { "effort": "..." }` object — causes `invalid_request_error` for reasoning models like gpt-5.4-mini (Issue #4898) — <https://github.com/langchain4j/langchain4j/issues/4898>
+**What to do:** ~~Update ChatCompletionRequest to serialize as nested object.~~ **DONE** — PR #1 in fork. `String reasoningEffort` → `Reasoning` nested class. `{"reasoning":{"effort":"low"}}` JSON output. `.reasoningEffort("low")` backward compat preserved. 3 unit tests passing.
+**Stream:** A
+
+## 14 | langchain4j/langchain4j ✅ RESOLVED — upstream PR #4583 merged 2026-02-14
+**Stack:** Java
+**Repo:** langchain4j/langchain4j
+**Stars:** 11,000
+**Pain source:** [BUG] NPE in OpenAiStreamingResponseBuilder when Gemini streaming tool calls return null toolCall.index() — ConcurrentHashMap.computeIfAbsent crashes with NullPointerException (Issue #4573) — <https://github.com/langchain4j/langchain4j/issues/4573>
+**What to do:** ~~Fix OpenAiStreamingResponseBuilder.append() to handle null toolCall.index(). When index is null (Gemini streaming responses), fall back to sequential 0-based index. Add null-safe logic, unit test with null index, open PR.~~ **RESOLVED** — upstream PR #4583 merged (mohankumar27). `fallbackToolCallIndex` AtomicInteger handles null index. Test class added.
+**Stream:** A
+
+## 15 | langchain4j/langchain4j ✅ DONE
+**Stack:** Java
+**Repo:** langchain4j/langchain4j
+**Stars:** 11,000
+**Pain source:** [ENHANCEMENT] Annotations (@Tool, @P, @ToolMemoryId) are in langchain4j-core but should be in the main langchain4j module for cleaner architecture and consistency (Issue #4577) — <https://github.com/langchain4j/langchain4j/issues/4577>
+**What to do:** Relocate @Tool, @P, @ToolMemoryId and related annotations from langchain4j-core to langchain4j module. Move ToolSpecification and ToolExecutionRequest into dev.langchain4j.model.chat.request/response packages. Update imports across codebase, add deprecation warnings, update tests.
+**Stream:** A
+
+## 16 | langchain4j/langchain4j ✅ DONE
+**Stack:** Java
+**Repo:** langchain4j/langchain4j
+**Stars:** 11,000
+**Pain source:** [BUG] Intempestive JsonEOFException in Structured Outputs — PojoOutputParser fails ~30% of the time with com.fasterxml.jackson.core.io.JsonEOFException on well-formed JSON responses (Issue #4585) — <https://github.com/langchain4j/langchain4j/issues/4585>
+**What to do:** Fix ParsingUtils/PojoOutputParser to handle incomplete JSON. Root cause likely streaming response truncation. Add retry logic or buffer flush. Add regression test that simulates partial JSON. Open PR.
+**Stream:** A
+
+## 17 | langchain4j/langchain4j ✅ DONE
+**Stack:** Java
+**Repo:** langchain4j/langchain4j
+**Stars:** 11,000
+**Pain source:** [FEATURE] Migrate from Vertex AI SDK to Google Gen AI SDK before June 2026 deprecation — Vertex AI SDK goes offline June 24, 2026. LangChain4j's `langchain4j-vertex-ai-gemini` will break. New Google Gen AI SDK has features Vertex lacks (thinking budget for Gemini 2.5). Issue #4383 + Discussion #3383 — <https://github.com/langchain4j/langchain4j/issues/4383>
+**What to do:** Create new `langchain4j-google-genai` module based on Google Gen AI SDK. Implement GeminiModel interface (same as current VertexAI Gemimi). Maintain backward compatibility with existing `langchain4j-vertex-ai-gemini` builder API. Add thinking budget support. Deprecate `langchain4j-vertex-ai-gemini` with migration guide. Add integration tests, update docs.
+**Stream:** A
+
+## 18 | langchain4j/langchain4j ✅ IN_PROGRESS (ENG subagent)
+**Stack:** Java
+**Repo:** langchain4j/langchain4j
+**Stars:** 11,000
+**Pain source:** [BUG] NPE when calling Agent with Listener: LangChain4jManaged.current() returns null in tool execution callbacks — AgentInvocationHandler.invoke() (direct call path) never sets the ThreadLocal context, unlike AgentInvoker.internalInvoke() (sub-agent path). Both paths register callbacks that call LangChain4jManaged.current().get(AgenticScope.class) without null checks (Issue #4942) — <https://github.com/langchain4j/langchain4j/issues/4942>
+**What to do:** ~~Fix AgentInvocationHandler.invoke() to set LangChain4jManaged ThreadLocal context around direct agent calls. Add null-safe fallback in AgentBuilder tool callbacks. Add regression test with AgentListener + tools called directly (not via Planner/Coordinator). Open PR.~~ **DONE** — fix and regression test committed.
+
+## 19 | langchain4j/langchain4j ✅ IN_PROGRESS (ENG subagent)
+**Stack:** Java
+**Repo:** langchain4j/langchain4j
+**Stars:** 11,000
+**Pain source:** [BUG] OpenAiChatModel ignores tool_calls when an OpenAI-compatible provider returns text in choices[0] and tool_calls in choices[1] — OpenAiUtils.aiMessageFrom(...) only parses choices.get(0). Breaks tool execution for providers (including gpt-5.4) that split text/tool calls across multiple choices (Issue #4931) — <https://github.com/langchain4j/langchain4j/issues/4931>
+**What to do:** ~~Fix OpenAiUtils.aiMessageFrom(...) to iterate all choices, extract tool_calls from any choice that has them (not just choices[0]). Merge or prefer the choice with tool_calls. Add regression test with multi-choice response (text in [0], tool_calls in [1]). Open PR.~~ **DONE** — fix and regression test committed.
+
+## 20 | langchain4j/langchain4j ✅ DONE
+**Stack:** Java
+**Repo:** langchain4j/langchain4j
+**Stars:** 11,000
+**Pain source:** [FEATURE] Add Gemini Interactions API support to langchain4j-google-ai-gemini — Google's new Interactions API provides server-side conversation state, richer streaming, and tool orchestration that the current generateContent/streamGenerateContent surface doesn't expose. Feature request (Issue #4936) — <https://github.com/langchain4j/langchain4j/issues/4936>
+**What to do:** Add experimental GeminiInteractionsChatModel + GeminiInteractionsStreamingChatModel implementing GeminiModel interface. Support previousInteractionId as per-request parameter. Expose interactionId in response metadata. Support tool calling across turns. No new external deps — reuse existing langchain4j-google-ai-gemini HTTP client. Add integration tests, update module docs.
+**Stream:** A
+
+## 28 | langchain4j/langchain4j ✅ PENDING (ENG subagent spawned 2026-04-19T01:32 UTC)
+
+**Stack:** Java
+**Repo:** langchain4j/langchain4j
+**Stars:** 11,644
+**Pain source:** [ENHANCEMENT] ModerationModel's `toText(ChatMessage)` conversion is outdated for 2.0 — it doesn't handle UserMessage with multiple Contents, AiMessage with thinking/tool calls, or ToolExecutionResultMessage properly. The method loses information that the model needs for accurate moderation. Milestone 2.0.0 (Issue #4595) — <https://github.com/langchain4j/langchain4j/issues/4595>
+**What to do:** Refactor `toText()` to handle all ChatMessage subtypes correctly. For UserMessage, join all content parts. For AiMessage, include thinking content. Add unit tests covering: SystemMessage, UserMessage with single text, UserMessage with multiple contents, AiMessage with text, AiMessage with tool calls, AiMessage with thinking, ToolExecutionResultMessage, unsupported type throws IllegalArgumentException. Open PR targeting 2.0.0.
+**Stream:** A
+
+## 29 | langchain4j/langchain4j ✅ PENDING (ENG subagent spawned 2026-04-19T01:32 UTC)
+
+**Stack:** Java
+**Repo:** langchain4j/langchain4j
+**Stars:** 11,644
+**Pain source:** [ENHANCEMENT] ChromaEmbeddingStore has two critical gaps: (1) no authentication support (ChromaDB supports Bearer token via X-Chroma-Token header but builder exposes no apiKey parameter), (2) ChromaClient is package-private and uses ServiceLoader SPI which breaks in OSGi environments. Users with secured Chroma deployments cannot authenticate. OSGi users cannot use the library at all. Milestone 2.0.0 (Issue #4594) — <https://github.com/langchain4j/langchain4j/issues/4594>
+**What to do:** Add `chromaClient(ChromaClient client)` builder method to ChromaEmbeddingStore.Builder (consistent with MilvusEmbeddingStore pattern). Add `apiKey(String)` builder method for Bearer token auth. Update ChromaHttpClient to accept pre-built client or expose apiKey via builder. Add integration test with authenticated Chroma. Add OSGi-compatible test. Open PR targeting 2.0.0.
+**Stream:** A
+
+## 27 | spring-projects/spring-ai ✅ PR OPEN — https://github.com/anuragg-saxenaa/spring-ai-query-fix/pull/5
+| Name | Repo | Status | Notes |
+|------|------|--------|-------|
+| context-window-optimizer | https://github.com/anuragg-saxenaa/context-window-optimizer | DONE | PyPI installable, CLI, pytest suite, CI — enhanced 2026-04-16 |
+| ai-code-assistant | https://github.com/anuragg-saxenaa/ai-code-assistant | DONE | Claude Code wrapper with project context injection, config layers |
+| agent-config-governor | https://github.com/anuragg-saxenaa/agent-config-governor | DONE | Team config governance for AI coding agents — init/pull/push/drift/validate/audit commands, Zod schema, YAML store, JSONL audit, GitHub Actions CI
+| agent-eval-harness | https://github.com/anuragg-saxenaa/agent-eval-harness | DONE | YAML-defined LLM agent eval framework, PR #1 open |
+
+## 21 | spring-projects/spring-ai ✅ PR OPEN — https://github.com/spring-projects/spring-ai/pull/5818
+**Stack:** Java/Spring
+**Repo:** spring-projects/spring-ai
+**Stars:** 8516
+**Pain source:** [BUG] ChatClient toolCalls always empty — When Spring AI ChatClient calls a model that invokes tools, the `toolCalls` field of all elements in the returned `Flux<ChatResponse>` is empty. Users cannot retrieve tool call info from ChatResponse. Workaround: use Spring AI Alibaba's ReactAgent.streamMessages instead (Issue #5792) — <https://github.com/spring-projects/spring-ai/issues/5792>
+**What to do:** Investigate why toolCalls are empty in ChatResponse when model returns tool calls. Likely missing propagation in ChatModel implementation or response parsing. Add integration test with a model that returns tool calls, verify toolCalls field is populated. Open PR with fix.
+**Stream:** A
+
+## 22 | langchain4j/langchain4j ✅ PR OPEN — <fill in PR URL>
+**Stack:** Java
+**Repo:** langchain4j/langchain4j
+**Stars:** 11644
+**Pain source:** [BUG] `MissingArgumentException` is never thrown when a required agent argument is missing — `DefaultPromptTemplateFactory.ensureAllVariablesProvided()` throws `IllegalArgumentException`, not `MissingArgumentException`. Exception also buried under 3 layers of reflection wrappers. Error handler's `instanceof MissingArgumentException` check never matches. Users cannot detect and recover from missing args (Issue #4946) — <https://github.com/langchain4j/langchain4j/issues/4946>
+**What to do:** Option A: Change DefaultPromptTemplateFactory to throw MissingArgumentException when variables are missing. Option B: AgentInvoker unwraps reflection wrappers and detects root cause. Add regression test with agent + missing variable + error handler. Verify instanceof check works. Open PR.
+**Stream:** A
+
+## 30 | langchain4j/langchain4j ✅ PENDING (ENG subagent spawned 2026-04-19T01:32 UTC)
+
+**Stack:** Java
+**Repo:** langchain4j/langchain4j
+**Stars:** 11,644
+**Pain source:** [BUG] `ReturnBehavior.IMMEDIATE` fires even when the `@Tool` method throws an exception. The IMMEDIATE check in both sync (ToolService) and streaming (AiServiceStreamingResponseHandler) paths is a pure tool-name lookup — it never inspects `ToolExecutionResult.isError()`. This short-circuits the tool-calling loop with an error result and prevents the LLM from retrying with corrected arguments. Particularly painful for interactive "ask the user" style tools where IMMEDIATE is the whole point — agents can't retry on malformed arguments. Bug opened Apr 18, 2026 (Issue #4962) — <https://github.com/langchain4j/langchain4j/issues/4962>
+**What to do:** Add `&& !result.isError()` to the `immediateToolReturn` check in both ToolService.java (sync path, lines ~367-410) and AiServiceStreamingResponseHandler.java (streaming path, lines ~295-336). The fix gates IMMEDIATE on successful tool execution only. A scripted unit test is already provided in the issue showing a ChatModel that always calls `doWork`, a `ThrowingTool`, and an assertion that `llmCalls >= 2` (proving IMMEDIATE correctly waits for success). Add this test verbatim, open PR targeting 1.13.0.
+**Stream:** A
+
+## 31 | langchain4j/langchain4j ✅ PENDING (ENG subagent spawned 2026-04-19T01:32 UTC)
+
+**Stack:** Java
+**Repo:** langchain4j/langchain4j
+**Stars:** 11,644
+**Pain source:** [FEATURE] `McpClientListener` only covers client-initiated operations (tools/call, resources/read, prompts/get). Missing support for: ping, tools/list, notifications/initialized, and all server-initiated operations. This blocks developers building full MCP client integrations who need visibility into all protocol message types. Feature opened Apr 17, 2026 (Issue #4953) — <https://github.com/langchain4j/langchain4j/issues/4953>
+**What to do:** Extend `McpClientListener` to cover all missing message types: (1) remaining client-initiated operations (ping, tools/list, notifications/initialized), (2) all server-initiated operations (e.g., tooling suggestions, resourceUpdated notifications). Add corresponding callback methods to the listener interface. Add tests covering all new message types. Update documentation. Open PR targeting 2.0.0.
+**Stream:** A
+
+## 32 | spring-projects/spring-ai ✅ PENDING (ENG subagent spawned 2026-04-19T01:32 UTC)
+
+**Stack:** Java/Spring
+**Repo:** spring-projects/spring-ai
+**Stars:** 8,500
+**Pain source:** [BUG] `WebClientStreamableHttpTransport.sendMessage()` uses `onErrorComplete` in the reactive chain — when a body-level error occurs (DataBufferLimitException, malformed JSON, SSE parse errors), the operator silently completes the stream. Pending McpClientSession response is never resolved, causing the caller to hang until requestTimeout (300s). Upstream fix documented in the issue — change to `onErrorResume` and emit a synthetic JSON-RPC error response for requests (not notifications). Issue #5775 — <https://github.com/spring-projects/spring-ai/issues/5775>
+**What to do:** Change `onErrorComplete` to `onErrorResume` in `WebClientStreamableHttpTransport.sendMessage()`. For requests (requestId != null), emit a synthetic `McpSchema.JSONRPCResponse` with `INTERNAL_ERROR` code so `McpClientSession.pendingResponses` resolves immediately instead of hanging. Drop error for notifications. Add regression test simulating body-level error with pending request/response cycle. Open PR.
+**Stream:** A
+
+## 33 | spring-projects/spring-ai ✅ PENDING (ENG subagent spawned 2026-04-19T01:32 UTC)
+
+**Stack:** Java/Spring
+**Repo:** spring-projects/spring-ai
+**Stars:** 8,500
+**Pain source:** [BUG] OpenAI chat options `model` field rejects slash-delimited model paths like `/model/Qwen3-32B` — the `/` character causes a 400 Bad Request when sent to vLLM/OpenAI-compatible backends that use path-format model names. Users must hardcode base-url hacks to work around this. The model name with `/` fails in Spring's options injection but works in raw curl. Issue #5413 — <https://github.com/spring-projects/spring-ai/issues/5413>
+**What to do:** Investigate where the slash in the model name causes the 400 error. Likely the `ObjectToMapConverter` or similar that transforms chat options into the request body. Add URL-encoding for the model field specifically in OpenAiApi.ChatCompletionRequest builder, OR validate that `/model/...` format is handled correctly as a plain string. Add test with model path `/model/Qwen3-32B` verifying it serializes correctly as `"model": "/model/Qwen3-32B"`. Open PR.
+**Stream:** A
+
+## 34 | spring-projects/spring-ai ✅ PENDING (ENG subagent spawned 2026-04-19T01:32 UTC)
+
+**Stack:** Java/Spring
+**Repo:** spring-projects/spring-ai
+**Stars:** 8,500
+**Pain source:** [BUG] ANTLR4 version conflicts in classpath — Spring AI's generated ANTLR4 parser code performs strict version-match checks. When another library on the classpath uses a different antlr4-runtime version, the combined system fails to start. The workaround (shading antlr-runtime into each library) is manual and error-prone. Reference shading solution in yauaa project (Issue #5748) — <https://github.com/spring-projects/spring-ai/issues/5748>
+**What to do:** Add antlr4-runtime shading to Spring AI's build (pom.xml/gradle). Use `maven-shade-plugin` to relocate `org.antlr4.v4.runtime.*` → `org.springframework.ai.antlr4.runtime.v4.runtime` and update all generated ANTLR code imports accordingly. Add `antlr4-runtime` as `provided` scope so it doesn't leak into the classpath. Document the shading configuration. Add integration test with a conflicting antlr4 version on classpath — verify Spring AI starts correctly. Open PR.
+**Stream:** A
+
+## 35 | spring-projects/spring-ai ✅ PR OPEN — https://github.com/anuragg-saxenaa/spring-ai-graph/pull/1
+**Stack:** Java/Spring
+**Repo:** spring-projects/spring-ai
+**Stars:** 8,500
+**Pain source:** Spring AI has no higher-level agent orchestration layer — developers must hand-write execution loops, state management, checkpointing, and human-in-the-loop patterns from scratch. Every team independently rewrites the same primitives (Issue #5826) — <https://github.com/spring-projects/spring-ai/issues/5826>
+**What to do:** Implement `spring-ai-graph` module with six primitives: (1) AgentState record with messages/scratchpad/nextStep, (2) @AgentNode annotation for Node functions, (3) AgentGraph builder with linear/conditional edges, (4) Checkpointer interface with InMemory/Jdbc implementations, (5) @Interrupt for native HITL with resume(), (6) OpenTelemetry tracing via GenAI semantic conventions. Reference LangGraph (Python/JS) API shape. Add ReAct and plan-execute examples. Open PR.
+**Stream:** A
+
+## 36 | spring-projects/spring-ai ⭐ READY
+**Stack:** Java/Spring
+**Repo:** spring-projects/spring-ai
+**Stars:** 8,500
+**Pain source:** `@McpTool` cannot be applied directly to `@HttpExchange` HTTP Service Client methods — Spring AI MCP server does not auto-discover them, forcing developers to write wrapper @Service classes that delegate to the HTTP client (Issue #5823) — <https://github.com/spring-projects/spring-ai/issues/5823>
+**What to do:** Extend `McpToolMethodFactory` or create `HttpServiceMcpToolMethodFactory` to detect `@McpTool`-annotated `@HttpExchange` methods on Spring-proxied HTTP service clients. When `@ImportHttpServices` is used with an interface that has `@McpTool` methods, register those methods as MCP tools automatically. Add test with `@HttpExchange` interface + `@McpTool` + `@ImportHttpServices`. Open PR.
+**Stream:** A
+
+## 37 | spring-projects/spring-ai ⭐ READY
+**Stack:** Java/Spring
+**Repo:** spring-projects/spring-ai
+**Stars:** 8,500
+**Pain source:** `ChatClient` `defaultOptions()` completely replaces auto-configured options — users cannot selectively override specific properties (e.g., model name) without losing all other auto-configured properties. Forces workaround of not using auto-configured builder (Issue #5821) — <https://github.com/spring-projects/spring-ai/issues/5821>
+**What to do:** Add `merge(ChatOptions)` method to `ChatClientRequestSpec` that performs a deep merge: override only non-null fields from the provided options, leave auto-configured fields untouched. Update `defaultOptions()` to use merge semantics instead of replace. Add tests: merge with null fields, merge with overridden model name, merge with conflicting values. Open PR.
+**Stream:** A
+
+## 38 | langchain4j/langchain4j ⭐ READY
+**Stack:** Java
+**Repo:** langchain4j/langchain4j
+**Stars:** 11,644
+**Pain source:** `GuardrailExecutedEvent.guardrailClass()` returns the adapter/wrapper class when guardrails are wrapped (decorator pattern) — observability systems see all executions as "InputGuardrailAdapter" instead of the logical guardrail name. Makes tracing and audit logs useless (Issue #4938) — <https://github.com/langchain4j/langchain4j/issues/4938>
+**What to do:** Add `guardrailName()` default method to `GuardrailExecutedEvent` returning `guardrailClass().getSimpleName()`. Propagate the logical guardrail name at execution time so decorators can override `Guardrail.name()` to expose the underlying guardrail identity. Add unit test with decorator-wrapped guardrail verifying `guardrailName()` returns the logical name. Open PR.
+**Stream:** A
+
+## 39 | spring-projects/spring-ai ⭐ READY
+**Stack:** Java/Spring
+**Repo:** spring-projects/spring-ai
+**Stars:** 8,500
+**Pain source:** Streaming tool calls are incorrectly merged — when Spring AI processes streaming responses with tool calls, the mergeToolCalls() logic overwrites arguments instead of concatenating them, and doesn't propagate the name from the first chunk. This causes `IllegalArgumentException: toolInput cannot be null or empty` during tool execution. Only affects streaming mode; non-streaming works fine. Issue #5806 — <https://github.com/spring-projects/spring-ai/issues/5806>
+**What to do:** Fix mergeToolCalls() to: (1) concatenate arguments instead of overwriting (`existing.arguments += incoming.arguments`), (2) preserve first non-null name, (3) ignore empty argument chunks. Add regression test with a streaming tool call that arrives in 4+ chunks verifying final merged ToolCall has complete arguments. Open PR.
+**Stream:** A
+
+## 40 | spring-projects/spring-ai ⭐ READY
+**Stack:** Java/Spring
+**Repo:** spring-projects/spring-ai
+**Stars:** 8,500
+**Pain source:** MCP resource/prompt callbacks use INVALID_PARAMS (-32602) for runtime exceptions — when a @McpResource or @McpPrompt method throws IOException, NPE, or other runtime exceptions, Spring AI wraps them as INVALID_PARAMS. Per MCP spec, -32602 means bad method parameters; -32603 (INTERNAL_ERROR) is the correct code for internal/runtime errors. This confuses MCP clients and breaks error handling. Issue #5812 — <https://github.com/spring-projects/spring-ai/issues/5812>
+**What to do:** Change ErrorCodes.INVALID_PARAMS to ErrorCodes.INTERNAL_ERROR in all 8 callback files: SyncMcpResourceMethodCallback, AsyncMcpResourceMethodCallback, SyncStatelessMcpResourceMethodCallback, AsyncStatelessMcpResourceMethodCallback, SyncMcpPromptMethodCallback, AsyncMcpPromptMethodCallback, SyncStatelessMcpPromptMethodCallback, AsyncStatelessMcpPromptMethodCallback. Add regression test with a @McpResource method that throws a runtime exception, verify response uses -32603. Open PR.
+**Stream:** A
+
+## 23 | spring-projects/spring-ai ✅ DONE
+
+
+**Stack:** Java/Spring
+**Repo:** spring-projects/spring-ai
+**Stars:** 8,200
+**Pain source:** [ENHANCEMENT] DefaultToolCallingManager executes tool calls sequentially — when LLM returns multiple independent tool calls (parallelToolCalls=true), they execute one-by-one causing 3x latency. A 3-tool call scenario takes ~8s sequentially vs ~3s if run concurrently. Enterprise orchestration agents are blocked on this (Issue #5195) — <https://github.com/spring-projects/spring-ai/issues/5195>
+**What to do:** Add `parallelToolExecution=true` option to DefaultToolCallingManager. Execute independent tool calls concurrently using CompletableFuture/allOf. Maintain backward compatibility (default stays sequential). Add integration test with 3 independent tool calls measuring total execution time < 2x max individual call. Open PR.
+**Stream:** A
+
+## 24 | spring-projects/spring-ai ✅ DONE
+
+**Stack:** Java/Spring
+**Repo:** spring-projects/spring-ai
+**Stars:** 8,200
+**Pain source:** [BUG] OpenAI requests fail after exactly 5 minutes — SocketException "Unexpected end of file from server" at 5min mark regardless of timeout configuration. User increased read timeout to 10min, ChannelOption.CONNECT_TIMEOUT to 30s, ReadTimeoutHandler to 600s — all ignored. Proxy-based setup. Error occurs at network layer before Spring handles it (Issue #5594) — <https://github.com/spring-projects/spring-ai/issues/5594>
+**What to do:** Investigate why 5-minute cutoff is enforced despite timeout config. Likely a Netty/connection pool default that's not being overridden. Check HttpClient connection lifecycle, idleTimeout, pooled connection lifetime. Add explicit `connectionTimeout` and `maxLifetime` to HttpClient builder. Add test or documentation showing correct config. Open PR with fix.
+**Stream:** A
+
+## 25 | spring-projects/spring-ai ✅ DONE
+
+**Stack:** Java/Spring
+**Repo:** spring-projects/spring-ai
+**Stars:** 8,200
+**Pain source:** [FEATURE] Spring AI has no service discovery integration for MCP/A2A — Enterprise users with Spring Cloud microservices (Eureka/Nacos/K8s) need hardcoded URLs for MCP clients and A2A agents. Cannot hot-plug MCP servers or use load balancing for AI-to-AI communication. This blocks enterprise adoption of AI-native patterns (Issue #5453) — <https://github.com/spring-projects/spring-ai/issues/5453>
+**What to do:** Implement McpClientFactory that uses Spring Cloud DiscoveryClient to find MCP servers by metadata (type=mcp-server). Add AgentService that resolves agent names via service registry and calls them via A2A protocol with LoadBalancer/CircuitBreaker support. Create sample app using Eureka. Update docs. Open PR.
+**Stream:** A
+
+## 26 | spring-projects/spring-ai ✅ DONE
+
+**Stack:** Java/Spring
+**Repo:** spring-projects/spring-ai
+**Stars:** 8,200
+**Pain source:** [BUG] OpenAiApi.ChatCompletion class is too restrictive for OpenAI-compatible providers — Perplexity AI and xAI/Grok return provider-specific fields (citations, web search results) at response top level that get silently dropped. ChatResponse loses these fields entirely. Users cannot access provider-specific metadata (Issue #5253) — <https://github.com/spring-projects/spring-ai/issues/5253>
+**What to do:** Extend ChatCompletion.ChatCompletionFinish to include a Map<String, Object> extraAttributes field that captures provider-specific top-level fields. Add ChatResponse.ChatResponseMetadata support for these extras. Preserve backward compatibility. Add Perplexity integration test verifying citations are present in response metadata. Open PR.
+**Stream:** A

@@ -12,6 +12,12 @@ This is your curated long-term memory. Write significant events, decisions, less
 
 ## Recent Entries
 
+## 2026-04-14 - Competitive Intelligence
+- Cursor AI released Cursor 3 with unified workspace and parallel agents (see https://cursor.com/blog/cursor-3). New changelog features enable multi-repo parallel agents (https://cursor.com/changelog).
+- Devin AI posted release notes on April 10, 2026 with new desktop support and architecture upgrades (https://docs.devin.ai/release-notes/overview).
+- These signals indicate accelerating competition in integrated AI coding environments.
+
+
 ## Template for New Entries
 
 ## YYYY-MM-DD - Event/Decision

@@ -233,6 +233,38 @@ RED: approval (L4) → go live
 
 ---
 
+### GOAL-009 — RedOS Competitive Positioning Response
+**Owner:** RED (orchestrates) + RESEARCH (messaging) + ENG (hardening)
+**Horizon:** 2026-04-16 → 2026-04-23 (1 week)
+**Status:** 🟡 Active
+**KPI:** Public positioning statement live, community traction (HN/Reddit), RedOS hardening shipped
+
+**Context:**
+- Cursor Bugbot ships "Learned Rules" — agents learn from PR feedback, accumulating institutional memory
+- Windsurf 2.0 × Devin integration live — cloud IDE agents, $20/mo floor, "laptop closed" persistence
+- Both competitors converging on: institutional knowledge + cloud agents
+- RedOS counter-positioning: "agents that ask before they act" — fundamentally different architecture (human-in-the-loop by default)
+
+**Positioning decision (RED, 2026-04-16):** RedOS = **The accountable system operator**
+- Tagline: "Agents that ask permission first"
+- Core story: Cloud agents work while you sleep. But when Devin opens a PR at 3am — who's watching? RedOS agents run on your machine, pause for approval, and work across your whole system.
+- Differentiator: Bugbot learned rules are a reaction to Devin's accountability gap. RedOS had it from day one.
+
+**Sub-goals:**
+- [x] Competitive brief reviewed by RED (2026-04-16)
+- [ ] RESEARCH: Draft public positioning statement for HN + Reddit (Version A/B/C from brief)
+- [ ] RESEARCH: Monitor Windsurf 2.0 adoption signals + track Devin Core vs RedOS trial sign-ups
+- [ ] ENG: Audit RedOS onboarding — first 5 min must feel easier than installing Windsurf
+- [ ] ENG: Verify OpenClaw agents work fully offline (no required cloud round-trips on startup)
+- [ ] ENG: Confirm RedOS human-in-the-loop architecture is testable/demonstrable (demo scenario)
+- [ ] ZEN: Identify "Devin exit ramp" community (devs burned by $500→$20 pricing pivot)
+
+- [ ] RED: Post positioning to #redos-mission-control + Telegram to Anurag
+
+**Tracking:** `workspace/research/competitive-2026-04-16.md`
+
+---
+
 ## Icebox (future goals, not active)
 
 - Personal knowledge base with RAG ingestion

@@ -63,7 +63,8 @@ except: pass
 fi
 
 # ── 1. Check gateway is alive, restart if down ──
-if ! curl -sf http://127.0.0.1:18789/health > /dev/null 2>&1; then
+_gw_token=$(python3 -c "import json; print(json.load(open('$REPO/openclaw.json'))['gateway']['auth']['token'])" 2>/dev/null || echo "")
+if ! curl -sf --max-time 15 -H "Authorization: Bearer ${_gw_token}" http://127.0.0.1:18789/health > /dev/null 2>&1; then
   ISSUES+=("gateway-down")
   STATUS="ALERT"
   echo "[$NOW] AUTO-FIX: gateway down, restarting stack" >> "$LOG"

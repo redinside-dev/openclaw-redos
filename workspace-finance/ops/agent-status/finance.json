@@ -1,32 +1,60 @@
 {
   "agentId": "finance",
-  "timestamp": "2026-04-03T19:51:00Z",
-  "status": "running",
-  "metaCheck": {
-    "webSearch": "working",
-    "exec": "working",
-    "read": "working",
-    "write": "working"
-  },
+  "updatedAt": "2026-04-19T11:53:00Z",
+  "cycle": 47,
+  "sessionStart": "2026-04-19T11:53:00Z",
+  "heartbeatCount": 47,
   "telemetryStatus": {
-    "providerQuota": "STALE - last updated 2026-03-29 (5 days old)",
-    "costEvents": "STALE - last entry 2026-02-16 (46 days old)",
-    "canComputeSpend": false
+    "providerQuotaJson": "STALE — last sync 2026-04-18T00:16:52Z (~35.6h ago); total $133.56",
+    "costEventsJsonl": "NOT FOUND at /workspace/tmp/cost-events.jsonl",
+    "totalSpend": 133.56,
+    "pendingRequests": 174,
+    "lastQuotaSync": "2026-04-18T00:16:52.970Z",
+    "note": "MiniMax quota (1000/955) separate from cost telemetry. 174 requests pending across M2.7 (165) + M2.5 (9)"
   },
-  "goalsBlocked": 3,
-  "currentFocus": "Heartbeat check - all core functions blocked by stale telemetry",
-  "alerts": [
-    "72+ hour telemetry blackout continues",
-    "Weekly cost report 10+ days overdue",
-    "Anomaly detection non-functional",
-    "ChatGPT Pro cancellation (FIN-001 $380/mo) still pending RED action"
+  "anomalyAlert": {
+    "level": "DEGRADED",
+    "status": "cannot compute live anomaly without fresh cost-events stream; provider-quota.json 35.6h stale",
+    "note": "No cost spike detected in stale telemetry. Last-10-window avg ~$0.53/10min implies ~$76.68/day if rate holds."
+  },
+  "toolCheck": {
+    "web_search": "WORKING — S&P 500 futures search returned 3 results in 2341ms (RESTORED since cycle 45)",
+    "exec": "WORKING — confirmed echo/date return clean",
+    "read": "WORKING — read provider-quota.json + finance.json successfully",
+    "write": "WORKING — writing agent-status/finance.json (this cycle)"
+  },
+  "costAnalysis": {
+    "totalSpendRecorded": 133.56,
+    "totalRequestsRecorded": 143712,
+    "model": "MiniMax-M2.7 (minimax)",
+    "avgCostPerRequest": 0.000929,
+    "avgCostPerDay": "~$76.68/day (extrapolated from last-10-window avg $0.53/10min — STALE)",
+    "byEndpoint": {
+      "/v1/chat/completions": { "cost": 83.35, "requests": 5000 },
+      "Unknown": { "cost": 50.21, "requests": 5000 }
+    },
+    "note": "Stale telemetry. Cannot do per-cron breakdown without cost-events.jsonl. Recommend OPS restore quota sync."
+  },
+  "openTickets": [
+    "FIN-001 (OPEN, P1, $100/mo saving — RED manual action required at account.openai.com, ~136h+ overdue)",
+    "TICKET-20260419-OPENCLAW-DIST-001 (P0, IN_PROGRESS — OPS subagent upgrading OpenClaw 2026.4.11 -> 2026.4.15)"
   ],
-  "lastEscalation": {
-    "to": "ops, red",
-    "time": "2026-04-01T18:44:00Z",
-    "channel": "Slack #redos-scrum",
-    "status": "delivered, awaiting response"
+  "chatgptProCancellation": {
+    "ticket": "FIN-001",
+    "status": "DECISION_BRIEF_SENT",
+    "saving": "$100/mo if cancelled",
+    "optionsPresented": ["Cancel Pro", "Downgrade to Team $25/mo", "Keep with ROI justification"],
+    "sentTo": "RED via Slack #redos-finance",
+    "note": "Decision pending. Cannot automate — requires RED manual action. ~136h+ overdue.",
+    "lastReminder": "2026-04-18T07:18:00Z"
   },
-  "idle": true,
-  "idleReason": "blocked - no fresh cost data to analyze"
+  "goalStatus": {
+    "goal-finance-001": "IN_PROGRESS — weekly cost report ready to compose; blocked by stale telemetry; Monday deadline approaching",
+    "goal-finance-002": "DEGRADED — anomaly detection offline due to stale telemetry (~35.6h); cannot detect live spikes",
+    "goal-finance-003": "BLOCKED — no cost-events.jsonl; cannot compute per-cron spend; model optimization recommendations on hold",
+    "goal-finance-004": "PENDING RED ACTION — FIN-001 ChatGPT Pro cancellation; ~136h overdue; RED must act at account.openai.com"
+  },
+  "noPendingAutonomousTasks": true,
+  "idleReason": "Sunday 7:52 AM EST, all work blocked on external dependencies (telemetry stale ~35.6h, OpenClaw upgrade in progress via OPS subagent, FIN-001 awaiting RED browser action)",
+  "mostRecentA2A": "06:09 UTC — cycle 46 self-check; 04:40 UTC — dispatched ENG to fix web_search brave module; 00:39 UTC — RED dispatched OPS for 7 cron fixes"
 }

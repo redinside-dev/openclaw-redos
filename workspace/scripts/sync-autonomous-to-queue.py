@@ -54,7 +54,7 @@ def parse_autonomous_md():
 
     tasks = []
     # Match: **TASK-ID** | STATUS | agentId | description
-    pattern = re.compile(r'\*\*([A-Z0-9\-]+)\*\*\s*\|\s*(PENDING|IN_PROGRESS|DONE)\s*\|\s*(\w+)\s*\|\s*(.+?)(?=\n\*\*|\n\n|\Z)', re.DOTALL)
+    pattern = re.compile(r'\*\*([A-Z0-9\-]+)\*\*\s*\|\s*(PENDING|IN_PROGRESS|DONE)(?:\s*\([^)]+\))?\s*\|\s*(\w+)\s*\|\s*(.+?)(?=\n\*\*|\n\n|\Z)', re.DOTALL)
     for m in pattern.finditer(content):
         task_id, status, agent, desc = m.group(1), m.group(2), m.group(3), m.group(4).strip()
         desc = re.sub(r'\s+', ' ', desc)  # normalize whitespace

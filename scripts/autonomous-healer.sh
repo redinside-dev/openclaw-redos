@@ -67,7 +67,10 @@ check_9router() {
 # ── 2. OpenClaw gateway health ───────────────────────────────────────────────
 check_gateway() {
   local code
-  code=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:18789/health --max-time 5 2>/dev/null || echo "000")
+  local token
+  token=$(python3 -c "import json; print(json.load(open('$OPENCLAW/openclaw.json'))['gateway']['auth']['token'])" 2>/dev/null || echo "")
+  code=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:18789/health \
+    -H "Authorization: Bearer ${token}" --max-time 15 2>/dev/null || echo "000")
   if [ "$code" != "200" ]; then
     log "OpenClaw gateway down (HTTP $code) — checking config first"
     # Auto-fix invalid config keys before trying to restart
@@ -77,8 +80,9 @@ check_gateway() {
       log "Config issues detected and fixed by doctor --fix"
     fi
     bash "$OPENCLAW/scripts/redos-restart.sh" > /dev/null 2>&1 || true
-    sleep 8
-    code=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:18789/health --max-time 5 2>/dev/null || echo "000")
+    sleep 15
+    code=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:18789/health \
+      -H "Authorization: Bearer ${token}" --max-time 15 2>/dev/null || echo "000")
     if [ "$code" = "200" ]; then
       fixed "OpenClaw gateway restarted (config fixed + stack restarted)"
     else

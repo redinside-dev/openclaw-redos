@@ -74,7 +74,7 @@ export class SmartRouterV2 {
       // },
 
       // Cloud - Fast & Expensive
-      'anthropic/claude-sonnet-4.5': {
+      'anthropic/claude-sonnet-4-6': {
         cost: 0.003,
         speed: 'instant',     // 1-2s
         quality: 'best',

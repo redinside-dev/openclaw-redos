@@ -3,26 +3,23 @@
 ## Critical Issues Resolved
 
 ## Patterns Learned
+- Missing logs (errors.jsonl, routing-decisions.jsonl) indicate logging configuration failure
+- Empty agent status files for non-RED agents
+- Persistent ticket (TICKET-060) unresolved, impacting visibility
+- Exec allowlist deadlock previously caused Gmail cron failure
 
 ## Known Limitations
+- No historical logging
+- Single-agent system (only RED status available)
 
 ## Best Practices
+### Logging Resolution
+- Add log rotation cron task for errors.jsonl and routing-decisions.jsonl
+- Configure log retention policy
+- Ensure agent status files are written on startup
+- Verify exec allowlist includes necessary commands (e.g., gog)
 
-### 2026-03-16 — System Initialization
-- System appears to be freshly initialized with minimal historical data
-- Only the main (RED/CEO) agent status file exists, showing healthy status
-- All logs and other agent status files are missing, indicating either:
-  1. Very recent system startup/reset
-  2. Minimal agent activity to date
-  3. Potential logging/configuration issue to investigate
-
-### Self-Healing Protocol Notes
-- When encountering missing log files, treat as informational rather than error
-- Missing agent status files may indicate agents haven't been spawned yet
-- Empty ticket tracker suggests no active issues requiring immediate attention
-
-### Recommendations for New Sessions
-- Focus on establishing baseline activity patterns
-- Ensure all essential agents can be spawned successfully
-- Verify logging mechanisms are functioning correctly
-- Begin building institutional knowledge through regular interactions
+### System Initialization Context
+- Current state: Barebones deployment
+- No agent diversity
+- Risk of orphaned tasks without logs

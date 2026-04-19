@@ -20,8 +20,12 @@ log() { echo "[$(TS)] [gateway-watchdog] $*" >> "$LOG"; }
 . "$HOME/.openclaw/scripts/alert-lib.sh"
 
 is_gateway_up() {
-  curl -sf --connect-timeout 2 --max-time 4 \
-    "http://127.0.0.1:18789/health" > /dev/null 2>&1
+  # Primary: TCP port check — if port is listening, process is alive (even during startup)
+  if nc -z 127.0.0.1 18789 2>/dev/null; then
+    return 0
+  fi
+  # Fallback: check if openclaw-gateway process is running
+  pgrep -f 'openclaw-gateway\|openclaw.*gateway' > /dev/null 2>&1
 }
 
 #  only one instance runs at a time; skip if already running
@@ -56,6 +60,19 @@ if [[ ! -f "$STATE" ]]; then
 fi
 DOWN_SINCE=$(cat "$STATE" 2>/dev/null || echo "unknown")
 log "Gateway DOWN (since $DOWN_SINCE) — starting repair sequence"
+
+# ── Pre-check: restore openclaw binary if npm upgrade wiped it ───────────────
+if [[ ! -x "$OPENCLAW" ]]; then
+  log "WARN: $OPENCLAW binary missing — running npm install -g openclaw to restore"
+  npm install -g openclaw >> "$LOG" 2>&1 || true
+  sleep 5
+  if [[ ! -x "$OPENCLAW" ]]; then
+    log "ERROR: npm restore failed — $OPENCLAW still missing"
+    send_slack_direct "🚨 [OpenClaw] openclaw binary missing after npm restore attempt. Manual fix needed: npm install -g openclaw"
+    exit 1
+  fi
+  log "Restored openclaw binary via npm install -g openclaw"
+fi
 
 # ── Attempt 1: openclaw gateway install ──────────────────────────────────────
 log "Attempt 1: openclaw gateway install"

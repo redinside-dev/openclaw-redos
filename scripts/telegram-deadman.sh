@@ -21,7 +21,10 @@ log() { echo "[$(TS)] [telegram-deadman] $*" >> "$LOG"; }
 . "$HOME/.openclaw/scripts/alert-lib.sh"
 
 is_gateway_up() {
-  curl -sf --connect-timeout 2 --max-time 4 \
+  local token
+  token=$(python3 -c "import json; print(json.load(open('$HOME/.openclaw/openclaw.json'))['gateway']['auth']['token'])" 2>/dev/null || echo "")
+  curl -sf --connect-timeout 3 --max-time 15 \
+    -H "Authorization: Bearer ${token}" \
     "http://127.0.0.1:18789/health" > /dev/null 2>&1
 }
 
@@ -88,6 +91,24 @@ if [[ $AGE -lt $DEAD_THRESHOLD ]]; then
 fi
 
 # ── TELEGRAM SILENT > 15 MIN WITH GATEWAY UP ──────────────────────────────────
+# If silent >24h, this is a credential/auth issue — restarting gateway won't help
+# and will break all other crons. Just alert, don't kill.
+MAX_RESTART_AGE=86400  # 24 hours
+if [[ $AGE -gt $MAX_RESTART_AGE ]]; then
+  log "ALERT: Telegram silent ${AGE}s (>24h) — credential issue, NOT restarting gateway"
+  NOW_EPOCH=$(date +%s)
+  LAST_ALERT=0
+  [[ -f "$ALERT_STATE" ]] && LAST_ALERT=$(cat "$ALERT_STATE" 2>/dev/null || echo 0)
+  AGE_SINCE_ALERT=$(( NOW_EPOCH - LAST_ALERT ))
+  if [[ $AGE_SINCE_ALERT -lt 900 ]]; then
+    log "Alert suppressed (sent ${AGE_SINCE_ALERT}s ago)"
+    exit 0
+  fi
+  echo "$NOW_EPOCH" > "$ALERT_STATE"
+  send_slack_direct "⚠️ [OpenClaw] Telegram silent ${AGE}s (>24h). Likely credential issue — check Telegram bot tokens. Gateway NOT restarted."
+  exit 1
+fi
+
 log "ALERT: Telegram silent ${AGE}s — restarting gateway to reconnect providers"
 
 # Attempt: SIGTERM gateway so launchd restarts it → providers reinitialize
