@@ -7,7 +7,7 @@
       "name": "System Pulse \u2014 Always-On Heartbeat (Ollama only)",
       "enabled": true,
       "createdAtMs": 1772080522100,
-      "updatedAtMs": 1775501175629,
+      "updatedAtMs": 1776606049444,
       "schedule": {
         "kind": "cron",
         "expr": "*/5 * * * *",
@@ -28,13 +28,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775501150989,
+        "lastRunAtMs": 1776606038590,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 24640,
+        "lastDurationMs": 10854,
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1775501400000,
+        "nextRunAtMs": 1776606300000,
         "lastDelivered": false
       }
     },
@@ -44,7 +44,7 @@
       "name": "Daily Portfolio Review (Pre-Market)",
       "enabled": true,
       "createdAtMs": 1770267281600,
-      "updatedAtMs": 1775496022985,
+      "updatedAtMs": 1776431355896,
       "schedule": {
         "kind": "cron",
         "expr": "45 8 * * 1-5",
@@ -54,20 +54,19 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "Daily Portfolio Review \u2013 Pre-Market (automated)\n\nYou are operating as an automated portfolio review agent.\n\nInputs:\n- Reference portfolio is in: workspace/portfolio/HOLDINGS.md\n- If HOLDINGS.md is empty or unclear, send ONE Telegram message asking Anurag to update it (no other output).\n\nTasks to execute (mandatory):\n1) Review current holdings and lead on next actions.\n2) Identify which holdings are disfavored under current market conditions.\n3) State what the model portfolio would rotate into.\n4) Suggest new stocks/assets that would replace weaker positions.\n\nOutput requirements:\nA) Telegram delivery (Option 2):\n- Send a SHORT summary to Telegram DM (user id 1012034994) using the message tool.\n- If content is too long, split into 2\u20133 Telegram messages labeled:\n  \"Portfolio Review (1/3)\", \"(2/3)\", ...\n- Hard limit: keep each Telegram message under ~3500 characters.\n\nB) Full report delivery (email):\n- Write the FULL detailed report to a markdown file under:\n  workspace/portfolio/reports/\n  Filename: portfolio-review-YYYY-MM-DD.md\n- Send the full report by email to: anorag.saxena@gmail.com\n  using the gog CLI via exec tool:\n  gog gmail send --account anorag.saxena@gmail.com --to anorag.saxena@gmail.com --subject \"Daily Portfolio Review (Full) - YYYY-MM-DD\" --body-file <path>\n\nReport structure for the FULL markdown report (strict):\n1) Market Regime Snapshot (risk-on/off/neutral + key macro drivers)\n2) Holdings Review (each holding labeled Favored/Neutral/Disfavored + short rationale)\n3) Model Portfolio Actions (increase/reduce/exit/hold)\n4) New Ideas / Replacements\n5) Risks & Invalidation Points\n\nRules:\n- All actions are framed as a hypothetical professional model portfolio.\n- Be decisive, institutional PM tone. No guarantees.\n- End both Telegram summary and full markdown report with disclosure footer:\n  Provider: <provider_name>\n  Model: <exact_model_identifier>\n",
+        "message": "Daily Portfolio Review \u2013 Pre-Market (automated)\n\nYou are operating as an automated portfolio review agent.\n\nInputs:\n- Reference portfolio is in: workspace/portfolio/HOLDINGS.md\n- If HOLDINGS.md is empty or unclear, send ONE Telegram message asking Anurag to update it (no other output).\n\nTasks to execute (mandatory):\n1) Review current holdings and lead on next actions.\n2) Identify which holdings are disfavored under current market conditions.\n3) State what the model portfolio would rotate into.\n4) Suggest new stocks/assets that would replace weaker positions.\n\nOutput requirements:\nA) Telegram delivery (Option 2):\n- Send a SHORT summary to Telegram DM (user id 1012034994) using the message tool.\n- If content is too long, split into 2\u20133 Telegram messages labeled:\n  \"Portfolio Review (1/3)\", \"(2/3)\", ...\n- Hard limit: keep each Telegram message under ~3500 characters.\n\nB) Full report delivery (email):\n- Write the FULL detailed report to a markdown file under:\n  workspace/portfolio/reports/\n  Filename: portfolio-review-YYYY-MM-DD.md\n- Send the full report by email to: anorag.saxena@gmail.com\n  using the gog CLI via exec tool:\n  gog gmail send --account anorag.saxena@gmail.com --to anorag.saxena@gmail.com --subject \"Daily Portfolio Review (Full) - YYYY-MM-DD\" --body-file <path>\n\nReport structure for the FULL markdown report (strict):\n1) Market Regime Snapshot (risk-on/off/neutral + key macro drivers)\n2) Holdings Review (each holding labeled Favored/Neutral/Disfavored + short rationale)\n3) Model Portfolio Actions (increase/reduce/exit/hold)\n4) New Ideas / Replacements\n5) Risks & Invalidation Points\n\nRules:\n- All actions are framed as a hypothetical professional model portfolio.\n- Be decisive, institutional PM tone. No guarantees.\n- End both Telegram summary and full markdown report with disclosure footer:\n  Provider: <provider_name>\n  Model: <exact_model_identifier>",
         "thinking": "low",
         "timeoutSeconds": 600
       },
       "state": {
-        "lastRunAtMs": 1775496018068,
-        "lastStatus": "error",
-        "lastDurationMs": 4917,
-        "consecutiveErrors": 1,
-        "lastRunStatus": "error",
+        "lastRunAtMs": 1776431170993,
+        "lastStatus": "ok",
+        "lastDurationMs": 184903,
+        "consecutiveErrors": 0,
+        "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775565900000,
-        "lastDelivered": true,
-        "lastError": "404 No active credentials for provider: openai"
+        "nextRunAtMs": 1776689100000,
+        "lastDelivered": true
       },
       "delivery": {
         "mode": "announce",
@@ -82,7 +81,7 @@
       "name": "Trading Window Brief (8am-4pm ET)",
       "enabled": true,
       "createdAtMs": 1770392652158,
-      "updatedAtMs": 1775501150989,
+      "updatedAtMs": 1776454479936,
       "schedule": {
         "kind": "cron",
         "expr": "0,30 8-15 * * 1-5",
@@ -103,13 +102,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775501126795,
+        "lastRunAtMs": 1776454424382,
         "lastStatus": "ok",
-        "lastDurationMs": 24194,
+        "lastDurationMs": 55554,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775502000000,
+        "nextRunAtMs": 1776686400000,
         "lastErrorAtMs": null,
         "lastDelivered": true
       }
@@ -120,7 +119,7 @@
       "name": "Trading Window Brief (4:00pm ET)",
       "enabled": true,
       "createdAtMs": 1770392732884,
-      "updatedAtMs": 1775246831325,
+      "updatedAtMs": 1776456291845,
       "schedule": {
         "kind": "cron",
         "expr": "0 16 * * 1-5",
@@ -141,15 +140,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775246809217,
-        "lastStatus": "error",
-        "lastDurationMs": 22108,
-        "lastRunStatus": "error",
+        "lastRunAtMs": 1776456225888,
+        "lastStatus": "ok",
+        "lastDurationMs": 65957,
+        "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 1,
-        "nextRunAtMs": 1775505600000,
-        "lastDelivered": true,
-        "lastError": "\u26a0\ufe0f \u2709\ufe0f Message failed"
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1776715200000,
+        "lastDelivered": true
       }
     },
     {
@@ -158,7 +156,7 @@
       "name": "QQQ Profit/Stop Watch (intraday)",
       "enabled": true,
       "createdAtMs": 1770399961842,
-      "updatedAtMs": 1775501203381,
+      "updatedAtMs": 1776457611346,
       "schedule": {
         "kind": "cron",
         "expr": "*/5 12-15 * * 1-5",
@@ -179,13 +177,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775501175629,
+        "lastRunAtMs": 1776457590613,
         "lastStatus": "ok",
-        "lastDurationMs": 27752,
+        "lastDurationMs": 20733,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1775501400000,
+        "nextRunAtMs": 1776700800000,
         "lastDelivered": true
       }
     },
@@ -195,7 +193,7 @@
       "name": "Gmail Unread Summary (Telegram)",
       "enabled": true,
       "createdAtMs": 1770402245398,
-      "updatedAtMs": 1775501100370,
+      "updatedAtMs": 1776465941783,
       "schedule": {
         "kind": "cron",
         "expr": "*/15 8-18 * * 1-5",
@@ -216,13 +214,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775500951090,
+        "lastRunAtMs": 1776465928797,
         "lastStatus": "ok",
-        "lastDurationMs": 149280,
+        "lastDurationMs": 12986,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775502000000,
+        "nextRunAtMs": 1776686400000,
         "lastErrorAt": null,
         "lastErrorAtMs": null,
         "lastDelivered": true
@@ -234,7 +232,7 @@
       "name": "GitHub Repo Updates (2 repos, 4x/day)",
       "enabled": true,
       "createdAtMs": 1770406640940,
-      "updatedAtMs": 1775496596841,
+      "updatedAtMs": 1776467084748,
       "schedule": {
         "kind": "cron",
         "expr": "0 10,13,16,19 * * 1-5",
@@ -255,16 +253,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775496591836,
-        "lastStatus": "error",
-        "lastDurationMs": 5005,
-        "consecutiveErrors": 1,
-        "lastRunStatus": "error",
+        "lastRunAtMs": 1776467039886,
+        "lastStatus": "ok",
+        "lastDurationMs": 44862,
+        "consecutiveErrors": 0,
+        "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
         "lastErrorAtMs": null,
-        "nextRunAtMs": 1775505600000,
-        "lastDelivered": true,
-        "lastError": "404 No active credentials for provider: openai"
+        "nextRunAtMs": 1776693600000,
+        "lastDelivered": true
       }
     },
     {
@@ -273,7 +270,7 @@
       "name": "Market Leads (Alpha Vantage, 4x/day)",
       "enabled": true,
       "createdAtMs": 1770408691799,
-      "updatedAtMs": 1775499996929,
+      "updatedAtMs": 1776453302940,
       "schedule": {
         "kind": "cron",
         "expr": "0 10,12,14,15 * * 1-5",
@@ -294,13 +291,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775499958371,
+        "lastRunAtMs": 1776453233905,
         "lastStatus": "ok",
-        "lastDurationMs": 38558,
+        "lastDurationMs": 69035,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1775502000000,
+        "nextRunAtMs": 1776693600000,
         "lastDelivered": true
       }
     },
@@ -310,7 +307,7 @@
       "name": "System Health Watch (OpenClaw)",
       "enabled": true,
       "createdAtMs": 1770410528466,
-      "updatedAtMs": 1775500029147,
+      "updatedAtMs": 1776465309383,
       "schedule": {
         "kind": "cron",
         "expr": "*/30 8-18 * * 1-5",
@@ -327,17 +324,17 @@
       "delivery": {
         "mode": "announce",
         "channel": "slack",
-        "to": "channel:C0AF4KB4TUK",
+        "to": "channel:C0AGFA9417T",
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775499996929,
+        "lastRunAtMs": 1776465278662,
         "lastStatus": "ok",
-        "lastDurationMs": 32218,
+        "lastDurationMs": 30721,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775501208405,
+        "nextRunAtMs": 1776686400000,
         "lastErrorAtMs": null,
         "lastDelivered": true
       }
@@ -348,7 +345,7 @@
       "name": "Daily AI + OpenClaw Trends Brief (Telegram DM)",
       "enabled": true,
       "createdAtMs": 1770593929748,
-      "updatedAtMs": 1775438666161,
+      "updatedAtMs": 1776559134105,
       "schedule": {
         "kind": "cron",
         "expr": "30 20 * * *",
@@ -368,13 +365,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775438632092,
+        "lastRunAtMs": 1776559095019,
         "lastStatus": "ok",
-        "lastDurationMs": 34069,
+        "lastDurationMs": 39086,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775521800000,
+        "nextRunAtMs": 1776645000000,
         "lastDelivered": true
       }
     },
@@ -384,7 +381,7 @@
       "name": "ENG Daily Proactive (Mode P)",
       "enabled": true,
       "createdAtMs": 1770618290688,
-      "updatedAtMs": 1775496069066,
+      "updatedAtMs": 1776432843404,
       "schedule": {
         "kind": "cron",
         "expr": "5 9 * * 1-5",
@@ -404,15 +401,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775496064807,
-        "lastStatus": "error",
-        "lastDurationMs": 4259,
-        "consecutiveErrors": 1,
-        "lastRunStatus": "error",
+        "lastRunAtMs": 1776432785833,
+        "lastStatus": "ok",
+        "lastDurationMs": 57571,
+        "consecutiveErrors": 0,
+        "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775567100000,
-        "lastDelivered": true,
-        "lastError": "404 No active credentials for provider: openai"
+        "nextRunAtMs": 1776690300000,
+        "lastDelivered": true
       }
     },
     {
@@ -421,7 +417,7 @@
       "name": "OPS Daily Proactive (Mode P)",
       "enabled": true,
       "createdAtMs": 1770618296899,
-      "updatedAtMs": 1775496084331,
+      "updatedAtMs": 1776431454464,
       "schedule": {
         "kind": "cron",
         "expr": "10 9 * * 1-5",
@@ -441,15 +437,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775496083639,
+        "lastRunAtMs": 1776431405480,
         "lastStatus": "error",
-        "lastDurationMs": 692,
+        "lastDurationMs": 48984,
         "consecutiveErrors": 1,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775567400000,
+        "nextRunAtMs": 1776690600000,
         "lastDelivered": true,
-        "lastError": "404 No active credentials for provider: openai"
+        "lastError": "\u26a0\ufe0f \ud83d\udcdd Edit: `in ~/.openclaw/workspace-ops/memory/state-ops.json` failed"
       }
     },
     {
@@ -458,7 +454,7 @@
       "name": "RESEARCH Daily Proactive (Mode P)",
       "enabled": true,
       "createdAtMs": 1770618303701,
-      "updatedAtMs": 1775495333984,
+      "updatedAtMs": 1776434031900,
       "schedule": {
         "kind": "cron",
         "expr": "15 9 * * 1-5",
@@ -478,15 +474,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775495324760,
-        "lastStatus": "error",
-        "lastDurationMs": 9224,
-        "consecutiveErrors": 1,
-        "lastRunStatus": "error",
+        "lastRunAtMs": 1776434003058,
+        "lastStatus": "ok",
+        "lastDurationMs": 28842,
+        "consecutiveErrors": 0,
+        "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775567700000,
-        "lastDelivered": true,
-        "lastError": "404 No active credentials for provider: openai"
+        "nextRunAtMs": 1776690900000,
+        "lastDelivered": true
       }
     },
     {
@@ -495,7 +490,7 @@
       "name": "FINANCE Daily Proactive (Mode P)",
       "enabled": true,
       "createdAtMs": 1770618311025,
-      "updatedAtMs": 1775496106082,
+      "updatedAtMs": 1776433448629,
       "schedule": {
         "kind": "cron",
         "expr": "20 9 * * 1-5",
@@ -515,15 +510,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775496105498,
-        "lastStatus": "error",
-        "lastDurationMs": 584,
-        "consecutiveErrors": 1,
-        "lastRunStatus": "error",
+        "lastRunAtMs": 1776433382593,
+        "lastStatus": "ok",
+        "lastDurationMs": 66036,
+        "consecutiveErrors": 0,
+        "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775568000000,
-        "lastDelivered": true,
-        "lastError": "404 No active credentials for provider: openai"
+        "nextRunAtMs": 1776691200000,
+        "lastDelivered": true
       }
     },
     {
@@ -532,7 +526,7 @@
       "name": "Cron Watchdog (alert on missed/failing jobs)",
       "enabled": true,
       "createdAtMs": 1770618629260,
-      "updatedAtMs": 1775497719603,
+      "updatedAtMs": 1776606055262,
       "schedule": {
         "kind": "cron",
         "expr": "*/10 8-22 * * *",
@@ -552,15 +546,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775497708742,
+        "lastRunAtMs": 1776606051578,
         "lastStatus": "ok",
-        "lastDurationMs": 10861,
+        "lastDurationMs": 3684,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775501213405,
-        "lastDelivered": true,
-        "runningAtMs": 1775509501105
+        "nextRunAtMs": 1776606600000,
+        "lastDelivered": true
       }
     },
     {
@@ -569,7 +562,7 @@
       "name": "RED Morning Check-in (standup)",
       "enabled": true,
       "createdAtMs": 1771344956120,
-      "updatedAtMs": 1775496073055,
+      "updatedAtMs": 1776432869611,
       "schedule": {
         "kind": "cron",
         "expr": "5 9 * * 1-5",
@@ -590,15 +583,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775496069066,
-        "lastStatus": "error",
-        "lastDurationMs": 3989,
-        "consecutiveErrors": 1,
-        "lastRunStatus": "error",
+        "lastRunAtMs": 1776432843404,
+        "lastStatus": "ok",
+        "lastDurationMs": 26207,
+        "consecutiveErrors": 0,
+        "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775567100000,
-        "lastDelivered": true,
-        "lastError": "404 No active credentials for provider: openai"
+        "nextRunAtMs": 1776690300000,
+        "lastDelivered": true
       }
     },
     {
@@ -607,7 +599,7 @@
       "name": "ENG Morning Check-in (standup)",
       "enabled": true,
       "createdAtMs": 1771344956120,
-      "updatedAtMs": 1775496073612,
+      "updatedAtMs": 1776432902171,
       "schedule": {
         "kind": "cron",
         "expr": "7 9 * * 1-5",
@@ -628,16 +620,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775496073055,
-        "lastStatus": "error",
-        "lastDurationMs": 557,
-        "consecutiveErrors": 1,
-        "lastRunStatus": "error",
+        "lastRunAtMs": 1776432869611,
+        "lastStatus": "ok",
+        "lastDurationMs": 32560,
+        "consecutiveErrors": 0,
+        "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775567220000,
+        "nextRunAtMs": 1776690420000,
         "lastErrorAtMs": null,
-        "lastDelivered": true,
-        "lastError": "404 No active credentials for provider: openai"
+        "lastDelivered": true
       }
     },
     {
@@ -646,7 +637,7 @@
       "name": "RESEARCH Morning Check-in (standup)",
       "enabled": true,
       "createdAtMs": 1771344956120,
-      "updatedAtMs": 1775496083113,
+      "updatedAtMs": 1776432954146,
       "schedule": {
         "kind": "cron",
         "expr": "9 9 * * 1-5",
@@ -667,15 +658,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775496078645,
-        "lastStatus": "error",
-        "lastDurationMs": 4468,
-        "consecutiveErrors": 2,
-        "lastRunStatus": "error",
+        "lastRunAtMs": 1776432902171,
+        "lastStatus": "ok",
+        "lastDurationMs": 51975,
+        "consecutiveErrors": 0,
+        "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775567340000,
-        "lastDelivered": true,
-        "lastError": "404 No active credentials for provider: openai"
+        "nextRunAtMs": 1776690540000,
+        "lastDelivered": true
       }
     },
     {
@@ -684,7 +674,7 @@
       "name": "FINANCE Morning Check-in (standup)",
       "enabled": true,
       "createdAtMs": 1771344956120,
-      "updatedAtMs": 1775496101552,
+      "updatedAtMs": 1776432533460,
       "schedule": {
         "kind": "cron",
         "expr": "11 9 * * 1-5",
@@ -705,15 +695,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775496090412,
-        "lastStatus": "error",
-        "lastDurationMs": 11140,
-        "consecutiveErrors": 1,
-        "lastRunStatus": "error",
+        "lastRunAtMs": 1776432386578,
+        "lastStatus": "ok",
+        "lastDurationMs": 146882,
+        "consecutiveErrors": 0,
+        "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775567460000,
-        "lastDelivered": true,
-        "lastError": "404 No active credentials for provider: openai"
+        "nextRunAtMs": 1776690660000,
+        "lastDelivered": true
       }
     },
     {
@@ -722,7 +711,7 @@
       "name": "OPS Morning Check-in (standup)",
       "enabled": true,
       "createdAtMs": 1771344956120,
-      "updatedAtMs": 1775496105498,
+      "updatedAtMs": 1776434003058,
       "schedule": {
         "kind": "cron",
         "expr": "13 9 * * 1-5",
@@ -743,15 +732,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775496101552,
-        "lastStatus": "error",
-        "lastDurationMs": 3946,
-        "consecutiveErrors": 1,
-        "lastRunStatus": "error",
+        "lastRunAtMs": 1776433953636,
+        "lastStatus": "ok",
+        "lastDurationMs": 49422,
+        "consecutiveErrors": 0,
+        "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775567580000,
-        "lastDelivered": true,
-        "lastError": "404 No active credentials for provider: openai"
+        "nextRunAtMs": 1776690780000,
+        "lastDelivered": true
       }
     },
     {
@@ -760,7 +748,7 @@
       "name": "INFOSEC Morning Check-in (standup)",
       "enabled": true,
       "createdAtMs": 1771344956120,
-      "updatedAtMs": 1775495336047,
+      "updatedAtMs": 1776434067176,
       "schedule": {
         "kind": "cron",
         "expr": "15 9 * * 1-5",
@@ -781,15 +769,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775495333984,
-        "lastStatus": "error",
-        "lastDurationMs": 2063,
-        "consecutiveErrors": 1,
-        "lastRunStatus": "error",
+        "lastRunAtMs": 1776434031900,
+        "lastStatus": "ok",
+        "lastDurationMs": 35276,
+        "consecutiveErrors": 0,
+        "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775567700000,
-        "lastDelivered": true,
-        "lastError": "404 No active credentials for provider: openai"
+        "nextRunAtMs": 1776690900000,
+        "lastDelivered": true
       }
     },
     {
@@ -798,7 +785,7 @@
       "name": "OPS Scrum Master \u2014 Morning Standup",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1775495338539,
+      "updatedAtMs": 1776434263283,
       "schedule": {
         "kind": "cron",
         "expr": "15 9 * * 1-5",
@@ -819,24 +806,23 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775495336047,
-        "lastStatus": "error",
-        "lastDurationMs": 2492,
-        "consecutiveErrors": 1,
-        "lastRunStatus": "error",
+        "lastRunAtMs": 1776434067176,
+        "lastStatus": "ok",
+        "lastDurationMs": 196107,
+        "consecutiveErrors": 0,
+        "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775567700000,
-        "lastDelivered": true,
-        "lastError": "404 No active credentials for provider: openai"
+        "nextRunAtMs": 1776690900000,
+        "lastDelivered": true
       }
     },
     {
       "id": "b6e593c0-f9d2-4eb3-8dbf-449c37b65127",
       "agentId": "ops",
       "name": "OPS SLA Enforcement Check",
-      "enabled": true,
+      "enabled": false,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1775501126795,
+      "updatedAtMs": 1776557584450,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -857,14 +843,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775501100370,
-        "lastStatus": "ok",
-        "lastDurationMs": 26425,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
+        "lastRunAtMs": 1776555937992,
+        "lastStatus": "error",
+        "lastDurationMs": 92022,
+        "consecutiveErrors": 1,
+        "lastRunStatus": "error",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775508300370,
-        "lastDelivered": true
+        "lastDelivered": true,
+        "lastError": "\u26a0\ufe0f \u2709\ufe0f Message failed"
       }
     },
     {
@@ -873,7 +859,7 @@
       "name": "OPS System Health Monitor",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1775471246063,
+      "updatedAtMs": 1776605576680,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -883,24 +869,24 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "You are OPS, the system health monitor. Check system health now.\n\nSTEPS:\n1. Read logs/gateway.err.log (last 20 lines) \u2014 look for new errors since last check.\n2. Read logs/errors.jsonl (last 5 entries) \u2014 check for recurring failures.\n3. Read workspace/ops/TICKET-TRACKER.md \u2014 check what's already tracked.\n\nIF you find new errors NOT already in TICKET-TRACKER.md:\na. Add a ticket to TICKET-TRACKER.md following the format there.\nb. Add a learning to workspace/ops/LEARNINGS.md if applicable.\nc. If critical (system down): Send Telegram alert to user 1012034994.\n\nIF everything is healthy: Do nothing. Be silent.\n\nRULES:\n- Do NOT run shell commands. Only use read and write tools.\n- Only create tickets for NEW issues not already tracked.\n- Keep it brief.\n\nAfter completing all checks and file updates, use the message tool to post a health summary to #redos-mission-control (channel:C0AEV3MDEDD).\n\nFormat:\n```\n\ud83d\udd0d *System Health Check \u2014 <timestamp>*\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\nStatus: \u2705 HEALTHY / \u26a0\ufe0f DEGRADED / \ud83d\udd34 CRITICAL\n<summary of findings \u2014 errors found, tickets opened/updated, actions taken>\n```\nOnly post if there are findings OR every 3rd run (to avoid channel spam). Always post if status is DEGRADED or CRITICAL.\nUse the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AEV3MDEDD\" ",
+        "message": "You are OPS, the system health monitor. Check system health now.\n\nSTEPS:\n1. Read logs/gateway.err.log (last 20 lines) \u2014 look for new errors since last check.\n2. Read logs/errors.jsonl (last 5 entries) \u2014 check for recurring failures.\n3. Read workspace/ops/TICKET-TRACKER.md \u2014 check what's already tracked.\n\nIF you find new errors NOT already in TICKET-TRACKER.md:\na. Add a ticket to TICKET-TRACKER.md following the format there.\nb. Add a learning to workspace/ops/LEARNINGS.md if applicable.\nc. If critical (system down): Send Telegram alert to user 1012034994.\n\nIF everything is healthy: Do nothing. Be silent.\n\nRULES:\n- Do NOT run shell commands. Only use read and write tools.\n- Only create tickets for NEW issues not already tracked.\n- Keep it brief.\n\nAfter completing all checks and file updates, use the message tool to post a health summary to #redos-mission-control (channel:C0AEV3MDEDD).\n\nFormat:\n```\n\ud83d\udd0d *System Health Check \u2014 <timestamp>*\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\nStatus: \u2705 HEALTHY / \u26a0\ufe0f DEGRADED / \ud83d\udd34 CRITICAL\n<summary of findings \u2014 errors found, tickets opened/updated, actions taken>\n```\nOnly post if there are findings OR every 3rd run (to avoid channel spam). Always post if status is DEGRADED or CRITICAL.\nUse the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AEV3MDEDD\"",
         "thinking": "low",
         "timeoutSeconds": 300
       },
       "delivery": {
         "mode": "announce",
         "channel": "slack",
-        "to": "channel:C0AEV3J2L23",
+        "to": "channel:C0AGFA9417T",
         "bestEffort": true
       },
       "state": {
         "lastStatus": "ok",
-        "lastRunAtMs": 1775471207467,
-        "lastDurationMs": 38596,
+        "lastRunAtMs": 1776605562388,
+        "lastDurationMs": 14292,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775503295024,
+        "nextRunAtMs": 1776609162388,
         "lastDelivered": true
       }
     },
@@ -910,7 +896,7 @@
       "name": "RED Self-Improvement Reflection",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1775471278960,
+      "updatedAtMs": 1776597791773,
       "schedule": {
         "kind": "every",
         "everyMs": 21600000,
@@ -931,15 +917,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775471246063,
-        "lastStatus": "ok",
-        "lastDurationMs": 32897,
-        "consecutiveErrors": 0,
-        "lastRunStatus": "ok",
-        "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775514095024,
+        "lastRunAtMs": 1776597781916,
+        "lastStatus": "error",
+        "lastDurationMs": 9857,
+        "consecutiveErrors": 2,
+        "lastRunStatus": "error",
+        "lastDeliveryStatus": "unknown",
+        "nextRunAtMs": 1776619381916,
         "lastErrorAtMs": null,
-        "lastDelivered": true
+        "lastError": "Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/opt/homebrew/lib/node_modules/openclaw/dist/run-delivery.runtime-B3VEtNIu.js' imported from /opt/homebrew/lib/node_modules/openclaw/dist/server.impl-GQ72oJBa.js"
       }
     },
     {
@@ -948,7 +934,7 @@
       "name": "OPS Ticket Auto-Diagnose & Fix",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1775481826497,
+      "updatedAtMs": 1776605587048,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -969,13 +955,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775481754544,
+        "lastRunAtMs": 1776605581760,
         "lastStatus": "ok",
-        "lastDurationMs": 71953,
+        "lastDurationMs": 5288,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775503295024,
+        "nextRunAtMs": 1776609181760,
         "lastDelivered": true
       }
     },
@@ -985,7 +971,7 @@
       "name": "RESEARCH Proactive Knowledge Update",
       "enabled": true,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1775471333574,
+      "updatedAtMs": 1776594035857,
       "schedule": {
         "kind": "every",
         "everyMs": 14400000,
@@ -1006,24 +992,24 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775471297936,
+        "lastRunAtMs": 1776593964870,
         "lastStatus": "ok",
-        "lastDurationMs": 35638,
+        "lastDurationMs": 70987,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
-        "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775514095024,
+        "lastDeliveryStatus": "not-delivered",
+        "nextRunAtMs": 1776608364870,
         "lastErrorAtMs": null,
-        "lastDelivered": true
+        "lastDelivered": false
       }
     },
     {
       "id": "a5bdd899-6a7c-4dbf-bae8-b35378650ad6",
       "agentId": "main",
       "name": "RED CEO Daily Summary to Anurag",
-      "enabled": true,
+      "enabled": false,
       "createdAtMs": 1771194095024,
-      "updatedAtMs": 1775258389184,
+      "updatedAtMs": 1776384246980,
       "schedule": {
         "kind": "cron",
         "expr": "0 18 * * 1-5",
@@ -1033,7 +1019,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "You are RED (CEO). Compile and send the daily summary to Anurag.\n\nSTEPS:\n1. Read workspace/ops/STANDUP-LOG.md \u2014 get today's standup.\n2. Read workspace/ops/TICKET-TRACKER.md \u2014 get ticket summary.\n3. Read workspace/ops/LEARNINGS.md \u2014 get today's learnings.\n4. Read logs/gateway.err.log (last 20 lines) \u2014 system health.\n\nCOMPILE a Telegram message to Anurag (user ID: 1012034994) with:\n\n\ud83d\udcca **RedOS Daily Summary \u2014 {date}**\n\n**System Health:** {healthy/degraded/issues}\n**Tickets:** {opened today} opened, {resolved today} resolved, {open} still open\n**SLA Breaches:** {count or \"None\"}\n\n**Key Events:**\n- {bullet points of important things that happened}\n\n**Learnings Applied:**\n- {bullet points of self-improvements made}\n\n**Agent Activity:**\n- {which agents were active, what they did}\n\n**Tomorrow's Focus:**\n- {what needs attention}\n\nKeep under 3000 chars. Send via Telegram DM.\n\nAfter sending the Telegram summary, also post to Slack #all-redos (channel:C0AG4AY6VME).\n\nFormat the Slack message as:\n```\n\ud83d\udc51 *CEO Daily Summary \u2014 <date>*\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n\ud83d\udcca *Today's Activity*\n\u2022 Calls: <N> | Spend: $<amount>\n\u2022 Active agents: <list>\n\n\ud83c\udfaf *Sprint Progress*\n<bullet list of key items from standup>\n\n\ud83c\udfab *Tickets*\n\u2022 <open count> open | <resolved count> resolved today\n\u2022 <any SLA breaches>\n\n\ud83d\udcda *Learnings / Decisions*\n<key learnings from today>\n\n\ud83d\udd2e *Tomorrow's Focus*\n<key priorities>\n```\nUse the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AG4AY6VME\" ",
+        "message": "You are RED (CEO). Compile and send the daily summary to Anurag.\n\nSTEPS:\n1. Read workspace/ops/STANDUP-LOG.md \u2014 get today's standup.\n2. Read workspace/ops/TICKET-TRACKER.md \u2014 get ticket summary.\n3. Read workspace/ops/LEARNINGS.md \u2014 get today's learnings.\n4. Read logs/gateway.err.log (last 20 lines) \u2014 system health.\n\nCOMPILE a Telegram message to Anurag (user ID: 1012034994) with:\n\n\ud83d\udcca **RedOS Daily Summary \u2014 {date}**\n\n**System Health:** {healthy/degraded/issues}\n**Tickets:** {opened today} opened, {resolved today} resolved, {open} still open\n**SLA Breaches:** {count or \"None\"}\n\n**Key Events:**\n- {bullet points of important things that happened}\n\n**Learnings Applied:**\n- {bullet points of self-improvements made}\n\n**Agent Activity:**\n- {which agents were active, what they did}\n\n**Tomorrow's Focus:**\n- {what needs attention}\n\nKeep under 3000 chars. Send via Telegram DM.\n\nAfter sending the Telegram summary, also post to Slack #all-redos (channel:C0AG4AY6VME).\n\nFormat the Slack message as:\n```\n\ud83d\udc51 *CEO Daily Summary \u2014 <date>*\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n\ud83d\udcca *Today's Activity*\n\u2022 Calls: <N> | Spend: $<amount>\n\u2022 Active agents: <list>\n\n\ud83c\udfaf *Sprint Progress*\n<bullet list of key items from standup>\n\n\ud83c\udfab *Tickets*\n\u2022 <open count> open | <resolved count> resolved today\n\u2022 <any SLA breaches>\n\n\ud83d\udcda *Learnings / Decisions*\n<key learnings from today>\n\n\ud83d\udd2e *Tomorrow's Focus*\n<key priorities>\n```\nUse the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AG4AY6VME\"",
         "thinking": "low",
         "timeoutSeconds": 300
       },
@@ -1043,15 +1029,14 @@
         "to": "-1002877650781:1012034994"
       },
       "state": {
-        "lastRunAtMs": 1775258354936,
+        "lastRunAtMs": 1776380900481,
         "lastStatus": "error",
-        "lastDurationMs": 34248,
-        "consecutiveErrors": 1,
+        "lastDurationMs": 115225,
+        "consecutiveErrors": 3,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
         "lastErrorAt": null,
         "lastErrorAtMs": null,
-        "nextRunAtMs": 1775512800000,
         "lastError": "Error: Telegram send failed: chat not found (chat_id=-1002877650781). Likely: bot not started in DM, bot removed from group/channel, group migrated (new -100\u2026 id), or wrong bot token. Input was: \"-1002877650781\"."
       }
     },
@@ -1061,7 +1046,7 @@
       "name": "RED Daily Brief (Telegram)",
       "enabled": true,
       "createdAtMs": 1771202886122,
-      "updatedAtMs": 1775496030783,
+      "updatedAtMs": 1776605889295,
       "schedule": {
         "kind": "cron",
         "expr": "0 9 * * *",
@@ -1080,16 +1065,15 @@
         "to": "1012034994"
       },
       "state": {
-        "lastRunAtMs": 1775496028009,
-        "lastStatus": "error",
-        "lastDurationMs": 2774,
-        "consecutiveErrors": 1,
-        "lastRunStatus": "error",
+        "lastRunAtMs": 1776605814895,
+        "lastStatus": "ok",
+        "lastDurationMs": 74400,
+        "consecutiveErrors": 0,
+        "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775566800000,
+        "nextRunAtMs": 1776690000000,
         "lastErrorAtMs": null,
-        "lastDelivered": true,
-        "lastError": "404 No active credentials for provider: openai"
+        "lastDelivered": true
       }
     },
     {
@@ -1098,7 +1082,7 @@
       "name": "ENG \u2190 RESEARCH: Read & Apply Learnings",
       "enabled": true,
       "createdAtMs": 1771380089656,
-      "updatedAtMs": 1775496114215,
+      "updatedAtMs": 1776438701117,
       "schedule": {
         "kind": "cron",
         "expr": "45 10 * * 1-5",
@@ -1108,7 +1092,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "You are ENG (Engineering Lead). Read your colleagues' latest findings and respond.\n\nSTEPS:\n1. Use the message tool to read recent messages from #openclaw-optimization:\n   message(action=\"read\", channel=\"slack\", target=\"channel:C0AF4KB4TUK\", limit=20)\n2. Read workspace/ops/LEARNINGS.md for context.\n3. Identify any findings from RESEARCH or INFOSEC that are relevant to engineering.\n4. For each relevant finding:\n   a. Assess if you need to take action (code change, config update, dependency check)\n   b. If yes, do it or create a ticket in TICKET-TRACKER.md\n5. Post your engineering response/acknowledgment to #openclaw-optimization:\n   ```\n   \ud83d\udcbb *ENG Response \u2014 <date>*\n   \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n   Read RESEARCH/INFOSEC updates. Here's my take:\n   <your engineering assessment and actions taken>\n   ```\n   Use the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AF4KB4TUK\" ",
+        "message": "You are ENG (Engineering Lead). Read your colleagues' latest findings and respond.\n\nSTEPS:\n1. Use the message tool to read recent messages from #openclaw-optimization:\n   message(action=\"read\", channel=\"slack\", target=\"channel:C0AF4KB4TUK\", limit=20)\n2. Read workspace/ops/LEARNINGS.md for context.\n3. Identify any findings from RESEARCH or INFOSEC that are relevant to engineering.\n4. For each relevant finding:\n   a. Assess if you need to take action (code change, config update, dependency check)\n   b. If yes, do it or create a ticket in TICKET-TRACKER.md\n5. Post your engineering response/acknowledgment to #openclaw-optimization:\n   ```\n   \ud83d\udcbb *ENG Response \u2014 <date>*\n   \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n   Read RESEARCH/INFOSEC updates. Here's my take:\n   <your engineering assessment and actions taken>\n   ```\n   Use the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AF4KB4TUK\"",
         "thinking": "low",
         "timeoutSeconds": 1800
       },
@@ -1119,15 +1103,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775496110249,
-        "lastStatus": "error",
-        "lastDurationMs": 3966,
-        "consecutiveErrors": 1,
-        "lastRunStatus": "error",
+        "lastRunAtMs": 1776438625121,
+        "lastStatus": "ok",
+        "lastDurationMs": 75996,
+        "consecutiveErrors": 0,
+        "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775573100000,
-        "lastDelivered": true,
-        "lastError": "404 No active credentials for provider: openai"
+        "nextRunAtMs": 1776696300000,
+        "lastDelivered": true
       }
     },
     {
@@ -1136,7 +1119,7 @@
       "name": "INFOSEC \u2190 ENG: Security Review of Updates",
       "enabled": true,
       "createdAtMs": 1771380089656,
-      "updatedAtMs": 1775155019965,
+      "updatedAtMs": 1776378934162,
       "schedule": {
         "kind": "cron",
         "expr": "30 14 * * 2,4",
@@ -1146,7 +1129,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "You are INFOSEC (Security Officer). Review ENG's recent work for security implications.\n\nSTEPS:\n1. Use the message tool to read recent messages from #openclaw-optimization:\n   message(action=\"read\", channel=\"slack\", target=\"channel:C0AF4KB4TUK\", limit=30)\n2. Read logs/gateway.err.log (last 30 lines) for security events.\n3. Review any code changes, config updates, or new integrations ENG has posted.\n4. Check workspace/ops/LEARNINGS.md for known security patterns.\n5. For each security concern found:\n   a. Post a security advisory to #openclaw-optimization with severity level\n   b. Create a ticket in TICKET-TRACKER.md if P1/P2\n6. Post security review summary to #openclaw-optimization:\n   ```\n   \ud83d\udd12 *INFOSEC Security Review \u2014 <date>*\n   \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n   Reviewed ENG updates. Security assessment:\n   *Status:* \u2705 CLEAR / \u26a0\ufe0f ADVISORIES / \ud83d\udd34 CRITICAL\n   <findings and recommendations>\n   ```\n   Use the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AF4KB4TUK\" ",
+        "message": "You are INFOSEC (Security Officer). Review ENG's recent work for security implications.\n\nSTEPS:\n1. Use the message tool to read recent messages from #openclaw-optimization:\n   message(action=\"read\", channel=\"slack\", target=\"channel:C0AF4KB4TUK\", limit=30)\n2. Read logs/gateway.err.log (last 30 lines) for security events.\n3. Review any code changes, config updates, or new integrations ENG has posted.\n4. Check workspace/ops/LEARNINGS.md for known security patterns.\n5. For each security concern found:\n   a. Post a security advisory to #openclaw-optimization with severity level\n   b. Create a ticket in TICKET-TRACKER.md if P1/P2\n6. Post security review summary to #openclaw-optimization:\n   ```\n   \ud83d\udd12 *INFOSEC Security Review \u2014 <date>*\n   \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n   Reviewed ENG updates. Security assessment:\n   *Status:* \u2705 CLEAR / \u26a0\ufe0f ADVISORIES / \ud83d\udd34 CRITICAL\n   <findings and recommendations>\n   ```\n   Use the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AF4KB4TUK\"",
         "thinking": "off",
         "timeoutSeconds": 600
       },
@@ -1157,13 +1140,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775154997484,
+        "lastRunAtMs": 1776378676910,
         "lastStatus": "ok",
-        "lastDurationMs": 22481,
+        "lastDurationMs": 257252,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775586600000,
+        "nextRunAtMs": 1776796200000,
         "lastDelivered": true
       }
     },
@@ -1173,7 +1156,7 @@
       "name": "OPS Friday Retrospective \u2014 Team Peer Learning",
       "enabled": true,
       "createdAtMs": 1771380089656,
-      "updatedAtMs": 1775247840234,
+      "updatedAtMs": 1776456521726,
       "schedule": {
         "kind": "cron",
         "expr": "0 16 * * 5",
@@ -1194,11 +1177,11 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775247769299,
+        "lastRunAtMs": 1776456423209,
         "lastStatus": "ok",
-        "lastDurationMs": 70935,
+        "lastDurationMs": 98517,
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1775851200000,
+        "nextRunAtMs": 1777060800000,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
         "lastDelivered": true
@@ -1220,7 +1203,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "You are OPS acting on behalf of RED (CEO). Run the morning team pulse \u2014 have a real conversation with each team member and post the results to Slack.\n\nSTEPS:\n1. Read workspace/ops/agent-status/ \u2014 collect everyone's standup JSON files.\n\n2. For each agent, use sessions_send (NOT sessions_spawn) for a real peer conversation:\n   BEFORE each sessions_send, append to workspace/logs/a2a-delegations.jsonl:\n   {\"type\":\"dispatch\",\"ts\":\"<ISO>\",\"from\":\"main\",\"to\":\"<agentId>\",\"mode\":\"send\",\"task\":\"Morning pulse check-in\"}\n\n   Then send:\n   - sessions_send(sessionKey=\"agent:allrounder:main\", message=\"Good morning ZEN! RED here. What's your main focus today and anything you need from me?\", timeoutSeconds=45)\n   - sessions_send(sessionKey=\"agent:eng:main\", message=\"Good morning ENG! RED here. What are you building today and any blockers?\", timeoutSeconds=45)\n   - sessions_send(sessionKey=\"agent:research:main\", message=\"Good morning RESEARCH! RED here. What are you investigating today?\", timeoutSeconds=45)\n   - sessions_send(sessionKey=\"agent:finance:main\", message=\"Good morning FINANCE! RED here. Any financial updates or concerns today?\", timeoutSeconds=45)\n   - sessions_send(sessionKey=\"agent:ops:main\", message=\"Good morning OPS! RED here. System health status and any tickets needing attention?\", timeoutSeconds=45)\n   - sessions_send(sessionKey=\"agent:infosec:main\", message=\"Good morning INFOSEC! RED here. Any security concerns or alerts overnight?\", timeoutSeconds=45)\n\n   AFTER each reply, append to workspace/logs/a2a-delegations.jsonl:\n   {\"type\":\"result\",\"ts\":\"<ISO>\",\"from\":\"main\",\"to\":\"<agentId>\",\"mode\":\"send\",\"task\":\"Morning pulse\",\"result_preview\":\"<first 100 chars of reply>\"}\n\n3. Post the team greeting to #all-redos:\n   ```\n   \ud83d\udc51 *Good morning, team! \u2014 <date>*\n   \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n   Here's what everyone is working on today:\n   \n   \ud83d\udc51 RED: <your own focus>\n   \ud83c\udf10 ZEN: <ZEN's response>\n   \ud83d\udcbb ENG: <ENG's response>\n   \ud83d\udd2c RESEARCH: <RESEARCH's response>\n   \ud83d\udcb0 FINANCE: <FINANCE's response>\n   \u2699\ufe0f OPS: <OPS's response>\n   \ud83d\udd12 INFOSEC: <INFOSEC's response>\n   \n   Let's have a great day! \ud83d\ude80\n   ```\n   Use the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AG4AY6VME\" ",
+        "message": "You are OPS acting on behalf of RED (CEO). Run the morning team pulse \u2014 have a real conversation with each team member and post the results to Slack.\n\nSTEPS:\n1. Read workspace/ops/agent-status/ \u2014 collect everyone's standup JSON files.\n\n2. For each agent, use sessions_send (NOT sessions_spawn) for a real peer conversation:\n   BEFORE each sessions_send, append to workspace/logs/a2a-delegations.jsonl:\n   {\"type\":\"dispatch\",\"ts\":\"<ISO>\",\"from\":\"main\",\"to\":\"<agentId>\",\"mode\":\"send\",\"task\":\"Morning pulse check-in\"}\n\n   Then send:\n   - sessions_send(sessionKey=\"agent:allrounder:main\", message=\"Good morning ZEN! RED here. What's your main focus today and anything you need from me?\", timeoutSeconds=45)\n   - sessions_send(sessionKey=\"agent:eng:main\", message=\"Good morning ENG! RED here. What are you building today and any blockers?\", timeoutSeconds=45)\n   - sessions_send(sessionKey=\"agent:research:main\", message=\"Good morning RESEARCH! RED here. What are you investigating today?\", timeoutSeconds=45)\n   - sessions_send(sessionKey=\"agent:finance:main\", message=\"Good morning FINANCE! RED here. Any financial updates or concerns today?\", timeoutSeconds=45)\n   - sessions_send(sessionKey=\"agent:ops:main\", message=\"Good morning OPS! RED here. System health status and any tickets needing attention?\", timeoutSeconds=45)\n   - sessions_send(sessionKey=\"agent:infosec:main\", message=\"Good morning INFOSEC! RED here. Any security concerns or alerts overnight?\", timeoutSeconds=45)\n\n   AFTER each reply, append to workspace/logs/a2a-delegations.jsonl:\n   {\"type\":\"result\",\"ts\":\"<ISO>\",\"from\":\"main\",\"to\":\"<agentId>\",\"mode\":\"send\",\"task\":\"Morning pulse\",\"result_preview\":\"<first 100 chars of reply>\"}\n\n3. Post the team greeting to #all-redos:\n   ```\n   \ud83d\udc51 *Good morning, team! \u2014 <date>*\n   \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n   Here's what everyone is working on today:\n   \n   \ud83d\udc51 RED: <your own focus>\n   \ud83c\udf10 ZEN: <ZEN's response>\n   \ud83d\udcbb ENG: <ENG's response>\n   \ud83d\udd2c RESEARCH: <RESEARCH's response>\n   \ud83d\udcb0 FINANCE: <FINANCE's response>\n   \u2699\ufe0f OPS: <OPS's response>\n   \ud83d\udd12 INFOSEC: <INFOSEC's response>\n   \n   Let's have a great day! \ud83d\ude80\n   ```\n   Use the message tool: action=\"send\", channel=\"slack\", target=\"channel:C0AG4AY6VME\"",
         "thinking": "low",
         "timeoutSeconds": 300
       },
@@ -1246,7 +1229,7 @@
       "name": "OPS Task ETA Monitor",
       "enabled": true,
       "createdAtMs": 1771544316316,
-      "updatedAtMs": 1775481191750,
+      "updatedAtMs": 1776595754175,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1267,13 +1250,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775481158414,
+        "lastRunAtMs": 1776595738052,
         "lastStatus": "ok",
-        "lastDurationMs": 33336,
+        "lastDurationMs": 16123,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775504316316,
+        "nextRunAtMs": 1776613116316,
         "lastDelivered": true
       }
     },
@@ -1321,7 +1304,7 @@
       "name": "OPS Idle Agent Audit",
       "enabled": true,
       "createdAtMs": 1771544316316,
-      "updatedAtMs": 1775467471677,
+      "updatedAtMs": 1776599533357,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -1342,14 +1325,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775467356245,
+        "lastRunAtMs": 1776599514277,
         "lastStatus": "ok",
-        "lastDurationMs": 115432,
+        "lastDurationMs": 19080,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
-        "lastDeliveryStatus": "not-delivered",
-        "nextRunAtMs": 1775501238405,
-        "lastDelivered": false
+        "lastDeliveryStatus": "delivered",
+        "nextRunAtMs": 1776609516316,
+        "lastDelivered": true
       }
     },
     {
@@ -1376,16 +1359,16 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775500096447,
+        "lastRunAtMs": 1776599324224,
         "lastStatus": "ok",
-        "lastDurationMs": 49779,
+        "lastDurationMs": 21420,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
-        "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775503696447,
-        "lastDelivered": true
+        "lastDeliveryStatus": "not-delivered",
+        "nextRunAtMs": 1776607356567,
+        "lastDelivered": false
       },
-      "updatedAtMs": 1775500146226
+      "updatedAtMs": 1776599345644
     },
     {
       "id": "hatake-daily-briefing-0001",
@@ -1411,17 +1394,16 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775496033013,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 4805,
+        "lastRunAtMs": 1776605889295,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 18276,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 1,
-        "nextRunAtMs": 1775566800000,
-        "lastDelivered": true,
-        "lastError": "404 No active credentials for provider: openai"
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1776690000000,
+        "lastDelivered": true
       },
-      "updatedAtMs": 1775496037818
+      "updatedAtMs": 1776605907571
     },
     {
       "id": "health-jsonl-writer-0001",
@@ -1429,7 +1411,7 @@
       "name": "Health JSONL Writer",
       "enabled": true,
       "createdAtMs": 1771695150814,
-      "updatedAtMs": 1775496822505,
+      "updatedAtMs": 1776599553848,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -1450,15 +1432,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775496751794,
+        "lastRunAtMs": 1776599533357,
         "lastStatus": "ok",
-        "lastDurationMs": 70711,
+        "lastDurationMs": 20491,
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1775501233405,
-        "lastDelivered": true,
-        "runningAtMs": 1775509501105
+        "nextRunAtMs": 1776609150814,
+        "lastDelivered": true
       }
     },
     {
@@ -1477,9 +1458,9 @@
         "consecutiveErrors": 0,
         "lastStatus": "skipped",
         "lastRunStatus": "skipped",
-        "nextRunAtMs": 1775566800000,
-        "lastRunAtMs": 1775496038009,
-        "lastDurationMs": 2,
+        "nextRunAtMs": 1776690000000,
+        "lastRunAtMs": 1776605907571,
+        "lastDurationMs": 4,
         "lastDeliveryStatus": "unknown",
         "lastError": "main job requires payload.kind=\"systemEvent\""
       },
@@ -1489,7 +1470,7 @@
         "channel": "telegram",
         "mode": "announce"
       },
-      "updatedAtMs": 1775496038011
+      "updatedAtMs": 1776605907575
     },
     {
       "id": "ops-disk-monitor-daily-2026-02-22",
@@ -1497,7 +1478,7 @@
       "name": "Daily Disk Space Monitor (Telegram)",
       "enabled": true,
       "createdAtMs": 1771747423771,
-      "updatedAtMs": 1775496060371,
+      "updatedAtMs": 1776605937781,
       "schedule": {
         "kind": "cron",
         "expr": "0 9 * * *",
@@ -1518,15 +1499,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775496045401,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 14970,
+        "lastRunAtMs": 1776605907575,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 30206,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 1,
-        "nextRunAtMs": 1775566800000,
-        "lastDelivered": true,
-        "lastError": "404 No active credentials for provider: openai"
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1776690000000,
+        "lastDelivered": true
       }
     },
     {
@@ -1535,7 +1515,7 @@
       "name": "HATAKE Competitive Intelligence Weekly",
       "enabled": true,
       "createdAtMs": 1771895556789,
-      "updatedAtMs": 1775496133900,
+      "updatedAtMs": 1776380332249,
       "schedule": {
         "kind": "cron",
         "expr": "0 10 * * 1"
@@ -1554,16 +1534,15 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1776088800000,
-        "lastRunAtMs": 1775496129251,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 4649,
+        "nextRunAtMs": 1776693600000,
+        "lastRunAtMs": 1776380125417,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 206832,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 1,
+        "consecutiveErrors": 0,
         "lastErrorAtMs": null,
-        "lastDelivered": true,
-        "lastError": "404 No active credentials for provider: openai"
+        "lastDelivered": true
       }
     },
     {
@@ -1607,7 +1586,7 @@
       "name": "ZEN COO Morning Delegation Brief",
       "enabled": true,
       "createdAtMs": 1771895576881,
-      "updatedAtMs": 1775496064807,
+      "updatedAtMs": 1776606033533,
       "schedule": {
         "kind": "cron",
         "expr": "0 9 * * *"
@@ -1626,15 +1605,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775496060371,
+        "lastRunAtMs": 1776605937781,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 4436,
+        "lastDurationMs": 95752,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 1,
-        "nextRunAtMs": 1775566800000,
+        "consecutiveErrors": 3,
+        "nextRunAtMs": 1776690000000,
         "lastDelivered": true,
-        "lastError": "404 No active credentials for provider: openai"
+        "lastError": "\u26a0\ufe0f \ud83d\udcdd Edit: `in ~/.openclaw/workspace-allrounder/memory/2026-04-19.md` failed"
       }
     },
     {
@@ -1643,7 +1622,7 @@
       "name": "OPS Guardrail: Ticket Resolution Enforcer",
       "enabled": true,
       "createdAtMs": 1771897248854,
-      "updatedAtMs": 1775497777352,
+      "updatedAtMs": 1776606085448,
       "schedule": {
         "kind": "every",
         "everyMs": 14400000,
@@ -1663,13 +1642,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775497751573,
+        "lastRunAtMs": 1776606055262,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 25779,
+        "lastDurationMs": 30186,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1775512151573,
+        "nextRunAtMs": 1776620455262,
         "lastDelivered": true
       }
     },
@@ -1679,7 +1658,7 @@
       "name": "OPS Daily OpenClaw Update Check",
       "enabled": true,
       "createdAtMs": 1771897250922,
-      "updatedAtMs": 1775496018068,
+      "updatedAtMs": 1776600265525,
       "schedule": {
         "kind": "cron",
         "expr": "0 8 * * *"
@@ -1698,15 +1677,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775496015417,
+        "lastRunAtMs": 1776600265524,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 2651,
-        "lastDeliveryStatus": "delivered",
+        "lastDurationMs": 1,
+        "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 1,
-        "nextRunAtMs": 1775563200000,
-        "lastDelivered": true,
-        "lastError": "404 No active credentials for provider: openai"
+        "nextRunAtMs": 1776686400000,
+        "lastError": "Error: Missing workspace template: AGENTS.md (/docs/reference/templates/AGENTS.md). Ensure docs/reference/templates are packaged."
       }
     },
     {
@@ -1715,7 +1693,7 @@
       "name": "RED Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897377295,
-      "updatedAtMs": 1775497853025,
+      "updatedAtMs": 1776595798587,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1735,14 +1713,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775497782413,
+        "lastRunAtMs": 1776595754175,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 70612,
+        "lastDurationMs": 44412,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1775504982413,
-        "lastDelivered": true
+        "nextRunAtMs": 1776606177295,
+        "lastDelivered": true,
+        "runningAtMs": 1776610023249
       }
     },
     {
@@ -1751,7 +1730,7 @@
       "name": "ZEN Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897390213,
-      "updatedAtMs": 1775498009727,
+      "updatedAtMs": 1776603947493,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1771,13 +1750,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775497973614,
+        "lastRunAtMs": 1776603861562,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 36113,
+        "lastDurationMs": 85931,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1775505173614,
+        "nextRunAtMs": 1776611061562,
         "lastErrorAtMs": null,
         "lastDelivered": true
       }
@@ -1788,7 +1767,7 @@
       "name": "ENG Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897391560,
-      "updatedAtMs": 1775498135210,
+      "updatedAtMs": 1776596319453,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1798,7 +1777,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "META SELF-CHECK: Verify exec, read/write, ccs-smart.sh work. Check task queue. Write status to ops/agent-status/eng.json. If idle, review open PRs or write tests.",
+        "message": "META SELF-CHECK: Verify exec, read/write, ccs-smart.sh work. Check task queue. Write status to /Users/redinside/.openclaw/workspace-eng/ops/agent-status/eng.json. If idle, review open PRs or write tests.",
         "timeoutSeconds": 300
       },
       "delivery": {
@@ -1808,15 +1787,16 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775498009727,
+        "lastRunAtMs": 1776596259476,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 125483,
+        "lastDurationMs": 59977,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
         "lastErrorAtMs": null,
-        "nextRunAtMs": 1775505209727,
-        "lastDelivered": true
+        "nextRunAtMs": 1776606191560,
+        "lastDelivered": true,
+        "runningAtMs": 1776610023249
       }
     },
     {
@@ -1825,7 +1805,7 @@
       "name": "RESEARCH Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897392835,
-      "updatedAtMs": 1775498153331,
+      "updatedAtMs": 1776596344142,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1845,13 +1825,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775498135210,
+        "lastRunAtMs": 1776596319453,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 18121,
+        "lastDurationMs": 24689,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1775505335210,
+        "nextRunAtMs": 1776606192835,
         "lastDelivered": true
       }
     },
@@ -1861,7 +1841,7 @@
       "name": "FINANCE Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897394350,
-      "updatedAtMs": 1775498688353,
+      "updatedAtMs": 1776599701054,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1881,13 +1861,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775498658525,
+        "lastRunAtMs": 1776599560258,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 29828,
+        "lastDurationMs": 140796,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1775505858525,
+        "nextRunAtMs": 1776606760258,
         "lastDelivered": true
       }
     },
@@ -1897,7 +1877,7 @@
       "name": "OPS Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897395722,
-      "updatedAtMs": 1775498717274,
+      "updatedAtMs": 1776596098597,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1917,14 +1897,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775498688353,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 28921,
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0,
-        "nextRunAtMs": 1775505888353,
-        "lastDelivered": true
+        "lastRunAtMs": 1776595798587,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 300010,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 1,
+        "nextRunAtMs": 1776606195722,
+        "lastError": "cron: job execution timed out",
+        "lastErrorReason": "timeout"
       }
     },
     {
@@ -1933,7 +1914,7 @@
       "name": "INFOSEC Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897397121,
-      "updatedAtMs": 1775498747965,
+      "updatedAtMs": 1776603713313,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1953,14 +1934,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775498717274,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 30691,
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0,
-        "nextRunAtMs": 1775505917274,
-        "lastDelivered": true
+        "lastRunAtMs": 1776603413282,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 300031,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 1,
+        "nextRunAtMs": 1776610613282,
+        "lastError": "cron: job execution timed out",
+        "lastErrorReason": "timeout"
       }
     },
     {
@@ -1969,7 +1951,7 @@
       "name": "HATAKE Meta Self-Check",
       "enabled": true,
       "createdAtMs": 1771897398357,
-      "updatedAtMs": 1775498791927,
+      "updatedAtMs": 1776603830443,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -1989,13 +1971,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775498747965,
+        "lastRunAtMs": 1776603775692,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 43962,
+        "lastDurationMs": 54751,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1775505947965,
+        "nextRunAtMs": 1776610975692,
         "lastDelivered": true
       }
     },
@@ -2005,7 +1987,7 @@
       "name": "CI Event Logger (cron \u2192 ci-log.jsonl)",
       "enabled": true,
       "createdAtMs": 1771907000000,
-      "updatedAtMs": 1775496342468,
+      "updatedAtMs": 1776603734512,
       "schedule": {
         "kind": "every",
         "everyMs": 3600000,
@@ -2026,13 +2008,13 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775496338378,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 4090,
+        "lastRunAtMs": 1776603713313,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 21199,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 1,
-        "nextRunAtMs": 1775503400000,
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1776607313313,
         "lastDelivered": true
       }
     },
@@ -2042,7 +2024,7 @@
       "name": "Self-Healing Guardrail: Health Snapshot \u2192 Tickets",
       "enabled": true,
       "createdAtMs": 1771907005000,
-      "updatedAtMs": 1775496407556,
+      "updatedAtMs": 1776603742695,
       "schedule": {
         "kind": "every",
         "everyMs": 7200000,
@@ -2063,14 +2045,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775496404592,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 2964,
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 2,
-        "nextRunAtMs": 1775503604592,
-        "lastDelivered": true
+        "lastRunAtMs": 1776603734512,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 8183,
+        "lastDeliveryStatus": "not-delivered",
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1776610934512,
+        "lastDelivered": false
       }
     },
     {
@@ -2079,7 +2061,7 @@
       "name": "CI Weekly Summarizer (roll \u2192 LEARNINGS.md)",
       "enabled": true,
       "createdAtMs": 1771907010000,
-      "updatedAtMs": 1775475897921,
+      "updatedAtMs": 1776379252032,
       "schedule": {
         "kind": "cron",
         "expr": "0 7 * * 1",
@@ -2100,11 +2082,11 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1776078000000,
-        "lastRunAtMs": 1775475885881,
+        "nextRunAtMs": 1776682800000,
+        "lastRunAtMs": 1776379194887,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 12040,
+        "lastDurationMs": 57145,
         "lastDelivered": false,
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0
@@ -2114,9 +2096,9 @@
       "id": "a2a-daily-proactive-0001",
       "agentId": "main",
       "name": "RED Daily A2A Proactive Delegation",
-      "enabled": true,
+      "enabled": false,
       "createdAtMs": 1771910000000,
-      "updatedAtMs": 1775496110249,
+      "updatedAtMs": 1776372000000,
       "schedule": {
         "kind": "cron",
         "expr": "0 10 * * 1-5",
@@ -2143,7 +2125,6 @@
         "lastDurationMs": 4167,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 1,
-        "nextRunAtMs": 1775570400000,
         "lastErrorAtMs": null,
         "lastDelivered": true,
         "lastError": "404 No active credentials for provider: openai"
@@ -2155,7 +2136,7 @@
       "name": "A2A Communication Health Monitor",
       "enabled": true,
       "createdAtMs": 1771910000000,
-      "updatedAtMs": 1775259953770,
+      "updatedAtMs": 1776463813277,
       "schedule": {
         "kind": "cron",
         "expr": "0 18 * * 1-5",
@@ -2170,23 +2151,22 @@
         "message": "A2A Communication Health Monitor (automated)\n\nYou are OPS. Check if agents are actually talking to each other today.\n\nSTEPS:\n1. Read workspace/logs/a2a-delegations.jsonl\n2. Count entries from today (match today's date in the 'ts' field)\n3. Read workspace/ops/task-registry.json \u2014 count tasks completed today\n\nEVALUATE:\n- If a2a-delegations.jsonl has 0 entries today: ALERT \u2014 agents are not communicating\n- If a2a-delegations.jsonl has <3 entries today: WARN \u2014 low A2A activity\n- If a2a-delegations.jsonl has >=3 entries today: OK\n\nIF ALERT or WARN:\n- Send Telegram DM to user id 1012034994:\n  '\u26a0\ufe0f A2A Alert: Agents have not been talking to each other today.\\nDelegations logged: <count>\\nThis means autonomous collaboration is not working.\\nRED should run the daily delegation cron or check SOUL.md A2A rules.'\n- Use sessions_spawn to notify RED (agentId=\"main\"):\n  'A2A health check failed: only <N> delegations logged today. Please run proactive delegation now and check SOUL.md A2A rules.'\n\nIF OK:\n- Post to Slack #redos-scrum (channel:C0AEV3J2L23):\n  '\u2699\ufe0f *OPS A2A Check*: \u2705 <N> agent delegations logged today. Team is communicating.'\n\nEnd with: Provider: <provider> | Model: <model>"
       },
       "delivery": {
-        "mode": "announce",
+        "mode": "none",
         "channel": "slack",
         "to": "channel:C0AEV3J2L23",
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775259951259,
-        "lastRunStatus": null,
+        "lastRunAtMs": 1776463749519,
+        "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 2511,
+        "lastDurationMs": 63758,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
         "lastErrorAtMs": null,
-        "nextRunAtMs": 1775512800000,
-        "lastDelivered": true,
-        "lastErrorReason": "billing",
-        "lastError": "\u26a0\ufe0f minimax (MiniMax-M2.5) returned a billing error \u2014 your API key has run out of credits or has an insufficient balance. Check your minimax billing dashboard and top up or switch to a different API key."
+        "nextRunAtMs": 1776722400000,
+        "lastError": "\u26a0\ufe0f \u2709\ufe0f Message failed",
+        "lastDelivered": true
       }
     },
     {
@@ -2195,7 +2175,7 @@
       "name": "Weekly Competitive Intelligence (AI Tools)",
       "enabled": true,
       "createdAtMs": 1771908000000,
-      "updatedAtMs": 1775496411408,
+      "updatedAtMs": 1776380092508,
       "schedule": {
         "kind": "cron",
         "expr": "0 9 * * 1",
@@ -2216,14 +2196,13 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1776085200000,
-        "lastRunAtMs": 1775496407580,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 3828,
+        "nextRunAtMs": 1776690000000,
+        "lastRunAtMs": 1776379911240,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 181268,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 2,
-        "lastError": "404 No active credentials for provider: openai",
+        "consecutiveErrors": 0,
         "lastDelivered": true
       }
     },
@@ -2233,7 +2212,7 @@
       "name": "ENG: Coding Factory \u2014 Self-Healing & PR Monitor",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1775496396751,
+      "updatedAtMs": 1776600281325,
       "schedule": {
         "kind": "cron",
         "expr": "0 */4 * * *",
@@ -2246,24 +2225,20 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 3600,
-        "message": "You are ENG. Your job: monitor open PRs from anuragg-saxenaa to decolua/9router and fix CI failures.\n\n1. Check open PRs:\n   exec: /opt/homebrew/bin/gh pr list --repo decolua/9router --author anuragg-saxenaa --json number,title,statusCheckRollup,url,headRefName\n\n2. For any PR with failing CI checks:\n   exec: /opt/homebrew/bin/gh pr checks <num> --repo decolua/9router\n   Read the failure, implement the fix using write/edit tools, then:\n   exec: /bin/bash -c \"/usr/bin/git add -A && /usr/bin/git commit -m 'fix: address CI failure' && /usr/bin/git push fork HEAD\"\n\n3. Post a summary to Slack channel:C0AFW1B0QUB with PR statuses.\n\nIMPORTANT: Use full binary paths in all exec calls. If exec is blocked, use web_fetch on the GitHub API as fallback."
+        "message": "MANDATORY BEFORE ANY PR CREATION: check if the target repo is paused.\n  exec: python3 /Users/redinside/.openclaw/scripts/check-repo-pause.py <owner/repo>\n  If exit code is 1 (BLOCKED): STOP. Do not create the PR. Log 'PAUSED: <repo> \u2014 skipped'.\n  This check is non-negotiable. Do not proceed if blocked.\n\nYou are ENG. Your job: monitor open PRs from anuragg-saxenaa to decolua/9router and fix CI failures.\n\n1. Check open PRs:\n   exec: /opt/homebrew/bin/gh pr list --repo decolua/9router --author anuragg-saxenaa --json number,title,statusCheckRollup,url,headRefName\n\n2. For any PR with failing CI checks:\n   exec: /opt/homebrew/bin/gh pr checks <num> --repo decolua/9router\n   Read the failure, implement the fix using write/edit tools, then:\n   exec: /bin/bash -c \"/usr/bin/git add -A && /usr/bin/git commit -m 'fix: address CI failure' && /usr/bin/git push fork HEAD\"\n\n3. Post a summary to Slack channel:C0AFW1B0QUB with PR statuses.\n\nIMPORTANT: Use full binary paths in all exec calls. If exec is blocked, use web_fetch on the GitHub API as fallback."
       },
       "delivery": {
-        "mode": "announce",
-        "channel": "slack",
-        "to": "channel:C0AFW1B0QUB",
-        "bestEffort": true
+        "mode": "none"
       },
       "state": {
-        "lastRunAtMs": 1775496396056,
+        "lastRunAtMs": 1776600281323,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 695,
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 2,
-        "nextRunAtMs": 1775505814472,
-        "lastDelivered": true,
-        "lastError": "404 No active credentials for provider: openai"
+        "lastDurationMs": 2,
+        "lastDeliveryStatus": "not-requested",
+        "consecutiveErrors": 3,
+        "nextRunAtMs": 1776614614472,
+        "lastError": "Error: Missing workspace template: AGENTS.md (/docs/reference/templates/AGENTS.md). Ensure docs/reference/templates are packaged."
       }
     },
     {
@@ -2272,7 +2247,7 @@
       "name": "ENG Daily R&D Research Session",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1775500068441,
+      "updatedAtMs": 1776535622245,
       "schedule": {
         "kind": "cron",
         "expr": "0 14 * * *",
@@ -2287,20 +2262,20 @@
         "message": "You are ENG. Daily R&D research session.\n\nYour job: stay current on the state of the art for autonomous coding agents and CI automation.\n\nSTEPS:\n1. Use web_search to research 2-3 of these topics (rotate daily based on date):\n   - Latest AI coding agent benchmarks (SWE-bench, Devin, OpenHands, Aider, SWE-agent)\n   - Git worktree automation patterns\n   - Self-healing CI/CD pipelines\n   - Code review automation tools\n   - LLM-driven test generation\n   - GitHub Actions best practices 2026\n\n2. For each finding that is relevant to the coding factory POC:\n   - Note it in workspace/research/eng-rd-YYYY-MM-DD.md (create if needed)\n   - If it's immediately actionable: open a ticket in workspace/ops/TICKET-TRACKER.md\n\n3. Post a brief summary to Slack #openclaw-optimization (channel:C0AF4KB4TUK):\n   \ud83d\udcbb *ENG R&D \u2014 <date>*\n   - Researched: <topics>\n   - Key finding: <most useful thing found>\n   - Action: <ticket opened or 'None'>\n\n4. If you find something that would improve the OpenClaw framework itself (not the POC):\n   - Spawn RED: sessions_spawn(agentId=\"main\", task=\"ENG R&D finding: <summary>. Recommend: <action>.\")\n\nDo NOT ask for permission. Research and report."
       },
       "delivery": {
-        "mode": "announce",
+        "mode": "none",
         "channel": "slack",
         "to": "channel:C0AF4KB4TUK",
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775500029147,
+        "lastRunAtMs": 1776535558294,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 39294,
-        "lastDeliveryStatus": "delivered",
+        "lastDurationMs": 63951,
+        "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1775584800000,
-        "lastDelivered": true
+        "nextRunAtMs": 1776621600000,
+        "lastDelivered": false
       }
     },
     {
@@ -2309,7 +2284,7 @@
       "name": "RED Inner Loop \u2014 Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1775496333422,
+      "updatedAtMs": 1776600280176,
       "schedule": {
         "kind": "cron",
         "expr": "0 */4 * * *",
@@ -2331,15 +2306,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775496329073,
+        "lastRunAtMs": 1776600275579,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 4349,
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 1,
-        "nextRunAtMs": 1775505655483,
-        "lastDelivered": true,
-        "lastError": "404 No active credentials for provider: openai"
+        "lastDurationMs": 4597,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 3,
+        "nextRunAtMs": 1776614455483,
+        "lastError": "Error: Missing workspace template: AGENTS.md (/docs/reference/templates/AGENTS.md). Ensure docs/reference/templates are packaged."
       }
     },
     {
@@ -2348,7 +2322,7 @@
       "name": "RESEARCH Inner Loop \u2014 Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1775496591836,
+      "updatedAtMs": 1776595738052,
       "schedule": {
         "kind": "cron",
         "expr": "30 */3 * * *",
@@ -2369,14 +2343,15 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775496575675,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 16161,
+        "lastRunAtMs": 1776595596533,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 141519,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 1,
-        "nextRunAtMs": 1775503800000,
-        "lastDelivered": true
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1776606058557,
+        "lastDelivered": true,
+        "runningAtMs": 1776610023249
       }
     },
     {
@@ -2385,7 +2360,7 @@
       "name": "OPS Inner Loop \u2014 Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1775496010357,
+      "updatedAtMs": 1776602963706,
       "schedule": {
         "kind": "cron",
         "expr": "15 */4 * * *",
@@ -2406,15 +2381,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775496003951,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 6406,
+        "lastRunAtMs": 1776602852709,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 110997,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 1,
-        "nextRunAtMs": 1775506500000,
-        "lastDelivered": true,
-        "lastError": "404 No active credentials for provider: openai"
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1776615300000,
+        "lastDelivered": true
       }
     },
     {
@@ -2423,7 +2397,7 @@
       "name": "INFOSEC Inner Loop \u2014 Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1775496015417,
+      "updatedAtMs": 1776603775692,
       "schedule": {
         "kind": "cron",
         "expr": "45 */4 * * *",
@@ -2444,15 +2418,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775496010357,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 5060,
+        "lastRunAtMs": 1776603742695,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 32997,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 1,
-        "nextRunAtMs": 1775508300000,
-        "lastDelivered": true,
-        "lastError": "404 No active credentials for provider: openai"
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1776617100000,
+        "lastDelivered": true
       }
     },
     {
@@ -2461,7 +2434,7 @@
       "name": "ENG Inner Loop \u2014 Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1775496618316,
+      "updatedAtMs": 1776597771844,
       "schedule": {
         "kind": "cron",
         "expr": "30 1,5,9,13,17,21 * * *",
@@ -2473,7 +2446,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 1800,
-        "message": "STEP 0 \u2014 CLAIM YOUR TASK FROM AUTONOMOUS.md (do this FIRST):\n- Read /Users/redinside/.openclaw/workspace/AUTONOMOUS.md\n- Find the first PENDING task assigned to eng\n- If found: mark it IN_PROGRESS, execute it fully, mark DONE, append to /Users/redinside/.openclaw/workspace/tasks-log.md, then STOP (don't do STEP 1 below)\n- If no PENDING tasks: continue to STEP 1\n\nAUTONOMOUS.md tasks may be any of these types \u2014 handle ALL of them:\n  TYPE A \u2014 New OSS project: RESEARCH gave you a SPEC.md. Create GitHub repo, implement MVP, push, open PR.\n  TYPE B \u2014 On-demand PR: Anurag (via RED) asked you to fix issues on a specific repo. Clone fork, fix each issue on its own branch, open individual PRs, log URLs.\n  TYPE C \u2014 Backlog project: implement from workspace/projects/backlog.md.\n\nYou are ENG. Ship ONE project from the backlog to GitHub. Do it now.\n\nSTEP 1 \u2014 PICK PROJECT:\n- Read /Users/redinside/.openclaw/workspace/projects/backlog.md\n- Pick first row where Status=READY and GitHub Repo=\"\u2014\"\n\nSTEP 2 \u2014 READ SPEC:\n- Read the SPEC.md file at /Users/redinside/.openclaw/workspace/projects//SPEC.md\n\nSTEP 3 \u2014 IMPLEMENT:\n- Create GitHub repo: gh repo create anuragg-saxenaa/ --public\n- Clone, implement MVP from spec, commit, push\n- Open PR\n\nSTEP 4 \u2014 LOG:\n- Update backlog.md row: Status=DONE, GitHub Repo=URL\n- Append to workspace/projects/pr-log.md\n- Post to Slack #redos-eng (channel:C0AFW1B0QUB)"
+        "message": "MANDATORY BEFORE ANY PR CREATION: check if the target repo is paused.\n  exec: python3 /Users/redinside/.openclaw/scripts/check-repo-pause.py <owner/repo>\n  If exit code is 1 (BLOCKED): STOP. Do not create the PR. Log 'PAUSED: <repo> \u2014 skipped'.\n  This check is non-negotiable. Do not proceed if blocked.\n\nSTEP 0 \u2014 CLAIM YOUR TASK FROM AUTONOMOUS.md (do this FIRST):\n- Read /Users/redinside/.openclaw/workspace/AUTONOMOUS.md\n- Find the first PENDING task assigned to eng\n- If found: mark it IN_PROGRESS, execute it fully, mark DONE, append to /Users/redinside/.openclaw/workspace/tasks-log.md, then STOP (don't do STEP 1 below)\n- If no PENDING tasks: continue to STEP 1\n\nAUTONOMOUS.md tasks may be any of these types \u2014 handle ALL of them:\n  TYPE A \u2014 New OSS project: RESEARCH gave you a SPEC.md. Create GitHub repo, implement MVP, push, open PR.\n  TYPE B \u2014 On-demand PR: Anurag (via RED) asked you to fix issues on a specific repo. Clone fork, fix each issue on its own branch, open individual PRs, log URLs.\n  TYPE C \u2014 Backlog project: implement from workspace/projects/backlog.md.\n\nYou are ENG. Ship ONE project from the backlog to GitHub. Do it now.\n\nSTEP 1 \u2014 PICK PROJECT:\n- Read /Users/redinside/.openclaw/workspace/projects/backlog.md\n- Pick first row where Status=READY and GitHub Repo=\"\u2014\"\n\nSTEP 2 \u2014 READ SPEC:\n- Read the SPEC.md file at /Users/redinside/.openclaw/workspace/projects//SPEC.md\n\nSTEP 3 \u2014 IMPLEMENT:\n- Create GitHub repo: gh repo create anuragg-saxenaa/ --public\n- Clone, implement MVP from spec, commit, push\n- Open PR\n\nSTEP 4 \u2014 LOG:\n- Update backlog.md row: Status=DONE, GitHub Repo=URL\n- Append to workspace/projects/pr-log.md\n- Post to Slack #redos-eng (channel:C0AFW1B0QUB)"
       },
       "delivery": {
         "mode": "announce",
@@ -2482,15 +2455,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775496617683,
+        "lastRunAtMs": 1776597771816,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 633,
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 2,
-        "nextRunAtMs": 1775511000000,
-        "lastDelivered": true,
-        "lastError": "404 No active credentials for provider: openai"
+        "lastDurationMs": 28,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 1,
+        "nextRunAtMs": 1776606063557,
+        "runningAtMs": 1776610023249
       }
     },
     {
@@ -2499,7 +2471,7 @@
       "name": "OSS Contributor \u2014 Daily Good-First-Issue PR",
       "enabled": true,
       "createdAtMs": 1773900000000,
-      "updatedAtMs": 1775496491481,
+      "updatedAtMs": 1776525959433,
       "schedule": {
         "kind": "cron",
         "expr": "0 11 * * *",
@@ -2511,23 +2483,23 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 1800,
-        "message": "You are ENG. Make ONE real OSS contribution today \u2014 pick from the curated target list, find an open issue, fix it, open a PR autonomously.\n\nCODING FACTORY STREAMS \u2014 rotate daily:\n\nSTREAM A \u2014 Java AI (Mon, Tue, Thu, Sat \u2014 4 days/week, PRIORITY):\n  Monday:    spring-projects/spring-ai          (Java Spring AI \u2014 AI integration framework, 10k+ stars)\n  Tuesday:   langchain4j/langchain4j            (Java LangChain4j \u2014 agentic AI for Java, 6k+ stars)\n  Thursday:  spring-projects/spring-ai          (Spring AI again \u2014 most active Java AI repo)\n  Saturday:  quarkusio/quarkus                  (Quarkus \u2014 cloud-native Java + AI extensions)\n  (fallback: microsoft/semantic-kernel          Java SDK for Semantic Kernel)\n\nSTREAM A FOCUS \u2014 Java AI issue types to look for:\n  - Spring AI: ChatClient, VectorStore, MCP integration, embedding models, function calling\n  - LangChain4j: AI Services, tools/functions, memory, RAG, streaming\n  - Quarkus: quarkus-langchain4j extension, AI service injection\n  Labels to look for: bug, enhancement, good first issue, help wanted, AI, Spring AI\n\nSTREAM B \u2014 JavaScript/TypeScript (Wed):\n  Wednesday: decolua/9router                    (JS/Next.js \u2014 AI gateway)\n  (alternate: FellouAI/eko                      TypeScript agentic AI)\n\nSTREAM C \u2014 Python (Fri):\n  Friday:    PathOnAIOrg/LiteMultiAgent         (Python \u2014 multi-agent framework)\n\nSTREAM D \u2014 Mobile iOS/Android (Sun):\n  Sunday:    nicklockwood/SwiftFormat            (Swift/iOS \u2014 Swift code formatter)\n\nPick today's stream by day of week. Use the correct language/build tools for each:\n- Java: Maven (`mvn verify -pl <module> -am`), JUnit 5, Java 21, Spring Boot 3.x\n- TypeScript: npm/tsc (`npm run build`), vitest\n- Python: pip/pytest (`pytest`)\n- Swift/iOS: Swift Package Manager (`swift build`, `swift test`)\n\nSTEP 1 \u2014 SELECT TODAY'S REPO:\n  exec: /bin/date +%A\nPick the repo from the list above. Then:\n  exec: /opt/homebrew/bin/gh issue list --repo <OWNER>/<REPO> --state open --limit 30 --json number,title,body,labels\nPick ONE concrete bug/feature fixable in <50 lines. Skip architecture changes, skip issues already covered by open PRs from anuragg-saxenaa.\n\nSTEP 2 \u2014 CLONE AND UNDERSTAND:\n  exec: /opt/homebrew/bin/gh repo fork <OWNER>/<REPO> --clone=false\n  exec: /bin/bash -c 'if [ ! -d /Users/redinside/.openclaw/workspace-eng/repos/$(basename <REPO>) ]; then /usr/bin/git clone https://github.com/anuragg-saxenaa/$(basename <REPO>).git /Users/redinside/.openclaw/workspace-eng/repos/$(basename <REPO>); else cd /Users/redinside/.openclaw/workspace-eng/repos/$(basename <REPO>) && /usr/bin/git fetch origin && /usr/bin/git checkout master 2>/dev/null || /usr/bin/git checkout main && /usr/bin/git pull; fi'\n  exec: /opt/homebrew/bin/gh issue view <ISSUE_NUM> --repo <OWNER>/<REPO> --json title,body,comments\nRead relevant source files. Identify the exact change needed.\n\nSTEP 3 \u2014 IMPLEMENT:\n  exec: /bin/bash -c 'cd /Users/redinside/.openclaw/workspace-eng/repos/$(basename <REPO>) && /usr/bin/git checkout -b fix/issue-<ISSUE_NUM>-<slug>'\nMake the FULL fix using write/edit tools. No stubs, no TODOs, no placeholders \u2014 complete production-quality code.\nFor Java: follow existing patterns (Spring AI uses ChatClient.Builder, LangChain4j uses @Tool/@SystemMessage).\n  exec: /bin/bash -c 'cd /Users/redinside/.openclaw/workspace-eng/repos/$(basename <REPO>) && /usr/bin/git config user.email anuragg.saxenaa@gmail.com && /usr/bin/git config user.name anuragg-saxenaa && /usr/bin/git add -A && /usr/bin/git commit -s -m \"fix: <description> (closes #<ISSUE_NUM>)\"'\n\nSTEP 4 \u2014 PUSH AND PR:\n  exec: /bin/bash -c 'cd /Users/redinside/.openclaw/workspace-eng/repos/$(basename <REPO>) && /usr/bin/git push -u fork fix/issue-<ISSUE_NUM>-<slug>'\n  exec: /opt/homebrew/bin/gh pr create --repo <OWNER>/<REPO> --head anuragg-saxenaa:fix/issue-<ISSUE_NUM>-<slug> --base main --title 'fix: <description>' --no-edit --body 'Fixes #<ISSUE_NUM>\n\nThis PR was created autonomously by the RedOS coding factory (ENG agent). Part of our daily OSS contribution program targeting Java AI projects.'\n\nSTEP 5 \u2014 LOG:\n  Append to /Users/redinside/.openclaw/workspace/projects/pr-log.md: | <DATE> | contrib: <OWNER>/<REPO>#<ISSUE_NUM> | <PR_URL> | <desc> |\n  Post Slack channel:C0AFW1B0QUB: ENG OSS: <OWNER>/<REPO>#<ISSUE_NUM> \u2192 <PR_URL>\n\nSTEP 6 \u2014 VERIFY CI AND DCO (run ~3 minutes after PR creation):\n  Check DCO and CI status:\n  exec: /opt/homebrew/bin/gh pr checks <PR_NUM> --repo <OWNER>/<REPO>\n  If output shows \"action_required\" for any workflow (GitHub first-contributor gate):\n    - This is expected for new contributors. A maintainer must approve the CI run.\n    - Post a comment on the PR: exec: /opt/homebrew/bin/gh pr comment <PR_NUM> --repo <OWNER>/<REPO> --body \"Hi @maintainer \u2014 this PR fixes #<ISSUE_NUM>. CI is waiting for workflow approval (first contributor). Could you approve the workflow run when you get a chance? Thanks!\"\n  If DCO check fails:\n    - exec: /bin/bash -c 'cd /Users/redinside/.openclaw/workspace-eng/repos/$(basename <REPO>) && /usr/bin/git commit --amend -s --no-edit && /usr/bin/git push --force origin fix/issue-<ISSUE_NUM>-<slug>'\n  If any other CI job fails, read the error:\n    - exec: /opt/homebrew/bin/gh run list --repo <OWNER>/<REPO> --branch fix/issue-<ISSUE_NUM>-<slug>\n    Then fix the root cause and push again.\n\nANTI-LOOP: Any exec failing 2x with same error \u2192 STOP. Log BLOCKED and exit."
+        "message": "MANDATORY BEFORE ANY PR CREATION: check if the target repo is paused.\n  exec: python3 /Users/redinside/.openclaw/scripts/check-repo-pause.py <owner/repo>\n  If exit code is 1 (BLOCKED): STOP. Do not create the PR. Log 'PAUSED: <repo> \u2014 skipped'.\n  This check is non-negotiable. Do not proceed if blocked.\n\nYou are ENG. Make ONE real OSS contribution today \u2014 pick from the curated target list, find an open issue, fix it, open a PR autonomously.\n\nCODING FACTORY STREAMS \u2014 rotate daily:\n\nSTREAM A \u2014 Java AI (Mon, Tue, Thu, Sat \u2014 4 days/week, PRIORITY):\n  Monday:    spring-projects/spring-ai          (Java Spring AI \u2014 AI integration framework, 10k+ stars)\n  Tuesday:   langchain4j/langchain4j            (Java LangChain4j \u2014 agentic AI for Java, 6k+ stars)\n  Thursday:  spring-projects/spring-ai          (Spring AI again \u2014 most active Java AI repo)\n  Saturday:  quarkusio/quarkus                  (Quarkus \u2014 cloud-native Java + AI extensions)\n  (fallback: microsoft/semantic-kernel          Java SDK for Semantic Kernel)\n\nSTREAM A FOCUS \u2014 Java AI issue types to look for:\n  - Spring AI: ChatClient, VectorStore, MCP integration, embedding models, function calling\n  - LangChain4j: AI Services, tools/functions, memory, RAG, streaming\n  - Quarkus: quarkus-langchain4j extension, AI service injection\n  Labels to look for: bug, enhancement, good first issue, help wanted, AI, Spring AI\n\nSTREAM B \u2014 JavaScript/TypeScript (Wed):\n  Wednesday: decolua/9router                    (JS/Next.js \u2014 AI gateway)\n  (alternate: FellouAI/eko                      TypeScript agentic AI)\n\nSTREAM C \u2014 Python (Fri):\n  Friday:    PathOnAIOrg/LiteMultiAgent         (Python \u2014 multi-agent framework)\n\nSTREAM D \u2014 Mobile iOS/Android (Sun):\n  Sunday:    nicklockwood/SwiftFormat            (Swift/iOS \u2014 Swift code formatter)\n\nPick today's stream by day of week. Use the correct language/build tools for each:\n- Java: Maven (`mvn verify -pl <module> -am`), JUnit 5, Java 21, Spring Boot 3.x\n- TypeScript: npm/tsc (`npm run build`), vitest\n- Python: pip/pytest (`pytest`)\n- Swift/iOS: Swift Package Manager (`swift build`, `swift test`)\n\nSTEP 1 \u2014 SELECT TODAY'S REPO:\n  exec: /bin/date +%A\nPick the repo from the list above. Then:\n  exec: /opt/homebrew/bin/gh issue list --repo <OWNER>/<REPO> --state open --limit 30 --json number,title,body,labels\nPick ONE concrete bug/feature fixable in <50 lines. Skip architecture changes, skip issues already covered by open PRs from anuragg-saxenaa.\n\nSTEP 2 \u2014 CLONE AND UNDERSTAND:\n  exec: /opt/homebrew/bin/gh repo fork <OWNER>/<REPO> --clone=false\n  exec: /bin/bash -c 'if [ ! -d /Users/redinside/.openclaw/workspace-eng/repos/$(basename <REPO>) ]; then /usr/bin/git clone https://github.com/anuragg-saxenaa/$(basename <REPO>).git /Users/redinside/.openclaw/workspace-eng/repos/$(basename <REPO>); else cd /Users/redinside/.openclaw/workspace-eng/repos/$(basename <REPO>) && /usr/bin/git fetch origin && /usr/bin/git checkout master 2>/dev/null || /usr/bin/git checkout main && /usr/bin/git pull; fi'\n  exec: /opt/homebrew/bin/gh issue view <ISSUE_NUM> --repo <OWNER>/<REPO> --json title,body,comments\nRead relevant source files. Identify the exact change needed.\n\nSTEP 3 \u2014 IMPLEMENT:\n  exec: /bin/bash -c 'cd /Users/redinside/.openclaw/workspace-eng/repos/$(basename <REPO>) && /usr/bin/git checkout -b fix/issue-<ISSUE_NUM>-<slug>'\nMake the FULL fix using write/edit tools. No stubs, no TODOs, no placeholders \u2014 complete production-quality code.\nFor Java: follow existing patterns (Spring AI uses ChatClient.Builder, LangChain4j uses @Tool/@SystemMessage).\n  exec: /bin/bash -c 'cd /Users/redinside/.openclaw/workspace-eng/repos/$(basename <REPO>) && /usr/bin/git config user.email anuragg.saxenaa@gmail.com && /usr/bin/git config user.name anuragg-saxenaa && /usr/bin/git add -A && /usr/bin/git commit -s -m \"fix: <description> (closes #<ISSUE_NUM>)\"'\n\nSTEP 4 \u2014 PUSH AND PR:\n  exec: /bin/bash -c 'cd /Users/redinside/.openclaw/workspace-eng/repos/$(basename <REPO>) && /usr/bin/git push -u fork fix/issue-<ISSUE_NUM>-<slug>'\n  exec: /opt/homebrew/bin/gh pr create --repo <OWNER>/<REPO> --head anuragg-saxenaa:fix/issue-<ISSUE_NUM>-<slug> --base main --title 'fix: <description>' --no-edit --body 'Fixes #<ISSUE_NUM>\n\nThis PR was created autonomously by the RedOS coding factory (ENG agent). Part of our daily OSS contribution program targeting Java AI projects.'\n\nSTEP 5 \u2014 LOG:\n  Append to /Users/redinside/.openclaw/workspace/projects/pr-log.md: | <DATE> | contrib: <OWNER>/<REPO>#<ISSUE_NUM> | <PR_URL> | <desc> |\n  Post Slack channel:C0AFW1B0QUB: ENG OSS: <OWNER>/<REPO>#<ISSUE_NUM> \u2192 <PR_URL>\n\nSTEP 6 \u2014 VERIFY CI AND DCO (run ~3 minutes after PR creation):\n  Check DCO and CI status:\n  exec: /opt/homebrew/bin/gh pr checks <PR_NUM> --repo <OWNER>/<REPO>\n  If output shows \"action_required\" for any workflow (GitHub first-contributor gate):\n    - This is expected for new contributors. A maintainer must approve the CI run.\n    - Post a comment on the PR: exec: /opt/homebrew/bin/gh pr comment <PR_NUM> --repo <OWNER>/<REPO> --body \"Hi @maintainer \u2014 this PR fixes #<ISSUE_NUM>. CI is waiting for workflow approval (first contributor). Could you approve the workflow run when you get a chance? Thanks!\"\n  If DCO check fails:\n    - exec: /bin/bash -c 'cd /Users/redinside/.openclaw/workspace-eng/repos/$(basename <REPO>) && /usr/bin/git commit --amend -s --no-edit && /usr/bin/git push --force origin fix/issue-<ISSUE_NUM>-<slug>'\n  If any other CI job fails, read the error:\n    - exec: /opt/homebrew/bin/gh run list --repo <OWNER>/<REPO> --branch fix/issue-<ISSUE_NUM>-<slug>\n    Then fix the root cause and push again.\n\nANTI-LOOP: Any exec failing 2x with same error \u2192 STOP. Log BLOCKED and exit."
       },
       "delivery": {
-        "mode": "announce",
+        "mode": "none",
         "channel": "slack",
         "to": "channel:C0AFW1B0QUB",
         "bestEffort": true
       },
       "state": {
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1775574000000,
-        "lastRunAtMs": 1775496490928,
-        "lastRunStatus": null,
-        "lastStatus": "error",
-        "lastDurationMs": 553,
-        "lastDeliveryStatus": "delivered",
-        "lastDelivered": true
+        "nextRunAtMs": 1776610800000,
+        "lastRunAtMs": 1776525891455,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 67978,
+        "lastDeliveryStatus": "not-delivered",
+        "lastDelivered": false
       }
     },
     {
@@ -2536,7 +2508,7 @@
       "name": "ZEN Inner Loop \u2014 Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1775495518386,
+      "updatedAtMs": 1776605714527,
       "schedule": {
         "kind": "cron",
         "expr": "0 */3 * * *",
@@ -2552,21 +2524,17 @@
         "message": "STEP 0 \u2014 CLAIM YOUR TASK FROM AUTONOMOUS.md (do this FIRST, before anything else):\\n- Read /Users/redinside/.openclaw/workspace/AUTONOMOUS.md\\n- Find the first task assigned to you with status PENDING\\n- If found: mark it IN_PROGRESS (edit the file, change PENDING \u2192 IN_PROGRESS), then execute it fully before doing anything else\\n- After completing it: mark it DONE and append to /Users/redinside/.openclaw/workspace/tasks-log.md\\n- If no PENDING tasks assigned to you: continue with the steps below\\n\\nYou are ZEN (COO). Run your inner cognitive loop.\n\nSTEP 1 \u2014 READ STATE:\n- Read workspace/goals/goals-allrounder.json\n- Read workspace/memory/state-allrounder.json\n- Read workspace/memory/working-allrounder.json (create if missing)\n- Read workspace/ops/agent-status/*.json files if they exist\n- Read workspace/memory/2026-03-22.md if it exists\n\nSTEP 2 \u2014 ORIENT:\n- What is the team working on right now?\n- Is there an agent who seems stuck or silent?\n\nSTEP 3 \u2014 ACT (pick ONE):\n- Run web_search on a topic relevant to the team's current work and share findings\n- Synthesize today's agent activity into a brief and post to #redos-mission-control\n- sessions_spawn an agent who seems stuck or silent\n\nSTEP 4 \u2014 REFLECT:\n- Append one-line summary to workspace/memory/2026-03-22.md"
       },
       "delivery": {
-        "mode": "announce",
-        "channel": "slack",
-        "to": "channel:C0AEV3MDEDD",
-        "bestEffort": true
+        "mode": "none"
       },
       "state": {
-        "lastRunAtMs": 1775495515922,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 2464,
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 1,
-        "nextRunAtMs": 1775502125759,
-        "lastDelivered": true,
-        "lastError": "404 No active credentials for provider: openai"
+        "lastRunAtMs": 1776605589236,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 125291,
+        "lastDeliveryStatus": "not-delivered",
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1776614525759,
+        "lastDelivered": false
       }
     },
     {
@@ -2575,7 +2543,7 @@
       "name": "FINANCE Inner Loop \u2014 Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1775500096447,
+      "updatedAtMs": 1776600265526,
       "schedule": {
         "kind": "cron",
         "expr": "0 8,14,20 * * *",
@@ -2596,14 +2564,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775500068441,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 28006,
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0,
-        "nextRunAtMs": 1775520000000,
-        "lastDelivered": true
+        "lastRunAtMs": 1776600265525,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 1,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 1,
+        "nextRunAtMs": 1776621600000,
+        "lastError": "Error: Missing workspace template: AGENTS.md (/docs/reference/templates/AGENTS.md). Ensure docs/reference/templates are packaged."
       }
     },
     {
@@ -2612,7 +2580,7 @@
       "name": "HATAKE Inner Loop \u2014 Self-Directed Cognitive Cycle",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1775496329073,
+      "updatedAtMs": 1776564551833,
       "schedule": {
         "kind": "cron",
         "expr": "0 10,16,22 * * *",
@@ -2624,7 +2592,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 600,
-        "message": "You are HATAKE (Marketing & Competitive Intelligence). Run your inner cognitive loop.\n\nSTEP 1 \u2014 READ STATE:\n- Read workspace/goals/goals-hatake.json\n- Read workspace/memory/state-hatake.json\n- Read workspace/memory/working-hatake.json (create if missing)\n- Read workspace/skills/competitive-intelligence/SKILL.md\n\nSTEP 2 \u2014 ORIENT:\n- What competitors have shipped something in the last 48h?\n- What is the most important competitive signal right now?\n- What does the team need to know that I haven't told them yet?\n- Has competitive-intelligence run this week?\n\nSTEP 3 \u2014 ACT (pick ONE, do it fully):\nGood proactive HATAKE actions:\n- Run web_search on competitor updates: 'Cursor AI new feature site:cursor.com OR twitter.com', 'Devin AI update 2026', 'v0 Vercel new feature', 'Windsurf Codeium update'\n- If significant competitor news found: sessions_send RED (sessionKey='agent:main:main') AND sessions_send RESEARCH (sessionKey='agent:research:main') with the finding\n- Run competitive-intelligence skill if it hasn't run this week\n- Write a 1-paragraph competitive brief to workspace/research/competitive-YYYY-MM-DD.md\n- Post competitive update to Slack #redos-mission-control (channel:C0AEV3MDEDD)\n- Draft or update the RedOS marketing narrative in workspace/research/redos-narrative.md\n\nSTEP 4 \u2014 REFLECT + UPDATE STATE:\n- Append to workspace/memory/YYYY-MM-DD.md\n- Update workspace/memory/state-hatake.json\n- Update workspace/goals/goals-hatake.json\n- Update workspace/memory/working-hatake.json\n- Log A2A interactions to logs/a2a-delegations.jsonl\n\nYou are the team's eyes on the outside world. Look, find, share.\n\nFALLBACK RULE \u2014 if sessions_send to RED times out:\nWrite to CEO inbox instead of giving up:\n  append to /Users/redinside/.openclaw/workspace-main/inbox/tasks.md:\n  ## [PENDING] <your agentId> -> RED \u2014 <one-line task>\n  **From:** <agentId>  **Time:** <ISO>  **Priority:** P1\n  **Task:** <full task description>\n  **Expected action:** <what RED should do>\n  ---\nRED processes this inbox on every heartbeat.\n"
+        "message": "You are HATAKE (Marketing & Competitive Intelligence). Run your inner cognitive loop.\n\nSTEP 1 \u2014 READ STATE:\n- Read workspace/goals/goals-hatake.json\n- Read workspace/memory/state-hatake.json\n- Read workspace/memory/working-hatake.json (create if missing)\n- Read workspace/skills/competitive-intelligence/SKILL.md\n\nSTEP 2 \u2014 ORIENT:\n- What competitors have shipped something in the last 48h?\n- What is the most important competitive signal right now?\n- What does the team need to know that I haven't told them yet?\n- Has competitive-intelligence run this week?\n\nSTEP 3 \u2014 ACT (pick ONE, do it fully):\nGood proactive HATAKE actions:\n- Run web_search on competitor updates: 'Cursor AI new feature site:cursor.com OR twitter.com', 'Devin AI update 2026', 'v0 Vercel new feature', 'Windsurf Codeium update'\n- If significant competitor news found: sessions_send RED (sessionKey='agent:main:main') AND sessions_send RESEARCH (sessionKey='agent:research:main') with the finding\n- Run competitive-intelligence skill if it hasn't run this week\n- Write a 1-paragraph competitive brief to workspace/research/competitive-YYYY-MM-DD.md\n- Post competitive update to Slack #redos-mission-control (channel:C0AEV3MDEDD)\n- Draft or update the RedOS marketing narrative in workspace/research/redos-narrative.md\n\nSTEP 4 \u2014 REFLECT + UPDATE STATE:\n- Append to workspace/memory/YYYY-MM-DD.md\n- Update workspace/memory/state-hatake.json\n- Update workspace/goals/goals-hatake.json\n- Update workspace/memory/working-hatake.json\n- Log A2A interactions to logs/a2a-delegations.jsonl\n\nYou are the team's eyes on the outside world. Look, find, share.\n\nFALLBACK RULE \u2014 if sessions_send to RED times out:\nWrite to CEO inbox instead of giving up:\n  append to /Users/redinside/.openclaw/workspace-main/inbox/tasks.md:\n  ## [PENDING] <your agentId> -> RED \u2014 <one-line task>\n  **From:** <agentId>  **Time:** <ISO>  **Priority:** P1\n  **Task:** <full task description>\n  **Expected action:** <what RED should do>\n  ---\nRED processes this inbox on every heartbeat."
       },
       "delivery": {
         "mode": "announce",
@@ -2633,15 +2601,14 @@
         "bestEffort": true
       },
       "state": {
-        "lastRunAtMs": 1775496317852,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 11221,
+        "lastRunAtMs": 1776564402965,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 148868,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 1,
-        "nextRunAtMs": 1775505600000,
-        "lastDelivered": true,
-        "lastError": "404 No active credentials for provider: openai"
+        "consecutiveErrors": 0,
+        "nextRunAtMs": 1776607200000,
+        "lastDelivered": true
       }
     },
     {
@@ -2726,7 +2693,7 @@
       "name": "OpenClaw Weekly Backup",
       "enabled": true,
       "createdAtMs": 1773614703453,
-      "updatedAtMs": 1775374370068,
+      "updatedAtMs": 1776594230781,
       "schedule": {
         "kind": "cron",
         "expr": "0 3 * * 0"
@@ -2736,7 +2703,7 @@
       "payload": {
         "kind": "agentTurn",
         "thinking": "off",
-        "timeoutSeconds": 120,
+        "timeoutSeconds": 300,
         "message": "Run weekly backup. Use exec only.\n\nexec: openclaw backup create 2>&1 | tail -5\n\nReturn NO_REPLY."
       },
       "delivery": {
@@ -2746,15 +2713,14 @@
         "bestEffort": true
       },
       "state": {
-        "consecutiveErrors": 1,
-        "lastRunAtMs": 1775374304272,
-        "nextRunAtMs": 1775977200000,
-        "lastError": "FallbackSummaryError: All models failed (3): minimax/MiniMax-M2.5: Provider minimax has billing issue (skipping all models) (billing) | 9router/cu/default: LLM request timed out. (unknown) | 9router/cc/claude-haiku-4-5-20251001: 400 [claude/claude-haiku-4-5-20251001] [400]: Third-party apps now draw from your extra usage, not your plan limits. We've added a $20 credit to get you started. Claim it at claude.ai/settings/usage and keep going. (reset after 30s) (format)",
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 65796,
-        "lastErrorReason": "timeout",
-        "lastDeliveryStatus": "unknown"
+        "consecutiveErrors": 0,
+        "lastRunAtMs": 1776594121169,
+        "nextRunAtMs": 1777186800000,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 109612,
+        "lastDeliveryStatus": "not-delivered",
+        "lastDelivered": false
       }
     },
     {
@@ -2763,7 +2729,7 @@
       "name": "OpenClaw Sessions Cleanup (weekly)",
       "enabled": true,
       "createdAtMs": 1773614703453,
-      "updatedAtMs": 1775376474080,
+      "updatedAtMs": 1776596377509,
       "schedule": {
         "kind": "cron",
         "expr": "0 4 * * 0"
@@ -2783,15 +2749,14 @@
         "bestEffort": true
       },
       "state": {
-        "consecutiveErrors": 1,
-        "lastRunAtMs": 1775376410723,
-        "nextRunAtMs": 1775980800000,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 63357,
-        "lastDeliveryStatus": "unknown",
-        "lastError": "FallbackSummaryError: All models failed (3): minimax/MiniMax-M2.5: Provider minimax has billing issue (skipping all models) (billing) | 9router/cu/default: LLM request timed out. (unknown) | 9router/cc/claude-haiku-4-5-20251001: 400 [claude/claude-haiku-4-5-20251001] [400]: Third-party apps now draw from your extra usage, not your plan limits. We've added a $20 credit to get you started. Claim it at claude.ai/settings/usage and keep going. (reset after 30s) (format)",
-        "lastErrorReason": "timeout"
+        "consecutiveErrors": 0,
+        "lastRunAtMs": 1776596344142,
+        "nextRunAtMs": 1777190400000,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 33367,
+        "lastDeliveryStatus": "delivered",
+        "lastDelivered": true
       }
     },
     {
@@ -2811,14 +2776,14 @@
         "kind": "agentTurn"
       },
       "state": {
-        "nextRunAtMs": 1775545200000,
-        "lastRunAtMs": 1775471161302,
+        "nextRunAtMs": 1776668400000,
+        "lastRunAtMs": 1776594393235,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 46165,
-        "lastDeliveryStatus": "not-delivered",
+        "lastDurationMs": 46106,
+        "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "lastDelivered": false
+        "lastDelivered": true
       },
       "wakeMode": "now",
       "sessionTarget": "isolated",
@@ -2828,16 +2793,16 @@
         "to": "channel:C0AEV3J2L23",
         "bestEffort": true
       },
-      "updatedAtMs": 1775471207467
+      "updatedAtMs": 1776594439341
     },
     {
       "id": "c858a544-569e-44fd-94c2-5425c75da8ed",
       "agentId": "main",
       "sessionKey": "agent:main:cron:telegram-approval-monitor-0001",
       "name": "telegram-approval-monitor-0001",
-      "enabled": true,
+      "enabled": false,
       "createdAtMs": 1773813382934,
-      "updatedAtMs": 1775496643916,
+      "updatedAtMs": 1776557539285,
       "schedule": {
         "expr": "*/2 * * * *",
         "tz": "America/Toronto",
@@ -2858,15 +2823,13 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1775501218405,
-        "lastRunAtMs": 1775496643151,
-        "lastRunStatus": "error",
-        "lastStatus": "error",
-        "lastDurationMs": 765,
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 4,
-        "lastDelivered": true,
-        "runningAtMs": 1775509501105
+        "lastRunAtMs": 1776557139351,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 31631,
+        "lastDeliveryStatus": "not-delivered",
+        "consecutiveErrors": 0,
+        "lastDelivered": false
       }
     },
     {
@@ -2910,7 +2873,7 @@
       "name": "Sync AUTONOMOUS.md -> queue.json",
       "enabled": true,
       "createdAtMs": 1773854383010,
-      "updatedAtMs": 1775500161018,
+      "updatedAtMs": 1776606094737,
       "schedule": {
         "kind": "cron",
         "expr": "*/5 * * * *",
@@ -2930,16 +2893,15 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1775501223405,
-        "lastRunAtMs": 1775500151253,
+        "nextRunAtMs": 1776606300000,
+        "lastRunAtMs": 1776606085448,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 9765,
+        "lastDurationMs": 9289,
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
         "lastErrorAtMs": null,
-        "lastDelivered": false,
-        "runningAtMs": 1775509501105
+        "lastDelivered": false
       }
     },
     {
@@ -2949,7 +2911,7 @@
       "name": "ops-disk-monitor-daily-2026-02-22",
       "enabled": true,
       "createdAtMs": 1773951459762,
-      "updatedAtMs": 1775467505290,
+      "updatedAtMs": 1776579181261,
       "schedule": {
         "expr": "0 2 * * *",
         "kind": "cron"
@@ -2958,22 +2920,23 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "python3 ../scripts/simple_disk_check.py"
+        "message": "python3 /Users/redinside/.openclaw/scripts/simple_disk_check.py",
+        "timeoutSeconds": 60
       },
       "delivery": {
         "mode": "announce",
-        "channel": "last"
+        "channel": "slack"
       },
       "state": {
-        "lastRunAtMs": 1775467500947,
+        "lastRunAtMs": 1776579177652,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 4343,
+        "lastDurationMs": 3609,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 1,
         "lastErrorAtMs": null,
-        "nextRunAtMs": 1775541600000,
-        "lastError": "Channel is required when multiple channels are configured: telegram, slack Set delivery.channel explicitly or use a main session with a previous channel."
+        "nextRunAtMs": 1776664800000,
+        "lastError": "Delivering to Slack requires target <channelId|user:ID|channel:ID>"
       },
       "target": "telegram"
     },
@@ -3016,9 +2979,9 @@
       "id": "c66709c1-965b-4f5a-9469-e87c096f730b",
       "agentId": "eng",
       "name": "Factory: 9router IssueWatcher \u2014 Poll & Process",
-      "enabled": true,
+      "enabled": false,
       "createdAtMs": 1774080643339,
-      "updatedAtMs": 1775496490912,
+      "updatedAtMs": 1776605562388,
       "schedule": {
         "kind": "cron",
         "expr": "*/15 * * * *",
@@ -3039,15 +3002,15 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1775501228405,
-        "lastRunAtMs": 1775496487696,
-        "lastRunStatus": null,
-        "lastStatus": "error",
-        "lastDurationMs": 3216,
+        "lastRunAtMs": 1776605262817,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 299571,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
+        "nextRunAtMs": 1776606053557,
         "lastDelivered": true,
-        "runningAtMs": 1775509501105
+        "runningAtMs": 1776610023249
       }
     },
     {
@@ -3221,7 +3184,7 @@
       "name": "ops-disk-monitor-daily-2026-02-22",
       "enabled": true,
       "createdAtMs": 1775402506719,
-      "updatedAtMs": 1775444101516,
+      "updatedAtMs": 1776564600021,
       "schedule": {
         "kind": "cron",
         "expr": "0 2 * * *",
@@ -3231,20 +3194,23 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "python3 ../scripts/simple_disk_check.py"
+        "message": "python3 /Users/redinside/.openclaw/scripts/simple_disk_check.py",
+        "timeoutSeconds": 60
       },
       "delivery": {
-        "mode": "announce"
+        "mode": "announce",
+        "channel": "slack"
       },
       "state": {
-        "nextRunAtMs": 1775527200000,
-        "lastError": "Delivering to Slack requires target <channelId|user:ID|channel:ID>",
-        "lastRunAtMs": 1775444044799,
+        "nextRunAtMs": 1776650400000,
+        "lastRunAtMs": 1776564593427,
         "lastRunStatus": "error",
         "lastStatus": "error",
-        "lastDurationMs": 56717,
+        "lastDurationMs": 6594,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 1
+        "consecutiveErrors": 1,
+        "lastErrorAtMs": null,
+        "lastError": "Delivering to Slack requires target <channelId|user:ID|channel:ID>"
       }
     },
     {
@@ -3286,7 +3252,7 @@
       "name": "Daily AI + OpenClaw Trends Brief",
       "enabled": true,
       "createdAtMs": 1775437733167,
-      "updatedAtMs": 1775437733167,
+      "updatedAtMs": 1776375895509,
       "schedule": {
         "kind": "every",
         "everyMs": 86400000,
@@ -3304,7 +3270,42 @@
         "to": "Anurag"
       },
       "state": {
-        "nextRunAtMs": 1775524133167
+        "nextRunAtMs": 1776647333167,
+        "lastError": "Error: Telegram recipient @Anurag could not be resolved to a numeric chat ID (Call to 'getChat' failed! (400: Bad Request: chat not found))",
+        "lastRunAtMs": 1776375860559,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 34950,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 1
+      }
+    },
+    {
+      "id": "71e29e21-9f7d-4115-803c-2f26cab31136",
+      "agentId": "main",
+      "sessionKey": "agent:main:telegram:direct:1012034994",
+      "name": "RE-ENABLE: 9router IssueWatcher (5-day pause)",
+      "enabled": true,
+      "deleteAfterRun": true,
+      "createdAtMs": 1776567046607,
+      "updatedAtMs": 1776567046607,
+      "schedule": {
+        "at": "2026-04-24T02:50:00.000Z",
+        "kind": "at"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Re-enable the 9router IssueWatcher cron after Anurag's 5-day pause request.\n\nRun this Python script to re-enable job c66709c1-965b-4f5a-9469-e87c096f730b:\n\npython3 -c \"\nimport json, urllib.request\nOPENCLAW_CONFIG_PATH='/Users/redinside/.openclaw/openclaw.json'\ntoken=json.load(open(OPENCLAW_CONFIG_PATH))['skills']['entries']['gh-issues']['apiKey']\njob_id='c66709c1-965b-4f5a-9469-e87c096f730b'\nurl='http://127.0.0.1:18789/cron/jobs/'+job_id\npayload=json.dumps({'enabled':True}).encode()\nreq=urllib.request.Request(url, data=payload, headers={'Authorization':'Bearer '+token,'Content-Type':'application/json'}, method='PATCH')\nresp=urllib.request.urlopen(req)\nprint('DONE - 9router IssueWatcher re-enabled')\n\""
+      },
+      "delivery": {
+        "mode": "announce",
+        "to": "1012034994",
+        "channel": "telegram"
+      },
+      "state": {
+        "nextRunAtMs": 1776999000000
       }
     }
   ]

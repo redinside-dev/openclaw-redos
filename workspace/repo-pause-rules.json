@@ -1,0 +1,13 @@
+{
+  "_comment": "Hard pause rules for PR/commit creation. Agents MUST check this file before any gh pr create, git push, or fork operation. Format: repo full name → pause config.",
+  "_usage": "Before creating a PR: exec: python3 ~/.openclaw/scripts/check-repo-pause.py <owner/repo>  → exits 1 and prints reason if paused. Treat exit code 1 as a hard block.",
+  "pauses": {
+    "decolua/9router": {
+      "paused": true,
+      "reason": "Owner requested pause — 70+ open PRs, spam risk",
+      "pausedAt": "2026-04-19",
+      "resumeAfter": "2026-04-24",
+      "pausedBy": "human"
+    }
+  }
+}
