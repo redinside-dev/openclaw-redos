@@ -1,0 +1,26 @@
+{
+  "description": "Model registry for OpenClaw routing decisions",
+  "lastUpdated": "2026-03-16T03:22:00Z",
+  "models": {
+    "openrouter/auto": {
+      "provider": "9router",
+      "status": "degraded",
+      "issue": "Key limit exceeded - fallback to minimax active",
+      "fallback": "minimax/MiniMax-M2.5"
+    },
+    "minimax/MiniMax-M2.5": {
+      "provider": "9router",
+      "status": "active",
+      "role": "fallback"
+    },
+    "ollama/llama3.1:8b": {
+      "provider": "ollama",
+      "status": "unavailable",
+      "note": "Model not pulled"
+    }
+  },
+  "fallbackChain": [
+    "openrouter/auto",
+    "minimax/MiniMax-M2.5"
+  ]
+}

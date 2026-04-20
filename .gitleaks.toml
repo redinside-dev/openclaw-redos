@@ -1,0 +1,45 @@
+# Gitleaks configuration tuned for OpenClaw local repo.
+# We intentionally *exclude* openclaw.json and its backups from scans because
+# they contain secrets by design and should never be committed at all.
+# Pre-commit enforces a hard block on those files.
+
+title = "openclaw-gitleaks"
+
+[extend]
+useDefault = true
+
+[allowlist]
+# Ignore known false positives or local-only sensitive files that are blocked
+# from git anyway. (Defense-in-depth: block via pre-commit + ignore via scan.)
+paths = [
+  '''^openclaw\.json$''',
+  '''^openclaw\.json\.(bak|backup).*$''',
+  '''^\.env(\..*)?$''',
+  '''^credentials/''',
+  '''^secrets/''',
+  '''^logs/''',
+  '''^cache/''',
+  '''^data/''',
+  '''^media/''',
+  '''^browser/''',
+  '''^node_modules/''',
+  '''^sandboxes/''',
+  '''^workspace/''',
+]
+
+# Custom rules for patterns that are common in this environment.
+[[rules]]
+id = "slack-bot-token"
+description = "Slack bot token (xoxb-...)"
+regex = '''xoxb-[0-9A-Za-z-]{10,}'''
+
+[[rules]]
+id = "openai-api-key"
+description = "OpenAI-style API key (sk-...)"
+regex = '''\bsk-[0-9A-Za-z]{20,}\b'''
+
+[[rules]]
+id = "telegram-bot-token"
+description = "Telegram bot token (123456789:AA...)"
+# Telegram tokens are typically: <bot_id>:<base64url-ish 35+ chars>
+regex = '''\b[0-9]{6,12}:[A-Za-z0-9_-]{30,}\b'''

@@ -1,0 +1,33 @@
+{
+  "name": "openclaw-enhanced",
+  "version": "3.6.0",
+  "type": "module",
+  "description": "Multi-agent AI orchestration system with intelligent routing, self-healing resilience, and Telegram integration",
+  "scripts": {
+    "start": "node gateway/server.js",
+    "telegram": "node telegram/telegram-bridge.js",
+    "cost-monitor": "node cost-monitor/monitor.js",
+    "backup": "bash backup/gdrive-backup.sh",
+    "restore": "bash backup/gdrive-restore.sh",
+    "upgrade": "bash upgrade.sh",
+    "upgrade:check": "bash upgrade.sh check",
+    "upgrade:cli": "bash upgrade.sh cli",
+    "upgrade:all": "bash upgrade.sh all"
+  },
+  "keywords": [
+    "ai",
+    "agents",
+    "cost-optimization",
+    "kanban",
+    "autonomous-learning",
+    "ceo-agents"
+  ],
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.3.1",
+    "express": "^4.18.2",
+    "js-yaml": "^4.1.1",
+    "node-fetch": "^3.3.2",
+    "ws": "^8.16.0"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "project_id": "",
+  "title": "",
+  "status": "intake",
+  "owner": "",
+  "created": "",
+  "updated": "",
+  "deadline": null,
+  "brief": "",
+  "routing_profile": "balanced",
+  "hatake_brief": null,
+  "tasks": [],
+  "decisions": [],
+  "blockers": [],
+  "lessons_learned": [],
+  "total_cost_usd": 0,
+  "total_tokens": 0,
+  "total_time_seconds": 0,
+  "delivered_at": null,
+  "delivery_channel": null
+}

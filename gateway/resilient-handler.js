@@ -1,0 +1,625 @@
+#!/usr/bin/env node
+
+/**
+ * Resilient Handler - Bulletproof message handling with error recovery
+ * Never crashes, always finds a way to respond
+ */
+
+import { TaskAnalyzer } from '../smart-router/analyzer.js';
+import { smartRouterV2 } from '../smart-router/selector-v2.js';
+import { errorHandler } from '../resilience/error-handler.js';
+import { costMonitor } from '../cost-monitor/monitor.js';
+import ToolCallMiddleware from './tool-call-middleware.js';
+import { exec } from 'child_process';
+import { promisify } from 'util';
+import fetch from 'node-fetch';
+import { readFileSync, existsSync } from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const SOUL_PATH = path.join(__dirname, '../workspace/SOUL.md');
+const KNOWLEDGE_PATH = path.join(__dirname, '../workspace/knowledge/RESEARCH/KNOWLEDGE.md');
+
+// Enhanced prompt caching system
+class PromptCache {
+    this.cache = new Map();
+    this.cacheHits = 0;
+    this.cacheMisses = 0;
+    this.cacheWrites = 0;
+    this.cacheSize = 0;
+    this.maxCacheSize = 100; // Max 100 cached prompts
+    
+    // Load cacheable files at startup
+    this.loadCacheableFiles();
+
+  loadCacheableFiles() {
+    try {
+      // Load SOUL.md - core system prompt
+      if (existsSync(SOUL_PATH)) {
+        const soulContent = readFileSync(SOUL_PATH, 'utf8');
+        const soulSize = soulContent.length;
+        this.cache.set('SOUL.md', {
+          content: soulContent,
+          size: soulSize,
+          tokens: Math.ceil(soulSize / 4),
+          lastUsed: Date.now()
+        });
+        console.log(`📝 Prompt caching: SOUL.md loaded (${soulSize} chars, ~${Math.ceil(soulSize/4)} tokens)`);
+        this.cacheSize++;
+      }
+
+      // Load RESEARCH knowledge base
+      if (existsSync(KNOWLEDGE_PATH)) {
+        const knowledgeContent = readFileSync(KNOWLEDGE_PATH, 'utf8');
+        const knowledgeSize = knowledgeContent.length;
+        this.cache.set('KNOWLEDGE.md', {
+          content: knowledgeContent,
+          size: knowledgeSize,
+          tokens: Math.ceil(knowledgeSize / 4),
+          lastUsed: Date.now()
+        });
+        console.log(`📝 Prompt caching: KNOWLEDGE.md loaded (${knowledgeSize} chars, ~${Math.ceil(knowledgeSize/4)} tokens)`);
+        this.cacheSize++;
+      }
+
+      // Load other cacheable files (config, policies, etc.)
+      this.loadAdditionalCacheableFiles();
+    } catch (e) {
+      console.warn('⚠️  Could not load prompt cache files:', e.message);
+    }
+  }
+
+  loadAdditionalCacheableFiles() {
+    // Add more cacheable files here as needed
+    // This keeps frequently used context readily available
+  }
+
+  getPrompt(name) {
+    const entry = this.cache.get(name);
+    if (entry) {
+      entry.lastUsed = Date.now();
+      this.cacheHits++;
+      return entry.content;
+    }
+    this.cacheMisses++;
+    return null;
+  }
+
+  logCacheStats() {
+    const stats = this.getStats();
+    console.log(`💾 Prompt Cache Stats: ${stats.hits} hits, ${stats.misses} misses, ${stats.hitRate} hit rate`);
+    console.log(`   Current cache size: ${stats.currentSize}/${stats.maxSize} entries`);
+  }
+
+  getStats() {
+    return {
+      hits: this.cacheHits,
+      misses: this.cacheMisses,
+      hitRate: this.cacheHits + this.cacheMisses > 0 
+        ? (this.cacheHits / (this.cacheHits + this.cacheMisses) * 100).toFixed(1) + '%'
+        : '0%',
+      currentSize: this.cache.size,
+      maxSize: this.maxCacheSize
+    };
+  }
+
+  logCacheStats() {
+    const stats = this.getStats();
+    console.log(`💾 Prompt Cache Stats: ${stats.hits} hits, ${stats.misses} misses, ${stats.hitRate} hit rate`);
+    console.log(`   Current cache size: ${stats.currentSize}/${stats.maxSize} entries`);
+  }
+
+  getStats() {
+    return {
+      hits: this.cacheHits,
+      misses: this.cacheMisses,
+      hitRate: this.cacheHits + this.cacheMisses > 0 
+        ? (this.cacheHits / (this.cacheHits + this.cacheMisses) * 100).toFixed(1) + '%'
+        : '0%',
+      currentSize: this.cache.size,
+      maxSize: this.maxCacheSize
+    };
+  }
+
+  loadAdditionalCacheableFiles() {
+    // Add more cacheable files here as needed
+    // This keeps frequently used context readily available
+  }
+
+  getPrompt(name) {
+    const entry = this.cache.get(name);
+    if (entry) {
+      entry.lastUsed = Date.now();
+      this.cacheHits++;
+      return entry.content;
+    }
+    this.cacheMisses++;
+    return null;
+  }
+
+  /**
+   * Periodically log cache statistics
+   */
+  logCacheStats() {
+    const stats = this.getStats();
+    console.log(`💾 Prompt Cache Stats: ${stats.hits} hits, ${stats.misses} misses, ${stats.hitRate} hit rate`);
+    console.log(`   Current cache size: ${stats.currentSize}/${stats.maxSize} entries`);
+  }
+
+  /**
+   * Initialize the handler with performance monitoring
+   */
+    this.analyzer = new TaskAnalyzer();
+    this.promptCache = new PromptCache();
+    this.router = smartRouterV2;
+    this.maxRetries = 3;
+    this.cacheStatsInterval = null;
+    
+    // Start periodic cache stats logging
+    this.cacheStatsInterval = setInterval(() => {
+      this.logCacheStats();
+    
+    // Log initial cache stats
+    this.logCacheStats();
+  }
+
+  /**
+   * Clean up resources
+   */
+  cleanup() {
+    if (this.cacheStatsInterval) {
+      clearInterval(this.cacheStatsInterval);
+    }
+  }
+
+const execAsync = promisify(exec);
+
+export class ResilientHandler {
+
+
+  /**
+   * Handle message with full resilience
+   */
+  async handleMessage(agentId, message, context = {}) {
+    console.log(`\n${'='.repeat(60)}`);
+    console.log(`📨 Message to ${agentId}: ${message.substring(0, 100)}${message.length > 100 ? '...' : ''}`);
+
+    let attempt = 0;
+    let lastError = null;
+
+    while (attempt < this.maxRetries) {
+      attempt++;
+
+      try {
+        return await this.attemptHandling(agentId, message, context, attempt);
+      } catch (error) {
+        console.error(`❌ Attempt ${attempt} failed:`, error.message);
+        lastError = error;
+
+        // Get recovery strategy
+        const recovery = await errorHandler.handleError(error, {
+          agentId,
+          message,
+          attempt
+        });
+
+        if (!recovery.retry && attempt >= this.maxRetries) {
+          // Return fallback response
+          return this.getFallbackResponse(message, error);
+        }
+
+        // Apply fallback strategy
+        if (recovery.fallback === 'fast-model') {
+          context.forceModel = 'groq/llama-3.1-8b-instant';
+        } else if (recovery.fallback === 'alternative-model') {
+          context.forceModel = this.getAlternativeModel();
+        } else if (recovery.fallback === 'force-ollama') {
+          context.forceModel = 'groq/llama-3.1-8b-instant';
+          console.log('💰 Forcing Groq free model due to budget/credit issue');
+        }
+
+        // Wait before retry
+        await this.sleep(2000 * attempt);
+      }
+    }
+
+    // All retries failed
+    return this.getFallbackResponse(message, lastError);
+  }
+
+  /**
+   * Attempt to handle message
+   */
+  async attemptHandling(agentId, message, context, attempt) {
+    // 1. Analyze task (quick, no external calls)
+    const requirements = this.router.analyzeRequirements(message, context);
+
+    console.log(`📊 Requirements: ${requirements.taskType}, ${requirements.complexity}, urgent=${requirements.urgent}`);
+
+    // 2. Select optimal model
+    const selectedModel = context.forceModel
+      ? this.parseModel(context.forceModel)
+      : await this.router.selectModel(message, context);
+
+    console.log(`🎯 Model: ${selectedModel.provider}/${selectedModel.model}`);
+    console.log(`   Reason: ${selectedModel.reason}`);
+    console.log(`   Expected: ${selectedModel.expectedSpeed}, $${selectedModel.cost}`);
+
+    // 3. Check budget (if paid model)
+    if (selectedModel.cost > 0) {
+      const budgetRemaining = costMonitor.getBudgetRemaining();
+      if (budgetRemaining < selectedModel.cost) {
+        console.log('⚠️  Budget limit reached, forcing free model');
+        selectedModel.provider = 'ollama';
+        selectedModel.model = 'qwen2.5-coder:7b';
+        selectedModel.cost = 0;
+      }
+    }
+
+    // 4. Call OpenClaw
+    const startTime = Date.now();
+    const response = await this.callOpenClaw(agentId, message, selectedModel);
+    const latency = Date.now() - startTime;
+
+    console.log(`✅ Response received in ${latency}ms`);
+
+    // 5. Track cost and performance
+    const estimatedTokens = {
+      input: Math.ceil(message.length / 4),
+      output: Math.ceil(response.length / 4),
+      cache_read: response._cacheStats?.cache_read || 0,
+      cache_write: response._cacheStats?.cache_write || 0
+    };
+
+    await costMonitor.recordRequest(
+      agentId,
+      `${selectedModel.provider}/${selectedModel.model}`,
+      estimatedTokens,
+      selectedModel.cost
+    );
+
+    await this.router.recordPerformance(
+      `${selectedModel.provider}/${selectedModel.model}`,
+      latency,
+      true,
+      selectedModel.cost
+    );
+
+    // 6. Build response
+    const responseObj = {
+      content: response,
+      model: {
+        provider: selectedModel.provider,
+        model: selectedModel.model,
+        reason: selectedModel.reason
+      },
+      latency: latency,
+      cost: selectedModel.cost,
+      tokens: estimatedTokens,
+      attempt: attempt
+    };
+
+    // 7. Apply tool-call middleware (validate + normalize message/write tool calls)
+    const validatedResponse = ToolCallMiddleware.wrapAgentResponse(responseObj, {
+      agentId,
+      source: 'resilient-handler',
+    });
+    
+    if (validatedResponse.validationError) {
+      console.warn(`[ResilientHandler] Tool validation error: ${validatedResponse.validationError}`);
+    }
+
+    return validatedResponse;
+  }
+
+  /**
+   * Call model (Ollama, Anthropic, or Perplexity)
+   */
+  async callOpenClaw(agentId, message, model) {
+    if (model.provider === 'ollama') {
+      return await this.callOllama(model.model, message);
+    } else if (model.provider === 'anthropic') {
+      return await this.callAnthropic(model.model, message, agentId);
+    } else if (model.provider === 'perplexity') {
+      return await this.callPerplexity(model.model, message, agentId);
+    } else if (model.provider === 'zai') {
+      return await this.callZhipu(model.model, message, agentId);
+    } else {
+      throw new Error(`Unsupported provider: ${model.provider}`);
+    }
+  }
+
+  /**
+   * Call Ollama API directly
+   */
+  async callOllama(modelName, message) {
+    try {
+      const response = await fetch('http://localhost:11434/api/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: modelName,
+          prompt: message,
+          stream: false
+        }),
+        timeout: 600000 // 10 minute timeout
+      });
+
+      if (!response.ok) {
+        throw new Error(`Ollama error: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+
+      if (!data.response) {
+        throw new Error('Empty response from Ollama');
+      }
+
+      return data.response;
+    } catch (error) {
+      if (error.code === 'ECONNREFUSED') {
+        throw new Error('Ollama not running - start with: ollama serve');
+      }
+      throw error;
+    }
+  }
+
+  /**
+   * Call Anthropic API
+   */
+  async callAnthropic(modelName, message, agentId) {
+    const apiKey = process.env.ANTHROPIC_API_KEY;
+
+    if (!apiKey) {
+      throw new Error('ANTHROPIC_API_KEY not set - cannot use cloud models');
+    }
+
+    // Build request body — use prompt caching if SOUL.md is available
+    const requestBody = {
+      model: modelName,
+      max_tokens: 4096,
+      messages: [{ role: 'user', content: message }]
+    };
+
+    const headers = {
+      'Content-Type': 'application/json',
+      'x-api-key': apiKey,
+      'anthropic-version': '2023-06-01'
+    };
+
+    // Enable enhanced prompt caching using PromptCache
+    const soulContent = promptCache.getPrompt('SOUL.md');
+    if (soulContent) {
+      headers['anthropic-beta'] = 'prompt-caching-2024-07-31';
+      requestBody.system = [
+        {
+          type: 'text',
+          text: soulContent,
+          cache_control: { type: 'ephemeral' }
+        }
+      ];
+    }
+
+    try {
+      const response = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(requestBody),
+        timeout: 60000 // 1 minute timeout for cloud
+      });
+
+      if (!response.ok) {
+        const error = await response.text();
+        throw new Error(`Anthropic error: ${error}`);
+      }
+
+      const data = await response.json();
+
+      if (!data.content || !data.content[0] || !data.content[0].text) {
+        throw new Error('Invalid response from Anthropic');
+      }
+
+      // Log cache hit stats if available
+      const usage = data.usage || {};
+      if (usage.cache_read_input_tokens || usage.cache_creation_input_tokens) {
+        const cacheRead = usage.cache_read_input_tokens || 0;
+        const cacheWrite = usage.cache_creation_input_tokens || 0;
+        const totalIn = usage.input_tokens || 0;
+        console.log(`💾 Prompt cache: read=${cacheRead} write=${cacheWrite} input=${totalIn} tokens`);
+        // Attach cache stats to response for cost tracking
+        data._cacheStats = { cache_read: cacheRead, cache_write: cacheWrite };
+      }
+
+      return data.content[0].text;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * Call Perplexity API (internet-enabled)
+   */
+  async callPerplexity(modelName, message) {
+    const apiKey = process.env.PERPLEXITY_API_KEY;
+
+    if (!apiKey) {
+      throw new Error('PERPLEXITY_API_KEY not set - cannot use internet-enabled models');
+    }
+
+    try {
+      const response = await fetch('https://api.perplexity.ai/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({
+          model: modelName,
+          messages: [{ role: 'user', content: message }],
+          max_tokens: 4096,
+          temperature: 0.7
+        }),
+        timeout: 60000 // 1 minute timeout
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        // Include status code so error-handler can classify 401/429 correctly
+        throw new Error(`Perplexity error (${response.status}): ${errorText}`);
+      }
+
+      const data = await response.json();
+
+      if (!data.choices || !data.choices[0] || !data.choices[0].message || !data.choices[0].message.content) {
+        throw new Error('Invalid response from Perplexity');
+      }
+
+      return data.choices[0].message.content;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async callZhipu(modelName, message) {
+    const apiKey = process.env.ZAI_API_KEY;
+
+    if (!apiKey) {
+      throw new Error('ZAI_API_KEY not set - cannot use Zhipu AI / GLM-4');
+    }
+
+    try {
+      const response = await fetch('https://api.z.ai/api/paas/v4/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({
+          model: modelName,
+          messages: [{ role: 'user', content: message }],
+          max_tokens: 4096,
+          temperature: 0.7
+        }),
+        timeout: 60000 // 1 minute timeout
+      });
+
+      if (!response.ok) {
+        const error = await response.text();
+        throw new Error(`Zhipu AI error: ${error}`);
+      }
+
+      const data = await response.json();
+
+      if (!data.choices || !data.choices[0] || !data.choices[0].message || !data.choices[0].message.content) {
+        throw new Error('Invalid response from Zhipu AI');
+      }
+
+      return data.choices[0].message.content;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * Get alternative model when primary fails
+   */
+  getAlternativeModel() {
+    const alternatives = [
+      'groq/llama-3.1-8b-instant',
+      'ollama/qwen2.5-coder:7b',
+      'ollama/glm-4.7-flash:latest'
+    ];
+
+    return alternatives[Math.floor(Math.random() * alternatives.length)];
+  }
+
+  /**
+   * Parse model string
+   */
+  parseModel(modelString) {
+    const [provider, model] = modelString.split('/');
+    return {
+      provider,
+      model,
+      reason: 'forced model',
+      cost: provider === 'ollama' ? 0 : 0.003
+    };
+  }
+
+  /**
+   * Get fallback response when all else fails
+   */
+  getFallbackResponse(message, error) {
+    console.log('🆘 Returning fallback response');
+
+    // Generate a helpful fallback based on the message
+    let fallbackContent = '';
+
+    if (message.toLowerCase().includes('help')) {
+      fallbackContent = 'I apologize, but I\'m experiencing technical difficulties. Please try again in a moment, or contact support if the issue persists.';
+    } else if (message.length < 50) {
+      fallbackContent = `I received your message "${message.substring(0, 30)}..." but I\'m currently unable to process it due to a temporary issue. Please try again shortly.`;
+    } else {
+      fallbackContent = 'I apologize, but I\'m experiencing technical difficulties processing your request. Our system is working to resolve this automatically. Please try again in a few moments.';
+    }
+
+    return {
+      content: fallbackContent,
+      model: {
+        provider: 'fallback',
+        model: 'error-handler',
+        reason: 'all attempts failed'
+      },
+      latency: 0,
+      cost: 0,
+      tokens: { input: 0, output: 0 },
+      error: error?.message || 'Unknown error',
+      fallback: true
+    };
+  }
+
+  /**
+   * Sleep utility
+   */
+  sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  /**
+   * Get handler statistics
+   */
+  getStats() {
+    return {
+      errorStats: errorHandler.getStats(),
+      performanceStats: this.router.performanceHistory
+        .slice(-100)
+        .reduce((acc, h) => {
+          if (!acc[h.modelId]) {
+            acc[h.modelId] = { requests: 0, totalLatency: 0, successes: 0 };
+          }
+          acc[h.modelId].requests++;
+          acc[h.modelId].totalLatency += h.latency;
+          if (h.success) acc[h.modelId].successes++;
+          return acc;
+        }, {})
+    };
+  }
+
+  /**
+   * Get prompt caching statistics
+   */
+  getCacheStats() {
+    return {
+      hits: promptCache.cacheHits,
+      misses: promptCache.cacheMisses,
+      hitRate: promptCache.cacheHits + promptCache.cacheMisses > 0 
+        ? (promptCache.cacheHits / (promptCache.cacheHits + promptCache.cacheMisses) * 100).toFixed(1) + '%'
+        : '0%',
+      currentSize: promptCache.cache.size,
+      maxSize: promptCache.maxCacheSize
+    };
+  }
+}
+
+export const resilientHandler = new ResilientHandler();

@@ -1,0 +1,174 @@
+{
+  "id": "C0gFamBjnzPGH8Y3",
+  "name": "daily-standup",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 8 * * 1-5"
+            }
+          ]
+        }
+      },
+      "id": "f3be31f3-98c4-4f46-a6db-5aacd62ec500",
+      "name": "Weekday 8am ET",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Build standup kickoff messages for each agent\nconst agents = [\n  { id: 'main', delay: 0 },\n  { id: 'eng', delay: 2000 },\n  { id: 'research', delay: 4000 },\n  { id: 'finance', delay: 6000 },\n  { id: 'ops', delay: 8000 },\n  { id: 'infosec', delay: 10000 }\n];\n\nconst date = new Date().toLocaleDateString('en-CA');\nconst messages = agents.map(a => ({\n  agentId: a.id,\n  message: `MORNING STANDUP ${date}: Write your status to workspace/ops/agent-status/${a.id}.json with fields: sprintGoal, workingOn, completedYesterday, ETA, blockers. Keep it brief \u2014 OPS will compile at 8:15am.`,\n  delay: a.delay\n}));\n\nreturn messages.map(m => ({ json: m }));"
+      },
+      "id": "ed368053-aa1c-4c2a-9e8d-ddaaa0bffc96",
+      "name": "Build Agent Check-ins",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        224,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "url": "http://127.0.0.1:19000/api/chat",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "x-source",
+              "value": "n8n-daily-standup"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "options": {},
+        "method": "POST"
+      },
+      "id": "42df0693-f0fb-4ca7-8ed5-27f3ce548af2",
+      "name": "Dispatch Check-ins",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        448,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "amount": 15,
+        "unit": "minutes"
+      },
+      "id": "e4f23720-6f43-44dc-ae67-4cf2278007cf",
+      "name": "Wait 15min",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        448,
+        160
+      ],
+      "webhookId": "9ef42f26-2aca-4340-b5fa-e1074f7bee81"
+    },
+    {
+      "parameters": {
+        "url": "http://127.0.0.1:19000/api/chat",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "options": {},
+        "method": "POST"
+      },
+      "id": "6e053f2d-777d-4838-a5df-594e3e0804ca",
+      "name": "OPS Compile Standup",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        672,
+        160
+      ]
+    }
+  ],
+  "connections": {
+    "Weekday 8am ET": {
+      "main": [
+        [
+          {
+            "node": "Build Agent Check-ins",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Agent Check-ins": {
+      "main": [
+        [
+          {
+            "node": "Dispatch Check-ins",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 15min": {
+      "main": [
+        [
+          {
+            "node": "OPS Compile Standup",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false,
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "staticData": {
+    "node:Weekday 8am ET": {
+      "recurrenceRules": []
+    }
+  },
+  "meta": null,
+  "pinData": {},
+  "tags": [
+    {
+      "updatedAt": "2026-03-02T00:29:41.058Z",
+      "createdAt": "2026-03-02T00:29:41.058Z",
+      "id": "7xObWo1OE91MK9El",
+      "name": "scheduled"
+    }
+  ]
+}

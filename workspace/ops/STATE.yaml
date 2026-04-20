@@ -1,0 +1,13 @@
+metrics:
+  per_agent_completions_today:
+    eng: 0
+    ops: 0
+    research: 0
+    finance: 0
+    infosec: 0
+    allrounder: 0
+pipeline_health:
+  session_overflow_monitor: fixed  # was killing active sessions; now skips locked/recent sessions
+  gateway_err_log: rotated          # was 139MB, now truncated to 0
+  stale_autonomous_tasks: closed    # RES-TRENDS and OPS-HEALTH from 2026-03-10 archived
+  9router_port: verified_ok        # 20128 matches actual listening port

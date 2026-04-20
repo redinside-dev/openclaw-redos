@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "updatedAt": "2026-02-24",
+  "policy": {
+    "default": "deny",
+    "notes": "Allowlist of MCP servers that agents may connect to. Prefer local/loopback only. For remote MCP, pin exact host+port and document auth + expected capabilities."
+  },
+  "allow": [
+    {
+      "name": "local-filesystem",
+      "host": "127.0.0.1",
+      "port": 0,
+      "transport": "stdio",
+      "pin": {
+        "type": "sha256",
+        "value": "TBD"
+      },
+      "reason": "Local-only tools; must be reviewed and pinned before enabling"
+    },
+    {
+      "name": "exa-mcp",
+      "host": "mcp.exa.ai",
+      "port": 443,
+      "transport": "http",
+      "pin": {
+        "type": "tls",
+        "value": "TBD"
+      },
+      "reason": "Approved by Anurag (2026-02-24) as fallback web search when Perplexity is down. Expected tools: web_search_exa, web_search_advanced_exa, crawling_exa, company_research_exa, people_search_exa, deep_researcher_*"
+    }
+  ]
+}

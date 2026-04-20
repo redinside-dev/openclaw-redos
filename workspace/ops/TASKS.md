@@ -1,0 +1,1 @@
+{"id":"TASK-20260307-001","title":"Review broad admin grant `workspace/security/*` with `execute`. Tighten scope (remove execute unless justified), shorten TTL, and document rationale.","assignee":"infosec","requestedBy":"ops","status":"in_progress","eta":"2026-03-07T08:55:00Z","startedAt":"2026-03-07T07:55:00Z","completedAt":null,"notes":"Spawned at 2026-03-07T07:55:00Z"}

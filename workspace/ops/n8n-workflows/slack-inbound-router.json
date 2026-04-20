@@ -1,0 +1,208 @@
+{
+  "id": "EInxQVFsBEAcNKS1",
+  "name": "slack-inbound-router",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "slack-inbound-router",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Slack Events Webhook",
+      "webhookId": "20761b31-7666-4a06-862e-3d75ec19a050",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $input.first().json.body || $input.first().json;\n\n// Handle Slack URL verification challenge\nif (body.type === 'url_verification') {\n  return [{ json: { challenge: body.challenge, _isChallenge: true, _skip: false } }];\n}\n\n// Extract event data\nconst event = body.event || {};\nconst text = event.text || '';\nconst channel = event.channel || '';\nconst user = event.user || '';\nconst bot_id = event.bot_id;\n\n// Mark bot messages to skip\nif (bot_id) {\n  return [{ json: { _skip: true, _isChallenge: false, agentId: 'main', message: '', channel, user } }];\n}\n\n// Route to agent based on keywords\nlet agentId = 'main';\nconst textLower = text.toLowerCase();\nif (textLower.includes('code') || textLower.includes('bug') || textLower.includes('deploy') || textLower.includes('pr')) agentId = 'eng';\nelse if (textLower.includes('security') || textLower.includes('vuln') || textLower.includes('breach')) agentId = 'infosec';\nelse if (textLower.includes('cost') || textLower.includes('budget') || textLower.includes('spend') || textLower.includes('portfolio')) agentId = 'finance';\nelse if (textLower.includes('research') || textLower.includes('market') || textLower.includes('analysis')) agentId = 'research';\nelse if (textLower.includes('ticket') || textLower.includes('ops') || textLower.includes('status')) agentId = 'ops';\n\nconst message = `SLACK MESSAGE from ${user} in ${channel}:\\n${text}\\n\\nRespond appropriately.`;\nreturn [{ json: { agentId, message, channel, user, _skip: false, _isChallenge: false } }];"
+      },
+      "id": "route-message",
+      "name": "Route Slack Message",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false
+          },
+          "conditions": [
+            {
+              "id": "challenge-check",
+              "leftValue": "={{ $json._isChallenge }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ]
+        }
+      },
+      "id": "is-challenge",
+      "name": "Is Challenge?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        680,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false
+          },
+          "conditions": [
+            {
+              "id": "skip-check",
+              "leftValue": "={{ $json._skip }}",
+              "rightValue": false,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ]
+        }
+      },
+      "id": "not-bot",
+      "name": "Not a Bot?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        900,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "url": "http://127.0.0.1:19000/api/chat",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "x-source",
+              "value": "n8n-slack-router"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ agentId: $json.agentId, message: $json.message }) }}",
+        "method": "POST"
+      },
+      "id": "call-gateway",
+      "name": "Dispatch to Gateway",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1120,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json._isChallenge ? JSON.stringify({ challenge: $json.challenge }) : JSON.stringify({ ok: true }) }}"
+      },
+      "id": "respond",
+      "name": "Respond to Slack",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        900,
+        160
+      ]
+    }
+  ],
+  "connections": {
+    "Slack Events Webhook": {
+      "main": [
+        [
+          {
+            "node": "Route Slack Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route Slack Message": {
+      "main": [
+        [
+          {
+            "node": "Is Challenge?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Challenge?": {
+      "main": [
+        [
+          {
+            "node": "Respond to Slack",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Not a Bot?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Not a Bot?": {
+      "main": [
+        [
+          {
+            "node": "Dispatch to Gateway",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false,
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "tags": [
+    {
+      "updatedAt": "2026-03-02T00:34:35.287Z",
+      "createdAt": "2026-03-02T00:34:35.287Z",
+      "id": "Pd72skzr3C2b95Ap",
+      "name": "event-driven"
+    }
+  ]
+}

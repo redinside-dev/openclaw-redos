@@ -1,0 +1,12 @@
+{
+  "_comment": "Per-agent Slack channel IDs. All channels now have bot as member.",
+  "_status": "live",
+  "red": "C0AFLUZ4P71",
+  "zen": "C0AFZ09R9V3",
+  "hatake": "C0AG3GPSS4A",
+  "eng": "C0AFW1B0QUB",
+  "research": "C0AG615R5E0",
+  "finance": "C0AG6166CJ0",
+  "ops": "C0AGFA9417T",
+  "infosec": "C0AG2CTU6AW"
+}

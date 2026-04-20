@@ -1,0 +1,53 @@
+{
+  "jobs": [
+    {
+      "name": "credential-rotation",
+      "script": "/Users/redinside/.openclaw/workspace/ops/credential-rotation-cron.sh",
+      "schedule": "0 2 * * *",
+      "enabled": true,
+      "description": "Daily credential rotation for Perplexity and GitHub tokens"
+    },
+    {
+      "name": "file-provisioning",
+      "script": "/Users/redinside/.openclaw/workspace/ops/file-provisioning-script.sh",
+      "schedule": "0 4 * * *",
+      "enabled": true,
+      "description": "Daily file provisioning and integrity check"
+    },
+    {
+      "name": "health-monitor-1",
+      "script": "/Users/redinside/.openclaw/workspace/ops/health-monitor-1.sh",
+      "schedule": "* * * * *",
+      "enabled": true,
+      "description": "Gateway service health monitoring (every minute)"
+    },
+    {
+      "name": "health-monitor-2",
+      "script": "/Users/redinside/.openclaw/workspace/ops/health-monitor-2.sh",
+      "schedule": "*/10 * * * *",
+      "enabled": true,
+      "description": "Credential and file integrity monitoring (every 10 minutes)"
+    },
+    {
+      "name": "session-warmup",
+      "script": "/Users/redinside/.openclaw/workspace/scripts/session_warmup_cron.py",
+      "schedule": "*/5 * * * *",
+      "enabled": true,
+      "description": "A2A session warmup to prevent delegation deadlocks (120s timeout, 2x retry)"
+    },
+    {
+      "name": "9router-quota-sync",
+      "script": "/Users/redinside/.openclaw/workspace/cron/9router-quota-sync.js",
+      "schedule": "*/15 * * * *",
+      "enabled": true,
+      "description": "Syncs provider usage/cost data from 9router telemetry to provider-quota.json (Finance visibility)"
+    },
+    {
+      "name": "routing-decisions-writer",
+      "script": "/Users/redinside/.openclaw/workspace/cron/routing-decisions-writer.js",
+      "schedule": "* * * * *",
+      "enabled": true,
+      "description": "Reads OpenClaw a2a event logs and writes routing decisions to routing-decisions.jsonl (replaces broken 9router /api/routing-log poller)"
+    }
+  ]
+}

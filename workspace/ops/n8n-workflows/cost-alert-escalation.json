@@ -1,0 +1,59 @@
+{
+  "name": "cost-alert-escalation",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "cost-alert-escalation",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Cost Alert Webhook",
+      "webhookId": "0db0b1c8-9231-40bb-9767-4ffc8e54e47f",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $input.first().json.body || $input.first().json;\nconst current = data.current_usd || 0;\nconst limit = data.limit_usd || 2.00;\nconst pct = data.pct || Math.round(current / limit * 100);\nconst triggered_by = data.triggered_by || 'cost-monitor';\n\nconst emoji = pct >= 100 ? '🚨' : pct >= 90 ? '⚠️' : '⚡';\nconst status = pct >= 100 ? 'LIMIT HIT' : pct >= 90 ? 'CRITICAL' : 'WARNING';\n\nconst text = `${emoji} *Cost Alert — ${status}* (${pct}% of daily budget)\\n\\n*Spend:* $${current.toFixed(4)} / $${limit.toFixed(2)} limit\\n*Triggered by:* ${triggered_by}\\n\\n${pct >= 90 ? '⛔ PAYG models paused. Routing switched to cost_saver.' : '⚙️ Monitor spend closely. Auto-pause at 100%.'}`;\n\nreturn [{ json: { text, channel: 'C0AEV3MDEDD', pct, current, limit } }];"
+      },
+      "id": "build-message",
+      "name": "Build Alert Message",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://127.0.0.1:5678/webhook/slack-post",
+        "sendBody": true,
+        "contentType": "json",
+        "body": "={{ JSON.stringify({ channel: $json.channel, text: $json.text }) }}"
+      },
+      "id": "post-to-slack",
+      "name": "Post to Slack",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [680, 300]
+    }
+  ],
+  "connections": {
+    "Cost Alert Webhook": {
+      "main": [[ { "node": "Build Alert Message", "type": "main", "index": 0 } ]]
+    },
+    "Build Alert Message": {
+      "main": [[ { "node": "Post to Slack", "type": "main", "index": 0 } ]]
+    }
+  },
+  "active": false,
+  "settings": { "executionOrder": "v1" },
+  "tags": [{ "name": "alerting" }],
+  "_meta": {
+    "description": "Called by cost-monitor when daily spend exceeds threshold. Posts formatted alert to Slack #redos-mission-control.",
+    "webhookPath": "cost-alert-escalation",
+    "caller": "gateway/server.js cost_alert_webhook action at 80% budget",
+    "slackChannel": "C0AEV3MDEDD"
+  }
+}

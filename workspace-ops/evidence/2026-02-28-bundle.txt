@@ -1,0 +1,11 @@
+Re-pin OPS cron jobs:
+  -OPS System Health Monitor
+ SYS-System Health Watch
+cron/CI Event Logger
+ticks/cron/HEALTH
+
+Confirm latest run on each:
+- lastStatus
+- lastError
+- beforeModel
+(afterModel?)

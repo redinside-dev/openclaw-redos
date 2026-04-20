@@ -1,0 +1,15 @@
+{
+  "ticket": "TICKET-TEST-L4-001",
+  "type": "dry-run-approval-flow",
+  "completedAt": "2026-02-28T08:54:00Z",
+  "result": "completed",
+  "actions": [
+    "Verified approval artifact exists in workspace/approvals/approved/TICKET-TEST-L4-001.json",
+    "Confirmed status=approved and approvedAt timestamp present",
+    "Confirmed dry-run constraint honored: no git push executed"
+  ],
+  "evidence": {
+    "approval_file": "/Users/redinside/.openclaw/workspace/approvals/approved/TICKET-TEST-L4-001.json",
+    "verification_command": "cat /Users/redinside/.openclaw/workspace/approvals/approved/TICKET-TEST-L4-001.json"
+  }
+}

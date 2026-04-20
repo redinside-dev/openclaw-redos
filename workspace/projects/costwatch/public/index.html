@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CostWatch — LLM Cost Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: #0f172a; color: #e2e8f0; min-height: 100vh; }
+    header { background: #1e293b; padding: 1rem 2rem; display: flex; align-items: center; gap: 1rem; border-bottom: 1px solid #334155; }
+    header h1 { font-size: 1.3rem; font-weight: 700; color: #6366f1; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.5} }
+    main { max-width: 1200px; margin: 2rem auto; padding: 0 1.5rem; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.2rem; margin-bottom: 2rem; }
+    .card { background: #1e293b; border-radius: 12px; padding: 1.5rem; border: 1px solid #334155; }
+    .card label { font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; letter-spacing: .05em; }
+    .card .value { font-size: 2rem; font-weight: 700; color: #f1f5f9; margin: 0.3rem 0; }
+    .card .sub { font-size: 0.8rem; color: #64748b; }
+    .charts { display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+    @media(max-width:768px){ .charts{ grid-template-columns:1fr; } }
+    .chart-box { background: #1e293b; border-radius: 12px; padding: 1.5rem; border: 1px solid #334155; }
+    .chart-box h2 { font-size: 0.95rem; font-weight: 600; color: #94a3b8; margin-bottom: 1rem; }
+    .alerts { background: #1e293b; border-radius: 12px; padding: 1.5rem; border: 1px solid #334155; }
+    .alerts h2 { font-size: 0.95rem; font-weight: 600; color: #94a3b8; margin-bottom: 1rem; }
+    .alert-item { display: flex; gap: 1rem; padding: 0.75rem 0; border-bottom: 1px solid #334155; align-items: flex-start; }
+    .alert-item:last-child { border: none; }
+    .badge { font-size: 0.7rem; font-weight: 600; padding: 0.2rem 0.6rem; border-radius: 50px; white-space: nowrap; }
+    .badge.warning { background: #f59e0b20; color: #f59e0b; }
+    .badge.info    { background: #6366f120; color: #818cf8; }
+    .alert-msg { font-size: 0.85rem; color: #cbd5e1; flex: 1; }
+    .live-badge { font-size: 0.7rem; font-weight: 600; background: #22c55e20; color: #22c55e; padding: 0.2rem 0.6rem; border-radius: 50px; margin-left: auto; }
+    .section-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem; }
+    .section-header h1 { font-size: 1rem; font-weight: 600; color: #94a3b8; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>💰 CostWatch</h1>
+    <div class="dot"></div>
+    <span style="font-size:.8rem;color:#64748b">Live</span>
+    <span class="live-badge" id="last-update">Connecting…</span>
+  </header>
+  <main>
+    <div class="cards">
+      <div class="card"><label>Today's Cost</label><div class="value" id="today-cost">$—</div><div class="sub" id="today-calls">— calls</div></div>
+      <div class="card"><label>This Month</label><div class="value" id="month-cost">$—</div><div class="sub">30-day total</div></div>
+      <div class="card"><label>Today Tokens</label><div class="value" id="today-tokens">—</div><div class="sub">Input + Output</div></div>
+      <div class="card"><label>Active Providers</label><div class="value" id="active-providers">3</div><div class="sub">OpenAI · Anthropic · Google</div></div>
+    </div>
+    <div class="charts">
+      <div class="chart-box"><h2>Daily Costs (30 days)</h2><canvas id="daily-chart" height="180"></canvas></div>
+      <div class="chart-box"><h2>Cost by Model</h2><canvas id="model-chart" height="180"></canvas></div>
+    </div>
+    <div class="alerts">
+      <h2>Active Alerts</h2>
+      <div id="alerts-list"><p style="color:#64748b;font-size:.85rem">Loading…</p></div>
+    </div>
+  </main>
+
+  <script>
+    const API = '';  // same origin
+    let dailyChart, modelChart;
+
+    // ── Charts ──────────────────────────────────────────────────────────────
+    function initCharts(analytics) {
+      const labels = analytics.dailyCosts.map(d => d.date.slice(5)); // MM-DD
+      const costs  = analytics.dailyCosts.map(d => d.cost);
+      const ctx1 = document.getElementById('daily-chart').getContext('2d');
+      dailyChart = new Chart(ctx1, {
+        type: 'bar',
+        data: {
+          labels,
+          datasets: [{ label: 'Cost ($)', data: costs, backgroundColor: '#6366f180', borderColor: '#6366f1', borderWidth: 1 }]
+        },
+        options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { ticks: { color:'#94a3b8' }, grid:{color:'#334155'} }, x: { ticks:{color:'#94a3b8',maxTicksLimit:10}, grid:{display:false} } } }
+      });
+
+      const models = analytics.topModels;
+      const ctx2 = document.getElementById('model-chart').getContext('2d');
+      modelChart = new Chart(ctx2, {
+        type: 'doughnut',
+        data: {
+          labels: models.map(m => m.name),
+          datasets: [{ data: models.map(m => m.cost), backgroundColor: ['#6366f1','#22d3ee','#ec4899','#f59e0b','#22c55e'] }]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom', labels:{ color:'#94a3b8', boxWidth:12 } } } }
+      });
+    }
+
+    // ── Alerts ───────────────────────────────────────────────────────────────
+    function renderAlerts(alerts) {
+      const el = document.getElementById('alerts-list');
+      if (!alerts.length) { el.innerHTML = '<p style="color:#64748b;font-size:.85rem">No active alerts.</p>'; return; }
+      el.innerHTML = alerts.map(a => `
+        <div class="alert-item">
+          <span class="badge ${a.severity}">${a.severity}</span>
+          <span class="alert-msg">${a.message}</span>
+        </div>`).join('');
+    }
+
+    // ── Load data ─────────────────────────────────────────────────────────────
+    async function loadAll() {
+      const [costs, analytics, alerts] = await Promise.all([
+        fetch(`${API}/api/costs`).then(r => r.json()),
+        fetch(`${API}/api/analytics?days=30`).then(r => r.json()),
+        fetch(`${API}/api/alerts?active=true`).then(r => r.json()),
+      ]);
+
+      document.getElementById('today-cost').textContent = `$${costs.totals.today}`;
+      document.getElementById('month-cost').textContent = `$${costs.totals.month}`;
+
+      initCharts(analytics);
+      document.getElementById('today-tokens').textContent = analytics.totalTokens.toLocaleString();
+
+      renderAlerts(alerts);
+    }
+
+    // ── Socket.IO ─────────────────────────────────────────────────────────────
+    const socket = io();
+    socket.on('cost_snapshot', (snap) => {
+      document.getElementById('today-cost').textContent = `$${snap.todayCost}`;
+      document.getElementById('today-calls').textContent = `${snap.todayCalls} calls`;
+      document.getElementById('today-tokens').textContent = snap.todayTokens.toLocaleString();
+      document.getElementById('last-update').textContent = `Updated ${new Date(snap.ts).toLocaleTimeString()}`;
+    });
+    socket.on('cost_update', (data) => {
+      const snap = data.snapshot;
+      document.getElementById('today-cost').textContent = `$${snap.todayCost}`;
+      document.getElementById('today-calls').textContent = `${snap.todayCalls} calls`;
+      document.getElementById('today-tokens').textContent = snap.todayTokens.toLocaleString();
+      document.getElementById('last-update').textContent = `Updated ${new Date(snap.ts).toLocaleTimeString()}`;
+    });
+
+    loadAll();
+  </script>
+</body>
+</html>

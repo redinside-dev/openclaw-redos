@@ -1,0 +1,8 @@
+{
+  "paused": true,
+  "repo": "decolua/9router",
+  "reason": "Owner contacted — too many PRs (70-90 open), requested pause to avoid spam block",
+  "pausedAt": "2026-04-19",
+  "resumeAfter": "2026-04-24",
+  "instruction": "DO NOT create any PR, branch, commit, or fork to decolua/9router or anuragg-saxenaa/9router until 2026-04-24. All other repos continue as normal. If you receive a 9router task, skip it and note PAUSED until 2026-04-24."
+}

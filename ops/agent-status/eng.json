@@ -1,0 +1,51 @@
+{
+  "agent": "eng",
+  "updatedAt": "2026-02-28T13:39:56Z",
+  "timezone": "America/Toronto",
+  "checks": {
+    "exec": "ok",
+    "read": "ok",
+    "write": {
+      "shell_write": "ok",
+      "tool_write": "failed_in_sandbox_path_mapping"
+    },
+    "ccsSmart": {
+      "path": "/Users/redinside/.openclaw/scripts/ccs-smart.sh",
+      "syntax": "ok",
+      "dryRun": "ok",
+      "selectedBackend": "claude-direct",
+      "cursorDaemon": "running"
+    }
+  },
+  "queue": {
+    "taskQueuePath": "/Users/redinside/.openclaw/workspace/tasks/queue.json",
+    "pending": 0,
+    "inProgress": 0,
+    "awaitingApproval": 0,
+    "taskRegistryPath": "/Users/redinside/.openclaw/workspace/ops/task-registry.json",
+    "tasksCount": 1,
+    "assignedToEng": [],
+    "deliveryQueueDir": "/Users/redinside/.openclaw/delivery-queue",
+    "deliveryQueuePending": 0,
+    "deliveryQueueFailed": 24,
+    "state": "idle"
+  },
+  "git": {
+    "repoChecked": "/Users/redinside/.openclaw",
+    "openPRs": 1,
+    "prs": [
+      {
+        "number": 1,
+        "title": "Enforce benchmark promotion gates in CI",
+        "branch": "feature/bounded-autonomy-l0-l5",
+        "url": "https://github.com/redinside-dev/openclaw-redos/pull/1"
+      }
+    ],
+    "prReview": "listed_and_scoped"
+  },
+  "next": [
+    "Idle: no tasks assigned to ENG in queue or registry.",
+    "Reviewed open PR inventory and file-level scope for PR #1.",
+    "If needed, run focused test review once pytest is available in this sandbox Python."
+  ]
+}

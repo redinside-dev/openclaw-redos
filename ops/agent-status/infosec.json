@@ -1,0 +1,20 @@
+{
+  "agentId": "infosec",
+  "lastCheck": "2026-03-15T07:46:00Z",
+  "status": "HEARTBEAT_OK",
+  "execTest": "PASS",
+  "readWriteTest": "PASS",
+  "queueCheck": {
+    "INFOSEC-2026-0314-001": "DONE",
+    "pendingTasks": 0
+  },
+  "securityAudit": {
+    "run": true,
+    "critical": 7,
+    "warnings": 2,
+    "info": 2,
+    "topIssue": "Telegram DMs open on all accounts (dmPolicy=open)",
+    "recommendation": "Set dmPolicy to 'pairing' or add allowFrom restrictions"
+  },
+  "notes": "Security audit found 7 CRITICAL issues - all Telegram bot DMs open to anyone. Should alert RED/OPS."
+}

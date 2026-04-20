@@ -1,0 +1,240 @@
+# 9Router Setup & Operations Skill
+
+## Purpose
+Install, configure, health-check, and troubleshoot 9Router — the local proxy that routes coding tasks to free/subscription providers (Gemini, Codex, iFlow, Qwen) when Claude Code and Cursor Pro are exhausted.
+
+## What is 9Router
+
+9Router is a local OpenAI-compatible API proxy (port 20128) that:
+- Accepts `/v1/chat/completions` requests
+- Routes to the best available free/subscription provider
+- Returns OpenAI-compatible responses
+- Exposes `/api/quota` for live provider quota status
+- Exposes `/health` for health checks
+
+Provider fallback order within 9Router:
+1. **cc/** — Claude Code subscription: claude-sonnet-4-6, claude-opus-4-6, claude-sonnet-4-5-20250929, claude-opus-4-5-20251101, claude-haiku-4-5-20251001
+2. **cx/** — Codex (ChatGPT Plus subscription): gpt-5.3-codex, gpt-5.3-codex-high, gpt-5.3-codex-xhigh, gpt-5.3-codex-spark, gpt-5.2-codex, gpt-5.1, gpt-5.1-codex-max, gpt-5.1-codex-mini, gpt-5-codex
+3. **cu/** — Cursor Pro subscription: claude-4.5-opus, claude-4.5-sonnet, claude-4.5-haiku
+4. **gc/** — Google OAuth (FREE ~1000/day): gemini-3-pro-preview, gemini-3-flash-preview, gemini-2.5-pro, gemini-2.5-flash, gemini-2.5-flash-lite
+5. **kr/** — Kiro (FREE, no account): claude-sonnet-4.5, claude-haiku-4.5
+6. **if/** — iFlow (FREE, no account): qwen3-coder-plus, kimi-k2, kimi-k2-thinking, kimi-k2.5, deepseek-r1, deepseek-v3.2-chat, minimax-m2.1, minimax-m2.5, glm-5, glm-4.7, glm-4.6
+7. **openrouter/** — OpenRouter (best-available routing): auto
+
+## Start / Stop / Status
+
+```bash
+# Start 9Router (default port 20128)
+9router start
+# OR
+npx 9router start --port 20128
+
+# Stop 9Router
+9router stop
+
+# Health check
+curl http://localhost:20128/health
+
+# Check quota for all providers
+curl http://localhost:20128/api/quota | python3 -m json.tool
+
+# Tail logs
+9router logs --tail 50
+```
+
+## Installation
+
+```bash
+# Run setup-eng-tools.sh for full one-shot install
+bash scripts/setup-eng-tools.sh
+
+# Manual install
+npm install -g 9router
+# OR
+npx 9router@latest setup
+```
+
+## Adding / Configuring Providers
+
+### Gemini (Google OAuth — free ~1000/day)
+```bash
+9router auth add gemini
+# Opens browser for Google OAuth — sign in with your Google account
+# No billing required; free tier is per-account per-day
+```
+
+### Claude Code (Anthropic subscription)
+```bash
+9router auth add claude-code
+# Requires active Claude Pro/Team/Max subscription
+# Sign in with Anthropic account
+# Models: claude-sonnet-4-6, claude-opus-4-6, claude-sonnet-4-5-20250929, claude-opus-4-5-20251101, claude-haiku-4-5-20251001
+# Use aliases: cc-sonnet, cc-opus, cc-haiku, cc-sonnet45, cc-opus45
+```
+
+### Codex (ChatGPT Plus subscription)
+```bash
+9router auth add codex
+# Requires active ChatGPT Plus subscription
+# Sign in with OpenAI account
+```
+
+### iFlow (FREE — no account required)
+```bash
+9router auth add iflow
+# No authentication required — always available
+# Models: qwen3-coder-plus, kimi-k2, kimi-k2-thinking, kimi-k2.5, deepseek-r1, deepseek-v3.2-chat, minimax-m2.1, minimax-m2.5, glm-5, glm-4.7, glm-4.6
+# Use aliases: qwen-coder, kimi, kimi-think, deepseek, deepseek-chat, glm5, glm46
+```
+
+### Kiro (FREE — no account required)
+```bash
+9router auth add kiro
+# Models: claude-sonnet-4.5, claude-haiku-4.5
+# Use aliases: kiro-sonnet, kiro-haiku
+```
+
+### OpenRouter (routes to best available model + 29 free models)
+```bash
+9router auth add openrouter
+# Requires OpenRouter account (free tier available)
+# Use alias: openrouter (auto-routing), or-free (best free auto)
+# Model ID: openrouter/auto, openrouter/openrouter/free
+```
+
+#### All 29 OpenRouter Free Models (as of 2026-02-24)
+| Model ID | Alias | Context | Notes |
+|---|---|---|---|
+| `openrouter/meta-llama/llama-3.3-70b-instruct:free` | `or-llama70b` | 128k | Strong general |
+| `openrouter/openai/gpt-oss-120b:free` | `or-gpt120b` | 131k | OpenAI OSS |
+| `openrouter/openai/gpt-oss-20b:free` | `or-gpt20b` | 131k | OpenAI OSS fast |
+| `openrouter/qwen/qwen3-coder:free` | `or-qwen-coder` | 262k | Best free coder |
+| `openrouter/qwen/qwen3-235b-a22b-thinking-2507` | `or-qwen235b` | 131k | Deep reasoning |
+| `openrouter/qwen/qwen3-vl-235b-a22b-thinking` | `or-qwen235b` | 131k | VL reasoning |
+| `openrouter/qwen/qwen3-vl-30b-a3b-thinking` | `or-qwen235b` | 131k | VL thinking |
+| `openrouter/qwen/qwen3-next-80b-a3b-instruct:free` | `or-qwen235b` | 262k | Instruction |
+| `openrouter/qwen/qwen3-4b:free` | — | 41k | Tiny fast |
+| `openrouter/google/gemma-3-27b-it:free` | `or-gemma27b` | 131k | Google Gemma |
+| `openrouter/google/gemma-3-12b-it:free` | — | 32k | Google Gemma |
+| `openrouter/google/gemma-3-4b-it:free` | — | 32k | Google Gemma mini |
+| `openrouter/google/gemma-3n-e4b-it:free` | — | 8k | Nano |
+| `openrouter/google/gemma-3n-e2b-it:free` | — | 8k | Nano |
+| `openrouter/nousresearch/hermes-3-llama-3.1-405b:free` | `or-hermes405b` | 131k | Reasoning |
+| `openrouter/mistralai/mistral-small-3.1-24b-instruct:free` | `or-mistral24b` | 128k | Mistral |
+| `openrouter/nvidia/nemotron-3-nano-30b-a3b:free` | `or-nemotron30b` | 256k | NVIDIA |
+| `openrouter/nvidia/nemotron-nano-12b-v2-vl:free` | — | 128k | NVIDIA VL |
+| `openrouter/nvidia/nemotron-nano-9b-v2:free` | — | 128k | NVIDIA fast |
+| `openrouter/stepfun/step-3.5-flash:free` | `or-step35` | 256k | Flash |
+| `openrouter/z-ai/glm-4.5-air:free` | `or-glm45` | 131k | GLM |
+| `openrouter/upstage/solar-pro-3:free` | — | 128k | Solar |
+| `openrouter/arcee-ai/trinity-large-preview:free` | — | 131k | Arcee |
+| `openrouter/arcee-ai/trinity-mini:free` | — | 131k | Arcee mini |
+| `openrouter/cognitivecomputations/dolphin-mistral-24b-venice-edition:free` | — | 32k | Dolphin |
+| `openrouter/liquid/lfm-2.5-1.2b-instruct:free` | — | 32k | Liquid |
+| `openrouter/liquid/lfm-2.5-1.2b-thinking:free` | — | 32k | Liquid thinking |
+| `openrouter/meta-llama/llama-3.2-3b-instruct:free` | — | 131k | Llama tiny |
+| `openrouter/openrouter/free` | `or-free` | 200k | Auto best-free |
+
+## Adding a New CCS Profile
+
+When a new subscription service is available, add it as a CCS profile:
+```bash
+# Create a new CCS profile
+ccs auth create <profile-name>
+# Example: ccs auth create gemini-pro
+
+# List available profiles
+ccs profiles list
+
+# Test a profile
+ccs <profile-name> -p "Say hello"
+```
+
+## Quota File Sync
+
+The `9router-quota-sync` cron (every 30min, OPS agent) updates `workspace/tmp/provider-quota.json`.
+
+To manually refresh:
+```bash
+curl -sf http://localhost:20128/api/quota | python3 -c "
+import json, sys, datetime
+data = json.load(sys.stdin)
+data['updated'] = datetime.datetime.utcnow().isoformat() + 'Z'
+data['9router_running'] = True
+print(json.dumps(data, indent=2))
+" > workspace/tmp/provider-quota.json
+```
+
+If 9Router is not running, write a stub:
+```bash
+echo '{"updated":"'$(date -u +%Y-%m-%dT%H:%M:%SZ)'","9router_running":false,"claude-code":{"available":true},"cursor":{"available":true}}' > workspace/tmp/provider-quota.json
+```
+
+## Troubleshooting
+
+### 9Router not starting
+```bash
+# Check if port is in use
+lsof -i :20128
+
+# Kill conflicting process
+kill $(lsof -t -i :20128)
+
+# Restart
+9router start
+```
+
+### Gemini quota exhausted (~1000/day)
+```bash
+# Check quota
+curl http://localhost:20128/api/quota | python3 -c "import json,sys; q=json.load(sys.stdin); print(q.get('gemini', {}))"
+
+# Switch default provider to codex temporarily
+9router config set default-provider codex
+
+# Or wait for Gemini quota reset (resets daily at midnight PST)
+```
+
+### Provider returning empty responses
+```bash
+# Test provider directly
+9router test --provider gemini -p "Say hello"
+9router test --provider codex -p "Say hello"
+
+# Check provider status
+curl http://localhost:20128/api/quota
+```
+
+### CCS profile not working
+```bash
+# Re-authenticate
+ccs <profile-name> --reauth
+
+# Check profile config
+ccs profiles list
+
+# Test profile
+ccs <profile-name> -p "Say hello"
+```
+
+## Health Check Script (for OPS monitoring)
+
+```bash
+#!/bin/bash
+# Quick health check — returns 0 if healthy, 1 if not
+curl -sf http://localhost:20128/health > /dev/null 2>&1 && echo "9Router: UP" || echo "9Router: DOWN"
+```
+
+## Quota Monitoring Dashboard
+
+9Router exposes a web UI at: `http://localhost:20128/dashboard`
+- Shows per-provider quota usage
+- Real-time request routing visualization
+- Error log
+
+## Integration with Smart Router
+
+The smart-router skill reads `workspace/tmp/provider-quota.json` to apply Rule 0 (quota gate).
+The `9router-quota-sync` cron keeps this file fresh every 30 minutes.
+
+If the quota file is stale (>1h), smart-router fails open (treats all quotaSource models as available).

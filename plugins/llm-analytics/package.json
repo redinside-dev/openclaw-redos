@@ -1,0 +1,10 @@
+{
+  "name": "openclaw-plugin-llm-analytics",
+  "version": "1.0.0",
+  "description": "LLM analytics plugin for OpenClaw RedOS — tracks cost, routing, latency, and usage patterns across all agents",
+  "main": "index.js",
+  "type": "module",
+  "openclaw-plugin": true,
+  "keywords": ["openclaw", "plugin", "analytics", "llm", "cost-tracker"],
+  "author": "anuragg-saxenaa"
+}

@@ -1,0 +1,22 @@
+name: Research
+description: Research spike with sources
+labels: ["type:research"]
+body:
+  - type: input
+    id: topic
+    attributes:
+      label: Topic
+    validations:
+      required: true
+  - type: textarea
+    id: questions
+    attributes:
+      label: Questions to answer
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: Sources / Links
+    validations:
+      required: false

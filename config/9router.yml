@@ -1,0 +1,17 @@
+# 9router Configuration
+# This configuration defines router nodes and their health endpoints
+
+nodes:
+  - host: "127.0.0.1"      # Internal routing to localhost only
+    port: "20128"         # Actual 9router listening port (not the gateway)
+    protocol: "tcp4"
+    weight: 1.0
+    healthCheck:
+      path: /health        # Health endpoint should return 200
+      interval: 30s
+      timeout: 5s      
+      
+global:
+  routerVersion: "2.1"
+  nodeVersion: "2.10.4"
+  protocol: "tcp4"

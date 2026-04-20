@@ -1,0 +1,56 @@
+{
+  "columns": {
+    "backlog": {
+      "name": "Backlog",
+      "cards": [
+        "card-1770990333349-sq1af3"
+      ]
+    },
+    "todo": {
+      "name": "To Do",
+      "cards": []
+    },
+    "inProgress": {
+      "name": "In Progress",
+      "cards": []
+    },
+    "review": {
+      "name": "Review",
+      "cards": []
+    },
+    "done": {
+      "name": "Done",
+      "cards": []
+    }
+  },
+  "cards": [
+    [
+      "card-1770990333349-sq1af3",
+      {
+        "id": "card-1770990333349-sq1af3",
+        "title": "Test API",
+        "description": "Verify Kanban works",
+        "column": "backlog",
+        "priority": "high",
+        "assignee": "eng",
+        "tags": [],
+        "dueDate": null,
+        "createdAt": "2026-02-13T13:45:33.349Z",
+        "updatedAt": "2026-02-13T13:45:33.349Z",
+        "estimate": null,
+        "blockedBy": [],
+        "comments": []
+      }
+    ]
+  ],
+  "history": [
+    {
+      "timestamp": "2026-02-13T13:45:33.349Z",
+      "action": "create",
+      "cardId": "card-1770990333349-sq1af3",
+      "title": "Test API",
+      "column": "backlog"
+    }
+  ],
+  "savedAt": "2026-02-13T13:45:33.349Z"
+}

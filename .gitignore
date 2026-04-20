@@ -1,0 +1,406 @@
+# ==========================================
+# SENSITIVE CONFIGURATION FILES
+# ==========================================
+.env
+.env.*
+!.env.example
+
+# OpenClaw config with secrets
+openclaw.json
+openclaw.json.bak*
+openclaw.json.backup*
+
+# Channel configs often contain tokens (keep local-only)
+config/slack.json
+config/openclaw.json
+
+# Local agent/tooling settings (can contain env exports)
+.claude/settings.local.json
+
+# ==========================================
+# CREDENTIALS & SECRETS
+# ==========================================
+credentials/
+secrets/
+secrets.json
+*.key
+*.pem
+*.p12
+*.pfx
+
+# ==========================================
+# LOGS & TEMPORARY FILES
+# ==========================================
+logs/
+*.log
+*.jsonl
+*.jsonl.*
+/tmp/
+/temp/
+
+# Error tracking
+errors.jsonl
+health.jsonl
+tickets.jsonl
+performance.jsonl
+
+# Gateway logs
+/tmp/openclaw-gateway.log
+
+# ==========================================
+# SESSION & RUNTIME DATA
+# ==========================================
+**/sessions/
+**/archive-*/
+
+# ==========================================
+# BACKUP FILES
+# ==========================================
+workspace/backups/
+*.bak
+*.bak.*
+**/.bak-*/
+*.backup
+*.backup-*
+*.old
+*.old-*
+*~
+
+# ==========================================
+# NODE MODULES & DEPENDENCIES
+# ==========================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# ==========================================
+# SANDBOX & RUNTIME
+# ==========================================
+sandboxes/
+.sandbox/
+runtime/
+state/
+browser/
+media/
+infra/
+workspace-eng/social-automation/
+sandbox/containers.json
+
+# Agent state files
+agents-state.json
+cost-state.json
+learning-state.json
+
+# Runtime state data
+cost-monitor/state.json
+devices/paired.json
+devices/pending.json
+devices/*.tmp
+identity/device-auth.json
+identity/device.json
+
+# Agent auth/model runtime configs
+**/agent/auth-profiles.json
+**/agent/models.json
+**/agent/auth.json
+**/agent/*.bak.*
+
+# ==========================================
+# AGENT RUNTIME STATE — NEVER COMMIT
+# (Written by agents every few minutes — not code)
+# ==========================================
+
+# Per-agent workspace runtime state
+workspace-*/memory/
+workspace-*/ops/agent-status/
+workspace-*/goals/
+workspace-*/tmp/
+workspace-*/TICKET-TRACKER.md
+workspace-*/LEARNINGS.md
+workspace-*/workspace/
+workspace-zen/
+
+# Agent-generated reports and research output (runtime, not code)
+workspace-allrounder/reports/
+workspace-research/*.md
+workspace-research/everything-claude-code/
+workspace-research/agentshield-*/
+workspace-eng/everything-claude-code*
+workspace-ops/workspace-ops/
+workspace-ops/skills/
+
+# Shared workspace runtime state
+workspace/memory/
+workspace/ops/agent-status/
+workspace/ops/HEARTBEAT.md
+workspace/ops/ci/
+workspace/tmp/
+workspace/goals/
+workspace/approvals/
+workspace/workspace/
+
+# Agent-generated workspace docs and reports (runtime output)
+workspace/ops/5-DAY-*.md
+workspace/ops/5-DAY-RUN-*.md
+workspace/ops/AUTONOMY-*.md
+workspace/ops/AUTONOMY-SCORE-*.json
+workspace/ops/HONEST-ASSESSMENT-*.md
+workspace/ops/OPS-STATUS-*.md
+workspace/ops/PRODUCTIVITY-CRISIS-*.md
+workspace/ops/SYSTEM-UPDATE-*.md
+workspace/ops/context-metrics-*.json
+workspace/ops/reflections/
+workspace/costs/
+workspace/competitive-intel/
+workspace/integrations/
+workspace/STATUS_UPDATE_*.md
+workspace/CONTINUATION_SUMMARY.md
+workspace/CEO-OPERATING-MANUAL.md
+workspace/research/
+
+# Root-level agent memory logs (runtime, date-stamped)
+memory/
+
+# Cron backup files
+cron/*.bak-*
+
+# Delivery queue + sessions
+delivery-queue/
+sessions.json
+
+# Credentials / tokens config
+config/proxy-accounts.json
+
+# Agent ops scratch files and approval docs
+workspace/ops/APPROVAL_BUNDLE-*.md
+workspace/ops/task-registry.json
+workspace-ops/*.txt
+workspace-ops/9router-*.md
+workspace-ops/ops/
+workspace-research/ops/
+workspace-eng/.factory-data/
+
+# One-time applied fix/utility scripts
+scripts/apply-ollama-primary-for-main-and-ops.sh
+scripts/cursor-sqlite-read.py
+
+# ==========================================
+# RUNTIME STATE — NEVER COMMIT
+# ==========================================
+
+# Exec approvals socket (contains socket token)
+exec-approvals.json
+exec-approvals.sock
+
+# OpenClaw native runtime state (not your code)
+openclaw/
+
+# Agent workspace hidden state
+workspace-*/.openclaw/
+workspace/.openclaw/
+
+# Runtime task queue
+workspace/tasks/
+
+# Audit logs (runtime, auto-generated)
+**/audit_log/
+**/security/audit_log/
+
+# Telegram poll offsets (runtime counters)
+telegram/update-offset-*.json
+
+# Runtime cron/monitor state files
+workspace/tmp/github-repo-monitor*.json
+workspace/tmp/github-repo-monitor*.txt
+workspace/tmp/gmail-unread-*.json
+workspace/tmp/gmail-unread-*.txt
+workspace/DASHBOARD_URL.txt
+
+# Additional runtime scratch / smoke-test artifacts
+exec-approvals.json.bak*
+subagents/runs.json
+workspace-hatake/
+
+# Per-agent nested git workspaces (managed by OpenClaw, not our code)
+workspace-agent-*/
+workspace-*/.pi/readwrite-smoketest*.txt
+workspace-*/.tooling-smoke-test.txt
+workspace-*/workspace/tmp/*.json
+workspace-*/ops/agent-status/*.txt
+workspace-*/ops/test_write.txt
+workspace-ops/tmp*.txt
+workspace-ops/tmp/*.txt
+workspace/tmp/.gmail_*.json
+workspace/tmp/*.mck.md
+workspace/tmp/*.html
+workspace/tmp/mckinsey.css
+
+# Node registration state
+node.json
+
+# CLI auto-generated completions (not custom code)
+completions/
+
+# Update check state
+update-check.json
+
+# Root-level stub files (WIP, not agent code)
+autonomous-worker-v2.js
+
+# SQLite databases (memory stores)
+memory/*.sqlite
+
+# Vendor clones (keep out of repo; we only commit our notes)
+workspace/research/vendor/
+
+# ==========================================
+# LAUNCHD PLIST (contains env vars / secrets)
+# ==========================================
+# NOTE: Keep plist out of git — it has OPENCLAW_GATEWAY_TOKEN
+# Use the .plist.example template instead
+*.plist
+!*.plist.example
+
+# ==========================================
+# IDE & EDITOR
+# ==========================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+.DS_Store
+Thumbs.db
+
+# ==========================================
+# TEST ARTIFACTS
+# ==========================================
+coverage/
+.nyc_output/
+test-results/
+*.test.log
+
+# ==========================================
+# BUILD ARTIFACTS
+# ==========================================
+dist/
+build/
+out/
+*.min.js
+*.map
+
+# ==========================================
+# CACHE
+# ==========================================
+.cache/
+.parcel-cache/
+.npm/
+
+# ==========================================
+# OS FILES
+# ==========================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ==========================================
+# MISSION CONTROL DATA
+# ==========================================
+# Keep the dashboard HTML/JS but not runtime data
+dashboard/data/
+dashboard/*.jsonl
+
+# ==========================================
+# SLACK CONFIG & TEST FILES (contain tokens)
+# ==========================================
+config/slack.json
+config/slack*.json
+workspace/slack*.json
+workspace/slack*.py
+workspace/test_slack*.py
+workspace/test_slack*.json
+workspace/slack_activation_evidence.json
+workspace/slack_activation_test.py
+workspace/slack_config_test.py
+workspace/slack_connection_test.json
+workspace/slack_success_evidence.json
+workspace/slack_test_message.py
+workspace/test_slack.py
+workspace/test_slack_connection.py
+workspace/integration_test_results.json
+
+# ==========================================
+# SAFE TO COMMIT (These are OK)
+# ==========================================
+# .env.example - Template file
+# README.md - Documentation
+# package.json - Dependencies (no secrets)
+# dashboard/*.html - Dashboard UI
+# dashboard/*.js - Dashboard code
+# agents/*.js - Agent code
+# gateway/*.js - Gateway code (no secrets)
+
+# OpenClaw runtime data
+data/
+*.jsonl
+
+# Node modules
+node_modules/
+
+# Environment
+.env
+
+# Logs
+logs/
+*.log
+workspace/config/n8n-api-key.txt
+workspace/config/github-webhook-pat.txt
+workspace/config/telegram-bot-token.txt
+
+# Runtime telegram command hashes (auto-generated, not source)
+telegram/command-hash-*.txt
+
+# New agent workspaces (runtime, not source)
+workspace-dispatcher/
+workspace-security/
+
+# memsearch derived index (rebuilt from source docs)
+.memsearch/episodes-index.json
+
+# Agent runtime output files
+workspace/autonomous_daemon_v2.py
+workspace/ops/autonomous-log.md
+workspace/ops/autonomous-report.md
+workspace/security/
+workspace-infosec/tasks-log.md
+workspace-ops/projects/
+workspace-ops/scripts/
+
+# Broken filename (encoding artifact)
+workspace/1*
+
+# Agent runtime dirs
+workspace/notifications/
+ops/autonomous-log.md
+workspace-ops/health-monitor-state.json
+workspace/config/github-push-pat.txt
+.github/workflows/
+
+# Binary/DB files that must NEVER be committed
+.memsearch/qdrant/
+.memsearch/file-hashes.json
+memory/*.sqlite
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+*.pyc
+__pycache__/
+dashboard/server.err
+dashboard/server.out

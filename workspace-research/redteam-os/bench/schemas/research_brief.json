@@ -1,0 +1,10 @@
+{
+  "type": "object",
+  "properties": {
+    "topic": {"type": "string"},
+    "summary_bullets": {"type": "array", "items": {"type": "string"}},
+    "risks": {"type": "array", "items": {"type": "string"}},
+    "recommended_next_actions": {"type": "array", "items": {"type": "string"}}
+  },
+  "required": ["topic","summary_bullets","risks","recommended_next_actions"]
+}

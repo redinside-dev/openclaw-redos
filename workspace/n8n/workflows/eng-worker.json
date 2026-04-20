@@ -1,0 +1,161 @@
+{
+  "name": "ENG Agent Worker",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 1
+            }
+          ]
+        }
+      },
+      "id": "interval-trigger",
+      "name": "Every 1 Minute",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "fileName": "jobs/queue.json"
+      },
+      "id": "read-queue",
+      "name": "Read Queue",
+      "type": "n8n-nodes-base.readBinaryFile",
+      "typeVersion": 1,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "functionCode": "\n// Find next ENG job in queue\nconst queue = $input.first().json.jobs || [];\nconst job = queue.find(j => j.agentId === 'eng' && j.status === 'queued');\n\nif (job) {\n  return [{json: job}];\n}\nreturn [{json: {found: false}}];\n"
+      },
+      "id": "find-job",
+      "name": "Find Next ENG Job",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "command": "={{ $json.task }}",
+        "timeout": 300,
+        "additionalOutputs": true
+      },
+      "id": "execute-agent",
+      "name": "Execute ENG Agent",
+      "type": "n8n-nodes-base.openAiAgent",
+      "typeVersion": 1,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "functionCode": "\n// Update job status\nconst job = $input.first().json;\njob.status = 'completed';\njob.completedAt = new Date().toISO();\nreturn [{json: job}];\n"
+      },
+      "id": "mark-complete",
+      "name": "Mark Complete",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [1050, 300]
+    },
+    {
+      "parameters": {
+        "functionCode": "\n// Remove completed job from queue\nconst queue = $input.first().json.jobs || [];\nconst completedJob = queue.find(j => j.agentId === 'eng' && j.status === 'completed');\nif (completedJob) {\n  const newQueue = queue.filter(j => j.jobId !== completedJob.jobId);\n  return [{json: {jobs: newQueue}}];\n}\nreturn [{json: {jobs: queue}}];\n"
+      },
+      "id": "remove-job",
+      "name": "Remove from Queue",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [1250, 300]
+    },
+    {
+      "parameters": {
+        "fileName": "jobs/queue.json",
+        "dataPropertyName": "jobs",
+        "options": {}
+      },
+      "id": "save-queue",
+      "name": "Save Queue",
+      "type": "n8n-nodes-base.writeBinaryFile",
+      "typeVersion": 1,
+      "position": [1450, 300]
+    }
+  ],
+  "connections": {
+    "Every 1 Minute": {
+      "main": [
+        [
+          {
+            "node": "Read Queue",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Queue": {
+      "main": [
+        [
+          {
+            "node": "Find Next ENG Job",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find Next ENG Job": {
+      "main": [
+        [
+          {
+            "node": "Execute ENG Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute ENG Agent": {
+      "main": [
+        [
+          {
+            "node": "Mark Complete",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Mark Complete",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Mark Complete": {
+      "main": [
+        [
+          {
+            "node": "Remove from Queue",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Remove from Queue": {
+      "main": [
+        [
+          {
+            "node": "Save Queue",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,312 @@
+{
+  "_meta": {
+    "description": "Routing profiles with circuit breaker + multi-provider fallback. Change 'active' to switch profiles. Weights must sum to 1.0.",
+    "switchCommand": "@RedinsideBot routing mode cost_saver",
+    "updated": "2026-03-23",
+    "update_reason": "P0 TICKET-20260322-MASTER-ROUTER — added per-tier fallback providers, circuit breaker config, health-scored suppression. Fixes 6938+ timeout cascades from single-provider dependency on 9router/free-unlimited.",
+    "previous_version": "config/routing-profiles.json (pre-fallback, all tiers → 9router/free-unlimited only)"
+  },
+
+  "active": "cost_saver",
+
+  "circuit_breaker": {
+    "_description": "Circuit breaker suppresses a provider after N consecutive failures within a time window. Provider is removed from candidate list until window expires.",
+    "enabled": true,
+    "failure_threshold": 5,
+    "window_seconds": 600,
+    "half_open_after_seconds": 300,
+    "tracked_failure_types": ["timeout", "ECONNREFUSED", "ECONNRESET", "503", "502", "429"],
+    "state_file": "/Users/redinside/.openclaw/workspace/routing/circuit-breaker-state.json",
+    "log_file": "/Users/redinside/.openclaw/workspace/logs/health.jsonl",
+    "dedup_window_seconds": 300
+  },
+
+  "health_scoring": {
+    "_description": "Health-scored candidate suppression. Each provider gets a health score 0-100. Providers below min_score are suppressed from selection. Scores decay toward 100 over time if no new failures.",
+    "enabled": true,
+    "initial_score": 100,
+    "failure_penalty": 20,
+    "timeout_penalty": 15,
+    "slow_response_penalty": 5,
+    "slow_response_threshold_ms": 30000,
+    "recovery_rate_per_minute": 2,
+    "min_score": 30,
+    "score_file": "/Users/redinside/.openclaw/workspace/routing/provider-health-scores.json"
+  },
+
+  "profiles": {
+    "performance": {
+      "description": "Best possible results. Ignore cost. Use for critical deliverables.",
+      "weights": { "quality": 0.70, "speed": 0.20, "cost": 0.10 },
+      "preferTier": 5,
+      "allowPayg": true,
+      "icon": "🚀"
+    },
+    "balanced": {
+      "description": "Smart trade-off between quality, speed, and cost. DEFAULT profile.",
+      "weights": { "quality": 0.40, "speed": 0.30, "cost": 0.30 },
+      "preferTier": null,
+      "allowPayg": true,
+      "icon": "⚖️"
+    },
+    "cost_saver": {
+      "description": "Minimize variable spend. Use cheapest model that can do the job. Auto-activated at 90% budget.",
+      "weights": { "quality": 0.20, "speed": 0.30, "cost": 0.50 },
+      "preferTier": 1,
+      "allowPayg": false,
+      "icon": "💰"
+    },
+    "local_only": {
+      "description": "Ollama only. For offline use, emergencies, or privacy-sensitive tasks.",
+      "weights": { "quality": 0.30, "speed": 0.50, "cost": 0.20 },
+      "preferTier": 1,
+      "allowPayg": false,
+      "requireProvider": "ollama",
+      "icon": "📴"
+    }
+  },
+
+  "model_tiers": {
+    "_description": "3-tier intelligent routing with multi-provider fallback. Each tier has a primary + ordered fallback chain. Circuit breaker auto-suppresses failed providers.",
+    "_target_split": { "lightweight": 0.50, "standard": 0.35, "heavy": 0.15 },
+    "_estimated_savings": "~55% cost reduction vs all-standard baseline",
+
+    "lightweight": {
+      "description": "Fastest, cheapest. Health checks, status queries, simple summaries, short cron payloads.",
+      "providers": [
+        {
+          "provider": "9router",
+          "model": "claude-haiku-4-5-20251001",
+          "via": "9router/free-unlimited",
+          "priority": 1,
+          "endpoint_port": 20128
+        },
+        {
+          "provider": "anthropic",
+          "model": "claude-haiku-4-5-20251001",
+          "via": "anthropic/claude-haiku-4-5-20251001",
+          "priority": 2,
+          "note": "Direct Anthropic API — PAYG fallback"
+        },
+        {
+          "provider": "ollama",
+          "model": "qwen3.5:4b",
+          "via": "ollama/qwen3.5:4b",
+          "priority": 3,
+          "note": "Local fallback — free, lower quality"
+        }
+      ],
+      "max_input_tokens": 2000,
+      "max_output_tokens": 512,
+      "use_when": [
+        "prompt_length < 500 chars",
+        "task_type: health_check",
+        "task_type: status_query",
+        "task_type: simple_summary",
+        "task_type: ack",
+        "agent: hatake",
+        "cron_payload: short",
+        "keywords: [ping, alive, status, check, heartbeat, warmup]"
+      ],
+      "cost_per_1k_input": 0.0008,
+      "cost_per_1k_output": 0.004
+    },
+
+    "standard": {
+      "description": "Most agent work: code review, research summaries, planning, analysis.",
+      "providers": [
+        {
+          "provider": "9router",
+          "model": "claude-sonnet-4-6",
+          "via": "9router/free-unlimited",
+          "priority": 1,
+          "endpoint_port": 20128
+        },
+        {
+          "provider": "9router",
+          "model": "claude-sonnet-4-6",
+          "via": "9router/cc/claude-sonnet-4-6",
+          "priority": 2,
+          "note": "9router paid tier — same model, metered"
+        },
+        {
+          "provider": "anthropic",
+          "model": "claude-sonnet-4-6",
+          "via": "anthropic/claude-sonnet-4-6",
+          "priority": 3,
+          "note": "Direct Anthropic API — PAYG"
+        },
+        {
+          "provider": "ollama",
+          "model": "qwen3.5:4b",
+          "via": "ollama/qwen3.5:4b",
+          "priority": 4,
+          "note": "Local emergency fallback — degraded quality"
+        }
+      ],
+      "max_input_tokens": 8000,
+      "max_output_tokens": 4096,
+      "use_when": [
+        "task_type: code_review",
+        "task_type: research_summary",
+        "task_type: planning",
+        "task_type: analysis",
+        "task_type: writing",
+        "prompt_length: 500-4000 chars",
+        "agent: eng, research, finance, ops, infosec"
+      ],
+      "cost_per_1k_input": 0.003,
+      "cost_per_1k_output": 0.015
+    },
+
+    "heavy": {
+      "description": "Complex reasoning, architecture decisions, L4/L5 approvals, long-form content.",
+      "providers": [
+        {
+          "provider": "9router",
+          "model": "claude-opus-4-6",
+          "via": "9router/free-unlimited",
+          "priority": 1,
+          "endpoint_port": 20128
+        },
+        {
+          "provider": "9router",
+          "model": "claude-opus-4-6",
+          "via": "9router/cc/claude-opus-4-6",
+          "priority": 2,
+          "note": "9router paid — same model, metered"
+        },
+        {
+          "provider": "anthropic",
+          "model": "claude-opus-4-6",
+          "via": "anthropic/claude-opus-4-6",
+          "priority": 3,
+          "note": "Direct Anthropic API — PAYG"
+        },
+        {
+          "provider": "anthropic",
+          "model": "claude-sonnet-4-6",
+          "via": "anthropic/claude-sonnet-4-6",
+          "priority": 4,
+          "note": "Graceful degradation — cheaper model, still capable"
+        }
+      ],
+      "max_input_tokens": 20000,
+      "max_output_tokens": 8192,
+      "use_when": [
+        "task_type: architecture_decision",
+        "task_type: complex_reasoning",
+        "task_type: l4_l5_approval",
+        "task_type: long_form_content",
+        "agent: main (RED CEO decisions)",
+        "prompt_length > 4000 chars",
+        "keywords: [critical, architecture, security review, approval, strategy]"
+      ],
+      "cost_per_1k_input": 0.015,
+      "cost_per_1k_output": 0.075
+    },
+
+    "local": {
+      "description": "Free local Ollama. Intent parsing, routing classification, simple classification.",
+      "providers": [
+        {
+          "provider": "ollama",
+          "model": "qwen3.5:4b",
+          "via": "ollama/qwen3.5:4b",
+          "priority": 1
+        },
+        {
+          "provider": "9router",
+          "model": "claude-haiku-4-5-20251001",
+          "via": "9router/free-unlimited",
+          "priority": 2,
+          "endpoint_port": 20128,
+          "note": "Cloud fallback if Ollama unreachable"
+        }
+      ],
+      "max_input_tokens": 4000,
+      "max_output_tokens": 1024,
+      "use_when": [
+        "agent: hatake",
+        "task_type: intent_parsing",
+        "task_type: classification",
+        "task_type: routing",
+        "offline_required: true"
+      ],
+      "cost_per_1k_input": 0.0,
+      "cost_per_1k_output": 0.0
+    }
+  },
+
+  "tier_classifier": {
+    "_description": "Rules for HATAKE/gateway to auto-assign model tier. First match wins.",
+    "rules": [
+      {
+        "if": { "agent": "hatake" },
+        "assign": "local",
+        "reason": "HATAKE always uses Ollama"
+      },
+      {
+        "if": { "prompt_length_lt": 300, "task_keywords_any": ["ping", "alive", "status", "heartbeat", "warmup", "check if", "is it running"] },
+        "assign": "lightweight",
+        "reason": "Short health/status queries"
+      },
+      {
+        "if": { "task_type": "health_check" },
+        "assign": "lightweight",
+        "reason": "All health checks are lightweight"
+      },
+      {
+        "if": { "task_type": "simple_summary", "prompt_length_lt": 1000 },
+        "assign": "lightweight",
+        "reason": "Short summaries"
+      },
+      {
+        "if": { "task_type": "architecture_decision" },
+        "assign": "heavy",
+        "reason": "Architecture needs full reasoning"
+      },
+      {
+        "if": { "task_keywords_any": ["l4 approval", "l5 approval", "critical", "irreversible"] },
+        "assign": "heavy",
+        "reason": "High-stakes decisions"
+      },
+      {
+        "if": { "prompt_length_gt": 4000 },
+        "assign": "heavy",
+        "reason": "Long prompts need full context window"
+      },
+      {
+        "default": true,
+        "assign": "standard",
+        "reason": "Default for all other tasks"
+      }
+    ]
+  },
+
+  "prompt_caching": {
+    "_description": "Anthropic prompt caching config. Reduces input token cost by 90% on cache hits.",
+    "enabled": true,
+    "cache_control_type": "ephemeral",
+    "cache_system_prompt": true,
+    "cache_min_tokens": 1024,
+    "expected_cache_hit_rate": 0.90,
+    "eligible_agents": ["main", "allrounder", "eng", "research", "finance", "ops", "infosec", "hatake"],
+    "note": "Mark system prompt block with cache_control: {type: 'ephemeral'} in resilient-handler.js"
+  },
+
+  "batch_api": {
+    "_description": "Use Anthropic Batch API for non-real-time jobs. 50% cost reduction automatically.",
+    "enabled": true,
+    "batch_flag": "batch",
+    "eligible_job_types": [
+      "nightly memory sync",
+      "weekly reports",
+      "daily portfolio compilation",
+      "earnings research",
+      "content factory",
+      "market research"
+    ],
+    "note": "Add 'batch: true' to cron job payload. Gateway routes to Batch API instead of real-time."
+  }
+}

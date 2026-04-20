@@ -1,0 +1,44 @@
+{
+  "system_check": {
+    "timestamp": "2026-03-05T20:45:00-05:00",
+    "services": {
+      "gateway": {
+        "status": "running",
+        "pid": 90053,
+        "port": 18789,
+        "health": "200 OK"
+      },
+      "ollama": {
+        "status": "running",
+        "pid": 82987,
+        "port": 11434,
+        "version": "0.17.6",
+        "health": "200 OK"
+      },
+      "n8n": {
+        "status": "running",
+        "pid": 13027,
+        "port": 5678,
+        "ui_access": "yes",
+        "api_status": "404 (UI accessible)"
+      }
+    },
+    "metrics": {
+      "load_average": 5.47,
+      "memory_usage": "15GB/228GB",
+      "disk_usage": "39GB/228GB",
+      "services_operational": 3
+    },
+    "security": {
+      "npm_audit": "clean",
+      "vulnerabilities": 0,
+      "errors_detected": false
+    },
+    "issues": {
+      "backup_system": "not_configured",
+      "n8n_api": "endpoint_404"
+    },
+    "health_score": 85,
+    "status": "healthy"
+  }
+}

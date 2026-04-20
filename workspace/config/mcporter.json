@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "exa": {
+      "baseUrl": "https://mcp.exa.ai/mcp?tools=web_search_exa,web_search_advanced_exa,get_code_context_exa,crawling_exa,company_research_exa,people_search_exa,deep_researcher_start,deep_researcher_check"
+    },
+    "reddit": {
+      "command": "/Users/redinside/.openclaw/workspace/scripts/reddit_mcp.sh"
+    },
+    "github-remote": {
+      "baseUrl": "https://api.githubcopilot.com/mcp/",
+      "description": "GitHub MCP Server (remote via api.githubcopilot.com)",
+      "headers": {
+        "Authorization": "Bearer USE_ENVIRONMENT_VARIABLE_GITHUB_PAT"
+      }
+    }
+  },
+  "imports": []
+}

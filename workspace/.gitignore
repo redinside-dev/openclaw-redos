@@ -1,0 +1,8 @@
+.DS_Store
+tmp/*.sqlite
+logs/*.jsonl
+backups/
+research/vendor/openclaw-runbook/
+.credentials/
+config/n8n-api-key.txt
+workspace/tmp/openclaw.json

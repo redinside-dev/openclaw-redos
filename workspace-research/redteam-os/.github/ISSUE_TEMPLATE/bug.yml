@@ -1,0 +1,44 @@
+name: Bug
+description: Something is broken
+labels: ["type:bug"]
+body:
+  - type: input
+    id: summary
+    attributes:
+      label: Summary
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Repro steps
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected vs Actual
+    validations:
+      required: true
+  - type: dropdown
+    id: team
+    attributes:
+      label: Team
+      options:
+        - eng
+        - ops
+        - research
+        - finance
+    validations:
+      required: true
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      options:
+        - P0
+        - P1
+        - P2
+        - P3
+    validations:
+      required: true

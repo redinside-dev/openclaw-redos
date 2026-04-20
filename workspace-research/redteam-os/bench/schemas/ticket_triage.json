@@ -1,0 +1,12 @@
+{
+  "type": "object",
+  "properties": {
+    "summary": {"type": "string"},
+    "category": {"type": "string", "description": "One of: bug, feature, incident, question, ops"},
+    "severity": {"type": "string", "description": "One of: low, medium, high, critical"},
+    "suggested_owner_team": {"type": "string"},
+    "next_actions": {"type": "array", "items": {"type": "string"}},
+    "missing_info": {"type": "array", "items": {"type": "string"}}
+  },
+  "required": ["summary","category","severity","suggested_owner_team","next_actions","missing_info"]
+}

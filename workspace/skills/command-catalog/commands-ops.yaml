@@ -1,0 +1,64 @@
+version: "1.0"
+agent: ops
+description: "Command classification catalog for OPS agent (DevOps & Scrum Master)"
+
+deny_patterns:
+  - "rm -rf"
+  - "DROP TABLE"
+  - "mkfs"
+  - "sudo"
+  - "launchctl (load|unload|remove)"
+  - "> /dev/null && curl"
+  - "curl .* \\| (sh|bash|zsh)"
+  - "wget .* \\| (sh|bash|zsh)"
+
+tier_overrides:
+  L2_auto:
+    - pattern: "launchctl (stop|start) ai\\.openclaw\\.(gateway|node|dashboard)"
+      description: "OpenClaw service restart (pre-approved)"
+    - pattern: "openclaw (status|gateway probe|logs|doctor)"
+      description: "Read-only status and diagnostics"
+    - pattern: "curl -s --max-time \\d+ http://localhost:\\d+/health"
+      description: "Local health check"
+    - pattern: "git (log|status|diff|show)"
+      description: "Read-only git operations"
+    - pattern: "bash ~/.openclaw/workspace/scripts/(hourly-snapshot|disk-watchdog)\\.sh"
+      description: "Pre-approved maintenance scripts"
+    - pattern: "bash ~/.openclaw/scripts/redos-restart\\.sh"
+      description: "Pre-approved full stack restart"
+    - pattern: "tail -[fn]"
+      description: "Log tailing (read-only)"
+
+  L3_infosec:
+    - pattern: "launchctl (stop|start) (?!ai\\.openclaw)"
+      description: "Non-openclaw service control — requires INFOSEC review"
+    - pattern: "crontab"
+      description: "Cron modification"
+    - pattern: "npm install"
+      description: "Package install"
+    - pattern: "pip install"
+      description: "Python package install"
+    - pattern: "cp .* ~/.openclaw/openclaw\\.json"
+      description: "Config file overwrite"
+
+  L4_telegram:
+    - pattern: "git push"
+      description: "Remote push — Telegram approval required"
+    - pattern: "brew install"
+      description: "System package install — Telegram approval required"
+    - pattern: "npm publish"
+      description: "Package publish — Telegram approval required"
+
+rate_limits:
+  exec_per_minute: 10
+  exec_per_hour: 100
+
+blast_radius:
+  max_files_per_exec: 50
+  max_output_bytes: 1048576  # 1MB
+
+rollback:
+  on_failure: "git -C ~/.openclaw/workspace revert HEAD --no-edit 2>/dev/null || true"
+  notify: "telegram:1012034994"
+
+audit_log: "~/.openclaw/workspace/logs/audit.jsonl"

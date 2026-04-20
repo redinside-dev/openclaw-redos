@@ -1,0 +1,56 @@
+{
+  "agentId": "finance",
+  "updatedAt": "2026-03-14T08:04:00Z",
+  "goals": [
+    {
+      "id": "goal-finance-001",
+      "title": "Deliver a weekly cost report to RED without being asked",
+      "why": "RED needs to know what we're spending on models, APIs, and infrastructure. If I don't report it, nobody knows.",
+      "priority": "P1",
+      "status": "in_progress",
+      "progress": "Ready to compose weekly report. Blocked by stale provider-quota telemetry (TICKET-2026-04-15-OPS-001 with OPS).",
+      "nextAction": "Once OPS restores quota sync, generate and post weekly report to #redos-finance.",
+      "createdAt": "2026-02-24T05:00:00Z",
+      "targetDate": "2026-04-20T00:00:00Z",
+      "blockers": ["provider-quota.json stale - with OPS"]
+    },
+    {
+      "id": "goal-finance-002",
+      "title": "Flag any model cost anomalies within 1 hour of occurrence",
+      "why": "A runaway cron or a stuck agent can burn through API budget in minutes. I need to catch it fast.",
+      "priority": "P1",
+      "status": "in_progress",
+      "progress": "Cannot detect live anomalies due to stale telemetry. Monitoring degraded.",
+      "nextAction": "Await OPS resolution of TICKET-2026-04-15-OPS-001 to restore anomaly detection.",
+      "createdAt": "2026-02-24T05:00:00Z",
+      "targetDate": "2026-03-01T00:00:00Z",
+      "blockers": ["stale provider-quota.json"]
+    },
+    {
+      "id": "goal-finance-003",
+      "title": "Build a model cost optimization recommendation",
+      "why": "We're using expensive models for tasks that cheap models could handle. I should identify and fix this.",
+      "priority": "P2",
+      "status": "in_progress",
+      "progress": "Still waiting for usable cost telemetry (per-cron spend) before recommending model swaps.",
+      "nextAction": "Once provider-quota and cost-events streams replay, compute top 3 cron spenders and suggest 9router/free-unlimited fallbacks.",
+      "createdAt": "2026-02-24T05:00:00Z",
+      "targetDate": "2026-03-07T00:00:00Z",
+      "blockers": ["no cost-events data"]
+    },
+    {
+      "id": "goal-finance-004",
+      "title": "FIN-001 ChatGPT Pro decision — get RED decision and act",
+      "why": "Pro has been sitting uncancelled 36+ days. RED needs to decide: cancel, downgrade, or justify keeping it.",
+      "priority": "P1",
+      "status": "in_progress",
+      "progress": "Decision brief sent to RED via Slack. Awaiting RED response: Cancel, Downgrade to Team, or ROI justification.",
+      "nextAction": "Await RED reply on Slack and act on decision. Will cancel or downgrade programmatically if credentials available.",
+      "createdAt": "2026-04-15T21:53:00Z",
+      "targetDate": "2026-04-15T23:59:00Z",
+      "blockers": ["RED decision pending"]
+    }
+  ],
+  "completedGoals": [],
+  "abandonedGoals": []
+}

@@ -1,0 +1,21 @@
+{
+  "parentMap": {
+    "allrounder": "main",
+    "eng": "main",
+    "research": "main",
+    "ops": "main",
+    "hatake": "main",
+    "finance": "main",
+    "infosec": "main"
+  },
+  "roles": {
+    "main": "CEO — Primary agent, user-facing, orchestrates all departments",
+    "allrounder": "CSO — General assistant, cross-functional tasks & web research",
+    "hatake": "Parser — Internal intent & code parser, used by other agents",
+    "eng": "Engineering Lead — Software, APIs, infra, automation builds",
+    "research": "Research Analyst — Deep market & technology research",
+    "finance": "Finance Analyst (CFO) — Portfolio tracking, financial analysis, cost ownership",
+    "ops": "Scrum Master — Cron scheduling, health monitoring, ticket management",
+    "infosec": "Security Officer — Security monitoring, hardening & audits"
+  }
+}

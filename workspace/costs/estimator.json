@@ -1,0 +1,19 @@
+{
+  "last_updated": "2026-02-22T04:33:46.162550",
+  "current_cost": 45.67,
+  "daily_budget": 100.0,
+  "cost_breakdown": {
+    "tokens": 38.23,
+    "tools": 7.44
+  },
+  "agents": {
+    "main": 12.5,
+    "eng": 8.75,
+    "research": 15.2,
+    "ops": 6.8,
+    "infosec": 2.42
+  },
+  "trend": "increasing",
+  "projected_daily_total": 89.34,
+  "savings_needed": 10.66
+}

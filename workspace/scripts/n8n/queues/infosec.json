@@ -1,0 +1,16 @@
+[
+  {
+    "job_id": "e587273e",
+    "agent_id": "infosec",
+    "task": "SEC-ACCESS-LEASTPRIV-20260306: Review broad admin grant workspace/security/* with execute. Tighten scope, shorten TTL, document rationale.",
+    "payload": {},
+    "priority": "normal",
+    "status": "dead_letter",
+    "retry_count": 3,
+    "max_retries": 3,
+    "created_at": "2026-03-07T04:29:03.381918",
+    "started_at": "2026-03-07T04:29:11.825689",
+    "completed_at": null,
+    "error": "[Errno 2] No such file or directory: 'openclaw'"
+  }
+]

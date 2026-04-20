@@ -1,0 +1,32 @@
+{
+  "last_updated": "2026-02-22T04:33:46.163055",
+  "total_value": 125432.67,
+  "daily_change": 1234.56,
+  "daily_change_percent": 0.99,
+  "holdings": [
+    {
+      "symbol": "AAPL",
+      "shares": 100,
+      "value": 17500.0,
+      "change": 1.2
+    },
+    {
+      "symbol": "GOOGL",
+      "shares": 50,
+      "value": 7250.0,
+      "change": -0.8
+    },
+    {
+      "symbol": "MSFT",
+      "shares": 75,
+      "value": 28125.0,
+      "change": 1.5
+    }
+  ],
+  "performance": {
+    "today": 1234.56,
+    "week": 3456.78,
+    "month": 12345.67,
+    "year": 45678.9
+  }
+}

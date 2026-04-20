@@ -1,0 +1,484 @@
+{
+  "name": "shared-observability",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "*/5 * * * *"
+            }
+          ]
+        }
+      },
+      "id": "ob1a2b3c-4d5e-6789-abcd-ef1234567890",
+      "name": "Every 5min",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "functionCode": "const runId = $execution.id;\nconst startTime = new Date().toISOString();\n\nreturn [{\n  json: {\n    runId,\n    startTime,\n    workflowName: 'shared-observability'\n  }\n}];"
+      },
+      "id": "ob2b3c4d-5e6f-7890-bcde-f12345678901",
+      "name": "Init",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT \n  workflow_name,\n  COUNT(*) as failure_count,\n  MAX(ended_at) as last_failure,\n  GROUP_CONCAT(error, ' | ') as errors\nFROM workflow_runs\nWHERE status = 'error'\n  AND started_at >= datetime('now', '-30 minutes')\nGROUP BY workflow_name\nHAVING COUNT(*) >= 3",
+        "options": {}
+      },
+      "id": "ob3c4d5e-6f7a-8901-cdef-123456789012",
+      "name": "Check Failures",
+      "type": "n8n-nodes-base.sqlite",
+      "typeVersion": 1,
+      "position": [650, 200],
+      "credentials": {
+        "sqlite": {
+          "id": "1",
+          "name": "social-monitoring-db"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{ $json.failure_count }}",
+              "operation": "largerEqual",
+              "value2": 3
+            }
+          ]
+        }
+      },
+      "id": "ob4d5e6f-7a8b-9012-def1-234567890123",
+      "name": "Circuit Breaker",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [850, 200]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:5678/webhook/slack-post",
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  channel: 'C0AEV3J2L23',\n  text: `⚠️ Circuit Breaker Triggered\\n*Workflow:* ${$json.workflow_name}\\n*Failures:* ${$json.failure_count} in 30min\\n*Last Failure:* ${$json.last_failure}\\n*Errors:* ${$json.errors.substring(0, 200)}...`\n}) }}"
+      },
+      "id": "ob5e6f7a-8b9c-0123-ef12-345678901234",
+      "name": "Circuit Break Alert",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [1050, 100]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT id, workflow_name, payload_json, error\nFROM dlq_events\nWHERE replayed_at IS NULL\n  AND failed_at >= datetime('now', '-1 hour')\nLIMIT 10",
+        "options": {}
+      },
+      "id": "ob6f7a8b-9c0d-1234-f123-456789012345",
+      "name": "Check DLQ",
+      "type": "n8n-nodes-base.sqlite",
+      "typeVersion": 1,
+      "position": [650, 300],
+      "credentials": {
+        "sqlite": {
+          "id": "1",
+          "name": "social-monitoring-db"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{ $json.id }}",
+              "operation": "isNotEmpty"
+            }
+          ]
+        }
+      },
+      "id": "ob7a8b9c-0d1e-2345-1234-567890123456",
+      "name": "Has DLQ Items",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "functionCode": "// Mark DLQ items for replay\nconst items = $input.all();\nconst replayed = [];\n\nfor (const item of items) {\n  replayed.push({\n    json: {\n      dlq_id: item.json.id,\n      workflow_name: item.json.workflow_name,\n      payload: item.json.payload_json,\n      replay_status: 'pending'\n    }\n  });\n}\n\nreturn replayed;"
+      },
+      "id": "ob8b9c0d-1e2f-3456-2345-678901234567",
+      "name": "Prepare Replay",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [1050, 300]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "=UPDATE dlq_events\nSET replayed_at = datetime('now'), replay_status = '{{ $json.replay_status }}'\nWHERE id = {{ $json.dlq_id }}",
+        "options": {}
+      },
+      "id": "ob9c0d1e-2f3a-4567-3456-789012345678",
+      "name": "Mark Replayed",
+      "type": "n8n-nodes-base.sqlite",
+      "typeVersion": 1,
+      "position": [1250, 300],
+      "credentials": {
+        "sqlite": {
+          "id": "1",
+          "name": "social-monitoring-db"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT \n  workflow_name,\n  COUNT(*) as total_runs,\n  SUM(CASE WHEN status = 'success' THEN 1 ELSE 0 END) * 100.0 / COUNT(*) as success_rate,\n  AVG(run_duration_ms) as avg_runtime_ms,\n  SUM(cost_estimate) as total_cost\nFROM workflow_runs\nWHERE started_at >= datetime('now', '-24 hours')\nGROUP BY workflow_name",
+        "options": {}
+      },
+      "id": "ob0d1e2f-3a4b-5678-4567-890123456789",
+      "name": "Calculate SLOs",
+      "type": "n8n-nodes-base.sqlite",
+      "typeVersion": 1,
+      "position": [650, 400],
+      "credentials": {
+        "sqlite": {
+          "id": "1",
+          "name": "social-monitoring-db"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{ $json.success_rate }}",
+              "operation": "smaller",
+              "value2": 95
+            }
+          ]
+        }
+      },
+      "id": "ob1e2f3a-4b5c-6789-5678-901234567890",
+      "name": "Check SLO Breach",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [850, 400]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:5678/webhook/slack-post",
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  channel: 'C0AEV3J2L23',\n  text: `📊 SLO Breach Alert\\n*Workflow:* ${$json.workflow_name}\\n*Success Rate:* ${$json.success_rate.toFixed(2)}% (target: 95%)\\n*Avg Runtime:* ${$json.avg_runtime_ms.toFixed(0)}ms\\n*24h Cost:* $${$json.total_cost.toFixed(2)}\\n*Total Runs:* ${$json.total_runs}`\n}) }}"
+      },
+      "id": "ob2f3a4b-5c6d-7890-6789-012345678901",
+      "name": "SLO Alert",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [1050, 500]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT \n  COUNT(*) as total_content,\n  COUNT(DISTINCT platform) as platforms,\n  MAX(captured_at) as last_capture\nFROM content_raw\nWHERE captured_at >= datetime('now', '-1 hour')",
+        "options": {}
+      },
+      "id": "ob3a4b5c-6d7e-8901-7890-123456789012",
+      "name": "Health Check",
+      "type": "n8n-nodes-base.sqlite",
+      "typeVersion": 1,
+      "position": [650, 500],
+      "credentials": {
+        "sqlite": {
+          "id": "1",
+          "name": "social-monitoring-db"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.last_capture }}",
+              "operation": "isEmpty"
+            }
+          ]
+        }
+      },
+      "id": "ob4b5c6d-7e8f-9012-8901-234567890123",
+      "name": "Check Stale Data",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [850, 500]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:5678/webhook/slack-post",
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  channel: 'C0AEV3J2L23',\n  text: `⚠️ Data Freshness Alert\\nNo new content captured in the last hour. Check twitter-service and reddit-service workflows.`\n}) }}"
+      },
+      "id": "ob5c6d7e-8f9a-0123-9012-345678901234",
+      "name": "Stale Data Alert",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [1050, 600]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "=INSERT INTO workflow_runs (workflow_name, started_at, ended_at, status, records_in, records_out, cost_estimate, run_duration_ms)\nVALUES (\n  'shared-observability',\n  '{{ $node[\"Init\"].json.startTime }}',\n  datetime('now'),\n  'success',\n  0,\n  0,\n  0.01,\n  (julianday('now') - julianday('{{ $node[\"Init\"].json.startTime }}')) * 86400000\n)",
+        "options": {}
+      },
+      "id": "ob6d7e8f-9a0b-1234-0123-456789012345",
+      "name": "Log Run",
+      "type": "n8n-nodes-base.sqlite",
+      "typeVersion": 1,
+      "position": [1450, 400],
+      "credentials": {
+        "sqlite": {
+          "id": "1",
+          "name": "social-monitoring-db"
+        }
+      },
+      "alwaysOutputData": true
+    }
+  ],
+  "connections": {
+    "Every 5min": {
+      "main": [
+        [
+          {
+            "node": "Init",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Init": {
+      "main": [
+        [
+          {
+            "node": "Check Failures",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Check DLQ",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Calculate SLOs",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Health Check",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Failures": {
+      "main": [
+        [
+          {
+            "node": "Circuit Breaker",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Circuit Breaker": {
+      "main": [
+        [
+          {
+            "node": "Circuit Break Alert",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Log Run",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Circuit Break Alert": {
+      "main": [
+        [
+          {
+            "node": "Log Run",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check DLQ": {
+      "main": [
+        [
+          {
+            "node": "Has DLQ Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has DLQ Items": {
+      "main": [
+        [
+          {
+            "node": "Prepare Replay",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Log Run",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Replay": {
+      "main": [
+        [
+          {
+            "node": "Mark Replayed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark Replayed": {
+      "main": [
+        [
+          {
+            "node": "Log Run",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculate SLOs": {
+      "main": [
+        [
+          {
+            "node": "Check SLO Breach",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check SLO Breach": {
+      "main": [
+        [
+          {
+            "node": "SLO Alert",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Log Run",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SLO Alert": {
+      "main": [
+        [
+          {
+            "node": "Log Run",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Health Check": {
+      "main": [
+        [
+          {
+            "node": "Check Stale Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Stale Data": {
+      "main": [
+        [
+          {
+            "node": "Stale Data Alert",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Log Run",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Stale Data Alert": {
+      "main": [
+        [
+          {
+            "node": "Log Run",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {},
+  "versionId": "1",
+  "id": "shared-observability-001",
+  "meta": {
+    "instanceId": "redos-n8n"
+  },
+  "tags": []
+}
