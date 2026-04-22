@@ -47,14 +47,37 @@ Run these commands at the START of every ENG session and before every git push, 
 
 ```bash
 gh auth switch --user anuragg-saxenaa
-git config user.name "anuragg-saxenaa"
-git config user.email "anuragg.saxena@gmail.com"
+git config user.name "Anurag Saxena"
+git config user.email "anuragg.saxenaa@gmail.com"
 ```
 
 Verify: `gh auth status` must show `anuragg-saxenaa` as the active account before proceeding.  
 If it shows `redinside-dev` as active — switch immediately. Do not proceed without switching.
 
 This applies to ALL coding factory paths: Path 1 (OSS discovery), Path 2 (issue watcher), Path 3 (on-demand), and any external OSS PR reviews/approvals.
+
+---
+
+## HARD RULE — PR Ownership (fire-and-forget is FORBIDDEN)
+
+Opening a PR is NOT done. ENG owns each PR until it is merged or explicitly closed.
+
+**Mandatory after every PR is opened:**
+
+1. **Every commit MUST have `--signoff` (`-s`)** — use `git commit -s` always. DCO failure = blocked PR.
+2. **Branch onto correct base** — always branch from the exact upstream target branch tip, not from an old fork state. Stale base = upstream commits polluting the PR diff.
+3. **Monitor within 24h** — run `gh pr checks` and `gh api .../issues/N/comments` on every open PR every 24h.
+4. **Respond to ALL comments** — any question, suggestion, or change request from a maintainer MUST get a reply within 24h. Never leave a maintainer's comment unanswered.
+5. **Fix CI failures immediately** — DCO fail, build fail, lint fail: fix and force-push the same day.
+6. **Keep PRs up to date** — if the base branch moved and there are conflicts, rebase and force-push.
+7. **One fix per PR** — each PR must contain only the commits for its stated fix. No accumulated commits from other branches.
+
+**Contributor identity on all commits and comments:**
+- `git config user.name "Anurag Saxena"` (display name — not the GitHub handle)
+- `git config user.email "anuragg.saxenaa@gmail.com"`
+- GitHub account: `anuragg-saxenaa`
+
+**PR monitoring is tracked in `workspace-eng/pr-log.md`** — after each monitoring run, update the PR log with status, last-checked timestamp, and any open action items.
 
 ---
 
@@ -200,7 +223,7 @@ No matter which path triggers ENG, the output MUST be:
 | Tests | Real assertions using repo's own test framework |
 | Build | Clean — `mvn verify` / `npm run build` / `pytest` / `swift build` passes |
 | PR | `gh pr create --no-edit` — ALWAYS include this flag |
-| Commit message | `fix: <desc> (closes #N)` or `feat: <desc>` |
+| Commit message | `fix: <desc> (closes #N)` or `feat: <desc>` — always `git commit -s` (signoff) |
 | Log | Append to `workspace/projects/pr-log.md` |
 
 **Stack routing:**
