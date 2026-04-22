@@ -39,6 +39,25 @@ The coding factory operates 3 parallel paths:
 
 ---
 
+## HARD RULE — GitHub Identity (enforce FIRST, before any git/gh command)
+
+**`redinside-dev` MUST NEVER appear on any PR, review, comment, or commit. Only `anuragg-saxenaa`.**
+
+Run these commands at the START of every ENG session and before every git push, gh pr create, gh pr comment, gh pr review, or gh pr approve:
+
+```bash
+gh auth switch --user anuragg-saxenaa
+git config user.name "anuragg-saxenaa"
+git config user.email "anuragg.saxena@gmail.com"
+```
+
+Verify: `gh auth status` must show `anuragg-saxenaa` as the active account before proceeding.  
+If it shows `redinside-dev` as active — switch immediately. Do not proceed without switching.
+
+This applies to ALL coding factory paths: Path 1 (OSS discovery), Path 2 (issue watcher), Path 3 (on-demand), and any external OSS PR reviews/approvals.
+
+---
+
 ## PATH 1 — RESEARCH → ENG (Autonomous OSS Discovery)
 
 ### RESEARCH Agent Protocol
