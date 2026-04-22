@@ -34,8 +34,9 @@
         "lastDurationMs": 10854,
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1776606300000,
-        "lastDelivered": false
+        "nextRunAtMs": 1776892200000,
+        "lastDelivered": false,
+        "runningAtMs": 1776892035127
       }
     },
     {
@@ -65,8 +66,9 @@
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1776689100000,
-        "lastDelivered": true
+        "nextRunAtMs": 1776948300000,
+        "lastDelivered": true,
+        "runningAtMs": 1776892045976
       },
       "delivery": {
         "mode": "announce",
@@ -108,9 +110,10 @@
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1776686400000,
+        "nextRunAtMs": 1776945600000,
         "lastErrorAtMs": null,
-        "lastDelivered": true
+        "lastDelivered": true,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -146,8 +149,9 @@
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1776715200000,
-        "lastDelivered": true
+        "nextRunAtMs": 1776974400000,
+        "lastDelivered": true,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -183,8 +187,9 @@
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1776700800000,
-        "lastDelivered": true
+        "nextRunAtMs": 1776960000000,
+        "lastDelivered": true,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -220,10 +225,11 @@
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1776686400000,
+        "nextRunAtMs": 1776892500000,
         "lastErrorAt": null,
         "lastErrorAtMs": null,
-        "lastDelivered": true
+        "lastDelivered": true,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -260,8 +266,9 @@
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
         "lastErrorAtMs": null,
-        "nextRunAtMs": 1776693600000,
-        "lastDelivered": true
+        "nextRunAtMs": 1776898800000,
+        "lastDelivered": true,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -297,8 +304,9 @@
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1776693600000,
-        "lastDelivered": true
+        "nextRunAtMs": 1776952800000,
+        "lastDelivered": true,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -334,9 +342,10 @@
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1776686400000,
+        "nextRunAtMs": 1776893400000,
         "lastErrorAtMs": null,
-        "lastDelivered": true
+        "lastDelivered": true,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -371,8 +380,9 @@
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1776645000000,
-        "lastDelivered": true
+        "nextRunAtMs": 1776904200000,
+        "lastDelivered": true,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -407,8 +417,9 @@
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1776690300000,
-        "lastDelivered": true
+        "nextRunAtMs": 1776949500000,
+        "lastDelivered": true,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -443,9 +454,9 @@
         "consecutiveErrors": 1,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1776690600000,
+        "nextRunAtMs": 1776949800000,
         "lastDelivered": true,
-        "lastError": "⚠️ 📝 Edit: `in ~/.openclaw/workspace-ops/memory/state-ops.json` failed"
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -480,8 +491,9 @@
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1776690900000,
-        "lastDelivered": true
+        "nextRunAtMs": 1776950100000,
+        "lastDelivered": true,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -516,8 +528,9 @@
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1776691200000,
-        "lastDelivered": true
+        "nextRunAtMs": 1776950400000,
+        "lastDelivered": true,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -552,8 +565,9 @@
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1776606600000,
-        "lastDelivered": true
+        "nextRunAtMs": 1776892200000,
+        "lastDelivered": true,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -589,8 +603,9 @@
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1776690300000,
-        "lastDelivered": true
+        "nextRunAtMs": 1776949500000,
+        "lastDelivered": true,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -626,9 +641,10 @@
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1776690420000,
+        "nextRunAtMs": 1776949620000,
         "lastErrorAtMs": null,
-        "lastDelivered": true
+        "lastDelivered": true,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -664,8 +680,9 @@
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1776690540000,
-        "lastDelivered": true
+        "nextRunAtMs": 1776949740000,
+        "lastDelivered": true,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -701,8 +718,9 @@
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1776690660000,
-        "lastDelivered": true
+        "nextRunAtMs": 1776949860000,
+        "lastDelivered": true,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -738,8 +756,9 @@
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1776690780000,
-        "lastDelivered": true
+        "nextRunAtMs": 1776949980000,
+        "lastDelivered": true,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -775,8 +794,9 @@
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1776690900000,
-        "lastDelivered": true
+        "nextRunAtMs": 1776950100000,
+        "lastDelivered": true,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -812,8 +832,9 @@
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1776690900000,
-        "lastDelivered": true
+        "nextRunAtMs": 1776950100000,
+        "lastDelivered": true,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -886,8 +907,9 @@
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1776609162388,
-        "lastDelivered": true
+        "nextRunAtMs": 1776892895024,
+        "lastDelivered": true,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -923,9 +945,9 @@
         "consecutiveErrors": 2,
         "lastRunStatus": "error",
         "lastDeliveryStatus": "unknown",
-        "nextRunAtMs": 1776619381916,
+        "nextRunAtMs": 1776896495024,
         "lastErrorAtMs": null,
-        "lastError": "Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/opt/homebrew/lib/node_modules/openclaw/dist/run-delivery.runtime-B3VEtNIu.js' imported from /opt/homebrew/lib/node_modules/openclaw/dist/server.impl-GQ72oJBa.js"
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -961,8 +983,9 @@
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1776609181760,
-        "lastDelivered": true
+        "nextRunAtMs": 1776892895024,
+        "lastDelivered": true,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -998,9 +1021,10 @@
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "not-delivered",
-        "nextRunAtMs": 1776608364870,
+        "nextRunAtMs": 1776896495024,
         "lastErrorAtMs": null,
-        "lastDelivered": false
+        "lastDelivered": false,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -1071,9 +1095,10 @@
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1776690000000,
+        "nextRunAtMs": 1776949200000,
         "lastErrorAtMs": null,
-        "lastDelivered": true
+        "lastDelivered": true,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -1109,8 +1134,9 @@
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1776696300000,
-        "lastDelivered": true
+        "nextRunAtMs": 1776955500000,
+        "lastDelivered": true,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -1146,8 +1172,9 @@
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1776796200000,
-        "lastDelivered": true
+        "nextRunAtMs": 1776969000000,
+        "lastDelivered": true,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -1256,8 +1283,9 @@
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1776613116316,
-        "lastDelivered": true
+        "nextRunAtMs": 1776893916316,
+        "lastDelivered": true,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -1331,8 +1359,9 @@
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1776609516316,
-        "lastDelivered": true
+        "nextRunAtMs": 1776893916316,
+        "lastDelivered": true,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -1365,8 +1394,9 @@
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "not-delivered",
-        "nextRunAtMs": 1776607356567,
-        "lastDelivered": false
+        "nextRunAtMs": 1776895356567,
+        "lastDelivered": false,
+        "runningAtMs": 1776892035120
       },
       "updatedAtMs": 1776599345644
     },
@@ -1400,8 +1430,9 @@
         "lastDurationMs": 18276,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1776690000000,
-        "lastDelivered": true
+        "nextRunAtMs": 1776949200000,
+        "lastDelivered": true,
+        "runningAtMs": 1776892035120
       },
       "updatedAtMs": 1776605907571
     },
@@ -1438,8 +1469,9 @@
         "consecutiveErrors": 0,
         "lastRunStatus": "ok",
         "lastDeliveryStatus": "delivered",
-        "nextRunAtMs": 1776609150814,
-        "lastDelivered": true
+        "nextRunAtMs": 1776893550814,
+        "lastDelivered": true,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -1458,11 +1490,11 @@
         "consecutiveErrors": 0,
         "lastStatus": "skipped",
         "lastRunStatus": "skipped",
-        "nextRunAtMs": 1776690000000,
+        "nextRunAtMs": 1776949200000,
         "lastRunAtMs": 1776605907571,
         "lastDurationMs": 4,
         "lastDeliveryStatus": "unknown",
-        "lastError": "main job requires payload.kind=\"systemEvent\""
+        "runningAtMs": 1776892035120
       },
       "wakeMode": "now",
       "sessionTarget": "main",
@@ -1505,8 +1537,9 @@
         "lastDurationMs": 30206,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1776690000000,
-        "lastDelivered": true
+        "nextRunAtMs": 1776949200000,
+        "lastDelivered": true,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -1534,7 +1567,7 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1776693600000,
+        "nextRunAtMs": 1777298400000,
         "lastRunAtMs": 1776380125417,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
@@ -1542,7 +1575,8 @@
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
         "lastErrorAtMs": null,
-        "lastDelivered": true
+        "lastDelivered": true,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -1611,9 +1645,9 @@
         "lastDurationMs": 95752,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 3,
-        "nextRunAtMs": 1776690000000,
+        "nextRunAtMs": 1776949200000,
         "lastDelivered": true,
-        "lastError": "⚠️ 📝 Edit: `in ~/.openclaw/workspace-allrounder/memory/2026-04-19.md` failed"
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -1648,8 +1682,9 @@
         "lastDurationMs": 30186,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1776620455262,
-        "lastDelivered": true
+        "nextRunAtMs": 1776894048854,
+        "lastDelivered": true,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -1683,8 +1718,8 @@
         "lastDurationMs": 1,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 1,
-        "nextRunAtMs": 1776686400000,
-        "lastError": "Error: Missing workspace template: AGENTS.md (/docs/reference/templates/AGENTS.md). Ensure docs/reference/templates are packaged."
+        "nextRunAtMs": 1776945600000,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -1719,9 +1754,9 @@
         "lastDurationMs": 44412,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1776606177295,
+        "nextRunAtMs": 1776894177295,
         "lastDelivered": true,
-        "runningAtMs": 1776610624678
+        "runningAtMs": 1776891851089
       }
     },
     {
@@ -1756,9 +1791,10 @@
         "lastDurationMs": 85931,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1776611061562,
+        "nextRunAtMs": 1776894190213,
         "lastErrorAtMs": null,
-        "lastDelivered": true
+        "lastDelivered": true,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -1794,9 +1830,9 @@
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
         "lastErrorAtMs": null,
-        "nextRunAtMs": 1776606191560,
+        "nextRunAtMs": 1776894191560,
         "lastDelivered": true,
-        "runningAtMs": 1776610624678
+        "runningAtMs": 1776891851089
       }
     },
     {
@@ -1831,9 +1867,9 @@
         "lastDurationMs": 24689,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1776606192835,
+        "nextRunAtMs": 1776894192835,
         "lastDelivered": true,
-        "runningAtMs": 1776610624678
+        "runningAtMs": 1776891851089
       }
     },
     {
@@ -1868,8 +1904,9 @@
         "lastDurationMs": 140796,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1776606760258,
-        "lastDelivered": true
+        "nextRunAtMs": 1776894194350,
+        "lastDelivered": true,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -1904,9 +1941,9 @@
         "lastDurationMs": 300010,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 1,
-        "nextRunAtMs": 1776606195722,
-        "lastError": "cron: job execution timed out",
-        "lastErrorReason": "timeout"
+        "nextRunAtMs": 1776894195722,
+        "lastErrorReason": "timeout",
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -1941,9 +1978,9 @@
         "lastDurationMs": 300031,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 1,
-        "nextRunAtMs": 1776610613282,
-        "lastError": "cron: job execution timed out",
-        "lastErrorReason": "timeout"
+        "nextRunAtMs": 1776894197121,
+        "lastErrorReason": "timeout",
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -1978,8 +2015,9 @@
         "lastDurationMs": 54751,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1776610975692,
-        "lastDelivered": true
+        "nextRunAtMs": 1776894198357,
+        "lastDelivered": true,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -2015,8 +2053,9 @@
         "lastDurationMs": 21199,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1776607313313,
-        "lastDelivered": true
+        "nextRunAtMs": 1776893000000,
+        "lastDelivered": true,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -2052,8 +2091,9 @@
         "lastDurationMs": 8183,
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1776610934512,
-        "lastDelivered": false
+        "nextRunAtMs": 1776896605000,
+        "lastDelivered": false,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -2083,14 +2123,15 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1776682800000,
+        "nextRunAtMs": 1777287600000,
         "lastRunAtMs": 1776379194887,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
         "lastDurationMs": 57145,
         "lastDelivered": false,
         "lastDeliveryStatus": "not-delivered",
-        "consecutiveErrors": 0
+        "consecutiveErrors": 0,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -2165,9 +2206,9 @@
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
         "lastErrorAtMs": null,
-        "nextRunAtMs": 1776722400000,
-        "lastError": "⚠️ ✉️ Message failed",
-        "lastDelivered": true
+        "nextRunAtMs": 1776895200000,
+        "lastDelivered": true,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -2197,14 +2238,15 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1776690000000,
+        "nextRunAtMs": 1777294800000,
         "lastRunAtMs": 1776379911240,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
         "lastDurationMs": 181268,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "lastDelivered": true
+        "lastDelivered": true,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -2213,7 +2255,7 @@
       "name": "ENG: Coding Factory — Self-Healing & PR Monitor",
       "enabled": true,
       "createdAtMs": 1771912000000,
-      "updatedAtMs": 1776600281325,
+      "updatedAtMs": 1776892045873,
       "schedule": {
         "kind": "cron",
         "expr": "0 */4 * * *",
@@ -2226,7 +2268,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 3600,
-        "message": "MANDATORY BEFORE ANY PR CREATION OR REPO COMMIT: check if the target repo is paused.\n  exec: python3 /Users/redinside/.openclaw/scripts/repo-pause-manager.py check <owner/repo> --quiet\n  If exit code is 1 (BLOCKED): STOP immediately. Do not create the PR, branch, or commit.\n  Log: 'SKIPPED: <repo> is paused — check repo-pause-rules.json for details.'\n  This check is non-negotiable and overrides all other instructions.\n\nYou are ENG. Your job: monitor open PRs from anuragg-saxenaa to decolua/9router and fix CI failures.\n\n1. Check open PRs:\n   exec: /opt/homebrew/bin/gh pr list --repo decolua/9router --author anuragg-saxenaa --json number,title,statusCheckRollup,url,headRefName\n\n2. For any PR with failing CI checks:\n   exec: /opt/homebrew/bin/gh pr checks <num> --repo decolua/9router\n   Read the failure, implement the fix using write/edit tools, then:\n   exec: /bin/bash -c \"/usr/bin/git add -A && /usr/bin/git commit -m 'fix: address CI failure' && /usr/bin/git push fork HEAD\"\n\n3. Post a summary to Slack channel:C0AFW1B0QUB with PR statuses.\n\nIMPORTANT: Use full binary paths in all exec calls. If exec is blocked, use web_fetch on the GitHub API as fallback."
+        "message": "You are ENG. Run the full PR Ownership Monitor — check ALL open PRs from anuragg-saxenaa across ALL repos and enforce PR hygiene.\n\nSTEP 0 — IDENTITY (MANDATORY FIRST):\n  exec: /opt/homebrew/bin/gh auth switch --user anuragg-saxenaa\n  exec: /usr/bin/git config --global user.name \"Anurag Saxena\"\n  exec: /usr/bin/git config --global user.email anuragg.saxenaa@gmail.com\n  Verify: exec: /opt/homebrew/bin/gh auth status\n  Output must show anuragg-saxenaa as active. If redinside-dev is active — switch and re-verify before proceeding.\n\nSTEP 1 — LIST ALL OPEN PRs:\n  exec: /opt/homebrew/bin/gh search prs --author anuragg-saxenaa --state open --json number,title,repository,url,headRefName --limit 50\n  Parse the result. For each PR, extract: owner, repo, PR number, head branch name.\n\nSTEP 2 — FOR EACH OPEN PR (loop over all results from Step 1):\n\n  a) Check CI status:\n     exec: /opt/homebrew/bin/gh pr checks <number> --repo <owner>/<repo>\n\n  b) Check for unanswered maintainer comments:\n     exec: /opt/homebrew/bin/gh api repos/<owner>/<repo>/issues/<number>/comments --jq '.[].body'\n     If any comment from a maintainer has no reply from anuragg-saxenaa — post a reply:\n     exec: /opt/homebrew/bin/gh pr comment <number> --repo <owner>/<repo> --body \"<appropriate response>\"\n     Never leave a maintainer's comment unanswered.\n\n  c) Fix DCO failure (if CI shows \"action_required\" on DCO check):\n     CRITICAL: Reset to exact upstream base — never rebase onto wrong branch.\n     1. Get PR base branch:\n        exec: /opt/homebrew/bin/gh pr view <number> --repo <owner>/<repo> --json baseRefName\n     2. Navigate to repo and fetch upstream:\n        exec: /bin/bash -c 'cd /Users/redinside/.openclaw/workspace-eng/repos/<repo> && /usr/bin/git fetch upstream'\n     3. Find the single fix commit SHA (authored by Anurag Saxena):\n        exec: /bin/bash -c 'cd /Users/redinside/.openclaw/workspace-eng/repos/<repo> && /usr/bin/git log --oneline origin/<head-branch>'\n     4. Reset head branch to exact upstream base tip:\n        exec: /bin/bash -c 'cd /Users/redinside/.openclaw/workspace-eng/repos/<repo> && /usr/bin/git checkout <head-branch> && /usr/bin/git config user.name \"Anurag Saxena\" && /usr/bin/git config user.email anuragg.saxenaa@gmail.com && /usr/bin/git reset --hard upstream/<base-branch>'\n     5. Cherry-pick the fix commit with signoff:\n        exec: /bin/bash -c 'cd /Users/redinside/.openclaw/workspace-eng/repos/<repo> && /usr/bin/git cherry-pick <sha> --signoff'\n     6. Force push (identity must be anuragg-saxenaa):\n        exec: /opt/homebrew/bin/gh auth switch --user anuragg-saxenaa\n        exec: /bin/bash -c 'cd /Users/redinside/.openclaw/workspace-eng/repos/<repo> && /usr/bin/git push --force origin <head-branch>'\n\n  d) Fix merge conflicts (if PR is out of date with base):\n     exec: /bin/bash -c 'cd /Users/redinside/.openclaw/workspace-eng/repos/<repo> && /usr/bin/git fetch upstream && /usr/bin/git rebase --signoff upstream/<base-branch> && /usr/bin/git push --force origin <head-branch>'\n\n  e) Fix other CI failures (build, lint, test):\n     exec: /opt/homebrew/bin/gh run list --repo <owner>/<repo> --branch <head-branch> --limit 5\n     Read the error. Fix root cause using write/edit tools. Commit with -s. Push.\n\nSTEP 3 — UPDATE PR LOG:\n  Append to /Users/redinside/.openclaw/workspace/projects/pr-log.md:\n  | <DATE> | monitor | <owner>/<repo>#<PR_NUM> | <URL> | <status> | <action taken> |\n\nSTEP 4 — POST SLACK SUMMARY:\n  exec (post to Slack channel C0AFW1B0QUB): ENG PR Monitor: checked N PRs across all repos. Actions: <list DCO fixes, comment replies, rebases, etc.>\n\nANTI-LOOP: Any exec failing 2x with the same error → STOP. Log BLOCKED and exit. Do not retry indefinitely."
       },
       "delivery": {
         "mode": "none"
@@ -2238,8 +2280,8 @@
         "lastDurationMs": 2,
         "lastDeliveryStatus": "not-requested",
         "consecutiveErrors": 3,
-        "nextRunAtMs": 1776614614472,
-        "lastError": "Error: Missing workspace template: AGENTS.md (/docs/reference/templates/AGENTS.md). Ensure docs/reference/templates are packaged."
+        "nextRunAtMs": 1776902614472,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -2275,8 +2317,9 @@
         "lastDurationMs": 63951,
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1776621600000,
-        "lastDelivered": false
+        "nextRunAtMs": 1776967200000,
+        "lastDelivered": false,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -2313,8 +2356,8 @@
         "lastDurationMs": 4597,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 3,
-        "nextRunAtMs": 1776614455483,
-        "lastError": "Error: Missing workspace template: AGENTS.md (/docs/reference/templates/AGENTS.md). Ensure docs/reference/templates are packaged."
+        "nextRunAtMs": 1776902455483,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -2350,9 +2393,9 @@
         "lastDurationMs": 141519,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1776606058557,
+        "nextRunAtMs": 1776897000000,
         "lastDelivered": true,
-        "runningAtMs": 1776610624678
+        "runningAtMs": 1776891851089
       }
     },
     {
@@ -2388,8 +2431,9 @@
         "lastDurationMs": 110997,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1776615300000,
-        "lastDelivered": true
+        "nextRunAtMs": 1776903300000,
+        "lastDelivered": true,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -2425,8 +2469,9 @@
         "lastDurationMs": 32997,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1776617100000,
-        "lastDelivered": true
+        "nextRunAtMs": 1776905100000,
+        "lastDelivered": true,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -2462,8 +2507,8 @@
         "lastDurationMs": 28,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 1,
-        "nextRunAtMs": 1776606063557,
-        "runningAtMs": 1776610624678
+        "nextRunAtMs": 1776893400000,
+        "runningAtMs": 1776891851089
       }
     },
     {
@@ -2472,7 +2517,7 @@
       "name": "OSS Contributor — Daily Good-First-Issue PR",
       "enabled": true,
       "createdAtMs": 1773900000000,
-      "updatedAtMs": 1776525959433,
+      "updatedAtMs": 1776892033081,
       "schedule": {
         "kind": "cron",
         "expr": "0 11 * * *",
@@ -2484,7 +2529,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 1800,
-        "message": "MANDATORY BEFORE ANY PR CREATION OR REPO COMMIT: check if the target repo is paused.\n  exec: python3 /Users/redinside/.openclaw/scripts/repo-pause-manager.py check <owner/repo> --quiet\n  If exit code is 1 (BLOCKED): STOP immediately. Do not create the PR, branch, or commit.\n  Log: 'SKIPPED: <repo> is paused — check repo-pause-rules.json for details.'\n  This check is non-negotiable and overrides all other instructions.\n\nYou are ENG. Make ONE real OSS contribution today — pick from the curated target list, find an open issue, fix it, open a PR autonomously.\n\nCODING FACTORY STREAMS — rotate daily:\n\nSTREAM A — Java AI (Mon, Tue, Thu, Sat — 4 days/week, PRIORITY):\n  Monday:    spring-projects/spring-ai          (Java Spring AI — AI integration framework, 10k+ stars)\n  Tuesday:   langchain4j/langchain4j            (Java LangChain4j — agentic AI for Java, 6k+ stars)\n  Thursday:  spring-projects/spring-ai          (Spring AI again — most active Java AI repo)\n  Saturday:  quarkusio/quarkus                  (Quarkus — cloud-native Java + AI extensions)\n  (fallback: microsoft/semantic-kernel          Java SDK for Semantic Kernel)\n\nSTREAM A FOCUS — Java AI issue types to look for:\n  - Spring AI: ChatClient, VectorStore, MCP integration, embedding models, function calling\n  - LangChain4j: AI Services, tools/functions, memory, RAG, streaming\n  - Quarkus: quarkus-langchain4j extension, AI service injection\n  Labels to look for: bug, enhancement, good first issue, help wanted, AI, Spring AI\n\nSTREAM B — JavaScript/TypeScript (Wed):\n  Wednesday: decolua/9router                    (JS/Next.js — AI gateway)\n  (alternate: FellouAI/eko                      TypeScript agentic AI)\n\nSTREAM C — Python (Fri):\n  Friday:    PathOnAIOrg/LiteMultiAgent         (Python — multi-agent framework)\n\nSTREAM D — Mobile iOS/Android (Sun):\n  Sunday:    nicklockwood/SwiftFormat            (Swift/iOS — Swift code formatter)\n\nPick today's stream by day of week. Use the correct language/build tools for each:\n- Java: Maven (`mvn verify -pl <module> -am`), JUnit 5, Java 21, Spring Boot 3.x\n- TypeScript: npm/tsc (`npm run build`), vitest\n- Python: pip/pytest (`pytest`)\n- Swift/iOS: Swift Package Manager (`swift build`, `swift test`)\n\nSTEP 1 — SELECT TODAY'S REPO:\n  exec: /bin/date +%A\nPick the repo from the list above. Then:\n  exec: /opt/homebrew/bin/gh issue list --repo <OWNER>/<REPO> --state open --limit 30 --json number,title,body,labels\nPick ONE concrete bug/feature fixable in <50 lines. Skip architecture changes, skip issues already covered by open PRs from anuragg-saxenaa.\n\nSTEP 2 — CLONE AND UNDERSTAND:\n  exec: /opt/homebrew/bin/gh repo fork <OWNER>/<REPO> --clone=false\n  exec: /bin/bash -c 'if [ ! -d /Users/redinside/.openclaw/workspace-eng/repos/$(basename <REPO>) ]; then /usr/bin/git clone https://github.com/anuragg-saxenaa/$(basename <REPO>).git /Users/redinside/.openclaw/workspace-eng/repos/$(basename <REPO>); else cd /Users/redinside/.openclaw/workspace-eng/repos/$(basename <REPO>) && /usr/bin/git fetch origin && /usr/bin/git checkout master 2>/dev/null || /usr/bin/git checkout main && /usr/bin/git pull; fi'\n  exec: /opt/homebrew/bin/gh issue view <ISSUE_NUM> --repo <OWNER>/<REPO> --json title,body,comments\nRead relevant source files. Identify the exact change needed.\n\nSTEP 3 — IMPLEMENT:\n  exec: /bin/bash -c 'cd /Users/redinside/.openclaw/workspace-eng/repos/$(basename <REPO>) && /usr/bin/git checkout -b fix/issue-<ISSUE_NUM>-<slug>'\nMake the FULL fix using write/edit tools. No stubs, no TODOs, no placeholders — complete production-quality code.\nFor Java: follow existing patterns (Spring AI uses ChatClient.Builder, LangChain4j uses @Tool/@SystemMessage).\n  exec: /bin/bash -c 'cd /Users/redinside/.openclaw/workspace-eng/repos/$(basename <REPO>) && /usr/bin/git config user.email anuragg.saxenaa@gmail.com && /usr/bin/git config user.name anuragg-saxenaa && /usr/bin/git add -A && /usr/bin/git commit -s -m \"fix: <description> (closes #<ISSUE_NUM>)\"'\n\nSTEP 4 — PUSH AND PR:\n  exec: /bin/bash -c 'cd /Users/redinside/.openclaw/workspace-eng/repos/$(basename <REPO>) && /usr/bin/git push -u fork fix/issue-<ISSUE_NUM>-<slug>'\n  exec: /opt/homebrew/bin/gh pr create --repo <OWNER>/<REPO> --head anuragg-saxenaa:fix/issue-<ISSUE_NUM>-<slug> --base main --title 'fix: <description>' --no-edit --body 'Fixes #<ISSUE_NUM>\n\nThis PR was created autonomously by the RedOS coding factory (ENG agent). Part of our daily OSS contribution program targeting Java AI projects.'\n\nSTEP 5 — LOG:\n  Append to /Users/redinside/.openclaw/workspace/projects/pr-log.md: | <DATE> | contrib: <OWNER>/<REPO>#<ISSUE_NUM> | <PR_URL> | <desc> |\n  Post Slack channel:C0AFW1B0QUB: ENG OSS: <OWNER>/<REPO>#<ISSUE_NUM> → <PR_URL>\n\nSTEP 6 — VERIFY CI AND DCO (run ~3 minutes after PR creation):\n  Check DCO and CI status:\n  exec: /opt/homebrew/bin/gh pr checks <PR_NUM> --repo <OWNER>/<REPO>\n  If output shows \"action_required\" for any workflow (GitHub first-contributor gate):\n    - This is expected for new contributors. A maintainer must approve the CI run.\n    - Post a comment on the PR: exec: /opt/homebrew/bin/gh pr comment <PR_NUM> --repo <OWNER>/<REPO> --body \"Hi @maintainer — this PR fixes #<ISSUE_NUM>. CI is waiting for workflow approval (first contributor). Could you approve the workflow run when you get a chance? Thanks!\"\n  If DCO check fails:\n    - exec: /bin/bash -c 'cd /Users/redinside/.openclaw/workspace-eng/repos/$(basename <REPO>) && /usr/bin/git commit --amend -s --no-edit && /usr/bin/git push --force origin fix/issue-<ISSUE_NUM>-<slug>'\n  If any other CI job fails, read the error:\n    - exec: /opt/homebrew/bin/gh run list --repo <OWNER>/<REPO> --branch fix/issue-<ISSUE_NUM>-<slug>\n    Then fix the root cause and push again.\n\nANTI-LOOP: Any exec failing 2x with same error → STOP. Log BLOCKED and exit."
+        "message": "MANDATORY BEFORE ANY PR CREATION OR REPO COMMIT: check if the target repo is paused.\n  exec: python3 /Users/redinside/.openclaw/scripts/repo-pause-manager.py check <owner/repo> --quiet\n  If exit code is 1 (BLOCKED): STOP immediately. Do not create the PR, branch, or commit.\n  Log: 'SKIPPED: <repo> is paused — check repo-pause-rules.json for details.'\n  This check is non-negotiable and overrides all other instructions.\n\nexec: /opt/homebrew/bin/gh auth switch --user anuragg-saxenaa\n  exec: /usr/bin/git config --global user.name \"Anurag Saxena\"\n  exec: /usr/bin/git config --global user.email anuragg.saxenaa@gmail.com\n\nYou are ENG. Make ONE real OSS contribution today — pick from the curated target list, find an open issue, fix it, open a PR autonomously.\n\nCODING FACTORY STREAMS — rotate daily:\n\nSTREAM A — Java AI (Mon, Tue, Thu, Sat — 4 days/week, PRIORITY):\n  Monday:    spring-projects/spring-ai          (Java Spring AI — AI integration framework, 10k+ stars)\n  Tuesday:   langchain4j/langchain4j            (Java LangChain4j — agentic AI for Java, 6k+ stars)\n  Thursday:  spring-projects/spring-ai          (Spring AI again — most active Java AI repo)\n  Saturday:  quarkusio/quarkus                  (Quarkus — cloud-native Java + AI extensions)\n  (fallback: microsoft/semantic-kernel          Java SDK for Semantic Kernel)\n\nSTREAM A FOCUS — Java AI issue types to look for:\n  - Spring AI: ChatClient, VectorStore, MCP integration, embedding models, function calling\n  - LangChain4j: AI Services, tools/functions, memory, RAG, streaming\n  - Quarkus: quarkus-langchain4j extension, AI service injection\n  Labels to look for: bug, enhancement, good first issue, help wanted, AI, Spring AI\n\nSTREAM B — JavaScript/TypeScript (Wed):\n  Wednesday: decolua/9router                    (JS/Next.js — AI gateway)\n  (alternate: FellouAI/eko                      TypeScript agentic AI)\n\nSTREAM C — Python (Fri):\n  Friday:    PathOnAIOrg/LiteMultiAgent         (Python — multi-agent framework)\n\nSTREAM D — Mobile iOS/Android (Sun):\n  Sunday:    nicklockwood/SwiftFormat            (Swift/iOS — Swift code formatter)\n\nPick today's stream by day of week. Use the correct language/build tools for each:\n- Java: Maven (`mvn verify -pl <module> -am`), JUnit 5, Java 21, Spring Boot 3.x\n- TypeScript: npm/tsc (`npm run build`), vitest\n- Python: pip/pytest (`pytest`)\n- Swift/iOS: Swift Package Manager (`swift build`, `swift test`)\n\nSTEP 1 — SELECT TODAY'S REPO:\n  exec: /bin/date +%A\nPick the repo from the list above. Then:\n  exec: /opt/homebrew/bin/gh issue list --repo <OWNER>/<REPO> --state open --limit 30 --json number,title,body,labels\nPick ONE concrete bug/feature fixable in <50 lines. Skip architecture changes, skip issues already covered by open PRs from anuragg-saxenaa.\n\nSTEP 2 — CLONE AND UNDERSTAND:\n  exec: /opt/homebrew/bin/gh repo fork <OWNER>/<REPO> --clone=false\n  exec: /bin/bash -c 'if [ ! -d /Users/redinside/.openclaw/workspace-eng/repos/$(basename <REPO>) ]; then /usr/bin/git clone https://github.com/anuragg-saxenaa/$(basename <REPO>).git /Users/redinside/.openclaw/workspace-eng/repos/$(basename <REPO>); else cd /Users/redinside/.openclaw/workspace-eng/repos/$(basename <REPO>) && /usr/bin/git fetch origin && /usr/bin/git checkout master 2>/dev/null || /usr/bin/git checkout main && /usr/bin/git pull; fi'\n  exec: /opt/homebrew/bin/gh issue view <ISSUE_NUM> --repo <OWNER>/<REPO> --json title,body,comments\nRead relevant source files. Identify the exact change needed.\n\nSTEP 3 — IMPLEMENT:\n  exec: /bin/bash -c 'cd /Users/redinside/.openclaw/workspace-eng/repos/$(basename <REPO>) && /usr/bin/git checkout -b fix/issue-<ISSUE_NUM>-<slug>'\nMake the FULL fix using write/edit tools. No stubs, no TODOs, no placeholders — complete production-quality code.\nFor Java: follow existing patterns (Spring AI uses ChatClient.Builder, LangChain4j uses @Tool/@SystemMessage).\n  exec: /bin/bash -c 'cd /Users/redinside/.openclaw/workspace-eng/repos/$(basename <REPO>) && /usr/bin/git config user.email anuragg.saxenaa@gmail.com && /usr/bin/git config user.name \"Anurag Saxena\" && /usr/bin/git add -A && /usr/bin/git commit -s -m \"fix: <description> (closes #<ISSUE_NUM>)\"'\n\nSTEP 4 — PUSH AND PR:\n  exec: /bin/bash -c 'cd /Users/redinside/.openclaw/workspace-eng/repos/$(basename <REPO>) && /usr/bin/git push -u fork fix/issue-<ISSUE_NUM>-<slug>'\n  exec: /opt/homebrew/bin/gh pr create --repo <OWNER>/<REPO> --head anuragg-saxenaa:fix/issue-<ISSUE_NUM>-<slug> --base main --title 'fix: <description>' --no-edit --body 'Fixes #<ISSUE_NUM>\n\nThis PR was created autonomously by the RedOS coding factory (ENG agent). Part of our daily OSS contribution program targeting Java AI projects.'\n\nSTEP 5 — LOG:\n  Append to /Users/redinside/.openclaw/workspace/projects/pr-log.md: | <DATE> | contrib: <OWNER>/<REPO>#<ISSUE_NUM> | <PR_URL> | <desc> |\n  Post Slack channel:C0AFW1B0QUB: ENG OSS: <OWNER>/<REPO>#<ISSUE_NUM> → <PR_URL>\n\nSTEP 6 — VERIFY CI AND DCO (run ~3 minutes after PR creation):\n  Check DCO and CI status:\n  exec: /opt/homebrew/bin/gh pr checks <PR_NUM> --repo <OWNER>/<REPO>\n  If output shows \"action_required\" for any workflow (GitHub first-contributor gate):\n    - This is expected for new contributors. A maintainer must approve the CI run.\n    - Post a comment on the PR: exec: /opt/homebrew/bin/gh pr comment <PR_NUM> --repo <OWNER>/<REPO> --body \"Hi @maintainer — this PR fixes #<ISSUE_NUM>. CI is waiting for workflow approval (first contributor). Could you approve the workflow run when you get a chance? Thanks!\"\n  If DCO check fails:\n    - exec: /bin/bash -c 'cd /Users/redinside/.openclaw/workspace-eng/repos/$(basename <REPO>) && /usr/bin/git commit --amend -s --no-edit && /usr/bin/git push --force origin fix/issue-<ISSUE_NUM>-<slug>'\n  If any other CI job fails, read the error:\n    - exec: /opt/homebrew/bin/gh run list --repo <OWNER>/<REPO> --branch fix/issue-<ISSUE_NUM>-<slug>\n    Then fix the root cause and push again.\n\nANTI-LOOP: Any exec failing 2x with same error → STOP. Log BLOCKED and exit."
       },
       "delivery": {
         "mode": "none",
@@ -2494,13 +2539,14 @@
       },
       "state": {
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1776610800000,
+        "nextRunAtMs": 1776956400000,
         "lastRunAtMs": 1776525891455,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
         "lastDurationMs": 67978,
         "lastDeliveryStatus": "not-delivered",
-        "lastDelivered": false
+        "lastDelivered": false,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -2534,8 +2580,9 @@
         "lastDurationMs": 125291,
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1776614525759,
-        "lastDelivered": false
+        "nextRunAtMs": 1776895325759,
+        "lastDelivered": false,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -2571,8 +2618,8 @@
         "lastDurationMs": 1,
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 1,
-        "nextRunAtMs": 1776621600000,
-        "lastError": "Error: Missing workspace template: AGENTS.md (/docs/reference/templates/AGENTS.md). Ensure docs/reference/templates are packaged."
+        "nextRunAtMs": 1776902400000,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -2608,8 +2655,9 @@
         "lastDurationMs": 148868,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "nextRunAtMs": 1776607200000,
-        "lastDelivered": true
+        "nextRunAtMs": 1776909600000,
+        "lastDelivered": true,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -2777,14 +2825,15 @@
         "kind": "agentTurn"
       },
       "state": {
-        "nextRunAtMs": 1776668400000,
+        "nextRunAtMs": 1776927600000,
         "lastRunAtMs": 1776594393235,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
         "lastDurationMs": 46106,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "lastDelivered": true
+        "lastDelivered": true,
+        "runningAtMs": 1776892035120
       },
       "wakeMode": "now",
       "sessionTarget": "isolated",
@@ -2894,7 +2943,7 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1776606300000,
+        "nextRunAtMs": 1776892200000,
         "lastRunAtMs": 1776606085448,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
@@ -2902,7 +2951,8 @@
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
         "lastErrorAtMs": null,
-        "lastDelivered": false
+        "lastDelivered": false,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -2936,8 +2986,8 @@
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 1,
         "lastErrorAtMs": null,
-        "nextRunAtMs": 1776664800000,
-        "lastError": "Delivering to Slack requires target <channelId|user:ID|channel:ID>"
+        "nextRunAtMs": 1776924000000,
+        "runningAtMs": 1776892035120
       },
       "target": "telegram"
     },
@@ -3201,7 +3251,7 @@
         "channel": "slack"
       },
       "state": {
-        "nextRunAtMs": 1776650400000,
+        "nextRunAtMs": 1776909600000,
         "lastRunAtMs": 1776564593427,
         "lastRunStatus": "error",
         "lastStatus": "error",
@@ -3209,7 +3259,7 @@
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 1,
         "lastErrorAtMs": null,
-        "lastError": "Delivering to Slack requires target <channelId|user:ID|channel:ID>"
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -3269,14 +3319,14 @@
         "to": "Anurag"
       },
       "state": {
-        "nextRunAtMs": 1776647333167,
-        "lastError": "Error: Telegram recipient @Anurag could not be resolved to a numeric chat ID (Call to 'getChat' failed! (400: Bad Request: chat not found))",
+        "nextRunAtMs": 1776906533167,
         "lastRunAtMs": 1776375860559,
         "lastRunStatus": "error",
         "lastStatus": "error",
         "lastDurationMs": 34950,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 1
+        "consecutiveErrors": 1,
+        "runningAtMs": 1776892035120
       }
     },
     {
@@ -3322,10 +3372,39 @@
         "timeoutSeconds": 120
       },
       "state": {
-        "nextRunAtMs": 1776690000000
+        "nextRunAtMs": 1776949200000,
+        "runningAtMs": 1776892035120
       },
       "delivery": {
         "to": "main"
+      }
+    },
+    {
+      "id": "be5a14d7-b7e6-46cc-89b9-89f17a692807",
+      "agentId": "eng",
+      "name": "ENG: PR Ownership Monitor — 9am+5pm ET",
+      "enabled": true,
+      "createdAtMs": 1776892073716,
+      "updatedAtMs": 1776892073716,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 9,17 * * 1-5",
+        "tz": "America/Toronto"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "You are ENG. Run the full PR Ownership Monitor — check ALL open PRs from anuragg-saxenaa across ALL repos and enforce PR hygiene.\n\nSTEP 0 — IDENTITY (MANDATORY FIRST):\n  exec: /opt/homebrew/bin/gh auth switch --user anuragg-saxenaa\n  exec: /usr/bin/git config --global user.name \"Anurag Saxena\"\n  exec: /usr/bin/git config --global user.email anuragg.saxenaa@gmail.com\n  Verify: exec: /opt/homebrew/bin/gh auth status\n  Output must show anuragg-saxenaa as active. If redinside-dev is active — switch and re-verify before proceeding.\n\nSTEP 1 — LIST ALL OPEN PRs:\n  exec: /opt/homebrew/bin/gh search prs --author anuragg-saxenaa --state open --json number,title,repository,url,headRefName --limit 50\n  Parse the result. For each PR, extract: owner, repo, PR number, head branch name.\n\nSTEP 2 — FOR EACH OPEN PR (loop over all results from Step 1):\n\n  a) Check CI status:\n     exec: /opt/homebrew/bin/gh pr checks <number> --repo <owner>/<repo>\n\n  b) Check for unanswered maintainer comments:\n     exec: /opt/homebrew/bin/gh api repos/<owner>/<repo>/issues/<number>/comments --jq '.[].body'\n     If any comment from a maintainer has no reply from anuragg-saxenaa — post a reply:\n     exec: /opt/homebrew/bin/gh pr comment <number> --repo <owner>/<repo> --body \"<appropriate response>\"\n     Never leave a maintainer's comment unanswered.\n\n  c) Fix DCO failure (if CI shows \"action_required\" on DCO check):\n     CRITICAL: Reset to exact upstream base — never rebase onto wrong branch.\n     1. Get PR base branch:\n        exec: /opt/homebrew/bin/gh pr view <number> --repo <owner>/<repo> --json baseRefName\n     2. Navigate to repo and fetch upstream:\n        exec: /bin/bash -c 'cd /Users/redinside/.openclaw/workspace-eng/repos/<repo> && /usr/bin/git fetch upstream'\n     3. Find the single fix commit SHA (authored by Anurag Saxena):\n        exec: /bin/bash -c 'cd /Users/redinside/.openclaw/workspace-eng/repos/<repo> && /usr/bin/git log --oneline origin/<head-branch>'\n     4. Reset head branch to exact upstream base tip:\n        exec: /bin/bash -c 'cd /Users/redinside/.openclaw/workspace-eng/repos/<repo> && /usr/bin/git checkout <head-branch> && /usr/bin/git config user.name \"Anurag Saxena\" && /usr/bin/git config user.email anuragg.saxenaa@gmail.com && /usr/bin/git reset --hard upstream/<base-branch>'\n     5. Cherry-pick the fix commit with signoff:\n        exec: /bin/bash -c 'cd /Users/redinside/.openclaw/workspace-eng/repos/<repo> && /usr/bin/git cherry-pick <sha> --signoff'\n     6. Force push (identity must be anuragg-saxenaa):\n        exec: /opt/homebrew/bin/gh auth switch --user anuragg-saxenaa\n        exec: /bin/bash -c 'cd /Users/redinside/.openclaw/workspace-eng/repos/<repo> && /usr/bin/git push --force origin <head-branch>'\n\n  d) Fix merge conflicts (if PR is out of date with base):\n     exec: /bin/bash -c 'cd /Users/redinside/.openclaw/workspace-eng/repos/<repo> && /usr/bin/git fetch upstream && /usr/bin/git rebase --signoff upstream/<base-branch> && /usr/bin/git push --force origin <head-branch>'\n\n  e) Fix other CI failures (build, lint, test):\n     exec: /opt/homebrew/bin/gh run list --repo <owner>/<repo> --branch <head-branch> --limit 5\n     Read the error. Fix root cause using write/edit tools. Commit with -s. Push.\n\nSTEP 3 — UPDATE PR LOG:\n  Append to /Users/redinside/.openclaw/workspace/projects/pr-log.md:\n  | <DATE> | monitor | <owner>/<repo>#<PR_NUM> | <URL> | <status> | <action taken> |\n\nSTEP 4 — POST SLACK SUMMARY:\n  exec (post to Slack channel C0AFW1B0QUB): ENG PR Monitor: checked N PRs across all repos. Actions: <list DCO fixes, comment replies, rebases, etc.>\n\nANTI-LOOP: Any exec failing 2x with the same error → STOP. Log BLOCKED and exit. Do not retry indefinitely.",
+        "thinking": "low",
+        "timeoutSeconds": 3600
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "last"
+      },
+      "state": {
+        "nextRunAtMs": 1776949200000
       }
     }
   ]

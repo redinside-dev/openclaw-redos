@@ -172,7 +172,7 @@ Three files must carry the same `OPENCLAW_GATEWAY_TOKEN`:
 ## Git Identity
 
 ```
-user.name = anuragg-saxenaa
+user.name = Anurag Saxena
 user.email = anuragg.saxenaa@gmail.com
 ```
 
