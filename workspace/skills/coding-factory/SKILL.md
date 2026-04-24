@@ -58,6 +58,42 @@ This applies to ALL coding factory paths: Path 1 (OSS discovery), Path 2 (issue 
 
 ---
 
+## HARD RULE — Pre-PR Quality Gate (MANDATORY before `gh pr create`)
+
+**NEVER open a PR without passing this checklist. A rejected PR is worse than no PR.**
+
+### 1. Diff sanity check — FIRST and NON-NEGOTIABLE
+```bash
+git diff upstream/<base-branch>...HEAD --stat
+```
+- Count of changed files must be ≤ the number of files your fix actually touched.
+- If the diff shows `.editorconfig`, `.github/`, `.mvn/`, `pom.xml` files from unrelated modules, or ANY file you did not intentionally edit → **STOP. The branch base is stale.**
+- Fix: `git reset --hard upstream/<base-branch>` then `git cherry-pick <your-sha> --signoff`
+- Only proceed when `git diff upstream/<base-branch>...HEAD --stat` shows ONLY your intended files.
+
+### 2. Code review self-check (internal review before opening PR)
+Before opening, answer ALL of these:
+- Does every line of code follow the existing patterns in the repo? (Read 2-3 similar files first)
+- Is any code AI-generated boilerplate that adds no value? Remove it.
+- Are there verbose javadocs, unnecessary comments, or repeated explanations? Remove them — follow repo style.
+- Does the PR contain ONLY the fix for the stated issue? No extra cleanup, no extra tests beyond what's needed, no refactoring.
+- Is the change minimal? Fewer lines is better. The diff should be obvious at a glance.
+
+### 3. Build and test locally
+```bash
+mvn verify -pl <affected-module> -am -q   # Java
+npm run build                              # TypeScript
+pytest                                     # Python
+```
+Fix all failures before opening the PR.
+
+### 4. PR body must be concise
+- 2-3 sentences max: what was broken, what was changed, link to issue.
+- NO: marketing language, excessive bullet points, tables, or AI-generated summaries.
+- Example: "Fixes #N. `BedrockKnowledgeBaseVectorStoreAutoConfiguration` now imports `BedrockAwsConnectionConfiguration` and accepts an optional `AwsCredentialsProvider`, matching the pattern in `BedrockConverseProxyChatAutoConfiguration`."
+
+---
+
 ## HARD RULE — PR Ownership (fire-and-forget is FORBIDDEN)
 
 Opening a PR is NOT done. ENG owns each PR until it is merged or explicitly closed.
