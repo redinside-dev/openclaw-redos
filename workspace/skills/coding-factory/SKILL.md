@@ -39,6 +39,30 @@ The coding factory operates 3 parallel paths:
 
 ---
 
+## HARD RULE — spring-projects/spring-ai is PERMANENTLY BLOCKED
+
+**NEVER create a PR, push a branch, fork, comment, or review on `spring-projects/spring-ai`.**
+
+Background: maintainer sdeleuze issued an explicit warning on 2026-04-23 that the account would be blocked for submitting unreviewed AI-generated code. All 20 PRs were closed. This repo requires manual operator unblock before any contribution can resume.
+
+Check `workspace/repo-pause-rules.json` BEFORE touching any repo. `spring-projects/spring-ai` has `requiresManualUnblock: true`.
+
+---
+
+## HARD RULE — Quality over Quantity (ALL repos)
+
+**One solid PR that gets merged is worth more than 20 rejected ones.**
+
+Before opening ANY PR on ANY repo:
+1. Check `workspace/repo-pause-rules.json` — if paused, STOP.
+2. Run `git diff upstream/<base>...HEAD --stat` — if unrelated files appear, STOP and fix the base.
+3. Read 2-3 similar files in the repo to understand the code style. Match it exactly.
+4. The fix must be yours to stand behind. No AI boilerplate. No verbose javadocs. No extra abstractions.
+5. PR body: 2-3 sentences. What broke, what changed, issue link. Nothing else.
+6. If in doubt whether the fix is good enough — do NOT open the PR.
+
+---
+
 ## HARD RULE — GitHub Identity (enforce FIRST, before any git/gh command)
 
 **`redinside-dev` MUST NEVER appear on any PR, review, comment, or commit. Only `anuragg-saxenaa`.**
