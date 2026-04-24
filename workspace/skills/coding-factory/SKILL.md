@@ -82,39 +82,82 @@ This applies to ALL coding factory paths: Path 1 (OSS discovery), Path 2 (issue 
 
 ---
 
-## HARD RULE — Pre-PR Quality Gate (MANDATORY before `gh pr create`)
+## HARD RULE — Contributor Standard (25-year experienced developer)
 
-**NEVER open a PR without passing this checklist. A rejected PR is worse than no PR.**
+Every contribution must read as if written by a senior engineer who has been contributing to this exact codebase for years. Maintainers can tell within seconds whether a PR was bulk-generated. Reputation takes years to build and minutes to destroy.
 
-### 1. Diff sanity check — FIRST and NON-NEGOTIABLE
+**The internal bar before any PR:** "Would I be proud to have my name on this forever in the git log?"
+
+---
+
+## HARD RULE — Fork Hygiene (ROOT CAUSE of all contaminated PRs)
+
+**Every new branch MUST be created directly from the upstream tip. Never from a local stale state.**
+
+```bash
+# ALWAYS — before creating any branch:
+git fetch upstream
+git checkout -b fix/issue-NNN-slug upstream/<base-branch>
+# (NOT: git checkout -b fix/... — this branches from local HEAD which may be stale)
+```
+
+After any commit, verify immediately:
 ```bash
 git diff upstream/<base-branch>...HEAD --stat
 ```
-- Count of changed files must be ≤ the number of files your fix actually touched.
-- If the diff shows `.editorconfig`, `.github/`, `.mvn/`, `pom.xml` files from unrelated modules, or ANY file you did not intentionally edit → **STOP. The branch base is stale.**
-- Fix: `git reset --hard upstream/<base-branch>` then `git cherry-pick <your-sha> --signoff`
-- Only proceed when `git diff upstream/<base-branch>...HEAD --stat` shows ONLY your intended files.
+- If ANY file appears that you did not write — STOP. The branch is contaminated.
+- Fix: `git reset --hard upstream/<base-branch>` then re-apply your change cleanly.
+- A contaminated diff means ALL work on that branch must be discarded and restarted clean.
 
-### 2. Code review self-check (internal review before opening PR)
-Before opening, answer ALL of these:
-- Does every line of code follow the existing patterns in the repo? (Read 2-3 similar files first)
-- Is any code AI-generated boilerplate that adds no value? Remove it.
-- Are there verbose javadocs, unnecessary comments, or repeated explanations? Remove them — follow repo style.
-- Does the PR contain ONLY the fix for the stated issue? No extra cleanup, no extra tests beyond what's needed, no refactoring.
-- Is the change minimal? Fewer lines is better. The diff should be obvious at a glance.
+**Never reuse a branch across issues. One issue = one fresh branch from upstream tip.**
 
-### 3. Build and test locally
+---
+
+## HARD RULE — Pre-PR Quality Gate (ALL gates must pass)
+
+**NEVER open a PR without passing every gate below. A rejected PR is worse than no PR.**
+
+### Gate 1 — Issue selection (before writing a single line)
+- Read the issue thoroughly. If the fix is not clear to you after reading — skip it and pick another.
+- Read the files that need to change. Understand the existing pattern before touching anything.
+- Check if another PR already addresses this issue: `gh pr list --repo <owner>/<repo> --search "issue #N"`
+- Prefer issues where you have genuine understanding, not just "good first issue" labels.
+- Do NOT pick issues that require touching 3+ modules unless you fully understand all of them.
+
+### Gate 2 — Diff sanity (NON-NEGOTIABLE)
 ```bash
-mvn verify -pl <affected-module> -am -q   # Java
-npm run build                              # TypeScript
-pytest                                     # Python
+git diff upstream/<base-branch>...HEAD --stat
 ```
-Fix all failures before opening the PR.
+- Must show ONLY the files you intentionally edited.
+- If `.editorconfig`, `.github/`, `.mvn/`, unrelated `pom.xml`, guardrail files, MCP files, or ANY file from a different module appears — STOP. Do not open the PR. Fix the base.
 
-### 4. PR body must be concise
-- 2-3 sentences max: what was broken, what was changed, link to issue.
-- NO: marketing language, excessive bullet points, tables, or AI-generated summaries.
-- Example: "Fixes #N. `BedrockKnowledgeBaseVectorStoreAutoConfiguration` now imports `BedrockAwsConnectionConfiguration` and accepts an optional `AwsCredentialsProvider`, matching the pattern in `BedrockConverseProxyChatAutoConfiguration`."
+### Gate 3 — Code review (internal, before every PR)
+Read your own diff as if you are a maintainer seeing it for the first time. Ask:
+- Does this match the patterns used 3 files away in the same package?
+- Is every import actually used? Are there any dead methods?
+- Is the test meaningful — does it actually verify the bug is fixed?
+- Would a senior engineer call this "obvious"? If not, simplify until it is.
+- Is there a single unnecessary line? Remove it.
+
+### Gate 4 — Build and test locally (no exceptions)
+```bash
+mvn verify -pl <affected-module> -am -q 2>&1 | tail -20   # Java
+npm run build && npm test                                   # TypeScript
+pytest -x -q                                               # Python
+swift build && swift test                                  # Swift
+```
+If tests fail — fix before proceeding. Never open a PR with a broken build.
+
+### Gate 5 — PR body (one short paragraph, no more)
+```
+Fixes #N.
+
+<One sentence: what was broken and why.>
+<One sentence: what was changed — name the specific class/method/function.>
+<Optional: why this approach over alternatives, if not obvious.>
+```
+NO headers. NO bullet lists. NO tables. NO "This PR was created by...". No mention of AI.
+The PR body should read exactly like a PR from a developer who understands the code and respects the maintainer's time.
 
 ---
 
@@ -275,25 +318,32 @@ STEPS:
 
 ## ENG Implementation Contract (ALL PATHS)
 
-No matter which path triggers ENG, the output MUST be:
+No matter which path triggers ENG, the output MUST meet the standard of an experienced open-source contributor:
 
 | Requirement | Standard |
 |---|---|
-| Implementation | Fully complete — no `// TODO`, no stubs, no `throw new UnsupportedOperationException()` |
-| Tests | Real assertions using repo's own test framework |
-| Build | Clean — `mvn verify` / `npm run build` / `pytest` / `swift build` passes |
-| PR | `gh pr create --no-edit` — ALWAYS include this flag |
-| Commit message | `fix: <desc> (closes #N)` or `feat: <desc>` — always `git commit -s` (signoff) |
+| Codebase study | Read the module, understand the pattern, match it exactly before writing a single line |
+| Implementation | Complete, production-ready — no `// TODO`, no stubs, no placeholder comments |
+| Scope | ONLY the files the fix requires. If you touched a file for any reason other than the stated fix, remove it. |
+| Tests | Meaningful assertions that verify the bug is actually fixed — not just coverage padding |
+| Build | `mvn verify -pl <module> -am` / `npm run build && npm test` / `pytest -x` — must pass locally |
+| Branch | Always created from `upstream/<base>` tip: `git checkout -b <branch> upstream/<base>` |
+| Diff check | `git diff upstream/<base>...HEAD --stat` — must show ONLY intended files. Stop if contaminated. |
+| Commit | `git commit -s` — single commit, concise message, signoff always |
+| PR body | One paragraph: what broke, what changed, nothing else. No AI language. No bullet lists. |
+| PR title | Conventional commit format: `fix: <verb> <what> (<closes #N>)` |
 | Log | Append to `workspace/projects/pr-log.md` |
+| Monitor | Check back within 24h — respond to any maintainer comment same day |
+
+**Frequency:** Max 2-3 PRs per week across all repos combined. Quality over volume. A maintainer who sees 5 PRs from the same person in one day starts ignoring them.
 
 **Stack routing:**
-| Language | Stream | Build | Test |
-|---|---|---|---|
-| Java / Spring | A | `mvn verify` | JUnit 5 |
-| TypeScript / JS | B | `npm run build` | vitest/jest |
-| Python | C | `pip install && pytest` | pytest |
-| Swift / React Native | D | `swift build` / `npm test` | XCTest / jest |
-| Java (complex/multi-file) | E | `mvn verify` | JUnit 5 + Claude Code |
+| Language | Build command | Test command |
+|---|---|---|
+| Java | `mvn verify -pl <module> -am -q` | JUnit 5 (`mvn test -pl <module>`) |
+| TypeScript/JS | `npm run build` | `npm test` or `npx vitest run` |
+| Python | `pip install -e . -q && pytest -x -q` | pytest |
+| Swift | `swift build` | `swift test` |
 
 ---
 
