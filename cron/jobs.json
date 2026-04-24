@@ -27,16 +27,17 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1776994800000,
-        "lastRunAtMs": 1776994500028,
+        "nextRunAtMs": 1776995400000,
+        "lastRunAtMs": 1776995243950,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 14046,
+        "lastDurationMs": 16654,
         "lastDelivered": false,
         "lastDeliveryStatus": "not-delivered",
-        "consecutiveErrors": 0
+        "consecutiveErrors": 0,
+        "runningAtMs": 1776995804977
       },
-      "updatedAtMs": 1776994514074
+      "updatedAtMs": 1776995260604
     },
     {
       "id": "69c261e4-53e0-495a-9d9b-4c22413e8f26",
@@ -522,17 +523,17 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1776994800000,
-        "lastRunAtMs": 1776993628361,
+        "nextRunAtMs": 1776995400000,
+        "lastRunAtMs": 1776995260604,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 7074,
+        "lastDurationMs": 10843,
         "lastDelivered": true,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "runningAtMs": 1776994603180
+        "runningAtMs": 1776996181856
       },
-      "updatedAtMs": 1776993635435
+      "updatedAtMs": 1776995271447
     },
     {
       "id": "sa-main-checkin-0001",
@@ -1155,16 +1156,16 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1776994716347,
-        "lastRunAtMs": 1776987516347,
+        "nextRunAtMs": 1777002404928,
+        "lastRunAtMs": 1776995204928,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 17173,
+        "lastDurationMs": 39022,
         "lastDelivered": true,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0
       },
-      "updatedAtMs": 1776987533520
+      "updatedAtMs": 1776995243950
     },
     {
       "id": "9router-quota-sync-0001",
@@ -1485,16 +1486,16 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1776994848854,
-        "lastRunAtMs": 1776911191539,
+        "nextRunAtMs": 1777009674420,
+        "lastRunAtMs": 1776995274420,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 25296,
+        "lastDurationMs": 26758,
         "lastDelivered": true,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0
       },
-      "updatedAtMs": 1776911216835
+      "updatedAtMs": 1776995301178
     },
     {
       "id": "c796ed26-7bb0-4e3a-8b0f-42cd6539212e",
@@ -1556,7 +1557,7 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1776995282713,
+        "nextRunAtMs": 1777002177295,
         "lastRunAtMs": 1776988082713,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
@@ -1600,7 +1601,7 @@
         "lastDelivered": true,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 1,
-        "lastError": "⚠️ ✉️ Message failed"
+        "runningAtMs": 1776995804977
       },
       "updatedAtMs": 1776988166353
     },
@@ -1636,7 +1637,8 @@
         "lastDurationMs": 29352,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "lastDelivered": true
+        "lastDelivered": true,
+        "runningAtMs": 1776995804977
       },
       "updatedAtMs": 1776988197530
     },
@@ -1672,7 +1674,8 @@
         "lastDurationMs": 38637,
         "lastDelivered": true,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0
+        "consecutiveErrors": 0,
+        "runningAtMs": 1776996181856
       },
       "updatedAtMs": 1776988315841
     },
@@ -1708,7 +1711,8 @@
         "lastDurationMs": 35989,
         "lastDelivered": true,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0
+        "consecutiveErrors": 0,
+        "runningAtMs": 1776996181856
       },
       "updatedAtMs": 1776988353891
     },
@@ -1744,7 +1748,8 @@
         "lastDurationMs": 81479,
         "lastDelivered": true,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0
+        "consecutiveErrors": 0,
+        "runningAtMs": 1776996181856
       },
       "updatedAtMs": 1776988672468
     },
@@ -1780,7 +1785,8 @@
         "lastDurationMs": 58378,
         "lastDelivered": true,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0
+        "consecutiveErrors": 0,
+        "runningAtMs": 1776996181856
       },
       "updatedAtMs": 1776988730846
     },
@@ -1816,7 +1822,8 @@
         "lastDurationMs": 174514,
         "lastDelivered": true,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0
+        "consecutiveErrors": 0,
+        "runningAtMs": 1776996181856
       },
       "updatedAtMs": 1776988938207
     },
@@ -2134,7 +2141,7 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1777005000000,
+        "nextRunAtMs": 1776995306195,
         "lastRunAtMs": 1776984501884,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
@@ -2142,7 +2149,7 @@
         "lastDelivered": true,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
-        "runningAtMs": 1776994603180
+        "runningAtMs": 1776995804977
       },
       "updatedAtMs": 1776984909120
     },
@@ -2246,7 +2253,7 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1777008600000,
+        "nextRunAtMs": 1776995311195,
         "lastRunAtMs": 1776980358887,
         "lastRunStatus": "error",
         "lastStatus": "error",
@@ -2255,7 +2262,7 @@
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 1,
         "lastDeliveryError": "⚠️ ✉️ Message failed",
-        "runningAtMs": 1776994603180
+        "runningAtMs": 1776995804977
       },
       "updatedAtMs": 1776980491183
     },
@@ -2276,7 +2283,7 @@
         "kind": "agentTurn",
         "thinking": "low",
         "timeoutSeconds": 1800,
-        "message": "MANDATORY BEFORE ANY PR CREATION OR REPO COMMIT: check if the target repo is paused.\n  exec: python3 /Users/redinside/.openclaw/scripts/repo-pause-manager.py check <owner/repo> --quiet\n  If exit code is 1 (BLOCKED): STOP immediately. Do not create the PR, branch, or commit.\n  Log: 'SKIPPED: <repo> is paused — check repo-pause-rules.json for details.'\n  This check is non-negotiable and overrides all other instructions.\n\nYou are ENG. Make ONE real OSS contribution today — pick from the curated target list, find an open issue, fix it, open a PR autonomously.\n\nCODING FACTORY STREAMS — rotate daily:\n\nSTREAM A — Java AI (Mon, Tue, Thu, Sat — 4 days/week, PRIORITY):\n  Monday:    spring-projects/spring-ai          (Java Spring AI — AI integration framework, 10k+ stars)\n  Tuesday:   langchain4j/langchain4j            (Java LangChain4j — agentic AI for Java, 6k+ stars)\n  Thursday:  spring-projects/spring-ai          (Spring AI again — most active Java AI repo)\n  Saturday:  quarkusio/quarkus                  (Quarkus — cloud-native Java + AI extensions)\n  (fallback: microsoft/semantic-kernel          Java SDK for Semantic Kernel)\n\nSTREAM A FOCUS — Java AI issue types to look for:\n  - Spring AI: ChatClient, VectorStore, MCP integration, embedding models, function calling\n  - LangChain4j: AI Services, tools/functions, memory, RAG, streaming\n  - Quarkus: quarkus-langchain4j extension, AI service injection\n  Labels to look for: bug, enhancement, good first issue, help wanted, AI, Spring AI\n\nSTREAM B — JavaScript/TypeScript (Wed):\n  Wednesday: decolua/9router                    (JS/Next.js — AI gateway)\n  (alternate: FellouAI/eko                      TypeScript agentic AI)\n\nSTREAM C — Python (Fri):\n  Friday:    PathOnAIOrg/LiteMultiAgent         (Python — multi-agent framework)\n\nSTREAM D — Mobile iOS/Android (Sun):\n  Sunday:    nicklockwood/SwiftFormat            (Swift/iOS — Swift code formatter)\n\nPick today's stream by day of week. Use the correct language/build tools for each:\n- Java: Maven (`mvn verify -pl <module> -am`), JUnit 5, Java 21, Spring Boot 3.x\n- TypeScript: npm/tsc (`npm run build`), vitest\n- Python: pip/pytest (`pytest`)\n- Swift/iOS: Swift Package Manager (`swift build`, `swift test`)\n\nSTEP 1 — SELECT TODAY'S REPO:\n  exec: /bin/date +%A\nPick the repo from the list above. Then:\n  exec: /opt/homebrew/bin/gh issue list --repo <OWNER>/<REPO> --state open --limit 30 --json number,title,body,labels\nPick ONE concrete bug/feature fixable in <50 lines. Skip architecture changes, skip issues already covered by open PRs from anuragg-saxenaa.\n\nSTEP 2 — CLONE AND UNDERSTAND:\n  exec: /opt/homebrew/bin/gh repo fork <OWNER>/<REPO> --clone=false\n  exec: /bin/bash -c 'if [ ! -d /Users/redinside/.openclaw/workspace-eng/repos/$(basename <REPO>) ]; then /usr/bin/git clone https://github.com/anuragg-saxenaa/$(basename <REPO>).git /Users/redinside/.openclaw/workspace-eng/repos/$(basename <REPO>); else cd /Users/redinside/.openclaw/workspace-eng/repos/$(basename <REPO>) && /usr/bin/git fetch origin && /usr/bin/git checkout master 2>/dev/null || /usr/bin/git checkout main && /usr/bin/git pull; fi'\n  exec: /opt/homebrew/bin/gh issue view <ISSUE_NUM> --repo <OWNER>/<REPO> --json title,body,comments\nRead relevant source files. Identify the exact change needed.\n\nSTEP 3 — IMPLEMENT:\n  exec: /bin/bash -c 'cd /Users/redinside/.openclaw/workspace-eng/repos/$(basename <REPO>) && /usr/bin/git checkout -b fix/issue-<ISSUE_NUM>-<slug>'\nMake the FULL fix using write/edit tools. No stubs, no TODOs, no placeholders — complete production-quality code.\nFor Java: follow existing patterns (Spring AI uses ChatClient.Builder, LangChain4j uses @Tool/@SystemMessage).\n  exec: /bin/bash -c 'cd /Users/redinside/.openclaw/workspace-eng/repos/$(basename <REPO>) && /usr/bin/git config user.email anuragg.saxenaa@gmail.com && /usr/bin/git config user.name anuragg-saxenaa && /usr/bin/git add -A && /usr/bin/git commit -s -m \"fix: <description> (closes #<ISSUE_NUM>)\"'\n\n\nSTEP 3.5 — PRE-PR QUALITY GATE (MANDATORY — skip = PR is REJECTED):\n  a) Verify diff is clean (NO stale base):\n     exec: /bin/bash -c 'cd /Users/redinside/.openclaw/workspace-eng/repos/$(basename <REPO>) && /usr/bin/git diff upstream/<BASE_BRANCH>...HEAD --stat'\n     If output includes files you did NOT intentionally edit (e.g. .editorconfig, .github/, .mvn/, pom.xml from other modules):\n       STOP. Do NOT open a PR. Run: git reset --hard upstream/<BASE_BRANCH> && git cherry-pick <sha> --signoff\n  b) Self-review code quality:\n     - Does the code follow existing repo patterns? Read 2-3 similar files first.\n     - Remove all AI-generated boilerplate, verbose comments, or unrelated changes.\n     - Diff must be minimal — obvious at a glance.\n  c) PR body must be 2-3 sentences max: what was broken, what changed, issue link. No tables, no bullets.\n\nSTEP 4 — PUSH AND PR:\n  exec: /bin/bash -c 'cd /Users/redinside/.openclaw/workspace-eng/repos/$(basename <REPO>) && /usr/bin/git push -u fork fix/issue-<ISSUE_NUM>-<slug>'\n  exec: /opt/homebrew/bin/gh pr create --repo <OWNER>/<REPO> --head anuragg-saxenaa:fix/issue-<ISSUE_NUM>-<slug> --base main --title 'fix: <description>' --no-edit --body 'Fixes #<ISSUE_NUM>\n\nThis PR was created autonomously by the RedOS coding factory (ENG agent). Part of our daily OSS contribution program targeting Java AI projects.'\n\nSTEP 5 — LOG:\n  Append to /Users/redinside/.openclaw/workspace/projects/pr-log.md: | <DATE> | contrib: <OWNER>/<REPO>#<ISSUE_NUM> | <PR_URL> | <desc> |\n  Post Slack channel:C0AFW1B0QUB: ENG OSS: <OWNER>/<REPO>#<ISSUE_NUM> → <PR_URL>\n\nSTEP 6 — VERIFY CI AND DCO (run ~3 minutes after PR creation):\n  Check DCO and CI status:\n  exec: /opt/homebrew/bin/gh pr checks <PR_NUM> --repo <OWNER>/<REPO>\n  If output shows \"action_required\" for any workflow (GitHub first-contributor gate):\n    - This is expected for new contributors. A maintainer must approve the CI run.\n    - Post a comment on the PR: exec: /opt/homebrew/bin/gh pr comment <PR_NUM> --repo <OWNER>/<REPO> --body \"Hi @maintainer — this PR fixes #<ISSUE_NUM>. CI is waiting for workflow approval (first contributor). Could you approve the workflow run when you get a chance? Thanks!\"\n  If DCO check fails:\n    - exec: /bin/bash -c 'cd /Users/redinside/.openclaw/workspace-eng/repos/$(basename <REPO>) && /usr/bin/git commit --amend -s --no-edit && /usr/bin/git push --force origin fix/issue-<ISSUE_NUM>-<slug>'\n  If any other CI job fails, read the error:\n    - exec: /opt/homebrew/bin/gh run list --repo <OWNER>/<REPO> --branch fix/issue-<ISSUE_NUM>-<slug>\n    Then fix the root cause and push again.\n\nANTI-LOOP: Any exec failing 2x with same error → STOP. Log BLOCKED and exit."
+        "message": "MANDATORY BEFORE ANY PR CREATION OR REPO COMMIT: check if the target repo is paused.\n  exec: python3 /Users/redinside/.openclaw/scripts/repo-pause-manager.py check <owner/repo> --quiet\n  If exit code is 1 (BLOCKED): STOP immediately. Do not create the PR, branch, or commit.\n  Log: 'SKIPPED: <repo> is paused — check repo-pause-rules.json for details.'\n  This check is non-negotiable and overrides all other instructions.\n\nSTEP 0 — IDENTITY (MANDATORY FIRST, before anything else):\n  exec: /opt/homebrew/bin/gh auth switch --user anuragg-saxenaa\n  exec: /usr/bin/git config --global user.name \"Anurag Saxena\"\n  exec: /usr/bin/git config --global user.email anuragg.saxenaa@gmail.com\n  exec: /opt/homebrew/bin/gh auth status\n  Output MUST show anuragg-saxenaa as active. If redinside-dev is active — switch and verify before proceeding.\n\nYou are ENG. Make ONE real OSS contribution today — pick from the curated target list, find an open issue, fix it, open a PR autonomously.\n\nCODING FACTORY STREAMS — rotate daily:\n\nSTREAM A — Java AI (Mon, Tue, Thu, Sat — 4 days/week, PRIORITY):\n  Monday:    langchain4j/langchain4j             (Java LangChain4j — agentic AI for Java, 6k+ stars)\n  Tuesday:   langchain4j/langchain4j            (Java LangChain4j — agentic AI for Java, 6k+ stars)\n  Thursday:  langchain4j/langchain4j             (LangChain4j — rotate focus, pick different issue than Tuesday)\n  Saturday:  quarkusio/quarkus                  (Quarkus — cloud-native Java + AI extensions)\n  (fallback: microsoft/semantic-kernel          Java SDK for Semantic Kernel)\n\nSTREAM A FOCUS — Java AI issue types to look for:\n  - LangChain4j: AI Services, tools/functions, memory, RAG, streaming\n  - Quarkus: quarkus-langchain4j extension, AI service injection\n  Labels to look for: bug, enhancement, good first issue, help wanted, AI, Spring AI\n\nSTREAM B — JavaScript/TypeScript (Wed):\n  Wednesday: decolua/9router                    (JS/Next.js — AI gateway)\n  (alternate: FellouAI/eko                      TypeScript agentic AI)\n\nSTREAM C — Python (Fri):\n  Friday:    PathOnAIOrg/LiteMultiAgent         (Python — multi-agent framework)\n\nSTREAM D — Mobile iOS/Android (Sun):\n  Sunday:    nicklockwood/SwiftFormat            (Swift/iOS — Swift code formatter)\n\nPick today's stream by day of week. Use the correct language/build tools for each:\n- Java: Maven (`mvn verify -pl <module> -am`), JUnit 5, Java 21, Spring Boot 3.x\n- TypeScript: npm/tsc (`npm run build`), vitest\n- Python: pip/pytest (`pytest`)\n- Swift/iOS: Swift Package Manager (`swift build`, `swift test`)\n\nSTEP 1 — SELECT TODAY'S REPO:\n  exec: /bin/date +%A\nPick the repo from the list above. Then:\n  exec: /opt/homebrew/bin/gh issue list --repo <OWNER>/<REPO> --state open --limit 30 --json number,title,body,labels\nPick ONE concrete bug/feature fixable in <50 lines. Skip architecture changes, skip issues already covered by open PRs from anuragg-saxenaa.\n\nSTEP 2 — CLONE AND UNDERSTAND:\n  exec: /opt/homebrew/bin/gh repo fork <OWNER>/<REPO> --clone=false\n  exec: /bin/bash -c 'if [ ! -d /Users/redinside/.openclaw/workspace-eng/repos/$(basename <REPO>) ]; then /usr/bin/git clone https://github.com/anuragg-saxenaa/$(basename <REPO>).git /Users/redinside/.openclaw/workspace-eng/repos/$(basename <REPO>); else cd /Users/redinside/.openclaw/workspace-eng/repos/$(basename <REPO>) && /usr/bin/git fetch origin && /usr/bin/git checkout master 2>/dev/null || /usr/bin/git checkout main && /usr/bin/git pull; fi'\n  exec: /opt/homebrew/bin/gh issue view <ISSUE_NUM> --repo <OWNER>/<REPO> --json title,body,comments\nRead relevant source files. Identify the exact change needed.\n\nSTEP 3 — IMPLEMENT:\n  exec: /bin/bash -c 'cd /Users/redinside/.openclaw/workspace-eng/repos/$(basename <REPO>) && /usr/bin/git checkout -b fix/issue-<ISSUE_NUM>-<slug>'\nMake the FULL fix using write/edit tools. No stubs, no TODOs, no placeholders — complete production-quality code.\nFor Java: follow existing patterns (LangChain4j uses @Tool/@SystemMessage, @AiService, @SystemMessage).\n  exec: /bin/bash -c 'cd /Users/redinside/.openclaw/workspace-eng/repos/$(basename <REPO>) && /usr/bin/git config user.email anuragg.saxenaa@gmail.com && /usr/bin/git config user.name anuragg-saxenaa && /usr/bin/git add -A && /usr/bin/git commit -s -m \"fix: <description> (closes #<ISSUE_NUM>)\"'\n\n\nSTEP 3.5 — PRE-PR QUALITY GATE (MANDATORY — skip = PR is REJECTED):\n  a) Verify diff is clean (NO stale base):\n     exec: /bin/bash -c 'cd /Users/redinside/.openclaw/workspace-eng/repos/$(basename <REPO>) && /usr/bin/git diff upstream/<BASE_BRANCH>...HEAD --stat'\n     If output includes files you did NOT intentionally edit (e.g. .editorconfig, .github/, .mvn/, pom.xml from other modules):\n       STOP. Do NOT open a PR. Run: git reset --hard upstream/<BASE_BRANCH> && git cherry-pick <sha> --signoff\n  b) Self-review code quality:\n     - Does the code follow existing repo patterns? Read 2-3 similar files first.\n     - Remove all AI-generated boilerplate, verbose comments, or unrelated changes.\n     - Diff must be minimal — obvious at a glance.\n  c) PR body must be 2-3 sentences max: what was broken, what changed, issue link. No tables, no bullets.\n\nSTEP 4 — PUSH AND PR:\n  exec: /bin/bash -c 'cd /Users/redinside/.openclaw/workspace-eng/repos/$(basename <REPO>) && /usr/bin/git push -u fork fix/issue-<ISSUE_NUM>-<slug>'\n  exec: /opt/homebrew/bin/gh pr create --repo <OWNER>/<REPO> --head anuragg-saxenaa:fix/issue-<ISSUE_NUM>-<slug> --base main --title 'fix: <description>' --no-edit --body 'Fixes #<ISSUE_NUM>\n\nThis PR was created autonomously by the RedOS coding factory (ENG agent). Part of our daily OSS contribution program targeting Java AI projects.'\n\nSTEP 5 — LOG:\n  Append to /Users/redinside/.openclaw/workspace/projects/pr-log.md: | <DATE> | contrib: <OWNER>/<REPO>#<ISSUE_NUM> | <PR_URL> | <desc> |\n  Post Slack channel:C0AFW1B0QUB: ENG OSS: <OWNER>/<REPO>#<ISSUE_NUM> → <PR_URL>\n\nSTEP 6 — VERIFY CI AND DCO (run ~3 minutes after PR creation):\n  Check DCO and CI status:\n  exec: /opt/homebrew/bin/gh pr checks <PR_NUM> --repo <OWNER>/<REPO>\n  If output shows \"action_required\" for any workflow (GitHub first-contributor gate):\n    - This is expected for new contributors. A maintainer must approve the CI run.\n    - Post a comment on the PR: exec: /opt/homebrew/bin/gh pr comment <PR_NUM> --repo <OWNER>/<REPO> --body \"Hi @maintainer — this PR fixes #<ISSUE_NUM>. CI is waiting for workflow approval (first contributor). Could you approve the workflow run when you get a chance? Thanks!\"\n  If DCO check fails:\n    - exec: /bin/bash -c 'cd /Users/redinside/.openclaw/workspace-eng/repos/$(basename <REPO>) && /usr/bin/git commit --amend -s --no-edit && /usr/bin/git push --force origin fix/issue-<ISSUE_NUM>-<slug>'\n  If any other CI job fails, read the error:\n    - exec: /opt/homebrew/bin/gh run list --repo <OWNER>/<REPO> --branch fix/issue-<ISSUE_NUM>-<slug>\n    Then fix the root cause and push again.\n\nANTI-LOOP: Any exec failing 2x with same error → STOP. Log BLOCKED and exit."
       },
       "delivery": {
         "mode": "none",
@@ -2287,7 +2294,7 @@
       "state": {
         "nextRunAtMs": 1777042800000
       },
-      "updatedAtMs": 1776959314640
+      "updatedAtMs": 1776996179840
     },
     {
       "id": "inner-loop-allrounder-0001",
@@ -2394,7 +2401,8 @@
         "lastDurationMs": 179622,
         "lastDelivered": true,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0
+        "consecutiveErrors": 0,
+        "runningAtMs": 1776996181856
       },
       "updatedAtMs": 1776975104685
     },
@@ -2615,16 +2623,17 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1776994800000,
-        "lastRunAtMs": 1776994514074,
+        "nextRunAtMs": 1776995400000,
+        "lastRunAtMs": 1776995271447,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 4518,
+        "lastDurationMs": 2973,
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
-        "lastDelivered": false
+        "lastDelivered": false,
+        "runningAtMs": 1776996181856
       },
-      "updatedAtMs": 1776994518592
+      "updatedAtMs": 1776995274420
     },
     {
       "id": "0cc274aa-751e-4839-8485-08a45583ffef",
@@ -2869,13 +2878,13 @@
       },
       "state": {
         "nextRunAtMs": 1776996000000,
-        "lastError": "Delivering to Slack requires target <channelId|user:ID|channel:ID>",
         "lastRunAtMs": 1776912479429,
         "lastRunStatus": "error",
         "lastStatus": "error",
         "lastDurationMs": 53159,
         "lastDeliveryStatus": "unknown",
-        "consecutiveErrors": 1
+        "consecutiveErrors": 1,
+        "runningAtMs": 1776996181856
       },
       "updatedAtMs": 1776912532588
     },
