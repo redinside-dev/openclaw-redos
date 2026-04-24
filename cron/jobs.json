@@ -27,16 +27,16 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1776994200000,
-        "lastRunAtMs": 1776993900023,
+        "nextRunAtMs": 1776994800000,
+        "lastRunAtMs": 1776994500028,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 14191,
-        "lastDelivered": true,
-        "lastDeliveryStatus": "delivered",
+        "lastDurationMs": 14046,
+        "lastDelivered": false,
+        "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0
       },
-      "updatedAtMs": 1776993914214
+      "updatedAtMs": 1776994514074
     },
     {
       "id": "69c261e4-53e0-495a-9d9b-4c22413e8f26",
@@ -522,14 +522,15 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1776994200000,
+        "nextRunAtMs": 1776994800000,
         "lastRunAtMs": 1776993628361,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
         "lastDurationMs": 7074,
         "lastDelivered": true,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0
+        "consecutiveErrors": 0,
+        "runningAtMs": 1776994603180
       },
       "updatedAtMs": 1776993635435
     },
@@ -896,17 +897,17 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1776993993509,
-        "lastRunAtMs": 1776990393509,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 28879,
-        "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0,
-        "lastDelivered": true,
-        "runningAtMs": 1776994002762
+        "nextRunAtMs": 1776997602781,
+        "lastRunAtMs": 1776994002781,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 300067,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 1,
+        "lastError": "cron: job execution timed out",
+        "lastErrorReason": "timeout"
       },
-      "updatedAtMs": 1776990422388
+      "updatedAtMs": 1776994302848
     },
     {
       "id": "1d58e865-f463-4e2e-aa4f-daec90bdc5de",
@@ -1317,16 +1318,16 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1776994481138,
-        "lastRunAtMs": 1776990881138,
+        "nextRunAtMs": 1776998081165,
+        "lastRunAtMs": 1776994481165,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 30674,
+        "lastDurationMs": 17783,
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0,
         "lastDelivered": true
       },
-      "updatedAtMs": 1776990911812
+      "updatedAtMs": 1776994498948
     },
     {
       "id": "openai-token-expiry-monitor-0001",
@@ -2133,14 +2134,15 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1776994200000,
+        "nextRunAtMs": 1777005000000,
         "lastRunAtMs": 1776984501884,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
         "lastDurationMs": 407236,
         "lastDelivered": true,
         "lastDeliveryStatus": "delivered",
-        "consecutiveErrors": 0
+        "consecutiveErrors": 0,
+        "runningAtMs": 1776994603180
       },
       "updatedAtMs": 1776984909120
     },
@@ -2244,7 +2246,7 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1776994200000,
+        "nextRunAtMs": 1777008600000,
         "lastRunAtMs": 1776980358887,
         "lastRunStatus": "error",
         "lastStatus": "error",
@@ -2252,8 +2254,8 @@
         "lastDelivered": false,
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 1,
-        "lastError": "⚠️ ✉️ Message failed",
-        "lastDeliveryError": "⚠️ ✉️ Message failed"
+        "lastDeliveryError": "⚠️ ✉️ Message failed",
+        "runningAtMs": 1776994603180
       },
       "updatedAtMs": 1776980491183
     },
@@ -2613,16 +2615,16 @@
         "bestEffort": true
       },
       "state": {
-        "nextRunAtMs": 1776994200000,
-        "lastRunAtMs": 1776993914214,
+        "nextRunAtMs": 1776994800000,
+        "lastRunAtMs": 1776994514074,
         "lastRunStatus": "ok",
         "lastStatus": "ok",
-        "lastDurationMs": 3587,
+        "lastDurationMs": 4518,
         "lastDeliveryStatus": "not-delivered",
         "consecutiveErrors": 0,
         "lastDelivered": false
       },
-      "updatedAtMs": 1776993917801
+      "updatedAtMs": 1776994518592
     },
     {
       "id": "0cc274aa-751e-4839-8485-08a45583ffef",
