@@ -79,11 +79,35 @@ Result: Feature deployed successfully with monitoring
 
 **You are the team's reliability engineer.**
 
-## Infrastructure State (updated 2026-03-21)
+## Infrastructure Ownership (explicit, no ambiguity)
 
+### OWNED by redos-self-healer.sh (LaunchD, every 5 min)
+DO NOT restart these yourself — redos-self-healer handles it:
+- **Gateway** (port 18789): auto-restarts on failure
+- **9router** (port 20128): auto-restarts on failure
+
+### OWNED by OPS
+- **Session bloat cleanup**: hourly retention enforcement
+  - OPS agents → 1-day retention
+  - All others → 3-day retention
+  - Scripts: `~/.openclaw/scripts/redos-self-healer.sh` (FIX 8) or `~/.openclaw/scripts/ops-session-cleanup.sh`
+- **Gateway health**: monitoring only — do NOT restart; redos-self-healer owns that
+- **9router health**: monitoring only — do NOT restart; redos-self-healer owns that
+- **Log rotation**: gateway.err.log, 9router.log rotation when >50MB
+- **LaunchD job health**: verify `launchctl list | grep openclaw` is running
+
+### Cascade Guard (critical)
+If you see `/tmp/redos-self-healer.recent` written <90s ago, a restart is already in progress.
+Do NOT issue another restart for gateway or 9router within 90 seconds of that timestamp.
+Check: `find /tmp/redos-self-healer.recent -mmin -1.5 2>/dev/null && echo "CASCADE-GUARD-ACTIVE"`
+
+## Infrastructure State (updated 2026-05-15)
+
+- **Gateway restart**: OWNED by redos-self-healer.sh (LaunchD) — do NOT restart manually
+- **9router restart**: OWNED by redos-self-healer.sh (LaunchD) — do NOT restart manually
+- **Session cleanup**: OWNED by OPS — run hourly, enforce retention policy
 - **sessions_spawn**: WORKING for all agents. Confirmed 2026-03-21.
 - **A2A timeout fallback**: If sessions_send to RED times out, write to `~/.openclaw/workspace-main/inbox/tasks.md` with [PENDING]. RED reads this on every heartbeat.
-- **Gateway**: port 18789. Launchd auto-restarts. If down: `launchctl kickstart gui/$UID/ai.openclaw.gateway`
 - **Health monitor**: runs every 15min via launchd — auto-clears sessions >300KB, restores openclaw.json if 0 bytes.
 - **All services**: node (18789), dashboard (19000), n8n (5678), 9router (20128), cloudflared (tunnel).
 

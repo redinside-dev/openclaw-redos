@@ -2,8 +2,8 @@
 # Queue Cron - Submits jobs to queue instead of direct execution
 # Runs every 5 minutes to check if agents have work
 
-QUEUE_SCRIPT="$HOME/.openclaw/workspace/scripts/job-queue.py"
-AUTONOMOUS="$HOME/.openclaw/workspace/AUTONOMOUS.md"
+AUTONOMOUS="$HOME/.openclaw/workspace/ops/AUTONOMOUS.md"
+QUEUE_SCRIPT="$HOME/.openclaw/scripts/job-queue.py"
 
 echo "[$(date)] Queue cron check..."
 

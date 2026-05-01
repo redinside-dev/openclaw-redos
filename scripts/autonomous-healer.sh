@@ -21,6 +21,18 @@ TELEGRAM_CHAT="1012034994"
 TELEGRAM_TOKEN=$(python3 -c "import json; d=json.load(open('$OPENCLAW/credentials/secrets.json')); print(d['channels']['telegram']['accounts']['default'])" 2>/dev/null || echo "")
 NINE_ROUTER_DB="$HOME/.9router/db.json"
 
+# Cascade guard: redos-self-healer.sh also restarts gateway and 9router.
+# If it fired within the last 90s, skip those checks to avoid double-restart
+# which kills active subagent sessions.
+REDOS_FLAG="/tmp/redos-self-healer.recent"
+cascade_guard() {
+  if [ -f "$REDOS_FLAG" ]; then
+    local age=$(( $(date +%s) - $(stat -f %Y "$REDOS_FLAG" 2>/dev/null || echo 0) ))
+    [ "$age" -lt 90 ] && return 1   # blocked
+  fi
+  return 0
+}
+
 ts() { date -u +"%Y-%m-%dT%H:%M:%SZ"; }
 log() { echo "[$(ts)] $*"; }
 
@@ -48,6 +60,7 @@ fixed() {
 
 # ── 1. 9Router health ────────────────────────────────────────────────────────
 check_9router() {
+  cascade_guard || return 0  # redos-self-healer already handled it
   local code
   code=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:20128/v1/models --max-time 5 2>/dev/null || echo "000")
   if [ "$code" != "200" ]; then
@@ -66,6 +79,7 @@ check_9router() {
 
 # ── 2. OpenClaw gateway health ───────────────────────────────────────────────
 check_gateway() {
+  cascade_guard || return 0  # redos-self-healer already handled it
   local code
   local token
   token=$(python3 -c "import json; print(json.load(open('$OPENCLAW/openclaw.json'))['gateway']['auth']['token'])" 2>/dev/null || echo "")
