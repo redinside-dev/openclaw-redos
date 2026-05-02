@@ -10,7 +10,7 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-HEALTH_JSONL = Path.home() / ".openclaw" / "workspace-ops" / "logs" / "health.jsonl"
+HEALTH_JSONL = Path.home() / ".shared" / "system-health.jsonl"
 
 
 def run_status_json():
