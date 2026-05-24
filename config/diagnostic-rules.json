@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "rules": [
+    {
+      "id": "openclaw-version-broken",
+      "match": {"stderr_contains": "subagent-registry.runtime.js"},
+      "fix": "npm install -g openclaw@2026.4.10",
+      "severity": "critical"
+    },
+    {
+      "id": "gateway-port-18789-down",
+      "match": {"port": 18789},
+      "fix": "launchctl kickstart -k gui/$(id -u)/ai.openclaw.gateway && sleep 5 && launchctl start ai.openclaw.gateway",
+      "severity": "critical"
+    },
+    {
+      "id": "session-bloat",
+      "match": {"stderr_contains": "session too large"},
+      "fix": "bash ~/.openclaw/scripts/redos-restart.sh",
+      "severity": "high"
+    },
+    {
+      "id": "9router-key-exhausted",
+      "match": {"stderr_contains": "quota exceeded"},
+      "fix": "bash ~/.openclaw/scripts/9router-token-refresh.sh",
+      "severity": "critical"
+    },
+    {
+      "id": "n8n-crash-loop",
+      "match": {"stderr_contains": "n8n worker died"},
+      "fix": "launchctl stop ai.openclaw.n8n && sleep 3 && launchctl start ai.openclaw.n8n",
+      "severity": "high"
+    }
+  ]
+}
