@@ -1,0 +1,104 @@
+{
+  "version": 1,
+  "poll_interval_secs": 60,
+  "services": [
+    {
+      "id": "gateway",
+      "label": "ai.openclaw.gateway",
+      "check": "launchctl_pid",
+      "restart": "launchctl start ai.openclaw.gateway",
+      "severity": "critical"
+    },
+    {
+      "id": "agent:eng",
+      "label": "ai.openclaw.worker.eng",
+      "check": "launchctl_pid",
+      "restart": "launchctl start ai.openclaw.worker.eng",
+      "severity": "high"
+    },
+    {
+      "id": "agent:ops",
+      "label": "ai.openclaw.worker.ops",
+      "check": "launchctl_pid",
+      "restart": "launchctl start ai.openclaw.worker.ops",
+      "severity": "high"
+    },
+    {
+      "id": "agent:research",
+      "label": "ai.openclaw.worker.research",
+      "check": "launchctl_pid",
+      "restart": "launchctl start ai.openclaw.worker.research",
+      "severity": "high"
+    },
+    {
+      "id": "agent:main",
+      "label": "ai.openclaw.queue-worker.main",
+      "check": "launchctl_pid",
+      "restart": "launchctl start ai.openclaw.queue-worker.main",
+      "severity": "high"
+    },
+    {
+      "id": "agent:allrounder",
+      "label": "ai.openclaw.queue-worker.allrounder",
+      "check": "launchctl_pid",
+      "restart": "launchctl start ai.openclaw.queue-worker.allrounder",
+      "severity": "high"
+    },
+    {
+      "id": "agent:finance",
+      "label": "ai.openclaw.queue-worker.finance",
+      "check": "launchctl_pid",
+      "restart": "launchctl start ai.openclaw.queue-worker.finance",
+      "severity": "high"
+    },
+    {
+      "id": "agent:infosec",
+      "label": "ai.openclaw.queue-worker.infosec",
+      "check": "launchctl_pid",
+      "restart": "launchctl start ai.openclaw.queue-worker.infosec",
+      "severity": "high"
+    },
+    {
+      "id": "agent:hatake",
+      "label": "ai.openclaw.queue-worker.hatake",
+      "check": "launchctl_pid",
+      "restart": "launchctl start ai.openclaw.queue-worker.hatake",
+      "severity": "medium"
+    },
+    {
+      "id": "claude-proxy",
+      "label": "ai.openclaw.claude-proxy",
+      "check": "launchctl_pid",
+      "restart": "launchctl start ai.openclaw.claude-proxy",
+      "severity": "critical"
+    },
+    {
+      "id": "9router",
+      "check": "port",
+      "port": 8080,
+      "restart": "launchctl start ai.openclaw.9router-watchdog",
+      "severity": "critical"
+    },
+    {
+      "id": "n8n",
+      "label": "ai.openclaw.n8n",
+      "check": "launchctl_pid",
+      "restart": "launchctl start ai.openclaw.n8n",
+      "severity": "high"
+    },
+    {
+      "id": "dashboard",
+      "check": "port",
+      "port": 19000,
+      "restart": "launchctl start ai.openclaw.dashboard",
+      "severity": "medium"
+    },
+    {
+      "id": "ollama",
+      "check": "port",
+      "port": 11434,
+      "restart": "launchctl start ollama",
+      "severity": "low"
+    }
+  ]
+}
