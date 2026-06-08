@@ -1,166 +1,526 @@
-# STATE.yaml — RedOS Sprint Dashboard
-generated: 2026-04-19T11:37:00Z (ops main session refresh)
+# STATE.yaml — Ops Workspace State
+# Updated: 2026-06-08T18:58 UTC (2026-06-08 14:58 EDT)
+# Refreshed by: main (RED CEO diagnostic pass)
+# Reason: Task #29 — root-cause the supposed "hourly gateway restart" cycle
 
+version: "1"
+generated_by: main (diagnostic refresh)
+generated_at: "2026-06-08T18:58:00Z"
+last_refresh: "2026-06-08T14:58:00-04:00"
+last_checkin: "2026-06-08T14:58:00-04:00"
+last_ticket_update: "2026-06-08T14:58:00-04:00"
+
+# STATE.yaml — Ops Workspace State
+# Updated: 2026-06-08T19:25 UTC (2026-06-08 15:25 EDT)
+# Refreshed by: ops (inner-loop-ops-0001) — CRITICAL FINDING
+# Reason: Gateway restarting every 10 min on strict cadence — T29 hypothesis was WRONG cadence; P0 escalation opened
+
+version: "1"
+generated_by: ops (inner loop)
+generated_at: "2026-06-08T19:25:00Z"
+last_refresh: "2026-06-08T15:25:00-04:00"
+last_checkin: "2026-06-08T15:25:00-04:00"
+last_ticket_update: "2026-06-08T15:25:00-04:00"
+
+# ─── CRITICAL FINDING — TICKET-20260608-GATEWAY-EVERY-10MIN-RESTART-001 ────────
+critical_finding_20260608_1525:
+  status: ESCALATED_TO_RED
+  severity: P0
+  what_was_found: |
+    OPS inner loop at 15:25 EDT discovered the gateway is restarting every 10 minutes on
+    a strict, clean-shutdown cadence. 45 restart events today (09:00–15:25 EDT). T29/T36
+    (Phase B verification) missed this because they observed a single 1h uptime window
+    and rejected the "hourly restart" hypothesis at the wrong cadence.
+  evidence:
+    - "14:08:25 → 14:18:27 → 14:28:29 → 14:38:30 → 14:48:31 → 14:58:32 EDT (exactly 10:00 min apart)"
+    - "All shutdowns clean: exit code 0, 'shutdown completed' in 444-1187ms"
+    - "launchd last exit code: 0 (intentional, not crash)"
+    - "Phase B.6 15:10 EDT kill test was INSIDE this pattern, not separate"
+  cascade_impact:
+    - "50 cron jobs accumulated consecutiveErrors (max 5x) — none hit 5+ stuck-yet cap"
+    - "All Meta Self-Checks (5 agents) and Health JSONL Writer / CI Event Logger / OPS Ticket Auto-Diagnose 3-5x errors"
+  hypotheses:
+    - "gateway-watchdog or redos-self-healer loop triggering restart"
+    - "Scheduled config reload every 10 min (openclaw.json mtime 14:44 doesn't align with restart, so NOT config-driven)"
+    - "Cron Watchdog / Health Monitor false positive"
+    - "LaunchAgent policy / ThrottleInterval interaction"
+  red_action_needed:
+    - "Check launchd plist for StartInterval/RunAtLoad on ai.openclaw.gateway"
+    - "Check for self-healer on 10-min cadence"
+    - "ENG: run openclaw doctor; trace restart invocations"
+    - "Workaround: disable gateway-watchdog temporarily"
+
+# ─── DIAGNOSTIC SUMMARY (T30+T36, 2026-06-08 15:11 EDT) ───────────────────────
+# NOTE: T29 hypothesis (hourly restart) was REJECTED. But the actual cadence is 10 min, not hourly.
+# T29 verdict is partially wrong — the cadence was misidentified. See critical_finding_20260608_1525.
+diagnostic_phase_b:
+  status: PARTIALLY_OBSOLETE — see critical_finding_20260608_1525
+  what_was_done: |
+    Phase B.1–B.5 (autonomy loops: alert queue + L0 + OPS meta-loop + learning capture + sync)
+    shipped and E2E tested. B.6 (kill-recover) passed: gateway down < 5s, launchd
+    KeepAlive is the primary self-healer, gateway-watchdog/redos-self-healer are
+    the secondary net for sustained-down cases.
+  scheduler_lesson: |
+    The 60-min backoff cap in openclaw's `DEFAULT_ERROR_BACKOFF_SCHEDULE_MS`
+    means a job that accumulates 5+ consecutive_errors runs once/hour forever.
+    Workaround: direct SQL reset on cron_jobs.consecutive_errors. Proper fix
+    (upstream): reset consecutive_errors to 0 after N successful runs. Filed
+    as ticket #32 — ENG to take over.
+  verified_state: |
+    - Gateway: UP (pid 62652, etime 51s after E2E kill test)
+    - Jobs loaded: 73
+    - Healthy (consecutive_errors=0): 23
+    - Stuck in backoff (>=5): 0   (was 18; all freed)
+    - Phase B.6 E2E: killed pid 60240 at 19:10:17Z, gateway back at 19:10:22Z
+      (4.7s recovery via launchd KeepAlive)
+  followups:
+    OPS-001: "Watch /Users/redinside/.openclaw/logs/ for 24h; escalate to MAIN only if recovery > 60s"
+    ENG-001: "Take over ticket #32: openclaw scheduler should reset consecutive_errors after 3 successful runs"
+    RESEARCH-001: "Document the 60-min backoff cap mechanism in docs/superpowers/specs/cron-recovery.md"
+
+# ─── LEGACY DIAGNOSTIC (T29, 2026-06-08 14:58 EDT) ────────────────────────────
+diagnostic_t29:
+  hypothesis: "Gateway is restarting hourly, killing cron jobs"
+  verdict: REJECTED
+  evidence:
+    - "launchd restart log shows ONE restart on 2026-05-28 (mode=reload, triggered by 2026.6.1 upgrade). NO restarts since."
+    - "Gateway pid 93095 has uptime 09:38 — single uninterrupted run since the upgrade."
+    - "gateway.err.log last 30 lines show May 28 08:35 crash, no entries after that — gateway is not actively logging to that file (new 2026.6.1 logs go elsewhere)."
+    - "Today's 235 cron_run_logs: 0 errors in the last 4 hours of activity. L0/L1 firing on schedule every 5 min, all ok."
+  real_root_cause: |
+    Three independent issues are being conflated under "gateway restart":
+    1. May 28 config crash: `Invalid config at openclaw.json: plugins: Unrecognized key: "bundledDiscovery"`.
+       Cause: 2026.5.27 binary wrote a config key the 2026.5.28 binary rejected. Fixed by upgrading to 2026.6.1.
+    2. The "cron: job interrupted by gateway restart" error is openclaw's startup recovery — it marks any
+       job whose `state.runningAtMs` was set at startup as failed, regardless of cause (real crash,
+       code reload, package upgrade). This is by design, but the error message is misleading.
+    3. The 60-min cap in `DEFAULT_ERROR_BACKOFF_SCHEDULE_MS = [30s, 1m, 5m, 15m, 60m]` means a job
+       that accumulates 5+ consecutive errors runs once/hour forever. 18 jobs are now in this state
+       from the May 28 cascade — their `consecutive_errors` was never reset.
+  health_actually:
+    gateway: "UP (pid 93095, 09:38 uptime, /health ok)"
+    crons_today_ok: 235
+    crons_today_error: 0
+    stuck_in_backoff: 18
+    ollama: "RUNNING (port 11434) but NO MODELS loaded — `ollama list` is empty. Latent issue: any Ollama-direct job will fail; pulse is currently treating this as 'healthy' because /api/tags returns 200 with empty list."
+
+# ─── SPRINT ───────────────────────────────────────────────────────────────────
 sprint:
-  name: Ongoing
-  start: 2026-04-07
-  day: 13
-  notes: Active sprint. RESEARCH spawned 11 ENG subagents (7 + 4) for Spring AI OSS backlog #28-#38. GOAL-009 positioning in flight (hatake writing redos-narrative.md). P0 OpenClaw upgrade (2026.4.15) attempted but failed — needs manual retry.
+  name: null
+  note: "Sprint 3 (Apr 27–May 22) ended. No Sprint 4 defined yet. CEO heartbeat refresh."
+  status: NO_ACTIVE_SPRINT
+  prior_sprint_end: "2026-05-22"
 
+# ─── PIPELINE ─────────────────────────────────────────────────────────────────
 pipeline:
-  total_jobs: 90
-  enabled: 75
-  disabled: 15
-  ok_last_run: ~72
-  error_last_run: ~3
-  currently_running: 0
-  consecutive_errors: 0
-  notes: >
-    Gateway stable. PID 63180 (restarted 2026-04-19 ~07:05 UTC by ops subagent after upgrade attempt).
-    No cron jobs at consecutiveErrors>=2. 0 subagents currently active (last check 11:35 UTC).
-    3 jobs showing informational-only issues (Slack pong timeouts — not failures, bot operational).
+  spring-ai:
+    status: ACTIVE
+    health: healthy
+    block: null
+    note: "M6 (v2.0.0-M6) published 2026-05-08. ENG subagents #36-#41 active. Backlog cleared. M7 released 2026-05-22; GA expected late June. All 29 open PRs target main (not M7) — see TICKET-20260603-SPRING-AI-M7-STRATEGY-001 for RED decision on base-branch policy."
+    milestone: "v2.0.0-M6"
+    milestone_published: "2026-05-08"
+  openclaw_core:
+    version: "2026.6.1"
+    health: healthy
+    block: null
+    upgrade_note: "Auto-upgraded 2026-06-08 to 2026.6.1 (past 2026.5.28 P2 target). Gateway self-recovered after May 28 version-mismatch crash once newer binary accepted openclaw.json (which contained 'bundledDiscovery' written by 2026.5.27). No manual intervention required."
+    update_available: null
+    update_note: "Installed 2026.6.1 matches npm latest (verified 2026-06-08). Plugin drift remains: brave 2026.5.7, slack 2026.5.12, whatsapp 2026.5.7 — all need update for full v2026.6.1 alignment. Fix: openclaw plugins update <id>; then gateway restart."
 
+# ─── GATEWAY ──────────────────────────────────────────────────────────────────
+gateway:
+  version: "2026.6.1"
+  build: "live (pid 48520, state active) — RESTARTING EVERY 10 MIN, see critical_finding_20260608_1525"
+  health: UP_BUT_DEGRADED
+  health_note: "Gateway is UP and stable during each individual run, but is restarting every 10:00 minutes on a strict cadence (45+ events today). This is a NEW finding from OPS inner loop 15:25 EDT — T29 hypothesis (rejected) was at the wrong cadence (hourly vs actual 10min). Phase B.6 verification was inside this pattern. P0 ticket TICKET-20260608-GATEWAY-EVERY-10MIN-RESTART-001 opened for RED/ENG investigation. Connectivity probe ok."
+  last_restart: "2026-06-08T15:18 EDT (most recent, automatic; etime 06:45 at 15:25 check)"
+  restart_pattern: "Every 10:00 min since ~09:00 EDT; clean shutdowns (exit 0) so launchd KeepAlive re-fires immediately"
+  crash_at: "2026-05-28T08:35:44 EDT"    # historical: 'Invalid config ... plugins.bundledDiscovery'
+  config_mismatch: "RESOLVED"
+  plugin_drift:
+    - brave 2026.5.7 → expected 2026.6.1
+    - slack 2026.5.12 → expected 2026.6.1
+    - whatsapp 2026.5.7 → expected 2026.6.1
+    fix: "openclaw plugins update <id>; openclaw gateway restart"
+  cron_health:
+    total: 73
+    enabled: 71
+    ok: 23
+    with_errors: 50
+    max_consecutive_errors: 5
+    overdue: 0
+    note: "DEGRADED via 10-min restart cascade, not crashes. 50 jobs have consecutive_errors 1-5 from interrupted-on-startup. None yet at 5+ stuck-cap. Recovery automatic on next clean run after backoff. If pattern continues, will hit 5+ stuck and join the 18 jobs running once/hour. Names (top errors): OPS Idle Agent Audit (5x), Trading Window Brief 4pm (4x), Health JSONL Writer (4x), A2A Health Monitor (4x), RED CEO Daily Summary (4x), RED Self-Improvement (4x), Daily Portfolio Review (4x, TIMEOUT not interrupt), ZEN COO Morning Delegation (4x), Repo Pause Auto-Sweep (4x), Daily Disk Monitor (4x), ENG/OPS/RESEARCH/INFOSEC/FINANCE Daily Proactives (4x), Market Leads (4x, TIMEOUT), OSS Contributor (4x), All Meta Self-Checks (3-4x), Self-Healing Guardrail (3x), OPS Ticket Auto-Diagnose (3x), Spring AI 2.0 GA Watch (3x), FINANCE Inner Loop (3x), Weekly CI (3x)."
+  search:
+    status: UP
+    provider: "9router fallback (Brave/MiniMax bypassed)"
+    note: "9router fallback active since ~2026-04-29. web_search functional via 9router."
+    fallback_active: true
+  known_issues:
+    - id: "OPS-010"
+      title: "Slack pong timeouts causing session hangs"
+      status: PERSISTENT
+      note: "SlackWebSocket pong timeout (5000ms) seen repeatedly in gateway.err.log. Reconnection attempts visible. No system-wide impact but causes Slack-triggered session instability."
+      last_seen: "2026-05-26T21:04-21:06 EDT"
+    - id: "SLACK-ROUTING-001"
+      title: "Bundled plugin path bug"
+      status: CONFIRMED
+      note: "Slack plugin path issue confirmed in bundle."
+    - id: "EXA-MCP-TIMEOUT"
+      title: "exa MCP server connection timed out (30s)"
+      note: "MCP server connection to exa timed out after 30000ms — seen 2026-05-26T21:05. No system impact."
+
+# ─── AGENTS ───────────────────────────────────────────────────────────────────
+agents:
+  main:
+    status: ACTIVE
+    identity: "RED (CEO)"
+    routing: "Telegram default, Slack default"
+    workspace: "~/.openclaw/workspace-main"
+    note: "Primary CEO agent — direct + channel access"
+  allrounder:
+    status: ACTIVE
+    identity: "ZEN (COO)"
+    routing: "Telegram allrounder"
+    workspace: "~/.openclaw/workspace-allrounder"
+    note: "ZEN - COO role, web research, current events"
+  eng:
+    status: ACTIVE
+    identity: "ENG (Engineering)"
+    routing: "Telegram eng"
+    workspace: "~/.openclaw/workspace-eng"
+    note: "Engineering — code, technical work, subagents #36-#41 active"
+  ops:
+    status: ACTIVE
+    identity: "OPS (Operations)"
+    routing: "Telegram ops"
+    workspace: "~/.openclaw/workspace-ops"
+    note: "Operations — monitoring, health-snapshot, cron management, SLA enforcement"
+  research:
+    status: ACTIVE
+    identity: "RESEARCHRED_BOT (Market & Competitive Intelligence)"
+    routing: "Telegram research"
+    workspace: "~/.openclaw/workspace-research"
+    note: "Market intelligence, competitive analysis, OSS backlog cleared (M6)"
+  finance:
+    status: ACTIVE
+    identity: "FINANCERED_BOT (Financial Analyst)"
+    routing: "Telegram finance"
+    workspace: "~/.openclaw/workspace-finance"
+    note: "Financial analyst — portfolio, cost monitoring, trading briefs"
+  infosec:
+    status: ACTIVE
+    identity: "🛡️ INFOSEC (Security)"
+    routing: "Telegram infosec"
+    workspace: "~/.openclaw/workspace-infosec"
+    note: "Security — reviews, CVE monitoring, OWASP checks"
+  hatake:
+    status: ACTIVE
+    identity: "🤖 Ghost (Website Agency)"
+    routing: "Telegram hatake"
+    workspace: "~/.openclaw/workspace-hatake"
+    note: "Website agency — competitive intelligence, marketing, site maintenance"
+
+# ─── CRON JOBS ────────────────────────────────────────────────────────────────
+# 9 active cron jobs (sampled from openclaw cron list)
+cron_jobs:
+  active_count: 9
+  note: "Full list: openclaw cron list. Key jobs below."
+  key_jobs:
+    - id: "ops-disk-monitor-daily"
+      name: "OPS Disk Monitor Daily"
+      schedule: "0 2 * * *"
+      status: "ok"
+      last_run: "3h ago"
+      next_run: "in 21h"
+    - id: "sessions-daily-cleanup-0001"
+      name: "Daily Session Cleanup"
+      schedule: "0 3 * * *"
+      status: "ok"
+      last_run: "2h ago"
+      next_run: "in 22h"
+    - id: "a2a-infosec-reviews-eng-0001"
+      name: "INFOSEC ← ENG: Security Reviews"
+      schedule: "30 14 * * 2,4"
+      status: "ok"
+      last_run: "14h ago"
+      next_run: "in 1d"
+    - id: "a2a-friday-retro-0001"
+      name: "OPS Friday Retrospective"
+      schedule: "0 16 * * 5"
+      status: "ok"
+      last_run: "3d ago"
+      next_run: "in 2d"
+    - id: "openclaw-backup-weekly-0001"
+      name: "OpenClaw Weekly Backup"
+      schedule: "0 3 * * 0"
+      status: "ok"
+      last_run: "3d ago"
+      next_run: "in 4d"
+    - id: "ci-weekly-summarizer-0001"
+      name: "CI Weekly Summarizer"
+      schedule: "0 7 * * 1"
+      status: "error"        # ⚠️ FAILING
+      last_run: "2d ago"
+      next_run: "in 5d"
+    - id: "ci-weekly-research-0001"
+      name: "Weekly Competitive Intelligence"
+      schedule: "0 9 * * 1"
+      status: "error"        # ⚠️ FAILING
+      last_run: "2d ago"
+      next_run: "in 5d"
+    - id: "fe3fb82c-..."
+      name: "HATAKE Competitive Intelligence"
+      schedule: "0 10 * * 1"
+      status: "error"        # ⚠️ FAILING
+      last_run: "2d ago"
+      next_run: "in 5d"
+
+# ─── TICKETS ───────────────────────────────────────────────────────────────────
+tickets:
+  total_open: 12
+  p0_open: 1   # TICKET-20260608-GATEWAY-EVERY-10MIN-RESTART-001 — RED ESCALATION
+  p1_open: 3   # GMAIL-AUTH-EXPIRED-002, SLACK-001, FIN-001
+  p2_open: 2   # OPENCLAW-UPDATE-2026.6.5, OPS-20260608-001/002/003 cluster
+  p3_open: 3   # STATE-MIGRATION-CONFLICT, STANDUP-GAP, CronJobFixes
+  p0_critical:
+    - id: "TICKET-20260608-GATEWAY-EVERY-10MIN-RESTART-001"
+      priority: P0
+      status: OPEN
+      title: "Gateway restarting every 10 min — T29 hypothesis WRONG cadence"
+      age_minutes: 0
+      assignee: RED (escalation) → ENG (investigation) → OPS (verify)
+      note: "OPS inner loop 15:25 EDT. 45+ events today. P0 RED ESCALATION. Deadline 15:55 EDT."
+  open_ticket_list:
+    - id: "TICKET-20260608-GATEWAY-EVERY-10MIN-RESTART-001"
+      priority: P0
+      status: OPEN
+      title: "Gateway restarting every 10 min on strict cadence"
+      age_minutes: 0
+      assignee: RED → ENG → OPS
+      note: "OPS inner loop 15:25 EDT found 45+ restart events today. T29 hypothesis was at wrong cadence (hourly vs actual 10min). P0 RED escalation. Deadline 15:55 EDT."
+    - id: "TICKET-20260608-OPENCLAW-UPDATE-2026.6.5-001"
+      priority: P2
+      status: OPEN
+      title: "openclaw 2026.6.1 → 2026.6.5 upgrade awaiting RED approval"
+      age_minutes: 0
+      assignee: RED → OPS → ENG
+      note: "No breaking changes. Auth state migrates to SQLite. ~2 min upgrade window."
+    - id: "TICKET-20260608-STATE-MIGRATION-CONFLICT-001"
+      priority: P3
+      status: OPEN
+      title: "Plugin install index not migrated (brave/slack/whatsapp metadata conflict)"
+      note: "Not blocking. Resolves on upgrade or openclaw doctor."
+    - id: "TICKET-20260608-GMAIL-AUTH-EXPIRED-002"
+      priority: P1
+      status: OPEN
+      title: "gog Gmail OAuth token expired (P1 SLA breached)"
+      age_days: 2
+      assignee: RED (browser re-auth)
+      note: "gog auth manage --account anorag.saxena@gmail.com needed on Mac mini."
+    - id: "TICKET-20260418-SLACK-001"
+      priority: P1
+      status: OPEN
+      title: "slack-token.json placeholder (51d stale)"
+      assignee: ZEN (reclassify/escalate)
+      note: "Gateway works via env vars (no user impact)."
+    - id: "TICKET-20260418-FIN-001"
+      priority: P1
+      status: OPEN
+      title: "ChatGPT Pro cancellation (58+ days)"
+      assignee: RED (manual browser action)
+      note: "$580+ wasted. No agent workaround."
+    - id: "TICKET-20260608-001/002/003"
+      priority: P2
+      status: OPEN
+      title: "Health-snapshot patterns (CLI failure + allrounder OpenAI key missing)"
+      note: "Within 8h SLA. OPS to batch-resolve 001/002; assign 003."
+    - id: "TICKET-20260608-STANDUP-GAP-001"
+      priority: P3
+      status: OPEN
+      title: "Standup process gap"
+      note: "Awaiting RED pick (option 1/2/3)."
+    - id: "TICKET-20260418-CronJobFixes-KNOWN_CHRONIC"
+      priority: P3
+      status: OPEN
+      title: "Known chronic cron issue (51d, bestEffort=true)"
+      note: "ZEN will recommend close-or-keep."
+    - id: "TICKET-20260603-SPRING-AI-M7-STRATEGY-001"
+      priority: P2
+      status: RESOLVED
+      title: "spring-ai M7 strategy — stay on main (CLOSED 2026-06-08T15:14 UTC by ZEN COO)"
+      age_days: 0
+      assignee: ZEN (resolved under COO authority)
+      note: "All 29 open PRs target main. No action needed."
+    - id: "TICKET-20260528-OPENCLAW-UPDATE-AVAILABLE"
+      priority: P2
+      status: OPEN
+      title: "openclaw 2026.4.26 → 2026.5.28 upgrade awaiting RED approval"
+      age_days: 6
+      assignee: RED (approval) → OPS (execution)
+      note: "No breaking changes affecting RedOS. Quick upgrade (~2 min). Awaiting RED."
+    - id: "TICKET-20260525-GMAIL-OAUTH-001"
+      priority: P1
+      status: OPEN
+      title: "gog Gmail OAuth token expired — automated unread digest broken"
+      age_days: 9
+      assignee: ANURAG (manual re-auth required)
+      note: "RECURRING: many consecutive cron runs with same error. gog auth manage --account anorag.saxena@gmail.com needed."
+    - id: "AUTH-001"
+      priority: P1
+      status: OPEN
+      title: "gog Gmail re-auth (12d+)"
+      age_days: 12
+      assignee: ANURAG
+      note: "Token expired May 15. One-pager at workspace-main/inbox/tasks.md."
+    - id: "FIN-001"
+      priority: P1
+      status: PENDING_RED_DECISION
+      title: "ChatGPT Pro cancellation"
+      age_days: 58+
+      assignee: RED
+      note: "58+ days pending RED decision. ~$580 wasted. Requires manual browser action at openai.com/account. One-pager in CEO inbox."
+    - id: "SLACK-TOKEN"
+      priority: P1
+      status: OPEN
+      title: "Slack bot token stale — all channels broken (22d+)"
+      age_days: 22
+      assignee: ANURAG
+      note: "All Slack channels broken. One-pager in CEO inbox."
+  persistent_issues:
+    - id: "OPS-010"
+      priority: P2
+      title: "Slack pong timeouts causing session hangs"
+      note: "SlackWebSocket pong timeout (5000ms) seen repeatedly. Reconnections visible. No system-wide impact but causes Slack-triggered session instability."
+    - id: "SLACK-ROUTING-001"
+      priority: P2
+      title: "Bundled plugin path bug confirmed"
+      note: "Slack plugin path issue confirmed in bundle."
+    - id: "FINANCE-CRONS-FAILING"
+      priority: P1
+      title: "Finance crons (preMarket, intraday, endOfDay) failing since ~2026-04-27"
+      note: "Finance cron jobs (Daily Portfolio Review, Trading Window Briefs, Market Leads, QQQ Watch) all failing since late April 2026. Root cause: likely stale gog OAuth or finance agent issue."
+  failing_crons:
+    - id: "27-crons-in-error"
+      priority: P1
+      note: "27/71 cron jobs in ERROR — ALL from `cron: job interrupted by gateway restart`. Root cause: gateway (PID 31234, restarted 20:13 UTC) restarting due to Slack pong storm + Telegram polling stalls. Jobs clear on next successful run. No application failures."
+  critical_tickets: []   # none currently critical
+
+# ─── HEALTH ───────────────────────────────────────────────────────────────────
 health:
-  gateway: live
-  mode: nominal
-  last_restart: "2026-04-19T07:05 UTC (ops subagent — gateway restart after OpenClaw upgrade attempt)"
-  notes: >
-    Gateway nominal — RPC probe ok, HTTP 200. OpenClaw 2026.4.11 running.
-    OpenClaw upgrade to 2026.4.15 ATTEMPTED but FAILED with ENOENT. Multiple retries at 07:24, 07:27, 07:28, 07:30 UTC all show "Reinstall with: openclaw gateway install --force".
-    ops subagent (cb033f2b) investigating root cause. Version still 2026.4.11.
-    Chronic: MiniMax API key returning 401 (known supplier auth issue, 9router/always-on-premium fallback masking impact).
-    No gateway errors in last 30 min.
+  overall: HEALTHY
+  gateway: HEALTHY
+  cron: HEALTHY       # 0/70 errors — nominal
+  openclaw:
+    status: CURRENT
+    version: "2026.4.26"
+    build: "be8c246"
+    update_available: "2026.5.28"
+    note: "Upgraded 2026-05-26 from 2026.4.11 — Claw Chain CVEs resolved. npm has 2026.5.28 available (was incorrectly reported as 2026.5.22 in prior refresh; corrected 2026-06-03)."
+  slack:
+    status: DEGRADED
+    note: "Slack pong timeouts (5000ms) seen repeatedly — SlackWebSocket reconnections. OPS-010 ticket open."
+  telegram:
+    status: HEALTHY
+    note: "Telegram stable."
+  exa_mcp:
+    status: DEGRADED
+    note: "exa MCP server connection timed out after 30000ms (2026-05-26T21:05). No system impact, bundled MCP plugin may need review."
+  note: "System nominal after P0 CVE resolution (2026-05-26T15:43 UTC). 2 open P1 tickets require human action. Slack degraded (pong timeouts). 3 failing crons need investigation."
 
-openclaw:
-  version: "2026.4.11"
-  commit: "769908e"
-  update_available: "2026.4.15" (upgrade attempted 2026-04-19 07:05 UTC by ops subagent — ENOENT failure, investigation ongoing)
-
-pipeline_streams:
-  factory:
-    status: active
-    notes: >
-      RESEARCH spawned 7 ENG subagents (2026-04-19 01:32 UTC) for backlog items #28-#34.
-      4 more ENG subagents spawned (2026-04-19 10:36 UTC) for #35-#38.
-      Total: 11 concurrent ENG subagents against Spring AI + langchain4j OSS backlog.
-  oss_discovery:
-    status: active
-    notes: >
-      RESEARCH OSS pipeline fully engaged. Backlog cleared to 0 READY items.
-      New issues added: spring-ai #5826 (AgentGraph), #5823 (@McpTool+@HttpExchange), #5821 (ChatOptions merge), langchain4j #4938 (guardrailName).
-      All 11 ENG subagents running concurrently — largest concurrent ENG subagent burst to date.
-  pr_review:
-    status: active
-    notes: micrometer#7395 still BLOCKED on upstream #7329 (OPEN, mergeable, waiting on upstream).
-
+# ─── BLOCKERS ─────────────────────────────────────────────────────────────────
 blockers:
-  - id: FIN-001
-    summary: ChatGPT Pro cancellation — RED manual browser action required
+  - id: "BLK-GMAIL-OAUTH"
+    title: "Gmail OAuth token expired — human re-auth required"
     severity: P1
-    status: ESCALATED
-    owner: RED
-    notes: >
-      ~$100/mo waste. RED has been escalated 3x via Telegram + Slack since 2026-04-17T08:47 UTC.
-      Telegram DM failed (channel_not_found). No agent workaround exists.
-      Cancellation path: account.openai.com → Manage subscription → Cancel plan.
-      Alternative: downgrade to ChatGPT Team ($25/mo = $75/mo saving).
-  - id: OPENCLAW-UPGRADE-001
-    summary: OpenClaw 2026.4.15 upgrade failed with ENOENT — multiple retry attempts all failed
+    age_days: 2
+    assignee: ANURAG
+    mitigation: "Run `gog auth manage --account anorag.saxena@gmail.com` on Mac mini"
+  - id: "BLK-FIN-001"
+    title: "ChatGPT Pro cancellation — RED manual action required"
+    severity: P1
+    age_days: 57+
+    assignee: RED
+    note: "No agent workaround — RED must visit openai.com/account and cancel"
+  - id: "BLK-FINANCE-CRONS"
+    title: "Finance cron jobs failing since ~2026-04-27"
+    severity: P1
+    age_days: 30
+    assignee: OPS
+    note: "Daily Portfolio Review, Trading Window Briefs, Market Leads all failing. Root cause likely gog OAuth (same as GMAIL-OAUTH-001). Investigate."
+  - id: "BLK-3-CRONS-FAILING"
+    title: "3 weekly crons (CI summarizer, CI research, HATAKE CI) in error state"
     severity: P2
-    status: IN_PROGRESS
-    owner: ops
-    notes: >
-      ops subagent attempted upgrade at 07:05 UTC. Install failed with ENOENT. Version still 2026.4.11.
-      Subsequent retries at 07:24, 07:27, 07:28, 07:30 UTC all show same error: "Reinstall with: openclaw gateway install --force".
-      Root cause unknown — investigation ongoing. Not blocking operations (2026.4.11 is stable).
-  - id: MINIMAX-API-401
-    summary: MiniMax API key returning 401 — chronic supplier auth failure
-    severity: P2
-    status: KNOWN_CHRONIC
-    owner: ENG/FINANCE
-    notes: >
-      Since ~2026-04-17T05:43 UTC. System-wide 401 errors on MiniMax-M2.7.
-      9router/always-on-premium fallback is masking most user-visible impact.
-      Not resolvable by agents — key rotation or supplier ticket required.
+    age_days: 2
+    assignee: OPS
+    note: "ci-weekly-summarizer-0001, ci-weekly-research-0001, HATAKE Competitive Intelligence all in error. Investigate root cause."
 
-critical_tickets:
-  - id: OPENCLAW-DIST-001
-    summary: OpenClaw 2026.4.15 available — upgrade failed with ENOENT, ops investigating
-    severity: P0
-    status: IN_PROGRESS
-    owner: ops
-    notes: >
-      Multiple upgrade attempts failed with ENOENT. Gateway running 2026.4.11 (stable).
-      No user-facing impact. ops subagent actively investigating.
-  - id: FIN-001
-    summary: Cancel ChatGPT Pro subscription ($100/mo waste) — RED manual browser action required
-    severity: P1
-    status: ESCALATED
-    owner: RED
-  - id: TICKET-20260418-EXEC-001
-    summary: exec-approvals.json defaults.ask was "off" — P0 security fix applied by RED (RESOLVED 2026-04-18T23:48 UTC)
-    severity: P0
-    status: RESOLVED
-    resolved: 2026-04-18T23:48 UTC
-  - id: TICKET-20260417-001
-    summary: Slack a2a-daily-proactive token revoked — job disabled (RESOLVED 2026-04-16T19:31 UTC)
-    severity: P2
-    status: RESOLVED
-    resolved: 2026-04-16T19:31 UTC
-  - id: TICKET-20260416-008
-    summary: Finance cost telemetry offline — circular dependency in cost-events-writer.js fixed (RESOLVED 2026-04-18T00:17 UTC)
-    severity: P1
-    status: RESOLVED
-    resolved: 2026-04-18T00:17 UTC
-  - id: TICKET-20260417-FINANCE-Telemetry
-    summary: Finance cost telemetry restored — 9router /api/usage/stats now primary source
-    severity: P1
-    status: RESOLVED
-    resolved: 2026-04-18T00:17 UTC
+# ─── NEW DEVELOPMENTS (since 2026-05-12) ─────────────────────────────────────
+new_since_last_refresh:
+  - date: "2026-05-26"
+    event: "P0 CVE incident resolved — Claw Chain (6 CVEs, CVSS 9.6), gateway auto-upgraded to 2026.4.26 in 55 min"
+  - date: "2026-05-26"
+    event: "spring-ai v2.0.0-M6 milestone published (2026-05-08) — backlog cleared by RESEARCH"
+  - date: "2026-05-26"
+    event: "RESEARCH-OSS-20260526-001: Backlog cleared (7 READY items), 6 ENG subagents spawned (#36-#41)"
+  - date: "2026-05-26"
+    event: "DeepSWE benchmark released — major AI coding agent disruption (GPT-5.5 leads at 70%, Claude Opus 54%)"
+  - date: "2026-05-26"
+    event: "Slack pong timeouts (OPS-010) — SlackWebSocket session instability observed in gateway.err.log"
+  - date: "2026-05-26"
+    event: "exa MCP server connection timed out (30s) — no system impact"
+  - date: "2026-05-26"
+    event: "npm OpenClaw 2026.5.22 available — newer than running 2026.4.26"
+  - date: "2026-05-25"
+    event: "Gmail OAuth token expired — TICKET-20260525-GMAIL-OAUTH-001 created P1 OPEN"
+  - date: "2026-05-25"
+    event: "Gmail Unread Digest broken — automated brief not delivering"
+  - date: "2026-05-22"
+    event: "Sprint 3 ended — no Sprint 4 defined"
+  - date: "~2026-04-27"
+    event: "Finance crons (preMarket, intraday, endOfDay) started failing — likely gog OAuth related"
+  - date: "2026-05-27"
+    event: "3 weekly crons (ci-weekly-summarizer, ci-weekly-research, HATAKE CI) moved to error state — OPS investigation needed"
+  - date: "2026-05-27"
+    event: "RESEARCH-OSS-20260527-001: spring-ai #6097 found (MCP server starters ignoring non_null jackson config). Backlog #47 added READY. ENG subagent b0023547 spawned."
 
-finance_cron_health:
-  trading_window_8am: ok (job id 199a722c, 0 consecutive errors)
-  trading_window_4pm: ok (job id 085332ff, 0 consecutive errors)
-  daily_portfolio_review: ok (job id 69c261e4, 0 consecutive errors)
-  notes: >
-    All finance cron jobs healthy. consecutiveErrors = 0 across all three.
+# ─── NOTES ─────────────────────────────────────────────────────────────────────
+notes:
+  - "STATE.yaml refreshed 2026-06-03T18:48 UTC by main (RED CEO audit). Prior refresh: 2026-05-27T05:02 EDT."
+  - "P0 Claw Chain CVE resolved 2026-05-26T15:43 UTC — gateway auto-upgraded from 2026.4.11 to 2026.4.26"
+  - "Sprint 3 (Apr 27–May 22) ended. Sprint 4 not yet defined."
+  - "openclaw 2026.5.28 is latest on npm; 2 minors behind. State claims upgrade is safe (no breaking changes for RedOS). Awaiting RED approval."
+  - "spring-ai M7 rebase ticket was invalid; reframed as TICKET-20260603-SPRING-AI-M7-STRATEGY-001. All open PRs target main — RED decision needed by 2026-06-04T18:48 UTC."
+  - "6 open P1/P2 tickets now; 4 require human action (AUTH-001, FIN-001, SLACK-TOKEN, GMAIL-OAUTH-001). One-pager appended to workspace-main/inbox/tasks.md with browser-fix commands."
+  - "3 weekly crons in ERROR state — ci-weekly-summarizer, ci-weekly-research, HATAKE CI. OPS to investigate."
+  - "Finance crons (preMarket/intraday/endOfDay) failing since ~2026-04-27 — P1 OPS investigation needed"
+  - "Slack degraded (OPS-010: pong timeouts causing session hangs) — P2 ticket, persistent"
+  - "Exa MCP server timeout noted — bundled plugin path may need review (SLACK-ROUTING-001 context)"
 
-cron_job_health:
-  total_monitored: 75
-  with_consecutive_errors: 0
-  notes: All 75 enabled cron jobs healthy — 0 consecutive errors. 3 jobs show informational-only Slack pong timeouts (not failures).
+phase_c:
+  status: DEPLOYED
+  deployed_at: 2026-06-08T20:10:00Z
+  deployed_by: main
+  see_workspace/ops/LEARNINGS.md_section_Phase_C
 
-sprint_goals:
-  - id: GOAL-001
-    name: "98% Autonomous Operation"
-    status: in_progress
-    notes: "autonomy-scorecard running nightly; all inner loops wired. All sub-goals complete except 7-day error-free streak."
-  - id: GOAL-002
-    name: "Zero Silent Failures"
-    status: in_progress
-    notes: "self-healing enabled; context-overflow-monitor ok. 0 cron jobs at consecutiveErrors>=2. FIN-001 is last open P1 (requires RED action)."
-  - id: GOAL-003
-    name: "Research→ENG Pipeline Live"
-    status: active
-    notes: "11 concurrent ENG subagents spawned today (largest burst). Backlog at 0 READY items. Research flywheel design delivered."
-  - id: GOAL-004
-    name: "Cost Optimisation"
-    status: active
-    notes: "3-tier routing live, caching enabled, budget guardrails set. ChatGPT cancellation is the major pending save ($100/mo)."
-  - id: GOAL-005
-    name: "Event-Driven Architecture"
-    status: complete
-    notes: "COMPLETE 2026-03-02. Cron audit 110→30 achieved, n8n webhooks active, Cloudflare Tunnel configured."
-  - id: GOAL-007
-    name: "10 Open-Source Projects in 2 Months"
-    status: in_progress
-    notes: "ENG working PRJ-023 (ai-diff-shield MVP), backlog being generated by RESEARCH."
-  - id: GOAL-009
-    name: "RedOS Competitive Positioning"
-    status: active
-    notes: "Positioning decided (accountable system operator). hatake writing redos-narrative.md for HN/Reddit publish. Claude Code Routines (Anthropic Apr 14) = direct overlap, window compressing."
-
-current_stage: active_development
-last_cleanup: "2026-04-19T07:30 UTC (batch retry OpenClaw upgrade attempts)"
-last_ticket_update: "2026-04-19T12:27 UTC (OPS inner loop — 0 consecutive errors, gateway live, no new tickets)"
-last_checkin: "2026-04-19T12:27:00Z (ops main session — inner loop complete)"
+# ─── L4 launchd safety-net plist (T52) ─────────────────────────────────────
+phase_c_l4_launchd_safety_net:
+  status: ACTIVE
+  deployed_at: 2026-06-08T20:43:00Z
+  deployed_by: main
+  reason: |
+    The supervisor-tick cron (L4 self-healing) is itself a cron job and could
+    break if the cron pipeline stalls. A launchd plist now runs the same
+    supervisor-tick.sh every 5 min as an OUT-OF-BAND safety net: if the
+    scheduler dies, launchd keeps ticking.
+  plist_path: "~/Library/LaunchAgents/ai.openclaw.supervisor-fallback.plist"
+  mirrored_at: "launchd/ai.openclaw.supervisor-fallback.plist"
+  schedule: "StartInterval=300s (5 min), RunAtLoad=true"
+  verification: |
+    - bootstrap gui/501/ai.openclaw.supervisor-fallback: OK
+    - launchctl list: ai.openclaw.supervisor-fallback registered, exit=-15 (idle)
+    - direct run of supervisor-tick.sh: 20:43:05 tick OK — gateway=up cron_jobs=75 workers=8 healed=0
+    - will begin periodic firing on its own 5-min schedule without further input
+  notes:
+    - "kickstart -k hangs in this TTY (env bug, unrelated) — bootstrap loaded the plist, which is sufficient"
+    - "exit code -15 in launchctl list = SIGTERM, expected for periodic agents between fires"

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>ai.openclaw.supervisor-fallback</string>
+
+    <key>Comment</key>
+    <string>L4 launchd safety net for OpenClaw supervisor-tick (Phase C). Out-of-band from cron, fires every 5 min even if openclaw / cron / agents all die. See workspace/ops/LEARNINGS.md entry for 2026-06-08 20:43 UTC and TICKET-20260608-L4-SUPERVISOR-FALLBACK-001.</string>
+
+    <key>RunAtLoad</key>
+    <true/>
+    <key>StartInterval</key>
+    <integer>300</integer>
+
+    <key>ProgramArguments</key>
+    <array>
+      <string>/bin/bash</string>
+      <string>/Users/YOUR_USERNAME/.openclaw/scripts/supervisor-tick.sh</string>
+    </array>
+
+    <key>StandardOutPath</key>
+    <string>/Users/YOUR_USERNAME/.openclaw/logs/supervisor-fallback.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/YOUR_USERNAME/.openclaw/logs/supervisor-fallback.err.log</string>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+      <key>HOME</key>
+      <string>/Users/YOUR_USERNAME</string>
+      <key>PATH</key>
+      <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+    </dict>
+  </dict>
+</plist>
