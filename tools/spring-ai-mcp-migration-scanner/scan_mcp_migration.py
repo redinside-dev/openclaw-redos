@@ -79,10 +79,14 @@ OLD_MAVEN_GROUP = "io.modelcontextprotocol.sdk"
 # File extensions to scan.
 SCAN_EXTS = {".java", ".kt", ".xml", ".gradle", ".kts", ".yml", ".yaml", ".properties"}
 
-# Directories to skip (build outputs, vendored deps, VCS).
+# Directories to skip (build outputs, vendored deps, VCS, OpenRewrite recipes).
+# `rewrite` is skipped because OpenRewrite YAML recipes contain OLD patterns
+# by design (they are the "find" half of find/replace). Scanning them floods
+# the report with expected false positives. See spring-ai repo
+# src/rewrite/migrate-to-2-0-0-M3.yaml for the canonical example.
 SKIP_DIRS = {
     "build", "target", "out", ".gradle", "node_modules", ".git", ".idea",
-    "venv", ".venv", "__pycache__", "dist", ".next",
+    "venv", ".venv", "__pycache__", "dist", ".next", "rewrite",
 }
 
 

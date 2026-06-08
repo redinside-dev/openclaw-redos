@@ -1,7 +1,14 @@
-# spring-ai-mcp-migration-scanner (v0)
+# spring-ai-mcp-migration-scanner (v0.1)
 
 A small CLI that scans a Spring Boot project for items that need to migrate from
 MCP Java SDK `< 1.0` / Spring AI `< 2.0` to Spring AI 2.0+ / MCP Java SDK 1.0+.
+
+**v0.1 change vs v0:** skips `rewrite/` directory by default. OpenRewrite YAML
+recipes (e.g. spring-ai's `src/rewrite/migrate-to-2-0-0-M3.yaml`) contain the
+OLD patterns by design — they are the find half of find/replace. Scanning them
+floods the report with expected false positives. Real-world reduction on
+spring-ai fork: 27 findings → 11 findings (~60% noise removed). Both
+`/tmp/scan-mcp-test/{clean,needs-migration}` fixtures still pass.
 
 ## Why
 
