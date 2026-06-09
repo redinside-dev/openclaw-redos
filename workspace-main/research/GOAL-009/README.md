@@ -41,8 +41,14 @@ ENG action 2026-06-09. Picking up the GOAL-009 item from `workspace-main/inbox/t
 
 1. Open `news.ycombinator.com/submit` in a logged-in browser.
 2. Title: `Show HN: RedOS — Human-in-the-Loop Agent Orchestration`
-3. URL: blank for "Ask HN" or paste a public GitHub Gist URL once created.
-4. Body: paste the entire `hn-post-final.md` file contents (or use the gist).
+3. URL: `https://gist.github.com/redinside-dev/8f9c4c899ea6be64863b3117b8dc88d3` (created 2026-06-09, public).
+4. Body: leave blank (HN will pull the gist as the link target) — or paste the entire `hn-post-final.md` file contents if you want the body inline.
 5. Submit.
 
 A 48h Reddit repurpose (r/LocalLLaMA + r/MachineML) is queued per ZEN's recommendation; the HN post wording translates 1:1 with a paragraph swap on the "Goal Mode is production-ready" thesis + CSA Lethal Trifecta angle.
+
+## Gist (created 2026-06-09 by ENG)
+
+- Public: https://gist.github.com/redinside-dev/8f9c4c899ea6be64863b3117b8dc88d3
+- Created via `gh gist create research/GOAL-009/hn-post-final.md --public` after switching the active `gh` account from `anuragg-saxenaa` to `redinside-dev` (only `redinside-dev` has the `gist` scope; `anuragg-saxenaa` is admin:org/repo/workflow only).
+- The gist is the recommended URL to paste into HN's submit form (Step 3 above) — it gives HN a single canonical link target that won't change, and gives commenters a raw source for the post body.
