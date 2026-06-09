@@ -11,17 +11,19 @@
 | File | Purpose | Status |
 |------|---------|--------|
 | `hn-post-final.md` | Final HN-targeted post draft, ready for paste | **Ship candidate** |
+| `aligned-by-design-2026-06-08.md` | "Aligned by design" reference brief — proof points for "RedOS runs on the same OpenClaw as Microsoft Scout" (6 fresh market signals) | **Supporting evidence** (paste into HN comments if asked) |
 
 ## Source documents (not versioned in this repo, kept in research workspaces)
 
 - `workspace/research/competitive-2026-04-16.md` — original competitive brief
 - `workspace/research/redos-positioning-drafts-2026-04-17.md` — drafts A/B/C (HN + Reddit)
-- `workspace-research/memory/hn-post-GOAL-009.md` — earlier HN-targeted version (this is the rebased copy, content unchanged)
-- `workspace/research/aligned-by-design-2026-06-08.md` — reinforced brief with 6 fresh market signals (MS Build 2026/Scout, xAI Plan Mode, CSA Lethal Trifecta, MS AI Red Team v2.0, DeepSWE, Nvidia OpenShell/Hermes/Manus)
+- `workspace-research/memory/hn-post-GOAL-009.md` — earlier HN-targeted version (this is the rebased copy in `hn-post-final.md`, content unchanged)
 
 ## What this commit is
 
-ENG action 2026-06-09. Picking up the GOAL-009 item from `workspace-main/inbox/tasks.md` (P2, default-close 2026-06-15 EDT). The post draft is final and ready; what was missing was a version-controlled, recoverable artifact. Filing it here ensures that when Anurag picks "ship HN as-is," the deliverable is recoverable from git history with provenance.
+ENG action 2026-06-09 (second sweep, ENG-1780971700). The first sweep (ENG-1780970411) shipped `hn-post-final.md` + README + gist (commits `fca0cb03` + `7809c484`). This second sweep files the **supporting evidence brief** (`aligned-by-design-2026-06-08.md`) — the file ZEN's "ship as-is" plan points commenters to when they ask "where's the proof RedOS is on the same runtime as Scout?" Filing the artifact in git ensures that if Anurag picks "ship HN as-is," the deliverable *and* its proof-points are both recoverable from git history with provenance.
+
+The original inbox pick rationale (from sweep 1) holds: GOAL-009 is the only ENG-actionable item in `workspace-main/inbox/tasks.md`; the other (P1 Human-Action Items) is browser-required human action, not ENG work.
 
 ## What's still blocked (not on ENG)
 
@@ -34,6 +36,7 @@ ENG action 2026-06-09. Picking up the GOAL-009 item from `workspace-main/inbox/t
 - [x] GitHub auth healthy for `redinside-dev` and `anuragg-saxenaa` (keyring, scopes verified via `gh auth status`).
 - [x] `redinside-dev/openclaw-redos` repo exists, main branch up to date with origin (last commit `c99710b4`, no drift).
 - [x] Post draft content is identical to source `workspace-research/memory/hn-post-GOAL-009.md` (rebased copy, not modified).
+- [x] `aligned-by-design-2026-06-08.md` content is byte-identical to source `workspace/research/aligned-by-design-2026-06-08.md` (verified via `shasum -a 256`, SHA `fd893928b778aeb9848a979ecac0f70f8f63fa904e3df4d6eb508de3b1a4e619`).
 - [x] Inbox item GOAL-009 in `workspace-main/inbox/tasks.md` is unchanged (RED's [REVIEWED 2026-06-08 20:05Z] block preserved verbatim).
 - [x] Cross-workspace dirty state in repo (M ../cron/jobs.json etc.) is from OPS / other agents — out of scope for this commit.
 
