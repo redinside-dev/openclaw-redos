@@ -51,6 +51,7 @@ const CCS_SETTINGS = (name) => `${process.env.HOME}/.ccs/${name}.settings.json`;
 
 // MiniMax model IDs — included in merged /v1/models list; request body is forwarded as-is when model is in this list
 const MINIMAX_MODEL_IDS = [
+  'MiniMax-M3',
   'MiniMax-M2.7',
   'MiniMax-M2.5',
   'MiniMax-M2.5-highspeed',
@@ -91,6 +92,46 @@ let tierStates = {};    // name → { exhausted: bool }
 let currentTierIdx = 0;
 // Manual pin: null = auto cyclic
 let forcedStart = null;
+
+let accountUsage = {};
+
+function extractUsageFromChunk(chunkStr) {
+  let inputTokens = 0;
+  let outputTokens = 0;
+  const inputMatch = chunkStr.match(/"input_tokens"\s*:\s*(\d+)/);
+  if (inputMatch) inputTokens = parseInt(inputMatch[1], 10);
+  const outputMatch = chunkStr.match(/"output_tokens"\s*:\s*(\d+)/);
+  if (outputMatch) outputTokens = parseInt(outputMatch[1], 10);
+  
+  if (!inputTokens) {
+    const promptMatch = chunkStr.match(/"prompt_tokens"\s*:\s*(\d+)/);
+    if (promptMatch) inputTokens = parseInt(promptMatch[1], 10);
+  }
+  if (!outputTokens) {
+    const compMatch = chunkStr.match(/"completion_tokens"\s*:\s*(\d+)/);
+    if (compMatch) outputTokens = parseInt(compMatch[1], 10);
+  }
+  return { inputTokens, outputTokens };
+}
+
+function trackUsageData(accountName, chunk) {
+  if (!accountName) return;
+  if (!accountUsage[accountName]) {
+    accountUsage[accountName] = { requests: 0, inputTokens: 0, outputTokens: 0 };
+  }
+  const str = chunk.toString('utf8');
+  const usage = extractUsageFromChunk(str);
+  if (usage.inputTokens) accountUsage[accountName].inputTokens += usage.inputTokens;
+  if (usage.outputTokens) accountUsage[accountName].outputTokens += usage.outputTokens;
+}
+
+function incrementRequestCount(accountName) {
+  if (!accountName) return;
+  if (!accountUsage[accountName]) {
+    accountUsage[accountName] = { requests: 0, inputTokens: 0, outputTokens: 0 };
+  }
+  accountUsage[accountName].requests++;
+}
 
 function readProxyConfig() {
   try {
@@ -231,7 +272,10 @@ function isExhaustion(status, bodyBuf) {
       msg.includes('out of credits') ||
       msg.includes('maximum usage') ||
       msg.includes("you've hit your limit") ||
-      msg.includes('hit your limit')
+      msg.includes('hit your limit') ||
+      msg.includes('invalid_grant') ||
+      msg.includes('invalid_api_key') ||
+      msg.includes('authentication_error')
     );
   } catch { return false; }
 }
@@ -248,6 +292,10 @@ const SSE_EXHAUSTION_PATTERNS = [
   "you've reached your",
   'plan usage limit',
   'rate_limit_error',
+  'invalid_grant',
+  'invalid_api_key',
+  'authentication_error',
+  'overloaded_error',
 ];
 
 function sseChunkIsExhaustion(chunk) {
@@ -255,26 +303,60 @@ function sseChunkIsExhaustion(chunk) {
   return SSE_EXHAUSTION_PATTERNS.some(p => text.includes(p));
 }
 
-function getCyclicSequence() {
-  const n = accounts.length;
-  const start = forcedStart
-    ? Math.max(accounts.findIndex(a => a.name === forcedStart), 0)
-    : currentTierIdx;
-  return Array.from({ length: n }, (_, i) => accounts[(start + i) % n]);
-}
-
-/** Route by model: MiniMax models → api tier first, Claude models → cloud tiers first, else cyclic. Always respects forcedStart. */
 function getSequenceForModel(model) {
-  if (forcedStart) return getCyclicSequence();
   const m = (model || '').trim();
-  if (!m) return getCyclicSequence();
-  if (MINIMAX_MODEL_IDS.includes(m)) {
-    const api = accounts.find((a) => a.type === 'api' && !tierStates[a.name]?.exhausted);
-    if (!api) return getCyclicSequence();
-    const rest = accounts.filter((a) => a !== api);
-    return [api, ...rest];
+  
+  // 1. If explicit MiniMax model requested, route to minimax.
+  if (m && MINIMAX_MODEL_IDS.includes(m)) {
+    const minimaxAcc = accounts.find(a => a.name === 'minimax');
+    return minimaxAcc ? [minimaxAcc] : [];
   }
-  return getCyclicSequence();
+
+  // 2. If forced to minimax, only use minimax.
+  if (forcedStart === 'minimax') {
+    const minimaxAcc = accounts.find(a => a.name === 'minimax');
+    return minimaxAcc ? [minimaxAcc] : [];
+  }
+  
+  // 3. If forced to cloud1, start with cloud1, then fall back to cloud2, then minimax.
+  if (forcedStart === 'cloud1') {
+    const c1 = accounts.find(a => a.name === 'cloud1');
+    const c2 = accounts.find(a => a.name === 'cloud2');
+    const mx = accounts.find(a => a.name === 'minimax');
+    const seq = [];
+    if (c1) seq.push(c1);
+    if (c2) seq.push(c2);
+    if (mx) seq.push(mx);
+    return seq;
+  }
+  
+  // 4. If forced to cloud2, start with cloud2, then fall back to cloud1, then minimax.
+  if (forcedStart === 'cloud2') {
+    const c1 = accounts.find(a => a.name === 'cloud1');
+    const c2 = accounts.find(a => a.name === 'cloud2');
+    const mx = accounts.find(a => a.name === 'minimax');
+    const seq = [];
+    if (c2) seq.push(c2);
+    if (c1) seq.push(c1);
+    if (mx) seq.push(mx);
+    return seq;
+  }
+
+  // 5. Default auto behavior (no forced start, no minimax model requested):
+  // Cycle failover between cloud1 and cloud2, falling back to minimax.
+  const c1 = accounts.find(a => a.name === 'cloud1');
+  const c2 = accounts.find(a => a.name === 'cloud2');
+  const mx = accounts.find(a => a.name === 'minimax');
+  const seq = [];
+  if (currentTierIdx === 1) { // cloud2
+    if (c2) seq.push(c2);
+    if (c1) seq.push(c1);
+  } else { // default cloud1
+    if (c1) seq.push(c1);
+    if (c2) seq.push(c2);
+  }
+  if (mx) seq.push(mx);
+  return seq;
 }
 
 function readBody(stream) {
@@ -548,20 +630,26 @@ function forwardRequestApi(originalReq, bodyBuffer, account) {
 }
 
 /** Pipe a proxy response directly back to the client */
-function pipeResponse(proxyRes, clientRes) {
+function pipeResponse(proxyRes, clientRes, accountName) {
   clientRes.writeHead(proxyRes.statusCode, proxyRes.headers);
+  if (accountName) {
+    proxyRes.on('data', chunk => {
+      trackUsageData(accountName, chunk);
+    });
+  }
   proxyRes.pipe(clientRes);
 }
 
 /** Pipe API tier response, rewriting response body so "model" matches what the client sent (avoids "model may not exist" when we defaulted the request). */
-function pipeApiResponse(proxyRes, clientRes, clientModel, upstreamModel) {
+function pipeApiResponse(proxyRes, clientRes, clientModel, upstreamModel, accountName) {
   if (clientModel === upstreamModel || !clientModel) {
-    pipeResponse(proxyRes, clientRes);
+    pipeResponse(proxyRes, clientRes, accountName);
     return;
   }
   const safe = (s) => (s || '').replace(/[\\^$*+?.()|[\]{}]/g, '\\$&');
   const re = new RegExp(safe(upstreamModel), 'g');
   readBody(proxyRes).then((bodyBuf) => {
+    if (accountName) trackUsageData(accountName, bodyBuf);
     const out = bodyBuf.toString('utf8').replace(re, clientModel);
     clientRes.writeHead(proxyRes.statusCode, proxyRes.headers);
     clientRes.end(Buffer.from(out, 'utf8'));
@@ -754,6 +842,641 @@ async function forwardToCursor(originalReq, bodyBuffer, clientRes) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// Dashboard UI Template (Premium Glassmorphism Design)
+// ─────────────────────────────────────────────────────────────────────────────
+const DASHBOARD_HTML = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CCS Claude & MiniMax Proxy Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b081a;
+      --glow-purple: rgba(147, 51, 234, 0.15);
+      --card-bg: rgba(255, 255, 255, 0.03);
+      --card-border: rgba(255, 255, 255, 0.05);
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --active: #10b981;
+      --active-glow: rgba(16, 185, 129, 0.4);
+      --exhausted: #ef4444;
+      --exhausted-glow: rgba(239, 68, 68, 0.4);
+      --accent: #a855f7;
+      --accent-hover: #c084fc;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(circle at 10% 20%, var(--glow-purple) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, var(--glow-purple) 0%, transparent 40%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+      max-width: 600px;
+    }
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #f3e8ff, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.05em;
+    }
+    header p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      font-weight: 300;
+    }
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      background: rgba(168, 85, 247, 0.2);
+      color: #d8b4fe;
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      margin-top: 0.75rem;
+    }
+    
+    /* Pipeline Styles */
+    .pipeline-container {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 1.5rem;
+      width: 100%;
+      max-width: 1100px;
+      margin-bottom: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+    .pipeline-flow {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      position: relative;
+      margin: 0.5rem 0;
+    }
+    @media (max-width: 768px) {
+      .pipeline-flow { flex-direction: column; gap: 1rem; }
+      .pipeline-arrow { transform: rotate(90deg); margin: 0.25rem 0; }
+    }
+    .pipeline-node {
+      background: rgba(255, 255, 255, 0.02);
+      border: 2px dashed rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 1rem 1.5rem;
+      text-align: center;
+      min-width: 200px;
+      transition: all 0.3s ease;
+    }
+    .pipeline-node.active {
+      border: 2px solid var(--active);
+      background: rgba(16, 185, 129, 0.05);
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
+    }
+    .pipeline-node.exhausted {
+      border: 2px solid var(--exhausted);
+      background: rgba(239, 68, 68, 0.05);
+      opacity: 0.7;
+    }
+    .pipeline-node.standby {
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      opacity: 0.5;
+    }
+    .pipeline-node h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      text-transform: capitalize;
+    }
+    .pipeline-node p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    .pipeline-arrow {
+      font-size: 1.5rem;
+      color: var(--text-muted);
+      animation: pulse 1.5s infinite alternate;
+    }
+    @keyframes pulse {
+      from { opacity: 0.4; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1.05); }
+    }
+    .pipeline-explanation {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      background: rgba(0, 0, 0, 0.25);
+      padding: 0.75rem 1rem;
+      border-radius: 10px;
+      border-left: 3px solid var(--accent);
+      line-height: 1.4;
+    }
+
+    main {
+      width: 100%;
+      max-width: 1100px;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+    }
+    @media (max-width: 900px) {
+      main { grid-template-columns: 1fr; }
+    }
+    .panel {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+    h2 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      border-left: 3px solid var(--accent);
+      padding-left: 0.75rem;
+    }
+    .accounts-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+    .account-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      border-radius: 16px;
+      padding: 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .account-card.active {
+      border-color: rgba(16, 185, 129, 0.3);
+      background: rgba(16, 185, 129, 0.02);
+    }
+    .account-card.exhausted {
+      border-color: rgba(239, 68, 68, 0.3);
+      background: rgba(239, 68, 68, 0.02);
+    }
+    .account-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .status-indicator {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: var(--text-muted);
+    }
+    .account-card.active .status-indicator {
+      background-color: var(--active);
+      box-shadow: 0 0 10px var(--active-glow);
+    }
+    .account-card.exhausted .status-indicator {
+      background-color: var(--exhausted);
+      box-shadow: 0 0 10px var(--exhausted-glow);
+    }
+    .account-details h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.15rem;
+      text-transform: capitalize;
+    }
+    .account-details p {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-family: monospace;
+    }
+    .account-actions {
+      display: flex;
+      gap: 0.5rem;
+      z-index: 2;
+    }
+    button {
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      border: none;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: 'Outfit', sans-serif;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      box-shadow: 0 0 12px rgba(168, 85, 247, 0.4);
+    }
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .btn-danger {
+      background: rgba(239, 68, 68, 0.1);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.2);
+    }
+    .btn-danger:hover {
+      background: rgba(239, 68, 68, 0.2);
+      box-shadow: 0 0 10px rgba(239, 68, 68, 0.2);
+    }
+    .btn-disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    label {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    input {
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 0.75rem;
+      color: var(--text);
+      font-family: monospace;
+      font-size: 0.95rem;
+      transition: border-color 0.2s ease;
+    }
+    input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #1e1b4b;
+      border: 1px solid var(--accent);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      display: none;
+      z-index: 100;
+      animation: slideIn 0.3s ease;
+    }
+    @keyframes slideIn {
+      from { transform: translateY(100px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .re-auth-box {
+      background: rgba(168, 85, 247, 0.05);
+      border: 1px solid rgba(168, 85, 247, 0.15);
+      border-radius: 12px;
+      padding: 1rem;
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+    .re-auth-box code {
+      background: rgba(0,0,0,0.3);
+      padding: 0.15rem 0.3rem;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #f472b6;
+    }
+    .footer {
+      margin-top: 4rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-weight: 300;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>CCS Proxy Dashboard</h1>
+    <p>Premium management control for your local Claude & MiniMax failover system</p>
+    <div class="badge" id="current-backend-badge">Active: Auto (Loading...)</div>
+  </header>
+
+  <!-- Live Flow Pipeline Visualizer -->
+  <div class="pipeline-container" id="pipeline-section">
+    <h2>Live Routing Pipeline</h2>
+    <div class="pipeline-flow" id="pipeline-flow">
+      <!-- Generated dynamically -->
+    </div>
+    <div class="pipeline-explanation" id="pipeline-explanation">
+      Detecting system routing state...
+    </div>
+  </div>
+
+  <main>
+    <div class="panel">
+      <h2>Active Account Profiles</h2>
+      <div class="accounts-grid" id="accounts-container">
+        <!-- Account cards will be populated by JavaScript -->
+      </div>
+      
+      <div class="re-auth-box">
+        💡 <strong>Re-authentication instructions:</strong> If any Claude account returns an authentication issue (401), open a terminal and run:<br>
+        <code>ccs auth create cloud1 --force</code> or <code>ccs auth create cloud2 --force</code>.<br>
+        This logs you back in via browser and refreshes your keys automatically.
+      </div>
+    </div>
+
+    <div class="panel controls">
+      <h2>System Controls</h2>
+      
+      <button class="btn-primary" onclick="resetProxy()">Reset Routing to Auto</button>
+      <button class="btn-secondary" onclick="reloadConfig()">Force Config Reload</button>
+      
+      <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.05); margin: 0.5rem 0;">
+      
+      <h2>MiniMax Model Upgrade</h2>
+      <div class="form-group">
+        <label for="minimax-model-input">MiniMax Model ID</label>
+        <input type="text" id="minimax-model-input" placeholder="e.g. MiniMax-M3">
+        <button class="btn-primary" onclick="saveSettings()">Save & Apply Model</button>
+      </div>
+    </div>
+  </main>
+
+  <div class="toast" id="toast">Settings saved successfully</div>
+
+  <footer class="footer">
+    CCS Proxy port 19001 — Running on local environment
+  </footer>
+
+  <script>
+    let currentData = null;
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.innerText = msg;
+      t.style.display = 'block';
+      setTimeout(() => { t.style.display = 'none'; }, 3000);
+    }
+
+    async function fetchHealth() {
+      try {
+        const res = await fetch('/health');
+        const data = await res.json();
+        currentData = data;
+        updateUI(data);
+      } catch (err) {
+        console.error('Error fetching health:', err);
+      }
+    }
+
+    function updateUI(data) {
+      // Update badge
+      const badge = document.getElementById('current-backend-badge');
+      if (data.forced) {
+        badge.innerText = \`Pinned: \${data.forced.toUpperCase()}\`;
+        badge.style.background = 'rgba(234, 179, 8, 0.2)';
+        badge.style.color = '#fef08a';
+        badge.style.borderColor = 'rgba(234, 179, 8, 0.3)';
+      } else {
+        badge.innerText = \`Active Auto: \${data.backend.toUpperCase()}\`;
+        badge.style.background = 'rgba(168, 85, 247, 0.2)';
+        badge.style.color = '#d8b4fe';
+        badge.style.borderColor = 'rgba(168, 85, 247, 0.3)';
+      }
+
+      // Populate pipeline flow
+      const pipelineFlow = document.getElementById('pipeline-flow');
+      const pipelineExplanation = document.getElementById('pipeline-explanation');
+      pipelineFlow.innerHTML = '';
+
+      let explanationText = '';
+      const accts = data.accounts;
+
+      accts.forEach((acct, idx) => {
+        const isExhausted = acct.exhausted;
+        const isActive = acct.active;
+        const name = acct.name;
+
+        let stateClass = 'standby';
+        let statusText = 'Standby';
+
+        if (isActive) {
+          stateClass = 'active';
+          statusText = 'Active Routing';
+        } else if (isExhausted) {
+          stateClass = 'exhausted';
+          statusText = 'Exhausted (Skipped)';
+        }
+
+        const node = document.createElement('div');
+        node.className = \`pipeline-node \${stateClass}\`;
+        
+        let desc = 'Claude Subscription';
+        if (name === 'minimax') desc = 'MiniMax v3 API';
+        if (name === 'cursor') desc = 'Cursor Local Daemon';
+        if (acct.type === 'passthrough') desc = 'Claude Passthrough';
+
+        node.innerHTML = \`
+          <h4>\${name}</h4>
+          <p>\${desc}</p>
+          <p style="font-weight: 600; margin-top: 0.25rem; font-size: 0.7rem;">\${statusText}</p>
+        \`;
+        pipelineFlow.appendChild(node);
+
+        if (idx < accts.length - 1) {
+          const arrow = document.createElement('div');
+          arrow.className = 'pipeline-arrow';
+          arrow.innerHTML = '➔';
+          pipelineFlow.appendChild(arrow);
+        }
+      });
+
+      // Compute pipeline explanation
+      if (data.forced) {
+        explanationText = \`📌 <strong>Manual Override Active:</strong> Pinned to <strong>\${data.forced}</strong>. The automatic failover cascade is bypassed. All incoming requests route solely to this account.\`;
+      } else {
+        const activeAcct = accts.find(a => a.active);
+        const exhaustedAccts = accts.filter(a => a.exhausted).map(a => \`<strong>\${a.name}</strong>\`);
+        
+        if (activeAcct) {
+          if (exhaustedAccts.length > 0) {
+            explanationText = \`🔄 <strong>Automatic Failover Active:</strong> \${exhaustedAccts.join(' and ')} returned exhaustion or token auth issues and was skipped. Traffic was automatically and seamlessly redirected to <strong>\${activeAcct.name}</strong>. Your context was not lost!\`;
+          } else {
+            explanationText = \`✅ <strong>All Systems Normal:</strong> Primary routing is active on <strong>\${activeAcct.name}</strong>. If this account becomes exhausted, traffic will automatically cascade down the pipeline.\`;
+          }
+        } else {
+          explanationText = \`⚠️ <strong>Routing Error:</strong> No active backend could be found. Please check your credentials or click "Reset Routing to Auto" below.\`;
+        }
+      }
+      pipelineExplanation.innerHTML = explanationText;
+
+      // Populate accounts panel
+      const container = document.getElementById('accounts-container');
+      container.innerHTML = '';
+
+      data.accounts.forEach(acct => {
+        const isExhausted = acct.exhausted;
+        const isActive = acct.active;
+        const name = acct.name;
+        const usage = acct.usage || { requests: 0, inputTokens: 0, outputTokens: 0 };
+        const usageStr = \`\${usage.requests} requests • \${(usage.inputTokens / 1000).toFixed(1)}K in • \${(usage.outputTokens / 1000).toFixed(1)}K out\`;
+
+        const card = document.createElement('div');
+        card.className = \`account-card \${isActive ? 'active' : ''} \${isExhausted ? 'exhausted' : ''}\`;
+        
+        let actions = '';
+        if (acct.type === 'oauth' || acct.type === 'api') {
+          const forceBtnText = isActive && data.forced ? 'Pinned' : 'Pin Backend';
+          const forceBtnClass = isActive && data.forced ? 'btn-secondary btn-disabled' : 'btn-primary';
+          
+          actions = \`
+            <div class="account-actions">
+              <button class="\${forceBtnClass}" onclick="forceAccount('\${name}')" \${isActive && data.forced ? 'disabled' : ''}>\${forceBtnText}</button>
+              <button class="btn-danger" onclick="simulateExhaust('\${name}')" \${isExhausted ? 'disabled' : ''}>\${isExhausted ? 'Exhausted' : 'Failover Test'}</button>
+            </div>
+          \`;
+        } else if (acct.name === 'cursor') {
+          actions = \`
+            <div class="account-actions">
+              <button class="btn-secondary btn-disabled" disabled>Local Daemon</button>
+            </div>
+          \`;
+        }
+
+        card.innerHTML = \`
+          <div class="account-info">
+            <div class="status-indicator"></div>
+            <div class="account-details">
+              <h3>\${name}</h3>
+              <p>\${acct.email || acct.type}</p>
+              <p style="font-size: 0.75rem; color: #c084fc; margin-top: 0.25rem; font-weight: 600; font-family: monospace;">\${usageStr}</p>
+            </div>
+          </div>
+          \${actions}
+        \`;
+        container.appendChild(card);
+      });
+
+      // Update minimax model input value if not already focused/edited
+      const minimaxInput = document.getElementById('minimax-model-input');
+      if (data.accounts.find(a => a.name === 'minimax') && !minimaxInput.dataset.edited) {
+        if (!minimaxInput.value) {
+          minimaxInput.value = 'MiniMax-M3';
+        }
+      }
+    }
+
+    async function forceAccount(name) {
+      try {
+        const res = await fetch(\`/force?account=\${name}\`);
+        const data = await res.json();
+        showToast(data.message || \`Pinned to \${name}\`);
+        fetchHealth();
+      } catch (e) {
+        showToast('Action failed');
+      }
+    }
+
+    async function simulateExhaust(name) {
+      try {
+        const res = await fetch(\`/test-exhaust?account=\${name}\`);
+        const data = await res.json();
+        showToast(\`Simulated exhaustion on \${name}. Failover to \${data.nowActive}\`);
+        fetchHealth();
+      } catch (e) {
+        showToast('Action failed');
+      }
+    }
+
+    async function resetProxy() {
+      try {
+        const res = await fetch('/reset');
+        const data = await res.json();
+        showToast('Proxy reset to automatic failover mode.');
+        fetchHealth();
+      } catch (e) {
+        showToast('Reset failed');
+      }
+    }
+
+    async function reloadConfig() {
+      try {
+        const res = await fetch('/reload');
+        const data = await res.json();
+        showToast('Configuration reloaded from disk.');
+        fetchHealth();
+      } catch (e) {
+        showToast('Reload failed');
+      }
+    }
+
+    async function saveSettings() {
+      const modelVal = document.getElementById('minimax-model-input').value.trim();
+      if (!modelVal) return;
+      try {
+        const res = await fetch('/save-settings', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ minimaxModel: modelVal })
+        });
+        const data = await res.json();
+        if (data.status === 'ok') {
+          showToast(data.message);
+          fetchHealth();
+        } else {
+          showToast('Save failed: ' + data.error);
+        }
+      } catch (e) {
+        showToast('Network error saving settings');
+      }
+    }
+
+    document.getElementById('minimax-model-input').addEventListener('input', () => {
+      document.getElementById('minimax-model-input').dataset.edited = 'true';
+    });
+
+    fetchHealth();
+    setInterval(fetchHealth, 2000);
+  </script>
+</body>
+</html>`;
+
+// ─────────────────────────────────────────────────────────────────────────────
 // Main server — cyclic failover on exhaustion only
 // ─────────────────────────────────────────────────────────────────────────────
 const server = http.createServer(async (req, res) => {
@@ -761,6 +1484,48 @@ const server = http.createServer(async (req, res) => {
   req.on('data', c => chunks.push(c));
   await new Promise(r => req.on('end', r));
   const body = Buffer.concat(chunks);
+
+  // ── Dashboard GET ────────────────────────────────────────────────────────
+  if (req.method === 'GET' && (req.url === '/' || req.url === '/dashboard')) {
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    res.end(DASHBOARD_HTML);
+    return;
+  }
+
+  // ── Save Settings POST ────────────────────────────────────────────────────
+  if (req.method === 'POST' && req.url === '/save-settings') {
+    try {
+      const data = JSON.parse(body.toString('utf8'));
+      const minimaxModel = data.minimaxModel;
+      if (minimaxModel) {
+        const settingsPath = CCS_SETTINGS('minimax').replace(/^~/, process.env.HOME);
+        let settings = {};
+        try {
+          settings = JSON.parse(fs.readFileSync(settingsPath, 'utf8'));
+        } catch {}
+        if (!settings.env) settings.env = {};
+        settings.env.ANTHROPIC_MODEL = minimaxModel;
+        settings.env.ANTHROPIC_DEFAULT_OPUS_MODEL = minimaxModel;
+        settings.env.ANTHROPIC_DEFAULT_SONNET_MODEL = minimaxModel;
+        settings.env.ANTHROPIC_DEFAULT_HAIKU_MODEL = minimaxModel;
+        fs.writeFileSync(settingsPath, JSON.stringify(settings, null, 2), 'utf8');
+        
+        if (!MINIMAX_MODEL_IDS.includes(minimaxModel)) {
+          MINIMAX_MODEL_IDS.unshift(minimaxModel);
+        }
+        
+        accounts = loadAccounts();
+        log(`[proxy] Updated MiniMax model to ${minimaxModel} and reloaded settings`);
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ status: 'ok', message: `Model updated to ${minimaxModel}` }));
+        return;
+      }
+    } catch (err) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: err.message }));
+      return;
+    }
+  }
 
   // ── Health check ──────────────────────────────────────────────────────────
   if (req.url === '/health') {
@@ -778,6 +1543,7 @@ const server = http.createServer(async (req, res) => {
       type: a.type,
       exhausted: !!(tierStates[a.name]?.exhausted),
       active: a.name === active,
+      usage: accountUsage[a.name] || { requests: 0, inputTokens: 0, outputTokens: 0 }
     }));
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({
@@ -901,6 +1667,7 @@ const server = http.createServer(async (req, res) => {
     }
 
     log(`[proxy] → ${account.name} (${req.method} ${req.url})`);
+    incrementRequestCount(account.name);
 
     try {
       // ── Cursor tier ──────────────────────────────────────────────────────
@@ -916,7 +1683,7 @@ const server = http.createServer(async (req, res) => {
         } else {
           const cursorRes = await forwardRequest(CURSOR_BASE, req, safeBody);
           log(`[proxy] ← cursor raw ${cursorRes.statusCode}`);
-          pipeResponse(cursorRes, res);
+          pipeResponse(cursorRes, res, account.name);
         }
         return; // success
       }
@@ -928,7 +1695,8 @@ const server = http.createServer(async (req, res) => {
       } else if (account.type === 'oauth') {
         const token = await account.refreshToken();
         if (!token) {
-          log(`[proxy] ${account.name} token unavailable — skipping`);
+          log(`[proxy] ${account.name} token unavailable — marking exhausted and skipping`);
+          markExhausted(account.name);
           continue;
         }
         proxyRes = await forwardRequestOAuth(req, safeBody, token);
@@ -945,38 +1713,54 @@ const server = http.createServer(async (req, res) => {
       const status = proxyRes.statusCode;
       log(`[proxy] ← ${account.name} ${status}`);
 
-      // Subscription accounts (oauth/passthrough): ANY 429 = exhaustion (daily/weekly limit)
-      // API accounts: check body for specific exhaustion patterns
-      if (status === 402 || status === 429) {
-        const bodyBuf = await readBody(proxyRes);
-        const isSubscription = account.type === 'oauth' || account.type === 'passthrough';
-        if (status === 402 || (isSubscription && status === 429) || isExhaustion(status, bodyBuf)) {
+      const isSSE = (proxyRes.headers['content-type'] || '').includes('text/event-stream');
+      const isSubscription = account.type === 'oauth' || account.type === 'passthrough';
+
+      if (status !== 200) {
+        let bodyBuf = Buffer.alloc(0);
+        if (!isSSE) {
+          try {
+            bodyBuf = await readBody(proxyRes);
+          } catch (e) {
+            log(`[proxy] Error reading error body from ${account.name}: ${e.message}`);
+          }
+        }
+
+        // 1. Quota / exhaustion check
+        const isExhaustedErr = status === 402 || (isSubscription && status === 429) || (bodyBuf.length > 0 && isExhaustion(status, bodyBuf));
+        if (isExhaustedErr) {
           log(`[proxy] ${account.name} → exhaustion (${status}, subscription=${isSubscription})`);
           markExhausted(account.name);
           continue;
         }
+
+        // 1.5. Rate limits (429) on non-subscription accounts — try next tier without marking exhausted
+        if (status === 429) {
+          log(`[proxy] ${account.name} → rate limit 429 — trying next tier`);
+          continue;
+        }
+
+        // 2. Auth issues for oauth/passthrough (401, 403, 404)
+        if ((status === 401 || status === 403 || status === 404) && isSubscription) {
+          log(`[proxy] ${account.name} → ${status} (auth/not found) — marking exhausted and trying next tier`);
+          markExhausted(account.name);
+          continue;
+        }
+
+        // 3. Server errors (5xx) — retry next tier without marking exhausted
+        if (status >= 500 && status < 600) {
+          log(`[proxy] ${account.name} → server error ${status} — trying next tier`);
+          continue;
+        }
+
+        // 4. Other client errors (e.g. 400 Bad Request) -> return directly to client
         res.writeHead(status, proxyRes.headers);
         res.end(bodyBuf);
         return;
       }
 
-      // 404 from oauth accounts = token/account issue, skip to next
-      if (status === 404 && (account.type === 'oauth' || account.type === 'passthrough')) {
-        log(`[proxy] ${account.name} → 404 (account issue, skipping)`);
-        try { await readBody(proxyRes); } catch (_) {}
-        continue;
-      }
-
-      // 401/403: bad or expired OAuth — try next tier (do not mark exhausted)
-      if ((status === 401 || status === 403) && (account.type === 'oauth' || account.type === 'passthrough')) {
-        log(`[proxy] ${account.name} → ${status} (auth) — trying next tier`);
-        try { await readBody(proxyRes); } catch (_) {}
-        continue;
-      }
-
       // For 200 SSE responses: inspect stream for body-level exhaustion signals
       // (Claude subscription quota errors arrive as 200 OK with error event in stream)
-      const isSSE = (proxyRes.headers['content-type'] || '').includes('text/event-stream');
       if (status === 200 && isSSE) {
         const exhausted = await new Promise((resolve) => {
           let headerWritten = false;
@@ -997,6 +1781,7 @@ const server = http.createServer(async (req, res) => {
 
           proxyRes.on('data', chunk => {
             if (detected) return;
+            trackUsageData(account.name, chunk);
             if (sseChunkIsExhaustion(chunk)) {
               detected = true;
               log(`[proxy] ${account.name} SSE exhaustion detected mid-stream — failing over`);
@@ -1040,9 +1825,9 @@ const server = http.createServer(async (req, res) => {
       }
 
       if (responseClientModel != null) {
-        pipeApiResponse(proxyRes, res, responseClientModel, responseUpstreamModel);
+        pipeApiResponse(proxyRes, res, responseClientModel, responseUpstreamModel, account.name);
       } else {
-        pipeResponse(proxyRes, res);
+        pipeResponse(proxyRes, res, account.name);
       }
       return; // success
 
