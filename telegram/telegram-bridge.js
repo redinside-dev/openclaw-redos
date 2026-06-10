@@ -16,8 +16,10 @@ import { userPreferences } from '../user/preferences.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Gateway URL
-const GATEWAY_URL = 'http://localhost:19000';
+// Chat-gateway URL (wraps `openclaw agent --json`).
+// Was 19000 (full gateway/server.js) which is structurally broken.
+// See gateway/chat-gateway.js for the minimal replacement.
+const GATEWAY_URL = process.env.CHAT_GATEWAY_URL || 'http://localhost:19010';
 
 // Bot configurations (from openclaw.json)
 const BOTS = {
@@ -92,6 +94,45 @@ class TelegramBridge {
   }
 
   /**
+   * Resolve a botToken reference (object {id, provider, source} or string) to an
+   * actual Telegram bot token string. The legacy openclaw.json format stored
+   * tokens as a reference object pointing into secrets.json. We resolve here so
+   * the bridge can construct TelegramBot with a real token.
+   *
+   * Supported id formats:
+   *   /channels/telegram/accounts/<name>  -> secrets.channels.telegram.accounts.<name>
+   *   /providers/<name>                   -> secrets.providers.<name>.apiKey
+   *   /channels/<channel>/accounts/<name> -> secrets.channels.<channel>.accounts.<name>
+   */
+  async resolveBotToken(tokenRef) {
+    if (typeof tokenRef === 'string') return tokenRef;
+    if (!tokenRef || typeof tokenRef !== 'object' || !tokenRef.id) return null;
+
+    // Cache secrets.json once per initBots() call.
+    if (!this._secretsCache) {
+      try {
+        const secretsPath = path.join(__dirname, '../credentials/secrets.json');
+        this._secretsCache = JSON.parse(await fs.readFile(secretsPath, 'utf8'));
+      } catch (err) {
+        console.error('❌ Failed to load secrets.json for token resolution:', err.message);
+        return null;
+      }
+    }
+
+    const idPath = tokenRef.id.replace(/^\//, '').split('/');
+    // e.g. ['channels','telegram','accounts','ops']
+    let cursor = this._secretsCache;
+    for (const segment of idPath) {
+      if (cursor && typeof cursor === 'object' && segment in cursor) {
+        cursor = cursor[segment];
+      } else {
+        return null;
+      }
+    }
+    return typeof cursor === 'string' ? cursor : null;
+  }
+
+  /**
    * Initialize Telegram bots
    */
   async initBots() {
@@ -110,13 +151,14 @@ class TelegramBridge {
         continue;
       }
 
-      if (!account.botToken) {
-        console.log(`⚠️  No token for ${accountId}, skipping`);
+      const resolvedToken = await this.resolveBotToken(account.botToken);
+      if (!resolvedToken) {
+        console.log(`⚠️  No token for ${accountId} (unresolvable ref), skipping`);
         continue;
       }
 
       try {
-        const bot = new TelegramBot(account.botToken, { polling: true });
+        const bot = new TelegramBot(resolvedToken, { polling: true });
         const botConfig = BOTS[accountId] || {
           name: accountId,
           agentId: accountId,
