@@ -1632,6 +1632,19 @@ const server = http.createServer(async (req, res) => {
     res.writeHead(404); res.end('Not found'); return;
   }
 
+  // ── OAuth token endpoints: always pass through directly to Anthropic ──────
+  if (pathname.includes('/oauth/')) {
+    log(`[proxy] Passthrough OAuth request: ${req.method} ${req.url}`);
+    try {
+      const proxyRes = await forwardRequest(ANTHROPIC_BASE, req, body);
+      pipeResponse(proxyRes, res);
+    } catch (e) {
+      log(`[proxy] OAuth passthrough error: ${e.message}`);
+      res.writeHead(502); res.end('OAuth passthrough failed');
+    }
+    return;
+  }
+
   // ── GET /v1/models: always return merged list so client sees Claude + MiniMax (and can pick MiniMax-M2.5 without forcing first)
   if (req.method === 'GET' && pathname === '/v1/models') {
     const data = [
