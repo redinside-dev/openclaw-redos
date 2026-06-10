@@ -314,6 +314,12 @@ function advanceTierIdx() {
 }
 
 function isExhaustion(status, bodyBuf) {
+  try {
+    const text = bodyBuf.toString('utf8');
+    if (text.includes('Usage credits required') || text.includes('usage-credits')) {
+      return false;
+    }
+  } catch {}
   if (status === 402) return true;
   try {
     const text = bodyBuf.toString('utf8');
@@ -356,6 +362,9 @@ const SSE_EXHAUSTION_PATTERNS = [
 
 function sseChunkIsExhaustion(chunk) {
   const text = chunk.toString('utf8').toLowerCase();
+  if (text.includes('usage credits required') || text.includes('usage-credits')) {
+    return false;
+  }
   return SSE_EXHAUSTION_PATTERNS.some(p => text.includes(p));
 }
 
