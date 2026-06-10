@@ -35,7 +35,7 @@ import { URL, fileURLToPath } from 'node:url';
 import fs from 'node:fs';
 import path from 'node:path';
 import { Transform } from 'node:stream';
-import { execSync } from 'node:child_process';
+import { execSync, exec } from 'node:child_process';
 
 const SCRIPT_PATH = fileURLToPath(import.meta.url);
 
@@ -92,6 +92,62 @@ let tierStates = {};    // name → { exhausted: bool }
 let currentTierIdx = 0;
 // Manual pin: null = auto cyclic
 let forcedStart = null;
+
+// Version caching for CCS
+let ccsVersionCache = {
+  current: 'unknown',
+  latest: 'unknown',
+  lastChecked: 0
+};
+
+async function getCCSVersions() {
+  const now = Date.now();
+  // Cache for 1 hour
+  if (ccsVersionCache.current !== 'unknown' && now - ccsVersionCache.lastChecked < 3600000) {
+    return ccsVersionCache;
+  }
+
+  try {
+    // 1. Get current version
+    let current = 'unknown';
+    try {
+      const pkgPath = '/opt/homebrew/lib/node_modules/@kaitranntt/ccs/package.json';
+      if (fs.existsSync(pkgPath)) {
+        const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+        current = pkg.version;
+      } else {
+        current = execSync('ccs --version', { encoding: 'utf8', timeout: 5000 }).trim().replace('CCS CLI v', '');
+      }
+    } catch {
+      try {
+        current = execSync('ccs --version', { encoding: 'utf8', timeout: 5000 }).trim().replace('CCS CLI v', '');
+      } catch {}
+    }
+
+    // 2. Get latest version
+    let latest = 'unknown';
+    try {
+      latest = await new Promise((resolve) => {
+        https.get('https://registry.npmjs.org/@kaitranntt/ccs/latest', { timeout: 3000 }, (res) => {
+          let data = '';
+          res.on('data', d => data += d);
+          res.on('end', () => {
+            try {
+              resolve(JSON.parse(data).version || 'unknown');
+            } catch { resolve('unknown'); }
+          });
+        }).on('error', () => resolve('unknown'));
+      });
+    } catch {
+      latest = 'unknown';
+    }
+
+    ccsVersionCache = { current, latest, lastChecked: now };
+  } catch (e) {
+    log(`[proxy] Error getting CCS versions: ${e.message}`);
+  }
+  return ccsVersionCache;
+}
 
 let accountUsage = {};
 
@@ -1226,6 +1282,14 @@ const DASHBOARD_HTML = `<!DOCTYPE html>
       <button class="btn-primary" onclick="resetProxy()">Reset Routing to Auto</button>
       <button class="btn-secondary" onclick="reloadConfig()">Force Config Reload</button>
       
+      <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 1rem; margin-top: 0.5rem; display: flex; flex-direction: column; gap: 0.5rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem;">
+          <span style="color: var(--text-muted);">CCS CLI Version:</span>
+          <span id="ccs-version-span" style="font-weight: 600; font-family: monospace; color: var(--accent);">Loading...</span>
+        </div>
+        <button class="btn-primary" id="ccs-update-btn" onclick="updateCCS()" style="width: 100%; margin-top: 0.25rem; display: none;">Update CCS CLI</button>
+      </div>
+      
       <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.05); margin: 0.5rem 0;">
       
       <h2>MiniMax Model Upgrade</h2>
@@ -1399,6 +1463,25 @@ const DASHBOARD_HTML = `<!DOCTYPE html>
           minimaxInput.value = 'MiniMax-M3';
         }
       }
+
+      // Update CCS version
+      const ccsSpan = document.getElementById('ccs-version-span');
+      const ccsUpdateBtn = document.getElementById('ccs-update-btn');
+      if (data.ccs) {
+        const current = data.ccs.current;
+        const latest = data.ccs.latest;
+        if (current === latest) {
+          ccsSpan.innerHTML = current + ' <span style="color: var(--active); font-size: 0.75rem; margin-left: 0.25rem; font-weight: 800;">(Latest)</span>';
+          ccsUpdateBtn.style.display = 'none';
+        } else if (latest !== 'unknown') {
+          ccsSpan.innerHTML = current + ' <span style="color: var(--exhausted); font-size: 0.75rem; margin-left: 0.25rem; font-weight: 800;">➔ ' + latest + '</span>';
+          ccsUpdateBtn.style.display = 'block';
+          ccsUpdateBtn.innerText = 'Update to ' + latest;
+        } else {
+          ccsSpan.innerText = current;
+          ccsUpdateBtn.style.display = 'none';
+        }
+      }
     }
 
     async function forceAccount(name) {
@@ -1442,6 +1525,36 @@ const DASHBOARD_HTML = `<!DOCTYPE html>
         fetchHealth();
       } catch (e) {
         showToast('Reload failed');
+      }
+    }
+
+    async function updateCCS() {
+      const btn = document.getElementById('ccs-update-btn');
+      const originalText = btn.innerText;
+      btn.innerText = 'Updating CCS... (Please wait)';
+      btn.disabled = true;
+      btn.classList.add('btn-disabled');
+      showToast('Starting CCS CLI update...');
+      try {
+        const res = await fetch('/ccs-update', { method: 'POST' });
+        if (res.status === 200) {
+          const data = await res.json();
+          showToast('CCS CLI updated successfully!');
+        } else {
+          try {
+            const data = await res.json();
+            showToast('Update failed: ' + (data.error || 'Unknown error'));
+          } catch {
+            showToast('Update failed. Server returned error.');
+          }
+        }
+      } catch (e) {
+        showToast('Network error triggering update');
+      } finally {
+        btn.innerText = originalText;
+        btn.disabled = false;
+        btn.classList.remove('btn-disabled');
+        fetchHealth();
       }
     }
 
@@ -1527,6 +1640,25 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
+  // ── CCS CLI Update POST ───────────────────────────────────────────────────
+  if (req.method === 'POST' && req.url === '/ccs-update') {
+    log('[proxy] Triggered CCS update from dashboard');
+    exec('ccs update', { timeout: 60000 }, (err, stdout, stderr) => {
+      if (err) {
+        log(`[proxy] CCS update failed: ${err.message}`);
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: err.message, stderr }));
+      } else {
+        log(`[proxy] CCS update succeeded`);
+        // Force version cache reload on next check
+        ccsVersionCache.lastChecked = 0;
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ status: 'ok', message: 'CCS updated successfully', stdout }));
+      }
+    });
+    return;
+  }
+
   // ── Health check ──────────────────────────────────────────────────────────
   if (req.url === '/health') {
     const active = forcedStart || accounts[currentTierIdx]?.name || 'none';
@@ -1545,6 +1677,7 @@ const server = http.createServer(async (req, res) => {
       active: a.name === active,
       usage: accountUsage[a.name] || { requests: 0, inputTokens: 0, outputTokens: 0 }
     }));
+    const ccsInfo = await getCCSVersions();
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({
       status: 'ok',
@@ -1552,6 +1685,7 @@ const server = http.createServer(async (req, res) => {
       forced: forcedStart,
       accounts: acctStatus,
       configFile: PROXY_CONFIG,
+      ccs: ccsInfo,
     }, null, 2));
     return;
   }
