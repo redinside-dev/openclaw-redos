@@ -1652,17 +1652,17 @@ const server = http.createServer(async (req, res) => {
   // ── CCS CLI Update POST ───────────────────────────────────────────────────
   if (req.method === 'POST' && req.url === '/ccs-update') {
     log('[proxy] Triggered CCS update from dashboard');
-    exec('ccs update', { timeout: 60000 }, (err, stdout, stderr) => {
+    exec('ccs update && node /Users/redinside/Development/Codebase/Tools/scripts/ccs/apply_patch.js', { timeout: 60000 }, (err, stdout, stderr) => {
       if (err) {
         log(`[proxy] CCS update failed: ${err.message}`);
         res.writeHead(500, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ error: err.message, stderr }));
       } else {
-        log(`[proxy] CCS update succeeded`);
+        log(`[proxy] CCS update and profile patch succeeded`);
         // Force version cache reload on next check
         ccsVersionCache.lastChecked = 0;
         res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ status: 'ok', message: 'CCS updated successfully', stdout }));
+        res.end(JSON.stringify({ status: 'ok', message: 'CCS updated and patched successfully', stdout }));
       }
     });
     return;
