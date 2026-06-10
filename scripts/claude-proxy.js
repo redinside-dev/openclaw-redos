@@ -1549,6 +1549,7 @@ const DASHBOARD_HTML = `<!DOCTYPE html>
         if (res.status === 200) {
           const data = await res.json();
           showToast('CCS CLI updated successfully!');
+          setTimeout(() => { location.reload(); }, 1500);
         } else {
           try {
             const data = await res.json();
@@ -1660,6 +1661,7 @@ const server = http.createServer(async (req, res) => {
       } else {
         log(`[proxy] CCS update and profile patch succeeded`);
         // Force version cache reload on next check
+        ccsVersionCache.current = 'unknown';
         ccsVersionCache.lastChecked = 0;
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ status: 'ok', message: 'CCS updated and patched successfully', stdout }));
