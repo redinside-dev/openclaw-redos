@@ -81,3 +81,8 @@ dependencies:
 
 ## Risk Posture
 risk_posture: low
+
+## Web Search Status
+web_search:
+  status: OK
+
