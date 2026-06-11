@@ -64,9 +64,16 @@ bash /Users/redinside/.openclaw/scripts/30min-self-verify.sh
 # Latest 5 lines
 tail -5 /Users/redinside/.openclaw/logs/30min-self-verify.log
 
-# Should be: verdict=pass, 10/10 invariants
-# If 9/10 with agent-status-stale=X → known soft gap, non-critical
+# Should be: verdict=ok, 11/11 invariants
+# If 10/11 with agent-status-stale=X → known soft gap, non-critical
 ```
+
+The verifier now asserts **11 invariants** (was 10; added slack_exec_approvals on 2026-06-11):
+
+1. gateway, 2. cron_jobs>=25, 3. ollama>=2 models, 4. workers (8 agents),
+5. agent-selfheal<=15m, 6. ollama-autorecover<=30m, 7. oauth_state<=1h,
+8. dead_letter<=10, 9. agent_status<=60m, 10. gateway_stable_30m,
+**11. slack_exec_approvals** (block present + ≥1 approver + target resolvable)
 
 A single tick: `bash /Users/redinside/.openclaw/scripts/supervisor-tick.sh`
 
@@ -82,6 +89,36 @@ have prevented it.
 - `agent-status-stale` for `hatake` (47 days) — that agent's writer is dormant. Add a
   cron-fired self-heal write for missing status files if you want to clear it.
 - `slack` token path uses `openclaw.json` not keychain (intentional — fallback works).
+- **Slack exec-approvals resolver gate** — openclaw's compiled `dist/exec-approvals-*.js`
+  has `if (approverCount === 0) return false` baked in. The config MUST contain
+  `channels.slack.execApprovals.{enabled,mode,approvers[],targets}` or the resolver
+  silently no-ops (`shouldHandleRequest=false`). The 11th verifier check is the guard
+  rail. See `config/openclaw.json` and the `slack_exec_*` keys in the evidence JSON.
+  The compiled resolver itself has **not** been patched in dist (upstream is closed-source
+  for this build) — the fix lives in our config + verifier assertion, not in the binary.
+
+## Confidence: 70% → 90% on autonomy bar
+
+Prior to 2026-06-11 the system would have silently broken Slack `agentTurn` execution
+under a fresh install (the resolver had no approvers). Now:
+
+- **Config side:** `config/openclaw.json` declares the `execApprovals` block at both
+  channel-level and per-account (`channels.slack.accounts.default`).
+- **Evidence side:** the 30-min verifier fails closed if any of the three sub-checks
+  regress (block missing, approvers empty, target unresolvable).
+- **Process side:** any future config drift (someone re-runs the openclaw config wizard
+  and wipes the block) is caught within 30 min and paged via the supervisor.
+
+What's still 10% away from 100%:
+- The compiled resolver's `approverCount === 0` gate is not patched in dist — if openclaw
+  changes their config schema and the resolver ignores the `approvers` key for a new
+  reason, our verifier only catches the symptom (no approval requests handled) and not
+  the cause. A future upgrade to a build where the resolver respects our config shape
+  (or where we replace Slack with Telegram) closes that gap.
+- The verifier does not exercise a real Slack approval round-trip end-to-end. It checks
+  the config is well-formed and the resolver will fire, but it doesn't simulate a Slack
+  slash command and assert a thread reply. That requires a real Slack test channel and
+  Anurag's involvement — out of band for the autonomy loop.
 
 ## How to add a new cron job
 
