@@ -1392,8 +1392,9 @@
       "sessionTarget": "none",
       "wakeMode": "now",
       "payload": {
-        "kind": "exec",
-        "command": "/Users/redinside/.openclaw/scripts/oauth-autofix.sh",
+        "kind": "agentTurn",
+        "message": "Run this exact command:\n\n  bash /Users/redinside/.openclaw/scripts/oauth-autofix.sh\n\nDo not do anything else. Do not reply. Return NO_REPLY.",
+        "thinking": "off",
         "timeoutSeconds": 120
       },
       "delivery": {
@@ -1424,8 +1425,9 @@
       "sessionTarget": "none",
       "wakeMode": "now",
       "payload": {
-        "kind": "exec",
-        "command": "/Users/redinside/.openclaw/scripts/ollama-autorecover.sh",
+        "kind": "agentTurn",
+        "message": "Run this exact command:\n\n  bash /Users/redinside/.openclaw/scripts/ollama-autorecover.sh\n\nDo not do anything else. Do not reply. Return NO_REPLY.",
+        "thinking": "off",
         "timeoutSeconds": 300
       },
       "delivery": {
@@ -1456,8 +1458,9 @@
       "sessionTarget": "none",
       "wakeMode": "now",
       "payload": {
-        "kind": "exec",
-        "command": "/Users/redinside/.openclaw/scripts/agent-selfheal.sh",
+        "kind": "agentTurn",
+        "message": "Run this exact command:\n\n  bash /Users/redinside/.openclaw/scripts/agent-selfheal.sh\n\nDo not do anything else. Do not reply. Return NO_REPLY.",
+        "thinking": "off",
         "timeoutSeconds": 180
       },
       "delivery": {
