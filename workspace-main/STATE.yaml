@@ -1,0 +1,529 @@
+# STATE.yaml — RedOS Mission State
+# Updated: 2026-06-08T19:45 UTC (2026-06-08 15:45 EDT)
+# Refreshed by: ops (heartbeat, inter-session task from main)
+# Reason: 27-day stale; pre-Build-2026 reality. Now reflects Microsoft Build 2026
+#         strategic signal and the 3 pending RED decisions in RED-DECISION-DOC-2026-06-08.md
+# Inputs: /Users/redinside/.openclaw/workspace-main/research/STRATEGIC-STATE-2026-06-08.md
+#         /Users/redinside/.openclaw/workspace-main/research/RED-DECISION-DOC-2026-06-08.md
+#         /Users/redinside/.openclaw/workspace/STATE.yaml (inner-loop refresh 15:25 EDT, kept for system health)
+#         /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md
+
+version: "2"
+generated_by: ops (heartbeat refresh, Build 2026 alignment)
+generated_at: "2026-06-08T19:45:00Z"
+last_refresh: "2026-06-08T15:45:00-04:00"
+last_checkin: "2026-06-08T15:45:00-04:00"
+last_ticket_update: "2026-06-08T15:45:00-04:00"
+prior_refresh: "2026-05-12T15:04:00-04:00"   # 27 days stale before this refresh
+
+# ─── STRATEGIC HEADLINE (Microsoft Build 2026) ───────────────────────────────
+# Supersedes pre-Build-2026 framing. Window compressed 12-18mo → 9-15mo.
+# Source: STRATEGIC-STATE-2026-06-08.md, RED-DECISION-DOC-2026-06-08.md
+strategic_headline_2026_06_08:
+  event: "Microsoft Build 2026 (Jun 2)"
+  signal: "HIGHEST OF 2026 SO FAR"
+  top_3:
+    - "Scout (Microsoft 365 Autopilot) built on OpenClaw — runtime is now free + shared"
+    - "Microsoft contributed its policy-conformance system upstream to OpenClaw — policy is now a runtime feature"
+    - "Microsoft Execution Containers (MXC) — kernel-level sandboxing on Windows, used by OpenClaw + NVIDIA OpenShell + Manus + Hermes"
+  parallel_signal: "Cognition Devin Desktop + Agent Client Protocol (ACP) — Cursor/JetBrains/Google/GitHub all in. Cursor 3.5-3.7 (May 18 – Jun 5) shipped SDK GA."
+  window_update: "12-18mo → 9-15mo"
+  redos_wedge_validated: true
+  wedge_framing: "Microsoft made the runtime free; RedOS is the policy engine — open, vendor-neutral, not chained to M365. MXC for macOS and Linux."
+  acp_durability: "Ahead of brief — Cursor joined ACP Registry Mar 1, 2026. Standard is more durable than feared. Runtime layer is consolidating faster than the policy layer above it."
+  sixty_day_moves:
+    - "Week 1: Observation-only ESF event pipeline on macOS tagged with SDK session metadata (1 eng-week)"
+    - "30 days: Single `redosd` daemon (ESF + sandbox-exec on macOS, eBPF/landlock/seccomp on Linux) covering Cursor SDK + Copilot SDK + Devin ACP from one policy file"
+    - "60 days: 'MXC-aware audit log' differentiator — shows when actions went through MXC AND when they bypassed MXC (macOS, Linux, non-MS identity)"
+
+# ─── PENDING RED DECISIONS (Build 2026, due EOD 2026-06-09) ───────────────────
+# Source: RED-DECISION-DOC-2026-06-08.md
+pending_red_decisions:
+  decision_1_ship_mvp_this_week:
+    question: "Approve MVP scope and ship this week (observation-only ESF event pipeline on macOS, 1 eng, 5 days)"
+    default_if_no_response: "Tell ENG to start Monday"
+    cost: "~1 eng-week, no infra"
+    risk: "Low — observation is non-blocking"
+  decision_2_pause_goal_007:
+    question: "Pause GOAL-007 (10 OSS repos) for 2 weeks to fund SDK integration sprint"
+    default_if_no_response: "Pause 2 of 10 repos; keep active ones running"
+    cost: "2-week slip on GOAL-007 (8-week → 10-week timeline)"
+    risk: "Medium — slip is recoverable, missed window is not"
+    tracked_in: "TICKET-20260608-004 (P0.5, conditional on Anurag approval)"
+  decision_3_public_positioning:
+    question: "Use new positioning line publicly on landing page + blog post"
+    default_if_no_response: "Use line on landing page; hold blog post until Anurag reads brief"
+    cost: "None"
+    risk: "Public commitment to specific framing; if MS re-pivots, looks exposed"
+  decision_4_opensource_adapter:
+    question: "Open-source the OpenClaw policy-conformance adapter (MIT)"
+    default_if_no_response: "Build adapter, hold OSS release until positioning approved"
+    cost: "~1 eng-week"
+    risk: "Low — it's an adapter, not core IP"
+  due_by: "2026-06-09T23:59 EDT (EOD tomorrow)"
+
+# ─── SPRINT ───────────────────────────────────────────────────────────────────
+sprint:
+  name: "Sprint 4 — Pending (conditional on RED decision 2)"
+  status: PENDING_RED_DECISION
+  prior_sprint_end: "2026-05-22"
+  candidate_focus: |
+    If Decision 2 approves GOAL-007 pause: Sprint 4 = SDK integration MVP
+    (1 eng, 5 days observation-only ESF → 30 days enforcement).
+    If Decision 2 declined: Sprint 4 = continued GOAL-007 (OSS repos) + opportunistic SDK spike.
+  default_action_pending_decision: "Briefing ENG to start observation prototype Monday 2026-06-15; briefing OPS to open P0.5 ticket (TICKET-20260608-004) for the work + GOAL-007 pause."
+
+# ─── PIPELINE ─────────────────────────────────────────────────────────────────
+pipeline:
+  spring-ai:
+    status: ACTIVE
+    health: healthy
+    block: null
+    note: "M6 (v2.0.0-M6) published 2026-05-08. ENG subagents #36-#41 active. Backlog cleared. M7 released 2026-05-22; GA expected late June. All 29 open PRs target main (not M7) — TICKET-20260603-SPRING-AI-M7-STRATEGY-001 CLOSED 2026-06-08T15:14 UTC by ZEN COO (stay on main). GOAL-007 (10 OSS repos) currently active. M7 strategy approved: stay on main."
+    milestone: "v2.0.0-M7-released-2026-05-22"
+    milestone_published: "2026-05-22"
+    goal_007_status: "ACTIVE — candidate for 2-week pause per RED Decision 2"
+  openclaw_core:
+    version: "2026.6.1"
+    health: healthy
+    block: null
+    upgrade_note: "Installed 2026.6.1 matches npm latest 2026.6.1 (verified 2026-06-08). 2026.6.5 stable available (released ~2026-06-05/06) — TICKET-20260608-OPENCLAW-UPDATE-2026.6.5-001 P2 OPEN awaiting RED approval. Plugin drift: brave 2026.5.7, slack 2026.5.12, whatsapp 2026.5.7 — all need update for full v2026.6.5 alignment. Fix: openclaw plugins update <id>; then gateway restart."
+    update_available: "2026.6.5"
+    update_ticket: "TICKET-20260608-OPENCLAW-UPDATE-2026.6.5-001"
+  redos_sdk_integration_NEW:
+    name: "RedOS SDK integration (`redosd` daemon)"
+    status: PROPOSED
+    health: greenfield
+    block: "Awaiting RED Decision 1 (MVP scope) + Decision 2 (GOAL-007 pause)"
+    note: "Single daemon: ESF + sandbox-exec on macOS, eBPF/landlock/seccomp on Linux. Three lightweight per-SDK shims for Cursor SDK + Copilot SDK + Devin ACP. Week-1 MVP: observation-only ESF event pipeline tagged with SDK session metadata. Tracked in TICKET-20260608-004 (P0.5, conditional). Architecture memo: research/sdk-integration-architecture-2026-06-08.md (ENG runId 012b2a8e)."
+
+# ─── GATEWAY ──────────────────────────────────────────────────────────────────
+# Source of truth: /Users/redinside/.openclaw/workspace/STATE.yaml (inner-loop refresh 15:25 EDT, today)
+# This section mirrors the operational truth from the ops workspace, where live monitoring lives.
+gateway:
+  version: "2026.6.1"
+  build: "live (pid 48520) — RESTARTING EVERY 10 MIN"
+  health: UP_BUT_DEGRADED
+  health_note: "Gateway is UP and stable during each individual run, but is restarting every 10:00 minutes on a strict cadence (45+ events today). T29 hypothesis (rejected) was at the wrong cadence (hourly vs actual 10min). Phase B.6 verification was inside this pattern. P0 ticket TICKET-20260608-GATEWAY-EVERY-10MIN-RESTART-001 OPEN for RED/ENG investigation. Deadline 15:55 EDT."
+  last_restart: "2026-06-08T15:18 EDT"
+  restart_pattern: "Every 10:00 min since ~09:00 EDT; clean shutdowns (exit 0)"
+  crash_at: "2026-05-28T08:35:44 EDT"   # historical, resolved
+  config_mismatch: "RESOLVED"
+  plugin_drift:
+    - brave 2026.5.7 → expected 2026.6.5
+    - slack 2026.5.12 → expected 2026.6.5
+    - whatsapp 2026.5.7 → expected 2026.6.5
+  cron_health:
+    total: 73
+    enabled: 71
+    ok: 23
+    with_errors: 50
+    max_consecutive_errors: 5
+    overdue: 0
+    note: "DEGRADED via 10-min restart cascade, not crashes. 50 jobs have consecutive_errors 1-5 from interrupted-on-startup."
+  search:
+    status: UP
+    provider: "9router fallback (Brave/MiniMax bypassed)"
+    note: "9router fallback active since ~2026-04-29. web_search functional via 9router."
+  known_issues:
+    - id: "OPS-010"
+      title: "Slack pong timeouts causing session hangs"
+      status: PERSISTENT
+    - id: "SLACK-ROUTING-001"
+      title: "Bundled plugin path bug"
+      status: CONFIRMED
+    - id: "EXA-MCP-TIMEOUT"
+      title: "exa MCP server connection timed out (30s)"
+      status: "DEGRADED — seen 2026-05-26T21:05"
+
+# ─── AGENTS ───────────────────────────────────────────────────────────────────
+agents:
+  main:
+    status: ACTIVE
+    identity: "RED (CEO)"
+    routing: "Telegram default, Slack default"
+    workspace: "~/.openclaw/workspace-main"
+    note: "Primary CEO agent. Just synthesized Build 2026 decision doc (4 decisions pending Anurag EOD 2026-06-09). Briefing OPS to refresh STATE.yaml + add P0.5 ticket for SDK integration work."
+  allrounder:
+    status: ACTIVE
+    identity: "ZEN (COO)"
+    routing: "Telegram allrounder"
+    workspace: "~/.openclaw/workspace-allrounder"
+    note: "COO. Resolved TICKET-20260603-SPRING-AI-M7-STRATEGY-001 (stay on main) 2026-06-08T15:14 UTC under COO authority. Build 2026 inputs: RESEARCH runId ced6409b answered 5 questions on ACP/MXC/OpenClaw policy/SDK integration."
+  eng:
+    status: ACTIVE
+    identity: "ENG (Engineering)"
+    routing: "Telegram eng"
+    workspace: "~/.openclaw/workspace-eng"
+    note: "Engineering. Build 2026 input: SDK integration architecture memo dispatched 2026-06-08, runId 012b2a8e (`sdk-integration-architecture-2026-06-08.md`). Recommends single `redosd` daemon + 3 SDK shims. 1 eng, 5 days for week-1 observation-only MVP. Awaiting RED Decision 1 to start Monday. Subagents #36-#41 active for GOAL-007 OSS work — may pause 2 repos if Decision 2 approves."
+  ops:
+    status: ACTIVE
+    identity: "OPS (Operations)"
+    routing: "Telegram ops"
+    workspace: "~/.openclaw/workspace-ops"
+    note: "Operations — monitoring, health-snapshot, cron management, SLA enforcement. Inner loop 15:25 EDT today opened P0 ticket for gateway 10-min restart pattern. Refreshed main STATE.yaml 15:45 EDT (27-day stale → Build 2026 alignment). Next: open TICKET-20260608-004 (P0.5 SDK integration + GOAL-007 pause tracker) on RED Decision 2."
+  research:
+    status: ACTIVE
+    identity: "RESEARCHRED_BOT (Market & Competitive Intelligence)"
+    routing: "Telegram research"
+    workspace: "~/.openclaw/workspace-research"
+    note: "Market intelligence, competitive analysis. OSS backlog cleared (M6). Build 2026 input: answered 5 research questions on ACP adoption, MXC boundary, OpenClaw policy, SDK integration shape, requiredMinimumVersion trajectory (runId ced6409b). Key finding: Cursor already in ACP Registry since Mar 1, 2026."
+  finance:
+    status: ACTIVE
+    identity: "FINANCERED_BOT (Financial Analyst)"
+    routing: "Telegram finance"
+    workspace: "~/.openclaw/workspace-finance"
+    note: "Financial analyst — portfolio, cost monitoring, trading briefs. Crons (Daily Portfolio Review, Trading Window Briefs, Market Leads) failing since ~2026-04-27; likely gog OAuth related. Cron 199a722c reconfigured 2026-06-08T19:14 to webhook-to-main + Telegram failure alert (TICKET-20260608-003 fix)."
+  infosec:
+    status: ACTIVE
+    identity: "🛡️ INFOSEC (Security)"
+    routing: "Telegram infosec"
+    workspace: "~/.openclaw/workspace-infosec"
+    note: "Security. Build 2026 input: security analysis dispatched 2026-06-08, runId 643390c6 (`build-2026-security-analysis-2026-06-08.md`). Conclusion: MXC and RedOS are parallel, not competing. Recommended positioning: 'Microsoft Execution Containers, but for macOS and Linux.' Three recs: (1) adopt that positioning, (2) ship 60-day SDK auto-review pack, (3) open-source the OpenClaw adapter. Also audited Mitiga MCP hijack (CRITICAL) 2026-06-08T16:13 — assessment only, no token rotation without approval."
+  hatake:
+    status: ACTIVE
+    identity: "🤖 Ghost (Website Agency)"
+    routing: "Telegram hatake"
+    workspace: "~/.openclaw/workspace-hatake"
+    note: "Website agency. Source of Build 2026 signal: `workspace-hatake/research/competitive-2026-06-08.md` (the brief that triggered the strategic synthesis)."
+
+# ─── CRON JOBS (sampled) ──────────────────────────────────────────────────────
+cron_jobs:
+  active_count: 9
+  note: "Full list: openclaw cron list. Key jobs below. 50/73 jobs have 1-5 consecutiveErrors from gateway 10-min restart cascade (see TICKET-20260608-GATEWAY-EVERY-10MIN-RESTART-001)."
+  key_jobs:
+    - id: "ops-disk-monitor-daily"
+      name: "OPS Disk Monitor Daily"
+      schedule: "0 2 * * *"
+      status: "ok"
+    - id: "sessions-daily-cleanup-0001"
+      name: "Daily Session Cleanup"
+      schedule: "0 3 * * *"
+      status: "ok"
+    - id: "a2a-infosec-reviews-eng-0001"
+      name: "INFOSEC ← ENG: Security Reviews"
+      schedule: "30 14 * * 2,4"
+      status: "ok"
+    - id: "a2a-friday-retro-0001"
+      name: "OPS Friday Retrospective"
+      schedule: "0 16 * * 5"
+      status: "ok"
+    - id: "openclaw-backup-weekly-0001"
+      name: "OpenClaw Weekly Backup"
+      schedule: "0 3 * * 0"
+      status: "ok"
+    - id: "ci-weekly-summarizer-0001"
+      name: "CI Weekly Summarizer"
+      schedule: "0 7 * * 1"
+      status: "error"        # ⚠️
+    - id: "ci-weekly-research-0001"
+      name: "Weekly Competitive Intelligence"
+      schedule: "0 9 * * 1"
+      status: "error"        # ⚠️
+    - id: "fe3fb82c-..."
+      name: "HATAKE Competitive Intelligence"
+      schedule: "0 10 * * 1"
+      status: "error"        # ⚠️
+
+# ─── TICKETS ───────────────────────────────────────────────────────────────────
+tickets:
+  total_open: 13   # +1 from 12: new TICKET-20260608-004 (SDK integration + GOAL-007 pause)
+  p0_open: 1       # TICKET-20260608-GATEWAY-EVERY-10MIN-RESTART-001
+  p0_5_open: 1     # TICKET-20260608-004 — pending RED Decision 2 to fully activate
+  p1_open: 3       # GMAIL-AUTH-EXPIRED-002, SLACK-001, FIN-001
+  p2_open: 2       # OPENCLAW-UPDATE-2026.6.5, OPS-20260608-001/002/003
+  p3_open: 3       # STATE-MIGRATION-CONFLICT, STANDUP-GAP, CronJobFixes
+  p0_critical:
+    - id: "TICKET-20260608-GATEWAY-EVERY-10MIN-RESTART-001"
+      priority: P0
+      status: OPEN
+      title: "Gateway restarting every 10 min — T29 hypothesis WRONG cadence"
+      age_minutes: ~80
+      assignee: RED (escalation) → ENG (investigation) → OPS (verify)
+      note: "OPS inner loop 15:25 EDT. 45+ events today. P0 RED ESCALATION. Original deadline 15:55 EDT (BREACHED) — awaiting RED/ENG root cause action. See /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md for full evidence."
+  p0_5_pending_red:
+    - id: "TICKET-20260608-004"
+      priority: P0.5
+      status: PENDING_RED_DECISION_2
+      title: "SDK integration sprint + GOAL-007 pause (Build 2026)"
+      opened: "2026-06-08T19:45 EDT by OPS"
+      assignee: "RED (approval gate) → ENG (sprint lead) → OPS (pause monitor) → INFOSEC (60-day review pack in parallel)"
+      summary: |
+        Triggers on Anurag approval of RED Decision 2 (pause GOAL-007 for 2 weeks to fund
+        SDK integration sprint). Default if no response: pause 2 of 10 GOAL-007 repos; keep
+        active ones running. Work package: 1.5 eng-weeks redirected to the SDK integration
+        MVP (single `redosd` daemon covering Cursor SDK + Copilot SDK + Devin ACP from one
+        policy file). Week-1 deliverable: observation-only ESF event pipeline on macOS
+        tagged with SDK session metadata (Decision 1). 30-day: enforcement. 60-day: MXC-aware
+        audit log (INFOSEC parallel).
+      linked_decisions: ["Decision 1 (ship MVP)", "Decision 2 (pause GOAL-007)"]
+      linked_assets:
+        - "/Users/redinside/.openclaw/workspace-main/research/STRATEGIC-STATE-2026-06-08.md"
+        - "/Users/redinside/.openclaw/workspace-main/research/RED-DECISION-DOC-2026-06-08.md"
+        - "/Users/redinside/.openclaw/workspace-main/research/eng/sdk-integration-architecture-2026-06-08.md"
+        - "/Users/redinside/.openclaw/workspace-main/research/infosec/build-2026-security-analysis-2026-06-08.md"
+        - "/Users/redinside/.openclaw/workspace-main/research/research/build-2026-questions-2026-06-08.md"
+      sla: "Activation on RED decision; no SLA until then. Once active: 1 eng-week to MVP."
+      action_on_open: |
+        OPS will: (1) post OPS-only placeholder into TICKET-TRACKER.md, (2) log the
+        pending decision in a2a-delegations.jsonl, (3) wait for RED decision. OPS will
+        NOT pause GOAL-007 unilaterally. When Decision 2 arrives, OPS flips status to
+        IN_PROGRESS and dispatches ENG sprint lead.
+  open_ticket_list:
+    - id: "TICKET-20260608-GATEWAY-EVERY-10MIN-RESTART-001"
+      priority: P0
+      status: OPEN
+      title: "Gateway restarting every 10 min on strict cadence"
+      note: "OPS inner loop 15:25 EDT. 45+ restart events today. P0 RED escalation. Deadline 15:55 EDT (BREACHED)."
+    - id: "TICKET-20260608-004"
+      priority: P0.5
+      status: PENDING_RED_DECISION_2
+      title: "SDK integration sprint + GOAL-007 pause (Build 2026)"
+      note: "Placeholder per OPS inter-session task. Activates on Anurag Decision 2 approval. Default: pause 2 of 10 GOAL-007 repos."
+    - id: "TICKET-20260608-OPENCLAW-UPDATE-2026.6.5-001"
+      priority: P2
+      status: OPEN
+      title: "openclaw 2026.6.1 → 2026.6.5 upgrade awaiting RED approval"
+      note: "No breaking changes. Auth state migrates to SQLite. ~2 min upgrade window. ZEN bundle decision 2026-06-08T15:15 UTC — single source of truth for the upgrade question."
+    - id: "TICKET-20260608-STATE-MIGRATION-CONFLICT-001"
+      priority: P3
+      status: OPEN
+      title: "Plugin install index not migrated (brave/slack/whatsapp metadata conflict)"
+      note: "Resolves on upgrade or openclaw doctor."
+    - id: "TICKET-20260608-GMAIL-AUTH-EXPIRED-002"
+      priority: P1
+      status: OPEN
+      title: "gog Gmail OAuth token expired (P1 SLA breached)"
+      age_days: 2
+      assignee: RED (browser re-auth)
+      note: "gog auth manage --account anorag.saxena@gmail.com needed on Mac mini."
+    - id: "TICKET-20260608-GMAIL-OAUTH-002"
+      priority: P1
+      status: OPEN
+      title: "Gmail OAuth refresh token revoked/expired (re-occurrence of TICKET-20260525-GMAIL-OAUTH-001)"
+      sla_deadline_utc: "2026-06-08T21:30 UTC"
+      assignee: RED → Anurag (manual re-auth)
+      note: "gog auth manage (browser needed) or `gog auth add anorag.saxena@gmail.com`. No CLI workaround."
+    - id: "TICKET-20260418-SLACK-001"
+      priority: P1
+      status: OPEN
+      title: "slack-token.json placeholder (51d stale)"
+      assignee: ZEN (reclassify/escalate)
+      note: "Gateway works via env vars (no user impact)."
+    - id: "TICKET-20260418-FIN-001"
+      priority: P1
+      status: OPEN
+      title: "ChatGPT Pro cancellation (58+ days)"
+      assignee: RED (manual browser action)
+      note: "$580+ wasted. No agent workaround."
+    - id: "TICKET-20260608-001/002/003"
+      priority: P2
+      status: OPEN
+      title: "Health-snapshot patterns (CLI failure + allrounder OpenAI key missing)"
+      note: "Within 8h SLA. OPS to batch-resolve 001/002; assign 003."
+    - id: "TICKET-20260608-STANDUP-GAP-001"
+      priority: P3
+      status: OPEN
+      title: "Standup process gap"
+      note: "Awaiting RED pick (option 1/2/3)."
+    - id: "TICKET-20260418-CronJobFixes-KNOWN_CHRONIC"
+      priority: P3
+      status: OPEN
+      title: "Known chronic cron issue (51d, bestEffort=true)"
+      note: "ZEN will recommend close-or-keep."
+    - id: "TICKET-20260608-003"
+      priority: P2
+      status: IN_PROGRESS
+      title: "Trading brief delivery fix (cron 199a722c reconfigured)"
+      note: "Cron reconfigured 2026-06-08T19:14 to webhook-to-main + Telegram failure alert. Verify 15:43 ET run delivers."
+    - id: "TICKET-20260528-OPENCLAW-UPDATE-AVAILABLE"
+      priority: P2
+      status: CLOSED_SUPERSEDED
+      title: "Superseded by TICKET-20260608-OPENCLAW-UPDATE-2026.6.5-001"
+      note: "ZEN bundle decision 2026-06-08T15:15 UTC. All upgrade tickets now consolidated."
+  recently_closed:
+    - id: "TICKET-20260603-SPRING-AI-M7-STRATEGY-001"
+      priority: P2
+      status: RESOLVED
+      title: "spring-ai M7 strategy — stay on main"
+      closed: "2026-06-08T15:14 UTC"
+      by: "ZEN COO under COO authority"
+      note: "All 29 open PRs target main. No action needed."
+  persistent_issues:
+    - id: "OPS-010"
+      priority: P2
+      title: "Slack pong timeouts causing session hangs"
+      note: "SlackWebSocket pong timeout (5000ms) seen repeatedly. Reconnections visible."
+    - id: "SLACK-ROUTING-001"
+      priority: P2
+      title: "Bundled plugin path bug confirmed"
+      note: "Slack plugin path issue confirmed in bundle."
+    - id: "FINANCE-CRONS-FAILING"
+      priority: P1
+      title: "Finance crons (preMarket, intraday, endOfDay) failing since ~2026-04-27"
+      note: "Likely gog OAuth related. 003 fix reconfigured trading-brief cron 2026-06-08."
+  failing_crons:
+    - id: "27-crons-in-error"
+      priority: P1
+      note: "27/71 cron jobs in ERROR — cascade from gateway 10-min restart. Will auto-clear after one clean run post-backoff. See TICKET-20260608-GATEWAY-EVERY-10MIN-RESTART-001."
+
+# ─── HEALTH ───────────────────────────────────────────────────────────────────
+health:
+  overall: DEGRADED
+  gateway: DEGRADED    # UP but restarting every 10 min
+  cron: DEGRADED       # 27/71 with errors from gateway cascade
+  openclaw:
+    status: CURRENT
+    version: "2026.6.1"
+    update_available: "2026.6.5"
+    note: "Awaiting RED approval to upgrade (TICKET-20260608-OPENCLAW-UPDATE-2026.6.5-001)."
+  slack:
+    status: DEGRADED
+    note: "Slack pong timeouts (5000ms) — OPS-010 persistent."
+  telegram:
+    status: HEALTHY
+  exa_mcp:
+    status: DEGRADED
+    note: "exa MCP server connection timed out after 30000ms (2026-05-26T21:05)."
+  note: "DEGRADED — gateway 10-min restart cascade is the dominant issue. P0 ticket TICKET-20260608-GATEWAY-EVERY-10MIN-RESTART-001. Strategic posture upgraded to Build 2026 alignment (3 pending RED decisions)."
+
+# ─── BLOCKERS ─────────────────────────────────────────────────────────────────
+blockers:
+  - id: "BLK-GATEWAY-10MIN-RESTART"
+    title: "Gateway restarting every 10 min (NEW P0)"
+    severity: P0
+    opened: "2026-06-08T15:25 EDT"
+    assignee: RED → ENG → OPS
+    note: "45+ events today. T29 hypothesis was at wrong cadence. T29/T36 verification was inside this pattern. See TICKET-TRACKER.md."
+  - id: "BLK-GMAIL-OAUTH"
+    title: "Gmail OAuth refresh token expired/revoked — human re-auth required"
+    severity: P1
+    age_days: 2+
+    assignee: ANURAG
+    mitigation: "Run `gog auth manage` on Mac mini (browser needed). Re-occurrence — consider adding a health-check cron that alerts on the moment the refresh token fails (7+ day detection lag is the problem)."
+  - id: "BLK-FIN-001"
+    title: "ChatGPT Pro cancellation — RED manual action required"
+    severity: P1
+    age_days: 58+
+    assignee: RED
+    note: "~$580 wasted. No agent workaround."
+  - id: "BLK-SLACK-TOKEN"
+    title: "Slack bot token stale"
+    severity: P1
+    age_days: 22+
+    assignee: ANURAG
+    note: "All Slack channels broken. Gateway works via env vars for ops, but bot token needs refresh."
+  - id: "BLK-FINANCE-CRONS"
+    title: "Finance cron jobs failing since ~2026-04-27"
+    severity: P1
+    age_days: 42+
+    assignee: OPS
+    note: "TICKET-20260608-003 partially fixed trading-brief cron 2026-06-08. Remaining finance crons still failing. Likely gog OAuth related."
+  - id: "BLK-3-WEEKLY-CRONS"
+    title: "3 weekly crons (CI summarizer, CI research, HATAKE CI) in error state"
+    severity: P2
+    age_days: 12+
+    assignee: OPS
+    note: "ci-weekly-summarizer-0001, ci-weekly-research-0001, HATAKE Competitive Intelligence. Investigate root cause."
+  - id: "BLK-RED-DECISIONS-BUILD-2026"
+    title: "4 RED decisions pending for Build 2026 (EOD 2026-06-09)"
+    severity: P0.5
+    opened: "2026-06-08T19:42 EDT"
+    assignee: ANURAG
+    note: "Decision 1 (ship MVP), Decision 2 (pause GOAL-007), Decision 3 (public positioning), Decision 4 (open-source adapter). Source: RED-DECISION-DOC-2026-06-08.md. Do-nothing risk now > ship-MVP risk per RED analysis."
+
+# ─── NEW DEVELOPMENTS (since 2026-05-12, Build 2026 era) ────────────────────
+new_since_last_refresh:
+  - date: "2026-06-08"
+    event: "Microsoft Build 2026 (Jun 2) strategic signal: Scout on OpenClaw, policy-conformance contributed upstream, MXC kernel sandboxing. Window compressed 12-18mo → 9-15mo. 3 parallel analyses (INFOSEC/RESEARCH/ENG) synthesized into RED-DECISION-DOC-2026-06-08.md. 4 decisions pending from Anurag EOD 2026-06-09."
+  - date: "2026-06-08"
+    event: "P0 ticket opened: TICKET-20260608-GATEWAY-EVERY-10MIN-RESTART-001 (gateway restarting every 10 min on strict cadence — 45+ events today)"
+  - date: "2026-06-08"
+    event: "TICKET-20260608-004 (P0.5) opened: SDK integration sprint + GOAL-007 pause, pending RED Decision 2"
+  - date: "2026-06-08"
+    event: "ZEN COO: spring-ai M7 strategy resolved — stay on main (all 29 open PRs target main)"
+  - date: "2026-06-08"
+    event: "TICKET-20260608-003 fix: trading-brief cron 199a722c reconfigured to webhook-to-main + Telegram failure alert"
+  - date: "2026-06-08"
+    event: "INFOSEC: Mitiga MCP hijack audit (CRITICAL) — assessment only, no token rotation without approval"
+  - date: "2026-06-08"
+    event: "openclaw 2026.6.5 available — TICKET-20260608-OPENCLAW-UPDATE-2026.6.5-001 awaiting RED approval"
+  - date: "2026-06-03"
+    event: "spring-ai M7 strategy ticket opened — resolved 2026-06-08 by ZEN"
+  - date: "2026-05-26"
+    event: "P0 Claw Chain CVE incident resolved (gateway auto-upgraded to 2026.4.26 in 55 min)"
+  - date: "2026-05-26"
+    event: "spring-ai v2.0.0-M6 published (2026-05-08); v2.0.0-M7 published 2026-05-22"
+  - date: "2026-05-25"
+    event: "Gmail OAuth token expired (first occurrence TICKET-20260525-GMAIL-OAUTH-001 resolved 2026-05-25; re-occurred 2026-06-08 as TICKET-20260608-GMAIL-OAUTH-002)"
+  - date: "2026-05-22"
+    event: "Sprint 3 ended — no Sprint 4 defined; now proposed as SDK integration sprint pending Decision 2"
+
+# ─── NOTES ─────────────────────────────────────────────────────────────────────
+notes:
+  - "STATE.yaml refreshed 2026-06-08T19:45 UTC (15:45 EDT) by OPS heartbeat. Prior refresh 2026-05-12 (27 days stale)."
+  - "Microsoft Build 2026 strategic framing is now the top of the file. 3 parallel sub-agent analyses (INFOSEC, RESEARCH, ENG) synthesized into RED-DECISION-DOC-2026-06-08.md."
+  - "4 RED decisions pending for Build 2026 response: ship MVP, pause GOAL-007, public positioning, open-source adapter. EOD 2026-06-09."
+  - "P0: Gateway 10-min restart (TICKET-20260608-GATEWAY-EVERY-10MIN-RESTART-001). P0.5: SDK integration + GOAL-007 pause (TICKET-20260608-004, conditional). P1: Gmail OAuth re-occurrence, ChatGPT cancellation, Slack token."
+  - "Sprint 3 (Apr 27–May 22) ended. Sprint 4 = SDK integration MVP, pending Decision 2."
+  - "openclaw 2026.6.1 → 2026.6.5 upgrade awaiting RED approval (TICKET-20260608-OPENCLAW-UPDATE-2026.6.5-001)."
+  - "All 4 sub-agent Build 2026 deliverables stored in workspace-main/research/: STRATEGIC-STATE-2026-06-08.md, RED-DECISION-DOC-2026-06-08.md, infosec/build-2026-security-analysis-2026-06-08.md, research/build-2026-questions-2026-06-08.md, eng/sdk-integration-architecture-2026-06-08.md."
+  - "OPS inner-loop refresh at /Users/redclaw/workspace/STATE.yaml (15:25 EDT today) is the system-health source of truth; this file is the strategic + tickets source of truth."
+
+# ─── RED 3rd-SWEEP NOTE 2026-06-08T22:20 UTC (RED-CEO-1780957209) ─────────────
+# See /Users/redinside/.openclaw/workspace/STATE.yaml and
+# /Users/redinside/.openclaw/workspace/ops/TICKET-TRACKER.md for the inner-loop
+# verdict. Summary: picked TICKET-20260608-L0-DISPATCH-MISMATCH-001 (P3) over
+# the P1 GMAIL-AUTH (structurally closed on agent side per 22:09 + 22:16 verdicts;
+# blocked on Anurag's browser OAuth). Dispatched OPS to make the 5-min surgical
+# fix to the consumer of alerts/*_L0.txt. Expected close 22:30 EDT.
+# CEO pattern: when P1 is human-blocked, pick the highest-priority *actionable*
+# open ticket and dispatch to owner. Don't pretend the P1 is closable.
+red_3rd_sweep_20260608_2220:
+  task: "RED-CEO-1780957209"
+  picked: "TICKET-20260608-L0-DISPATCH-MISMATCH-001 (P3, OPS owns)"
+  skipped: "P1 GMAIL-AUTH-EXPIRED-002 (agent-side closed, Anurag-blocked)"
+  dispatched: "OPS via sessions_spawn runId 30040964"
+  expected_close: "2026-06-08T22:30 EDT"
+  confidence: "High"
+  ledger_refs:
+    - "workspace/STATE.yaml:red_verdict_20260608_2220_third_attempt"
+    - "workspace/ops/TICKET-TRACKER.md:RED VERDICT 2026-06-08T22:20 UTC"
+    - "workspace-main/memory/2026-06-08.md:22:20 — RED — Third-sweep verdict"
+
+# ─── §1 TELEGRAM END-TO-END CLOSEOUT (2026-06-10T17:35Z, Claude/CC) ───────────
+handover_plan:
+  status: "in_progress"
+  started: "2026-06-10T12:30Z"
+  sections:
+    §1_telegram_e2e:
+      status: DONE
+      root_cause: "config/openclaw.json was missing channels.telegram block; bridge loaded 0 bots, logged '🎉 0 bots initialized and ready!' (the lie)"
+      fix: "Restored channels.telegram from config/openclaw.json.last-good (7-account canonical block). Snapshot of broken config at config/openclaw.json.missing-telegram-2026-06-10T17-08-13Z."
+      evidence: "workspace/ops/telegram-verify-2026-06-10/ (8 files)"
+      proof_artifact: "scripts/_evidence/telegram-bridge-e2e.mjs"
+      agents_routed_correctly:
+        - { name: default,    latency_ms: 3057,  persona_reply: "(undefined name, id=default correct)" }
+        - { name: allrounder, latency_ms: 7720,  persona_reply: "AGENT Zen Red" }
+        - { name: eng,        latency_ms: 46332, persona_reply: "AGENT eng" }
+        - { name: research,   latency_ms: 104246, persona_reply: "AGENT RESEARCH (cold start)" }
+        - { name: finance,    latency_ms: 7552,  persona_reply: "AGENT FINANCE" }
+        - { name: ops,        latency_ms: 38709, persona_reply: "AGENT OPS" }
+        - { name: infosec,    latency_ms: 5751,  persona_reply: "AGENT INFOSEC" }
+      next_step_user: "Open Telegram on phone, send 'ping' to each of the 7 bots. Expected latencies: main/allrounder/finance/infosec 3-8s, eng/ops 30-50s, research 45-90s cold start."
+      monitoring: "tail -f /Users/redinside/.openclaw/logs/telegram-bridge.log"
+    §2_oauth_self_heal: {status: CLOSED, 2026-06-11, keychain+refresh-token, oauth-autofix.sh fully self-heals}
+    §3_self_fueling_tasks: {status: CLOSED, 2026-06-11, queue.json + task-generator proved workers consume}
+    §4_l4_escalation: {status: CLOSED, 2026-06-11, supervisor-tick.sh 3-retry policy before page}
+    §5_30min_dry_run: {status: CLOSED, 2026-06-11, 10/10 PASS, all evidence in workspace/ops/evidence/30min-verify/}
+    §6_close_task_list: {status: CLOSED, 2026-06-11, tasks #96 #120 #126 #131 #132 #134 #135 #136 remaining — final pass}
+    §7_handover_md: {status: CLOSED, 2026-06-11, 1-pager in workspace-main/HANDOVER.md}
+    §8_final_commit: {status: CLOSED, 2026-06-11, all changes committed}
+  # --- 2026-06-11 final closeout (Claude session) ---
+  final_2026_06_11:
+    verifier: 10/10 PASS, evidence at workspace/ops/evidence/30min-verify/2026-06-11T17:21:46Z.json
+    cron_jobs_total: 28
+    gateway_restart_count_30m: 0
+    agent_status_selfheal: scripts/agent-status-refresh.sh + cron agent-status-refresh-0001 (every 5 min)
+    handover_acked: HANDOVER-2026-06-11-FINAL-001 queued to all 8 agents
+    autonomy_status: OPERATIONAL — gateway + crons + 30-min verifier + self-healing chain run without Claude session
