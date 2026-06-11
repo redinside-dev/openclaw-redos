@@ -43,6 +43,7 @@ and fails if too many are disabled. Critical jobs:
 - `ollama-autorecover-0001` — every 30 min
 - `oauth-autofix-0001` — every 10 min
 - `ops-30min-verify-0001` — every 30 min (writes to `logs/30min-self-verify.log`)
+- `gog-oauth-rotation-0001` — every 5 days (proactive token rotation; pages via `oauth-pager.sh` if step-1 needed)
 
 Plus one-time / daily jobs (daily-standup, health checks, etc).
 
@@ -64,16 +65,23 @@ bash /Users/redinside/.openclaw/scripts/30min-self-verify.sh
 # Latest 5 lines
 tail -5 /Users/redinside/.openclaw/logs/30min-self-verify.log
 
-# Should be: verdict=ok, 11/11 invariants
-# If 10/11 with agent-status-stale=X → known soft gap, non-critical
+# Should be: verdict=ok, 12/12 invariants
+# If 11/12 with agent-status-stale=X → known soft gap, non-critical
 ```
 
-The verifier now asserts **11 invariants** (was 10; added slack_exec_approvals on 2026-06-11):
+The verifier now asserts **12 invariants** (was 11; added gog_rotation_fresh on 2026-06-11):
 
 1. gateway, 2. cron_jobs>=25, 3. ollama>=2 models, 4. workers (8 agents),
 5. agent-selfheal<=15m, 6. ollama-autorecover<=30m, 7. oauth_state<=1h,
 8. dead_letter<=10, 9. agent_status<=60m, 10. gateway_stable_30m,
-**11. slack_exec_approvals** (block present + ≥1 approver + target resolvable)
+11. slack_exec_approvals (block present + ≥1 approver + target resolvable),
+**12. gog_rotation_fresh** (`gog-oauth-last-rotation.txt` ≤ 6 days old)
+
+The gog-rotator fires every 5 days via `gog-oauth-rotation-0001` cron, calls
+`scripts/gog-oauth-rotator.sh` (probes Google + decides step1/step2), and pages Anurag via
+`scripts/oauth-pager.sh` if a step-1 redirect URL needs to be pasted. This replaces the
+old "rotate on failure" loop with proactive rotation, preventing the 6-month-revocation
+cliff that bit TICKET-20260608-GMAIL-OAUTH-002.
 
 A single tick: `bash /Users/redinside/.openclaw/scripts/supervisor-tick.sh`
 
@@ -147,7 +155,8 @@ What's still 10% away from 100%:
 
 - Do not delete `logs/30min-self-verify.log` — it's the audit trail.
 - Do not disable `supervisor-tick` / `agent-queue-refuel` / `agent-selfheal` / `oauth-autofix` /
-  `ollama-autorecover` — they form the autonomy loop. Removing any one breaks the chain.
+  `ollama-autorecover` / `gog-oauth-rotation-0001` — they form the autonomy loop. Removing
+  any one breaks the chain (and disabling rotation brings back the 6-month-revocation cliff).
 - Do not edit `cron/jobs.json` while gateway is up without reloading — stale state will mask
   the change.
 - Do not add a script that "pings" the gateway as a health check — use the existing
@@ -162,8 +171,10 @@ scripts/
   agent-selfheal.sh            # L1
   ollama-autorecover.sh        # L1
   oauth-autofix.sh             # L1
+  gog-oauth-rotator.sh         # L1 — proactive token rotation (cron-every-5-days)
+  oauth-pager.sh               # pages Anurag with one-tap re-auth
   agent-queue-refuel.sh        # never-idle contract for workers
-  30min-self-verify.sh         # 10-invariant evidence gate
+  30min-self-verify.sh         # 12-invariant evidence gate
   heartbeat-*.sh               # L0
 
 workspace/scripts/
