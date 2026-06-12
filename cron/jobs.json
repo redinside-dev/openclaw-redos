@@ -1475,6 +1475,39 @@
         "consecutiveErrors": 0
       },
       "updatedAtMs": 1790000000000
+    },
+    {
+      "id": "agent-status-refresh-0001",
+      "agentId": "system",
+      "name": "OPS Agent-Status Refresh — Keep All 8 Statuses Fresh",
+      "enabled": true,
+      "createdAtMs": 1790000000000,
+      "schedule": {
+        "kind": "cron",
+        "expr": "*/5 * * * *",
+        "tz": "America/Toronto",
+        "staggerMs": 0
+      },
+      "sessionTarget": "none",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Run this exact command:\n\n  bash /Users/redinside/.openclaw/scripts/agent-status-refresh.sh\n\nDo not do anything else. Do not reply. Return NO_REPLY.",
+        "thinking": "off",
+        "timeoutSeconds": 60
+      },
+      "delivery": {
+        "mode": "none"
+      },
+      "state": {
+        "nextRunAtMs": 0,
+        "lastRunAtMs": 0,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 0,
+        "consecutiveErrors": 0
+      },
+      "updatedAtMs": 1790000000000
     }
   ]
 }
