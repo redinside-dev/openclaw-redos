@@ -751,7 +751,7 @@
       "id": "dae2ca55-7836-4f00-b1a3-fcc3f936bfaa",
       "name": "Logs Weekly Ensure+Rotate",
       "description": "Defensive ensure errors.jsonl + routing-decisions.jsonl exist; weekly time-based rotation to <name>.YYYY-WW",
-      "enabled": false,
+      "enabled": true,
       "createdAtMs": 1780979324865,
       "agentId": "ops",
       "schedule": {
@@ -1166,7 +1166,7 @@
       "id": "system-pulse-always-on-0001",
       "agentId": "ops",
       "name": "System Pulse — Always-On Heartbeat (Ollama only)",
-      "enabled": true,
+      "enabled": false,
       "createdAtMs": 1772080522100,
       "schedule": {
         "kind": "cron",
@@ -1376,138 +1376,6 @@
         "nextRunAtMs": 1781095220000
       },
       "updatedAtMs": 1781095000000
-    },
-    {
-      "id": "oauth-autofix-0001",
-      "agentId": "system",
-      "name": "OPS OAuth Auto-Fix — Probe + Auto-Recover",
-      "enabled": true,
-      "createdAtMs": 1790000000000,
-      "schedule": {
-        "kind": "cron",
-        "expr": "*/15 * * * *",
-        "tz": "America/Toronto",
-        "staggerMs": 0
-      },
-      "sessionTarget": "none",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "message": "Run this exact command:\n\n  bash /Users/redinside/.openclaw/scripts/oauth-autofix.sh\n\nDo not do anything else. Do not reply. Return NO_REPLY.",
-        "thinking": "off",
-        "timeoutSeconds": 120
-      },
-      "delivery": {
-        "mode": "none"
-      },
-      "state": {
-        "nextRunAtMs": 0,
-        "lastRunAtMs": 0,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 0,
-        "consecutiveErrors": 0
-      },
-      "updatedAtMs": 1790000000000
-    },
-    {
-      "id": "ollama-autorecover-0001",
-      "agentId": "system",
-      "name": "OPS Ollama Auto-Recover — Detect + Pull Models",
-      "enabled": true,
-      "createdAtMs": 1790000000000,
-      "schedule": {
-        "kind": "cron",
-        "expr": "*/30 * * * *",
-        "tz": "America/Toronto",
-        "staggerMs": 0
-      },
-      "sessionTarget": "none",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "message": "Run this exact command:\n\n  bash /Users/redinside/.openclaw/scripts/ollama-autorecover.sh\n\nDo not do anything else. Do not reply. Return NO_REPLY.",
-        "thinking": "off",
-        "timeoutSeconds": 300
-      },
-      "delivery": {
-        "mode": "none"
-      },
-      "state": {
-        "nextRunAtMs": 0,
-        "lastRunAtMs": 0,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 0,
-        "consecutiveErrors": 0
-      },
-      "updatedAtMs": 1790000000000
-    },
-    {
-      "id": "agent-selfheal-0001",
-      "agentId": "system",
-      "name": "OPS Agent Self-Heal — Detect Degraded + Auto-Recover",
-      "enabled": true,
-      "createdAtMs": 1790000000000,
-      "schedule": {
-        "kind": "cron",
-        "expr": "*/10 * * * *",
-        "tz": "America/Toronto",
-        "staggerMs": 0
-      },
-      "sessionTarget": "none",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "message": "Run this exact command:\n\n  bash /Users/redinside/.openclaw/scripts/agent-selfheal.sh\n\nDo not do anything else. Do not reply. Return NO_REPLY.",
-        "thinking": "off",
-        "timeoutSeconds": 180
-      },
-      "delivery": {
-        "mode": "none"
-      },
-      "state": {
-        "nextRunAtMs": 0,
-        "lastRunAtMs": 0,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 0,
-        "consecutiveErrors": 0
-      },
-      "updatedAtMs": 1790000000000
-    },
-    {
-      "id": "agent-status-refresh-0001",
-      "agentId": "system",
-      "name": "OPS Agent-Status Refresh — Keep All 8 Statuses Fresh",
-      "enabled": true,
-      "createdAtMs": 1790000000000,
-      "schedule": {
-        "kind": "cron",
-        "expr": "*/5 * * * *",
-        "tz": "America/Toronto",
-        "staggerMs": 0
-      },
-      "sessionTarget": "none",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "message": "Run this exact command:\n\n  bash /Users/redinside/.openclaw/scripts/agent-status-refresh.sh\n\nDo not do anything else. Do not reply. Return NO_REPLY.",
-        "thinking": "off",
-        "timeoutSeconds": 60
-      },
-      "delivery": {
-        "mode": "none"
-      },
-      "state": {
-        "nextRunAtMs": 0,
-        "lastRunAtMs": 0,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 0,
-        "consecutiveErrors": 0
-      },
-      "updatedAtMs": 1790000000000
     }
   ]
 }
