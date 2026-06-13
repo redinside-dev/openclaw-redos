@@ -21,6 +21,45 @@ TELEGRAM_CHAT="1012034994"
 TELEGRAM_TOKEN=$(python3 -c "import json; d=json.load(open('$OPENCLAW/credentials/secrets.json')); print(d['channels']['telegram']['accounts']['default'])" 2>/dev/null || echo "")
 NINE_ROUTER_DB="$HOME/.9router/db.json"
 
+# ── L1 Failure Tracking ────────────────────────────────────────────────────────
+# autonomous-healer now requires 3 consecutive L1 (cron-pipeline-watchdog)
+# failures before firing. This collapses the watchdog layer from 5 to 3.
+# L1 failure = cron-pipeline-watchdog heartbeat file missing or stale (>90s).
+
+L1_HB="/tmp/openclaw-cron-pipeline-watchdog.heartbeat"
+L1_FAIL_COUNT_FILE="/tmp/openclaw-l1-fail-count"
+L1_FAIL_THRESHOLD=3
+
+check_l1() {
+  local l1_stale=0
+  if [ ! -f "$L1_HB" ]; then
+    l1_stale=1
+  else
+    local hb_age=$(( $(date +%s) - $(stat -f %Y "$L1_HB" 2>/dev/null || echo 0) ))
+    if [ "$hb_age" -gt 90 ]; then
+      l1_stale=1
+    fi
+  fi
+
+  if [ "$l1_stale" -eq 1 ]; then
+    local count
+    count=$(cat "$L1_FAIL_COUNT_FILE" 2>/dev/null || echo "0")
+    count=$((count + 1))
+    echo "$count" > "$L1_FAIL_COUNT_FILE"
+    log "L1 stale (failure #$count / $L1_FAIL_THRESHOLD)"
+    if [ "$count" -ge "$L1_FAIL_THRESHOLD" ]; then
+      log "L1 failed $L1_FAIL_THRESHOLD consecutive times — running full heal"
+      # reset so next fire is after another 3 failures
+      echo "0" > "$L1_FAIL_COUNT_FILE"
+      return 0
+    fi
+    return 1  # skip normal checks, L1 not yet at threshold
+  else
+    echo "0" > "$L1_FAIL_COUNT_FILE"
+    return 1  # L1 healthy, no heal needed
+  fi
+}
+
 # Cascade guard: redos-self-healer.sh also restarts gateway and 9router.
 # If it fired within the last 90s, skip those checks to avoid double-restart
 # which kills active subagent sessions.
@@ -201,6 +240,14 @@ check_pending_prs() {
 
 # ── Main ─────────────────────────────────────────────────────────────────────
 log "=== Autonomous healer run ==="
+
+# Gate all checks on L1: only fire after 3 consecutive cron-pipeline-watchdog failures
+if ! check_l1; then
+  log "L1 healthy or below threshold — skipping heal"
+  log "=== Done ==="
+  exit 0
+fi
+
 check_9router
 check_gateway
 check_codex_tokens
