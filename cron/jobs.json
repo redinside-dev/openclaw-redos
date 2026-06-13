@@ -578,7 +578,7 @@
       "createdAtMs": 1773854383010,
       "schedule": {
         "kind": "cron",
-        "expr": "*/5 * * * *",
+        "expr": "*/15 * * * *",
         "tz": "America/Toronto"
       },
       "sessionTarget": "isolated",
@@ -987,7 +987,7 @@
       "agentId": "ops",
       "schedule": {
         "kind": "cron",
-        "expr": "*/5 * * * *",
+        "expr": "*/15 * * * *",
         "tz": "UTC"
       },
       "sessionTarget": "isolated",
@@ -1095,7 +1095,7 @@
       "createdAtMs": 1771544316316,
       "schedule": {
         "kind": "every",
-        "everyMs": 3600000,
+        "everyMs": 1800000,
         "anchorMs": 1771544316316
       },
       "sessionTarget": "isolated",
