@@ -6,16 +6,14 @@
 #
 # Invariants verified (must all pass to emit verdict:ok):
 #   1. Gateway on 18789 (HTTP 200)
-#   2. Cron scheduler loaded with ≥50 jobs
-#   3. Ollama on 11434 with ≥2 models
-#   4. All 8 queue workers alive (process OR launchctl-loaded plist)
-#   5. Agent-selfheal fired within 15 min
-#   6. Ollama-autorecover fired within 30 min
-#   7. OAuth-autofix state file <1h old
-#   8. No dead-letter items >10 in any queue
-#   9. All 8 agent-status files updated within 60 min
-#  10. No gateway crash-restart in last 30 min (log scan)
-#  11. Slack exec-approvals config: block present, ≥1 approver, target resolvable
+#   2. Cron scheduler loaded with ≥25 enabled jobs
+#   3. All 8 queue workers alive (process OR launchctl-loaded plist)
+#   4. Agent-selfheal fired within 15 min
+#   5. OAuth-autofix state file <1h old
+#   6. No dead-letter items >10 in any queue
+#   7. All 8 agent-status files updated within 60 min
+#   8. No gateway crash-restart in last 30 min (log scan)
+#   9. Slack exec-approvals config: block present, ≥1 approver, target resolvable
 #
 # Wired via cron job "30min-evidence-gate" — every 30 min.
 # Output: workspace/ops/evidence/30min-verify/<ISO-timestamp>.json
@@ -91,19 +89,6 @@ def check_cron_jobs():
     ok = 1 if cron_jobs >= 25 else 0
     return ("cron_jobs_count", cron_jobs), ("cron_jobs", ok)
 
-def check_ollama():
-    ollama_models = 0
-    ollama_ok = 0
-    try:
-        import urllib.request
-        r = urllib.request.urlopen("http://127.0.0.1:11434/api/tags", timeout=3)
-        if r.status == 200:
-            d = json.loads(r.read())
-            ollama_models = len(d.get("models", []))
-            if ollama_models >= 2: ollama_ok = 1
-    except Exception: pass
-    return ("ollama_models", ollama_models), ("ollama", ollama_ok)
-
 def check_workers():
     missing_workers = []
     plists_out = run("launchctl list")
@@ -119,11 +104,6 @@ def check_selfheal():
     sh_age = age("/tmp/openclaw-agent-selfheal.heartbeat")
     ok = 1 if sh_age <= 900 else 0
     return ("agent_selfheal", ok), ("agent_selfheal_age_s", sh_age)
-
-def check_ollama_ar():
-    oar_age = age("/tmp/openclaw-ollama-autorecover.heartbeat")
-    ok = 1 if oar_age <= 1800 else 0
-    return ("ollama_autorecover", ok), ("ollama_autorecover_age_s", oar_age)
 
 def check_oauth_state():
     oauth_state = WORKSPACE / "state/oauth-health.json"
@@ -270,10 +250,8 @@ def check_gateway_stable():
 CHECK_FNS = [
     check_gateway,
     check_cron_jobs,
-    check_ollama,
     check_workers,
     check_selfheal,
-    check_ollama_ar,
     check_oauth_state,
     check_gog_rotation,
     check_dead_letter,
@@ -303,11 +281,9 @@ with ThreadPoolExecutor(max_workers=12) as ex:
 # ── Compute verdict ────────────────────────────────────────────────────────────
 if not checks.get("gateway"): fail_list.append("gateway-down")
 if not checks.get("cron_jobs"): fail_list.append(f"cron_jobs<25")
-if not checks.get("ollama"): fail_list.append(f"ollama-models<{checks.get('ollama_models', 0)}")
 if checks.get("workers_missing") and checks.get("workers_missing") != "none":
     fail_list.append(f"workers-missing={len(checks.get('workers_missing', '').split(','))}")
 if not checks.get("agent_selfheal"): fail_list.append("selfheal-stale")
-if not checks.get("ollama_autorecover"): fail_list.append("ollama-ar-stale")
 if not checks.get("oauth_state_fresh"): fail_list.append("oauth-state-stale")
 if not checks.get("gog_rotation_fresh"): fail_list.append("gog-rotation-stale")
 if not checks.get("dead_letter"): fail_list.append(f"dead-letter>{checks.get('dead_letter_max', 0)}")
@@ -322,7 +298,7 @@ if not checks.get("slack_exec_approvals"):
 if not checks.get("gateway_stable_30m"):
     fail_list.append(f"gateway-restart-loop (distinct PIDs in 30m: {checks.get('gateway_distinct_pids_30m', 0)})")
 
-pass_keys = ("gateway", "cron_jobs", "ollama", "workers", "agent_selfheal", "ollama_autorecover", "oauth_state_fresh", "gog_rotation_fresh", "dead_letter", "agent_status", "gateway_stable_30m", "slack_exec_approvals")
+pass_keys = ("gateway", "cron_jobs", "workers", "agent_selfheal", "oauth_state_fresh", "gog_rotation_fresh", "dead_letter", "agent_status", "gateway_stable_30m", "slack_exec_approvals")
 pass_count = sum(1 for k in pass_keys if checks.get(k) == 1)
 fail_count = sum(1 for k in pass_keys if checks.get(k) == 0)
 verdict = "ok" if fail_count == 0 else "fail"

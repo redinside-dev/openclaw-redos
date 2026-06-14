@@ -26,10 +26,13 @@ app.post('/api/chat', (req, res) => {
   if (!message || typeof message !== 'string') {
     return res.status(400).json({ error: 'message (string) required' });
   }
+  // Wrap message to tell agent: this is a USER CHAT, not a cron heartbeat.
+  // Without this, 'ping' → heartbeat status echo instead of chat reply.
+  const chatMessage = `[USER CHAT — respond conversationally, do NOT run heartbeat/status routine]: ${message}`;
   const start = Date.now();
   execFile(
     OPENCLAW_BIN,
-    ['agent', '--agent', String(agentId), '--message', message, '--json'],
+    ['agent', '--agent', String(agentId), '--message', chatMessage, '--json'],
     { timeout: AGENT_TIMEOUT_MS, maxBuffer: 8 * 1024 * 1024 },
     (err, stdout, stderr) => {
       const latency = Date.now() - start;

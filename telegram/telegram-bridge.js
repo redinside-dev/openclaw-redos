@@ -21,6 +21,15 @@ const __dirname = path.dirname(__filename);
 // See gateway/chat-gateway.js for the minimal replacement.
 const GATEWAY_URL = process.env.CHAT_GATEWAY_URL || 'http://localhost:19010';
 
+// Fetch timeout for /api/chat. chat-gateway has its own 180s openclaw timeout;
+// allow a little headroom so the gateway can finish gracefully, but cap the
+// bridge so a hung agent doesn't leave the user with a silent message.
+const CHAT_FETCH_TIMEOUT_MS = parseInt(process.env.CHAT_FETCH_TIMEOUT_MS || '90000', 10);
+
+// Backoff between retries when the agent times out / errors. Agents like
+// ops and eng regularly take 30-50s on cold start, so 2s/4s/6s was too short.
+const RETRY_BACKOFF_MS = parseInt(process.env.RETRY_BACKOFF_MS || '8000', 10);
+
 // Bot configurations (from openclaw.json)
 const BOTS = {
   default: {
@@ -300,9 +309,11 @@ class TelegramBridge {
               { reply_to_message_id: msg.message_id }
             );
           } else {
-            // Wait before retry (exponential backoff)
-            console.log(`🔄 Retrying in ${attempt * 2}s...`);
-            await this.sleep(attempt * 2000);
+            // Wait before retry (linear backoff — agents like ops/eng take
+            // 30-50s on cold start, so 2s/4s/6s was too aggressive).
+            const waitMs = RETRY_BACKOFF_MS * attempt;
+            console.log(`🔄 Retrying in ${waitMs / 1000}s...`);
+            await this.sleep(waitMs);
           }
         }
       }
@@ -796,17 +807,29 @@ ${agentList}
    * Call enhanced gateway
    */
   async callGateway(agentId, message, context = {}) {
-    const response = await fetch(`${GATEWAY_URL}/api/chat`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ agentId, message, context })
-    });
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), CHAT_FETCH_TIMEOUT_MS);
+    try {
+      const response = await fetch(`${GATEWAY_URL}/api/chat`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ agentId, message, context }),
+        signal: controller.signal,
+      });
 
-    if (!response.ok) {
-      throw new Error(`Gateway error: ${response.statusText}`);
+      if (!response.ok) {
+        throw new Error(`Gateway error: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (err) {
+      if (err.name === 'AbortError') {
+        throw new Error(`Gateway timed out after ${CHAT_FETCH_TIMEOUT_MS}ms`);
+      }
+      throw err;
+    } finally {
+      clearTimeout(timeout);
     }
-
-    return await response.json();
   }
 
   /**

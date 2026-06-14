@@ -45,6 +45,7 @@ Capture what matters. Decisions, context, things to remember. Skip the secrets u
 - When you learn a lesson → update AGENTS.md, TOOLS.md, or the relevant skill
 - When you make a mistake → document it so future-you doesn't repeat it
 - **Text > Brain** 📝
+- **When closing a ticket:** update the ticket .md, append the A2A log, AND update the canonical tracker. A ticket is not closed until the tracker says it is.
 
 ## Safety
 

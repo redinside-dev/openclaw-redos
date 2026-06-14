@@ -40,7 +40,7 @@
       "id": "49a2a358-c369-4419-a5be-524b6c20150e",
       "agentId": "eng",
       "name": "ENG Meta Self-Check",
-      "enabled": true,
+      "enabled": false,
       "createdAtMs": 1771897391560,
       "schedule": {
         "kind": "every",
@@ -116,7 +116,7 @@
       "id": "7ee66e0d-1b71-4a3a-903c-c1adf807e5d1",
       "agentId": "finance",
       "name": "FINANCE Daily Proactive (Mode P)",
-      "enabled": false,
+      "enabled": true,
       "createdAtMs": 1770618311025,
       "schedule": {
         "kind": "cron",
@@ -146,13 +146,14 @@
         "lastDeliveryStatus": "delivered",
         "consecutiveErrors": 0
       },
-      "updatedAtMs": 1776953032092
+      "updatedAtMs": 1776953032092,
+      "_lastDriftFix": "Re-enabled after Phase 2 gateway reset (was disabled; gateway dropped it)"
     },
     {
       "id": "f82c8284-c348-46b5-b9f2-c393148778ba",
       "agentId": "finance",
       "name": "FINANCE Meta Self-Check",
-      "enabled": true,
+      "enabled": false,
       "createdAtMs": 1771897394350,
       "schedule": {
         "kind": "every",
@@ -226,7 +227,7 @@
       "id": "34d2e1df-c906-4920-8914-a6888f8d8008",
       "agentId": "hatake",
       "name": "HATAKE Meta Self-Check",
-      "enabled": true,
+      "enabled": false,
       "createdAtMs": 1771897398357,
       "schedule": {
         "kind": "every",
@@ -301,7 +302,7 @@
       "id": "6ecfa329-52e3-4a09-8330-2d175a374c00",
       "agentId": "infosec",
       "name": "INFOSEC Meta Self-Check",
-      "enabled": true,
+      "enabled": false,
       "createdAtMs": 1771897397121,
       "schedule": {
         "kind": "every",
@@ -375,7 +376,7 @@
       "id": "34dec45f-d85c-4a93-a0cd-00b8c1dac7d4",
       "agentId": "main",
       "name": "RED Meta Self-Check",
-      "enabled": true,
+      "enabled": false,
       "createdAtMs": 1771897377295,
       "schedule": {
         "kind": "every",
@@ -515,13 +516,14 @@
         "lastDeliveryStatus": "unknown",
         "consecutiveErrors": 1
       },
-      "updatedAtMs": 1776930642968
+      "updatedAtMs": 1776930642968,
+      "_lastDriftFix": "Re-enabled after Phase 2 gateway reset (was disabled; gateway dropped it)"
     },
     {
       "id": "a2a-friday-retro-0001",
       "agentId": "ops",
       "name": "OPS Friday Retrospective — Team Peer Learning",
-      "enabled": false,
+      "enabled": true,
       "createdAtMs": 1771380089656,
       "schedule": {
         "kind": "cron",
@@ -544,7 +546,8 @@
       },
       "state": {
         "nextRunAtMs": 1777060800000
-      }
+      },
+      "_lastDriftFix": "Re-enabled after Phase 2 gateway reset (was disabled; gateway dropped it)"
     },
     {
       "id": "agent-queue-refuel",
@@ -578,7 +581,7 @@
       "createdAtMs": 1773854383010,
       "schedule": {
         "kind": "cron",
-        "expr": "*/15 * * * *",
+        "expr": "*/5 * * * *",
         "tz": "America/Toronto"
       },
       "sessionTarget": "isolated",
@@ -605,7 +608,9 @@
         "lastDelivered": false,
         "runningAtMs": 1776996607322
       },
-      "updatedAtMs": 1776995274420
+      "updatedAtMs": 1776995274420,
+      "_syncedAt": 1781362415804,
+      "_lastDriftFix": "Updated from gateway at 2026-06-13T14:53:35.804Z"
     },
     {
       "id": "cbffd7e1-8647-441e-af8c-33362e455f89",
@@ -648,7 +653,7 @@
       "id": "cff2a940-4235-4fcf-991c-085192f81835",
       "agentId": "ops",
       "name": "OPS Meta Self-Check",
-      "enabled": true,
+      "enabled": false,
       "createdAtMs": 1771897395722,
       "schedule": {
         "kind": "every",
@@ -722,7 +727,7 @@
       "id": "ci-weekly-summarizer-0001",
       "agentId": "ops",
       "name": "CI Weekly Summarizer (roll → LEARNINGS.md)",
-      "enabled": false,
+      "enabled": true,
       "createdAtMs": 1771907010000,
       "schedule": {
         "kind": "cron",
@@ -745,10 +750,11 @@
       },
       "state": {
         "nextRunAtMs": 1777287600000
-      }
+      },
+      "_lastDriftFix": "Re-enabled after Phase 2 gateway reset (was disabled; gateway dropped it)"
     },
     {
-      "id": "dae2ca55-7836-4f00-b1a3-fcc3f936bfaa",
+      "id": "7efcf294-3952-4cbb-9230-5d7aff9b2725",
       "name": "Logs Weekly Ensure+Rotate",
       "description": "Defensive ensure errors.jsonl + routing-decisions.jsonl exist; weekly time-based rotation to <name>.YYYY-WW",
       "enabled": true,
@@ -769,7 +775,10 @@
         "mode": "none",
         "channel": "last"
       },
-      "state": {}
+      "state": {},
+      "_gatewayId": "7efcf294-3952-4cbb-9230-5d7aff9b2725",
+      "_syncedAt": 1781362478127,
+      "_lastDriftFix": "Renamed ID to match gateway UUID (was duplicate with renamed gateway ID)"
     },
     {
       "id": "daily-standup-0001",
@@ -987,7 +996,7 @@
       "agentId": "ops",
       "schedule": {
         "kind": "cron",
-        "expr": "*/15 * * * *",
+        "expr": "*/5 * * * *",
         "tz": "UTC"
       },
       "sessionTarget": "isolated",
@@ -1003,7 +1012,9 @@
         "channel": "last",
         "bestEffort": true
       },
-      "state": {}
+      "state": {},
+      "_syncedAt": 1781362415806,
+      "_lastDriftFix": "Updated from gateway at 2026-06-13T14:53:35.806Z"
     },
     {
       "id": "l1-close-watcher-2026-06-08-001",
@@ -1035,7 +1046,7 @@
       "id": "openclaw-backup-weekly-0001",
       "agentId": "ops",
       "name": "OpenClaw Weekly Backup",
-      "enabled": false,
+      "enabled": true,
       "createdAtMs": 1773614703453,
       "schedule": {
         "kind": "cron",
@@ -1057,13 +1068,14 @@
       },
       "state": {
         "nextRunAtMs": 1777186800000
-      }
+      },
+      "_lastDriftFix": "Re-enabled after Phase 2 gateway reset (was disabled; gateway dropped it)"
     },
     {
       "id": "openclaw-sessions-cleanup-0001",
       "agentId": "ops",
       "name": "OpenClaw Sessions Cleanup (weekly)",
-      "enabled": false,
+      "enabled": true,
       "createdAtMs": 1773614703453,
       "schedule": {
         "kind": "cron",
@@ -1085,7 +1097,8 @@
       },
       "state": {
         "nextRunAtMs": 1777190400000
-      }
+      },
+      "_lastDriftFix": "Re-enabled after Phase 2 gateway reset (was disabled; gateway dropped it)"
     },
     {
       "id": "ops-idle-agent-audit-0001",
@@ -1095,7 +1108,7 @@
       "createdAtMs": 1771544316316,
       "schedule": {
         "kind": "every",
-        "everyMs": 1800000,
+        "everyMs": 3600000,
         "anchorMs": 1771544316316
       },
       "sessionTarget": "isolated",
@@ -1123,7 +1136,9 @@
         "consecutiveErrors": 0,
         "runningAtMs": 1776996653101
       },
-      "updatedAtMs": 1776992879033
+      "updatedAtMs": 1776992879033,
+      "_syncedAt": 1781362415806,
+      "_lastDriftFix": "Updated from gateway at 2026-06-13T14:53:35.806Z"
     },
     {
       "id": "ops-task-eta-monitor-0001",
@@ -1161,44 +1176,6 @@
         "consecutiveErrors": 0
       },
       "updatedAtMs": 1776995243950
-    },
-    {
-      "id": "system-pulse-always-on-0001",
-      "agentId": "ops",
-      "name": "System Pulse — Always-On Heartbeat (Ollama only)",
-      "enabled": false,
-      "createdAtMs": 1772080522100,
-      "schedule": {
-        "kind": "cron",
-        "expr": "*/5 * * * *",
-        "tz": "America/Toronto"
-      },
-      "sessionTarget": "isolated",
-      "wakeMode": "now",
-      "payload": {
-        "kind": "agentTurn",
-        "thinking": "off",
-        "timeoutSeconds": 300,
-        "message": "SYSTEM PULSE — run these checks now, in order:\n\n1. curl -s http://127.0.0.1:18789/health | head -c 200\n2. curl -s http://127.0.0.1:11434/api/tags | head -c 100\n3. curl -s http://127.0.0.1:20128/ | head -c 100\n\nIf gateway (18789) is DOWN: immediately run `bash /Users/redinside/.openclaw/scripts/redos-restart.sh` then send Telegram DM to user 1012034994: '🚨 SYSTEM PULSE: Gateway was down — auto-restarted at <time>'\n\nIf everything is UP: write {\"ts\": \"<ISO now>\", \"status\": \"ok\", \"agent\": \"ops\"} to workspace/tmp/pulse-last.json ONLY. Do NOT send messages, do NOT reply. Return NO_REPLY."
-      },
-      "delivery": {
-        "mode": "announce",
-        "channel": "slack",
-        "to": "channel:C0AEV3J2L23",
-        "bestEffort": true
-      },
-      "state": {
-        "nextRunAtMs": 1776995400000,
-        "lastRunAtMs": 1776995243950,
-        "lastRunStatus": "ok",
-        "lastStatus": "ok",
-        "lastDurationMs": 16654,
-        "lastDelivered": false,
-        "lastDeliveryStatus": "not-delivered",
-        "consecutiveErrors": 0,
-        "runningAtMs": 1776996405316
-      },
-      "updatedAtMs": 1776995260604
     },
     {
       "id": "1d58e865-f463-4e2e-aa4f-daec90bdc5de",
@@ -1242,7 +1219,7 @@
       "id": "6937afb8-97c8-46e9-8ec2-9e8afa3dee48",
       "agentId": "research",
       "name": "RESEARCH Meta Self-Check",
-      "enabled": true,
+      "enabled": false,
       "createdAtMs": 1771897392835,
       "schedule": {
         "kind": "every",
@@ -1279,7 +1256,7 @@
       "id": "ci-weekly-research-0001",
       "agentId": "research",
       "name": "Weekly Competitive Intelligence (AI Tools)",
-      "enabled": false,
+      "enabled": true,
       "createdAtMs": 1771908000000,
       "schedule": {
         "kind": "cron",
@@ -1302,7 +1279,8 @@
       },
       "state": {
         "nextRunAtMs": 1777294800000
-      }
+      },
+      "_lastDriftFix": "Re-enabled after Phase 2 gateway reset (was disabled; gateway dropped it)"
     },
     {
       "id": "inner-loop-research-0001",
@@ -1375,7 +1353,132 @@
         "lastStatus": "ok",
         "nextRunAtMs": 1781095220000
       },
-      "updatedAtMs": 1781095000000
+      "updatedAtMs": 1781095000000,
+      "_syncedAt": 1781362415806,
+      "_lastDriftFix": "Updated from gateway at 2026-06-13T14:53:35.806Z"
+    },
+    {
+      "id": "agent-status-refresh-0001",
+      "name": "OPS Agent-Status Refresh — Keep All 8 Statuses Fresh",
+      "description": "",
+      "enabled": true,
+      "createdAtMs": 1790000000000,
+      "agentId": "system",
+      "schedule": {
+        "kind": "cron",
+        "expr": "*/5 * * * *",
+        "tz": "America/Toronto",
+        "staggerMs": 0
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Run this exact command:\n\n  bash /Users/redinside/.openclaw/scripts/agent-status-refresh.sh\n\nDo not do anything else. Do not reply. Return NO_REPLY.",
+        "thinking": "off",
+        "timeoutSeconds": 60
+      },
+      "delivery": {
+        "mode": "none"
+      },
+      "_gatewayId": "agent-status-refresh-0001",
+      "_syncedAt": 1781362376504,
+      "_source": "gateway-export-2026-06-13"
+    },
+    {
+      "id": "system-pulse-always-on-0001",
+      "name": "System Pulse — Always-On Heartbeat (Ollama only)",
+      "description": "",
+      "enabled": false,
+      "createdAtMs": 1772080522100,
+      "agentId": "ops",
+      "schedule": {
+        "kind": "cron",
+        "expr": "*/5 * * * *",
+        "tz": "America/Toronto"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "SYSTEM PULSE — run these checks now, in order:\n\n1. curl -s http://127.0.0.1:18789/health | head -c 200\n2. curl -s http://127.0.0.1:11434/api/tags | head -c 100\n3. curl -s http://127.0.0.1:20128/ | head -c 100\n\nIf gateway (18789) is DOWN: immediately run `bash /Users/redinside/.openclaw/scripts/redos-restart.sh` then send Telegram DM to user 1012034994: '🚨 SYSTEM PULSE: Gateway was down — auto-restarted at <time>'\n\nIf everything is UP: write {\"ts\": \"<ISO now>\", \"status\": \"ok\", \"agent\": \"ops\"} to workspace/tmp/pulse-last.json ONLY. Do NOT send messages, do NOT reply. Return NO_REPLY.",
+        "thinking": "off",
+        "timeoutSeconds": 300
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack",
+        "to": "channel:C0AEV3J2L23",
+        "bestEffort": true
+      },
+      "_gatewayId": "system-pulse-always-on-0001",
+      "_syncedAt": 1781362376504,
+      "_source": "gateway-export-2026-06-13"
+    },
+    {
+      "id": "agent-selfheal-0001",
+      "name": "OPS Agent Self-Heal — Detect Degraded + Auto-Recover",
+      "description": "",
+      "enabled": true,
+      "createdAtMs": 1790000000000,
+      "agentId": "system",
+      "schedule": {
+        "kind": "cron",
+        "expr": "*/10 * * * *",
+        "tz": "America/Toronto",
+        "staggerMs": 0
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Run this exact command:\n\n  bash /Users/redinside/.openclaw/scripts/agent-selfheal.sh\n\nDo not do anything else. Do not reply. Return NO_REPLY.",
+        "thinking": "off",
+        "timeoutSeconds": 180
+      },
+      "delivery": {
+        "mode": "none"
+      },
+      "_gatewayId": "agent-selfheal-0001",
+      "_syncedAt": 1781362376504,
+      "_source": "gateway-export-2026-06-13"
+    },
+    {
+      "id": "oauth-autofix-0001",
+      "name": "OPS OAuth Auto-Fix — Probe + Auto-Recover",
+      "description": "",
+      "enabled": true,
+      "createdAtMs": 1790000000000,
+      "agentId": "system",
+      "schedule": {
+        "kind": "cron",
+        "expr": "*/15 * * * *",
+        "tz": "America/Toronto",
+        "staggerMs": 0
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Run this exact command:\n\n  bash /Users/redinside/.openclaw/scripts/oauth-autofix.sh\n\nDo not do anything else. Do not reply. Return NO_REPLY.",
+        "thinking": "off",
+        "timeoutSeconds": 120
+      },
+      "delivery": {
+        "mode": "none"
+      },
+      "_gatewayId": "oauth-autofix-0001",
+      "_syncedAt": 1781362376504,
+      "_source": "gateway-export-2026-06-13"
+    }
+  ],
+  "_lastGatewaySync": 1781362547820,
+  "_gatewaySyncNote": "Imported 35 gateway-only jobs; skipped duplicates and ollama-autorecover (Phase 2 removal)",
+  "_gatewayExclusions": [
+    {
+      "id": "ollama-autorecover-0001",
+      "reason": "Phase 2 Ollama removal — job intentionally excluded from jobs.json; runs in gateway for safety rollback only",
+      "excludedAt": 1781362478128
     }
   ]
 }

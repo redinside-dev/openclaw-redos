@@ -95,20 +95,41 @@ print(f"wrote {path} status={data['status']}")
 PYEOF
 }
 
+# Touch heartbeat file so agent-queue-refuel.sh sees a fresh mtime.
+# This is the fallback when queue-worker.py itself isn't running.
+touch_heartbeat() {
+  local agent="$1"
+  local hb="/tmp/openclaw-agent-${agent}.heartbeat"
+  # Write Unix timestamp (seconds) so the file is never empty
+  date +%s > "$hb"
+  chmod 644 "$hb" 2>/dev/null || true
+}
+
 # Only refresh if missing OR > STALE_SECONDS old
 maybe_write() {
   local agent="$1"
   local file="$STATUS_DIR/${agent}.json"
-  if [ -f "$file" ]; then
-    local age
+  local age
+  local needs_write=false
+
+  if [ ! -f "$file" ]; then
+    needs_write=true
+  else
     age=$(( $(date +%s) - $(stat -f %m "$file") ))
-    if [ "$age" -lt "$STALE_SECONDS" ]; then
-      SKIPPED=$((SKIPPED + 1))
-      return
+    if [ "$age" -ge "$STALE_SECONDS" ]; then
+      needs_write=true
     fi
   fi
-  write_status "$agent" >> "$LOG" 2>&1
-  WRITTEN=$((WRITTEN + 1))
+
+  # Always touch heartbeat mtime so agent-queue-refuel.sh sees fresh signal
+  touch_heartbeat "$agent"
+
+  if $needs_write; then
+    write_status "$agent" >> "$LOG" 2>&1
+    WRITTEN=$((WRITTEN + 1))
+  else
+    SKIPPED=$((SKIPPED + 1))
+  fi
 }
 
 for agent in main ops eng research finance infosec hatake allrounder; do

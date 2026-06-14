@@ -1,37 +1,20 @@
-#!/bin/bash
-# Queue Cron - Submits jobs to queue instead of direct execution
-# Runs every 5 minutes to check if agents have work
+#!/usr/bin/env bash
+# queue-cron.sh — dispatcher: refuel per-agent queues.
+#
+# 2026-06-12 restored after being archived in 2026-06-08 cleanup.
+# It is now a thin wrapper around agent-queue-refuel.sh, which is the
+# actual canonical self-fueling dispatcher (cron: agent-queue-refuel,
+# */10). Both names work; new code should call agent-queue-refuel.sh
+# directly, but anything calling queue-cron.sh still gets the right
+# behavior.
 
-AUTONOMOUS="$HOME/.openclaw/workspace/ops/AUTONOMOUS.md"
-QUEUE_SCRIPT="$HOME/.openclaw/scripts/job-queue.py"
+set -u
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REFUEL="$SCRIPT_DIR/../workspace/scripts/agent-queue-refuel.sh"
 
-echo "[$(date)] Queue cron check..."
+if [[ ! -x "$REFUEL" ]]; then
+  echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] queue-cron: refuel script missing at $REFUEL" >&2
+  exit 1
+fi
 
-# Read AUTONOMOUS.md for PENDING tasks and submit to queues
-# Note: use unquoted EOF so $AUTONOMOUS and $QUEUE_SCRIPT are expanded by bash
-python3 << EOF
-import subprocess
-import re
-from pathlib import Path
-
-AUTONOMOUS = Path("$AUTONOMOUS")
-QUEUE = "$QUEUE_SCRIPT"
-
-# Read AUTONOMOUS.md
-content = AUTONOMOUS.read_text()
-
-# Find PENDING tasks and their agents
-import re
-pending = re.findall(r'\| (AUTO-\d+) \| ([^|]+) \| ([^|]+) \|.*?\| (PENDING|IN_PROGRESS)', content)
-
-print(f"Found {len(pending)} pending tasks")
-
-for task_id, task, agent, status in pending:
-    if status == "PENDING" and agent.strip() in ["eng", "ops", "research", "main", "finance", "infosec", "allrounder", "hatake"]:
-        agent = agent.strip()
-        print(f"  Submitting to {agent}: {task[:50]}...")
-        subprocess.run(["python3", QUEUE, "submit", agent, f"{task_id}: {task}", "normal"])
-EOF
-
-
-echo "Done"
+exec "$REFUEL" "$@"
