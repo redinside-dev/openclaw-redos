@@ -650,6 +650,19 @@ Every 5 experiences trigger automatic reflection and learning.
       );
     });
 
+    // /approve command - Approve pending exec operations
+    bot.onText(/\/approve/, async (msg) => {
+      const chatId = msg.chat.id;
+
+      await bot.sendMessage(chatId,
+        `✅ **Exec Approval Triggered**\n\n` +
+        `Your approval has been noted.\n` +
+        `The main session will process pending exec operations.\n\n` +
+        `Note: Exec operations require the Claude Code session to be active.`,
+        { parse_mode: 'Markdown' }
+      );
+    });
+
     // /models command
     bot.onText(/\/models/, async (msg) => {
       const chatId = msg.chat.id;

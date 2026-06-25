@@ -1,0 +1,19 @@
+{
+  "agentId": "finance",
+  "cycle": 270,
+  "status": "IDLE",
+  "cost_signal": "GREEN",
+  "cost_signal_count": 30,
+  "knowledge_tools_status": {
+    "web_search": "DEGRADED (402)",
+    "memory_search": "DEGRADED (mismatch)",
+    "exec": "STRUCTURAL BLOCK (102 cycles)"
+  },
+  "task_queue": {
+    "autonomous": 0,
+    "red": 1,
+    "ops": 1,
+    "eng": 2
+  },
+  "last_update": "2026-06-23T11:54:00Z"
+}

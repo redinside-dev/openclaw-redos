@@ -1,0 +1,1 @@
+2026-06-09 07:01 EDT — heartbeats=10, workers=8 (raw pgrep=9 includes 1 stale zsh heredoc PID matching `queue-worker` substring, not a real worker); missing workers: health-watchdog, selfheal (both have heartbeats but no queue-worker process) — logged, not restarted (rotator handles).

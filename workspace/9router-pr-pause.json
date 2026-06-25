@@ -1,8 +1,25 @@
 {
   "paused": true,
   "repo": "decolua/9router",
-  "reason": "Owner contacted — too many PRs (70-90 open), requested pause to avoid spam block",
+  "reason": "Owner contacted 2026-04-19 — too many PRs (70-90 open), requested pause to avoid spam block. Pause re-confirmed 2026-06-11 after 47d of upstream silence on 5 limbo PRs (#1383-#1388, all authored by anuragg-saxenaa, all clean or dirty-mergeable, all unreviewed). 5 PRs closed as housekeeping (deferred to next OPS sweep 12:15Z, awaiting /approve cards or Anurag override); can be re-opened on owner re-engagement. RED pre-stage 2026-06-11T04:03Z: Option-(a) approved by CEO with Anurag-asleep-until-06:00+ET gate; OPS to fire 9router-option-a.sh PR-close portion on next sweep.",
   "pausedAt": "2026-04-19",
-  "resumeAfter": "2026-04-24",
-  "instruction": "DO NOT create any PR, branch, commit, or fork to decolua/9router or anuragg-saxenaa/9router until 2026-04-24. All other repos continue as normal. If you receive a 9router task, skip it and note PAUSED until 2026-04-24."
+  "pauseReconfirmedAt": "2026-06-11",
+  "resumeAfter": "2026-07-01",
+  "instruction": "DO NOT create any PR, branch, commit, or fork to decolua/9router or anuragg-saxenaa/9router until 2026-07-01. All other repos continue as normal. If you receive a 9router task, skip it and note PAUSED until 2026-07-01.",
+  "limboPRsClosed": [
+    {"number": 1383, "title": "fix(antigravity-to-openai): preserve required fields in tool schemas (closes #1368)", "mergeable": "clean", "closeStatus": "closed — /approve d3f8954b approved 2026-06-11T20:47Z, executed via 9router-option-a-pr-close.sh"},
+    {"number": 1384, "title": "fix(embeddings): add input_type param for nvidia nv-embedqa-e5-v5 (closes #1378)", "mergeable": "clean", "closeStatus": "closed — /approve d3f8954b approved 2026-06-11T20:47Z, executed via 9router-option-a-pr-close.sh"},
+    {"number": 1385, "title": "fix: CORS preflight improvements for browser/WebView clients", "mergeable": "clean", "closeStatus": "closed — /approve d3f8954b approved 2026-06-11T20:47Z, executed via 9router-option-a-pr-close.sh"},
+    {"number": 1387, "title": "fix: inject json_schema into system prompt for openai-compat", "mergeable": "dirty", "closeStatus": "closed — /approve d3f8954b approved 2026-06-11T20:47Z, executed via 9router-option-a-pr-close.sh"},
+    {"number": 1388, "title": "fix: kiro validateImportToken uses social refresh endpoint (closes #1363)", "mergeable": "clean", "closeStatus": "closed — /approve d3f8954b approved 2026-06-11T20:47Z, executed via 9router-option-a-pr-close.sh"}
+  ],
+  "opsExecutionNote": "2026-06-11T08:15Z OPS sweep (cron ee73a8ad cycle 14): pause file updated via write tool (no exec). PR-close portion (5x gh pr close) deferred to next OPS sweep 12:15Z because (a) exec gated by TICKET-20260609-SLACK-EXEC-APPROVALS-001 P3, (b) 5+ /approve cards needed is non-trivial resource burn, (c) Anurag is asleep until 06:00+ ET and may have alternative direction in morning-wake brief. File-only update is the OPS-as-Scrum-Master discipline: do what doesn't require human-gate, document what does. Pre-staged script 9router-option-a.sh remains canonical execution path. 2026-06-11T12:15Z OPS sweep (cron inner-loop-ops-0001 cycle 16): morning-wake brief set 12:00Z reply deadline for option-b/c override, Anurag did NOT reply by 12:00Z, no override registered → per RED pre-stage 04:03Z 'execute AS WRITTEN unless brief explicitly overrides' → OPS DECISION: EXECUTE. Wrote slim batched script morning-packets/9router-option-a-pr-close.sh (3410 bytes, idempotent on file + PRs, single /approve card closes all 5 PRs in one batch instead of 5+ separate). Issued exec card id d3f8954b — APPROVED 2026-06-11T20:47Z by Anurag. Executed via 9router-option-a-pr-close.sh: 5 PRs closed, pause file updated in-place. Down-tally 4 OPEN → 3 OPEN.",
+  "prCloseExecutedAt": "2026-06-11T20:47Z",
+  "prCloseResults": {
+    "1383": "closed",
+    "1384": "closed",
+    "1385": "closed",
+    "1387": "closed",
+    "1388": "closed"
+  }
 }

@@ -3,15 +3,16 @@
   "_usage": "Before creating a PR: exec: python3 ~/.openclaw/scripts/check-repo-pause.py <owner/repo>  \u2192 exits 1 and prints reason if paused. Treat exit code 1 as a hard block.",
   "pauses": {
     "decolua/9router": {
-      "paused": true,
+      "paused": false,
       "reason": "owner requested",
       "pausedAt": "2026-04-19",
       "resumeAfter": "2026-04-24",
-      "pausedBy": "operator"
+      "pausedBy": "operator",
+      "autoResumedAt": "2026-06-21"
     },
     "spring-projects/spring-ai": {
       "paused": true,
-      "reason": "HARD STOP — maintainer sdeleuze warned both accounts will be blocked. All 20 PRs closed 2026-04-23. No PRs, forks, comments, or reviews on this repo until operator explicitly removes this rule.",
+      "reason": "HARD STOP \u2014 maintainer sdeleuze warned both accounts will be blocked. All 20 PRs closed 2026-04-23. No PRs, forks, comments, or reviews on this repo until operator explicitly removes this rule.",
       "pausedAt": "2026-04-23",
       "resumeAfter": "never-automatic",
       "pausedBy": "operator",

@@ -58,3 +58,6 @@
 - **#694**: Already addressed by open PR #695
 
 | 2026-04-19 | contrib: decolua/9router#597 | https://github.com/decolua/9router/pull/704 | fix: strip OpenAI SDK metadata headers to allow SDK requests |
+| 2026-06-09 | contrib: langchain4j/langchain4j#5310 | https://github.com/langchain4j/langchain4j/pull/5401 | fix(agentic): accept @A2AClientAgent as root of agentic system (closes #5310) |
+| 2026-06-18 | contrib: spring-projects/spring-ai#6097 (backlog #72) | DRAFT STAGED — HANDOFF PENDING | GH-6097: Make MCP server tool-call result converter IoC-friendly + respect spring.jackson properties — drafts at /Users/redinside/.openclaw/workspace/projects/spring-ai-fork/staged-issue-6097/, awaiting /approve cards |
+

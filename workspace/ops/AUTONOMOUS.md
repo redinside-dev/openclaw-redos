@@ -67,14 +67,24 @@ _(none)_
 
 ## P1 — PENDING
 
+## TODO
+
 ### OPS-MINIMAX-AUTH-20260417-001 | P1 | ops | MiniMax API Key Auth Failure
 **ID:** OPS-MINIMAX-AUTH-20260417-001
 **Category:** system-maintenance
-**SLA:** 2 hours
-**Status:** PENDING
+**SLA:** 2 hours (BREACHED — 60+ days overdue)
+**Status:** TODO
 **Description:** minimax/MiniMax-M2.7 returning HTTP 401 (invalid api key) since 2026-04-17 23:15. System falls back to 9router/always-on-premium (functional). MiniMax key needs renewal or config check. Affects all agents using default model.
 **Created:** 2026-04-17T23:17 UTC
-**Assigned To:** ops
+**Claimed By:** ops (2026-06-17T10:36Z)
+**Claimed Reason:** heartbeat-task-router-0001 cron detected 60-day-old PENDING; escalating to RED — credential renewal is a human action, not agent-dispatchable.
+**Next Action:** sessions_send RED with credential-renewal ask.
+
+## COMPLETED
+
+## FAILED
+
+## ARCHIVED
 
 ## TODO
 

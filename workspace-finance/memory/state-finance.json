@@ -1,42 +1,18 @@
 {
   "agentId": "finance",
-  "updatedAt": "2026-04-19T11:53:00Z",
-  "energy": 0.15,
-  "curiosity": ["When will TICKET-20260419-OPENCLAW-DIST-001 complete?", "Will RED act on FIN-001 this weekend?", "Is the MiniMax quota sync broken or just paused?"],
-  "concerns": [
-    "provider-quota.json now 35.6h stale — growing gap in cost visibility",
-    "FIN-001 ChatGPT Pro still OPEN — $100/mo saving blocked on RED manual action, ~136h+ overdue",
-    "cost-events.jsonl still missing — cannot do per-cron or per-agent cost breakdown",
-    "174 pending requests in queue — worth monitoring if they clear"
-  ],
-  "satisfactions": [
-    "web_search confirmed WORKING across 3 consecutive cycles (45, 46, 47)",
-    "exec, read, write all confirmed WORKING",
-    "No cost spike detected in stale telemetry",
-    "TICKET-20260419-OPENCLAW-DIST-001 (P0) IN_PROGRESS — OpenClaw upgrade with OPS subagent"
-  ],
-  "momentum": "idle — Sunday 7:53 AM EST, all work blocked externally",
-  "currentMood": "idle — Sunday morning, waiting on external dependencies",
-  "lastHeartbeat": "2026-04-19T11:53:00Z",
-  "heartbeatCount": 47,
-  "telemetryStatus": "DEGRADED — provider-quota.json STALE (~35.6h); cost-events.jsonl NOT FOUND",
-  "anomalyAlert": {
-    "level": "DEGRADED",
-    "status": "cannot compute live anomaly without cost-events.jsonl"
-  },
-  "chatgptProCancellation": {
-    "ticket": "FIN-001",
-    "status": "DECISION_BRIEF_SENT",
-    "saving": "$100/mo if cancelled",
-    "optionsPresented": ["Cancel Pro", "Downgrade to Team $25/mo", "Keep with ROI justification"],
-    "sentTo": "RED via Slack #redos-finance",
-    "note": "Decision pending. Cannot automate — requires RED manual action. ~136h+ overdue.",
-    "lastReminder": "2026-04-18T07:18:00Z"
-  },
-  "openTickets": [
-    "FIN-001 (OPEN, P1, RED manual action required at account.openai.com, ~136h+)",
-    "TICKET-20260419-OPENCLAW-DIST-001 (P0, IN_PROGRESS — OPS subagent upgrading OpenClaw)"
-  ],
+  "updatedAt": "2026-06-25T13:48:00Z",
+  "heartbeatCount": 286,
+  "lastHeartbeat": "2026-06-25T13:48:00Z",
+  "energy": 0.45,
+  "momentum": "stable — cycle 286 done (Thu 9:48 AM ET). 117 consecutive GREEN self-checks (169-286). No anomalies. FIN-001 128+d still OPEN (RED not actioned). Exec gate BLOCKED ~326h+ (117 consecutive cycles). web_search 402 DEGRADED ~100h+ (fresh 402 requestId this cycle). memory_search DEGRADED ~82h+. Weekly cost report missed deadline 72h+. Slack rate-limited. Cron prompt path mismatch noted (workspace/finance/* doesn't exist; actual is workspace-finance/*).",
+  "currentMood": "alert-stable — Cycle 286 (Thu 9:48 AM ET). NO cost spike. GREEN 117 consecutive cycles.",
   "noPendingAutonomousTasks": true,
-  "webSearchStatus": "WORKING — confirmed across cycles 45, 46, 47"
+  "openTickets": [
+    "FIN-001 (OPEN, P1, RED manual action required at account.openai.com, 128+ days)",
+    "TICKET-20260609-SLACK-EXEC-APPROVALS-001 (P1, OPEN — 117 cycles blocked, ~326h+)",
+    "TICKET-WEB-SEARCH-EXA-402-20260620 (P1, ENG — 40 cycles 402 Exa credits exhausted, fresh requestId 971a59ffb8dbbf307eb566a26bd02f5b)",
+    "TICKET-MEMORY-SEARCH-INDEX-20260621 (P1, ENG — 35 cycles embedding mismatch)",
+    "TICKET-SLACK-RATE-LIMIT-20260624 (P2, OPS — weekly cost report blocked)"
+  ],
+  "anomalyAlert": { "level": "GREEN", "status": "no spike, cycle 286, 9:48 AM ET Thu 6/25" }
 }
